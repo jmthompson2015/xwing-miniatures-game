@@ -1,0 +1,19 @@
+{
+   "curly": true,
+   "esversion": 5,
+   "nonbsp": true,
+   "nonew": true,
+   "strict": "global",
+   "undef": true,
+   "unused": true,
+   "globals": {
+      "console": false,
+      "define": false,
+      "document": false,
+      "LOGGER": false,
+      "require": false,
+      "setTimeout": false,
+      "window": false
+   }
+}
+
