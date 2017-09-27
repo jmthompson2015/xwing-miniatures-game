@@ -1,1 +1,1 @@
-# xwingminiatures
+# xwing-miniatures-game
