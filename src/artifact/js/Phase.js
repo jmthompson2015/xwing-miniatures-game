@@ -1,6 +1,6 @@
 "use strict";
 
-define(["immutable", "common/js/InputValidator"], function(Immutable, InputValidator)
+define(function()
 {
    var Phase = {
       SETUP: "setup",
@@ -185,22 +185,6 @@ define(["immutable", "common/js/InputValidator"], function(Immutable, InputValid
             key: "endEnd",
          },
       },
-   };
-
-   Phase.createData = function(phaseKey, phaseToken, phaseCallback, phaseContext)
-   {
-      InputValidator.validateNotNull("phaseKey", phaseKey);
-      // phaseToken optional.
-      // phaseCallback optional.
-      // phaseContext optional.
-
-      return Immutable.Map(
-      {
-         phaseKey: phaseKey,
-         phaseToken: phaseToken,
-         phaseCallback: phaseCallback,
-         phaseContext: phaseContext,
-      });
    };
 
    Phase.keys = function()

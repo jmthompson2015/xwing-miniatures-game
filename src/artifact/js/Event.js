@@ -1,6 +1,6 @@
 "use strict";
 
-define(["immutable", "common/js/InputValidator"], function(Immutable, InputValidator)
+define(function()
 {
    var Event = {
       AFTER_EXECUTE_MANEUVER: "afterExecuteManeuver",
@@ -61,22 +61,6 @@ define(["immutable", "common/js/InputValidator"], function(Immutable, InputValid
             key: "targetLockAcquired",
          },
       },
-   };
-
-   Event.createData = function(eventKey, eventToken, eventCallback, eventContext)
-   {
-      InputValidator.validateNotNull("eventKey", eventKey);
-      InputValidator.validateNotNull("eventToken", eventToken);
-      // eventCallback optional.
-      // eventContext optional.
-
-      return Immutable.Map(
-      {
-         eventKey: eventKey,
-         eventToken: eventToken,
-         eventCallback: eventCallback,
-         eventContext: eventContext,
-      });
    };
 
    Event.keys = function()
