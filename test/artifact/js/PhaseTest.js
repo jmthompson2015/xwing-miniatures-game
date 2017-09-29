@@ -64,7 +64,6 @@ define(["qunit", "artifact/js/Phase"], function(QUnit, Phase)
 
       var properties = Object.getOwnPropertyNames(Phase);
       var count = properties.length - 1 - // properties
-         1 - // createData
          1 - // keys
          1 - // toString
          1; // values
