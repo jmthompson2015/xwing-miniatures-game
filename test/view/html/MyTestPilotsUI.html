@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestPilotsUI</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="pilots"></div>
+
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/PilotCard", "model/js/Position", "artifact/js/Faction",
+				"model/js/Action",
+				"model/js/Token", "model/js/TokenAction", "../test/model/js/EnvironmentFactory",
+				"view/js/PilotsUI"
+			],
+			function(React, ReactDOM, DOM, Logger, PilotCard, Position, Faction, Action, Token, TokenAction, EnvironmentFactory, PilotsUI)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var environment = EnvironmentFactory.createCoreSetEnvironment();
+				var store = environment.store();
+				var tokens = environment.getTokensForFaction(Faction.IMPERIAL);
+				var element = React.createElement(PilotsUI,
+				{
+					tokens: tokens,
+					resourceBase: resourceBase,
+				});
+				ReactDOM.render(element, document.getElementById("pilots"));
+			});
+	</script>
+</body>
+
+</html>

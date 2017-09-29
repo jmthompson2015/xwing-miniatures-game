@@ -10,6 +10,7 @@
       "console": false,
       "define": false,
       "document": false,
+      "Image": false,
       "LOGGER": false,
       "require": false,
       "setTimeout": false,

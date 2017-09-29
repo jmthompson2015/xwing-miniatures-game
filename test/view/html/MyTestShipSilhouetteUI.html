@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestShipSilhouetteUI</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="panel"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/Ship", "view/js/ShipSilhouetteUI"],
+			function(React, ReactDOM, DOM, Logger, Ship, ShipSilhouetteUI)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var style0 = {
+					backgroundColor: "#F0F0F0",
+					border: "1px solid gray",
+					textAlign: "left",
+				};
+				var style1 = {
+					backgroundColor: "#F0F0F0",
+					border: "1px solid gray",
+					fontSize: "small",
+					textAlign: "left",
+				};
+				var rows = [];
+
+				Ship.keys().forEach(function(shipKey, i)
+				{
+					var ship = Ship.properties[shipKey];
+
+					var image0 = React.createElement(ShipSilhouetteUI,
+					{
+						ship: ship,
+						resourceBase: resourceBase,
+					});
+					var image1 = React.createElement(ShipSilhouetteUI,
+					{
+						ship: ship,
+						resourceBase: resourceBase,
+						showName: true,
+					});
+
+					var cells = [];
+
+					cells.push(DOM.td(
+					{
+						key: cells.length,
+						style: style0,
+					}, image0));
+					cells.push(DOM.td(
+					{
+						key: cells.length,
+						style: style1,
+					}, image1));
+
+					rows.push(DOM.tr(
+					{
+						key: rows.length,
+					}, cells));
+				});
+
+				ReactDOM.render(DOM.table(
+				{}, DOM.tbody(
+				{}, rows)), document.getElementById("panel"));
+			});
+	</script>
+</body>
+
+</html>

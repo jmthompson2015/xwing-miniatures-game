@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestPilotCardImage</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<table style=" padding: 10px;">
+		<tr>
+			<td id="panel0">
+			</td>
+			<td id="panel1">
+			</td>
+		</tr>
+	</table>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/PilotCard", "view/js/PilotCardImage"],
+			function(React, ReactDOM, DOM, Logger, PilotCard, PilotCardImage)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				renderImage(0, PilotCard.properties[PilotCard.ACADEMY_PILOT]);
+				renderImage(1, PilotCard.properties[PilotCard.COUNTESS_RYAD]);
+
+				function renderImage(index, pilot)
+				{
+					var element = React.createElement(PilotCardImage,
+					{
+						pilot: pilot,
+						width: 200,
+					});
+
+					ReactDOM.render(element, document.getElementById("panel" + index));
+				}
+			});
+	</script>
+</body>
+
+</html>

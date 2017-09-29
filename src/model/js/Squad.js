@@ -66,19 +66,22 @@ define(["common/js/InputValidator"], function(InputValidator)
 
       var answer = tokens.reduce(function(accumulator, token)
       {
-         var myAnswer = accumulator;
+         var primaryWeaponValue;
 
          if (token.tokenFore !== undefined && token.tokenAft !== undefined)
          {
-            myAnswer += token.tokenFore().primaryWeaponValue();
-            myAnswer += token.tokenAft().primaryWeaponValue();
+            primaryWeaponValue = token.tokenFore().primaryWeaponValue();
+            accumulator += (isNaN(primaryWeaponValue) ? 0 : primaryWeaponValue);
+            primaryWeaponValue = token.tokenAft().primaryWeaponValue();
+            accumulator += (isNaN(primaryWeaponValue) ? 0 : primaryWeaponValue);
          }
          else
          {
-            myAnswer += token.primaryWeaponValue();
+            primaryWeaponValue = token.primaryWeaponValue();
+            accumulator += (isNaN(primaryWeaponValue) ? 0 : primaryWeaponValue);
          }
 
-         return myAnswer;
+         return accumulator;
       }, 0);
 
       return answer;

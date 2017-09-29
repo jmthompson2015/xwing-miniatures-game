@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestManeuverChooser</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="inputArea0"></div>
+	<br />
+	<div id="inputArea1"></div>
+	<br />
+	<div id="inputArea2"></div>
+	<br />
+	<div id="inputArea3"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger",
+				"artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Token",
+				"view/js/ManeuverChooser"
+			],
+			function(React, ReactDOM, DOM, Redux, Logger, Maneuver, PilotCard, Faction, Reducer, SimpleAgent, Token, ManeuverChooser)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var store = Redux.createStore(Reducer.root);
+
+				var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+				var token = new Token(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				var element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					pilotName: token.pilotName(),
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea0"));
+
+				var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+				token = new Token(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea1"));
+
+				token = new Token(store, PilotCard.POE_DAMERON, rebelAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					pilotName: token.pilotName(),
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea2"));
+
+				token = new Token(store, PilotCard.GR_75_MEDIUM_TRANSPORT, rebelAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea3"));
+
+				function myCallback(tokenId, maneuverKey)
+				{
+					LOGGER.info("myCallback() tokenId = " + tokenId + " maneuverKey = " + maneuverKey);
+				}
+			});
+	</script>
+</body>
+
+</html>

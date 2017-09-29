@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestShipActionUI</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="panel"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/ShipAction", "view/js/ShipActionUI"],
+			function(React, ReactDOM, DOM, Logger, ShipAction, ShipActionUI)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var keys = ShipAction.keys();
+				var resourceBase = "../../../src/view/resource/";
+				var style = {
+					backgroundColor: "#F0F0F0",
+					border: "1px solid gray",
+					fontSize: "small",
+					textAlign: "left",
+				};
+				var rows = [];
+
+				keys.forEach(function(shipActionKey, i)
+				{
+					var shipAction = ShipAction.properties[shipActionKey];
+					var image0 = React.createElement(ShipActionUI,
+					{
+						shipAction: shipAction,
+						resourceBase: resourceBase,
+					});
+					var image1 = React.createElement(ShipActionUI,
+					{
+						shipAction: shipAction,
+						resourceBase: resourceBase,
+						showName: true,
+					});
+
+					var cells = [];
+
+					cells.push(DOM.td(
+					{
+						key: cells.length,
+						style: style,
+					}, image0));
+					cells.push(DOM.td(
+					{
+						key: cells.length,
+						style: style,
+					}, image1));
+
+					rows.push(DOM.tr(
+					{
+						key: rows.length,
+					}, cells));
+				});
+
+				ReactDOM.render(DOM.table(
+				{}, DOM.tbody(
+				{}, rows)), document.getElementById("panel"));
+			});
+	</script>
+</body>
+
+</html>

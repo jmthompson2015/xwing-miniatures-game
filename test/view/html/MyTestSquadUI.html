@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestSquadUI</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+	<style>
+		.squadUI {
+			float: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="squadPanel0"></div>
+	<br/>
+	<div id="squadPanel1"></div>
+	<br/>
+	<div id="squadPanel2"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/Faction", "model/js/SimpleAgent", "model/js/SquadBuilder",
+				"view/js/SquadUI"
+			],
+			function(React, ReactDOM, DOM, Logger, Faction, SimpleAgent, SquadBuilder, SquadUI)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var team0 = Faction.IMPERIAL;
+				var agentName0 = "Imperial Agent";
+				var squadBuilder0 = SquadBuilder.CoreSetImperialSquadBuilder;
+				var agent0 = new SimpleAgent(agentName0, team0);
+				var squad0 = squadBuilder0.buildSquad(agent0);
+
+				var element = React.createElement(SquadUI,
+				{
+					resourceBase: resourceBase,
+					squad: squad0,
+				});
+				ReactDOM.render(element, document.getElementById("squadPanel0"));
+
+				var team1 = Faction.REBEL;
+				var agentName1 = "Rebel Agent";
+				var squadBuilder1 = SquadBuilder.CoreSetRebelSquadBuilder;
+				var agent1 = new SimpleAgent(agentName1, team1);
+				var squad1 = squadBuilder1.buildSquad(agent1);
+
+				var element = React.createElement(SquadUI,
+				{
+					resourceBase: resourceBase,
+					squad: squad1,
+				});
+				ReactDOM.render(element, document.getElementById("squadPanel1"));
+
+				var squadBuilder2 = SquadBuilder.HugeShipRebelSquadBuilder;
+				var squad2 = squadBuilder2.buildSquad(agent1);
+
+				var element = React.createElement(SquadUI,
+				{
+					resourceBase: resourceBase,
+					squad: squad2,
+				});
+				ReactDOM.render(element, document.getElementById("squadPanel2"));
+			});
+	</script>
+</body>
+
+</html>

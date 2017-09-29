@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestPlayAreaUI</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="panel"></div>
+
+	<audio id="explosionAudio" src="../../../src/view/resource/audio/Explosion.wav" preload="auto"></audio>
+	<audio id="millenniumFalconLaserAudio" src="../../../src/view/resource/audio/MillenniumFalconLaser.wav" preload="auto"></audio>
+	<audio id="slave1LaserAudio" src="../../../src/view/resource/audio/Slave1Laser.wav" preload="auto"></audio>
+	<audio id="tieFighterLaserAudio" src="../../../src/view/resource/audio/TIEFighterLaser.wav" preload="auto"></audio>
+	<audio id="xWingLaserAudio" src="../../../src/view/resource/audio/XWingLaser.wav" preload="auto"></audio>
+
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger",
+				"artifact/js/Maneuver", "artifact/js/PlayFormat",
+				"model/js/Action", "model/js/ManeuverComputer", "model/js/Position", "model/js/Selector", "../test/model/js/EnvironmentFactory",
+				"view/js/PlayAreaUI"
+			],
+			function(React, ReactDOM, DOM, Logger,
+				Maneuver, PlayFormat,
+				Action, ManeuverComputer, Position, Selector, EnvironmentFactory,
+				PlayAreaUI)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var environment = EnvironmentFactory.createCoreSetEnvironment();
+				var store = environment.store();
+				var token1 = environment.getTokenById(1);
+				var token2 = environment.getTokenById(2);
+				var token3 = environment.getTokenById(3);
+				environment.moveToken(environment.getPositionFor(token1), new Position(305, 120, 45));
+
+				var tokenPositions = environment.createTokenPositions();
+				var explosionPosition = new Position(400, 400, 0);
+				var explosionShipBase = token1.pilot().shipFaction.ship.shipBase;
+				var laserFromPosition = environment.getPositionFor(token3);
+				var laserToPosition = environment.getPositionFor(token2);
+				var laserIsPrimary = true;
+				var laserTeamColor = token3.pilot().shipFaction.faction.color;
+				var maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_LEFT_2_STANDARD];
+				var maneuverFromPosition = environment.getPositionFor(token1);
+				var maneuverShipBase = token1.pilot().shipFaction.ship.shipBase;
+				var scale = 0.75;
+
+				var element = React.createElement(PlayAreaUI,
+				{
+					resourceBase: resourceBase,
+					scale: scale,
+					width: scale * 915,
+					height: scale * 915,
+					image: "background/pia13845.jpg",
+					tokenPositions: tokenPositions,
+					explosion:
+					{
+						position: explosionPosition,
+						shipBase: explosionShipBase,
+						audioClip: document.getElementById("explosionAudio"),
+					},
+					laserBeam:
+					{
+						fromPosition: laserFromPosition,
+						toPosition: laserToPosition,
+						isPrimary: laserIsPrimary,
+						teamColor: laserTeamColor,
+						audioClip: document.getElementById("xWingLaserAudio"),
+					},
+					maneuver:
+					{
+						maneuver: maneuver,
+						fromPolygon: ManeuverComputer.computeFromPolygon(maneuverFromPosition, maneuverShipBase),
+						fromPosition: maneuverFromPosition,
+						path: ManeuverComputer.computePath(maneuver, maneuverFromPosition, maneuverShipBase),
+						toPolygon: ManeuverComputer.computeToPolygon(PlayFormat.STANDARD, maneuver, maneuverFromPosition, maneuverShipBase),
+					},
+				});
+				ReactDOM.render(element, document.getElementById("panel"));
+			});
+	</script>
+</body>
+
+</html>

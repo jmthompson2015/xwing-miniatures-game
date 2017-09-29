@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestShipStateUI</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="panel"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/Faction", "artifact/js/ShipState", "view/js/ShipStateUI"],
+			function(React, ReactDOM, DOM, Logger, Faction, ShipState, ShipStateUI)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var style0 = {
+					backgroundColor: "darkGreen",
+					border: "1px solid black",
+					color: "white",
+				};
+				var style1 = {
+					backgroundColor: "#F0F0F0",
+					border: "1px solid gray",
+					fontSize: "small",
+				};
+				var rows = [];
+				var cells = [];
+
+				Faction.keys().forEach(function(factionKey, j)
+				{
+					cells.push(DOM.th(
+					{
+						key: cells.length,
+						colSpan: "2",
+						style: style0,
+					}, Faction.properties[factionKey].name));
+				});
+				rows.push(DOM.tr(
+				{
+					key: rows.length,
+				}, cells));
+
+				ShipState.keys().forEach(function(shipStateKey, i)
+				{
+					var shipState = ShipState.properties[shipStateKey];
+					cells = [];
+					var image0, image1;
+
+					Faction.keys().forEach(function(factionKey, j)
+					{
+						var faction = Faction.properties[factionKey];
+
+						if (shipStateKey === "Skill")
+						{
+							var label = 8;
+							var labelClass = "pilotSkillValue";
+							image0 = React.createElement(ShipStateUI,
+							{
+								shipState: shipState,
+								faction: faction,
+								resourceBase: resourceBase,
+								label: label,
+								labelClass: labelClass,
+							});
+							image1 = React.createElement(ShipStateUI,
+							{
+								shipState: shipState,
+								faction: faction,
+								resourceBase: resourceBase,
+								label: label,
+								labelClass: labelClass,
+								showName: true,
+							});
+						}
+						else
+						{
+							image0 = React.createElement(ShipStateUI,
+							{
+								shipState: shipState,
+								faction: faction,
+								resourceBase: resourceBase,
+							});
+							image1 = React.createElement(ShipStateUI,
+							{
+								shipState: shipState,
+								faction: faction,
+								resourceBase: resourceBase,
+								showName: true,
+							});
+						}
+
+						cells.push(DOM.td(
+						{
+							key: cells.length,
+							style:
+							{
+								backgroundColor: "#F0F0F0",
+								border: "1px solid gray",
+							},
+						}, image0));
+						cells.push(DOM.td(
+						{
+							key: cells.length,
+							style: style1,
+						}, image1));
+					});
+
+					rows.push(DOM.tr(
+					{
+						key: rows.length,
+					}, cells));
+				});
+
+				ReactDOM.render(DOM.table(
+				{}, DOM.tbody(
+				{}, rows)), document.getElementById("panel"));
+			});
+	</script>
+</body>
+
+</html>
