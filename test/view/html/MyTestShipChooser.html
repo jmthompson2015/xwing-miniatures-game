@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestShipChooser</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="shipChooserPanel1"></div>
+	<div id="shipChooserPanel2"></div>
+	<div id="shipChooserPanel3"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "common/js/Logger",
+				"artifact/js/Faction", "artifact/js/Ship", "view/js/ShipChooser"
+			],
+			function(React, ReactDOM, Logger, Faction, Ship, ShipChooser)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+
+				var element1 = React.createElement(ShipChooser,
+				{
+					resourceBase: resourceBase,
+					onChange: shipChanged,
+					faction: Faction.properties[Faction.IMPERIAL],
+				});
+				ReactDOM.render(element1, document.getElementById("shipChooserPanel1"));
+
+				var element2 = React.createElement(ShipChooser,
+				{
+					resourceBase: resourceBase,
+					index: 2,
+					initialShip: Ship.properties[Ship.TIE_FIGHTER],
+					onChange: shipChanged,
+					faction: Faction.properties[Faction.IMPERIAL],
+				});
+				ReactDOM.render(element2, document.getElementById("shipChooserPanel2"));
+
+				var element3 = React.createElement(ShipChooser,
+				{
+					resourceBase: resourceBase,
+					index: 3,
+					onChange: shipChanged,
+					faction: Faction.properties[Faction.REBEL],
+				});
+				ReactDOM.render(element3, document.getElementById("shipChooserPanel3"));
+
+				function shipChanged(event, ship, index)
+				{
+					LOGGER.info("shipChanged() ship = " + (ship ? ship.key : ship) + " index = " + index);
+				}
+			});
+	</script>
+</body>
+
+</html>

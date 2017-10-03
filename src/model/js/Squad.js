@@ -207,6 +207,16 @@ define(["common/js/InputValidator"], function(InputValidator)
       return answer;
    };
 
+   Squad.prototype.toString = function()
+   {
+      var title = this.factionKey() + " " + this.name() + " " + this.year() + " " + this.description();
+
+      return this.tokens().reduce(function(accumulator, token, i)
+      {
+         return accumulator + "\n" + i + " " + token.toString() + " " + token.upgradeKeys();
+      }, title);
+   };
+
    Squad.prototype.upgradeCount = function()
    {
       var tokens = this.tokens();

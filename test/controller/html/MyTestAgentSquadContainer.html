@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestAgentSquadContainer</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="inputArea"></div>
+
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-redux", "redux", "common/js/Logger",
+				"model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/Reducer", "model/js/SquadBuilder",
+				"controller/js/AgentSquadContainer"
+			],
+			function(React, ReactDOM, ReactRedux, Redux, Logger, AgentSquadAction, AgentSquadReducer, Reducer, SquadBuilder, AgentSquadContainer)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var store = Redux.createStore(AgentSquadReducer.root);
+				var delegateStore = Redux.createStore(Reducer.root);
+				store.dispatch(AgentSquadAction.setDelegateStore(delegateStore));
+				var agentNumber = 1;
+				setAgentAndSquad(store, agentNumber);
+
+				var element = React.createElement(ReactRedux.Provider,
+				{
+					store: store,
+				}, React.createElement(AgentSquadContainer,
+				{
+					agentNumber: agentNumber,
+					resourceBase: resourceBase,
+				}));
+				ReactDOM.render(element, document.getElementById("inputArea"));
+
+				function setAgentAndSquad(store, agentNumber)
+				{
+					var faction = store.getState().faction;
+					var agentName = "Agent " + agentNumber;
+					var agentType = store.getState().agentType;
+					var agent = new agentType(agentName, faction.key);
+					var squadBuilders = SquadBuilder.findByFaction(faction.key);
+					var squad = squadBuilders[0].buildSquad(agent);
+					store.dispatch(AgentSquadAction.setAgentName(agentName));
+					store.dispatch(AgentSquadAction.setAgent(agent));
+					store.dispatch(AgentSquadAction.setSquad(squad));
+				}
+			});
+	</script>
+</body>
+
+</html>

@@ -7,20 +7,20 @@ define(["artifact/js/FiringArc", "common/js/InputValidator"],
 
       var DEG_TO_RADIANS = Math.PI / 180;
 
-      ShipImage.draw = function(context, scale, id, image, position, shipTeam)
+      ShipImage.draw = function(context, scale, id, image, position, shipFaction)
       {
          InputValidator.validateNotNull("context", context);
          InputValidator.validateNotNull("scale", scale);
          // id optional.
          InputValidator.validateNotNull("image", image);
          InputValidator.validateNotNull("position", position);
-         InputValidator.validateNotNull("shipTeam", shipTeam);
+         InputValidator.validateNotNull("shipFaction", shipFaction);
 
          // Setup.
-         var primaryFiringArc = shipTeam.ship.primaryFiringArc;
-         var auxiliaryFiringArc = shipTeam.ship.auxiliaryFiringArc;
-         var teamColor = shipTeam.faction.color;
-         var shipBase = shipTeam.ship.shipBase;
+         var primaryFiringArc = shipFaction.ship.primaryFiringArc;
+         var auxiliaryFiringArc = shipFaction.ship.auxiliaryFiringArc;
+         var factionColor = shipFaction.faction.color;
+         var shipBase = shipFaction.ship.shipBase;
          var width = shipBase.width;
          var height = shipBase.height;
          var x = position.x();
@@ -39,7 +39,7 @@ define(["artifact/js/FiringArc", "common/js/InputValidator"],
          // Draw the auxiliary firing arc.
          if (auxiliaryFiringArc)
          {
-            context.strokeStyle = teamColor;
+            context.strokeStyle = factionColor;
             context.setLineDash([5, 4]);
 
             switch (auxiliaryFiringArc.key)
@@ -67,7 +67,7 @@ define(["artifact/js/FiringArc", "common/js/InputValidator"],
          // Draw the primary firing arc.
          if (primaryFiringArc)
          {
-            context.strokeStyle = teamColor;
+            context.strokeStyle = factionColor;
 
             switch (primaryFiringArc.key)
             {
@@ -90,7 +90,7 @@ define(["artifact/js/FiringArc", "common/js/InputValidator"],
          {
             // Draw the token ID.
             context.rotate(90 * DEG_TO_RADIANS);
-            context.fillStyle = teamColor;
+            context.fillStyle = factionColor;
             context.font = "14px sans-serif";
             context.fillText(id, -height / 2, width / 2);
             context.rotate(-90 * DEG_TO_RADIANS);

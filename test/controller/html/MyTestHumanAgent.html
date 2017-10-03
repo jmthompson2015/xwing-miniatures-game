@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestHumanAgent</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="inputArea"></div>
+	<script>
+		"use strict";
+
+		require(["redux", "common/js/Logger", "model/js/Adjudicator", "../test/model/js/EnvironmentFactory", "model/js/Reducer", "controller/js/HumanAgent"],
+			function(Redux, Logger, Adjudicator, EnvironmentFactory, Reducer, HumanAgent)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var store = Redux.createStore(Reducer.root);
+				var environment = EnvironmentFactory.createCoreSetEnvironment(store, HumanAgent);
+				var adjudicator = new Adjudicator(store);
+				var token = environment.tokens()[0] // TIE Fighter.
+				environment.setActiveToken(token);
+				var agent = token.agent();
+
+				// Run.
+				agent.getShipAction(environment, adjudicator, token, myCallback);
+
+				function myCallback(shipAction)
+				{
+					LOGGER.info("myCallback() shipAction = " + shipAction);
+				}
+			});
+	</script>
+</body>
+
+</html>

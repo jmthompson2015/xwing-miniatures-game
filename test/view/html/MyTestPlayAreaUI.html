@@ -51,7 +51,7 @@
 				var laserFromPosition = environment.getPositionFor(token3);
 				var laserToPosition = environment.getPositionFor(token2);
 				var laserIsPrimary = true;
-				var laserTeamColor = token3.pilot().shipFaction.faction.color;
+				var laserFactionColor = token3.pilot().shipFaction.faction.color;
 				var maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_LEFT_2_STANDARD];
 				var maneuverFromPosition = environment.getPositionFor(token1);
 				var maneuverShipBase = token1.pilot().shipFaction.ship.shipBase;
@@ -76,7 +76,7 @@
 						fromPosition: laserFromPosition,
 						toPosition: laserToPosition,
 						isPrimary: laserIsPrimary,
-						teamColor: laserTeamColor,
+						factionColor: laserFactionColor,
 						audioClip: document.getElementById("xWingLaserAudio"),
 					},
 					maneuver:

@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestPlayAreaContainer</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="panel"></div>
+
+	<audio id="explosionAudio" src="../../../src/view/resource/audio/Explosion.wav" preload="auto"></audio>
+	<audio id="millenniumFalconLaserAudio" src="../../../src/view/resource/audio/MillenniumFalconLaser.wav" preload="auto"></audio>
+	<audio id="slave1LaserAudio" src="../../../src/view/resource/audio/Slave1Laser.wav" preload="auto"></audio>
+	<audio id="tieFighterLaserAudio" src="../../../src/view/resource/audio/TIEFighterLaser.wav" preload="auto"></audio>
+	<audio id="xWingLaserAudio" src="../../../src/view/resource/audio/XWingLaser.wav" preload="auto"></audio>
+
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-redux", "redux", "common/js/Logger",
+				"model/js/Reducer", "../test/model/js/EnvironmentFactory",
+				"controller/js/PlayAreaContainer"
+			],
+			function(React, ReactDOM, ReactRedux, Redux, Logger, Reducer, EnvironmentFactory, PlayAreaContainer)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var store = Redux.createStore(Reducer.root);
+				var environment = EnvironmentFactory.createCoreSetEnvironment(store);
+
+				var element = React.createElement(ReactRedux.Provider,
+				{
+					store: store,
+				}, React.createElement(PlayAreaContainer,
+				{
+					resourceBase: resourceBase,
+				}));
+				ReactDOM.render(element, document.getElementById("panel"));
+			});
+	</script>
+</body>
+
+</html>

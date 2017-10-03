@@ -1,6 +1,6 @@
 "use strict";
 
-define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "model/js/UpgradeTypeComparator"],
+define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/UpgradeTypeComparator"],
    function(QUnit, PilotCard, UpgradeType, UpgradeTypeComparator)
    {
       QUnit.module("UpgradeTypeComparator");

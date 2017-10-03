@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestShipCardUI</title>
+
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<table>
+		<tr>
+			<td id="imperialShip" style="vertical-align: top"></td>
+		</tr>
+		<tr>
+			<td id="rebelShip" style="vertical-align: top"></td>
+		</tr>
+		<tr>
+			<td id="gr75Ship" style="vertical-align: top"></td>
+		</tr>
+		<tr>
+			<td id="cr90Ship" style="vertical-align: top"></td>
+		</tr>
+	</table>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "common/js/Logger",
+				"artifact/js/Ship", "artifact/js/ShipFaction", "artifact/js/Faction", "model/js//SimpleAgent", "view/js/ShipCardUI"
+			],
+			function(React, ReactDOM, Logger, Ship, ShipFaction, Faction, SimpleAgent, ShipCardUI)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var agent = new SimpleAgent("Agent", Faction.IMPERIAL);
+
+				var element = React.createElement(ShipCardUI,
+				{
+					agent: agent,
+					resourceBase: resourceBase,
+					ship: Ship.properties[Ship.TIE_FIGHTER],
+					shipFaction: ShipFaction.properties[ShipFaction.IMPERIAL_TIE_FIGHTER],
+				});
+				ReactDOM.render(element, document.getElementById("imperialShip"));
+
+				element = React.createElement(ShipCardUI,
+				{
+					agent: agent,
+					resourceBase: resourceBase,
+					ship: Ship.properties[Ship.X_WING],
+					shipFaction: ShipFaction.properties[ShipFaction.REBEL_X_WING],
+				});
+				ReactDOM.render(element, document.getElementById("rebelShip"));
+
+				element = React.createElement(ShipCardUI,
+				{
+					agent: agent,
+					resourceBase: resourceBase,
+					ship: Ship.properties[Ship.GR_75_MEDIUM_TRANSPORT],
+					shipFaction: ShipFaction.properties[ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT],
+				});
+				ReactDOM.render(element, document.getElementById("gr75Ship"));
+
+				element = React.createElement(ShipCardUI,
+				{
+					agent: agent,
+					resourceBase: resourceBase,
+					ship: Ship.properties[Ship.CR90_CORVETTE],
+					shipFaction: ShipFaction.properties[ShipFaction.REBEL_CR90_CORVETTE],
+				});
+				ReactDOM.render(element, document.getElementById("cr90Ship"));
+			});
+	</script>
+</body>
+
+</html>

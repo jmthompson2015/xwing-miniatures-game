@@ -118,16 +118,16 @@ define(["create-react-class", "prop-types", "react-dom-factories", "common/js/In
                InputValidator.validateNotNull("laserBeam.fromPosition", laserBeam.fromPosition);
                InputValidator.validateNotNull("laserBeam.toPosition", laserBeam.toPosition);
                InputValidator.validateNotNull("laserBeam.isPrimary", laserBeam.isPrimary);
-               InputValidator.validateNotNull("laserBeam.teamColor", laserBeam.teamColor);
+               InputValidator.validateNotNull("laserBeam.factionColor", laserBeam.factionColor);
                // audioClip optional.
 
                var fromPosition = laserBeam.fromPosition;
                var toPosition = laserBeam.toPosition;
                var isPrimary = laserBeam.isPrimary;
-               var teamColor = laserBeam.teamColor;
+               var factionColor = laserBeam.factionColor;
                var audioClip = laserBeam.audioClip;
 
-               var strokeStyle = teamColor;
+               var strokeStyle = factionColor;
                var lineDashSegments = (isPrimary ? undefined : [10, 5]);
 
                context.save();

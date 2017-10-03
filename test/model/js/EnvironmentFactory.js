@@ -1,24 +1,22 @@
 "use strict";
 
-define(["common/js/InputValidator", "redux", "artifact/js/Faction",
+define(["redux", "common/js/InputValidator", "artifact/js/Faction",
   "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder"],
-   function(InputValidator, Redux, Faction,
-      Environment, EventObserver, PhaseObserver, Reducer, SimpleAgent, SquadBuilder)
+   function(Redux, InputValidator, Faction, Environment, EventObserver, PhaseObserver, Reducer, SimpleAgent, SquadBuilder)
    {
       var EnvironmentFactory = {};
 
-      EnvironmentFactory.createCoreSetEnvironment = function(store, computerAgentType0, computerAgentType1, iconBase, imageBase)
+      EnvironmentFactory.createCoreSetEnvironment = function(store, computerAgentType0, computerAgentType1, resourceBase)
       {
          var myStore = (store ? store : Redux.createStore(Reducer.root));
          var type0 = (computerAgentType0 ? computerAgentType0 : SimpleAgent);
          var type1 = (computerAgentType1 ? computerAgentType1 : SimpleAgent);
-         var myIconBase = (iconBase ? iconBase : "../../../main/resources/icons/");
-         var myImageBase = (imageBase ? imageBase : "../../../main/resources/images/");
+         var myImageBase = (resourceBase ? resourceBase : "../../../src/view/resource/");
 
          // Create initial agents and tokens.
-         var firstAgent = EnvironmentFactory.createAgent(type0, "First Agent", Faction.IMPERIAL, myIconBase, myImageBase);
+         var firstAgent = EnvironmentFactory.createAgent(type0, "First Agent", Faction.IMPERIAL, myImageBase);
          var firstSquad = SquadBuilder.CoreSetImperialSquadBuilder.buildSquad(firstAgent);
-         var secondAgent = EnvironmentFactory.createAgent(type1, "Second Agent", Faction.REBEL, myIconBase, myImageBase);
+         var secondAgent = EnvironmentFactory.createAgent(type1, "Second Agent", Faction.REBEL, myImageBase);
          var secondSquad = SquadBuilder.CoreSetRebelSquadBuilder.buildSquad(secondAgent);
 
          var answer = new Environment(myStore, firstAgent, firstSquad, secondAgent, secondSquad);
@@ -29,18 +27,17 @@ define(["common/js/InputValidator", "redux", "artifact/js/Faction",
          return answer;
       };
 
-      EnvironmentFactory.createTFACoreSetEnvironment = function(store, computerAgentType0, computerAgentType1, iconBase, imageBase)
+      EnvironmentFactory.createTFACoreSetEnvironment = function(store, computerAgentType0, computerAgentType1, resourceBase)
       {
          var myStore = (store ? store : Redux.createStore(Reducer.root));
          var type0 = (computerAgentType0 ? computerAgentType0 : SimpleAgent);
          var type1 = (computerAgentType1 ? computerAgentType1 : SimpleAgent);
-         var myIconBase = (iconBase ? iconBase : "../../../main/resources/icons/");
-         var myImageBase = (imageBase ? imageBase : "../../../main/resources/images/");
+         var myImageBase = (resourceBase ? resourceBase : "../../../src/view/resource/");
 
          // Create initial agents and tokens.
-         var firstAgent = EnvironmentFactory.createAgent(type0, "First Agent", Faction.FIRST_ORDER, myIconBase, myImageBase);
+         var firstAgent = EnvironmentFactory.createAgent(type0, "First Agent", Faction.FIRST_ORDER, myImageBase);
          var firstSquad = SquadBuilder.CoreSetFirstOrderSquadBuilder.buildSquad(firstAgent);
-         var secondAgent = EnvironmentFactory.createAgent(type1, "Second Agent", Faction.RESISTANCE, myIconBase, myImageBase);
+         var secondAgent = EnvironmentFactory.createAgent(type1, "Second Agent", Faction.RESISTANCE, myImageBase);
          var secondSquad = SquadBuilder.CoreSetResistanceSquadBuilder.buildSquad(secondAgent);
 
          var answer = new Environment(myStore, firstAgent, firstSquad, secondAgent, secondSquad);
@@ -51,18 +48,17 @@ define(["common/js/InputValidator", "redux", "artifact/js/Faction",
          return answer;
       };
 
-      EnvironmentFactory.createHugeShipEnvironment = function(store, computerAgentType0, computerAgentType1, iconBase, imageBase)
+      EnvironmentFactory.createHugeShipEnvironment = function(store, computerAgentType0, computerAgentType1, resourceBase)
       {
          var myStore = (store ? store : Redux.createStore(Reducer.root));
          var type0 = (computerAgentType0 ? computerAgentType0 : SimpleAgent);
          var type1 = (computerAgentType1 ? computerAgentType1 : SimpleAgent);
-         var myIconBase = (iconBase ? iconBase : "../../../main/resources/icons/");
-         var myImageBase = (imageBase ? imageBase : "../../../main/resources/images/");
+         var myImageBase = (resourceBase ? resourceBase : "../../../src/view/resource/");
 
          // Create initial agents and tokens.
-         var firstAgent = EnvironmentFactory.createAgent(type0, "First Agent", Faction.IMPERIAL, myIconBase, myImageBase);
+         var firstAgent = EnvironmentFactory.createAgent(type0, "First Agent", Faction.IMPERIAL, myImageBase);
          var firstSquad = SquadBuilder.HugeShipImperialSquadBuilder.buildSquad(firstAgent);
-         var secondAgent = EnvironmentFactory.createAgent(type1, "Second Agent", Faction.REBEL, myIconBase, myImageBase);
+         var secondAgent = EnvironmentFactory.createAgent(type1, "Second Agent", Faction.REBEL, myImageBase);
          var secondSquad = SquadBuilder.HugeShipRebelSquadBuilder.buildSquad(secondAgent);
 
          var answer = new Environment(myStore, firstAgent, firstSquad, secondAgent, secondSquad);
@@ -73,17 +69,16 @@ define(["common/js/InputValidator", "redux", "artifact/js/Faction",
          return answer;
       };
 
-      EnvironmentFactory.createAgent = function(type, name, factionKey, iconBase, imageBase)
+      EnvironmentFactory.createAgent = function(type, name, factionKey, resourceBase)
       {
          InputValidator.validateNotNull("type", type);
          InputValidator.validateNotNull("name", name);
          InputValidator.validateNotNull("factionKey", factionKey);
-         InputValidator.validateNotNull("iconBase", iconBase);
-         InputValidator.validateNotNull("imageBase", imageBase);
+         InputValidator.validateNotNull("resourceBase", resourceBase);
 
          var inputAreaId = "inputArea";
 
-         return new type(name, factionKey, inputAreaId, iconBase, imageBase);
+         return new type(name, factionKey, inputAreaId, resourceBase);
       };
 
       return EnvironmentFactory;
