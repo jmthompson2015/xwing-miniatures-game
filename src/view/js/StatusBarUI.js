@@ -31,7 +31,7 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             {}, userMessage);
             var helpLinkUI = DOM.a(
             {
-               href: "help.html",
+               href: "view/html/help.html",
                target: "_blank",
             }, "Help");
 
