@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pilot Card Gallery</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="../../view/css/style.css">
+
+  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
+  <script>
+    require.config(
+    {
+      "baseUrl": "../../../src",
+    });
+  </script>
+  <script src="../../../src/main.js"></script>
+
+</head>
+<body>
+  <h1>Pilot Card Gallery</h1>
+  <div id="mainPanel"></div>
+  <script>
+    "use strict";
+
+    require(["create-react-class", "react", "react-dom", "react-dom-factories", "common/js/Logger",
+        "artifact/js/Faction", "artifact/js/PilotCard", "view/js/PilotCardImage"
+      ],
+      function(createReactClass, React, ReactDOM, DOM, Logger, Faction, PilotCard, PilotCardImage)
+      {
+        window.LOGGER = new Logger();
+        LOGGER.setTraceEnabled(false);
+        LOGGER.setDebugEnabled(false);
+
+        var PilotCardGallery = createReactClass(
+        {
+          render: function()
+          {
+            var factionKey = this.props.factionKey;
+            var isStrict = true;
+            var pilotKeys = PilotCard.keysByFaction(factionKey, isStrict);
+
+            var cells = [];
+
+            pilotKeys.forEach(function(pilotKey)
+            {
+              var element = React.createElement(PilotCardImage,
+              {
+                key: "pilotInstance" + pilotKey,
+                pilot: PilotCard.properties[pilotKey],
+              });
+              cells.push(element);
+            });
+
+            return DOM.div(
+            {}, cells);
+          },
+        });
+
+        var rows = [];
+
+        Faction.keys().forEach(function(factionKey, i)
+        {
+          var faction = Faction.properties[factionKey];
+
+          rows.push(DOM.h2(
+          {
+            key: "pilotHeader" + rows.length,
+          }, faction.name));
+
+          rows.push(React.createElement(PilotCardGallery,
+          {
+            key: "pilotGallery" + rows.length,
+            factionKey: factionKey,
+          }));
+        });
+
+        var mainPanel = DOM.div(
+        {}, rows);
+        ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
+      });
+  </script>
+</body>
+
+</html>

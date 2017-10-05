@@ -12,7 +12,7 @@ define(function()
       ACTIVATION_REVEAL_DIAL: "activationRevealDial",
       ACTIVATION_SET_TEMPLATE: "activationSetTemplate",
       ACTIVATION_EXECUTE_MANEUVER: "activationExecuteManeuver",
-      ACTIVATION_CHECK_PILOT_STRESS: "activationCheckPilotCardStress",
+      ACTIVATION_CHECK_PILOT_STRESS: "activationCheckPilotStress",
       ACTIVATION_CLEAN_UP: "activationCleanUp",
       ACTIVATION_GAIN_ENERGY: "activationGainEnergy",
       ACTIVATION_ALLOCATE_ENERGY: "activationAllocateEnergy",
@@ -74,10 +74,10 @@ define(function()
             name: "Activation (execute maneuver)",
             key: "activationExecuteManeuver",
          },
-         "activationCheckPilotCardStress":
+         "activationCheckPilotStress":
          {
             name: "Activation (check pilot stress)",
-            key: "activationCheckPilotCardStress",
+            key: "activationCheckPilotStress",
          },
          "activationCleanUp":
          {

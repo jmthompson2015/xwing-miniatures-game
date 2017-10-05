@@ -12,10 +12,11 @@
       "document": false,
       "Event": false,
       "Image": false,
+      "localStorage": false,
       "LOGGER": false,
+      "Reactable": false,
       "require": false,
       "setTimeout": false,
       "window": false
    }
 }
-

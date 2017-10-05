@@ -9,7 +9,7 @@ define(function()
       {
          "pilot":
          {
-            name: "PilotCard",
+            name: "Pilot",
             key: "pilot",
          },
          "ship":

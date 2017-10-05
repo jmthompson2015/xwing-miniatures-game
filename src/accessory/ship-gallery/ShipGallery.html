@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Ship Gallery</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="../../view/css/style.css">
+
+  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
+  <script>
+    require.config(
+    {
+      "baseUrl": "../../../src",
+    });
+  </script>
+  <script src="../../../src/main.js"></script>
+
+</head>
+<body>
+  <h1>Ship Gallery</h1>
+  <div id="mainPanel"></div>
+  <script>
+    "use strict";
+
+    require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "common/js/Logger",
+        "artifact/js/ShipFaction", "artifact/js/Faction", "model/js/SimpleAgent", "view/js/ShipCardUI"
+      ],
+      function(createReactClass, PropTypes, React, ReactDOM, DOM, Logger, ShipFaction, Faction, SimpleAgent, ShipCardUI)
+      {
+        window.LOGGER = new Logger();
+        LOGGER.setTraceEnabled(false);
+        LOGGER.setDebugEnabled(false);
+
+        var resourceBase = "../../../src/view/resource/";
+
+        var ShipGallery = createReactClass(
+        {
+          propTypes:
+          {
+            factionKey: PropTypes.string.isRequired,
+          },
+          render: function()
+          {
+            var factionKey = this.props.factionKey;
+            var isStrict = true;
+            var shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
+            var agent = new SimpleAgent("Agent", factionKey);
+
+            var cells = [];
+            var excludes = [ShipFaction.IMPERIAL_TIE_BOMBER_V2,
+              ShipFaction.IMPERIAL_TIE_DEFENDER_V2,
+              ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2,
+              ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V3,
+              ShipFaction.REBEL_A_WING_V2,
+              ShipFaction.REBEL_B_WING_V2,
+              ShipFaction.SCUM_M3_A_INTERCEPTOR_V2,
+              ShipFaction.RESISTANCE_T_70_X_WING_V2,
+              // FIXME: add Sabine's TIE Fighter
+              ShipFaction.REBEL_SABINES_TIE_FIGHTER,
+            ];
+
+            shipFactionKeys.forEach(function(shipFactionKey)
+            {
+              if (!excludes.includes(shipFactionKey))
+              {
+                var shipFaction = ShipFaction.properties[shipFactionKey];
+                var element = React.createElement(ShipCardUI,
+                {
+                  key: "instance" + shipFactionKey,
+                  agent: agent,
+                  resourceBase: resourceBase,
+                  shipFaction: shipFaction,
+                });
+                cells.push(element);
+              }
+            });
+
+            return DOM.div(
+            {}, cells);
+          },
+        });
+
+        var rows = [];
+
+        Faction.keys().forEach(function(factionKey)
+        {
+          var faction = Faction.properties[factionKey];
+          rows.push(DOM.h2(
+          {
+            key: "title" + factionKey,
+          }, faction.name));
+          var element = React.createElement(ShipGallery,
+          {
+            key: "gallery" + factionKey,
+            factionKey: factionKey,
+          });
+          rows.push(element);
+        });
+
+        var mainPanel = DOM.div(
+        {}, rows);
+        ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
+      });
+  </script>
+</body>
+
+</html>

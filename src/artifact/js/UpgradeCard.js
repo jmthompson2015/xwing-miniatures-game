@@ -4,7 +4,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
    function(InputValidator, FiringArc, PilotCard, Range, UpgradeHeader, UpgradeRestriction, UpgradeType)
    {
       var UpgradeCard = {
-         A_WING_TEST_PILOT: "aWingTestPilotCard",
+         A_WING_TEST_PILOT: "aWingTestPilot",
          ACCURACY_CORRECTOR: "accuracyCorrector",
          ADAPTABILITY: "adaptability",
          ADMIRAL_OZZEL: "admiralOzzel",
@@ -129,7 +129,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
          HERA_SYNDULLA: "heraSyndulla",
          HOMING_MISSILES: "homingMissiles",
          HOT_SHOT_BLASTER: "hotShotBlaster",
-         HOTSHOT_CO_PILOT: "hotshotCoPilotCard",
+         HOTSHOT_CO_PILOT: "hotshotCoPilot",
          HOUNDS_TOOTH: "houndsTooth",
          HULL_UPGRADE: "hullUpgrade",
          HYPERWAVE_COMM_SCANNER: "hyperwaveCommScanner",
@@ -306,15 +306,15 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
 
          properties:
          {
-            "aWingTestPilotCard":
+            "aWingTestPilot":
             {
-               name: "A-Wing Test PilotCard",
+               name: "A-Wing Test Pilot",
                typeKey: UpgradeType.TITLE,
                restrictionKeys: [UpgradeRestriction.A_WING_ONLY, UpgradeRestriction.PILOT_SKILL_ABOVE_1],
                description: "Your upgrade bar gains 1 Elite upgrade icon. You cannot equip 2 of the same Elite upgrade cards. You cannot equip this card if your pilot skill value is \"1\" or lower.",
                squadPointCost: 0,
                isImplemented: true,
-               key: "aWingTestPilotCard",
+               key: "aWingTestPilot",
             },
             "accuracyCorrector":
             {
@@ -1063,7 +1063,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
             {
                name: "Determination",
                typeKey: UpgradeType.ELITE,
-               description: "When you are dealt a faceup Damage card with the PilotCard trait, discard it immediately without resolving its effect.",
+               description: "When you are dealt a faceup Damage card with the Pilot trait, discard it immediately without resolving its effect.",
                squadPointCost: 1,
                isImplemented: true,
                key: "determination",
@@ -1568,13 +1568,13 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
                isImplemented: true,
                key: "hotShotBlaster",
             },
-            "hotshotCoPilotCard":
+            "hotshotCoPilot":
             {
-               name: "Hotshot Co-PilotCard",
+               name: "Hotshot Co-Pilot",
                typeKey: UpgradeType.CREW,
                description: "When attacking with a primary weapon, the defender must spend 1 focus token if able. When defending, the attacker must spend 1 focus token if able.",
                squadPointCost: 4,
-               key: "hotshotCoPilotCard",
+               key: "hotshotCoPilot",
             },
             "houndsTooth":
             {
@@ -1582,7 +1582,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
                typeKey: UpgradeType.TITLE,
                isUnique: true,
                restrictionKeys: [UpgradeRestriction.YV_666_ONLY],
-               description: "After you are destroyed, before you are removed from the play area, you may deploy the Nashtah Pup PilotCard. It cannot attack this round.",
+               description: "After you are destroyed, before you are removed from the play area, you may deploy the Nashtah Pup Pilot. It cannot attack this round.",
                squadPointCost: 6,
                key: "houndsTooth",
             },
@@ -1987,7 +1987,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
                name: "Lightning Reflexes",
                typeKey: UpgradeType.ELITE,
                restrictionKeys: [UpgradeRestriction.SMALL_SHIP_ONLY],
-               description: "After you execute a white or green maneuver on your dial, you may discard this card to rotate your ship 180˚. Then receive 1 stress token after the \"Check PilotCard Stress\" step.",
+               description: "After you execute a white or green maneuver on your dial, you may discard this card to rotate your ship 180˚. Then receive 1 stress token after the \"Check Pilot Stress\" step.",
                squadPointCost: 1,
                isImplemented: true,
                key: "lightningReflexes",
@@ -2255,7 +2255,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
             {
                name: "Pattern Analyzer",
                typeKey: UpgradeType.TECH,
-               description: "When executing a maneuver, you may resolve the \"Check PilotCard Stress\" step after the \"Perform Action\" step (instead of before that step).",
+               description: "When executing a maneuver, you may resolve the \"Check Pilot Stress\" step after the \"Perform Action\" step (instead of before that step).",
                squadPointCost: 2,
                key: "patternAnalyzer",
             },

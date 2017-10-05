@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Damage Table</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="../../../lib/react/react-15.6.1.js"></script>
+  <script src="../../../lib/react-dom/react-dom-15.6.1.js"></script>
+  <script src="../../../lib/create-react-class/create-react-class-15.6.0.js"></script>
+  <script src="../../../lib/react-dom-factories/react-dom-factories-1.0.1.js"></script>
+  <script src="../../../lib/reactable/reactable-0.14.1.js"></script>
+  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
+  <script>
+    require.config(
+    {
+      "baseUrl": "../../../src",
+    });
+  </script>
+  <script src="../../../src/main.js"></script>
+
+</head>
+<body>
+  <h1>Damage Table</h1>
+  <div id="implementedStatistics"></div>
+  <section id="tableContainer"></section>
+  <script>
+    "use strict";
+
+    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "artifact/js/DamageCard",
+        "accessory/damage-table/DamageTableContainer", "accessory/damage-table/Reducer"
+      ],
+      function(React, ReactDOM, ReactRedux, Redux, Logger, DamageCard, DamageTableContainer, Reducer)
+      {
+        window.LOGGER = new Logger();
+        LOGGER.setTraceEnabled(false);
+        LOGGER.setDebugEnabled(false);
+
+        var resourceBase = "../../../src/view/resource/";
+        var store = Redux.createStore(Reducer.root);
+        var implementedCount = DamageCard.keys().reduce(function(previousValue, damage)
+        {
+          return previousValue + (DamageCard.properties[damage].isImplemented ? 1 : 0);
+        }, 0);
+        var damageCount = DamageCard.keys().length;
+        var ratio = Math.xwingRound(100.0 * implementedCount / damageCount, 0);
+        document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
+          damageCount + " = " + ratio + "%";
+
+        var element = React.createElement(ReactRedux.Provider,
+        {
+          store: store,
+        }, React.createElement(DamageTableContainer,
+        {
+          resourceBase: resourceBase,
+        }));
+
+        ReactDOM.render(element, document.getElementById("tableContainer"));
+      });
+  </script>
+</body>
+
+</html>

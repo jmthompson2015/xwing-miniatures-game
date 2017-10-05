@@ -4,22 +4,22 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
    function(ArrayAugments, DamageCardTrait)
    {
       var DamageCard = {
-         BLINDED_PILOT: "blindedPilotCard",
+         BLINDED_PILOT: "blindedPilot",
          CONSOLE_FIRE: "consoleFire",
          DAMAGED_COCKPIT: "damagedCockpit",
          DAMAGED_ENGINE: "damagedEngine",
          DAMAGED_SENSOR_ARRAY: "damagedSensorArray",
          DIRECT_HIT: "directHit",
-         INJURED_PILOT: "injuredPilotCard",
+         INJURED_PILOT: "injuredPilot",
          MINOR_EXPLOSION: "minorExplosion",
          MINOR_HULL_BREACH: "minorHullBreach",
          MUNITIONS_FAILURE: "munitionsFailure",
          STRUCTURAL_DAMAGE: "structuralDamage",
-         STUNNED_PILOT: "stunnedPilotCard",
+         STUNNED_PILOT: "stunnedPilot",
          THRUST_CONTROL_FIRE: "thrustControlFire",
          WEAPON_MALFUNCTION: "weaponMalfunction",
 
-         BLINDED_PILOT_V2: "blindedPilotCardV2",
+         BLINDED_PILOT_V2: "blindedPilotV2",
          CONSOLE_FIRE_V2: "consoleFireV2",
          DAMAGED_COCKPIT_V2: "damagedCockpitV2",
          DAMAGED_ENGINE_V2: "damagedEngineV2",
@@ -28,20 +28,20 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
          LOOSE_STABILIZER_V2: "looseStablizerV2",
          MAJOR_EXPLOSION_V2: "majorExplosionV2",
          MAJOR_HULL_BREACH_V2: "majorHullBreachV2",
-         SHAKEN_PILOT_V2: "shakenPilotCardV2",
+         SHAKEN_PILOT_V2: "shakenPilotV2",
          STRUCTURAL_DAMAGE_V2: "structuralDamageV2",
-         STUNNED_PILOT_V2: "stunnedPilotCardV2",
+         STUNNED_PILOT_V2: "stunnedPilotV2",
          THRUST_CONTROL_FIRE_V2: "thrustControlFireV2",
          WEAPONS_FAILURE_V2: "weaponsFailureV2",
          properties:
          {
-            "blindedPilotCard":
+            "blindedPilot":
             {
-               name: "Blinded PilotCard",
+               name: "Blinded Pilot",
                trait: DamageCardTrait.PILOT,
                description: "The next time you attack, do not roll any attack dice. Then flip this card facedown.",
                isImplemented: true,
-               key: "blindedPilotCard",
+               key: "blindedPilot",
             },
             "consoleFire":
             {
@@ -86,12 +86,12 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
                isImplemented: true,
                key: "directHit",
             },
-            "injuredPilotCard":
+            "injuredPilot":
             {
-               name: "Injured PilotCard",
+               name: "Injured Pilot",
                trait: DamageCardTrait.PILOT,
                description: "All players must ignore your pilot ability and all of your Elite Upgrade cards.",
-               key: "injuredPilotCard",
+               key: "injuredPilot",
             },
             "minorExplosion":
             {
@@ -127,12 +127,12 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
                isImplemented: true,
                key: "structuralDamage",
             },
-            "stunnedPilotCard":
+            "stunnedPilot":
             {
-               name: "Stunned PilotCard",
+               name: "Stunned Pilot",
                trait: DamageCardTrait.PILOT,
                description: "After you execute a maneuver that causes you to overlap either another ship or an obstacle token, suffer 1 damage.",
-               key: "stunnedPilotCard",
+               key: "stunnedPilot",
             },
             "thrustControlFire":
             {
@@ -154,12 +154,12 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
                key: "weaponMalfunction",
             },
 
-            "blindedPilotCardV2":
+            "blindedPilotV2":
             {
-               name: "Blinded PilotCard",
+               name: "Blinded Pilot",
                trait: DamageCardTrait.PILOT,
                description: "You cannot perform attacks. After your next opportunity to attack (even if there was no target for an attack), flip this card facedown.",
-               key: "blindedPilotCardV2",
+               key: "blindedPilotV2",
             },
             "consoleFireV2":
             {
@@ -231,13 +231,13 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
                actionDescription: "Flip this card facedown.",
                key: "majorHullBreachV2",
             },
-            "shakenPilotCardV2":
+            "shakenPilotV2":
             {
-               name: "Shaken PilotCard",
+               name: "Shaken Pilot",
                trait: DamageCardTrait.PILOT,
                description: "During the Planning phase, you cannot be assigned straight maneuvers. When you reveal a maneuver, flip this card facedown.",
                isImplemented: true,
-               key: "shakenPilotCardV2",
+               key: "shakenPilotV2",
             },
             "structuralDamageV2":
             {
@@ -250,12 +250,12 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
                isImplemented: true,
                key: "structuralDamageV2",
             },
-            "stunnedPilotCardV2":
+            "stunnedPilotV2":
             {
-               name: "Stunned PilotCard",
+               name: "Stunned Pilot",
                trait: DamageCardTrait.PILOT,
                description: "After you execute a maneuver, if you are touching another ship or overlapping an obstacle token, suffer 1 damage.",
-               key: "stunnedPilotCardV2",
+               key: "stunnedPilotV2",
             },
             "thrustControlFireV2":
             {

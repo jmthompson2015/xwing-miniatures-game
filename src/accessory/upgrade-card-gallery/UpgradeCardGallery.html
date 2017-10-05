@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Upgrade Card Gallery</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="../../view/css/style.css">
+
+  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
+  <script>
+    require.config(
+    {
+      "baseUrl": "../../../src",
+    });
+  </script>
+  <script src="../../../src/main.js"></script>
+
+</head>
+<body>
+  <h1>Upgrade Card Gallery</h1>
+  <div id="mainPanel"></div>
+  <script>
+    "use strict";
+
+    require(["create-react-class", "react", "react-dom", "react-dom-factories",
+        "common/js/Logger", "artifact/js/UpgradeCard", "artifact/js/UpgradeType", "view/js/UpgradeCardImage"
+      ],
+      function(createReactClass, React, ReactDOM, DOM, Logger, UpgradeCard, UpgradeType, UpgradeCardImage)
+      {
+        window.LOGGER = new Logger();
+        LOGGER.setTraceEnabled(false);
+        LOGGER.setDebugEnabled(false);
+
+        var UpgradeGallery = createReactClass(
+        {
+          render: function()
+          {
+            var upgradeTypeKey = this.props.upgradeTypeKey;
+            var upgradeKeys = UpgradeCard.keysByType(upgradeTypeKey);
+
+            var cells = [];
+
+            upgradeKeys.forEach(function(upgradeKey)
+            {
+              var element = React.createElement(UpgradeCardImage,
+              {
+                key: "upgradeInstance" + upgradeKey,
+                upgrade: UpgradeCard.properties[upgradeKey],
+              });
+              cells.push(element);
+            });
+
+            return DOM.div(
+            {}, cells);
+          },
+        });
+
+        var rows = [];
+
+        UpgradeType.keys().forEach(function(upgradeTypeKey, i)
+        {
+          var upgradeType = UpgradeType.properties[upgradeTypeKey];
+
+          rows.push(DOM.h2(
+          {
+            key: "upgradeHeader" + rows.length,
+          }, upgradeType.name));
+
+          rows.push(React.createElement(UpgradeGallery,
+          {
+            key: "upgradeGallery" + rows.length,
+            upgradeTypeKey: upgradeTypeKey,
+          }));
+        });
+
+        var mainPanel = DOM.div(
+        {}, rows);
+        ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
+      });
+  </script>
+</body>
+
+</html>

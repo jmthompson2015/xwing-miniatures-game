@@ -43,7 +43,7 @@ define(["create-react-class", "prop-types", "react-dom-factories", "common/js/In
             upgradeUrl = upgradeUrl.replace("bossk", "bossk-crew");
             upgradeUrl = upgradeUrl.replace("hound-s-tooth", "hounds-tooth");
             upgradeUrl = upgradeUrl.replace("kylo-ren-s-shuttle", "kylo-rens-shuttle");
-            upgradeUrl = upgradeUrl.replace("mk.-ii", "mk2");
+            upgradeUrl = upgradeUrl.replace("mk.-ii", "mkii");
             upgradeUrl = upgradeUrl.replace("r2-d2-(crew)", "r2-d2");
 
             // FIXME: Adaptability is two-sided.
@@ -59,7 +59,7 @@ define(["create-react-class", "prop-types", "react-dom-factories", "common/js/In
             var lastIndex = src.lastIndexOf("/");
             lastIndex = src.lastIndexOf("/", lastIndex - 1);
             var filename = src.substring(lastIndex + 1);
-            LOGGER.error("PilotCardImage failed to load " + filename);
+            LOGGER.error("UpgradeCardImage failed to load " + filename);
          },
       });
 
