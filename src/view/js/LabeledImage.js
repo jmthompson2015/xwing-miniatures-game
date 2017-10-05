@@ -5,24 +5,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories"],
    {
       var LabeledImage = createReactClass(
       {
-         propTypes:
-         {
-            image: PropTypes.string.isRequired,
-            resourceBase: PropTypes.string.isRequired,
-            label: PropTypes.string.isRequired,
-
-            // default: 32
-            height: PropTypes.number,
-            // default: undefined
-            labelClass: PropTypes.string,
-            // default: false
-            showOne: PropTypes.bool,
-            // default: undefined
-            title: PropTypes.string,
-            // default: 32
-            width: PropTypes.number,
-         },
-
          render: function()
          {
             var answer;
@@ -62,8 +44,8 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories"],
 
          createContainerStyle: function()
          {
-            var height = (this.props.height !== undefined ? this.props.height : 32);
-            var width = (this.props.width !== undefined ? this.props.width : 32);
+            var height = this.props.height;
+            var width = this.props.width;
 
             return (
             {
@@ -76,6 +58,26 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories"],
             });
          },
       });
+
+      LabeledImage.propTypes = {
+         image: PropTypes.string.isRequired,
+         resourceBase: PropTypes.string.isRequired,
+         label: PropTypes.string.isRequired,
+
+         height: PropTypes.number,
+         // default: undefined
+         labelClass: PropTypes.string,
+         showOne: PropTypes.bool,
+         // default: undefined
+         title: PropTypes.string,
+         width: PropTypes.number,
+      };
+
+      LabeledImage.defaultProps = {
+         height: 32,
+         showOne: false,
+         width: 32,
+      };
 
       return LabeledImage;
    });
