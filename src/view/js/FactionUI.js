@@ -1,23 +1,10 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react-dom-factories", "common/js/InputValidator"],
-   function(createReactClass, PropTypes, DOM, InputValidator)
+define(["create-react-class", "prop-types", "react-dom-factories"],
+   function(createReactClass, PropTypes, DOM)
    {
       var FactionUI = createReactClass(
       {
-         propTypes:
-         {
-            faction: PropTypes.object.isRequired,
-            resourceBase: PropTypes.string.isRequired,
-
-            // default: false
-            isSmall: PropTypes.bool,
-            // default: faction value
-            myKey: PropTypes.string,
-            // default: false
-            showName: PropTypes.bool,
-         },
-
          render: function()
          {
             var faction = this.props.faction;
@@ -36,7 +23,7 @@ define(["create-react-class", "prop-types", "react-dom-factories", "common/js/In
 
             var answer = icon;
 
-            var showName = (this.props.showName !== undefined ? this.props.showName : false);
+            var showName = this.props.showName;
 
             if (showName)
             {
@@ -49,16 +36,26 @@ define(["create-react-class", "prop-types", "react-dom-factories", "common/js/In
 
          createSrc: function(faction, size)
          {
-            InputValidator.validateNotNull("faction", faction);
-
             var resourceBase = this.props.resourceBase;
-            var factionUrls = ["galactic-empire", "first-order", "rebel-alliance", "resistance", "scum-and-villainy"];
-            var factions = ["imperial", "firstOrder", "rebel", "resistance", "scum"];
-            var factionUrl = factionUrls[factions.indexOf(faction.key)];
 
-            return resourceBase + "faction/" + size + "/" + factionUrl + ".png";
+            return resourceBase + "faction/" + size + "/" + faction.image;
          },
       });
+
+      FactionUI.propTypes = {
+         faction: PropTypes.object.isRequired,
+         resourceBase: PropTypes.string.isRequired,
+
+         isSmall: PropTypes.bool,
+         // default: faction value
+         myKey: PropTypes.string,
+         showName: PropTypes.bool,
+      };
+
+      FactionUI.defaultProps = {
+         isSmall: false,
+         showName: false,
+      };
 
       return FactionUI;
    });

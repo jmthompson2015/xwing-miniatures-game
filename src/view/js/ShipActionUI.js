@@ -5,17 +5,6 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
    {
       var ShipActionUI = createReactClass(
       {
-         propTypes:
-         {
-            shipAction: PropTypes.object.isRequired,
-            resourceBase: PropTypes.string.isRequired,
-
-            // default: ship action value
-            myKey: PropTypes.string,
-            // default: false
-            showName: PropTypes.bool,
-         },
-
          render: function()
          {
             var shipAction = this.props.shipAction;
@@ -34,9 +23,9 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
                src: fileString,
                title: shipAction.name,
             });
-            var showName = (this.props.showName !== undefined ? this.props.showName : false);
 
             var answer = image;
+            var showName = this.props.showName;
 
             if (showName)
             {
@@ -49,6 +38,19 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             return answer;
          },
       });
+
+      ShipActionUI.propTypes = {
+         shipAction: PropTypes.object.isRequired,
+         resourceBase: PropTypes.string.isRequired,
+
+         // default: ship action value
+         myKey: PropTypes.string,
+         showName: PropTypes.bool,
+      };
+
+      ShipActionUI.defaultProps = {
+         showName: false,
+      };
 
       return ShipActionUI;
    });

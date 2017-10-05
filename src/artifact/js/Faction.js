@@ -22,6 +22,7 @@ define(function()
             shortName: "Imperial",
             description: "Imperial faction",
             color: "rgb(0, 255, 0)",
+            image: "galactic-empire.png",
             key: "imperial",
          },
          "firstOrder":
@@ -30,6 +31,7 @@ define(function()
             shortName: "FirstOrder",
             description: "First Order faction",
             color: "rgb(0, 255, 0)",
+            image: "first-order.png",
             key: "firstOrder",
          },
          "rebel":
@@ -38,6 +40,7 @@ define(function()
             shortName: "Rebel",
             description: "Rebel faction",
             color: "red",
+            image: "rebel-alliance.png",
             key: "rebel",
          },
          "resistance":
@@ -46,6 +49,7 @@ define(function()
             shortName: "Resistance",
             description: "Resistance faction",
             color: "red",
+            image: "resistance.png",
             key: "resistance",
          },
          "scum":
@@ -54,6 +58,7 @@ define(function()
             shortName: "Scum",
             description: "Scum & Villainy faction",
             color: "rgb(255, 215, 0)",
+            image: "scum-and-villainy.png",
             key: "scum",
          },
       },
