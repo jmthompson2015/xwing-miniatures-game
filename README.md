@@ -1,6 +1,17 @@
 # X-Wing Miniatures Game
-Play the game:
-* [X-Wing Miniatures Game](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/index.html)
+Play the game: [X-Wing Miniatures Game](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/index.html)
+
+#### Accessories
+* [Ability Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/ability-table/AbilityTable.html)
+* [Damage Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/damage-table/DamageTable.html)
+* [Game Data Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/game-data-table/GameDataTable.html)
+* [Pilot Card Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/pilot-card-gallery/PilotCardGallery.html)
+* [Pilot Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/pilot-table/PilotTable.html)
+* [Ship Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/ship-gallery/ShipGallery.html)
+* [Squad Builder](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/squad-builder/SquadBuilder.html)
+* [Squad Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/squad-table/SquadTable.html)
+* [Upgrade Card Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/upgrade-card-gallery/UpgradeCardGallery.html)
+* [Upgrade Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/upgrade-table/UpgradeTable.html)
 
 ## Built With
 * [Immutable](https://facebook.github.io/immutable-js/) - Immutable collections for JavaScript.
