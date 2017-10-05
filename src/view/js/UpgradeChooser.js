@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
   "artifact/js/UpgradeCard", "view/js/Select", "view/js/UpgradeTypeUI"],
-   function(createClassReact, PropTypes, React, DOM, InputValidator, UpgradeCard, Select, UpgradeTypeUI)
+   function(createReactClass, PropTypes, React, DOM, InputValidator, UpgradeCard, Select, UpgradeTypeUI)
    {
-      var UpgradeChooser = createClassReact(
+      var UpgradeChooser = createReactClass(
       {
          propTypes:
          {

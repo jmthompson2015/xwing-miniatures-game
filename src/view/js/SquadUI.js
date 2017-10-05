@@ -3,11 +3,11 @@
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
   "artifact/js/ShipState", "artifact/js/Faction", "artifact/js/UpgradeCard",
   "view/js/EntityUI", "view/js/ImplementedImage", "view/js/ShipStateUI", "view/js/SquadColumns"],
-   function(createClassReact, PropTypes, React, DOM, InputValidator,
+   function(createReactClass, PropTypes, React, DOM, InputValidator,
       ShipState, Faction, UpgradeCard,
       EntityUI, ImplementedImage, ShipStateUI, SquadColumns)
    {
-      var SquadUI = createClassReact(
+      var SquadUI = createReactClass(
       {
          propTypes:
          {

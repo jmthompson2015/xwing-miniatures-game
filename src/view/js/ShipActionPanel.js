@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/ShipAction", "view/js/ShipActionUI"],
-   function(createClassReact, PropTypes, React, DOM, ShipAction, ShipActionUI)
+   function(createReactClass, PropTypes, React, DOM, ShipAction, ShipActionUI)
    {
-      var ShipActionPanel = createClassReact(
+      var ShipActionPanel = createReactClass(
       {
          propTypes:
          {

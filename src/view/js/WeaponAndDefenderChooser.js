@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Range", "view/js/OptionPane"],
-   function(createClassReact, PropTypes, React, DOM, Range, OptionPane)
+   function(createReactClass, PropTypes, React, DOM, Range, OptionPane)
    {
-      var WeaponAndDefenderChooser = createClassReact(
+      var WeaponAndDefenderChooser = createReactClass(
       {
          propTypes:
          {

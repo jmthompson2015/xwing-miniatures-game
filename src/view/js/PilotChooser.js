@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/PilotCard", "view/js/FactionUI", "view/js/Select"],
-   function(createClassReact, PropTypes, React, DOM, PilotCard, FactionUI, Select)
+   function(createReactClass, PropTypes, React, DOM, PilotCard, FactionUI, Select)
    {
-      var PilotChooser = createClassReact(
+      var PilotChooser = createReactClass(
       {
          propTypes:
          {

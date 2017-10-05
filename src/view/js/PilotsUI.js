@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "view/js/PilotCardCompactUI"],
-   function(createClassReact, PropTypes, React, DOM, PilotCardCompactUI)
+   function(createReactClass, PropTypes, React, DOM, PilotCardCompactUI)
    {
-      var PilotsUI = createClassReact(
+      var PilotsUI = createReactClass(
       {
          propTypes:
          {

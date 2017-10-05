@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react-dom-factories",
   "artifact/js/Bearing", "artifact/js/Maneuver", "view/js/HtmlUtilities"],
-   function(createClassReact, PropTypes, DOM, Bearing, Maneuver, HtmlUtilities)
+   function(createReactClass, PropTypes, DOM, Bearing, Maneuver, HtmlUtilities)
    {
-      var ManeuverChooser = createClassReact(
+      var ManeuverChooser = createReactClass(
       {
          propTypes:
          {

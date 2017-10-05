@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "artifact/js/Faction",
   "view/js/AgentSquadUI", "view/js/OptionPane"],
-   function(createClassReact, PropTypes, React, DOM, ReactRedux, Faction, AgentSquadUI, OptionPane)
+   function(createReactClass, PropTypes, React, DOM, ReactRedux, Faction, AgentSquadUI, OptionPane)
    {
-      var NewGamePanel = createClassReact(
+      var NewGamePanel = createReactClass(
       {
          propTypes:
          {

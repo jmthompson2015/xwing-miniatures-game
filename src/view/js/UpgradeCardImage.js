@@ -4,9 +4,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react-dom-factories", "common/js/InputValidator"],
-   function(createClassReact, PropTypes, DOM, InputValidator)
+   function(createReactClass, PropTypes, DOM, InputValidator)
    {
-      var UpgradeCardImage = createClassReact(
+      var UpgradeCardImage = createReactClass(
       {
          render: function()
          {

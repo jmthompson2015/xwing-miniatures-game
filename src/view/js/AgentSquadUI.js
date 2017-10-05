@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Faction", "view/js/Select", "view/js/SquadChooser"],
-   function(createClassReact, PropTypes, React, DOM, Faction, Select, SquadChooser)
+   function(createReactClass, PropTypes, React, DOM, Faction, Select, SquadChooser)
    {
-      var AgentSquadUI = createClassReact(
+      var AgentSquadUI = createReactClass(
       {
          render: function()
          {

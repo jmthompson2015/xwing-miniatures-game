@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories"],
-   function(createClassReact, PropTypes, React, DOM)
+   function(createReactClass, PropTypes, React, DOM)
    {
-      var ImplementedImage = createClassReact(
+      var ImplementedImage = createReactClass(
       {
          propTypes:
          {

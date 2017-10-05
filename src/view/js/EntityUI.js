@@ -3,11 +3,11 @@
 define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
   "view/js/FactionUI", "view/js/ImplementedImage", "view/js/ShipActionUI", "view/js/ShipSilhouetteUI", "view/js/UpgradeTypeUI"],
-   function(createClassReact, PropTypes, React, DOM,
+   function(createReactClass, PropTypes, React, DOM,
       DamageCard, DiceModification, Maneuver, PilotCard, Ship, ShipAction, UpgradeCard,
       FactionUI, ImplementedImage, ShipActionUI, ShipSilhouetteUI, UpgradeTypeUI)
    {
-      var EntityUI = createClassReact(
+      var EntityUI = createReactClass(
       {
          render: function()
          {

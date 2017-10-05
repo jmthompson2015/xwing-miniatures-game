@@ -3,11 +3,11 @@
 define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/ShipState", "artifact/js/UpgradeCard",
   "view/js/EntityUI", "view/js/FactionUI", "view/js/LabeledImage", "view/js/ShipStateUI"],
-   function(createClassReact, PropTypes, React, DOM,
+   function(createReactClass, PropTypes, React, DOM,
       Count, DamageCard, ShipState, UpgradeCard,
       EntityUI, FactionUI, LabeledImage, ShipStateUI)
    {
-      var PilotCardCompactUI = createClassReact(
+      var PilotCardCompactUI = createReactClass(
       {
          propTypes:
          {
@@ -147,7 +147,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
          },
       });
 
-      var CriticalDamagesPanel = createClassReact(
+      var CriticalDamagesPanel = createReactClass(
       {
          propTypes:
          {
@@ -180,7 +180,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
          }
       });
 
-      var NamePanel = createClassReact(
+      var NamePanel = createReactClass(
       {
          propTypes:
          {
@@ -269,7 +269,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
          },
       });
 
-      var StatsPanel = createClassReact(
+      var StatsPanel = createReactClass(
       {
          propTypes:
          {
@@ -312,7 +312,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
          },
       });
 
-      var TokensPanel = createClassReact(
+      var TokensPanel = createReactClass(
       {
          propTypes:
          {
@@ -400,7 +400,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
          },
       });
 
-      var UpgradesPanel = createClassReact(
+      var UpgradesPanel = createReactClass(
       {
          propTypes:
          {

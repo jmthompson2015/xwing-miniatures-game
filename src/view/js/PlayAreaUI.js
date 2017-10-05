@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react-dom-factories", "common/js/InputValidator",
   "artifact/js/Difficulty", "artifact/js/ShipFaction", "view/js/ShipImage"],
-   function(createClassReact, PropTypes, DOM, InputValidator, Difficulty, ShipFaction, ShipImage)
+   function(createReactClass, PropTypes, DOM, InputValidator, Difficulty, ShipFaction, ShipImage)
    {
-      var PlayAreaUI = createClassReact(
+      var PlayAreaUI = createReactClass(
       {
          propTypes:
          {

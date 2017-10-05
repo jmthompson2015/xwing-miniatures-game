@@ -4,9 +4,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react-dom-factories", "common/js/InputValidator", "artifact/js/Faction"],
-   function(createClassReact, PropTypes, DOM, InputValidator, Faction)
+   function(createReactClass, PropTypes, DOM, InputValidator, Faction)
    {
-      var PilotCardImage = createClassReact(
+      var PilotCardImage = createReactClass(
       {
          propTypes:
          {

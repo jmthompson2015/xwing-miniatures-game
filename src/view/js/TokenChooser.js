@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
   "view/js/InputPanel", "view/js/OptionPane"],
-   function(createClassReact, PropTypes, React, DOM, InputValidator, InputPanel, OptionPane)
+   function(createReactClass, PropTypes, React, DOM, InputValidator, InputPanel, OptionPane)
    {
-      var TokenChooser = createClassReact(
+      var TokenChooser = createReactClass(
       {
          propTypes:
          {

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react-dom-factories"],
-   function(createClassReact, PropTypes, DOM)
+   function(createReactClass, PropTypes, DOM)
    {
-      var UpgradeTypeUI = createClassReact(
+      var UpgradeTypeUI = createReactClass(
       {
          render: function()
          {

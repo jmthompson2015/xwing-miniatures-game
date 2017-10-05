@@ -2,10 +2,10 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayAugments",
   "view/js/EntityUI", "view/js/InputPanel", "view/js/OptionPane"],
-   function(createClassReact, PropTypes, React, DOM, ArrayAugments,
+   function(createReactClass, PropTypes, React, DOM, ArrayAugments,
       EntityUI, InputPanel, OptionPane)
    {
-      var AbilityChooser = createClassReact(
+      var AbilityChooser = createReactClass(
       {
          propTypes:
          {

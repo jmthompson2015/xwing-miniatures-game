@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Maneuver",
   "view/js/ManeuverChooser", "view/js/OptionPane"],
-   function(createClassReact, PropTypes, React, DOM, Maneuver, ManeuverChooser, OptionPane)
+   function(createReactClass, PropTypes, React, DOM, Maneuver, ManeuverChooser, OptionPane)
    {
-      var PlanningPanel = createClassReact(
+      var PlanningPanel = createReactClass(
       {
          propTypes:
          {

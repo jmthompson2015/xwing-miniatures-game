@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayAugments", "common/js/InputValidator", "common/js/ObjectAugments"],
-   function(createClassReact, PropTypes, React, DOM, ArrayAugments, InputValidator, ObjectAugments)
+   function(createReactClass, PropTypes, React, DOM, ArrayAugments, InputValidator, ObjectAugments)
    {
-      var InputPanel = createClassReact(
+      var InputPanel = createReactClass(
       {
          getInitialState: function()
          {

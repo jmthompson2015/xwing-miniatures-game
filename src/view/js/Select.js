@@ -5,9 +5,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react-dom-factories", "common/js/InputValidator"],
-   function(createClassReact, PropTypes, DOM, InputValidator)
+   function(createReactClass, PropTypes, DOM, InputValidator)
    {
-      var Select = createClassReact(
+      var Select = createReactClass(
       {
          getInitialState: function()
          {

@@ -3,11 +3,11 @@
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Phase",
   "view/js/EntityUI", "view/js/InputPanel", "view/js/OptionPane"],
-   function(createClassReact, PropTypes, React, DOM, InputValidator,
+   function(createReactClass, PropTypes, React, DOM, InputValidator,
       AttackDiceValue, DefenseDiceValue, Phase,
       EntityUI, InputPanel, OptionPane)
    {
-      var CombatUI = createClassReact(
+      var CombatUI = createReactClass(
       {
          propTypes:
          {
@@ -217,7 +217,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
        *
        * @param dice Attack dice. (required)
        */
-      CombatUI.AttackDiceUI = createClassReact(
+      CombatUI.AttackDiceUI = createReactClass(
       {
          propTypes:
          {
@@ -268,7 +268,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
        *
        * @param defenseDice Defense dice. (optional)
        */
-      CombatUI.DefenseDiceUI = createClassReact(
+      CombatUI.DefenseDiceUI = createReactClass(
       {
          propTypes:
          {
@@ -316,7 +316,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
          },
       });
 
-      CombatUI.ModifyAttackUI = createClassReact(
+      CombatUI.ModifyAttackUI = createReactClass(
       {
          propTypes:
          {
@@ -358,7 +358,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
          },
       });
 
-      CombatUI.ModifyDefenseUI = createClassReact(
+      CombatUI.ModifyDefenseUI = createReactClass(
       {
          propTypes:
          {
@@ -407,7 +407,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
        *
        * @param criticalHitCount Critical hit count. (required)
        */
-      CombatUI.DamageUI = createClassReact(
+      CombatUI.DamageUI = createReactClass(
       {
          propTypes:
          {

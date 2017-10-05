@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
   "artifact/js/ShipState", "artifact/js/Faction", "view/js/LabeledImage"],
-   function(createClassReact, PropTypes, React, DOM, InputValidator, ShipState, Faction, LabeledImage)
+   function(createReactClass, PropTypes, React, DOM, InputValidator, ShipState, Faction, LabeledImage)
    {
-      var ShipStateUI = createClassReact(
+      var ShipStateUI = createReactClass(
       {
          render: function()
          {

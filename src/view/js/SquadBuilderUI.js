@@ -3,11 +3,11 @@
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "redux", "common/js/InputValidator",
   "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/ShipState", "artifact/js/ShipFaction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
   "view/js/FactionUI", "view/js/ImplementedImage", "view/js/PilotCardImage", "view/js/PilotChooser", "view/js/ShipCardUI", "view/js/ShipChooser", "view/js/SquadColumns", "view/js/ShipStateUI", "view/js/UpgradeCardImage", "view/js/UpgradeChooser", "view/js/UpgradeTypeComparator"],
-   function(createClassReact, PropTypes, React, DOM, Redux, InputValidator,
+   function(createReactClass, PropTypes, React, DOM, Redux, InputValidator,
       PilotCard, Ship, ShipState, ShipFaction, UpgradeCard, UpgradeType,
       FactionUI, ImplementedImage, PilotCardImage, PilotChooser, ShipCardUI, ShipChooser, SquadColumns, ShipStateUI, UpgradeCardImage, UpgradeChooser, UpgradeTypeComparator)
    {
-      var SquadBuilderUI = createClassReact(
+      var SquadBuilderUI = createReactClass(
       {
          propTypes:
          {

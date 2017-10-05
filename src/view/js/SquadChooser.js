@@ -2,9 +2,9 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
   "view/js/Select", "view/js/SquadUI"],
-   function(createClassReact, PropTypes, React, DOM, InputValidator, Select, SquadUI)
+   function(createReactClass, PropTypes, React, DOM, InputValidator, Select, SquadUI)
    {
-      var SquadChooser = createClassReact(
+      var SquadChooser = createReactClass(
       {
          propTypes:
          {

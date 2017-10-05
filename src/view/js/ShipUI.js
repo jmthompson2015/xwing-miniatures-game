@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react-dom-factories", "view/js/ShipImage"],
-   function(createClassReact, PropTypes, DOM, ShipImage)
+   function(createReactClass, PropTypes, DOM, ShipImage)
    {
-      var ShipUI = createClassReact(
+      var ShipUI = createReactClass(
       {
          propTypes:
          {

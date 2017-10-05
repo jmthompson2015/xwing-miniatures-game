@@ -3,10 +3,10 @@
 define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/Maneuver", "artifact/js/ShipFaction",
   "view/js/ManeuverChooser", "view/js/ShipActionPanel", "view/js/ShipSilhouetteUI", "view/js/ShipUI"],
-   function(createClassReact, PropTypes, React, DOM, Maneuver, ShipFaction,
+   function(createReactClass, PropTypes, React, DOM, Maneuver, ShipFaction,
       ManeuverChooser, ShipActionPanel, ShipSilhouetteUI, ShipUI)
    {
-      var ShipCardUI = createClassReact(
+      var ShipCardUI = createReactClass(
       {
          propTypes:
          {

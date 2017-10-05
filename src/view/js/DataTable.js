@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator"],
-   function(createClassReact, PropTypes, React, DOM, InputValidator)
+   function(createReactClass, PropTypes, React, DOM, InputValidator)
    {
-      var DataTable = createClassReact(
+      var DataTable = createReactClass(
       {
          propTypes:
          {
