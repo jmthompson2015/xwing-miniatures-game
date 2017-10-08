@@ -16,7 +16,7 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             var icon = DOM.img(
             {
                key: myKey,
-               className: "upgradeTypeUIImage",
+               className: "upgradeTypeUIImage v-mid",
                src: fileString,
                title: typeName0,
             });
@@ -26,7 +26,9 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             if (this.props.showName)
             {
                answer = DOM.span(
-               {}, icon, " ", upgradeType.name);
+               {
+                  className: "v-mid",
+               }, icon, " ", upgradeType.name);
             }
 
             return answer;

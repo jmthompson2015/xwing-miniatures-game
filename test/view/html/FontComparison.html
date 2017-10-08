@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FontComparison</title>
+
+	<link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../../../src/view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="../js/require-config.js"></script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<div id="panel"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "view/js/Button"],
+			function(React, ReactDOM, DOM, Logger, Button)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+				var cellClass = "ba pa1";
+				var rows = [];
+
+				// var cells = [];
+				// cells.push(DOM.td(
+				// {
+				// 	key: "title0" + cells.length,
+				// 	className: cellClass,
+				// 	style:
+				// 	{
+				// 		fontSize: "medium",
+				// 	}
+				// }, "font-size: medium"));
+				// cells.push(DOM.td(
+				// {
+				// 	key: "sampleText0" + cells.length,
+				// 	className: cellClass,
+				// 	style:
+				// 	{
+				// 		fontSize: "medium",
+				// 	}
+				// }, "Sample Text"));
+				// cells.push(DOM.td(
+				// {
+				// 	key: "sampleText0" + cells.length,
+				// 	className: cellClass + " f5",
+				// }, "Sample Text"));
+				// cells.push(DOM.td(
+				// {
+				// 	key: "title0" + cells.length,
+				// 	className: cellClass + " f5",
+				// }, "f5"));
+				// rows.push(DOM.tr(
+				// {
+				// 	key: rows.length,
+				// }, cells));
+				//
+				// var cells = [];
+				// cells.push(DOM.td(
+				// {
+				// 	key: "title0" + cells.length,
+				// 	className: cellClass,
+				// 	style:
+				// 	{
+				// 		fontSize: "small",
+				// 	}
+				// }, "font-size: small"));
+				// cells.push(DOM.td(
+				// {
+				// 	key: "sampleText0" + cells.length,
+				// 	className: cellClass,
+				// 	style:
+				// 	{
+				// 		fontSize: "small",
+				// 	}
+				// }, "Sample Text"));
+				// cells.push(DOM.td(
+				// {
+				// 	key: "sampleText0" + cells.length,
+				// 	className: cellClass + " f6",
+				// }, "Sample Text"));
+				// cells.push(DOM.td(
+				// {
+				// 	key: "title0" + cells.length,
+				// 	className: cellClass + " f6",
+				// }, "f6"));
+				// rows.push(DOM.tr(
+				// {
+				// 	key: rows.length,
+				// }, cells));
+				var cells = [];
+				cells.push(DOM.th(
+				{
+					className: "ba",
+				}, "CSS"));
+				cells.push(DOM.th(
+				{
+					className: "ba",
+				}, "Example"));
+				cells.push(DOM.th(
+				{
+					className: "ba",
+				}, "Example"));
+				cells.push(DOM.th(
+				{
+					className: "ba",
+				}, "Tachyons"));
+				rows.push(DOM.tr(
+				{
+					className: "bg-light-silver",
+				}, cells));
+				rows.push(createRow("xx-large", "f1"));
+				rows.push(createRow("x-large", "f2"));
+				rows.push(createRow("large", "f3"));
+				rows.push(createRow("large", "f4"));
+				rows.push(createRow("medium", "f5"));
+				rows.push(createRow("small", "f6"));
+				rows.push(createRow("x-small", "f7"));
+
+				ReactDOM.render(DOM.table(
+				{
+					className: "ba bg-xw-light center mt4",
+				}, DOM.tbody(
+				{}, rows)), document.getElementById("panel"));
+
+				function createRow(fontSize, fontClass)
+				{
+
+					var cells = [];
+					cells.push(DOM.td(
+					{
+						key: "title0" + cells.length,
+						className: cellClass,
+						style:
+						{
+							fontSize: fontSize,
+						}
+					}, "font-size: " + fontSize));
+					cells.push(DOM.td(
+					{
+						key: "sampleText0" + cells.length,
+						className: cellClass,
+						style:
+						{
+							fontSize: fontSize,
+						}
+					}, "Sample Text"));
+					cells.push(DOM.td(
+					{
+						key: "sampleText0" + cells.length,
+						className: cellClass + " " + fontClass,
+					}, "Sample Text"));
+					cells.push(DOM.td(
+					{
+						key: "title0" + cells.length,
+						className: cellClass + " " + fontClass,
+					}, fontClass));
+
+					return DOM.tr(
+					{
+						key: rows.length,
+					}, cells);
+				}
+			});
+	</script>
+</body>
+
+</html>

@@ -22,7 +22,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                cells.push(DOM.div(
                {
                   key: "iconPanel",
-                  className: "iconPanel",
+                  className: "iconPanel dtc tl v-mid",
                }, icon));
             }
 
@@ -32,7 +32,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                cells.push(DOM.div(
                {
                   key: "labelPanel",
-                  className: "labelPanel",
+                  className: "labelPanel dtc pl1 tl v-mid",
                }, label));
             }
 
@@ -42,7 +42,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                cells.push(DOM.div(
                {
                   key: "implementedPanel",
-                  className: "implementedPanel",
+                  className: "implementedPanel dtc pl1 tr v-mid",
                }, implementedImage));
             }
 
@@ -58,7 +58,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             var resourceBase = this.props.resourceBase;
             var type = entity.xwingType;
             var key = "iconCell";
-            var className = "icon";
             var answer;
 
             switch (type)
@@ -68,7 +67,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = DOM.img(
                   {
                      key: key,
-                     className: className,
                      src: filename,
                      title: "Critical Damage",
                   });
@@ -77,7 +75,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(ShipActionUI,
                   {
                      key: key,
-                     className: className,
                      resourceBase: resourceBase,
                      shipAction: entity.shipAction,
                   });
@@ -86,7 +83,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(FactionUI,
                   {
                      key: key,
-                     className: className,
                      faction: entity.shipFaction.faction,
                      resourceBase: resourceBase,
                      isSmall: true,
@@ -96,7 +92,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(ShipSilhouetteUI,
                   {
                      key: key,
-                     className: className,
                      resourceBase: resourceBase,
                      ship: entity,
                   });
@@ -105,7 +100,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(ShipActionUI,
                   {
                      key: key,
-                     className: className,
                      resourceBase: resourceBase,
                      shipAction: entity,
                   });
@@ -114,7 +108,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(UpgradeTypeUI,
                   {
                      key: key,
-                     className: className,
                      resourceBase: resourceBase,
                      upgradeType: entity.type,
                   });
@@ -143,7 +136,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(ImplementedImage,
                   {
                      key: "implementedCell",
-                     className: "implemented",
                      resourceBase: this.props.resourceBase,
                      isImplemented: isImplemented,
                   });
@@ -188,7 +180,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             return DOM.span(
             {
                key: "labelCell",
-               className: "label",
                title: title,
             }, name);
          },

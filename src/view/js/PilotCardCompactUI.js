@@ -43,14 +43,14 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             var colSpan0 = (myTokenAft ? 2 : 1);
             var cell1 = createCell(DOM.div(
             {
-               className: "pilotCardStatsTable",
-            }, this.createStatsPanel(myToken)), "statsPanel0", "pilotCardStatsPanel");
-            var cell2 = createCell(this.createUpgradesPanel(myToken), "upgradesPanel0", "pilotCardUpgradesPanel");
+               className: "pilotCardStatsTable bg-xw-jet center",
+            }, this.createStatsPanel(myToken)), "statsPanel0");
+            var cell2 = createCell(this.createUpgradesPanel(myToken), "upgradesPanel0", "v-top");
             var cell3 = createCell(DOM.div(
             {
-               className: "pilotCardTokensTable",
-            }, this.createTokensPanel(myToken, attackerTargetLocks, defenderTargetLocks)), "tokensPanel0", "pilotCardTokensPanel");
-            var cell4 = createCell(this.createCriticalDamagesPanel(myToken), "damagesPanel0", "pilotCardCriticalDamagesPanel");
+               className: "pilotCardTokensTable bg-xw-medium center",
+            }, this.createTokensPanel(myToken, attackerTargetLocks, defenderTargetLocks)), "tokensPanel0");
+            var cell4 = createCell(this.createCriticalDamagesPanel(myToken), "damagesPanel0", "v-top");
 
             rows.push(DOM.tr(
             {
@@ -64,14 +64,14 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             {
                var cell11 = createCell(DOM.div(
                {
-                  className: "pilotCardStatsTable",
-               }, this.createStatsPanel(myTokenAft)), "statsPanel1", "pilotCardStatsPanel");
-               var cell22 = createCell(this.createUpgradesPanel(myTokenAft), "upgradesPanel1", "pilotCardUpgradesPanel");
-               var cell44 = createCell(this.createCriticalDamagesPanel(myTokenAft), "damagesPanel1", "pilotCardCriticalDamagesPanel");
+                  className: "pilotCardStatsTable bg-xw-jet center",
+               }, this.createStatsPanel(myTokenAft)), "statsPanel1");
+               var cell22 = createCell(this.createUpgradesPanel(myTokenAft), "upgradesPanel1", "v-top");
+               var cell44 = createCell(this.createCriticalDamagesPanel(myTokenAft), "damagesPanel1", "v-top");
                var cell33 = createCell(DOM.div(
                {
-                  className: "pilotCardTokensTable",
-               }, this.createTokensPanel(myTokenAft, attackerAftTargetLocks, defenderAftTargetLocks)), "tokensPanel1", "pilotCardTokensPanel");
+                  className: "pilotCardTokensTable bg-xw-medium center",
+               }, this.createTokensPanel(myTokenAft, attackerAftTargetLocks, defenderAftTargetLocks)), "tokensPanel1");
 
                rows.push(createRow([cell1, cell11], "statsRow"));
                rows.push(createRow([cell2, cell22], "upgradeRow"));
@@ -88,7 +88,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
             var key = "mainTable" + token.id();
 
-            return createTable(rows, key, "pilotCard");
+            return createTable(rows, key, "pilotCard bg-xw-dark f6");
          },
 
          createCriticalDamagesPanel: function(token, key, className)
@@ -176,7 +176,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                rows.push(createRow(cell, rowKey));
             }, this);
 
-            return createTable(rows, "damagesTable", "pilotCardCriticalDamagesTable");
+            return createTable(rows, "damagesTable", "pilotCardCriticalDamagesTable bg-moon-gray center w-100");
          }
       });
 
@@ -206,7 +206,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                faction: this.props.faction,
                resourceBase: this.props.resourceBase,
                label: String(this.props.pilotSkillValue),
-               labelClass: "pilotSkillValue",
+               labelClass: "pilotSkillValue orange f5",
                showOne: true,
             });
             var description = (this.props.pilotDescription ? this.props.pilotDescription : "Name");
@@ -220,7 +220,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             {
                key: cells.length,
                title: description,
-               className: "pilotCardNameCell",
+               className: "pilotCardNameCell ba bg-xw-light",
                colSpan: (this.props.shipAftName ? 2 : 1),
             }, this.props.pilotName));
 
@@ -232,7 +232,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   faction: this.props.faction,
                   resourceBase: this.props.resourceBase,
                   label: String(this.props.pilotAftSkillValue),
-                  labelClass: "pilotSkillValue",
+                  labelClass: "pilotSkillValue orange f5",
                });
                cells.push(DOM.td(
                {
@@ -249,6 +249,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             cells.push(DOM.td(
             {
                key: cells.length,
+               className: "tr",
                rowSpan: 2,
             }, factionImage));
             rows.push(createRow(cells, rows.length));
@@ -256,16 +257,16 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             cells = [];
             if (this.props.shipAftName)
             {
-               cells.push(createCell(this.props.shipName, cells.length, "pilotCardNameCell", "Ship"));
-               cells.push(createCell(this.props.shipAftName, cells.length, "pilotCardNameCell", "Ship"));
+               cells.push(createCell(this.props.shipName, cells.length, "pilotCardNameCell ba bg-xw-light", "Ship"));
+               cells.push(createCell(this.props.shipAftName, cells.length, "pilotCardNameCell ba bg-xw-light", "Ship"));
             }
             else
             {
-               cells.push(createCell(this.props.shipName, cells.length, "pilotCardNameCell", "Ship"));
+               cells.push(createCell(this.props.shipName, cells.length, "pilotCardNameCell ba bg-xw-light", "Ship"));
             }
             rows.push(createRow(cells, rows.length));
 
-            return createTable(rows, "nameTable", "pilotCardNameTable");
+            return createTable(rows, "nameTable", "pilotCardNameTable w-100");
          },
       });
 
@@ -300,7 +301,8 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                      faction: faction,
                      resourceBase: this.props.resourceBase,
                   });
-                  var className = shipState.key + "Value";
+
+                  var className = shipState.numberClass;
                   cells.push(createCell(image, shipState.key + "0", className, shipState.name));
                   cells.push(createCell(shipStateValue, shipState.key + "1", className, shipState.name));
                }
@@ -308,7 +310,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
             var row = createRow(cells);
 
-            return createTable(row, "statsTable", "pilotCardStatsTable");
+            return createTable(row, "statsTable", "pilotCardStatsTable bg-dark-gray center");
          },
       });
 
@@ -342,7 +344,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                      image: count.image,
                      resourceBase: this.props.resourceBase,
                      label: String(countValue),
-                     labelClass: "lightImageText",
+                     labelClass: "lightImageText b f5 white",
                      title: count.name,
                   });
                   cells.push(createCell(element, count.key + countValue));
@@ -357,7 +359,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   image: "token/AttackerTargetLock32.png",
                   resourceBase: this.props.resourceBase,
                   label: targetLock.id(),
-                  labelClass: "lightImageText",
+                  labelClass: "lightImageText b f5 white",
                   title: title,
                   width: 38,
                });
@@ -373,7 +375,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   image: "token/DefenderTargetLock32.png",
                   resourceBase: this.props.resourceBase,
                   label: targetLock.id(),
-                  labelClass: "lightImageText",
+                  labelClass: "lightImageText b f5 white",
                   title: title,
                   width: 38,
                });
@@ -388,7 +390,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   image: "pilotCard/Damage32.jpg",
                   resourceBase: this.props.resourceBase,
                   label: String(myToken.damageCount()),
-                  labelClass: "darkImageText",
+                  labelClass: "darkImageText b black f5",
                   title: "Damage",
                });
                cells.push(createCell(element, "damageCell" + myToken.damageCount()));
@@ -396,7 +398,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
             var row = createRow(cells);
 
-            return createTable(row, "tokensTable", "pilotCardTokensTable");
+            return createTable(row, "tokensTable", "pilotCardTokensTable bg-xw-medium center");
          },
       });
 
@@ -427,17 +429,17 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                var cell = DOM.div(
                {
                   key: cellKey,
-                  className: "pilotCardUpgradeCell",
+                  className: "pilotCardUpgradeCell pr1 tl",
                }, element);
                rows.push(cell);
             }, this);
 
-            var scrollClass = (upgradeKeys.size > 2 ? " height48 overflowYScroll" : "");
+            var scrollClass = (upgradeKeys.size > 2 ? " xw-height48 overflowYScroll overflow-y-scroll" : "");
 
             return DOM.div(
             {
                key: "upgradesTable",
-               className: "pilotCardUpgradesTable" + scrollClass,
+               className: "pilotCardUpgradesTable bg-xw-medium center w-100" + scrollClass,
             }, rows);
          }
       });

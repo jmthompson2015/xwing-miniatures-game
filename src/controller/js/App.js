@@ -8,7 +8,7 @@ require(["react", "react-dom", "react-redux", "redux", "artifact/js/Faction",
       AgentSquadAction, AgentSquadReducer, EnvironmentAction, Game, MediumAgent, Reducer, SquadBuilder,
       NewGamePanel, AgentSquadContainer, HumanAgent, PilotsContainer, PlayAreaContainer, StatusBarContainer)
    {
-      var resourceBase = "https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/view/resource/";
+      var resourceBase = "view/resource/";
 
       // Create initial agents and tokens.
       var store0 = Redux.createStore(Reducer.root);

@@ -3,51 +3,34 @@
 <head>
 	<title>MyTestEntityUI</title>
 
+	<link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
 	<link rel="stylesheet" href="../../../src/view/css/style.css">
 
 	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
 	<script src="../js/require-config.js"></script>
 	<script src="../../../src/main.js"></script>
 
-	<style>
-		.mainPanel {
-			background-color: #F0F0F0;
-			border: 1px solid lightGray;
-			display: table;
-			font-size: small;
-			margin-bottom: 10px;
-		}
-
-		.inputRow {
-			display: table-row;
-		}
-
-		.inputCell {
-			display: table-cell;
-			vertical-align: middle;
-		}
-	</style>
 </head>
 <body>
-	<div style="display: table-row;">
-		<div id="panel0" style="display: table-cell;"></div>
-		<div id="panel20" style="display: table-cell;"></div>
+	<div class="dtr">
+		<div id="panel0" class="dtc"></div>
+		<div id="panel20" class="dtc"></div>
 	</div>
-	<div style="display: table-row;">
-		<div id="panel1" style="display: table-cell;"></div>
-		<div id="panel21" style="display: table-cell;"></div>
+	<div class="dtr">
+		<div id="panel1" class="dtc"></div>
+		<div id="panel21" class="dtc"></div>
 	</div>
-	<div style="display: table-row;">
-		<div id="panel2" style="display: table-cell;"></div>
-		<div id="panel22" style="display: table-cell;"></div>
+	<div class="dtr">
+		<div id="panel2" class="dtc"></div>
+		<div id="panel22" class="dtc"></div>
 	</div>
-	<div style="display: table-row;">
-		<div id="panel3" style="display: table-cell;"></div>
-		<div id="panel23" style="display: table-cell;"></div>
+	<div class="dtr">
+		<div id="panel3" class="dtc"></div>
+		<div id="panel23" class="dtc"></div>
 	</div>
-	<div style="display: table-row;">
-		<div id="panel4" style="display: table-cell;"></div>
-		<div id="panel24" style="display: table-cell;"></div>
+	<div class="dtr">
+		<div id="panel4" class="dtc"></div>
+		<div id="panel24" class="dtc"></div>
 	</div>
 	<script>
 		"use strict";
@@ -95,7 +78,6 @@
 						case 0:
 							input = DOM.input(
 							{
-								className: "radioInput",
 								name: "testInput",
 								type: InputPanel.Type.RADIO,
 							});
@@ -126,9 +108,9 @@
 						var element = React.createElement(EntityUI,
 						{
 							key: "childDiv" + i,
-							className: "elementCell",
 							context: contexts[i],
 							entity: entity,
+							panelClass: "dtc",
 							resourceBase: resourceBase,
 							showIcon: showIcon,
 							showLabel: showLabel,
@@ -137,17 +119,17 @@
 						return DOM.div(
 						{
 							key: "inputRow" + i,
-							className: "inputRow",
+							className: "dtr mv1",
 						}, DOM.div(
 						{
 							key: "inputCell" + i,
-							className: "inputCell",
+							className: "dtc mv1 pr1 v-mid",
 						}, input), element);
 					});
 
 					ReactDOM.render(DOM.div(
 					{
-						className: "mainPanel",
+						className: "bg-near-white dt f6 mb1",
 					}, rows), document.getElementById("panel" + j));
 
 					var rows = entities.map(function(entity, i)
@@ -155,7 +137,6 @@
 						var element = React.createElement(EntityUI,
 						{
 							key: "childDiv" + i,
-							className: "elementCell",
 							context: contexts[i],
 							entity: entity,
 							resourceBase: resourceBase,
@@ -166,21 +147,20 @@
 						return DOM.tr(
 						{
 							key: "inputRow" + i,
-							className: "inputRow",
+							className: "dtr",
 						}, DOM.td(
 						{
 							key: "inputCell" + i,
-							className: "inputCell",
+							className: "dtc pr1 v-mid",
 						}, input), DOM.td(
 						{
 							key: "elementCell" + i,
-							className: "elementCell",
 						}, element));
 					});
 
 					ReactDOM.render(DOM.table(
 					{
-						className: "mainPanel",
+						className: "bg-near-white dt f6 mb1",
 					}, DOM.tbody(
 					{}, rows)), document.getElementById("panel2" + j));
 				}

@@ -5,11 +5,11 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/DamageCardTrait"],
    {
       QUnit.module("DamageCard");
 
-      QUnit.test("DamageCard properties Blinded PilotCard", function(assert)
+      QUnit.test("DamageCard properties Blinded Pilot", function(assert)
       {
          var damage = DamageCard.BLINDED_PILOT;
          var properties = DamageCard.properties[damage];
-         assert.equal(properties.name, "Blinded PilotCard");
+         assert.equal(properties.name, "Blinded Pilot");
          assert.equal(properties.trait, DamageCardTrait.PILOT);
          assert.equal(properties.description,
             "The next time you attack, do not roll any attack dice. Then flip this card facedown.");

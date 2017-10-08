@@ -6,7 +6,7 @@ define(function()
       {
          key: "pilot",
          label: "Ship / Pilot / Upgrade",
-         className: "squadUIPilotName",
+         className: "squadUIPilotName tl",
       },
       {
          key: "isImplemented",
@@ -15,37 +15,37 @@ define(function()
       {
          key: "pilotSkillValue",
          label: "Skill",
-         className: "numberCell",
+         className: "numberCell tr",
       },
       {
          key: "primaryWeaponValue",
          label: "Primary Weapon",
-         className: "numberCell",
+         className: "numberCell tr",
       },
       {
          key: "energyValue",
          label: "Energy",
-         className: "numberCell",
+         className: "numberCell tr",
       },
       {
          key: "agilityValue",
          label: "Agility",
-         className: "numberCell",
+         className: "numberCell tr",
       },
       {
          key: "hullValue",
          label: "Hull",
-         className: "numberCell",
+         className: "numberCell tr",
       },
       {
          key: "shieldValue",
          label: "Shield",
-         className: "numberCell",
+         className: "numberCell tr",
       },
       {
          key: "squadPointCost",
          label: "Points",
-         className: "numberCell",
+         className: "numberCell tr",
       },
      ];
 

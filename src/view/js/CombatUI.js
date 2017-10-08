@@ -2,10 +2,10 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Phase",
-  "view/js/EntityUI", "view/js/InputPanel", "view/js/OptionPane"],
+  "view/js/Button", "view/js/EntityUI", "view/js/InputPanel", "view/js/OptionPane"],
    function(createReactClass, PropTypes, React, DOM, InputValidator,
       AttackDiceValue, DefenseDiceValue, Phase,
-      EntityUI, InputPanel, OptionPane)
+      Button, EntityUI, InputPanel, OptionPane)
    {
       var CombatUI = createReactClass(
       {
@@ -63,9 +63,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             {
                key: rows.length,
             }, DOM.td(
-            {
-               className: "combatDicePanel",
-            }, attackPanel)));
+            {}, attackPanel)));
 
             if (phase.key === Phase.COMBAT_MODIFY_ATTACK_DICE && modifications !== undefined)
             {
@@ -106,9 +104,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                {
                   key: rows.length,
                }, DOM.td(
-               {
-                  className: "combatDicePanel",
-               }, defensePanel)));
+               {}, defensePanel)));
 
                if (phase.key === Phase.COMBAT_MODIFY_DEFENSE_DICE && modifications !== undefined)
                {
@@ -147,27 +143,22 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             }
 
             var message = DOM.table(
-            {
-               className: "combatPanel",
-            }, DOM.tbody(
+            {}, DOM.tbody(
             {}, rows));
-            var okButton = DOM.button(
+            var okButton = React.createElement(Button,
             {
                key: 0,
+               name: "OK",
                onClick: this.ok,
-            }, "OK");
+            });
             var buttons = DOM.span(
             {}, [okButton]);
 
             return React.createElement(OptionPane,
             {
-               panelClass: "optionPane",
                title: this.createTitle(phase),
-               titleClass: "optionPaneTitle",
                message: message,
-               messageClass: "combatMessage",
                buttons: buttons,
-               buttonsClass: "optionPaneButtons",
             });
          },
 
@@ -244,7 +235,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
             return DOM.table(
             {
-               className: "combatDicePanel",
+               className: "combatDicePanel center",
             }, DOM.tbody(
             {}, DOM.tr(
             {}, columns)));
@@ -297,7 +288,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
             return DOM.table(
             {
-               className: "combatDicePanel",
+               className: "combatDicePanel center",
             }, DOM.tbody(
             {}, DOM.tr(
             {}, columns)));

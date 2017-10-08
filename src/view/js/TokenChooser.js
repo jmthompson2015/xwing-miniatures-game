@@ -1,8 +1,8 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
-  "view/js/InputPanel", "view/js/OptionPane"],
-   function(createReactClass, PropTypes, React, DOM, InputValidator, InputPanel, OptionPane)
+  "view/js/Button", "view/js/InputPanel", "view/js/OptionPane"],
+   function(createReactClass, PropTypes, React, DOM, InputValidator, Button, InputPanel, OptionPane)
    {
       var TokenChooser = createReactClass(
       {
@@ -35,9 +35,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             var tokens = this.props.tokens;
 
             var message = (this.props.attacker !== undefined ? DOM.div(
-            {
-               className: "attackerLabel"
-            }, "Attacker: " + attacker.name()) : "");
+            {}, "Attacker: " + attacker.name()) : "");
             var inputPanelName = (this.props.inputPanelName ? this.props.inputPanelName : "tokenChooserRadioButtons");
             var idFunction = function(token)
             {
@@ -57,32 +55,30 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                labelFunction: labelFunction,
                initialValues: initialValue,
                onChange: this.selectionChanged,
-               panelClass: "optionPaneInput",
+               panelClass: "optionPaneInput f6 mh2 ph2 tl",
             });
 
-            var cancelButton = DOM.button(
+            var cancelButton = React.createElement(Button,
             {
                key: 0,
+               name: "Cancel",
                onClick: this.cancel,
-            }, "Cancel");
-            var okButton = DOM.button(
+            });
+            var okButton = React.createElement(Button,
             {
                key: 1,
+               name: "OK",
                onClick: this.ok,
-            }, "OK");
+            });
             var buttons = DOM.span(
-            {}, [cancelButton, okButton]);
+            {}, cancelButton, " ", okButton);
 
             return React.createElement(OptionPane,
             {
-               panelClass: "optionPane",
                title: title,
-               titleClass: "optionPaneTitle",
                message: message,
-               messageClass: "optionPaneMessage",
                initialInput: initialInput,
                buttons: buttons,
-               buttonsClass: "optionPaneButtons",
             });
          },
 

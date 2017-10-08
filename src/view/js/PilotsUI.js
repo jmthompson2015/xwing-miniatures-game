@@ -25,7 +25,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "vie
                return DOM.td(
                {
                   key: i,
-                  className: "alignTop",
+                  className: "alignTop v-top",
                }, element);
             }, this);
 
@@ -34,12 +34,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "vie
 
             var myTable = DOM.table(
             {
-               style:
-               {
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "textAlign": "center",
-               },
+               className: "center"
             }, DOM.tbody(
             {}, row));
 

@@ -42,7 +42,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
             });
             var self = this;
 
-            var myHtml = [];
+            var rows = [];
             var cell;
 
             if (pilotName)
@@ -51,9 +51,10 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                {
                   colSpan: bearingValues.length + 1,
                }, pilotName);
-               myHtml.push(DOM.tr(
+               rows.push(DOM.tr(
                {
-                  key: myHtml.length,
+                  key: rows.length,
+                  className: "pilotName bg-xw-light black f6",
                   id: "pilotName",
                }, cell));
             }
@@ -64,9 +65,10 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                {
                   colSpan: bearingValues.length + 1,
                }, shipName);
-               myHtml.push(DOM.tr(
+               rows.push(DOM.tr(
                {
-                  key: myHtml.length,
+                  key: rows.length,
+                  className: "shipName bg-xw-light black f6",
                   id: "shipName",
                }, cell));
             }
@@ -79,7 +81,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "maneuverCell",
+                  className: "maneuverCell b--xw-medium",
                }, speed));
 
                if (speed === 0)
@@ -90,12 +92,12 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell",
+                     className: "maneuverCell b--xw-medium",
                   }, " "));
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell",
+                     className: "maneuverCell b--xw-medium",
                   }, " "));
                   image = DOM.img(
                   {
@@ -104,7 +106,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell",
+                     className: "maneuverCell b--xw-medium xw-min-w1-5",
                      onClick: (isEditable ? self.selectionChanged : undefined),
                      "data-tokenid": tokenId,
                      "data-maneuverkey": maneuver.key,
@@ -112,12 +114,12 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell",
+                     className: "maneuverCell b--xw-medium",
                   }, " "));
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell",
+                     className: "maneuverCell b--xw-medium",
                   }, " "));
                }
                else
@@ -149,7 +151,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                            cells.push(DOM.td(
                            {
                               key: cells.length,
-                              className: "maneuverCell",
+                              className: "maneuverCell b--xw-medium xw-min-w1-5",
                               onClick: (isEditable ? self.selectionChanged : undefined),
                               "data-tokenid": tokenId,
                               "data-maneuverkey": maneuver.key,
@@ -160,24 +162,24 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                            cells.push(DOM.td(
                            {
                               key: cells.length,
-                              className: "maneuverCell",
+                              className: "maneuverCell b--xw-medium xw-min-w1-5",
                            }, " "));
                         }
                      }
                   }
                }
 
-               myHtml.push(DOM.tr(
+               rows.push(DOM.tr(
                {
-                  key: myHtml.length,
+                  key: rows.length,
                }, cells));
             }
 
             return DOM.table(
             {
-               className: "maneuverTable",
+               className: "maneuverTable b--xw-medium bg-black center white",
             }, DOM.tbody(
-            {}, myHtml));
+            {}, rows));
          },
 
          findManeuver: function(maneuvers, bearingKey, speed)
@@ -261,7 +263,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
 
             if (oldElement)
             {
-               HtmlUtilities.removeClass(oldElement, "highlight");
+               HtmlUtilities.removeClass(oldElement, "bg-xw-medium");
             }
 
             var element = event.currentTarget;
@@ -272,7 +274,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
             {
                element: element,
             });
-            HtmlUtilities.addClass(element, "highlight");
+            HtmlUtilities.addClass(element, "bg-xw-medium");
 
             var callback = this.props.callback;
 

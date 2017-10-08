@@ -26,18 +26,15 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
                cells.push(DOM.td(
                {
-                  key: i,
-                  className: "shipActionPanelCell",
+                  key: shipActionKey + i,
                }, image));
             }, this);
 
             var row = DOM.tr(
-            {
-               className: "pilotCardUIShipActions"
-            }, cells);
+            {}, cells);
             return DOM.table(
             {
-               className: "pilotCardUIShipActions"
+               className: "pilotCardUIShipActions center bg-xw-light",
             }, DOM.tbody(
             {}, row));
          },

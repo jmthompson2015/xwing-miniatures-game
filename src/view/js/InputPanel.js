@@ -112,12 +112,11 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "inputCell",
                }, input));
                cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "labelCell",
+                  className: "labelCell ph1",
                }, label));
             }
             else if (type === InputPanel.Type.TEXT)
@@ -125,19 +124,17 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "labelCell",
+                  className: "labelCell ph1",
                }, label));
                cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "inputCell",
                }, input));
             }
 
             return DOM.tr(
             {
                key: "row" + value + i,
-               className: "row",
             }, cells);
          },
 

@@ -40,27 +40,27 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             cells.push(DOM.td(
             {
                key: cells.length,
-               className: "statusBarUICell",
+               className: "statusBarUICell ba",
             }, roundUI));
             cells.push(DOM.td(
             {
                key: cells.length,
-               className: "statusBarUICell",
+               className: "statusBarUICell ba",
             }, phaseUI));
             cells.push(DOM.td(
             {
                key: cells.length,
-               className: "statusBarUICell",
+               className: "statusBarUICell ba",
             }, activePilotUI));
             cells.push(DOM.td(
             {
                key: cells.length,
-               className: "statusBarUICell",
+               className: "statusBarUICell ba",
             }, messageAreaUI));
             cells.push(DOM.td(
             {
                key: cells.length,
-               className: "statusBarUICell",
+               className: "statusBarUICell ba",
             }, helpLinkUI));
 
             var row = DOM.tr(
@@ -68,7 +68,7 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
 
             return DOM.table(
             {
-               className: "statusBarUI",
+               className: "statusBarUI bg-xw-light w-100",
             }, DOM.tbody(
             {}, row));
          },

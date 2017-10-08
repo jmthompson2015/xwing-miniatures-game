@@ -88,16 +88,14 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
 
             var squadUI = DOM.table(
             {
-               className: "squadUI",
+               className: "squadUI bg-xw-light f6 fl",
             }, DOM.tbody(
             {}, rows));
 
             if (this.props.displayItem !== undefined)
             {
                return DOM.div(
-               {
-                  className: "squadBuilderUI",
-               }, squadUI, this.createDisplayItemUI());
+               {}, squadUI, this.createDisplayItemUI());
             }
             else
             {
@@ -142,7 +140,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                      answer = React.createElement(ShipCardUI,
                      {
                         key: "shipCard" + displayItem.key,
-                        className: "shipCardUI",
+                        className: "shipCardUI fl",
                         resourceBase: this.props.resourceBase,
                         shipFaction: ShipFaction.properties[shipFactionKey],
                      });
@@ -151,7 +149,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                      answer = React.createElement(PilotCardImage,
                      {
                         key: "pilotCard" + displayItem.key,
-                        className: "pilotCardImage",
+                        className: "pilotCardImage fl",
                         pilot: displayItem,
                      });
                      break;
@@ -159,7 +157,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                      answer = React.createElement(UpgradeCardImage,
                      {
                         key: "upgradeCard" + displayItem.key,
-                        className: "upgradeCardImage",
+                        className: "upgradeCardImage fl",
                         upgrade: displayItem,
                      });
                      break;
@@ -177,13 +175,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             SquadColumns.forEach(function(column)
             {
                var value = 0;
-               var className = "squadUISum";
+               var className = "squadUISum ba bg-xw-medium";
 
                switch (column.key)
                {
                   case "pilot":
                      value = "Totals";
-                     className += " alignRight";
+                     className += " alignRight tr";
                      break;
                   case "isImplemented":
                      value = undefined;
@@ -194,7 +192,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                         var valueFunction = squad[column.key];
                         value = valueFunction.apply(squad);
                      }
-                     className += " alignRight";
+                     className += " alignRight tr";
                }
 
                cells.push(this.createCell("footerCell" + cells.length, className, value));
@@ -221,7 +219,8 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
 
             SquadColumns.forEach(function(column)
             {
-               var value, className;
+               var value;
+               var className = "";
 
                switch (column.key)
                {
@@ -239,9 +238,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                         resourceBase: this.props.resourceBase,
                         shipState: ShipState.properties[shipStateKey],
                      });
-                     className = "alignCenter";
+                     className = "alignCenter center";
                }
-               cells.push(this.createHeaderCell("headerCell" + cells.length, className, value));
+               cells.push(this.createHeaderCell("headerCell" + cells.length, className + " b--black ba bg-xw-dark white", value));
             }, this);
 
             return DOM.tr(
@@ -361,7 +360,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                      }
                }
 
-               cells.push(this.createCell("pilotCell" + cells.length + (pilot ? pilot.key : ""), column.className, value, mouseFunction));
+               cells.push(this.createCell("pilotCell" + cells.length + (pilot ? pilot.key : ""), column.className + " ba", value, mouseFunction));
             }, this);
 
             return DOM.tr(
@@ -413,7 +412,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                      break;
                }
 
-               cells.push(this.createCell("shipCell" + cells.length + (ship ? ship.key : ""), "backgroundMedium " + column.className, value, mouseFunction));
+               cells.push(this.createCell("shipCell" + cells.length + (ship ? ship.key : ""), "backgroundMedium " + column.className + " ba", value, mouseFunction));
             }, this);
 
             return DOM.tr(
@@ -482,7 +481,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                   default:
                      value = (upgradeCard && upgradeCard[column.key] !== undefined ? upgradeCard[column.key] : undefined);
                }
-               cells.push(this.createCell("upgradeCell" + cells.length + upgradeType.key, column.className, value, mouseFunction));
+               cells.push(this.createCell("upgradeCell" + cells.length + upgradeType.key, column.className + " ba", value, mouseFunction));
             }, this);
 
             return DOM.tr(

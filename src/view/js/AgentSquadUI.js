@@ -20,7 +20,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                key: "agentRow",
             }, DOM.td(
             {
-               className: "agentTitle",
+               className: "agentTitle b tc",
                colSpan: 2,
             }, "Agent " + this.props.agentNumber)));
 
@@ -78,7 +78,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
             return DOM.table(
             {
-               className: "agentPanel",
+               className: "agentPanel f5 tl",
             }, DOM.tbody(
             {}, rows));
          },
@@ -90,6 +90,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
             return DOM.input(
             {
                type: "text",
+               className: "f6",
                defaultValue: agentName,
                onChange: this.handleAgentNameChange,
             });

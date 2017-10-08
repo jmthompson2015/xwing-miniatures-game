@@ -55,6 +55,28 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                images.push(this.createShipImage(ShipFaction.RESISTANCE_T_70_X_WING_V2));
             }
 
+            var imagePanel;
+
+            if (images.length === 1)
+            {
+               imagePanel = images;
+            }
+            else
+            {
+               imagePanel = DOM.table(
+               {
+                  className: "center",
+               }, DOM.tbody(
+               {}, DOM.tr(
+               {}, images.map(function(image)
+               {
+                  return DOM.td(
+                  {
+                     className: "ph1",
+                  }, image);
+               }))));
+            }
+
             var silhouette = React.createElement(ShipSilhouetteUI,
             {
                ship: shipFaction.ship,
@@ -103,12 +125,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             cell0 = DOM.td(
             {
                key: "image" + shipFactionKey,
-               className: "galleryCell",
-            }, images);
+               className: "galleryCell center tc",
+            }, imagePanel);
             cell1 = DOM.td(
             {
                key: "name" + shipFactionKey,
-               className: "galleryCell"
+               className: "galleryCell center pa1"
             }, silhouette);
 
             if (shipActionPanel1 !== undefined)
@@ -116,34 +138,39 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                cell2 = DOM.td(
                {
                   key: "actions" + shipFactionKey,
-                  className: "galleryCell colorWhite"
+                  className: "galleryCell colorWhite center pa1 tc white"
                }, DOM.table(
-               {
-                  className: "alignCenter",
-               }, DOM.tbody(
-               {}, DOM.tr(
-                  {}, DOM.td(
-                  {}, "Fore"), DOM
-                  .td(
-                  {}, shipActionPanel0)), DOM.tr(
-                  {}, DOM.td(
-                  {}, "Aft"),
-                  DOM.td(
-                  {}, shipActionPanel1)))));
+                  {
+                     className: "alignCenter center",
+                  },
+                  DOM.tbody(
+                  {}, DOM.tr(
+                     {}, DOM.td(
+                     {}, "Aft"),
+                     DOM.td(
+                     {
+                        className: "pa1",
+                     }, shipActionPanel1), DOM
+                     .td(
+                     {
+                        className: "pa1",
+                     }, shipActionPanel0),
+                     DOM.td(
+                     {}, "Fore")))));
             }
             else
             {
                cell2 = DOM.td(
                {
                   key: "actions" + shipFactionKey,
-                  className: "galleryCell"
+                  className: "galleryCell center pa1"
                }, shipActionPanel0);
             }
 
             cell3 = DOM.td(
             {
                key: "maneuvers" + shipFactionKey,
-               className: "galleryCell alignBottom"
+               className: "galleryCell alignBottom center pa1"
             }, chooser);
 
             var rows = [];
@@ -154,7 +181,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             rows.push(DOM.tr(
             {
                key: rows.length,
-               className: "galleryShipName"
+               className: "galleryShipName white"
             }, cell1));
             rows.push(DOM.tr(
             {
@@ -168,7 +195,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             return DOM.table(
             {
                key: this.props.myKey,
-               className: "galleryTable",
+               className: "galleryTable b--xw-medium ba bg-black dib v-top",
             }, DOM.tbody(
             {}, rows));
          },

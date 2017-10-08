@@ -1,8 +1,8 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Maneuver",
-  "view/js/ManeuverChooser", "view/js/OptionPane"],
-   function(createReactClass, PropTypes, React, DOM, Maneuver, ManeuverChooser, OptionPane)
+  "view/js/Button", "view/js/ManeuverChooser", "view/js/OptionPane"],
+   function(createReactClass, PropTypes, React, DOM, Maneuver, Button, ManeuverChooser, OptionPane)
    {
       var PlanningPanel = createReactClass(
       {
@@ -51,7 +51,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                cells.push(DOM.td(
                {
                   key: i,
-                  className: "planningTableCell",
+                  className: "planningTableCell v-top",
                }, element));
             }
 
@@ -60,20 +60,18 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
             {}, DOM.tr(
             {}, cells)));
             var disabled = Object.getOwnPropertyNames(this.state.tokenToManeuver).length < tokens.length;
-            var buttons = DOM.button(
+            var buttons = React.createElement(Button,
             {
-               onClick: self.ok,
                disabled: disabled,
-            }, "OK");
+               name: "OK",
+               onClick: self.ok,
+            });
             return React.createElement(OptionPane,
             {
                message: "",
-               panelClass: "optionPane",
                title: "Planning: Select Maneuvers",
-               titleClass: "optionPaneTitle",
                initialInput: initialInput,
                buttons: buttons,
-               buttonsClass: "optionPaneButtons",
             });
          },
 

@@ -15,7 +15,7 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             var icon = DOM.img(
             {
                key: myKey,
-               className: "factionUIImage",
+               className: "factionUIImage v-mid",
                height: size,
                src: src,
                title: faction.name,

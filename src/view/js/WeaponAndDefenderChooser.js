@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Range", "view/js/OptionPane"],
-   function(createReactClass, PropTypes, React, DOM, Range, OptionPane)
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Range", "view/js/Button", "view/js/OptionPane"],
+   function(createReactClass, PropTypes, React, DOM, Range, Button, OptionPane)
    {
       var WeaponAndDefenderChooser = createReactClass(
       {
@@ -37,9 +37,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
          {
             var attacker = this.props.attacker;
             var message = DOM.div(
-            {
-               className: "attackerLabel"
-            }, "Attacker: " + attacker.name());
+            {}, "Attacker: " + attacker.name());
             var selectedWeapon = this.state.weapon;
             var selectedDefender = this.state.defender;
             var choices = this.props.choices;
@@ -58,7 +56,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                   key: rows.length
                }, DOM.td(
                {
-                  className: "weaponName"
+                  className: "weaponName pv2",
                }, weaponName)));
 
                var rangeToDefendersArray = weaponAndRangeAndTokens.rangeToDefenders;
@@ -74,7 +72,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                      key: rows.length
                   }, DOM.td(
                   {
-                     className: "rangeLabel"
+                     className: "rangeLabel bg-xw-medium"
                   }, "Range " + rangeName)));
 
                   var defenders = rangeToDefenders.defenders;
@@ -100,10 +98,10 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                            key: 1
                         }, token.name());
                         var label = DOM.label(
-                        {}, [input, span]);
+                        {}, input, " ", span);
                         var cell = DOM.td(
                         {
-                           className: "defenderChoice"
+                           className: "defenderChoice tl"
                         }, label);
                         rows.push(DOM.tr(
                         {
@@ -116,21 +114,23 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
             var initialInput = DOM.table(
             {
-               className: "combatTable"
+               className: "combatTable f6"
             }, DOM.tbody(
             {}, rows));
-            var cancelButton = DOM.button(
+            var cancelButton = React.createElement(Button,
             {
                key: "cancelButton",
+               name: "Cancel",
                onClick: self.cancel
-            }, "Cancel");
-            var okButton = DOM.button(
+            });
+            var okButton = React.createElement(Button,
             {
                key: "okButton",
+               name: "OK",
                onClick: self.ok
-            }, "OK");
+            });
             var buttons = DOM.span(
-            {}, [cancelButton, okButton]);
+            {}, cancelButton, " ", okButton);
             return React.createElement(OptionPane,
             {
                panelClass: "optionPane",

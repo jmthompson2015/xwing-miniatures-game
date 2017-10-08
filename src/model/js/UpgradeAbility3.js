@@ -4,9 +4,9 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "artifact/js/AttackDiceValue", "artifact/js/Phase", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
+  "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Phase", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
   "model/js/Ability", "model/js/Action", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/RangeRuler", "model/js/Selector", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction"],
-   function(InputValidator, AttackDiceValue, Phase, Range, ShipAction, UpgradeCard, UpgradeType,
+   function(InputValidator, AttackDiceValue, DefenseDiceValue, Phase, Range, ShipAction, UpgradeCard, UpgradeType,
       Ability, Action, AttackDice, CombatAction, DefenseDice, RangeRuler, Selector, ShipActionAbility, TargetLock, TokenAction)
    {
       var UpgradeAbility3 = {};
@@ -549,7 +549,7 @@ define(["common/js/InputValidator",
          {
             var attacker = getActiveToken(store);
             var defenseDice = getDefenseDice(attacker);
-            defenseDice.changeOneToValue(DefenseDice.Value.BLANK, DefenseDice.Value.EVADE);
+            defenseDice.changeOneToValue(DefenseDiceValue.BLANK, DefenseDiceValue.EVADE);
             callback();
          },
       };
@@ -614,7 +614,7 @@ define(["common/js/InputValidator",
          {
             var attacker = getActiveToken(store);
             var defenseDice = getDefenseDice(attacker);
-            defenseDice.changeOneToValue(DefenseDice.Value.EVADE, DefenseDice.Value.FOCUS);
+            defenseDice.changeOneToValue(DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS);
             callback();
          },
       };

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayAugments",
-  "view/js/EntityUI", "view/js/InputPanel", "view/js/OptionPane"],
+  "view/js/Button", "view/js/EntityUI", "view/js/InputPanel", "view/js/OptionPane"],
    function(createReactClass, PropTypes, React, DOM, ArrayAugments,
-      EntityUI, InputPanel, OptionPane)
+      Button, EntityUI, InputPanel, OptionPane)
    {
       var AbilityChooser = createReactClass(
       {
@@ -28,11 +28,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             var resourceBase = this.props.resourceBase;
 
             var message = "Active Ship: " + token.name();
-            var okButton = DOM.button(
+            var okButton = React.createElement(Button,
             {
                key: 0,
+               name: "Pass",
                onClick: this.ok,
-            }, "Pass");
+            });
             var buttons = DOM.span(
             {}, [okButton]);
 
@@ -60,21 +61,21 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                name: "selectUpgrade",
                labelFunction: labelFunction,
                onChange: this.myOnChange,
-               panelClass: "combatChoicePanel",
+               panelClass: "combatChoicePanel f6 tl",
             });
 
             var title = "Select Ability";
 
             return React.createElement(OptionPane,
             {
-               panelClass: "optionPane",
+               panelClass: "optionPane bg-xw-light",
                title: title,
-               titleClass: "optionPaneTitle",
+               titleClass: "optionPaneTitle bg-moon-gray",
                message: message,
                messageClass: "combatMessage",
                initialInput: initialInput,
                buttons: buttons,
-               buttonsClass: "optionPaneButtons",
+               buttonsClass: "optionPaneButtons pa2 tr",
             });
          },
 

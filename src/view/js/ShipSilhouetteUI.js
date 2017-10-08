@@ -16,7 +16,7 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             var image = DOM.img(
             {
                key: myKey,
-               className: "shipSilhouetteUIImage",
+               className: "shipSilhouetteUIImage v-mid",
                src: fileString,
                title: ship.name,
             });
@@ -27,7 +27,7 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             {
                answer = DOM.span(
                {
-                  className: "shipSilhouetteUIImage",
+                  className: "shipSilhouetteUIImage v-mid",
                }, image, " ", ship.name);
             }
 

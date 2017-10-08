@@ -14,22 +14,20 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             var src = this.createFilename(faction, shipState, size);
             var myKey = (this.props.myKey !== undefined ? this.props.myKey : shipState.key);
             var label = this.props.label;
-            var cellStyle = {
-               display: "table-cell",
-               verticalAlign: "middle",
-            };
             var image;
 
             if (label !== undefined)
             {
                image = React.createElement(LabeledImage,
                {
+                  key: myKey,
+                  className: "v-mid",
                   image: src,
                   resourceBase: this.props.resourceBase,
                   label: label,
                   labelClass: this.props.labelClass,
                   showOne: this.props.showOne,
-                  style: cellStyle,
+                  title: shipState.name,
                   width: size,
                });
             }
@@ -37,42 +35,22 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             {
                image = DOM.img(
                {
+                  key: myKey,
+                  className: "v-mid",
                   src: this.props.resourceBase + src,
-                  style: cellStyle,
+                  title: shipState.name,
                });
             }
 
-            var cell0 = DOM.div(
-            {
-               key: myKey,
-               style: cellStyle,
-               title: shipState.name,
-            }, image);
-
-            var showName = (this.props.showName !== undefined ? this.props.showName : false);
-            var answer = cell0;
+            var showName = this.props.showName;
+            var answer = image;
 
             if (showName)
             {
-               var cell1 = DOM.div(
+               answer = DOM.span(
                {
-                  className: "shipStateUIText",
-                  style: cellStyle,
-               }, shipState.name);
-               var row = DOM.div(
-               {
-                  style:
-                  {
-                     display: "table-row",
-                  },
-               }, cell0, cell1);
-               answer = DOM.div(
-               {
-                  style:
-                  {
-                     display: "table",
-                  },
-               }, row);
+                  className: "v-mid",
+               }, image, " ", shipState.name);
             }
 
             return answer;

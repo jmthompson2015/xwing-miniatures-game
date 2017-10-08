@@ -65,7 +65,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             });
 
             return DOM.span(
-            {}, image, select);
+            {}, image, " ", select);
          },
 
          upgradeChanged: function(event)

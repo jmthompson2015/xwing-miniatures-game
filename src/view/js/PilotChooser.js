@@ -75,7 +75,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                });
 
                return DOM.span(
-               {}, image, select);
+               {}, image, " ", select);
             }
             else
             {

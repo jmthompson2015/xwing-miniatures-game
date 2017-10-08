@@ -1,8 +1,8 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "artifact/js/Faction",
-  "view/js/AgentSquadUI", "view/js/OptionPane"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux, Faction, AgentSquadUI, OptionPane)
+  "view/js/Button", "view/js/AgentSquadUI", "view/js/OptionPane"],
+   function(createReactClass, PropTypes, React, DOM, ReactRedux, Faction, Button, AgentSquadUI, OptionPane)
    {
       var NewGamePanel = createReactClass(
       {
@@ -18,7 +18,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
 
          render: function()
          {
-            var agentPanel1 = React.createElement(ReactRedux.Provider,
+            var agentSquad1 = React.createElement(ReactRedux.Provider,
             {
                store: this.props.store1,
             }, React.createElement(this.props.agentSquadClass,
@@ -26,7 +26,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                agentNumber: 1,
                resourceBase: this.props.resourceBase,
             }));
-            var agentPanel2 = React.createElement(ReactRedux.Provider,
+            var agentSquad2 = React.createElement(ReactRedux.Provider,
             {
                store: this.props.store2,
             }, React.createElement(this.props.agentSquadClass,
@@ -36,36 +36,33 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
             }));
             var cell1 = DOM.td(
             {
-               className: "newGamePanel",
-            }, agentPanel1);
+               className: "newGamePanel ba bg-xw-light center v-top",
+            }, agentSquad1);
             var cell2 = DOM.td(
             {
-               className: "newGamePanel",
-            }, agentPanel2);
+               className: "newGamePanel ba bg-xw-light center v-top",
+            }, agentSquad2);
 
             var message = DOM.table(
             {}, DOM.tbody(
             {}, DOM.tr(
             {}, cell1, cell2)));
             var initialInput;
-            var okButton = DOM.button(
+            var okButton = React.createElement(Button,
             {
                key: 0,
+               name: "OK",
                onClick: this.ok,
-            }, "OK");
+            });
             var buttons = DOM.span(
             {}, [okButton]);
 
             return React.createElement(OptionPane,
             {
-               panelClass: "optionPane",
                title: "New Game",
-               titleClass: "optionPaneTitle",
                message: message,
-               messageClass: "optionPaneMessage",
                initialInput: initialInput,
                buttons: buttons,
-               buttonsClass: "optionPaneButtons",
             });
          },
 

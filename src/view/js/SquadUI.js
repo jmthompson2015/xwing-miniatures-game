@@ -69,7 +69,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
             var squadUI = DOM.table(
             {
-               className: "squadUI",
+               className: "squadUI ba b--black bg-xw-light fl f6",
             }, DOM.tbody(
             {}, rows));
 
@@ -95,13 +95,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             SquadColumns.forEach(function(column)
             {
                var value = 0;
-               var className = "squadUISum";
+               var className = "squadUISum ba bg-xw-medium";
 
                switch (column.key)
                {
                   case "pilot":
                      value = "Totals";
-                     className += " alignRight";
+                     className += " alignRight tr";
                      break;
                   case "isImplemented":
                      value = undefined;
@@ -112,7 +112,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                         var valueFunction = squad[column.key];
                         value = valueFunction.apply(squad);
                      }
-                     className += " alignRight";
+                     className += " alignRight tr";
                }
 
                cells.push(this.createCell("footerCell" + cells.length, className, value));
@@ -159,9 +159,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                         resourceBase: this.props.resourceBase,
                         shipState: ShipState.properties[shipStateKey],
                      });
-                     className = "alignCenter";
+                     className = "alignCenter tc";
                }
-               cells.push(this.createHeaderCell("headerCell" + cells.length, className, value));
+               cells.push(this.createHeaderCell("headerCell" + cells.length, className + " ba b--black bg-xw-dark pa1 white", value));
             }, this);
 
             return DOM.tr(
@@ -227,7 +227,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                      }
                }
 
-               cells.push(this.createCell("pilotCell" + cells.length + (pilot ? pilot.key : ""), column.className, value));
+               cells.push(this.createCell("pilotCell" + cells.length + (pilot ? pilot.key : ""), column.className + " ba pa1", value));
             }, this);
 
             return DOM.tr(
@@ -262,7 +262,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                      break;
                }
 
-               cells.push(this.createCell("shipCell" + cells.length + (ship ? ship.key : ""), "backgroundMedium " + column.className, value));
+               cells.push(this.createCell("shipCell" + cells.length + (ship ? ship.key : ""), "backgroundMedium bg-xw-medium " + column.className + " pa1", value));
             }, this);
 
             return DOM.tr(
@@ -306,7 +306,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                   default:
                      value = (upgradeCard && upgradeCard[column.key] !== undefined ? upgradeCard[column.key] : undefined);
                }
-               cells.push(this.createCell("upgradeCell" + cells.length + upgradeCard.key, column.className, value));
+               cells.push(this.createCell("upgradeCell" + cells.length + upgradeCard.key, column.className + " ba pa1", value));
             }, this);
 
             return DOM.tr(
