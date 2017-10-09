@@ -32,7 +32,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                key: rows.length,
             }, DOM.td(
             {
-               className: "rowCount",
+               className: "rowCount f6 tl",
             }, rowCount)));
             rows.push(DOM.tr(
             {
@@ -44,7 +44,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                key: rows.length,
             }, DOM.td(
             {
-               className: "rowCount",
+               className: "rowCount f6 tl",
             }, rowCount)));
 
             return DOM.table(
@@ -75,6 +75,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             return this.Tr(
             {
                key: key,
+               className: "striped--light-gray",
             }, cells);
          },
 
@@ -92,7 +93,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
             return this.Table(
             {
-               className: "dataTable",
+               className: "dataTable bg-white collapse f6",
                columns: columns,
                sortable: true,
             }, rows);

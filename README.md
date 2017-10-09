@@ -18,8 +18,10 @@ Play the game: [X-Wing Miniatures Game](https://rawgit.com/jmthompson2015/xwing-
 * [QUnit](https://qunitjs.com/) - JavaScript unit testing.
 * [React](http://facebook.github.io/react/) - A JavaScript library for building user interfaces.
 * [ReactRedux](https://github.com/reactjs/react-redux) - Official React bindings for Redux.
+* [Reactable](http://glittershark.github.io/reactable/) - Fast, flexible, and simple data tables in React.
 * [Redux](https://redux.js.org/) - A predictable state container for JavaScript apps.
 * [Require.js](http://requirejs.org/) - A JavaScript file and module loader.
+* [Tachyons](http://tachyons.io) - An atomic CSS library.
 * [xwing-data](https://github.com/guidokessels/xwing-data/) - An easy-to-use collection of data and images from X-Wing: The Miniatures Game by Fantasy Flight Games.
 
 ## Architecture

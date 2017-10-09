@@ -2,17 +2,17 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathAugments",
   "artifact/js/Faction", "artifact/js/Ship",
-  "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/ShipSilhouetteUI",
+  "view/js/Button", "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/ShipSilhouetteUI",
   "accessory/pilot-table/Action", "accessory/pilot-table/FilterContainer", "accessory/pilot-table/TableColumns"],
    function(createReactClass, PropTypes, React, DOM, ReactRedux, MathAugments,
-      Faction, Ship, DataTable, FactionUI, ImplementedImage, ShipSilhouetteUI,
+      Faction, Ship, Button, DataTable, FactionUI, ImplementedImage, ShipSilhouetteUI,
       Action, FilterContainer, TableColumns)
    {
       function createImageLink(src, href)
       {
          var image = DOM.img(
          {
-            className: "imageBlock",
+            className: "imageBlock fr v-mid",
             src: src,
          });
 
@@ -39,26 +39,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
 
          render: function()
          {
-            var filterShownButton = DOM.button(
+            var filterShownButton = React.createElement(Button,
             {
+               name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
                onClick: this.toggleFilterShownActionPerformed,
-            }, (this.props.isFilterShown ? "Hide Filter" : "Show Filter"));
-
-            var myRowData = [];
-
-            this.props.rowData.forEach(function(pilot)
-            {
-               if (pilot.fore || pilot.aft)
-               {
-                  myRowData.push(pilot.fore);
-                  myRowData.push(pilot.aft);
-               }
-               else
-               {
-                  myRowData.push(pilot);
-               }
             });
 
+            var myRowData = this.props.rowData;
             var resourceBase = this.props.resourceBase;
             var cellFunctions = {
                "factionKey": function(data)
@@ -79,7 +66,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                   var link = createImageLink(src, href);
                   return DOM.span(
                   {
-                     className: "textImageLink",
+                     className: "textImageLink dib w-100",
                   }, data.pilotName, link);
                },
                "shipKey": function(data)
@@ -101,7 +88,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                   });
                   return DOM.span(
                   {
-                     className: "textImageLink",
+                     className: "textImageLink dib w-100",
                   }, silhouette, link);
                },
                "description": function(data)
@@ -111,7 +98,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                   {
                      answer = DOM.span(
                      {
-                        className: "flavorText",
+                        className: "flavorText i",
                      }, data.description);
                   }
                   return answer;
@@ -148,7 +135,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
             rows.push(DOM.tr(
             {
                key: rows.length,
-               className: "alignLeft",
+               className: "alignLeft tl",
             }, DOM.td(
             {}, filterShownButton)));
 

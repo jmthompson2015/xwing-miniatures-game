@@ -10,81 +10,82 @@ define(function()
       {
          key: "pilotName",
          label: "Pilot",
-         className: "textCell",
+         className: "textCell tl",
        },
       {
          key: "shipKey",
          label: "Ship",
-         className: "textCell",
+         className: "textCell tl",
        },
       {
          key: "wave",
          label: "Wave",
-         className: "textCell",
+         className: "textCell tc",
        },
       {
          key: "description",
          label: "Description",
-         className: "textCell",
+         className: "textCell tl",
        },
       {
          key: "isImplemented",
          label: "Implemented",
+         className: "tc",
        },
       {
          key: "pilotSkill",
          label: "Pilot Skill",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "primaryWeapon",
          label: "Primary Weapon",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "energy",
          label: "Energy",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "agility",
          label: "Agility",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "hull",
          label: "Hull",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "shield",
          label: "Shield",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "squadPointCost",
          label: "Squad Point Cost",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "sumStats",
          label: "Sum Stats",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "ratioPrimaryWeaponAgility",
          label: "Primary Weapon / Agility",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "hullPlusShield",
          label: "Hull + Shield",
-         className: "numberCell",
+         className: "numberCell tr",
        },
       {
          key: "ratioSumStatsSquadPointCost",
          label: "Sum Stats / Squad Point Cost",
-         className: "numberCell",
+         className: "numberCell tr",
        },
      ];
 

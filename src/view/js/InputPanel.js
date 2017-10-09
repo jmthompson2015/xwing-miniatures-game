@@ -135,6 +135,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             return DOM.tr(
             {
                key: "row" + value + i,
+               className: "striped--light-gray",
             }, cells);
          },
 

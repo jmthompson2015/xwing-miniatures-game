@@ -9,13 +9,24 @@ define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/EntityFil
          this.tableRows = [];
          this.filteredTableRows = [];
 
-         PilotCard.keys().forEach(function(pilotKey)
+         this.tableRows = PilotCard.keys().reduce(function(accumulator, pilotKey)
          {
             var pilot = PilotCard.properties[pilotKey];
-            var tableRows = TableRow.createTableRow(pilot);
-            this.tableRows.push(tableRows);
-            this.filteredTableRows.push(tableRows);
-         }, this);
+
+            if (pilot.fore && pilot.aft)
+            {
+               accumulator.push(TableRow.createTableRow(pilot.fore));
+               accumulator.push(TableRow.createTableRow(pilot.aft));
+            }
+            else
+            {
+               accumulator.push(TableRow.createTableRow(pilot));
+            }
+
+            return accumulator;
+         }, []);
+
+         this.filteredTableRows = this.tableRows.slice();
 
          // FIXME
          // localStorage.removeItem("filters");
