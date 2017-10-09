@@ -1,9 +1,9 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories",
-  "model/js/EntityFilter", "model/js/RangeFilter", "view/js/InputPanel",
+  "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
   "accessory/ability-table/Action", "accessory/ability-table/DefaultFilters", "accessory/ability-table/EventComparator"],
-   function(createReactClass, PropTypes, React, DOM, EntityFilter, RangeFilter, InputPanel, Action, DefaultFilters, EventComparator)
+   function(createReactClass, PropTypes, React, DOM, EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters, EventComparator)
    {
       var FilterUI = createReactClass(
       {
@@ -39,7 +39,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             cells.push(DOM.td(
             {
                key: cells.length,
-               className: "filtersUI",
+               className: "filtersUI f6 v-top",
             }, this.createEntityTable()));
 
             var rows = [];
@@ -58,25 +58,28 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
             return DOM.table(
             {
-               className: "filtersUI",
+               className: "filtersUI f6 v-top",
             }, DOM.tbody(
             {}, rows));
          },
 
          createButtonTable: function()
          {
-            var restoreButton = DOM.button(
+            var restoreButton = React.createElement(Button,
             {
+               name: "Restore Defaults",
                onClick: this.restoreActionPerformed,
-            }, "Restore Defaults");
-            var unfilterButton = DOM.button(
+            });
+            var unfilterButton = React.createElement(Button,
             {
+               name: "Remove Filter",
                onClick: this.unfilterActionPerformed,
-            }, "Remove Filter");
-            var filterButton = DOM.button(
+            });
+            var filterButton = React.createElement(Button,
             {
+               name: "Apply Filter",
                onClick: this.filterActionPerformed,
-            }, "Apply Filter");
+            });
 
             var cells = [];
             cells.push(DOM.td(
@@ -104,90 +107,89 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             var cells = [];
 
             DefaultFilters.entityColumns.forEach(function(column)
+            {
+               var values;
+               var labelFunction;
+               var clientProps = {};
+               clientProps["data-entitytype"] = column.key;
+
+               switch (column.key)
                {
-                  var values;
-                  var labelFunction;
-                  var clientProps = {};
-                  clientProps["data-entitytype"] = column.key;
-
-                  switch (column.key)
-                  {
-                     case "deck":
-                        values = ["DamageCard", "PilotCard", "UpgradeCard"];
-                        break;
-                     case "type":
-                        values = [];
-                        this.context.store.getState().tableRows.forEach(function(tableRows)
+                  case "deck":
+                     values = ["DamageCard", "PilotCard", "UpgradeCard"];
+                     break;
+                  case "type":
+                     values = [];
+                     this.context.store.getState().tableRows.forEach(function(tableRows)
+                     {
+                        if (tableRows.type && !values.includes(tableRows.type))
                         {
-                           if (tableRows.type && !values.includes(tableRows.type))
-                           {
-                              values.push(tableRows.type);
-                           }
-                        });
-                        values.sort();
-                        break;
-                     case "isImplemented":
-                        values = [true, false];
-                        labelFunction = function(value)
+                           values.push(tableRows.type);
+                        }
+                     });
+                     values.sort();
+                     break;
+                  case "isImplemented":
+                     values = [true, false];
+                     labelFunction = function(value)
+                     {
+                        return (value ? "true" : "false");
+                     };
+                     break;
+                  case "event":
+                     values = [];
+                     this.context.store.getState().tableRows.forEach(function(tableRows)
+                     {
+                        if (tableRows.event && !values.includes(tableRows.event))
                         {
-                           return (value ? "true" : "false");
-                        };
-                        break;
-                     case "event":
-                        values = [];
-                        this.context.store.getState().tableRows.forEach(function(tableRows)
-                        {
-                           if (tableRows.event && !values.includes(tableRows.event))
-                           {
-                              values.push(tableRows.event);
-                           }
-                        });
-                        values.sort(EventComparator);
-                        break;
-                     default:
-                        throw "Unknown entity column: " + column.key;
-                  }
+                           values.push(tableRows.event);
+                        }
+                     });
+                     values.sort(EventComparator);
+                     break;
+                  default:
+                     throw "Unknown entity column: " + column.key;
+               }
 
-                  var oldFilter = this.context.store.getState().filters[column.key];
-                  var initialValues = [];
+               var oldFilter = this.context.store.getState().filters[column.key];
+               var initialValues = [];
 
-                  if (oldFilter)
-                  {
-                     initialValues.xwingAddAll(oldFilter.values());
-                  }
+               if (oldFilter)
+               {
+                  initialValues.xwingAddAll(oldFilter.values());
+               }
 
-                  var label = DOM.span(
-                  {
-                     className: "entityLabel",
-                  }, column.label);
-                  var checkboxPanel = React.createElement(InputPanel,
-                  {
-                     type: InputPanel.Type.CHECKBOX,
-                     values: values,
-                     labelFunction: labelFunction,
-                     initialValues: initialValues,
-                     onChange: this.handleEntityChange,
-                     panelClass: "entitiesTable",
-                     clientProps: clientProps,
-                  });
+               var label = DOM.span(
+               {
+                  className: "entityLabel b f6",
+               }, column.label);
+               var checkboxPanel = React.createElement(InputPanel,
+               {
+                  type: InputPanel.Type.CHECKBOX,
+                  values: values,
+                  labelFunction: labelFunction,
+                  initialValues: initialValues,
+                  onChange: this.handleEntityChange,
+                  panelClass: "entitiesTable bg-white f7 tl",
+                  clientProps: clientProps,
+               });
 
-                  cells.push(DOM.td(
-                  {
-                     key: cells.length,
-                     className: "entityFilterContainer",
-                  }, label, DOM.div(
-                  {
-                     className: "entitiesContainer",
-                  }, checkboxPanel)));
-               },
-               this);
+               cells.push(DOM.td(
+               {
+                  key: cells.length,
+                  className: "entityFilterContainer pl1 v-top",
+               }, label, DOM.div(
+               {
+                  className: "entitiesContainer overflow-y-auto pl1",
+               }, checkboxPanel)));
+            }, this);
 
             var row = DOM.tr(
             {}, cells);
 
             return DOM.table(
             {
-               className: "filtersUI",
+               className: "filtersUI f6 v-top",
             }, DOM.tbody(
             {}, row));
          },
@@ -250,12 +252,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                rows.push(DOM.tr(
                {
                   key: rows.length,
+                  className: "striped--light-gray",
                }, cells));
             }, this);
 
             return DOM.table(
             {
-               className: "filterTable",
+               className: "filterTable bg-white",
             }, DOM.tbody(
             {}, rows));
          },

@@ -2,19 +2,19 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux",
   "artifact/js/DamageCardTrait", "artifact/js/Event", "artifact/js/Faction", "artifact/js/Phase", "artifact/js/UpgradeType",
-  "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/UpgradeTypeUI",
+  "view/js/Button", "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/UpgradeTypeUI",
   "accessory/ability-table/Action", "accessory/ability-table/FilterContainer", "accessory/ability-table/TableColumns"
 ],
    function(createReactClass, PropTypes, React, DOM, ReactRedux,
       DamageCardTrait, Event, Faction, Phase, UpgradeType,
-      DataTable, FactionUI, ImplementedImage, UpgradeTypeUI,
+      Button, DataTable, FactionUI, ImplementedImage, UpgradeTypeUI,
       Action, FilterContainer, TableColumns)
    {
       function createImageLink(src, href)
       {
          var image = DOM.img(
          {
-            className: "imageBlock",
+            className: "imageBlock fr v-mid",
             src: src,
          });
 
@@ -92,26 +92,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
 
          render: function()
          {
-            var filterShownButton = DOM.button(
+            var filterShownButton = React.createElement(Button,
             {
+               name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
                onClick: this.toggleFilterShownActionPerformed,
-            }, (this.props.isFilterShown ? "Hide Filter" : "Show Filter"));
-
-            var myRowData = [];
-
-            this.props.rowData.forEach(function(pilot)
-            {
-               if (pilot.fore || pilot.aft)
-               {
-                  myRowData.push(pilot.fore);
-                  myRowData.push(pilot.aft);
-               }
-               else
-               {
-                  myRowData.push(pilot);
-               }
             });
 
+            var myRowData = this.props.rowData;
             var resourceBase = this.props.resourceBase;
             var cellFunctions = {
                "type": function(data)
@@ -177,7 +164,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
             rows.push(DOM.tr(
             {
                key: rows.length,
-               className: "alignLeft",
+               className: "alignLeft tl",
             }, DOM.td(
             {}, filterShownButton)));
 
