@@ -6,31 +6,32 @@ define(function()
       {
          key: "version",
          label: "Version",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "name",
          label: "Name",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "trait",
          label: "Trait",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "description",
          label: "Description",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "action",
          label: "Action",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "isImplemented",
          label: "Implemented",
+         className: "tc",
         },
     ];
 
