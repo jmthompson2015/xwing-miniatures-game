@@ -1,12 +1,12 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react",
+define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/FiringArc", "artifact/js/Range", "artifact/js/UpgradeHeader", "artifact/js/UpgradeRestriction", "artifact/js/UpgradeType",
-  "model/js/EntityFilter", "model/js/RangeFilter", "view/js/InputPanel",
+  "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
   "accessory/upgrade-table/Action", "accessory/upgrade-table/DefaultFilters"],
-   function(createReactClass, PropTypes, React,
+   function(createReactClass, PropTypes, React, DOM,
       FiringArc, Range, UpgradeHeader, UpgradeRestriction, UpgradeType,
-      EntityFilter, RangeFilter, InputPanel,
+      EntityFilter, RangeFilter, Button, InputPanel,
       Action, DefaultFilters)
    {
       var FilterUI = createReactClass(
@@ -37,71 +37,74 @@ define(["create-react-class", "prop-types", "react",
          render: function()
          {
             var cells = [];
-            cells.push(React.DOM.td(
+            cells.push(DOM.td(
             {
                key: cells.length,
                className: "filterTable",
             }, this.createRangeTable()));
-            cells.push(React.DOM.td(
+            cells.push(DOM.td(
             {
                key: cells.length,
-               className: "filtersUI",
+               className: "filtersUI f6 v-top",
             }, this.createEntityTable()));
 
             var rows = [];
-            rows.push(React.DOM.tr(
+            rows.push(DOM.tr(
             {
                key: rows.length,
             }, cells));
 
-            rows.push(React.DOM.tr(
+            rows.push(DOM.tr(
             {
                key: rows.length,
-            }, React.DOM.td(
+            }, DOM.td(
             {
                colSpan: 6,
             }, this.createButtonTable())));
 
-            return React.DOM.table(
+            return DOM.table(
             {
-               className: "filtersUI",
-            }, React.DOM.tbody(
+               className: "filtersUI f6 v-top",
+            }, DOM.tbody(
             {}, rows));
          },
 
          createButtonTable: function()
          {
-            var restoreButton = React.DOM.button(
+            var restoreButton = React.createElement(Button,
             {
+               name: "Restore Defaults",
                onClick: this.restoreActionPerformed,
-            }, "Restore Defaults");
-            var unfilterButton = React.DOM.button(
+            });
+            var unfilterButton = React.createElement(Button,
             {
+               name: "Remove Filter",
                onClick: this.unfilterActionPerformed,
-            }, "Remove Filter");
-            var filterButton = React.DOM.button(
+            });
+            var filterButton = React.createElement(Button,
             {
+               name: "Apply Filter",
                onClick: this.filterActionPerformed,
-            }, "Apply Filter");
+            });
 
             var cells = [];
-            cells.push(React.DOM.td(
+            cells.push(DOM.td(
             {
                key: cells.length,
             }, restoreButton));
-            cells.push(React.DOM.td(
+            cells.push(DOM.td(
             {
                key: cells.length,
             }, unfilterButton));
-            cells.push(React.DOM.td(
+            cells.push(DOM.td(
             {
                key: cells.length,
             }, filterButton));
-            var row = React.DOM.tr(
+            var row = DOM.tr(
             {}, cells);
 
-            return React.DOM.table(
-            {}, React.DOM.tbody(
+            return DOM.table(
+            {}, DOM.tbody(
             {}, row));
          },
 
@@ -177,9 +180,9 @@ define(["create-react-class", "prop-types", "react",
                   initialValues.xwingAddAll(oldFilter.values());
                }
 
-               var label = React.DOM.span(
+               var label = DOM.span(
                {
-                  className: "entityLabel",
+                  className: "entityLabel b f6",
                }, column.label);
                var checkboxPanel = React.createElement(InputPanel,
                {
@@ -188,27 +191,27 @@ define(["create-react-class", "prop-types", "react",
                   labelFunction: labelFunction,
                   initialValues: initialValues,
                   onChange: this.handleEntityChange,
-                  panelClass: "entitiesTable",
+                  panelClass: "entitiesTable bg-white f7 tl",
                   clientProps: clientProps,
                });
 
-               cells.push(React.DOM.td(
+               cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "entityFilterContainer",
-               }, label, React.DOM.div(
+                  className: "entityFilterContainer pl1 v-top",
+               }, label, DOM.div(
                {
-                  className: "entitiesContainer",
+                  className: "entitiesContainer overflow-y-auto pl1",
                }, checkboxPanel)));
             }, this);
 
-            var row = React.DOM.tr(
+            var row = DOM.tr(
             {}, cells);
 
-            return React.DOM.table(
+            return DOM.table(
             {
-               className: "filtersUI",
-            }, React.DOM.tbody(
+               className: "filtersUI f6 v-top",
+            }, DOM.tbody(
             {}, row));
          },
 
@@ -220,20 +223,20 @@ define(["create-react-class", "prop-types", "react",
             {
                var filter = this.props.filters[column.key];
                var cells = [];
-               cells.push(React.DOM.td(
+               cells.push(DOM.td(
                {
                   key: cells.length,
-               }, React.DOM.input(
+               }, DOM.input(
                {
                   id: column.key + "MinChecked",
                   type: "checkbox",
                   defaultChecked: (filter ? filter.isMinEnabled() : false),
                   onChange: this.handleRangeChange,
                })));
-               cells.push(React.DOM.td(
+               cells.push(DOM.td(
                {
                   key: cells.length,
-               }, React.DOM.input(
+               }, DOM.input(
                {
                   id: column.key + "Min",
                   type: "number",
@@ -241,24 +244,24 @@ define(["create-react-class", "prop-types", "react",
                   defaultValue: (filter ? filter.minValue() : 0),
                   onChange: this.handleRangeChange,
                })));
-               cells.push(React.DOM.td(
+               cells.push(DOM.td(
                {
                   key: cells.length,
                }, "\u2264 " + column.label + " \u2264"));
-               cells.push(React.DOM.td(
+               cells.push(DOM.td(
                {
                   key: cells.length,
-               }, React.DOM.input(
+               }, DOM.input(
                {
                   id: column.key + "MaxChecked",
                   type: "checkbox",
                   defaultChecked: (filter ? filter.isMaxEnabled() : false),
                   onChange: this.handleRangeChange,
                })));
-               cells.push(React.DOM.td(
+               cells.push(DOM.td(
                {
                   key: cells.length,
-               }, React.DOM.input(
+               }, DOM.input(
                {
                   id: column.key + "Max",
                   type: "number",
@@ -267,16 +270,17 @@ define(["create-react-class", "prop-types", "react",
                   onChange: this.handleRangeChange,
                })));
 
-               rows.push(React.DOM.tr(
+               rows.push(DOM.tr(
                {
                   key: rows.length,
+                  className: "striped--light-gray",
                }, cells));
             }, this);
 
-            return React.DOM.table(
+            return DOM.table(
             {
-               className: "filterTable",
-            }, React.DOM.tbody(
+               className: "filterTable bg-white",
+            }, DOM.tbody(
             {}, rows));
          },
 

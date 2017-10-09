@@ -10,31 +10,32 @@ define(function()
       {
          key: "name",
          label: "Name",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "restrictionKeys",
          label: "Restrictions",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "headerKey",
          label: "Header",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "description",
          label: "Description",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "isImplemented",
          label: "Implemented",
+         className: "tc",
         },
       {
          key: "weaponValue",
          label: "Weapon Value",
-         className: "numberCell",
+         className: "numberCell tr",
         },
       {
          key: "rangeKeys",
@@ -44,12 +45,12 @@ define(function()
       {
          key: "firingArcKey",
          label: "Firing Arc",
-         className: "textCell",
+         className: "textCell tl",
         },
       {
          key: "squadPointCost",
          label: "Squad Point Cost",
-         className: "numberCell",
+         className: "numberCell tr",
         },
     ];
 
