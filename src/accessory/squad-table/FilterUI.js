@@ -1,8 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Faction", "model/js/EntityFilter", "model/js/RangeFilter", "view/js/InputPanel",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Faction",
+  "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
   "accessory/squad-table/Action", "accessory/squad-table/DefaultFilters"],
-   function(createReactClass, PropTypes, React, DOM, Faction, EntityFilter, RangeFilter, InputPanel, Action, DefaultFilters)
+   function(createReactClass, PropTypes, React, DOM, Faction, EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters)
    {
       var FilterUI = createReactClass(
       {
@@ -35,7 +36,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
             cells.push(DOM.td(
             {
                key: cells.length,
-               className: "filtersUI",
+               className: "filtersUI f6 v-top",
             }, this.createEntityTable()));
 
             var rows = [];
@@ -54,25 +55,28 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
             return DOM.table(
             {
-               className: "filtersUI",
+               className: "filtersUI f6 v-top",
             }, DOM.tbody(
             {}, rows));
          },
 
          createButtonTable: function()
          {
-            var restoreButton = DOM.button(
+            var restoreButton = React.createElement(Button,
             {
+               name: "Restore Defaults",
                onClick: this.restoreActionPerformed,
-            }, "Restore Defaults");
-            var unfilterButton = DOM.button(
+            });
+            var unfilterButton = React.createElement(Button,
             {
+               name: "Remove Filter",
                onClick: this.unfilterActionPerformed,
-            }, "Remove Filter");
-            var filterButton = DOM.button(
+            });
+            var filterButton = React.createElement(Button,
             {
+               name: "Apply Filter",
                onClick: this.filterActionPerformed,
-            }, "Apply Filter");
+            });
 
             var cells = [];
             cells.push(DOM.td(
@@ -129,7 +133,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
                var label = DOM.span(
                {
-                  className: "entityLabel",
+                  className: "entityLabel b f6",
                }, column.label);
                var checkboxPanel = React.createElement(InputPanel,
                {
@@ -138,17 +142,17 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                   labelFunction: labelFunction,
                   initialValues: initialValues,
                   onChange: this.handleEntityChange,
-                  panelClass: "entitiesTable",
+                  panelClass: "entitiesTable bg-white f7 tl",
                   clientProps: clientProps,
                });
 
                cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "entityFilterContainer",
+                  className: "entityFilterContainer pl1 v-top",
                }, label, DOM.div(
                {
-                  className: "entitiesContainer",
+                  className: "entitiesContainer overflow-y-auto pl1",
                }, checkboxPanel)));
             }, this);
 
@@ -157,7 +161,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
             return DOM.table(
             {
-               className: "filtersUI",
+               className: "filtersUI f6 v-top",
             }, DOM.tbody(
             {}, row));
          },
@@ -220,12 +224,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                rows.push(DOM.tr(
                {
                   key: rows.length,
+                  className: "striped--light-gray",
                }, cells));
             }, this);
 
             return DOM.table(
             {
-               className: "filterTable",
+               className: "filterTable bg-white",
             }, DOM.tbody(
             {}, rows));
          },

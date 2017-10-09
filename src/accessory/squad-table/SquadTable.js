@@ -1,8 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "artifact/js/Faction", "view/js/DataTable", "view/js/FactionUI",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "artifact/js/Faction",
+  "view/js/Button", "view/js/DataTable", "view/js/FactionUI",
   "accessory/squad-table/Action", "accessory/squad-table/FilterContainer", "accessory/squad-table/TableColumns"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux, Faction, DataTable, FactionUI,
+   function(createReactClass, PropTypes, React, DOM, ReactRedux, Faction, Button, DataTable, FactionUI,
       Action, FilterContainer, TableColumns)
    {
       var SquadTable = createReactClass(
@@ -21,26 +22,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
 
          render: function()
          {
-            var filterShownButton = DOM.button(
+            var filterShownButton = React.createElement(Button,
             {
+               name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
                onClick: this.toggleFilterShownActionPerformed,
-            }, (this.props.isFilterShown ? "Hide Filter" : "Show Filter"));
-
-            var myRowData = [];
-
-            this.props.rowData.forEach(function(pilot)
-            {
-               if (pilot.fore || pilot.aft)
-               {
-                  myRowData.push(pilot.fore);
-                  myRowData.push(pilot.aft);
-               }
-               else
-               {
-                  myRowData.push(pilot);
-               }
             });
 
+            var myRowData = this.props.rowData;
             var resourceBase = this.props.resourceBase;
             var cellFunctions = {
                "factionKey": function(data)
@@ -76,7 +64,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
             rows.push(DOM.tr(
             {
                key: rows.length,
-               className: "alignLeft",
+               className: "alignLeft tl",
             }, DOM.td(
             {}, filterShownButton)));
 
