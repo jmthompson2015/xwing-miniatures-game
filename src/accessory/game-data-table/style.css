@@ -1,0 +1,19 @@
+body {
+  background-image: url(../../view/resource/background/SeamlessMetalTextureSmooth.jpg);
+  font-family: "San Francisco", "Helvetica Neue", Helvetica, sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#gameTable th {
+  background-color: #555555;
+  border: 1px solid lightGray;
+  color: white;
+}
+
+#gameTable td {
+  border: 1px solid lightGray;
+}

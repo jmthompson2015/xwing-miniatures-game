@@ -17,12 +17,12 @@ define(["create-react-class", "react", "artifact/js/AttackDiceValue", "artifact/
          {
             key: "item",
             label: "Item",
-            className: "textCell",
+            className: "textCell tl",
          },
          {
             key: "count",
             label: "Count",
-            className: "numberCell",
+            className: "numberCell tr",
          },
       ];
 
@@ -68,6 +68,7 @@ define(["create-react-class", "react", "artifact/js/AttackDiceValue", "artifact/
             return this.Table(
             {
                id: "gameTable",
+               className: "bg-white f6",
                columns: GameColumns,
                sortable: true,
             }, rows);
@@ -94,6 +95,7 @@ define(["create-react-class", "react", "artifact/js/AttackDiceValue", "artifact/
             return this.Tr(
             {
                key: key,
+               className: "striped--light-gray",
             }, cells);
          },
       });
