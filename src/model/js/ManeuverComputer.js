@@ -492,7 +492,7 @@ define(["common/js/InputValidator", "common/js/MathAugments",
          var radius = maneuver.radius;
 
          var factor = ((bearingKey === Bearing.BANK_RIGHT) ||
-            (bearingKey === Bearing.TURN_RIGHT || bearingKey === Bearing.SEGNORS_LOOP_RIGHT) ? 1.0 : -1.0);
+            (bearingKey === Bearing.TURN_RIGHT || bearingKey === Bearing.SEGNORS_LOOP_RIGHT || bearingKey === Bearing.TALLON_ROLL_RIGHT) ? 1.0 : -1.0);
          var deltaAngle = (heading * Math.PI / 180) / segmentCount;
 
          var myLastX = lastX;
