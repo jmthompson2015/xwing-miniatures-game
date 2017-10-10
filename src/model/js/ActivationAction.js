@@ -198,16 +198,24 @@ define(["immutable", "common/js/InputValidator",
 
             if (token)
             {
+               var cleanUp = this.cleanUp.bind(this);
+               var delay = this.delay();
+               var nextFunction = function()
+               {
+                  setTimeout(cleanUp, delay);
+               };
                if (difficultyKey === Difficulty.EASY)
                {
-                  token.removeStress();
+                  token.removeStress(nextFunction);
                }
                else if (difficultyKey === Difficulty.HARD)
                {
-                  token.receiveStress();
+                  token.receiveStress(nextFunction);
                }
-
-               setTimeout(this.cleanUp.bind(this), this.delay());
+               else
+               {
+                  nextFunction();
+               }
             }
             else
             {

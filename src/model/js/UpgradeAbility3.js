@@ -83,8 +83,7 @@ define(["common/js/InputValidator",
             var attacker = getActiveToken(store);
             var defender = getDefender(attacker);
             attacker.receiveStress();
-            defender.receiveStress();
-            callback();
+            defender.receiveStress(callback);
          },
       };
 
@@ -100,8 +99,7 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var attacker = getActiveToken(store);
-            attacker.receiveStress();
-            callback();
+            attacker.receiveStress(callback);
          },
       };
 
@@ -416,10 +414,9 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            token.receiveStress();
             var attackDice = getAttackDice(token);
             attackDice.addDie();
-            callback();
+            token.receiveStress(callback);
          },
       };
 
@@ -1138,8 +1135,7 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var defender = getDefender(token);
-            defender.receiveStress();
-            callback();
+            defender.receiveStress(callback);
          },
       };
 

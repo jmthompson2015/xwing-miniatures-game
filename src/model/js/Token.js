@@ -990,7 +990,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          this.store().dispatch(TokenAction.addTokenDamage(this, damageKey));
       };
 
-      Token.prototype.receiveCriticalDamage = function(damageKey)
+      Token.prototype.receiveCriticalDamage = function(damageKey, callback)
       {
          InputValidator.validateNotNull("damageKey", damageKey);
 
@@ -1006,11 +1006,11 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             var eventContext = {
                damageKey: damageKey,
             };
-            this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_CRITICAL_DAMAGE, this, undefined, eventContext));
+            this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_CRITICAL_DAMAGE, this, callback, eventContext));
          }
       };
 
-      Token.prototype.receiveDamage = function(damageKey)
+      Token.prototype.receiveDamage = function(damageKey, callback)
       {
          InputValidator.validateNotNull("damageKey", damageKey);
 
@@ -1018,21 +1018,25 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          var eventContext = {
             damageKey: damageKey,
          };
-         this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_DAMAGE, this, undefined, eventContext));
+         this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_DAMAGE, this, callback, eventContext));
       };
 
-      Token.prototype.receiveStress = function()
+      Token.prototype.receiveStress = function(callback)
       {
          this.store().dispatch(TokenAction.addStressCount(this));
-         this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_STRESS, this));
+         this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_STRESS, this, callback));
       };
 
-      Token.prototype.recoverShield = function()
+      Token.prototype.recoverShield = function(callback)
       {
          if (this.shieldCount() < this.shieldValue())
          {
             this.store().dispatch(TokenAction.addShieldCount(this));
-            this.store().dispatch(Action.enqueueEvent(Event.RECOVER_SHIELD, this));
+            this.store().dispatch(Action.enqueueEvent(Event.RECOVER_SHIELD, this, callback));
+         }
+         else if (callback)
+         {
+            callback();
          }
       };
 
@@ -1043,22 +1047,30 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          this.store().dispatch(TokenAction.removeTokenCriticalDamage(this, damageKey));
       };
 
-      Token.prototype.removeShield = function(count)
+      Token.prototype.removeShield = function(count, callback)
       {
          if (this.shieldCount() > 0)
          {
             var myCount = (count !== undefined ? count : 1);
             this.store().dispatch(TokenAction.addShieldCount(this, -myCount));
-            this.store().dispatch(Action.enqueueEvent(Event.REMOVE_SHIELD, this));
+            this.store().dispatch(Action.enqueueEvent(Event.REMOVE_SHIELD, this, callback));
+         }
+         else if (callback)
+         {
+            callback();
          }
       };
 
-      Token.prototype.removeStress = function()
+      Token.prototype.removeStress = function(callback)
       {
          if (this.stressCount() > 0)
          {
             this.store().dispatch(TokenAction.addStressCount(this, -1));
-            this.store().dispatch(Action.enqueueEvent(Event.REMOVE_STRESS, this));
+            this.store().dispatch(Action.enqueueEvent(Event.REMOVE_STRESS, this, callback));
+         }
+         else if (callback)
+         {
+            callback();
          }
       };
 

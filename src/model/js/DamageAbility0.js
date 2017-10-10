@@ -24,8 +24,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            token.receiveStress();
-            callback();
+            token.receiveStress(callback);
          },
       };
 
@@ -97,9 +96,8 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            token.receiveStress();
             flipCardFacedown(store, token, DamageCard.THRUST_CONTROL_FIRE);
-            callback();
+            token.receiveStress(callback);
          },
       };
 
@@ -111,9 +109,8 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            token.receiveStress();
             flipCardFacedown(store, token, DamageCard.THRUST_CONTROL_FIRE_V2);
-            callback();
+            token.receiveStress(callback);
          },
       };
 

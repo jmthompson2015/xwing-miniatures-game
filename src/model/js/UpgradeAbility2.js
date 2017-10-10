@@ -86,8 +86,7 @@ define(["common/js/InputValidator",
 
             var newManeuver = Maneuver.properties[Maneuver.STATIONARY_0_STANDARD];
             store.dispatch(Action.setTokenManeuver(token, newManeuver));
-            token.receiveStress();
-            callback();
+            token.receiveStress(callback);
          },
       };
 
@@ -137,8 +136,7 @@ define(["common/js/InputValidator",
             var fromPosition = environment.getPositionFor(token);
             var toPosition = new Position(fromPosition.x(), fromPosition.y(), fromPosition.heading() + 180);
             environment.moveToken(fromPosition, toPosition);
-            token.receiveStress();
-            callback();
+            token.receiveStress(callback);
          },
       };
 
@@ -410,8 +408,7 @@ define(["common/js/InputValidator",
          {
             store.dispatch(TokenAction.addFocusCount(token));
             token.receiveStress();
-            token.receiveStress();
-            callback();
+            token.receiveStress(callback);
          },
       };
 
