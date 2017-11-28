@@ -128,11 +128,11 @@ define(["common/js/InputValidator",
 
             if (ability.sourceObject().oncePerRound)
             {
-               store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, ability));
+               store.dispatch(CardAction.addUsedPerRoundAbility(token, ability));
             }
             else
             {
-               store.dispatch(CardAction.addTokenUsedAbility(token, ability));
+               store.dispatch(CardAction.addUsedAbility(token, ability));
             }
 
             var message = ability.sourceObject().name + " ability used.";

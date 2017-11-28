@@ -36,7 +36,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
          if (isNaN(id))
          {
             id = store.getState().nextTokenId;
-            store.dispatch(CardAction.incrementNextTokenId());
+            store.dispatch(CardAction.incrementNextCardId());
          }
 
          this.id = function()
@@ -292,7 +292,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
          var pilotKey = this.pilotKey();
          var agent = this.agent();
 
-         store.dispatch(CardAction.setToken(id, pilotKey, agent, tokenFore.id(), tokenAft.id()));
+         store.dispatch(CardAction.setCardInstance(id, pilotKey, agent, tokenFore.id(), tokenAft.id()));
       };
 
       //////////////////////////////////////////////////////////////////////////

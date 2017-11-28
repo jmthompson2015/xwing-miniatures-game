@@ -358,7 +358,7 @@ define(["immutable", "common/js/InputValidator",
 
          if (token)
          {
-            store.dispatch(CardAction.clearTokenUsedAbilities(token));
+            store.dispatch(CardAction.clearUsedAbilities(token));
          }
 
          setTimeout(this.callback(), this.delay());

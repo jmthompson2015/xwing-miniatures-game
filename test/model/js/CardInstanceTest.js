@@ -243,7 +243,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var attacker = environment.tokens()[1]; // Dark Curse
          var store = environment.store();
-         store.dispatch(CardAction.addTokenUpgrade(attacker, UpgradeCard.DORSAL_TURRET));
+         store.dispatch(CardAction.addUpgrade(attacker, UpgradeCard.DORSAL_TURRET));
          var defender = environment.tokens()[2]; // X-Wing
          assert.equal(attacker.name(), "2 \"Dark Curse\" (TIE Fighter)");
          var weapon = attacker.primaryWeapon();
@@ -1077,7 +1077,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var token = environment.tokens()[2]; // X-Wing
-         store.dispatch(CardAction.addTokenUpgrade(token, UpgradeCard.KYLE_KATARN));
+         store.dispatch(CardAction.addUpgrade(token, UpgradeCard.KYLE_KATARN));
          store.dispatch(CardAction.addStressCount(token));
          assert.equal(token.focusCount(), 0);
          assert.equal(token.stressCount(), 1);
@@ -1239,7 +1239,7 @@ define(["qunit", "redux",
          assert.ok(!token.isDestroyed());
 
          // Run.
-         store.dispatch(CardAction.addTokenCriticalDamage(token, DamageCard.BLINDED_PILOT));
+         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.BLINDED_PILOT));
 
          // Verify.
          assert.equal(token.damageCount(), 0);
@@ -1248,7 +1248,7 @@ define(["qunit", "redux",
          assert.ok(!token.isDestroyed());
 
          // Run.
-         store.dispatch(CardAction.addTokenCriticalDamage(token, DamageCard.DIRECT_HIT));
+         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.DIRECT_HIT));
 
          // Verify.
          assert.equal(token.damageCount(), 0);
@@ -1303,7 +1303,7 @@ define(["qunit", "redux",
 
          // Run.
          var damageKey = DamageCard.CONSOLE_FIRE;
-         store.dispatch(CardAction.addTokenCriticalDamage(token, damageKey));
+         store.dispatch(CardAction.addCriticalDamage(token, damageKey));
          result = token.usableDamageAbilities(abilityType, abilityKey);
 
          // Verify.
@@ -1360,7 +1360,7 @@ define(["qunit", "redux",
          var abilityType = UpgradeAbility2;
          var abilityKey = Phase.ACTIVATION_REVEAL_DIAL;
          var maneuver = Maneuver.properties[maneuverKey];
-         store.dispatch(CardAction.addTokenUpgrade(token, UpgradeCard.ADRENALINE_RUSH));
+         store.dispatch(CardAction.addUpgrade(token, UpgradeCard.ADRENALINE_RUSH));
          environment.setActiveToken(token);
          var callback = function() {};
          ActivationAction.create(store, token.id(), callback);
@@ -1393,10 +1393,10 @@ define(["qunit", "redux",
          var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage));
-         store.dispatch(CardAction.addTokenUsedAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedAbility(token, damage));
+         store.dispatch(CardAction.addUsedAbility(token, pilot));
+         store.dispatch(CardAction.addUsedAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade));
 
          // Run.
          var result = token.usedAbilities();
@@ -1420,11 +1420,11 @@ define(["qunit", "redux",
          var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage0));
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage1));
-         store.dispatch(CardAction.addTokenUsedAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedAbility(token, damage0));
+         store.dispatch(CardAction.addUsedAbility(token, damage1));
+         store.dispatch(CardAction.addUsedAbility(token, pilot));
+         store.dispatch(CardAction.addUsedAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade));
 
          // Run.
          var result = token.usedAbilities(DamageCard);
@@ -1448,11 +1448,11 @@ define(["qunit", "redux",
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade0 = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var upgrade1 = new Ability(UpgradeCard, UpgradeCard.ADRENALINE_RUSH, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage));
-         store.dispatch(CardAction.addTokenUsedAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade0));
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade1));
+         store.dispatch(CardAction.addUsedAbility(token, damage));
+         store.dispatch(CardAction.addUsedAbility(token, pilot));
+         store.dispatch(CardAction.addUsedAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade0));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade1));
 
          // Run.
          var result = token.usedAbilities(UpgradeCard);
@@ -1484,10 +1484,10 @@ define(["qunit", "redux",
          var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage));
-         store.dispatch(CardAction.addTokenUsedAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedAbility(token, damage));
+         store.dispatch(CardAction.addUsedAbility(token, pilot));
+         store.dispatch(CardAction.addUsedAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade));
 
          // Run.
          var result = token.usedAbilityKeys();

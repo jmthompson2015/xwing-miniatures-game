@@ -105,51 +105,18 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "art
          {
             return AgentReducer.reduce(state, action);
          }
+         else if (isCardAction(action))
+         {
+            return CardReducer.reduce(state, action);
+         }
+         else if (isEnvironmentAction(action))
+         {
+            return EnvironmentReducer.reduce(state, action);
+         }
          else
          {
             switch (action.type)
             {
-               case EnvironmentAction.ADD_ROUND:
-               case EnvironmentAction.DISCARD_DAMAGE:
-               case EnvironmentAction.DRAW_DAMAGE:
-               case EnvironmentAction.MOVE_TOKEN:
-               case EnvironmentAction.PLACE_TOKEN:
-               case EnvironmentAction.REMOVE_TOKEN:
-               case EnvironmentAction.REMOVE_TOKEN_AT:
-               case EnvironmentAction.REPLENISH_DAMAGE_DECK:
-               case EnvironmentAction.SET_ACTIVE_TOKEN:
-               case EnvironmentAction.SET_DAMAGE_DECK:
-               case EnvironmentAction.SET_FIRST_AGENT:
-               case EnvironmentAction.SET_FIRST_SQUAD:
-               case EnvironmentAction.SET_PLAY_AREA_SCALE:
-               case EnvironmentAction.SET_PLAY_FORMAT:
-               case EnvironmentAction.SET_SECOND_AGENT:
-               case EnvironmentAction.SET_SECOND_SQUAD:
-               case EnvironmentAction.SET_TOKEN_TOUCHING:
-                  return EnvironmentReducer.reduce(state, action);
-               case CardAction.ADD_COUNT:
-               case CardAction.ADD_SECONDARY_WEAPON:
-               case CardAction.ADD_TOKEN_CRITICAL_DAMAGE:
-               case CardAction.ADD_TOKEN_DAMAGE:
-               case CardAction.ADD_TOKEN_UPGRADE:
-               case CardAction.ADD_TOKEN_UPGRADE_ENERGY:
-               case CardAction.ADD_TOKEN_USED_ABILITY:
-               case CardAction.ADD_TOKEN_USED_PER_ROUND_ABILITY:
-               case CardAction.CLEAR_TOKEN_USED_ABILITIES:
-               case CardAction.CLEAR_TOKEN_USED_PER_ROUND_ABILITIES:
-               case CardAction.INCREMENT_NEXT_TOKEN_ID:
-               case CardAction.REMOVE_SECONDARY_WEAPON:
-               case CardAction.REMOVE_TOKEN_CRITICAL_DAMAGE:
-               case CardAction.REMOVE_TOKEN_DAMAGE:
-               case CardAction.REMOVE_TOKEN_UPGRADE:
-               case CardAction.REMOVE_TOKEN_USED_ABILITY:
-               case CardAction.REMOVE_TOKEN_USED_PER_ROUND_ABILITY:
-               case CardAction.RESET_NEXT_TOKEN_ID:
-               case CardAction.SET_COUNT:
-               case CardAction.SET_PRIMARY_WEAPON:
-               case CardAction.SET_TOKEN:
-               case CardAction.SET_TOKEN_UPGRADE_ENERGY:
-                  return CardReducer.reduce(state, action);
                case Action.ADD_AGENT:
                   return Object.assign(
                   {}, state,
@@ -385,6 +352,16 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "art
       function isAgentAction(action)
       {
          return AgentAction[action.type] !== undefined;
+      }
+
+      function isCardAction(action)
+      {
+         return CardAction[action.type] !== undefined;
+      }
+
+      function isEnvironmentAction(action)
+      {
+         return EnvironmentAction[action.type] !== undefined;
       }
 
       if (Object.freeze)

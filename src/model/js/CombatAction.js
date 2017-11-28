@@ -392,8 +392,8 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          }
 
          var store = this.store();
-         store.dispatch(CardAction.clearTokenUsedAbilities(attacker));
-         store.dispatch(CardAction.clearTokenUsedAbilities(defender));
+         store.dispatch(CardAction.clearUsedAbilities(attacker));
+         store.dispatch(CardAction.clearUsedAbilities(defender));
 
          if (myDefender.isDestroyed())
          {

@@ -72,7 +72,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var hitCount = 2;
          var criticalHitCount = 1;
          var defender = environment.tokens()[2];
-         store.dispatch(CardAction.addTokenUpgrade(defender, UpgradeCard.DETERMINATION));
+         store.dispatch(CardAction.addUpgrade(defender, UpgradeCard.DETERMINATION));
          var evadeCount = 0;
          var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
          assert.equal(defender.damageCount(), 0);

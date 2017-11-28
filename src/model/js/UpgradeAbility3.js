@@ -634,7 +634,7 @@ define(["common/js/InputValidator",
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.rerollBlank();
-            store.dispatch(CardAction.addTokenUsedAbility(defender, new Ability(UpgradeCard, UpgradeCard.LONE_WOLF, UpgradeAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)));
+            store.dispatch(CardAction.addUsedAbility(defender, new Ability(UpgradeCard, UpgradeCard.LONE_WOLF, UpgradeAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)));
             callback();
          },
       };

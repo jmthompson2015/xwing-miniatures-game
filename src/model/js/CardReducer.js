@@ -7,99 +7,99 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
 
       CardReducer.reduce = function(state, action)
       {
-         LOGGER.debug("reduce() type = " + action.type);
+         LOGGER.debug("CardReducer.reduce() type = " + action.type);
 
-         var newTokenIdToData;
+         var newCardIdToData;
 
          switch (action.type)
          {
             case CardAction.ADD_COUNT:
             case CardAction.SET_COUNT:
-               // LOGGER.info("ADD_COUNT || SET_COUNT: token = " + action.token + " property = " + action.property + " value = " + action.key);
-               var newTokenIdToCounts = CardReducer.tokenIdToCounts(state.tokenIdToCounts, action);
+               // LOGGER.info("ADD_COUNT || SET_COUNT: cardInstance = " + action.cardInstance + " property = " + action.property + " value = " + action.key);
+               var newCardIdToCounts = CardReducer.cardIdToCounts(state.tokenIdToCounts, action);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToCounts: newTokenIdToCounts,
+                  tokenIdToCounts: newCardIdToCounts,
                });
             case CardAction.ADD_SECONDARY_WEAPON:
             case CardAction.REMOVE_SECONDARY_WEAPON:
-               newTokenIdToData = CardReducer.tokenIdToArray(state.tokenIdToSecondaryWeapons, action.type, action.token.id(), action.weapon);
+               newCardIdToData = CardReducer.cardIdToArray(state.tokenIdToSecondaryWeapons, action.type, action.cardInstance.id(), action.weapon);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToSecondaryWeapons: newTokenIdToData,
+                  tokenIdToSecondaryWeapons: newCardIdToData,
                });
-            case CardAction.ADD_TOKEN_CRITICAL_DAMAGE:
-            case CardAction.REMOVE_TOKEN_CRITICAL_DAMAGE:
-               newTokenIdToData = CardReducer.tokenIdToArray(state.tokenIdToCriticalDamages, action.type, action.token.id(), action.damageKey);
+            case CardAction.ADD_CRITICAL_DAMAGE:
+            case CardAction.REMOVE_CRITICAL_DAMAGE:
+               newCardIdToData = CardReducer.cardIdToArray(state.tokenIdToCriticalDamages, action.type, action.cardInstance.id(), action.damageKey);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToCriticalDamages: newTokenIdToData,
+                  tokenIdToCriticalDamages: newCardIdToData,
                });
-            case CardAction.ADD_TOKEN_DAMAGE:
-            case CardAction.REMOVE_TOKEN_DAMAGE:
-               newTokenIdToData = CardReducer.tokenIdToArray(state.tokenIdToDamages, action.type, action.token.id(), action.damageKey);
+            case CardAction.ADD_DAMAGE:
+            case CardAction.REMOVE_DAMAGE:
+               newCardIdToData = CardReducer.cardIdToArray(state.tokenIdToDamages, action.type, action.cardInstance.id(), action.damageKey);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToDamages: newTokenIdToData,
+                  tokenIdToDamages: newCardIdToData,
                });
-            case CardAction.ADD_TOKEN_UPGRADE:
-            case CardAction.REMOVE_TOKEN_UPGRADE:
-               newTokenIdToData = CardReducer.tokenIdToArray(state.tokenIdToUpgrades, action.type, action.token.id(), action.upgradeKey);
+            case CardAction.ADD_UPGRADE:
+            case CardAction.REMOVE_UPGRADE:
+               newCardIdToData = CardReducer.cardIdToArray(state.tokenIdToUpgrades, action.type, action.cardInstance.id(), action.upgradeKey);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToUpgrades: newTokenIdToData,
+                  tokenIdToUpgrades: newCardIdToData,
                });
-            case CardAction.ADD_TOKEN_UPGRADE_ENERGY:
-            case CardAction.SET_TOKEN_UPGRADE_ENERGY:
-               var newTokenIdToUpgradeEnergy = CardReducer.tokenIdToUpgradeEnergy(state.tokenIdToUpgradeEnergy, action);
+            case CardAction.ADD_UPGRADE_ENERGY:
+            case CardAction.SET_UPGRADE_ENERGY:
+               var newCardUpgradeEnergy = CardReducer.tokenIdToUpgradeEnergy(state.tokenIdToUpgradeEnergy, action);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToUpgradeEnergy: newTokenIdToUpgradeEnergy,
+                  tokenIdToUpgradeEnergy: newCardUpgradeEnergy,
                });
-            case CardAction.ADD_TOKEN_USED_ABILITY:
-            case CardAction.CLEAR_TOKEN_USED_ABILITIES:
-            case CardAction.REMOVE_TOKEN_USED_ABILITY:
-               newTokenIdToData = CardReducer.tokenIdToArray(state.tokenIdToUsedAbilities, action.type, action.token.id(), action.ability);
+            case CardAction.ADD_USED_ABILITY:
+            case CardAction.CLEAR_USED_ABILITIES:
+            case CardAction.REMOVE_USED_ABILITY:
+               newCardIdToData = CardReducer.cardIdToArray(state.tokenIdToUsedAbilities, action.type, action.cardInstance.id(), action.ability);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToUsedAbilities: newTokenIdToData,
+                  tokenIdToUsedAbilities: newCardIdToData,
                });
-            case CardAction.ADD_TOKEN_USED_PER_ROUND_ABILITY:
-            case CardAction.CLEAR_TOKEN_USED_PER_ROUND_ABILITIES:
-            case CardAction.REMOVE_TOKEN_USED_PER_ROUND_ABILITY:
-               newTokenIdToData = CardReducer.tokenIdToArray(state.tokenIdToUsedPerRoundAbilities, action.type, action.token.id(), action.ability);
+            case CardAction.ADD_USED_PER_ROUND_ABILITY:
+            case CardAction.CLEAR_USED_PER_ROUND_ABILITIES:
+            case CardAction.REMOVE_USED_PER_ROUND_ABILITY:
+               newCardIdToData = CardReducer.cardIdToArray(state.tokenIdToUsedPerRoundAbilities, action.type, action.cardInstance.id(), action.ability);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToUsedPerRoundAbilities: newTokenIdToData,
+                  tokenIdToUsedPerRoundAbilities: newCardIdToData,
                });
-            case CardAction.INCREMENT_NEXT_TOKEN_ID:
+            case CardAction.INCREMENT_NEXT_CARD_ID:
                return Object.assign(
                {}, state,
                {
                   nextTokenId: state.nextTokenId + 1,
                });
             case CardAction.SET_PRIMARY_WEAPON:
-               var newTokenIdToPrimaryWeapon = state.tokenIdToPrimaryWeapon.set(action.token.id(), action.weapon);
+               var newCardPrimaryWeapon = state.tokenIdToPrimaryWeapon.set(action.cardInstance.id(), action.weapon);
                return Object.assign(
                {}, state,
                {
-                  tokenIdToPrimaryWeapon: newTokenIdToPrimaryWeapon,
+                  tokenIdToPrimaryWeapon: newCardPrimaryWeapon,
                });
-            case CardAction.SET_TOKEN:
+            case CardAction.SET_CARD_INSTANCE:
                // LOGGER.info("SET_TOKEN: payload = " + JSON.stringify(action.payload));
-               var newTokens = state.tokens.set(action.payload.get("id"), action.payload);
+               var newCards = state.tokens.set(action.payload.get("id"), action.payload);
                return Object.assign(
                {}, state,
                {
-                  tokens: newTokens,
+                  tokens: newCards,
                });
             default:
                LOGGER.warn("CardReducer.reduce: Unhandled action type: " + action.type);
@@ -124,50 +124,50 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
          }
       };
 
-      CardReducer.tokenIdToArray = function(state, actionType, actionTokenId, actionData)
+      CardReducer.cardIdToArray = function(state, actionType, actionTokenId, actionData)
       {
          InputValidator.validateNotNull("state", state);
          InputValidator.validateNotNull("actionType", actionType);
          InputValidator.validateIsNumber("actionTokenId", actionTokenId);
          // actionData optional.
 
-         LOGGER.debug("CardReducer.tokenIdToArray() type = " + actionType);
+         LOGGER.debug("CardReducer.cardIdToArray() type = " + actionType);
 
          var newArray, oldArray;
 
          switch (actionType)
          {
             case CardAction.ADD_SECONDARY_WEAPON:
-            case CardAction.ADD_TOKEN_CRITICAL_DAMAGE:
-            case CardAction.ADD_TOKEN_DAMAGE:
-            case CardAction.ADD_TOKEN_UPGRADE:
-            case CardAction.ADD_TOKEN_USED_ABILITY:
-            case CardAction.ADD_TOKEN_USED_PER_ROUND_ABILITY:
+            case CardAction.ADD_CRITICAL_DAMAGE:
+            case CardAction.ADD_DAMAGE:
+            case CardAction.ADD_UPGRADE:
+            case CardAction.ADD_USED_ABILITY:
+            case CardAction.ADD_USED_PER_ROUND_ABILITY:
                oldArray = state.get(actionTokenId);
                newArray = (oldArray ? oldArray : Immutable.List());
                newArray = newArray.push(actionData);
                return state.set(actionTokenId, newArray);
-            case CardAction.CLEAR_TOKEN_USED_ABILITIES:
-            case CardAction.CLEAR_TOKEN_USED_PER_ROUND_ABILITIES:
+            case CardAction.CLEAR_USED_ABILITIES:
+            case CardAction.CLEAR_USED_PER_ROUND_ABILITIES:
                return state.set(actionTokenId, Immutable.List());
             case CardAction.REMOVE_SECONDARY_WEAPON:
-            case CardAction.REMOVE_TOKEN_CRITICAL_DAMAGE:
-            case CardAction.REMOVE_TOKEN_DAMAGE:
-            case CardAction.REMOVE_TOKEN_UPGRADE:
-            case CardAction.REMOVE_TOKEN_USED_ABILITY:
-            case CardAction.REMOVE_TOKEN_USED_PER_ROUND_ABILITY:
+            case CardAction.REMOVE_CRITICAL_DAMAGE:
+            case CardAction.REMOVE_DAMAGE:
+            case CardAction.REMOVE_UPGRADE:
+            case CardAction.REMOVE_USED_ABILITY:
+            case CardAction.REMOVE_USED_PER_ROUND_ABILITY:
                oldArray = state.get(actionTokenId);
                newArray = (oldArray ? oldArray : Immutable.List());
                var index = newArray.indexOf(actionData);
                newArray = newArray.delete(index);
                return state.set(actionTokenId, newArray);
             default:
-               LOGGER.warn("CardReducer.tokenIdToArray: Unhandled action type: " + actionType);
+               LOGGER.warn("CardReducer.cardIdToArray: Unhandled action type: " + actionType);
                return state;
          }
       };
 
-      CardReducer.tokenIdToCounts = function(state, action)
+      CardReducer.cardIdToCounts = function(state, action)
       {
          LOGGER.debug("tokenIdToCounts() type = " + action.type);
 
@@ -175,10 +175,10 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
          {
             case CardAction.ADD_COUNT:
             case CardAction.SET_COUNT:
-               var oldTokenIdToCounts = (state.get(action.token.id()) ? state.get(action.token.id()) : Immutable.Map());
-               return state.set(action.token.id(), CardReducer.counts(oldTokenIdToCounts, action));
+               var oldTokenIdToCounts = (state.get(action.cardInstance.id()) ? state.get(action.cardInstance.id()) : Immutable.Map());
+               return state.set(action.cardInstance.id(), CardReducer.counts(oldTokenIdToCounts, action));
             default:
-               LOGGER.warn("CardReducer.tokenIdToCounts: Unhandled action type: " + action.type);
+               LOGGER.warn("CardReducer.cardIdToCounts: Unhandled action type: " + action.type);
                return state;
          }
       };
@@ -189,10 +189,10 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
 
          switch (action.type)
          {
-            case CardAction.ADD_TOKEN_UPGRADE_ENERGY:
-            case CardAction.SET_TOKEN_UPGRADE_ENERGY:
-               var oldTokenIdToUpgradeEnergy = (state.get(action.token.id()) ? state.get(action.token.id()) : Immutable.Map());
-               return state.set(action.token.id(), CardReducer.upgradeEnergy(oldTokenIdToUpgradeEnergy, action));
+            case CardAction.ADD_UPGRADE_ENERGY:
+            case CardAction.SET_UPGRADE_ENERGY:
+               var oldTokenIdToUpgradeEnergy = (state.get(action.cardInstance.id()) ? state.get(action.cardInstance.id()) : Immutable.Map());
+               return state.set(action.cardInstance.id(), CardReducer.upgradeEnergy(oldTokenIdToUpgradeEnergy, action));
             default:
                LOGGER.warn("CardReducer.tokenIdToUpgradeEnergy: Unhandled action type: " + action.type);
                return state;
@@ -205,10 +205,10 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
 
          switch (action.type)
          {
-            case CardAction.ADD_TOKEN_UPGRADE_ENERGY:
+            case CardAction.ADD_UPGRADE_ENERGY:
                var oldValue = (state.get(action.property) ? state.get(action.property) : 0);
                return state.set(action.upgradeKey, Math.max(oldValue + action.key, 0));
-            case CardAction.SET_TOKEN_UPGRADE_ENERGY:
+            case CardAction.SET_UPGRADE_ENERGY:
                return state.set(action.upgradeKey, action.key);
             default:
                LOGGER.warn("CardReducer.upgradeEnergy: Unhandled action type: " + action.type);

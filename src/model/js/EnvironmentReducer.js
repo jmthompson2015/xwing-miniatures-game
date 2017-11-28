@@ -7,7 +7,7 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
 
       EnvironmentReducer.reduce = function(state, action)
       {
-         LOGGER.debug("reduce() type = " + action.type);
+         LOGGER.debug("EnvironmentReducer.reduce() type = " + action.type);
 
          var action2, newPositionToTokenId, newTokenIdToData, newTokens;
 

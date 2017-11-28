@@ -34,7 +34,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          if (isNaN(id))
          {
             id = store.getState().nextTokenId;
-            store.dispatch(CardAction.incrementNextTokenId());
+            store.dispatch(CardAction.incrementNextCardId());
          }
 
          this.store = function()
@@ -963,7 +963,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("upgradeKey", upgradeKey);
 
          var store = this.store();
-         store.dispatch(CardAction.removeTokenUpgrade(this, upgradeKey));
+         store.dispatch(CardAction.removeUpgrade(this, upgradeKey));
          var upgrade = UpgradeCard.properties[upgradeKey];
 
          if (upgrade.weaponValue !== undefined)
@@ -987,7 +987,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("damageKey", damageKey);
 
          this.removeCriticalDamage(damageKey);
-         this.store().dispatch(CardAction.addTokenDamage(this, damageKey));
+         this.store().dispatch(CardAction.addDamage(this, damageKey));
       };
 
       CardInstance.prototype.receiveCriticalDamage = function(damageKey, callback)
@@ -1002,7 +1002,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          }
          else
          {
-            this.store().dispatch(CardAction.addTokenCriticalDamage(this, damageKey));
+            this.store().dispatch(CardAction.addCriticalDamage(this, damageKey));
             var eventContext = {
                damageKey: damageKey,
             };
@@ -1014,7 +1014,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          InputValidator.validateNotNull("damageKey", damageKey);
 
-         this.store().dispatch(CardAction.addTokenDamage(this, damageKey));
+         this.store().dispatch(CardAction.addDamage(this, damageKey));
          var eventContext = {
             damageKey: damageKey,
          };
@@ -1044,7 +1044,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          InputValidator.validateNotNull("damageKey", damageKey);
 
-         this.store().dispatch(CardAction.removeTokenCriticalDamage(this, damageKey));
+         this.store().dispatch(CardAction.removeCriticalDamage(this, damageKey));
       };
 
       CardInstance.prototype.removeShield = function(count, callback)
@@ -1083,11 +1083,11 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          var pilotKey = this.pilotKey();
          var agent = this.agent();
 
-         store.dispatch(CardAction.setToken(id, pilotKey, agent));
+         store.dispatch(CardAction.setCardInstance(id, pilotKey, agent));
 
          upgradeKeys.forEach(function(upgradeKey)
          {
-            store.dispatch(CardAction.addTokenUpgrade(this, upgradeKey));
+            store.dispatch(CardAction.addUpgrade(this, upgradeKey));
          }, this);
 
          Count.keys().forEach(function(property)
@@ -1125,8 +1125,8 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             }
          }, this);
 
-         store.dispatch(CardAction.clearTokenUsedAbilities(this));
-         store.dispatch(CardAction.clearTokenUsedPerRoundAbilities(this));
+         store.dispatch(CardAction.clearUsedAbilities(this));
+         store.dispatch(CardAction.clearUsedPerRoundAbilities(this));
 
          store.dispatch(AgentAction.addPilot(agent, this));
       };
@@ -1144,7 +1144,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          this.upgrades().forEach(function(upgrade)
          {
-            store.dispatch(CardAction.addTokenUpgrade(answer, upgrade.key));
+            store.dispatch(CardAction.addUpgrade(answer, upgrade.key));
 
             if (upgrade.weaponValue)
             {

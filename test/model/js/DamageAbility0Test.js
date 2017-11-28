@@ -76,7 +76,7 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
          var token = environment.tokens()[2]; // X-Wing.
 
          environment.setActiveToken(token);
-         store.dispatch(CardAction.addTokenCriticalDamage(token, DamageCard.MINOR_EXPLOSION));
+         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.MINOR_EXPLOSION));
          store.dispatch(Action.enqueueEvent(Event.RECEIVE_CRITICAL_DAMAGE, token));
 
          return environment;

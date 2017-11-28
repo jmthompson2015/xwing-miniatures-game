@@ -96,8 +96,8 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCar
          store.dispatch(Action.setTokenManeuverAction(token.id()));
          store.dispatch(Action.setTokenRange(token));
          environment.setTokenTouching(token, false);
-         store.dispatch(CardAction.clearTokenUsedAbilities(token));
-         store.dispatch(CardAction.clearTokenUsedPerRoundAbilities(token));
+         store.dispatch(CardAction.clearUsedAbilities(token));
+         store.dispatch(CardAction.clearUsedPerRoundAbilities(token));
 
          // FIXME: force a recompute.
          store.dispatch(CardAction.setEvadeCount(token));

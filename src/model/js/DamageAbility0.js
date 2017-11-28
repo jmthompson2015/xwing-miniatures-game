@@ -121,8 +121,8 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("token", token);
          InputValidator.validateNotNull("damageKey", damageKey);
 
-         store.dispatch(CardAction.removeTokenCriticalDamage(token, damageKey));
-         store.dispatch(CardAction.addTokenDamage(token, damageKey));
+         store.dispatch(CardAction.removeCriticalDamage(token, damageKey));
+         store.dispatch(CardAction.addDamage(token, damageKey));
       }
 
       function getActivationAction(token)

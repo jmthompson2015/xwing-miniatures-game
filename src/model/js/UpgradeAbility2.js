@@ -392,7 +392,7 @@ define(["common/js/InputValidator",
             if (defenseDice.evadeCount() === 1 || defenseDice.focusCount() === 1)
             {
                var damageKey = token.damageKeys().get(0);
-               store.dispatch(CardAction.removeTokenDamage(token.id(), damageKey));
+               store.dispatch(CardAction.removeDamage(token.id(), damageKey));
             }
             callback();
          },

@@ -250,8 +250,8 @@ define(["qunit", "redux",
          var adjudicator = Adjudicator.create(store);
          var token = environment.tokens()[2]; // X-Wing.
          var agent = token.agent();
-         store.dispatch(CardAction.addTokenUpgrade(token, UpgradeCard.LANDO_CALRISSIAN));
-         store.dispatch(CardAction.addTokenCriticalDamage(token, DamageCard.CONSOLE_FIRE));
+         store.dispatch(CardAction.addUpgrade(token, UpgradeCard.LANDO_CALRISSIAN));
+         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.CONSOLE_FIRE));
          environment.setActiveToken(token);
 
          // Run.

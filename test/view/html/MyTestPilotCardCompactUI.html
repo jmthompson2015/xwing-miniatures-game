@@ -105,8 +105,8 @@
 				store.dispatch(CardAction.addCloakCount(imperialToken));
 				store.dispatch(CardAction.addEvadeCount(imperialToken, 2));
 				store.dispatch(CardAction.addFocusCount(imperialToken, 3));
-				store.dispatch(CardAction.addTokenCriticalDamage(imperialToken, DamageCard.CONSOLE_FIRE));
-				store.dispatch(CardAction.addTokenCriticalDamage(imperialToken, DamageCard.DAMAGED_COCKPIT));
+				store.dispatch(CardAction.addCriticalDamage(imperialToken, DamageCard.CONSOLE_FIRE));
+				store.dispatch(CardAction.addCriticalDamage(imperialToken, DamageCard.DAMAGED_COCKPIT));
 				store.dispatch(CardAction.addWeaponsDisabledCount(foToken));
 				store.dispatch(CardAction.addEnergyCount(gozantiToken));
 				store.dispatch(CardAction.addEnergyCount(raiderToken.tokenAft(), 2));
@@ -115,15 +115,15 @@
 
 				store.dispatch(CardAction.addIonCount(rebelToken));
 				store.dispatch(CardAction.addStressCount(rebelToken));
-				store.dispatch(CardAction.addTokenCriticalDamage(rebelToken, DamageCard.DAMAGED_ENGINE));
+				store.dispatch(CardAction.addCriticalDamage(rebelToken, DamageCard.DAMAGED_ENGINE));
 				store.dispatch(CardAction.setShieldCount(resistanceToken, 0));
 				store.dispatch(CardAction.addEnergyCount(gr75Token, 2));
-				store.dispatch(CardAction.addTokenCriticalDamage(gr75Token, DamageCard.CONSOLE_FIRE));
-				store.dispatch(CardAction.addTokenCriticalDamage(gr75Token, DamageCard.DAMAGED_COCKPIT));
+				store.dispatch(CardAction.addCriticalDamage(gr75Token, DamageCard.CONSOLE_FIRE));
+				store.dispatch(CardAction.addCriticalDamage(gr75Token, DamageCard.DAMAGED_COCKPIT));
 				store.dispatch(CardAction.addEnergyCount(cr90Token.tokenAft()));
-				store.dispatch(CardAction.addTokenCriticalDamage(cr90Token.tokenFore(), DamageCard.CONSOLE_FIRE));
-				store.dispatch(CardAction.addTokenCriticalDamage(cr90Token.tokenFore(), DamageCard.DAMAGED_COCKPIT));
-				store.dispatch(CardAction.addTokenCriticalDamage(cr90Token.tokenAft(), DamageCard.DAMAGED_SENSOR_ARRAY));
+				store.dispatch(CardAction.addCriticalDamage(cr90Token.tokenFore(), DamageCard.CONSOLE_FIRE));
+				store.dispatch(CardAction.addCriticalDamage(cr90Token.tokenFore(), DamageCard.DAMAGED_COCKPIT));
+				store.dispatch(CardAction.addCriticalDamage(cr90Token.tokenAft(), DamageCard.DAMAGED_SENSOR_ARRAY));
 
 				TargetLock.newInstance(store, imperialToken, rebelToken);
 				TargetLock.newInstance(store, rebelToken, scumToken);

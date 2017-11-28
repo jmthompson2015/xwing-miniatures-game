@@ -252,7 +252,7 @@ define(["qunit", "redux",
          assert.ok(!store.getState().tokenIdToCriticalDamages[token.id()]);
 
          // Run.
-         store.dispatch(CardAction.addTokenCriticalDamage(token, damageKey0));
+         store.dispatch(CardAction.addCriticalDamage(token, damageKey0));
 
          // Verify.
          var damages = store.getState().tokenIdToCriticalDamages.get(token.id());
@@ -261,7 +261,7 @@ define(["qunit", "redux",
          assert.equal(damages.get(0), damageKey0);
 
          // Run.
-         store.dispatch(CardAction.addTokenCriticalDamage(token, damageKey1));
+         store.dispatch(CardAction.addCriticalDamage(token, damageKey1));
 
          // Verify.
          damages = store.getState().tokenIdToCriticalDamages.get(token.id());
@@ -281,7 +281,7 @@ define(["qunit", "redux",
          assert.ok(!store.getState().tokenIdToDamages[token.id()]);
 
          // Run.
-         store.dispatch(CardAction.addTokenDamage(token, damageKey0));
+         store.dispatch(CardAction.addDamage(token, damageKey0));
 
          // Verify.
          var damages = store.getState().tokenIdToDamages.get(token.id());
@@ -290,7 +290,7 @@ define(["qunit", "redux",
          assert.equal(damages.get(0), damageKey0);
 
          // Run.
-         store.dispatch(CardAction.addTokenDamage(token, damageKey1));
+         store.dispatch(CardAction.addDamage(token, damageKey1));
 
          // Verify.
          damages = store.getState().tokenIdToDamages.get(token.id());
@@ -311,7 +311,7 @@ define(["qunit", "redux",
          assert.ok(!store.getState().tokenIdToUpgrades.get(token.id()));
 
          // Run.
-         store.dispatch(CardAction.addTokenUpgrade(token, upgradeKey0));
+         store.dispatch(CardAction.addUpgrade(token, upgradeKey0));
 
          // Verify.
          var upgrades = store.getState().tokenIdToUpgrades.get(token.id());
@@ -320,7 +320,7 @@ define(["qunit", "redux",
          assert.equal(upgrades.get(0), upgradeKey0);
 
          // Run.
-         store.dispatch(CardAction.addTokenUpgrade(token, upgradeKey1));
+         store.dispatch(CardAction.addUpgrade(token, upgradeKey1));
 
          // Verify.
          upgrades = store.getState().tokenIdToUpgrades.get(token.id());
@@ -340,7 +340,7 @@ define(["qunit", "redux",
          assert.ok(!store.getState().tokenIdToUpgradeEnergy.get(token.id()));
 
          // Run.
-         store.dispatch(CardAction.addTokenUpgradeEnergy(token, upgradeKey0));
+         store.dispatch(CardAction.addUpgradeEnergy(token, upgradeKey0));
 
          // Verify.
          var upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());
@@ -350,7 +350,7 @@ define(["qunit", "redux",
          assert.equal(upgradeEnergy.get(upgradeKey0), 1);
 
          // Run.
-         store.dispatch(CardAction.addTokenUpgradeEnergy(token, upgradeKey1, 2));
+         store.dispatch(CardAction.addUpgradeEnergy(token, upgradeKey1, 2));
 
          // Verify.
          upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());
@@ -374,7 +374,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.size, 0);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage));
+         store.dispatch(CardAction.addUsedAbility(token, damage));
 
          // Verify.
          usedAbilities = token.usedAbilities();
@@ -382,7 +382,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(0).source(), DamageCard);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedAbility(token, pilot));
+         store.dispatch(CardAction.addUsedAbility(token, pilot));
 
          // Verify.
          usedAbilities = token.usedAbilities();
@@ -391,7 +391,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(1).source(), PilotCard);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedAbility(token, shipAction));
 
          // Verify.
          usedAbilities = token.usedAbilities();
@@ -401,7 +401,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(2).source(), ShipAction);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade));
 
          // Verify.
          usedAbilities = token.usedAbilities();
@@ -425,7 +425,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.size, 0);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, damage));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, damage));
 
          // Verify.
          usedAbilities = token.usedPerRoundAbilities();
@@ -433,7 +433,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(0).source(), DamageCard);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, pilot));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, pilot));
 
          // Verify.
          usedAbilities = token.usedPerRoundAbilities();
@@ -442,7 +442,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(1).source(), PilotCard);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, shipAction));
 
          // Verify.
          usedAbilities = token.usedPerRoundAbilities();
@@ -452,7 +452,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(2).source(), ShipAction);
 
          // Run.
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, upgrade));
 
          // Verify.
          usedAbilities = token.usedPerRoundAbilities();
@@ -497,14 +497,14 @@ define(["qunit", "redux",
          var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage));
-         store.dispatch(CardAction.addTokenUsedAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedAbility(token, damage));
+         store.dispatch(CardAction.addUsedAbility(token, pilot));
+         store.dispatch(CardAction.addUsedAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade));
          assert.equal(token.usedAbilities().size, 4);
 
          // Run.
-         store.dispatch(CardAction.clearTokenUsedAbilities(token));
+         store.dispatch(CardAction.clearUsedAbilities(token));
 
          // Verify.
          assert.equal(token.usedAbilities().size, 0);
@@ -519,14 +519,14 @@ define(["qunit", "redux",
          var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, damage));
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, damage));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, pilot));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, upgrade));
          assert.equal(token.usedPerRoundAbilities().size, 4);
 
          // Run.
-         store.dispatch(CardAction.clearTokenUsedPerRoundAbilities(token));
+         store.dispatch(CardAction.clearUsedPerRoundAbilities(token));
 
          // Verify.
          assert.equal(token.usedPerRoundAbilities().size, 0);
@@ -539,13 +539,13 @@ define(["qunit", "redux",
          assert.equal(store.getState().nextTokenId, 1);
 
          // Run.
-         store.dispatch(CardAction.incrementNextTokenId());
+         store.dispatch(CardAction.incrementNextCardId());
 
          // Verify.
          assert.equal(store.getState().nextTokenId, 2);
 
          // Run.
-         store.dispatch(CardAction.incrementNextTokenId());
+         store.dispatch(CardAction.incrementNextCardId());
 
          // Verify.
          assert.equal(store.getState().nextTokenId, 3);
@@ -559,8 +559,8 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var damageKey0 = DamageCard.BLINDED_PILOT;
          var damageKey1 = DamageCard.CONSOLE_FIRE;
-         store.dispatch(CardAction.addTokenCriticalDamage(token, damageKey0));
-         store.dispatch(CardAction.addTokenCriticalDamage(token, damageKey1));
+         store.dispatch(CardAction.addCriticalDamage(token, damageKey0));
+         store.dispatch(CardAction.addCriticalDamage(token, damageKey1));
          var damages = store.getState().tokenIdToCriticalDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 2);
@@ -568,7 +568,7 @@ define(["qunit", "redux",
          assert.equal(damages.get(1), damageKey1);
 
          // Run.
-         store.dispatch(CardAction.removeTokenCriticalDamage(token, damageKey1));
+         store.dispatch(CardAction.removeCriticalDamage(token, damageKey1));
 
          // Verify.
          damages = store.getState().tokenIdToCriticalDamages.get(token.id());
@@ -577,7 +577,7 @@ define(["qunit", "redux",
          assert.equal(damages.get(0), damageKey0);
 
          // Run.
-         store.dispatch(CardAction.removeTokenCriticalDamage(token, damageKey0));
+         store.dispatch(CardAction.removeCriticalDamage(token, damageKey0));
 
          // Verify.
          damages = store.getState().tokenIdToCriticalDamages.get(token.id());
@@ -592,8 +592,8 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          var damageKey0 = DamageCard.BLINDED_PILOT;
          var damageKey1 = DamageCard.CONSOLE_FIRE;
-         store.dispatch(CardAction.addTokenDamage(token, damageKey0));
-         store.dispatch(CardAction.addTokenDamage(token, damageKey1));
+         store.dispatch(CardAction.addDamage(token, damageKey0));
+         store.dispatch(CardAction.addDamage(token, damageKey1));
          var damages = store.getState().tokenIdToDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 2);
@@ -601,7 +601,7 @@ define(["qunit", "redux",
          assert.equal(damages.get(1), damageKey1);
 
          // Run.
-         store.dispatch(CardAction.removeTokenDamage(token, damageKey1));
+         store.dispatch(CardAction.removeDamage(token, damageKey1));
 
          // Verify.
          damages = store.getState().tokenIdToDamages.get(token.id());
@@ -610,7 +610,7 @@ define(["qunit", "redux",
          assert.equal(damages.get(0), damageKey0);
 
          // Run.
-         store.dispatch(CardAction.removeTokenDamage(token, damageKey0));
+         store.dispatch(CardAction.removeDamage(token, damageKey0));
 
          // Verify.
          damages = store.getState().tokenIdToDamages.get(token.id());
@@ -626,15 +626,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
          var upgradeKey1 = UpgradeCard.CALCULATION;
-         store.dispatch(CardAction.addTokenUpgrade(token, upgradeKey0));
-         store.dispatch(CardAction.addTokenUpgrade(token, upgradeKey1));
+         store.dispatch(CardAction.addUpgrade(token, upgradeKey0));
+         store.dispatch(CardAction.addUpgrade(token, upgradeKey1));
          assert.ok(store.getState().tokenIdToUpgrades.get(token.id()));
          assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).size, 2);
          assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).get(0), upgradeKey0);
          assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).get(1), upgradeKey1);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUpgrade(token, upgradeKey1));
+         store.dispatch(CardAction.removeUpgrade(token, upgradeKey1));
 
          // Verify.
          assert.ok(store.getState().tokenIdToUpgrades.get(token.id()));
@@ -642,7 +642,7 @@ define(["qunit", "redux",
          assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).get(0), upgradeKey0);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUpgrade(token, upgradeKey0));
+         store.dispatch(CardAction.removeUpgrade(token, upgradeKey0));
 
          // Verify.
          assert.ok(store.getState().tokenIdToUpgrades.get(token.id()));
@@ -658,10 +658,10 @@ define(["qunit", "redux",
          var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedAbility(token, damage));
-         store.dispatch(CardAction.addTokenUsedAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedAbility(token, damage));
+         store.dispatch(CardAction.addUsedAbility(token, pilot));
+         store.dispatch(CardAction.addUsedAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedAbility(token, upgrade));
          var usedAbilities = token.usedAbilities();
          assert.equal(usedAbilities.size, 4);
          assert.equal(usedAbilities.get(0).source(), DamageCard);
@@ -670,7 +670,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(3).source(), UpgradeCard);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUsedAbility(token, shipAction));
+         store.dispatch(CardAction.removeUsedAbility(token, shipAction));
 
          // Verify.
          usedAbilities = token.usedAbilities();
@@ -680,7 +680,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(2).source(), UpgradeCard);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUsedAbility(token, damage));
+         store.dispatch(CardAction.removeUsedAbility(token, damage));
 
          // Verify.
          usedAbilities = token.usedAbilities();
@@ -689,7 +689,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(1).source(), UpgradeCard);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUsedAbility(token, upgrade));
+         store.dispatch(CardAction.removeUsedAbility(token, upgrade));
 
          // Verify.
          usedAbilities = token.usedAbilities();
@@ -706,10 +706,10 @@ define(["qunit", "redux",
          var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
          var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
          var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, damage));
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, pilot));
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, shipAction));
-         store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, upgrade));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, damage));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, pilot));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, shipAction));
+         store.dispatch(CardAction.addUsedPerRoundAbility(token, upgrade));
          var usedAbilities = token.usedPerRoundAbilities();
          assert.equal(usedAbilities.size, 4);
          assert.equal(usedAbilities.get(0).source(), DamageCard);
@@ -718,7 +718,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(3).source(), UpgradeCard);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUsedPerRoundAbility(token, shipAction));
+         store.dispatch(CardAction.removeUsedPerRoundAbility(token, shipAction));
 
          // Verify.
          usedAbilities = token.usedPerRoundAbilities();
@@ -728,7 +728,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(2).source(), UpgradeCard);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUsedPerRoundAbility(token, damage));
+         store.dispatch(CardAction.removeUsedPerRoundAbility(token, damage));
 
          // Verify.
          usedAbilities = token.usedPerRoundAbilities();
@@ -737,7 +737,7 @@ define(["qunit", "redux",
          assert.equal(usedAbilities.get(1).source(), UpgradeCard);
 
          // Run.
-         store.dispatch(CardAction.removeTokenUsedPerRoundAbility(token, upgrade));
+         store.dispatch(CardAction.removeUsedPerRoundAbility(token, upgrade));
 
          // Verify.
          usedAbilities = token.usedPerRoundAbilities();
@@ -916,7 +916,7 @@ define(["qunit", "redux",
          assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
       });
 
-      QUnit.test("setTokenUpgradeEnergy()", function(assert)
+      QUnit.test("setUpgradeEnergy()", function(assert)
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
@@ -926,7 +926,7 @@ define(["qunit", "redux",
          assert.ok(!store.getState().tokenIdToUpgradeEnergy.get(token.id()));
 
          // Run.
-         store.dispatch(CardAction.setTokenUpgradeEnergy(token, upgradeKey0, 1));
+         store.dispatch(CardAction.setUpgradeEnergy(token, upgradeKey0, 1));
 
          // Verify.
          var upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());
@@ -935,7 +935,7 @@ define(["qunit", "redux",
          assert.ok(!upgradeEnergy.get(upgradeKey1), 0);
 
          // Run.
-         store.dispatch(CardAction.setTokenUpgradeEnergy(token, upgradeKey1, 2));
+         store.dispatch(CardAction.setUpgradeEnergy(token, upgradeKey1, 2));
 
          // Verify.
          upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());

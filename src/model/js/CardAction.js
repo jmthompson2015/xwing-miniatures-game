@@ -6,35 +6,35 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
       var CardAction = {};
 
       CardAction.ADD_COUNT = "addCount";
+      CardAction.ADD_CRITICAL_DAMAGE = "addCriticalDamage";
+      CardAction.ADD_DAMAGE = "addDamage";
       CardAction.ADD_SECONDARY_WEAPON = "addSecondaryWeapon";
-      CardAction.ADD_TOKEN_CRITICAL_DAMAGE = "addTokenCriticalDamage";
-      CardAction.ADD_TOKEN_DAMAGE = "addTokenDamage";
-      CardAction.ADD_TOKEN_UPGRADE = "addTokenUpgrade";
-      CardAction.ADD_TOKEN_UPGRADE_ENERGY = "addTokenUpgradeEnergy";
-      CardAction.ADD_TOKEN_USED_ABILITY = "addTokenUsedAbility";
-      CardAction.ADD_TOKEN_USED_PER_ROUND_ABILITY = "addTokenUsedPerRoundAbility";
-      CardAction.CLEAR_TOKEN_USED_ABILITIES = "clearTokenUsedAbilities";
-      CardAction.CLEAR_TOKEN_USED_PER_ROUND_ABILITIES = "clearTokenUsedPerRoundAbilities";
-      CardAction.INCREMENT_NEXT_TOKEN_ID = "incrementNextTokenId";
+      CardAction.ADD_UPGRADE = "addUpgrade";
+      CardAction.ADD_UPGRADE_ENERGY = "addUpgradeEnergy";
+      CardAction.ADD_USED_ABILITY = "addUsedAbility";
+      CardAction.ADD_USED_PER_ROUND_ABILITY = "addUsedPerRoundAbility";
+      CardAction.CLEAR_USED_ABILITIES = "clearUsedAbilities";
+      CardAction.CLEAR_USED_PER_ROUND_ABILITIES = "clearUsedPerRoundAbilities";
+      CardAction.INCREMENT_NEXT_CARD_ID = "incrementNextCardId";
+      CardAction.REMOVE_CRITICAL_DAMAGE = "removeCriticalDamage";
+      CardAction.REMOVE_DAMAGE = "removeDamage";
       CardAction.REMOVE_SECONDARY_WEAPON = "removeSecondaryWeapon";
-      CardAction.REMOVE_TOKEN_CRITICAL_DAMAGE = "removeTokenCriticalDamage";
-      CardAction.REMOVE_TOKEN_DAMAGE = "removeTokenDamage";
-      CardAction.REMOVE_TOKEN_UPGRADE = "removeTokenUpgrade";
-      CardAction.REMOVE_TOKEN_USED_ABILITY = "removeTokenUsedAbility";
-      CardAction.REMOVE_TOKEN_USED_PER_ROUND_ABILITY = "removeTokenUsedPerRoundAbility";
+      CardAction.REMOVE_UPGRADE = "removeUpgrade";
+      CardAction.REMOVE_USED_ABILITY = "removeUsedAbility";
+      CardAction.REMOVE_USED_PER_ROUND_ABILITY = "removeUsedPerRoundAbility";
+      CardAction.SET_CARD_INSTANCE = "setCardInstance";
       CardAction.SET_COUNT = "setCount";
       CardAction.SET_PRIMARY_WEAPON = "setPrimaryWeapon";
-      CardAction.SET_TOKEN = "setToken";
-      CardAction.SET_TOKEN_UPGRADE_ENERGY = "setTokenUpgradeEnergy";
+      CardAction.SET_UPGRADE_ENERGY = "setUpgradeEnergy";
 
-      CardAction.addCloakCount = function(token, value)
+      CardAction.addCloakCount = function(cardInstance, value)
       {
-         return CardAction.addCount(token, Count.CLOAK, value);
+         return CardAction.addCount(cardInstance, Count.CLOAK, value);
       };
 
-      CardAction.addCount = function(token, property, value)
+      CardAction.addCount = function(cardInstance, property, value)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("property", property);
 
          var myValue = (value !== undefined ? value : 1);
@@ -42,327 +42,259 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          return (
          {
             type: CardAction.ADD_COUNT,
-            token: token,
+            cardInstance: cardInstance,
             property: property,
             key: myValue,
          });
       };
 
-      CardAction.addEnergyCount = function(token, value)
+      CardAction.addCriticalDamage = function(cardInstance, damageKey)
       {
-         return CardAction.addCount(token, Count.ENERGY, value);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
+         InputValidator.validateNotNull("damageKey", damageKey);
+
+         return (
+         {
+            type: CardAction.ADD_CRITICAL_DAMAGE,
+            cardInstance: cardInstance,
+            damageKey: damageKey,
+         });
       };
 
-      CardAction.addEvadeCount = function(token, value)
+      CardAction.addDamage = function(cardInstance, damageKey)
       {
-         return CardAction.addCount(token, Count.EVADE, value);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
+         InputValidator.validateNotNull("damageKey", damageKey);
+
+         return (
+         {
+            type: CardAction.ADD_DAMAGE,
+            cardInstance: cardInstance,
+            damageKey: damageKey,
+         });
       };
 
-      CardAction.addFocusCount = function(token, value)
+      CardAction.addEnergyCount = function(cardInstance, value)
       {
-         return CardAction.addCount(token, Count.FOCUS, value);
+         return CardAction.addCount(cardInstance, Count.ENERGY, value);
       };
 
-      CardAction.addIonCount = function(token, value)
+      CardAction.addEvadeCount = function(cardInstance, value)
       {
-         return CardAction.addCount(token, Count.ION, value);
+         return CardAction.addCount(cardInstance, Count.EVADE, value);
       };
 
-      CardAction.addReinforceCount = function(token, value)
+      CardAction.addFocusCount = function(cardInstance, value)
       {
-         return CardAction.addCount(token, Count.REINFORCE, value);
+         return CardAction.addCount(cardInstance, Count.FOCUS, value);
       };
 
-      CardAction.addSecondaryWeapon = function(token, weapon)
+      CardAction.addIonCount = function(cardInstance, value)
       {
-         InputValidator.validateNotNull("token", token);
+         return CardAction.addCount(cardInstance, Count.ION, value);
+      };
+
+      CardAction.addReinforceCount = function(cardInstance, value)
+      {
+         return CardAction.addCount(cardInstance, Count.REINFORCE, value);
+      };
+
+      CardAction.addSecondaryWeapon = function(cardInstance, weapon)
+      {
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("weapon", weapon);
 
          return (
          {
             type: CardAction.ADD_SECONDARY_WEAPON,
-            token: token,
+            cardInstance: cardInstance,
             weapon: weapon,
          });
       };
 
-      CardAction.addShieldCount = function(token, value)
+      CardAction.addShieldCount = function(cardInstance, value)
       {
-         return CardAction.addCount(token, Count.SHIELD, value);
+         return CardAction.addCount(cardInstance, Count.SHIELD, value);
       };
 
-      CardAction.addStressCount = function(token, value)
+      CardAction.addStressCount = function(cardInstance, value)
       {
-         return CardAction.addCount(token, Count.STRESS, value);
+         return CardAction.addCount(cardInstance, Count.STRESS, value);
       };
 
-      CardAction.addTokenCriticalDamage = function(token, damageKey)
+      CardAction.addTractorBeamCount = function(cardInstance, value)
       {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("damageKey", damageKey);
-
-         return (
-         {
-            type: CardAction.ADD_TOKEN_CRITICAL_DAMAGE,
-            token: token,
-            damageKey: damageKey,
-         });
+         return CardAction.addCount(cardInstance, Count.TRACTOR_BEAM, value);
       };
 
-      CardAction.addTokenDamage = function(token, damageKey)
+      CardAction.addUpgrade = function(cardInstance, upgradeKey)
       {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("damageKey", damageKey);
-
-         return (
-         {
-            type: CardAction.ADD_TOKEN_DAMAGE,
-            token: token,
-            damageKey: damageKey,
-         });
-      };
-
-      CardAction.addTokenUpgrade = function(token, upgradeKey)
-      {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("upgradeKey", upgradeKey);
 
          return (
          {
-            type: CardAction.ADD_TOKEN_UPGRADE,
-            token: token,
+            type: CardAction.ADD_UPGRADE,
+            cardInstance: cardInstance,
             upgradeKey: upgradeKey,
          });
       };
 
-      CardAction.addTokenUpgradeEnergy = function(token, upgradeKey, value)
+      CardAction.addUpgradeEnergy = function(cardInstance, upgradeKey, value)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("upgradeKey", upgradeKey);
          var myValue = (value !== undefined ? value : 1);
 
          return (
          {
-            type: CardAction.ADD_TOKEN_UPGRADE_ENERGY,
-            token: token,
+            type: CardAction.ADD_UPGRADE_ENERGY,
+            cardInstance: cardInstance,
             upgradeKey: upgradeKey,
             key: myValue,
          });
       };
 
-      CardAction.addTokenUsedAbility = function(token, ability)
+      CardAction.addUsedAbility = function(cardInstance, ability)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("ability", ability);
 
          return (
          {
-            type: CardAction.ADD_TOKEN_USED_ABILITY,
-            token: token,
+            type: CardAction.ADD_USED_ABILITY,
+            cardInstance: cardInstance,
             ability: ability,
          });
       };
 
-      CardAction.addTokenUsedPerRoundAbility = function(token, ability)
+      CardAction.addUsedPerRoundAbility = function(cardInstance, ability)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("ability", ability);
 
          return (
          {
-            type: CardAction.ADD_TOKEN_USED_PER_ROUND_ABILITY,
-            token: token,
+            type: CardAction.ADD_USED_PER_ROUND_ABILITY,
+            cardInstance: cardInstance,
             ability: ability,
          });
       };
 
-      CardAction.addTractorBeamCount = function(token, value)
+      CardAction.addWeaponsDisabledCount = function(cardInstance, value)
       {
-         return CardAction.addCount(token, Count.TRACTOR_BEAM, value);
+         return CardAction.addCount(cardInstance, Count.WEAPONS_DISABLED, value);
       };
 
-      CardAction.addWeaponsDisabledCount = function(token, value)
+      CardAction.clearUsedAbilities = function(cardInstance)
       {
-         return CardAction.addCount(token, Count.WEAPONS_DISABLED, value);
-      };
-
-      CardAction.clearTokenUsedAbilities = function(token)
-      {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
 
          return (
          {
-            type: CardAction.CLEAR_TOKEN_USED_ABILITIES,
-            token: token,
+            type: CardAction.CLEAR_USED_ABILITIES,
+            cardInstance: cardInstance,
          });
       };
 
-      CardAction.clearTokenUsedPerRoundAbilities = function(token)
+      CardAction.clearUsedPerRoundAbilities = function(cardInstance)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
 
          return (
          {
-            type: CardAction.CLEAR_TOKEN_USED_PER_ROUND_ABILITIES,
-            token: token,
+            type: CardAction.CLEAR_USED_PER_ROUND_ABILITIES,
+            cardInstance: cardInstance,
          });
       };
 
-      CardAction.incrementNextTokenId = function()
+      CardAction.incrementNextCardId = function()
       {
          return (
          {
-            type: CardAction.INCREMENT_NEXT_TOKEN_ID,
+            type: CardAction.INCREMENT_NEXT_CARD_ID,
          });
       };
 
-      CardAction.removeSecondaryWeapon = function(token, weapon)
+      CardAction.removeCriticalDamage = function(cardInstance, damageKey)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
+         InputValidator.validateNotNull("damageKey", damageKey);
+
+         return (
+         {
+            type: CardAction.REMOVE_CRITICAL_DAMAGE,
+            cardInstance: cardInstance,
+            damageKey: damageKey,
+         });
+      };
+
+      CardAction.removeDamage = function(cardInstance, damageKey)
+      {
+         InputValidator.validateNotNull("cardInstance", cardInstance);
+         InputValidator.validateNotNull("damageKey", damageKey);
+
+         return (
+         {
+            type: CardAction.REMOVE_DAMAGE,
+            cardInstance: cardInstance,
+            damageKey: damageKey,
+         });
+      };
+
+      CardAction.removeSecondaryWeapon = function(cardInstance, weapon)
+      {
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("weapon", weapon);
 
          return (
          {
             type: CardAction.REMOVE_SECONDARY_WEAPON,
-            token: token,
+            cardInstance: cardInstance,
             weapon: weapon,
          });
       };
 
-      CardAction.removeTokenCriticalDamage = function(token, damageKey)
+      CardAction.removeUpgrade = function(cardInstance, upgradeKey)
       {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("damageKey", damageKey);
-
-         return (
-         {
-            type: CardAction.REMOVE_TOKEN_CRITICAL_DAMAGE,
-            token: token,
-            damageKey: damageKey,
-         });
-      };
-
-      CardAction.removeTokenDamage = function(token, damageKey)
-      {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("damageKey", damageKey);
-
-         return (
-         {
-            type: CardAction.REMOVE_TOKEN_DAMAGE,
-            token: token,
-            damageKey: damageKey,
-         });
-      };
-
-      CardAction.removeTokenUpgrade = function(token, upgradeKey)
-      {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("upgradeKey", upgradeKey);
 
          return (
          {
-            type: CardAction.REMOVE_TOKEN_UPGRADE,
-            token: token,
+            type: CardAction.REMOVE_UPGRADE,
+            cardInstance: cardInstance,
             upgradeKey: upgradeKey,
          });
       };
 
-      CardAction.removeTokenUsedAbility = function(token, ability)
+      CardAction.removeUsedAbility = function(cardInstance, ability)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("ability", ability);
 
          return (
          {
-            type: CardAction.REMOVE_TOKEN_USED_ABILITY,
-            token: token,
+            type: CardAction.REMOVE_USED_ABILITY,
+            cardInstance: cardInstance,
             ability: ability,
          });
       };
 
-      CardAction.removeTokenUsedPerRoundAbility = function(token, ability)
+      CardAction.removeUsedPerRoundAbility = function(cardInstance, ability)
       {
-         InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("ability", ability);
 
          return (
          {
-            type: CardAction.REMOVE_TOKEN_USED_PER_ROUND_ABILITY,
-            token: token,
+            type: CardAction.REMOVE_USED_PER_ROUND_ABILITY,
+            cardInstance: cardInstance,
             ability: ability,
          });
       };
 
-      CardAction.setCloakCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.CLOAK, value);
-      };
-
-      CardAction.setCount = function(token, property, value)
-      {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("property", property);
-         var myValue = (value ? value : 0);
-
-         return (
-         {
-            type: CardAction.SET_COUNT,
-            token: token,
-            property: property,
-            key: myValue,
-         });
-      };
-
-      CardAction.setEnergyCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.ENERGY, value);
-      };
-
-      CardAction.setEvadeCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.EVADE, value);
-      };
-
-      CardAction.setFocusCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.FOCUS, value);
-      };
-
-      CardAction.setIonCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.ION, value);
-      };
-
-      CardAction.setPrimaryWeapon = function(token, weapon)
-      {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("weapon", weapon);
-
-         return (
-         {
-            type: CardAction.SET_PRIMARY_WEAPON,
-            token: token,
-            weapon: weapon,
-         });
-      };
-
-      CardAction.setReinforceCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.REINFORCE, value);
-      };
-
-      CardAction.setShieldCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.SHIELD, value);
-      };
-
-      CardAction.setStressCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.STRESS, value);
-      };
-
-      CardAction.setToken = function(id, pilotKey, agent, idFore, idAft)
+      CardAction.setCardInstance = function(id, pilotKey, agent, idFore, idAft)
       {
          InputValidator.validateIsNumber("id", id);
          InputValidator.validateNotNull("pilotKey", pilotKey);
@@ -381,34 +313,102 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
 
          return (
          {
-            type: CardAction.SET_TOKEN,
+            type: CardAction.SET_CARD_INSTANCE,
             payload: payload,
          });
       };
 
-      CardAction.setTokenUpgradeEnergy = function(token, upgradeKey, value)
+      CardAction.setCloakCount = function(cardInstance, value)
       {
-         InputValidator.validateNotNull("token", token);
+         return CardAction.setCount(cardInstance, Count.CLOAK, value);
+      };
+
+      CardAction.setCount = function(cardInstance, property, value)
+      {
+         InputValidator.validateNotNull("cardInstance", cardInstance);
+         InputValidator.validateNotNull("property", property);
+         var myValue = (value ? value : 0);
+
+         return (
+         {
+            type: CardAction.SET_COUNT,
+            cardInstance: cardInstance,
+            property: property,
+            key: myValue,
+         });
+      };
+
+      CardAction.setEnergyCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.ENERGY, value);
+      };
+
+      CardAction.setEvadeCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.EVADE, value);
+      };
+
+      CardAction.setFocusCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.FOCUS, value);
+      };
+
+      CardAction.setIonCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.ION, value);
+      };
+
+      CardAction.setPrimaryWeapon = function(cardInstance, weapon)
+      {
+         InputValidator.validateNotNull("cardInstance", cardInstance);
+         InputValidator.validateNotNull("weapon", weapon);
+
+         return (
+         {
+            type: CardAction.SET_PRIMARY_WEAPON,
+            cardInstance: cardInstance,
+            weapon: weapon,
+         });
+      };
+
+      CardAction.setReinforceCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.REINFORCE, value);
+      };
+
+      CardAction.setShieldCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.SHIELD, value);
+      };
+
+      CardAction.setStressCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.STRESS, value);
+      };
+
+      CardAction.setTractorBeamCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.TRACTOR_BEAM, value);
+      };
+
+      CardAction.setUpgradeEnergy = function(cardInstance, upgradeKey, value)
+      {
+         InputValidator.validateNotNull("cardInstance", cardInstance);
          InputValidator.validateNotNull("upgradeKey", upgradeKey);
          var myValue = (value !== undefined ? value : 0);
 
          return (
          {
-            type: CardAction.SET_TOKEN_UPGRADE_ENERGY,
-            token: token,
+            type: CardAction.SET_UPGRADE_ENERGY,
+            cardInstance: cardInstance,
             upgradeKey: upgradeKey,
             key: myValue,
          });
       };
 
-      CardAction.setTractorBeamCount = function(token, value)
+      CardAction.setWeaponsDisabledCount = function(cardInstance, value)
       {
-         return CardAction.setCount(token, Count.TRACTOR_BEAM, value);
-      };
-
-      CardAction.setWeaponsDisabledCount = function(token, value)
-      {
-         return CardAction.setCount(token, Count.WEAPONS_DISABLED, value);
+         return CardAction.setCount(cardInstance, Count.WEAPONS_DISABLED, value);
       };
 
       return CardAction;
