@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCard", "model/js/Action", "model/js/EnvironmentAction", "model/js/TokenAction"],
-   function(InputValidator, Phase, UpgradeCard, Action, EnvironmentAction, TokenAction)
+define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCard", "model/js/Action", "model/js/TokenAction"],
+   function(InputValidator, Phase, UpgradeCard, Action, TokenAction)
    {
       function EndPhaseAction(environment, token, callback)
       {

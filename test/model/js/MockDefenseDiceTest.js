@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "redux", "artifact/js/DefenseDiceValue", "model/js/DefenseDice", "model/js/Reducer", "../../../test/model/js/MockDefenseDice"],
-   function(QUnit, Redux, DefenseDiceValue, DefenseDice, Reducer, MockDefenseDice)
+define(["qunit", "redux", "artifact/js/DefenseDiceValue", "model/js/Reducer", "../../../test/model/js/MockDefenseDice"],
+   function(QUnit, Redux, DefenseDiceValue, Reducer, MockDefenseDice)
    {
       QUnit.module("MockDefenseDice");
 

@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/Phase", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/AttackDice", "model/js/Selector", "model/js/TokenAction"],
+  "model/js/Action", "model/js/AttackDice", "model/js/TokenAction"],
    function(InputValidator,
       AttackDiceValue, Phase, ShipAction, UpgradeCard,
-      Action, AttackDice, Selector, TokenAction)
+      Action, AttackDice, TokenAction)
    {
       var UpgradeAbility4 = {};
 

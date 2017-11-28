@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/Environment", "model/js/EnvironmentAction", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/Weapon",
+  "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/Weapon",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Faction, FiringArc, PilotCard, Range, UpgradeCard,
-      Agent, Environment, EnvironmentAction, Position, RangeRuler, Reducer, SimpleAgent, Squad, TargetLock, Token, TokenAction, Weapon,
+      Agent, Environment, Position, Reducer, Squad, TargetLock, Token, TokenAction, Weapon,
       EnvironmentFactory)
    {
       QUnit.module("Weapon");

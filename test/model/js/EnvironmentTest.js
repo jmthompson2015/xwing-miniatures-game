@@ -1,11 +1,11 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/Faction", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/Ship", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Agent", "model/js/Environment", "model/js/EnvironmentAction", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction",
+  "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/Ship", "artifact/js/UpgradeCard",
+   "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Redux, Faction, Phase, PilotCard, PlayFormat, Range, Ship, UpgradeCard,
-      Action, Agent, Environment, EnvironmentAction, Position, RangeRuler, Reducer, SimpleAgent, Squad, SquadBuilder, TargetLock, Token, TokenAction,
+   function(QUnit, Redux, Faction, PilotCard, PlayFormat, Range, Ship, UpgradeCard,
+      Agent, Environment, Position, Reducer, Squad, SquadBuilder, TargetLock, Token, TokenAction,
       EnvironmentFactory)
    {
       QUnit.module("Environment");

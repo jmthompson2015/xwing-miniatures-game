@@ -2,10 +2,10 @@
 
 define(["immutable", "common/js/InputValidator",
   "artifact/js/Bearing", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/PlayFormat",
-  "model/js/Action", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/ShipFledAction", "model/js/TokenAction"],
+  "model/js/Action", "model/js/ManeuverComputer", "model/js/Position", "model/js/ShipFledAction", "model/js/TokenAction"],
    function(Immutable, InputValidator,
       Bearing, Maneuver, PilotCard, PlayFormat,
-      Action, EnvironmentAction, ManeuverComputer, Position, ShipFledAction, TokenAction)
+      Action, ManeuverComputer, Position, ShipFledAction, TokenAction)
    {
       function ManeuverAction(store, tokenId, maneuverKey, isBoostIn, fromPositionIn)
       {

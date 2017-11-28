@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agent", "model/js/EventObserver", "model/js/Environment", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder"],
-   function(QUnit, Redux, Event, Action, Agent, EventObserver, Environment, Reducer, SimpleAgent, SquadBuilder)
+define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agent", "model/js/EventObserver", "model/js/Environment", "model/js/Reducer",  "model/js/SquadBuilder"],
+   function(QUnit, Redux, Event, Action, Agent, EventObserver, Environment, Reducer, SquadBuilder)
    {
       QUnit.module("EventObserver");
 

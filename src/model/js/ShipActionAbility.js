@@ -4,8 +4,8 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction",
-  "model/js/Action", "model/js/ManeuverAction", "model/js/Selector", "model/js/TargetLock", "model/js/TokenAction"],
-   function(InputValidator, Event, ShipAction, Action, ManeuverAction, Selector, TargetLock, TokenAction)
+  "model/js/Action", "model/js/ManeuverAction", "model/js/TargetLock", "model/js/TokenAction"],
+   function(InputValidator, Event, ShipAction, Action, ManeuverAction, TargetLock, TokenAction)
    {
       var ShipActionAbility = {};
 

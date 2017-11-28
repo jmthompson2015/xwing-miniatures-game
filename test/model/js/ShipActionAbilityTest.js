@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
-  "model/js/Action", "model/js/Adjudicator", "model/js/CombatAction", "model/js/EnvironmentAction", "model/js/Position", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction",
+  "model/js/Action", "model/js/CombatAction", "model/js/Position", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Maneuver, ShipAction,
-      Action, Adjudicator, CombatAction, EnvironmentAction, Position, ShipActionAbility, TargetLock, TokenAction,
+      Action, CombatAction, Position, ShipActionAbility, TargetLock, TokenAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("ShipActionAbility");

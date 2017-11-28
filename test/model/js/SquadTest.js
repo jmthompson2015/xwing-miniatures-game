@@ -1,9 +1,9 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/Token"],
+  "model/js/Agent", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/Token"],
    function(QUnit, Redux, Faction, PilotCard, UpgradeCard,
-      Agent, Reducer, SimpleAgent, Squad, SquadBuilder, Token)
+      Agent, Reducer, Squad, SquadBuilder, Token)
    {
       QUnit.module("Squad");
 

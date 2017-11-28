@@ -2,11 +2,11 @@
 
 define(["qunit", "redux",
   "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Agent", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
+  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Agent", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
       Maneuver, PilotCard, Faction, UpgradeCard,
-      Action, ActivationAction, Adjudicator, Agent, Environment, EventObserver, PhaseObserver, Position, Reducer, SimpleAgent, Squad, SquadBuilder, Token, TokenAction,
+      Action, ActivationAction, Adjudicator, Agent, Environment, EventObserver, PhaseObserver, Position, Reducer, Squad, SquadBuilder, Token, TokenAction,
       EnvironmentFactory)
    {
       QUnit.module("ActivationAction");

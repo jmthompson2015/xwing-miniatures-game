@@ -1,8 +1,8 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Phase", "artifact/js/PlayFormat", "artifact/js/Ship", "artifact/js/Faction",
+define(["react-redux", "common/js/InputValidator", "artifact/js/Phase", "artifact/js/PlayFormat", "artifact/js/Ship", "artifact/js/Faction",
   "model/js/ManeuverAction", "model/js/ManeuverComputer", "model/js/Selector", "view/js/PlayAreaUI"],
-   function(ReactRedux, InputValidator, Bearing, Phase, PlayFormat, Ship, Faction,
+   function(ReactRedux, InputValidator, Phase, PlayFormat, Ship, Faction,
       ManeuverAction, ManeuverComputer, Selector, PlayAreaUI)
    {
       var EXPLOSION_PHASES = [Phase.COMBAT_AFTER_DEAL_DAMAGE];

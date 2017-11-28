@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "artifact/js/Phase", "model/js/Action", "model/js/DamageAbility3", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Phase, Action, DamageAbility, EnvironmentFactory)
+define(["qunit", "artifact/js/Phase", "model/js/DamageAbility3", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, Phase, DamageAbility, EnvironmentFactory)
    {
       QUnit.module("DamageAbility3");
 

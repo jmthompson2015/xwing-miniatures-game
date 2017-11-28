@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/UpgradeCard", "artifact/js/Value",
-  "model/js/Agent", "model/js/DualToken", "model/js/SimpleAgent", "model/js/Reducer"],
+  "model/js/Agent", "model/js/DualToken",  "model/js/Reducer"],
    function(QUnit, Redux,
       DamageCard, Faction, PilotCard, Ship, UpgradeCard, Value,
-      Agent, DualToken, SimpleAgent, Reducer)
+      Agent, DualToken, Reducer)
    {
       QUnit.module("DualToken");
 

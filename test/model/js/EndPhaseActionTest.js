@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "model/js/Action", "model/js/EndPhaseAction", "model/js/Selector", "model/js/TargetLock", "model/js/TokenAction", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Action, EndPhaseAction, Selector, TargetLock, TokenAction, EnvironmentFactory)
+define(["qunit", "model/js/EndPhaseAction", "model/js/TargetLock", "model/js/TokenAction", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, EndPhaseAction, TargetLock, TokenAction, EnvironmentFactory)
    {
       QUnit.module("EndPhaseAction");
 

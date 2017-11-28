@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/Faction", "artifact/js/PilotCard", "model/js/SimpleAgent", "artifact/js/UpgradeCard",
+  "artifact/js/Faction", "artifact/js/PilotCard",  "artifact/js/UpgradeCard",
   "model/js/Agent", "model/js/DualToken", "model/js/Reducer", "model/js/Token", "model/js/TokenFactory"],
    function(QUnit, Redux,
-      Faction, PilotCard, SimpleAgent, UpgradeCard,
+      Faction, PilotCard, UpgradeCard,
       Agent, DualToken, Reducer, Token, TokenFactory)
    {
       QUnit.module("TokenFactory");

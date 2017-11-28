@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "artifact/js/Phase", "model/js/Action", "model/js/UpgradeAbility1", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Phase, Action, UpgradeAbility, EnvironmentFactory)
+define(["qunit", "artifact/js/Phase", "model/js/UpgradeAbility1", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, Phase, UpgradeAbility, EnvironmentFactory)
    {
       QUnit.module("UpgradeAbility1");
 

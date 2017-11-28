@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/DiceModification",
-  "model/js/Action", "model/js/Adjudicator", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/EnvironmentAction", "model/js/ModifyDiceAbility", "model/js/Selector", "model/js/TargetLock", "model/js/TokenAction",
+  "model/js/Action", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/ModifyDiceAbility", "model/js/TargetLock", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, DiceModification,
-      Action, Adjudicator, AttackDice, CombatAction, DefenseDice, EnvironmentAction, ModifyDiceAbility, Selector, TargetLock, TokenAction,
+      Action, AttackDice, CombatAction, DefenseDice, ModifyDiceAbility, TargetLock, TokenAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("ModifyDiceAbility");

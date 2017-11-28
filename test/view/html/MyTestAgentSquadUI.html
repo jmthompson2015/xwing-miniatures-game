@@ -19,11 +19,11 @@
 		"use strict";
 
 		require(["react", "react-dom", "react-dom-factories", "react-redux", "redux", "common/js/Logger", "artifact/js/Faction",
-				"model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/MediumAgent", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder",
+				"model/js/AgentSquadAction", "model/js/AgentSquadReducer",  "model/js/Reducer",  "model/js/SquadBuilder",
 				"view/js/AgentSquadUI", "controller/js/SquadBuilderContainer"
 			],
 			function(React, ReactDOM, DOM, ReactRedux, Redux, Logger, Faction,
-				AgentSquadAction, AgentSquadReducer, MediumAgent, Reducer, SimpleAgent, SquadBuilder, AgentSquadUI, SquadBuilderContainer)
+				AgentSquadAction, AgentSquadReducer, Reducer, SquadBuilder, AgentSquadUI, SquadBuilderContainer)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -84,7 +84,7 @@
 						agentName: "Agent 1",
 						agentNumber: 1,
 						agentType: store.getState().agentType,
-						agentTypes: [SimpleAgent, MediumAgent],
+						agentTypes: [MediumAgent],
 						faction: store.getState().faction,
 						squadBuilders: factionToSquadBuilders[faction.key],
 						inputAreaId: "inputArea",

@@ -2,11 +2,11 @@
 
 define(["qunit", "redux",
   "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Faction",
-  "model/js/Agent", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder", "model/js/Token",
+  "model/js/Agent", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer",  "model/js/SquadBuilder", "model/js/Token",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
       DamageCard, PilotCard, PlayFormat, Faction,
-      Agent, EnvironmentAction, Position, Reducer, SimpleAgent, SquadBuilder, Token, EnvironmentFactory)
+      Agent, EnvironmentAction, Position, Reducer, SquadBuilder, Token, EnvironmentFactory)
    {
       QUnit.module("EnvironmentReducer");
 

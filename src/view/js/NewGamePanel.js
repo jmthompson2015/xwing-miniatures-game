@@ -1,8 +1,8 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "artifact/js/Faction",
-  "view/js/Button", "view/js/AgentSquadUI", "view/js/OptionPane"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux, Faction, Button, AgentSquadUI, OptionPane)
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux",
+  "view/js/Button", "view/js/OptionPane"],
+   function(createReactClass, PropTypes, React, DOM, ReactRedux, Button, OptionPane)
    {
       var NewGamePanel = createReactClass(
       {

@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction",
-  "model/js/AttackDice", "model/js/DefenseDice", "model/js/RangeRuler", "model/js/Selector", "model/js/TargetLock", "model/js/TokenAction"],
+  "model/js/Selector", "model/js/TargetLock", "model/js/TokenAction"],
    function(InputValidator,
       AttackDiceValue, DefenseDiceValue, Phase, PilotCard, Range, ShipAction,
-      AttackDice, DefenseDice, RangeRuler, Selector, TargetLock, TokenAction)
+      Selector, TargetLock, TokenAction)
    {
       var PilotAbility3 = {};
 

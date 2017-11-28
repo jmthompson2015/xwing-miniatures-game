@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/Phase",
-  "model/js/Action", "model/js/Adjudicator", "model/js/CombatAction", "model/js/TokenAction", "model/js/UpgradeAbility3",
+  "model/js/Action", "model/js/CombatAction", "model/js/TokenAction", "model/js/UpgradeAbility3",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Phase,
-      Action, Adjudicator, CombatAction, TokenAction, UpgradeAbility,
+      Action, CombatAction, TokenAction, UpgradeAbility,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("UpgradeAbility3");

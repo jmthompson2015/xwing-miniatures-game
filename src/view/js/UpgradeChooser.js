@@ -1,8 +1,8 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
+define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/UpgradeCard", "view/js/Select", "view/js/UpgradeTypeUI"],
-   function(createReactClass, PropTypes, React, DOM, InputValidator, UpgradeCard, Select, UpgradeTypeUI)
+   function(createReactClass, PropTypes, React, DOM, UpgradeCard, Select, UpgradeTypeUI)
    {
       var UpgradeChooser = createReactClass(
       {

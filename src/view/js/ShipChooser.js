@@ -1,8 +1,8 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/InputValidator",
+define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/Ship", "artifact/js/ShipFaction", "view/js/Select", "view/js/ShipSilhouetteUI"],
-   function(createReactClass, PropTypes, React, DOM, InputValidator, Ship, ShipFaction, Select, ShipSilhouetteUI)
+   function(createReactClass, PropTypes, React, DOM, Ship, ShipFaction, Select, ShipSilhouetteUI)
    {
       var ShipChooser = createReactClass(
       {

@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/DamageDealer", "model/js/EnvironmentAction", "model/js/Position", "model/js/Token", "model/js/TokenAction",
+   "model/js/DamageDealer", "model/js/EnvironmentAction", "model/js/Position", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, PilotCard, UpgradeCard,
-      Action, DamageDealer, EnvironmentAction, Position, Token, TokenAction, EnvironmentFactory)
+      DamageDealer, EnvironmentAction, Position, Token, TokenAction, EnvironmentFactory)
    {
       QUnit.module("DamageDealer");
 

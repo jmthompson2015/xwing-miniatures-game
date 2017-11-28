@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase", "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/PilotAbility2", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Maneuver, Phase, Action, ActivationAction, Adjudicator, PilotAbility, EnvironmentFactory)
+define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase", "model/js/Action", "model/js/ActivationAction", "model/js/PilotAbility2", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, Maneuver, Phase, Action, ActivationAction, PilotAbility, EnvironmentFactory)
    {
       QUnit.module("PilotAbility2");
 

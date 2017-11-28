@@ -1,9 +1,9 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Phase",
-  "model/js/Action", "model/js/Agent", "model/js/Environment", "model/js/PhaseObserver", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder"],
+  "model/js/Action", "model/js/Agent", "model/js/Environment", "model/js/PhaseObserver", "model/js/Reducer",  "model/js/SquadBuilder"],
    function(QUnit, Redux, Phase,
-      Action, Agent, Environment, PhaseObserver, Reducer, SimpleAgent, SquadBuilder)
+      Action, Agent, Environment, PhaseObserver, Reducer, SquadBuilder)
    {
       QUnit.module("PhaseObserver");
 

@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/DefenseDice", "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/Position", "model/js/Selector", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction"],
+  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/DefenseDice", "model/js/ManeuverAction", "model/js/Position", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction"],
    function(InputValidator,
       Bearing, Difficulty, Maneuver, Phase, ShipAction, UpgradeCard,
-      Ability, Action, ActivationAction, DefenseDice, EnvironmentAction, ManeuverAction, Position, Selector, ShipActionAbility, TargetLock, TokenAction)
+      Ability, Action, ActivationAction, DefenseDice, ManeuverAction, Position, ShipActionAbility, TargetLock, TokenAction)
    {
       var UpgradeAbility2 = {};
 

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/ShipAction",
-  "model/js/Action", "model/js/DamageAbility1", "model/js/DamageAbility2", "model/js/DamageAbility3", "model/js/DamageAbility4", "model/js/EnvironmentAction", "model/js/Observer", "model/js/PilotAbility1", "model/js/PilotAbility2", "model/js/PilotAbility3", "model/js/PilotAbility4", "model/js/TokenAction", "model/js/UpgradeAbility1", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3", "model/js/UpgradeAbility4"],
+  "model/js/Action", "model/js/DamageAbility1", "model/js/DamageAbility2", "model/js/DamageAbility3", "model/js/DamageAbility4", "model/js/Observer", "model/js/PilotAbility1", "model/js/PilotAbility2", "model/js/PilotAbility3", "model/js/PilotAbility4", "model/js/TokenAction", "model/js/UpgradeAbility1", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3", "model/js/UpgradeAbility4"],
    function(InputValidator, Phase, ShipAction,
-      Action, DamageAbility1, DamageAbility2, DamageAbility3, DamageAbility4, EnvironmentAction, Observer, PilotAbility1, PilotAbility2, PilotAbility3, PilotAbility4, TokenAction, UpgradeAbility1, UpgradeAbility2, UpgradeAbility3, UpgradeAbility4)
+      Action, DamageAbility1, DamageAbility2, DamageAbility3, DamageAbility4, Observer, PilotAbility1, PilotAbility2, PilotAbility3, PilotAbility4, TokenAction, UpgradeAbility1, UpgradeAbility2, UpgradeAbility3, UpgradeAbility4)
    {
       function PhaseObserver(store)
       {

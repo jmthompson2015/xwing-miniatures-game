@@ -2,11 +2,11 @@
 
 define(["qunit", "redux", "common/js/ArrayAugments",
   "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CombatAction", "model/js/Environment", "model/js/EnvironmentAction", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
+  "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CombatAction", "model/js/Environment", "model/js/EnvironmentAction", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/Squad", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Redux, ArrayAugments,
       DamageCard, DiceModification, Faction, Maneuver, Phase, PilotCard, ShipAction, UpgradeCard,
-      Ability, Action, Adjudicator, Agent, CombatAction, Environment, EnvironmentAction, PilotAbility3, Position, Reducer, ShipActionAbility, SimpleAgentStrategy, Squad, SquadBuilder, Token, TokenAction,
+      Ability, Action, Adjudicator, Agent, CombatAction, Environment, EnvironmentAction, PilotAbility3, Position, Reducer, ShipActionAbility, Squad, Token, TokenAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("SimpleAgent");

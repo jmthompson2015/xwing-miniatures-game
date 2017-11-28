@@ -1,11 +1,11 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Difficulty", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CombatAction", "model/js/Environment", "model/js/EnvironmentAction", "model/js/MediumAgentStrategy", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction",
+  "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
+  "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CombatAction", "model/js/Environment", "model/js/EnvironmentAction", "model/js/MediumAgentStrategy", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
-   function(QUnit, Redux, DamageCard, DiceModification, Difficulty, Faction, Maneuver, Phase, PilotCard, ShipAction, UpgradeCard,
-      Ability, Action, Adjudicator, Agent, CombatAction, Environment, EnvironmentAction, MediumAgentStrategy, PilotAbility3, Position, Reducer, ShipActionAbility, Squad, SquadBuilder, TargetLock, Token, TokenAction,
+   function(QUnit, Redux, DamageCard, DiceModification, Faction, Maneuver, Phase, PilotCard, ShipAction, UpgradeCard,
+      Ability, Action, Adjudicator, Agent, CombatAction, Environment, EnvironmentAction, MediumAgentStrategy, PilotAbility3, Position, Reducer, ShipActionAbility, Squad, TargetLock, Token, TokenAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("MediumAgent");
@@ -574,13 +574,13 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "myAgent", Faction.IMPERIAL);
+         var agent = new Agent(store, "myAgent", Faction.IMPERIAL, undefined, MediumAgentStrategy);
 
          // Run.
          var result = agent.toString();
 
          // Verify.
          assert.ok(result);
-         assert.equal(result, "myAgent, SimpleAgent, imperial");
+         assert.equal(result, "myAgent, MediumAgent, imperial");
       });
    });

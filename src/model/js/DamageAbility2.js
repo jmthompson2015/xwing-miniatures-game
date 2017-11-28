@@ -4,9 +4,9 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/DamageCard", "artifact/js/Phase",
-  "model/js/Action", "model/js/AttackDice", "model/js/Selector", "model/js/TokenAction"],
+  "model/js/Action", "model/js/AttackDice", "model/js/TokenAction"],
    function(InputValidator, AttackDiceValue, DamageCard, Phase,
-      Action, AttackDice, Selector, TokenAction)
+      Action, AttackDice, TokenAction)
    {
       var DamageAbility2 = {};
 

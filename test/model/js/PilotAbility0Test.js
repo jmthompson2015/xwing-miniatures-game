@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "artifact/js/Event", "model/js/Action", "model/js/PilotAbility0", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Event, Action, PilotAbility, EnvironmentFactory)
+define(["qunit", "artifact/js/Event", "model/js/PilotAbility0", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, Event, PilotAbility, EnvironmentFactory)
    {
       QUnit.module("PilotAbility0");
 

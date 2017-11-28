@@ -1,14 +1,14 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeCard",
+  "artifact/js/Faction", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeCard",
   "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver",
-  "model/js/PhaseObserver", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/Selector", "model/js/SimpleAgent", "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/UpgradeAbility3",
+  "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/Selector",  "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/UpgradeAbility3",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Redux,
-      Faction, Maneuver, Phase, PilotCard, Range, UpgradeCard,
+      Faction, Phase, PilotCard, Range, UpgradeCard,
       Ability, Action, Adjudicator, Agent, AttackDice, CombatAction, DefenseDice, Environment, EnvironmentAction, EventObserver,
-      PhaseObserver, Position, RangeRuler, Reducer, Selector, SimpleAgent, Squad, TargetLock, Token, TokenAction, UpgradeAbility3,
+      PhaseObserver, Position, Reducer, Selector, Squad, TargetLock, Token, TokenAction, UpgradeAbility3,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("CombatAction-2");

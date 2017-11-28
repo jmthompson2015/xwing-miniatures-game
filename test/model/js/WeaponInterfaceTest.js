@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "artifact/js/FiringArc", "artifact/js/Range", "model/js/RangeRuler", "model/js/Weapon"],
-   function(QUnit, FiringArc, Range, RangeRuler, Weapon)
+define(["qunit", "artifact/js/FiringArc", "artifact/js/Range", "model/js/Weapon"],
+   function(QUnit, FiringArc, Range, Weapon)
    {
       QUnit.module("WeaponInterface");
 

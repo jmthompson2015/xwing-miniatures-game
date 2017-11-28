@@ -1,14 +1,14 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/Bearing", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/Ship", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType", "artifact/js/Value",
-  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Agent", "model/js/DamageAbility2", "model/js/DamageAbility3", "model/js/DualToken", "model/js/Environment", "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/PilotAbility2", "model/js/PilotAbility3",
-  "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/SimpleAgent", "model/js/Squad", "model/js/Token", "model/js/TokenAction", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3",
+  "artifact/js/Bearing", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/Ship", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/Value",
+  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/Agent", "model/js/DamageAbility2", "model/js/DamageAbility3", "model/js/DualToken", "model/js/Environment", "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/PilotAbility2", "model/js/PilotAbility3",
+  "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/ShipActionAbility",  "model/js/Squad", "model/js/Token", "model/js/TokenAction", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
-      Bearing, Count, DamageCard, Difficulty, Faction, Maneuver, Phase, PilotCard, Range, Ship, ShipAction, UpgradeCard, UpgradeType, Value,
-      Ability, Action, ActivationAction, Adjudicator, Agent, DamageAbility2, DamageAbility3, DualToken, Environment, EnvironmentAction, ManeuverAction, PilotAbility2, PilotAbility3,
-      Position, RangeRuler, Reducer, ShipActionAbility, SimpleAgent, Squad, Token, TokenAction, UpgradeAbility2, UpgradeAbility3,
+      Bearing, Count, DamageCard, Difficulty, Faction, Maneuver, Phase, PilotCard, Range, Ship, ShipAction, UpgradeCard, Value,
+      Ability, Action, ActivationAction, Agent, DamageAbility2, DamageAbility3, DualToken, Environment, EnvironmentAction, ManeuverAction, PilotAbility2, PilotAbility3,
+      Position, RangeRuler, Reducer, ShipActionAbility, Squad, Token, TokenAction, UpgradeAbility2, UpgradeAbility3,
       EnvironmentFactory)
    {
       QUnit.module("Token");

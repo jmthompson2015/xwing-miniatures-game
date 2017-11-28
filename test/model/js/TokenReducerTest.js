@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/Action", "model/js/Agent", "model/js/DamageAbility3", "model/js/EnvironmentAction", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/SimpleAgent", "model/js/Token", "model/js/TokenAction", "model/js/UpgradeAbility3"],
+  "model/js/Ability", "model/js/Agent", "model/js/DamageAbility3", "model/js/EnvironmentAction", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility",  "model/js/Token", "model/js/TokenAction", "model/js/UpgradeAbility3"],
    function(QUnit, Redux,
       Count, DamageCard, Faction, Phase, PilotCard, ShipAction, UpgradeCard,
-      Ability, Action, Agent, DamageAbility3, EnvironmentAction, PilotAbility3, Position, Reducer, ShipActionAbility, SimpleAgent, Token, TokenAction, UpgradeAbility3)
+      Ability, Agent, DamageAbility3, EnvironmentAction, PilotAbility3, Position, Reducer, ShipActionAbility, Token, TokenAction, UpgradeAbility3)
    {
       QUnit.module("TokenReducer");
 

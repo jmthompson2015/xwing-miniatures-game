@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Maneuver",
-  "model/js/Action", "model/js/Adjudicator", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/TokenAction",
+  "model/js/Action", "model/js/Adjudicator", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Maneuver,
-      Action, Adjudicator, EnvironmentAction, Position, Reducer, SquadBuilder, TokenAction, EnvironmentFactory)
+      Action, Adjudicator, Position, Reducer, SquadBuilder, TokenAction, EnvironmentFactory)
    {
       QUnit.module("Adjudicator");
 

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader",
-  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/DamageAbility2", "model/js/ManeuverComputer", "model/js/MediumAgentStrategy", "model/js/ModifyDiceAbility", "model/js/PilotAbility3", "model/js/Selector", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/TargetLock", "model/js/Token", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3"],
+  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/DamageAbility2", "model/js/ManeuverComputer", "model/js/MediumAgentStrategy", "model/js/ModifyDiceAbility", "model/js/PilotAbility3", "model/js/Selector", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/TargetLock", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3"],
    function(Immutable, InputValidator, DamageCard, DiceModification, Maneuver, Phase, PilotCard, PlayFormat, Range, ShipAction, UpgradeCard, UpgradeHeader,
-      Ability, Action, AgentAction, DamageAbility2, ManeuverComputer, MediumAgentStrategy, ModifyDiceAbility, PilotAbility3, Selector, ShipActionAbility, SimpleAgentStrategy, TargetLock, Token, UpgradeAbility2, UpgradeAbility3)
+      Ability, Action, AgentAction, DamageAbility2, ManeuverComputer, MediumAgentStrategy, ModifyDiceAbility, PilotAbility3, Selector, ShipActionAbility, SimpleAgentStrategy, TargetLock, UpgradeAbility2, UpgradeAbility3)
    {
       function Agent(store, name, factionKey, idIn, strategyIn, isNewIn)
       {
