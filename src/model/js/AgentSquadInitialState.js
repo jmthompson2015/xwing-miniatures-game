@@ -1,14 +1,14 @@
 "use strict";
 
-define(["immutable", "artifact/js/Faction", "model/js/SimpleAgent"],
-   function(Immutable, Faction, SimpleAgent)
+define(["immutable", "artifact/js/Faction", "model/js/SimpleAgentStrategy"],
+   function(Immutable, Faction, SimpleAgentStrategy)
    {
       function AgentSquadInitialState()
       {
          // AgentSquadUI
          this.agent = undefined;
          this.agentName = "Agent";
-         this.agentType = SimpleAgent;
+         this.agentType = SimpleAgentStrategy;
          this.faction = Faction.properties[Faction.IMPERIAL];
          this.inputAreaId = "inputArea";
          this.resourceBase = "view/resource";

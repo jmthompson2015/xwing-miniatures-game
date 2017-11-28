@@ -1,8 +1,8 @@
 "use strict";
 
-define(["react-redux", "model/js/AgentSquadAction", "model/js/MediumAgent", "model/js/SimpleAgent", "model/js/SquadBuilder",
-  "view/js/AgentSquadUI", "controller/js/HumanAgent", "controller/js/SquadBuilderContainer"],
-   function(ReactRedux, AgentSquadAction, MediumAgent, SimpleAgent, SquadBuilder, AgentSquadUI, HumanAgent, SquadBuilderContainer)
+define(["react-redux", "model/js/AgentSquadAction", "model/js/MediumAgentStrategy", "model/js/SimpleAgentStrategy", "model/js/SquadBuilder",
+  "view/js/AgentSquadUI", "controller/js/HumanAgentStrategy", "controller/js/SquadBuilderContainer"],
+   function(ReactRedux, AgentSquadAction, MediumAgentStrategy, SimpleAgentStrategy, SquadBuilder, AgentSquadUI, HumanAgentStrategy, SquadBuilderContainer)
    {
       function mapStateToProps(state, ownProps)
       {
@@ -14,7 +14,7 @@ define(["react-redux", "model/js/AgentSquadAction", "model/js/MediumAgent", "mod
             agentName: state.agentName,
             agentNumber: ownProps.agentNumber,
             agentType: state.agentType,
-            agentTypes: [SimpleAgent, MediumAgent, HumanAgent],
+            agentTypes: [SimpleAgentStrategy, MediumAgentStrategy, HumanAgentStrategy],
             faction: state.faction,
             resourceBase: ownProps.resourceBase,
             squad: state.squad,

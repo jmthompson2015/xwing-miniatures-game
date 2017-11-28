@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "model/js/SimpleAgent"],
-   function(InputValidator, SimpleAgent)
+define(["redux", "common/js/InputValidator", "model/js/Agent", "model/js/Reducer"],
+   function(Redux, InputValidator, Agent, Reducer)
    {
       var TableRow = {};
 
@@ -44,7 +44,8 @@ define(["common/js/InputValidator", "model/js/SimpleAgent"],
          InputValidator.validateNotNull("squadBuilder", squadBuilder);
 
          var factionKey = squadBuilder.factionKey();
-         var agent = new SimpleAgent("Agent1", factionKey);
+         var store = Redux.createStore(Reducer.root);
+         var agent = new Agent(store, "Agent1", factionKey);
          var squad = squadBuilder.buildSquad(agent);
          var sumStats = TableRow.computeSumStats(squad);
          var ratioPrimaryWeaponAgility = TableRow.computeRatioPrimaryWeaponAgility(squad);

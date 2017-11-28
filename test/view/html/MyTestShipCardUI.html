@@ -39,7 +39,7 @@
 				LOGGER.setDebugEnabled(false);
 
 				var resourceBase = "../../../src/view/resource/";
-				var agent = new SimpleAgent("Agent", Faction.IMPERIAL);
+				var agent = new Agent(store, "Agent", Faction.IMPERIAL);
 
 				var element = React.createElement(ShipCardUI,
 				{

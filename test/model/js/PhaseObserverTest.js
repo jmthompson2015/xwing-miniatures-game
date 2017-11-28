@@ -1,9 +1,9 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Phase",
-  "model/js/Action", "model/js/Environment", "model/js/PhaseObserver", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder"],
+  "model/js/Action", "model/js/Agent", "model/js/Environment", "model/js/PhaseObserver", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder"],
    function(QUnit, Redux, Phase,
-      Action, Environment, PhaseObserver, Reducer, SimpleAgent, SquadBuilder)
+      Action, Agent, Environment, PhaseObserver, Reducer, SimpleAgent, SquadBuilder)
    {
       QUnit.module("PhaseObserver");
 
@@ -33,11 +33,11 @@ define(["qunit", "redux", "artifact/js/Phase",
       {
          var squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
          var squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
-         var agent1 = new SimpleAgent("1", squadBuilder1.factionKey());
-         var agent2 = new SimpleAgent("2", squadBuilder2.factionKey());
+         var store = Redux.createStore(Reducer.root);
+         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
+         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
-         var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
 
          return environment;

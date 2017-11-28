@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Adjudicator", "model/js/Engine", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder", "model/js/TokenAction",
+  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/Engine", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, DamageCard, PilotCard, UpgradeCard,
-      Action, Adjudicator, Engine, Environment, EnvironmentAction, EventObserver, PhaseObserver, Position, Reducer, SimpleAgent, SquadBuilder, TokenAction,
+      Action, Adjudicator, Agent, Engine, Environment, EnvironmentAction, EventObserver, PhaseObserver, Position, Reducer, SimpleAgent, SquadBuilder, TokenAction,
       EnvironmentFactory)
    {
       QUnit.module("Engine");
@@ -56,11 +56,11 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          // Setup.
          var squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #2", 2014);
          var squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
-         var agent1 = new SimpleAgent("1", squadBuilder1.factionKey());
-         var agent2 = new SimpleAgent("2", squadBuilder2.factionKey());
+         var store = Redux.createStore(Reducer.root);
+         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
+         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
-         var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          var adjudicator = Adjudicator.create(store);
          var engine = new Engine(environment, adjudicator, delay);

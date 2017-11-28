@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeCard",
-  "model/js/Environment", "model/js/EnvironmentAction", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/Weapon",
+  "model/js/Agent", "model/js/Environment", "model/js/EnvironmentAction", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/Weapon",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Faction, FiringArc, PilotCard, Range, UpgradeCard,
-      Environment, EnvironmentAction, Position, RangeRuler, Reducer, SimpleAgent, Squad, TargetLock, Token, TokenAction, Weapon,
+      Agent, Environment, EnvironmentAction, Position, RangeRuler, Reducer, SimpleAgent, Squad, TargetLock, Token, TokenAction, Weapon,
       EnvironmentFactory)
    {
       QUnit.module("Weapon");
@@ -109,8 +109,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
          var positions1 = [new Position(450, 845, 90)];

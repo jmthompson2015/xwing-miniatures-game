@@ -32,8 +32,8 @@
 				LOGGER.setTraceEnabled(false);
 				LOGGER.setDebugEnabled(false);
 
-				var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
-				var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+				var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
+				var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
 				var store = Redux.createStore(Reducer.root);
 				var attacker = new Token(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard
 					.CLUSTER_MISSILES,

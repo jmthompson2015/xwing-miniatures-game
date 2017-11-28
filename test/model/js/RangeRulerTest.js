@@ -1,9 +1,9 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Range",
-  "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Token"],
+  "model/js/Agent", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Token"],
    function(QUnit, Redux, Faction, PilotCard, Range,
-      Position, RangeRuler, Reducer, SimpleAgent, Token)
+      Agent, Position, RangeRuler, Reducer, SimpleAgent, Token)
    {
       QUnit.module("RangeRuler");
 
@@ -25,10 +25,10 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
          var attacker = new Token(store, PilotCard.ROOKIE_PILOT, rebelAgent);
          var attackerPosition = new Position(300, 80, -90);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var defender = new Token(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          var defenderPosition = new Position(300, 30, 45);
 
@@ -44,10 +44,10 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
          var attacker = new Token(store, PilotCard.ROOKIE_PILOT, rebelAgent);
          var attackerPosition = new Position(300, 180, -90);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var defender = new Token(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          var defenderPosition = new Position(300, 30, 45);
 
@@ -63,10 +63,10 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
          var attacker = new Token(store, PilotCard.ROOKIE_PILOT, rebelAgent);
          var attackerPosition = new Position(300, 280, -90);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var defender = new Token(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          var defenderPosition = new Position(300, 30, 45);
 

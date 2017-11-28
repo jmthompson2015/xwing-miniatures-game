@@ -4,6 +4,7 @@ define(["common/js/InputValidator"], function(InputValidator)
 {
    var Action = {};
 
+   Action.ADD_AGENT = "addAgent";
    Action.ADD_TARGET_LOCK = "addTargetLock";
    Action.CLEAR_EVENT = "clearEvent";
    Action.CLEAR_PHASE = "clearPhase";
@@ -16,6 +17,7 @@ define(["common/js/InputValidator"], function(InputValidator)
    Action.SET_ADJUDICATOR = "setAdjudicator";
    Action.SET_ENVIRONMENT = "setEnvironment";
    Action.SET_GAME_OVER = "setGameOver";
+   Action.SET_RESOURCE_BASE = "setResourceBase";
    Action.SET_TOKEN_ACTIVATION_ACTION = "setTokenActivationAction";
    Action.SET_TOKEN_ATTACK_DICE = "setTokenAttackDice";
    Action.SET_TOKEN_COMBAT_ACTION = "setTokenCombatAction";
@@ -27,6 +29,19 @@ define(["common/js/InputValidator"], function(InputValidator)
    Action.SET_TOKEN_MANEUVER_ACTION = "setTokenManeuverAction";
    Action.SET_TOKEN_RANGE = "setTokenRange";
    Action.SET_USER_MESSAGE = "setUserMessage";
+
+   Action.addAgent = function(id, values)
+   {
+      InputValidator.validateIsNumber("id", id);
+      InputValidator.validateNotNull("values", values);
+
+      return (
+      {
+         type: Action.ADD_AGENT,
+         id: id,
+         values: values,
+      });
+   };
 
    Action.addTargetLock = function(targetLock)
    {
@@ -152,6 +167,17 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          type: Action.SET_GAME_OVER,
          winner: winner,
+      });
+   };
+
+   Action.setResourceBase = function(resourceBase)
+   {
+      InputValidator.validateIsString("resourceBase", resourceBase);
+
+      return (
+      {
+         type: Action.SET_RESOURCE_BASE,
+         resourceBase: resourceBase,
       });
    };
 

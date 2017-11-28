@@ -30,11 +30,11 @@
 		"use strict";
 
 		require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/TimePrinter",
-				"model/js/Adjudicator", "model/js/Game", "model/js/MediumAgent", "model/js/Reducer",
+				"model/js/Adjudicator", "model/js/Agent", "model/js/Game", "model/js/MediumAgentStrategy", "model/js/Reducer",
 				"accessory/arena/Action", "accessory/arena/Reducer", "accessory/arena/ArenaTableContainer"
 			],
 			function(React, ReactDOM, ReactRedux, Redux, Logger, TimePrinter,
-				Adjudicator, Game, MediumAgent, DelegateReducer,
+				Adjudicator, Agent, Game, MediumAgentStrategy, DelegateReducer,
 				Action, Reducer, ArenaTableContainer)
 			{
 				window.LOGGER = new Logger();
@@ -88,11 +88,12 @@
 				function compete(squadBuilder1, squadBuilder2)
 				{
 					LOGGER.info("compete() " + squadBuilder1 + " vs " + squadBuilder2);
+					var store = Redux.createStore(DelegateReducer.root);
 					var factionKey1 = squadBuilder1.factionKey();
-					var agent1 = new MediumAgent("Agent1", factionKey1);
+					var agent1 = new Agent(store, "Agent1", factionKey1, undefined, MediumAgentStrategy);
 
 					var factionKey2 = squadBuilder2.factionKey();
-					var agent2 = new MediumAgent("Agent2", factionKey2);
+					var agent2 = new Agent(store, "Agent2", factionKey2, undefined, MediumAgentStrategy);
 
 					startNewGame(agent1, squadBuilder1, agent2, squadBuilder2);
 					LOGGER.info("compete() end");

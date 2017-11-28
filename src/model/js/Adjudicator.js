@@ -1,10 +1,10 @@
 "use strict";
 
-define(["common/js/InputValidator",
+define(["redux", "common/js/InputValidator",
   "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/ManeuverComputer", "model/js/RectanglePath", "model/js/Selector", "model/js/SimpleAgent"],
-   function(InputValidator, Faction, Maneuver, PilotCard, UpgradeCard,
-      Action, ManeuverComputer, RectanglePath, Selector, SimpleAgent)
+  "model/js/Action", "model/js/Agent", "model/js/ManeuverComputer", "model/js/RectanglePath", "model/js/Reducer", "model/js/Selector"],
+   function(Redux, InputValidator, Faction, Maneuver, PilotCard, UpgradeCard,
+      Action, Agent, ManeuverComputer, RectanglePath, Reducer, Selector)
    {
       function Adjudicator(store)
       {
@@ -166,13 +166,14 @@ define(["common/js/InputValidator",
          var answer = 1;
 
          // Compare squad point costs.
+         var store = Redux.createStore(Reducer.root);
          var factionKey1 = squadBuilder1.factionKey();
-         var agent1 = new SimpleAgent("Agent1", factionKey1);
+         var agent1 = new Agent(store, "Agent1", factionKey1);
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squadPointCost1 = squad1.squadPointCost();
 
          var factionKey2 = squadBuilder2.factionKey();
-         var agent2 = new SimpleAgent("Agent2", factionKey2);
+         var agent2 = new Agent(store, "Agent2", factionKey2);
          var squad2 = squadBuilder2.buildSquad(agent2);
          var squadPointCost2 = squad2.squadPointCost();
 

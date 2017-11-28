@@ -46,6 +46,13 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       // Target lock.
       this.targetLocks = Immutable.List();
 
+      // id: agent
+      this.agents = Immutable.Map();
+
+      // agent IDs.
+      this.agentPilots = Immutable.Map();
+      this.nextAgentId = 1;
+
       // Token.
       this.nextTokenId = 1;
       this.tokenIdToCounts = Immutable.Map();

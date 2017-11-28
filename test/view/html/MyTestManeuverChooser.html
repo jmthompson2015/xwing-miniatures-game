@@ -36,7 +36,7 @@
 				var resourceBase = "../../../src/view/resource/";
 				var store = Redux.createStore(Reducer.root);
 
-				var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+				var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
 				var token = new Token(store, PilotCard.ACADEMY_PILOT, imperialAgent);
 				var maneuverKeys = token.maneuverKeys();
 				var maneuvers = maneuverKeys.map(function(maneuverKey)
@@ -54,7 +54,7 @@
 				});
 				ReactDOM.render(element, document.getElementById("inputArea0"));
 
-				var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+				var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
 				token = new Token(store, PilotCard.ROOKIE_PILOT, rebelAgent);
 				var maneuverKeys = token.maneuverKeys();
 				var maneuvers = maneuverKeys.map(function(maneuverKey)

@@ -23,16 +23,18 @@
   <script>
     "use strict";
 
-    require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "common/js/Logger",
-        "artifact/js/ShipFaction", "artifact/js/Faction", "model/js/SimpleAgent", "view/js/ShipCardUI"
+    require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "redux", "common/js/Logger",
+        "artifact/js/ShipFaction", "artifact/js/Faction", "model/js/Action", "model/js/Agent", "model/js/Reducer", "view/js/ShipCardUI"
       ],
-      function(createReactClass, PropTypes, React, ReactDOM, DOM, Logger, ShipFaction, Faction, SimpleAgent, ShipCardUI)
+      function(createReactClass, PropTypes, React, ReactDOM, DOM, Redux, Logger, ShipFaction, Faction, Action, Agent, Reducer, ShipCardUI)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
         LOGGER.setDebugEnabled(false);
 
+        var store = Redux.createStore(Reducer.root);
         var resourceBase = "../../../src/view/resource/";
+        store.dispatch(Action.setResourceBase(resourceBase));
 
         var ShipGallery = createReactClass(
         {
@@ -45,7 +47,7 @@
             var factionKey = this.props.factionKey;
             var isStrict = true;
             var shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
-            var agent = new SimpleAgent("Agent", factionKey);
+            var agent = new Agent(store, "Agent", factionKey);
 
             var cells = [];
             var excludes = [ShipFaction.IMPERIAL_TIE_BOMBER_V2,

@@ -1,12 +1,12 @@
 "use strict";
 
-define(["qunit", "redux",
-  "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Adjudicator", "model/js/CombatAction", "model/js/Environment", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
+define(["qunit", "redux", "common/js/ArrayAugments",
+  "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
+  "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CombatAction", "model/js/Environment", "model/js/EnvironmentAction", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
-   function(QUnit, Redux,
-      DamageCard, DiceModification, Faction, Maneuver, PilotCard, ShipAction, UpgradeCard,
-      Action, Adjudicator, CombatAction, Environment, EnvironmentAction, Position, Reducer, SimpleAgent, Squad, SquadBuilder, Token, TokenAction,
+   function(QUnit, Redux, ArrayAugments,
+      DamageCard, DiceModification, Faction, Maneuver, Phase, PilotCard, ShipAction, UpgradeCard,
+      Ability, Action, Adjudicator, Agent, CombatAction, Environment, EnvironmentAction, PilotAbility3, Position, Reducer, ShipActionAbility, SimpleAgentStrategy, Squad, SquadBuilder, Token, TokenAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("SimpleAgent");
@@ -14,11 +14,47 @@ define(["qunit", "redux",
       QUnit.test("properties", function(assert)
       {
          // Setup.
-         var result = new SimpleAgent("myAgent", "myFaction");
+         var store = Redux.createStore(Reducer.root);
+         var result = new Agent(store, "myAgent", "myFaction");
 
          // Run / Verify.
          assert.equal(result.name(), "myAgent");
          assert.equal(result.factionKey(), "myFaction");
+      });
+
+      QUnit.test("chooseAbility()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var name = "myAgent";
+         var agent = new Agent(store, name, Faction.IMPERIAL);
+         var tokens = environment.tokens();
+         var token2 = tokens[2];
+         LOGGER.debug("token2 = " + token2);
+
+         var damageAbilities = [];
+         var pilotAbilities = [new Ability(PilotCard, PilotCard.LUKE_SKYWALKER, PilotAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)];
+         var upgradeAbilities = [];
+         LOGGER.debug("damageAbilities = " + damageAbilities);
+         LOGGER.debug("pilotAbilities = " + pilotAbilities);
+         LOGGER.debug("upgradeAbilities = " + upgradeAbilities);
+
+         function callback(ability, isAccepted)
+         {
+            LOGGER.debug("callback() ability = " + ability + " isAccepted ? " + isAccepted);
+
+            // Verify.
+            assert.ok(ability);
+            assert.ok(ability.source(), PilotCard);
+            assert.ok(ability.sourceKey(), PilotCard.LUKE_SKYWALKER);
+            assert.ok(ability.type(), PilotAbility3);
+            assert.ok(ability.abilityKey(), Phase.COMBAT_MODIFY_DEFENSE_DICE);
+            assert.equal(isAccepted, true);
+         }
+
+         // Run.
+         agent.chooseAbility(environment, damageAbilities, pilotAbilities, upgradeAbilities, callback);
       });
 
       QUnit.test("chooseWeaponAndDefender() Imperial", function(assert)
@@ -28,8 +64,7 @@ define(["qunit", "redux",
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
          var name = "myAgent";
-         var faction = Faction.IMPERIAL;
-         var agent = new SimpleAgent(name, faction);
+         var agent = new Agent(store, name, Faction.IMPERIAL);
 
          var oldPosition0 = new Position(305, 20, 90);
          var token0 = environment.getTokenAt(oldPosition0);
@@ -103,8 +138,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
          var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new Token(store00, PilotCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2])]);
          var positions1 = [new Position(305, 20, 90)];
@@ -128,10 +163,6 @@ define(["qunit", "redux",
          // Validate.
          assert.ok(result);
          assert.equal(result.length, 1);
-         //  result.forEach(function(modificationKey, i)
-         //  {
-         //     LOGGER.info(i + " modificationKey = " + modificationKey);
-         //  });
          assert.equal(result[0].sourceKey(), DiceModification.DEFENSE_SPEND_EVADE);
       });
 
@@ -193,8 +224,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
          var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new Token(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]), new Token(store00, PilotCard.DARK_CURSE, imperialAgent)]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2]), new Token(store00, PilotCard.MIRANDA_DONI, rebelAgent)]);
          var positions1 = [new Position(305, 20, 90), new Position(610, 20, 90)];
@@ -213,10 +244,6 @@ define(["qunit", "redux",
          // Validate.
          assert.ok(result);
          assert.equal(result.length, 6);
-         //  result.forEach(function(maneuver, i)
-         //  {
-         //     LOGGER.info(i + " maneuver = " + maneuver);
-         //  });
          assert.equal(result[0].sourceKey(), ShipAction.FOCUS);
          assert.ok(result[1]);
          assert.equal(result[1].sourceKey(), ShipAction.SLAM);
@@ -245,7 +272,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var agent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new Token(store, PilotCard.SIGMA_SQUADRON_PILOT, agent);
          store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 0), token));
          store.dispatch(TokenAction.addCloakCount(token));
@@ -337,7 +364,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var agent = new SimpleAgent("myAgent", Faction.IMPERIAL);
+         var agent = environment.firstAgent();
 
          var position0 = new Position(305, 20, 90);
          var token0 = environment.getTokenAt(position0);
@@ -372,10 +399,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var name = "myAgent";
-         var faction = Faction.REBEL;
-         var squadBuilder = SquadBuilder.CoreSetRebelSquadBuilder;
-         var agent = new SimpleAgent(name, faction, squadBuilder);
+         var agent = environment.secondAgent();
 
          var position0 = new Position(305, 20, 90);
          var token0 = environment.getTokenAt(position0);
@@ -411,7 +435,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var agent = new SimpleAgent("myAgent", Faction.REBEL);
+         var agent = environment.secondAgent();
 
          var oldPosition = new Position(458, 895, -90);
          var newPosition = new Position(20, 110, -90);
@@ -431,10 +455,40 @@ define(["qunit", "redux",
          agent.getPlanningAction(environment, adjudicator, callback);
       });
 
+      QUnit.test("getShipAction()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var adjudicator = Adjudicator.create(store);
+         var name = "myAgent";
+         var agent = new Agent(store, name, Faction.IMPERIAL);
+         var tokens = environment.tokens();
+         var token2 = tokens[2];
+         LOGGER.debug("token2 = " + token2);
+
+         function callback(shipAction, isAccepted)
+         {
+            LOGGER.debug("callback() shipAction = " + shipAction + " isAccepted ? " + isAccepted);
+
+            // Verify.
+            assert.ok(shipAction);
+            assert.ok(shipAction.source(), ShipAction);
+            assert.ok(shipAction.sourceKey(), ShipAction.FOCUS);
+            assert.ok(shipAction.type(), ShipActionAbility);
+            assert.ok(shipAction.abilityKey(), ShipActionAbility.ABILITY_KEY);
+            assert.equal(isAccepted, true);
+         }
+
+         // Run.
+         agent.getShipAction(environment, adjudicator, token2, callback);
+      });
+
       QUnit.test("toString()", function(assert)
       {
          // Setup.
-         var agent = new SimpleAgent("myAgent", Faction.IMPERIAL);
+         var store = Redux.createStore(Reducer.root);
+         var agent = new Agent(store, "myAgent", Faction.IMPERIAL);
 
          // Run.
          var result = agent.toString();

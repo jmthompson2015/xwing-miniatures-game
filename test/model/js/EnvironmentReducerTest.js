@@ -2,11 +2,11 @@
 
 define(["qunit", "redux",
   "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Faction",
-  "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder", "model/js/Token",
+  "model/js/Agent", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder", "model/js/Token",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
       DamageCard, PilotCard, PlayFormat, Faction,
-      EnvironmentAction, Position, Reducer, SimpleAgent, SquadBuilder, Token, EnvironmentFactory)
+      Agent, EnvironmentAction, Position, Reducer, SimpleAgent, SquadBuilder, Token, EnvironmentFactory)
    {
       QUnit.module("EnvironmentReducer");
 
@@ -96,7 +96,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var position = new Position(100, 200, 45);
-         var agent = new SimpleAgent("Charlie", Faction.REBEL);
+         var agent = new Agent(store, "Charlie", Faction.REBEL);
          assert.equal(Object.keys(store.getState().positionToTokenId).length, 0);
          assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 0);
          assert.equal(store.getState().tokens.keySeq().size, 0);
@@ -179,8 +179,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token0 = new Token(store, PilotCard.ACADEMY_PILOT, new SimpleAgent("Imperial", Faction.IMPERIAL));
-         var token1 = new Token(store, PilotCard.ROOKIE_PILOT, new SimpleAgent("Rebel", Faction.REBEL));
+         var token0 = new Token(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token1 = new Token(store, PilotCard.ROOKIE_PILOT, new Agent(store, "Rebel", Faction.REBEL));
          assert.ok(!store.getState().activeTokenId);
 
          // Run.
@@ -214,8 +214,8 @@ define(["qunit", "redux",
       QUnit.test("setFirstAgent()", function(assert)
       {
          // Setup.
-         var agent = new SimpleAgent("Bob", Faction.IMPERIAL);
          var store = Redux.createStore(Reducer.root);
+         var agent = new Agent(store, "Bob", Faction.IMPERIAL);
          assert.ok(!store.getState().firstAgent);
 
          // Run.
@@ -228,9 +228,9 @@ define(["qunit", "redux",
       QUnit.test("setFirstSquad()", function(assert)
       {
          // Setup.
-         var agent = new SimpleAgent("Bob", Faction.IMPERIAL);
-         var squad = SquadBuilder.CoreSetImperialSquadBuilder.buildSquad(agent);
          var store = Redux.createStore(Reducer.root);
+         var agent = new Agent(store, "Bob", Faction.IMPERIAL);
+         var squad = SquadBuilder.CoreSetImperialSquadBuilder.buildSquad(agent);
          assert.ok(!store.getState().firstSquad);
 
          // Run.
@@ -275,8 +275,8 @@ define(["qunit", "redux",
       QUnit.test("setSecondAgent()", function(assert)
       {
          // Setup.
-         var agent = new SimpleAgent("Mike", Faction.REBEL);
          var store = Redux.createStore(Reducer.root);
+         var agent = new Agent(store, "Mike", Faction.REBEL);
          assert.ok(!store.getState().secondAgent);
 
          // Run.
@@ -289,9 +289,9 @@ define(["qunit", "redux",
       QUnit.test("setSecondSquad()", function(assert)
       {
          // Setup.
-         var agent = new SimpleAgent("Mike", Faction.REBEL);
-         var squad = SquadBuilder.CoreSetRebelSquadBuilder.buildSquad(agent);
          var store = Redux.createStore(Reducer.root);
+         var agent = new Agent(store, "Mike", Faction.REBEL);
+         var squad = SquadBuilder.CoreSetRebelSquadBuilder.buildSquad(agent);
          assert.ok(!store.getState().secondSquad);
 
          // Run.
@@ -305,7 +305,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new Token(store, PilotCard.ACADEMY_PILOT, new SimpleAgent("Imperial", Faction.IMPERIAL));
+         var token = new Token(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          assert.ok(!store.getState().tokenIdToIsTouching[token.id()]);
 
          // Run.

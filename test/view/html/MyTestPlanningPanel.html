@@ -34,11 +34,11 @@
 				var teamKey1 = Faction.IMPERIAL;
 				var teamKey2 = Faction.REBEL;
 
-				var imperialAgent = new SimpleAgent("Imperial Agent", teamKey1);
+				var imperialAgent = new Agent(store, "Imperial Agent", teamKey1);
 				var token0 = new Token(store, PilotCardCard.ACADEMY_PILOT, imperialAgent);
 				var token1 = new Token(store, PilotCardCard.TEMPEST_SQUADRON_PILOT, imperialAgent);
 				var token2 = new Token(store, PilotCardCard.ALPHA_SQUADRON_PILOT, imperialAgent);
-				var rebelAgent = new SimpleAgent("Rebel Agent", teamKey2);
+				var rebelAgent = new Agent(store, "Rebel Agent", teamKey2);
 				var tokens1 = [token0, token1, token2];
 				var squad1 = new Squad(teamKey1, "Squad #1", 2017, "squad1", tokens1);
 				var squad2 = new Squad(teamKey2, "Squad #2", 2016, "squad2", []);

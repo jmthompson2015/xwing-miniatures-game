@@ -16,8 +16,8 @@
 	<script>
 		"use strict";
 
-		require(["redux", "common/js/Logger", "model/js/Adjudicator", "../test/model/js/EnvironmentFactory", "model/js/Reducer", "controller/js/HumanAgent"],
-			function(Redux, Logger, Adjudicator, EnvironmentFactory, Reducer, HumanAgent)
+		require(["redux", "common/js/Logger", "model/js/Adjudicator", "../test/model/js/EnvironmentFactory", "model/js/Reducer", "controller/js/HumanAgentStrategy"],
+			function(Redux, Logger, Adjudicator, EnvironmentFactory, Reducer, HumanAgentStrategy)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -25,7 +25,7 @@
 
 				var resourceBase = "../../../src/view/resource/";
 				var store = Redux.createStore(Reducer.root);
-				var environment = EnvironmentFactory.createCoreSetEnvironment(store, HumanAgent);
+				var environment = EnvironmentFactory.createCoreSetEnvironment(store, HumanAgentStrategy);
 				var adjudicator = new Adjudicator(store);
 				var token = environment.tokens()[0] // TIE Fighter.
 				environment.setActiveToken(token);

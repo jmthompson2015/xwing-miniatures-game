@@ -29,7 +29,7 @@
 
 				var resourceBase = "../../../src/view/resource/";
 				var faction = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM].xwingRandomElement();
-				var agent = new SimpleAgent("Placeholder", faction);
+				var agent = new Agent(store, "Placeholder", faction);
 				var squadBuilders = SquadBuilder.findByFaction(faction);
 
 				var element = React.createElement(SquadChooser,

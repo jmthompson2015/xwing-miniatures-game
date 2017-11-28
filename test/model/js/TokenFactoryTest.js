@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/PilotCard", "model/js/SimpleAgent", "artifact/js/UpgradeCard",
-  "model/js/DualToken", "model/js/Reducer", "model/js/Token", "model/js/TokenFactory"],
+  "model/js/Agent", "model/js/DualToken", "model/js/Reducer", "model/js/Token", "model/js/TokenFactory"],
    function(QUnit, Redux,
       Faction, PilotCard, SimpleAgent, UpgradeCard,
-      DualToken, Reducer, Token, TokenFactory)
+      Agent, DualToken, Reducer, Token, TokenFactory)
    {
       QUnit.module("TokenFactory");
 
@@ -14,7 +14,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.ACADEMY_PILOT;
-         var agent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
 
          // Run.
          var result = TokenFactory.create(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
@@ -33,7 +33,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.CR90_CORVETTE;
-         var agent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var agent = new Agent(store, "Rebel Agent", Faction.REBEL);
 
          // Run.
          var result = TokenFactory.create(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
@@ -54,7 +54,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.ACADEMY_PILOT;
-         var agent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new Token(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
 
          // Run.
@@ -74,7 +74,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.CR90_CORVETTE;
-         var agent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var agent = new Agent(store, "Rebel Agent", Faction.REBEL);
          var token = new DualToken(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
 
          // Run.

@@ -38,7 +38,7 @@
 				var team0 = Faction.IMPERIAL;
 				var agentName0 = "Imperial Agent";
 				var squadBuilder0 = SquadBuilder.CoreSetImperialSquadBuilder;
-				var agent0 = new SimpleAgent(agentName0, team0);
+				var agent0 = new Agent(store, agentName0, team0);
 				var squad0 = squadBuilder0.buildSquad(agent0);
 
 				var element = React.createElement(SquadUI,
@@ -51,7 +51,7 @@
 				var team1 = Faction.REBEL;
 				var agentName1 = "Rebel Agent";
 				var squadBuilder1 = SquadBuilder.CoreSetRebelSquadBuilder;
-				var agent1 = new SimpleAgent(agentName1, team1);
+				var agent1 = new Agent(store, agentName1, team1);
 				var squad1 = squadBuilder1.buildSquad(agent1);
 
 				var element = React.createElement(SquadUI,

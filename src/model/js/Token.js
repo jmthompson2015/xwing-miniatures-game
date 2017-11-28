@@ -2,10 +2,10 @@
 
 define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
   "artifact/js/Bearing", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
-  "model/js/Ability", "model/js/Action", "model/js/RangeRuler", "model/js/TargetLock", "model/js/TokenAction", "model/js/Weapon"],
+  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/RangeRuler", "model/js/TargetLock", "model/js/TokenAction", "model/js/Weapon"],
    function(Immutable, ArrayAugments, InputValidator,
       Bearing, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
-      Ability, Action, RangeRuler, TargetLock, TokenAction, Weapon)
+      Ability, Action, AgentAction, RangeRuler, TargetLock, TokenAction, Weapon)
    {
       function Token(store, pilotKeyIn, agent, upgradeKeysIn, idIn, isNewIn)
       {
@@ -1127,6 +1127,8 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          store.dispatch(TokenAction.clearTokenUsedAbilities(this));
          store.dispatch(TokenAction.clearTokenUsedPerRoundAbilities(this));
+
+         store.dispatch(AgentAction.addPilot(agent, this));
       };
 
       //////////////////////////////////////////////////////////////////////////

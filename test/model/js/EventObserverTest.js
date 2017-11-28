@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/EventObserver", "model/js/Environment", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder"],
-   function(QUnit, Redux, Event, Action, EventObserver, Environment, Reducer, SimpleAgent, SquadBuilder)
+define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agent", "model/js/EventObserver", "model/js/Environment", "model/js/Reducer", "model/js/SimpleAgent", "model/js/SquadBuilder"],
+   function(QUnit, Redux, Event, Action, Agent, EventObserver, Environment, Reducer, SimpleAgent, SquadBuilder)
    {
       QUnit.module("EventObserver");
 
@@ -35,11 +35,11 @@ define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Even
       {
          var squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
          var squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
-         var agent1 = new SimpleAgent("1", squadBuilder1.factionKey());
-         var agent2 = new SimpleAgent("2", squadBuilder2.factionKey());
+         var store = Redux.createStore(Reducer.root);
+         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
+         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
-         var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
 
          return environment;

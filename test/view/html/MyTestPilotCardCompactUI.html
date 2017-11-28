@@ -60,7 +60,7 @@
 				var store00 = Redux.createStore(Reducer.root);
 
 				var teamKey1 = Faction.IMPERIAL;
-				var imperialAgent = new SimpleAgent("Imperial", teamKey1);
+				var imperialAgent = new Agent(store, "Imperial", teamKey1);
 				var imperialToken = new Token(store00, PilotCardCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]);
 				var foToken = new Token(store00, PilotCardCard.EPSILON_LEADER, imperialAgent);
 				var gozantiToken = new Token(store00, PilotCardCard.GOZANTI_CLASS_CRUISER, imperialAgent);
@@ -69,7 +69,7 @@
 				var scumToken2 = new Token(store00, PilotCardCard.DENGAR, imperialAgent);
 
 				var teamKey2 = Faction.REBEL;
-				var rebelAgent = new SimpleAgent("Rebel", teamKey2);
+				var rebelAgent = new Agent(store, "Rebel", teamKey2);
 				var rebelToken = new Token(store00, PilotCardCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2]);
 				var resistanceToken = new Token(store00, PilotCardCard.POE_DAMERON, rebelAgent);
 				var gr75Token = new Token(store00, PilotCardCard.GR_75_MEDIUM_TRANSPORT, rebelAgent, [UpgradeCard.DUTYFREE, UpgradeCard.RAYMUS_ANTILLES, UpgradeCard.FREQUENCY_JAMMER,

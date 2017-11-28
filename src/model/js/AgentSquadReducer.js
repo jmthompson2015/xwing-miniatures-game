@@ -1,7 +1,7 @@
 "use strict";
 
-define(["immutable", "model/js/AgentSquadAction", "model/js/AgentSquadInitialState"],
-   function(Immutable, AgentSquadAction, AgentSquadInitialState)
+define(["immutable", "model/js/Agent", "model/js/AgentSquadAction", "model/js/AgentSquadInitialState"],
+   function(Immutable, Agent, AgentSquadAction, AgentSquadInitialState)
    {
       var AgentSquadReducer = {};
 
@@ -18,14 +18,8 @@ define(["immutable", "model/js/AgentSquadAction", "model/js/AgentSquadInitialSta
 
          switch (action.type)
          {
-            case AgentSquadAction.SET_AGENT:
-               return Object.assign(
-               {}, state,
-               {
-                  agent: action.agent,
-               });
             case AgentSquadAction.SET_AGENT_NAME:
-               newAgent = new state.agentType(action.agentName, state.faction.key, state.inputAreaId, state.resourceBase);
+               newAgent = new Agent(state.delegateStore, action.agentName, state.faction.key, undefined, state.agentType);
                return Object.assign(
                {}, state,
                {
@@ -33,7 +27,7 @@ define(["immutable", "model/js/AgentSquadAction", "model/js/AgentSquadInitialSta
                   agentName: action.agentName,
                });
             case AgentSquadAction.SET_AGENT_TYPE:
-               newAgent = new action.agentType(state.agentName, state.faction.key, state.inputAreaId, state.resourceBase);
+               newAgent = new Agent(state.delegateStore, state.agentName, state.faction.key, undefined, action.agentType);
                return Object.assign(
                {}, state,
                {
@@ -41,28 +35,12 @@ define(["immutable", "model/js/AgentSquadAction", "model/js/AgentSquadInitialSta
                   agentType: action.agentType,
                });
             case AgentSquadAction.SET_FACTION:
-               newAgent = new state.agentType(state.agentName, action.faction.key, state.inputAreaId, state.resourceBase);
+               newAgent = new Agent(state.delegateStore, state.agentName, action.faction.key, undefined, state.agentType);
                return Object.assign(
                {}, state,
                {
                   agent: newAgent,
                   faction: action.faction,
-               });
-            case AgentSquadAction.SET_INPUT_AREA_ID:
-               newAgent = new state.agentType(state.agentName, state.faction.key, action.inputAreaId, state.resourceBase);
-               return Object.assign(
-               {}, state,
-               {
-                  agent: newAgent,
-                  inputAreaId: action.inputAreaId,
-               });
-            case AgentSquadAction.SET_RESOURCE_BASE:
-               newAgent = new state.agentType(state.agentName, state.faction.key, state.inputAreaId, action.resourceBase);
-               return Object.assign(
-               {}, state,
-               {
-                  agent: newAgent,
-                  resourceBase: action.resourceBase,
                });
             case AgentSquadAction.SET_SQUAD_BUILDER_TYPE:
                return Object.assign(

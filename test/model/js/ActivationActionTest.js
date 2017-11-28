@@ -2,11 +2,11 @@
 
 define(["qunit", "redux",
   "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
+  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Agent", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
       Maneuver, PilotCard, Faction, UpgradeCard,
-      Action, ActivationAction, Adjudicator, Environment, EventObserver, PhaseObserver, Position, Reducer, SimpleAgent, Squad, SquadBuilder, Token, TokenAction,
+      Action, ActivationAction, Adjudicator, Agent, Environment, EventObserver, PhaseObserver, Position, Reducer, SimpleAgent, Squad, SquadBuilder, Token, TokenAction,
       EnvironmentFactory)
    {
       QUnit.module("ActivationAction");
@@ -39,11 +39,11 @@ define(["qunit", "redux",
          // Setup.
          var squadBuilder1 = SquadBuilder.HugeShipImperialSquadBuilder;
          var squadBuilder2 = SquadBuilder.HugeShipRebelSquadBuilder;
-         var agent1 = new SimpleAgent("1", squadBuilder1.factionKey());
-         var agent2 = new SimpleAgent("2", squadBuilder2.factionKey());
+         var store = Redux.createStore(Reducer.root);
+         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
+         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
-         var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          Adjudicator.create(store);
          var token = environment.tokens()[0]; // Gozanti-class Cruiser
@@ -147,11 +147,11 @@ define(["qunit", "redux",
          // Setup.
          var squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #4", 2015);
          var squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
-         var agent1 = new SimpleAgent("1", squadBuilder1.factionKey());
-         var agent2 = new SimpleAgent("2", squadBuilder2.factionKey());
+         var store = Redux.createStore(Reducer.root);
+         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
+         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
-         var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          Adjudicator.create(store);
          var token = environment.tokens()[2]; // Lambda-class Shuttle
@@ -457,8 +457,8 @@ define(["qunit", "redux",
       function createActivationAction(upgradeKey, maneuverKey, callback0)
       {
          var store00 = Redux.createStore(Reducer.root);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey])]);
          var positions1 = [new Position(400, 500, 90)];

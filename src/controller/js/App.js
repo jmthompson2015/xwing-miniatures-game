@@ -1,32 +1,30 @@
 "use strict";
 
 require(["react", "react-dom", "react-redux", "redux", "artifact/js/Faction",
-  "model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/EnvironmentAction", "model/js/Game", "model/js/MediumAgent", "model/js/Reducer", "model/js/SquadBuilder",
+  "model/js/Action", "model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/EnvironmentAction", "model/js/Game", "model/js/MediumAgentStrategy", "model/js/Reducer", "model/js/SquadBuilder",
   "view/js/NewGamePanel",
-  "controller/js/AgentSquadContainer", "controller/js/HumanAgent", "controller/js/PilotsContainer", "controller/js/PlayAreaContainer", "controller/js/StatusBarContainer"],
+  "controller/js/AgentSquadContainer", "controller/js/HumanAgentStrategy", "controller/js/PilotsContainer", "controller/js/PlayAreaContainer", "controller/js/StatusBarContainer"],
    function(React, ReactDOM, ReactRedux, Redux, Faction,
-      AgentSquadAction, AgentSquadReducer, EnvironmentAction, Game, MediumAgent, Reducer, SquadBuilder,
-      NewGamePanel, AgentSquadContainer, HumanAgent, PilotsContainer, PlayAreaContainer, StatusBarContainer)
+      Action, AgentSquadAction, AgentSquadReducer, EnvironmentAction, Game, MediumAgentStrategy, Reducer, SquadBuilder,
+      NewGamePanel, AgentSquadContainer, HumanAgentStrategy, PilotsContainer, PlayAreaContainer, StatusBarContainer)
    {
       var resourceBase = "view/resource/";
 
       // Create initial agents and tokens.
       var store0 = Redux.createStore(Reducer.root);
+      store0.dispatch(Action.setResourceBase(resourceBase));
+
       var store1 = Redux.createStore(AgentSquadReducer.root);
       store1.dispatch(AgentSquadAction.setDelegateStore(store0));
-      store1.dispatch(AgentSquadAction.setInputAreaId("firstPilotInputArea"));
-      store1.dispatch(AgentSquadAction.setResourceBase(resourceBase));
       store1.dispatch(AgentSquadAction.setAgentName("Agent 1"));
-      store1.dispatch(AgentSquadAction.setAgentType(HumanAgent));
+      store1.dispatch(AgentSquadAction.setAgentType(HumanAgentStrategy));
       setSquad(store1);
 
       var store2 = Redux.createStore(AgentSquadReducer.root);
       store2.dispatch(AgentSquadAction.setDelegateStore(store0));
-      store2.dispatch(AgentSquadAction.setInputAreaId("secondPilotInputArea"));
-      store2.dispatch(AgentSquadAction.setResourceBase(resourceBase));
       store2.dispatch(AgentSquadAction.setFaction(Faction.properties[Faction.REBEL]));
       store2.dispatch(AgentSquadAction.setAgentName("Agent 2"));
-      store2.dispatch(AgentSquadAction.setAgentType(MediumAgent));
+      store2.dispatch(AgentSquadAction.setAgentType(MediumAgentStrategy));
       setSquad(store2);
 
       var newGamePanel = React.createElement(ReactRedux.Provider,

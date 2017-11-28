@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/Ship", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Environment", "model/js/EnvironmentAction", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction",
+  "model/js/Action", "model/js/Agent", "model/js/Environment", "model/js/EnvironmentAction", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/SimpleAgent", "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Faction, Phase, PilotCard, PlayFormat, Range, Ship, UpgradeCard,
-      Action, Environment, EnvironmentAction, Position, RangeRuler, Reducer, SimpleAgent, Squad, SquadBuilder, TargetLock, Token, TokenAction,
+      Action, Agent, Environment, EnvironmentAction, Position, RangeRuler, Reducer, SimpleAgent, Squad, SquadBuilder, TargetLock, Token, TokenAction,
       EnvironmentFactory)
    {
       QUnit.module("Environment");
@@ -62,8 +62,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new SimpleAgent("Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [
                  new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
                  new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
@@ -306,9 +306,9 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent1 = new SimpleAgent("1", Faction.REBEL);
+         var agent1 = new Agent(store, "1", Faction.REBEL);
          var squad1 = SquadBuilder.findByNameAndYear("Worlds #2", 2016).buildSquad(agent1);
-         var agent2 = new SimpleAgent("2", Faction.REBEL);
+         var agent2 = new Agent(store, "2", Faction.REBEL);
          var squad2 = SquadBuilder.findByNameAndYear("Worlds #4", 2016).buildSquad(agent1);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          var attacker = environment.tokens()[0]; // X-Wing.
@@ -861,8 +861,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var foAgent = new SimpleAgent("First Order Agent", Faction.FIRST_ORDER);
-         var resistanceAgent = new SimpleAgent("Resistance Agent", Faction.RESISTANCE);
+         var foAgent = new Agent(store, "First Order Agent", Faction.FIRST_ORDER);
+         var resistanceAgent = new Agent(store, "Resistance Agent", Faction.RESISTANCE);
          var squad1 = SquadBuilder.findByNameAndYear("Worlds #3", 2016).buildSquad(foAgent);
          var squad2 = SquadBuilder.CoreSetResistanceSquadBuilder.buildSquad(resistanceAgent);
          var environment = new Environment(store, foAgent, squad1, resistanceAgent, squad2);

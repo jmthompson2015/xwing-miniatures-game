@@ -21,10 +21,10 @@
 
 define(["common/js/ArrayAugments", "common/js/InputValidator",
   "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
-  "model/js/Action", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad", "model/js/TokenFactory"],
+  "model/js/Action", "model/js/AgentAction", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad", "model/js/TokenFactory"],
    function(ArrayAugments, InputValidator,
       DamageCard, Faction, PlayFormat, Range,
-      Action, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad, TokenFactory)
+      Action, AgentAction, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad, TokenFactory)
    {
       function Environment(store, agent1, squad1, agent2, squad2, positions1, positions2)
       {
@@ -633,6 +633,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
          var store = this.store();
          store.dispatch(EnvironmentAction.removeToken(token));
+         store.dispatch(AgentAction.removePilot(token.agent(), token));
       };
 
       // Environment.prototype.removeTokenAt = function(position)
@@ -676,16 +677,18 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          // positions2 optional.
 
          var store = this.store();
-         store.dispatch(EnvironmentAction.setFirstAgent(agent1));
-         store.dispatch(EnvironmentAction.setSecondAgent(agent2));
+         var firstAgent = agent1.newInstance(store);
+         var secondAgent = agent2.newInstance(store);
+         store.dispatch(EnvironmentAction.setFirstAgent(firstAgent));
+         store.dispatch(EnvironmentAction.setSecondAgent(secondAgent));
 
          var firstTokens = squad1.tokens().map(function(token)
          {
-            return token.newInstance(store, agent1);
+            return token.newInstance(store, firstAgent);
          });
          var secondTokens = squad2.tokens().map(function(token)
          {
-            return token.newInstance(store, agent2);
+            return token.newInstance(store, secondAgent);
          });
 
          var firstSquad = new Squad(squad1.factionKey(), squad1.name(), squad1.year(), squad1.description(), firstTokens);

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Ship",
-  "model/js/SimpleAgent", "model/js/SquadBuilder", "model/js/Reducer"],
+  "model/js/Agent", "model/js/SimpleAgent", "model/js/SquadBuilder", "model/js/Reducer"],
    function(QUnit, Redux, Faction, PilotCard, Ship,
-      SimpleAgent, SquadBuilder, Reducer)
+      Agent, SimpleAgent, SquadBuilder, Reducer)
    {
       QUnit.module("SquadBuilder");
 
@@ -12,10 +12,10 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var squadBuilder = SquadBuilder.CoreSetFirstOrderSquadBuilder;
-         var agent = new SimpleAgent("FirstOrder Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "FirstOrder Agent", Faction.IMPERIAL);
 
          // Run.
-         var result = squadBuilder.buildSquad(store, agent);
+         var result = squadBuilder.buildSquad(agent);
 
          // Verify.
          assert.ok(result);
@@ -57,10 +57,10 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var squadBuilder = SquadBuilder.CoreSetImperialSquadBuilder;
-         var agent = new SimpleAgent("Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
 
          // Run.
-         var result = squadBuilder.buildSquad(store, agent);
+         var result = squadBuilder.buildSquad(agent);
 
          // Verify.
          assert.ok(result);
@@ -105,10 +105,10 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var inputAreaId = "firstPilotInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var agent = new SimpleAgent("Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var agent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
 
          // Run.
-         var result = squadBuilder.buildSquad(store, agent);
+         var result = squadBuilder.buildSquad(agent);
 
          // Verify.
          assert.ok(result);
@@ -148,10 +148,10 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var inputAreaId = "firstPilotInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var agent = new SimpleAgent("Resistance Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var agent = new Agent(store, "Resistance Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
 
          // Run.
-         var result = squadBuilder.buildSquad(store, agent);
+         var result = squadBuilder.buildSquad(agent);
 
          // Verify.
          assert.ok(result);

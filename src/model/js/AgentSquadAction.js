@@ -5,12 +5,9 @@ define(["common/js/InputValidator"], function(InputValidator)
    var AgentSquadAction = {};
 
    // AgentSquadUI
-   AgentSquadAction.SET_AGENT = "setAgent";
    AgentSquadAction.SET_AGENT_NAME = "setAgentName";
    AgentSquadAction.SET_AGENT_TYPE = "setAgentType";
    AgentSquadAction.SET_FACTION = "setFaction";
-   AgentSquadAction.SET_INPUT_AREA_ID = "setInputAreaId";
-   AgentSquadAction.SET_RESOURCE_BASE = "setResourceBase";
    AgentSquadAction.SET_SQUAD_BUILDER_TYPE = "setSquadBuilderType";
 
    // SquadBuilderUI
@@ -24,17 +21,6 @@ define(["common/js/InputValidator"], function(InputValidator)
 
    /////////////////////////////////////////////////////////////////////////////
    // AgentSquadUI
-
-   AgentSquadAction.setAgent = function(agent)
-   {
-      InputValidator.validateNotNull("agent", agent);
-
-      return (
-      {
-         type: this.SET_AGENT,
-         agent: agent,
-      });
-   };
 
    AgentSquadAction.setAgentName = function(agentName)
    {
@@ -66,28 +52,6 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          type: this.SET_FACTION,
          faction: faction,
-      });
-   };
-
-   AgentSquadAction.setInputAreaId = function(inputAreaId)
-   {
-      InputValidator.validateNotNull("inputAreaId", inputAreaId);
-
-      return (
-      {
-         type: this.SET_INPUT_AREA_ID,
-         inputAreaId: inputAreaId,
-      });
-   };
-
-   AgentSquadAction.setResourceBase = function(resourceBase)
-   {
-      InputValidator.validateNotNull("resourceBase", resourceBase);
-
-      return (
-      {
-         type: this.SET_RESOURCE_BASE,
-         resourceBase: resourceBase,
       });
    };
 

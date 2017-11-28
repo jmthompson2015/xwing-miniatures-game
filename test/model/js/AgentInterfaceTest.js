@@ -1,19 +1,21 @@
 "use strict";
 
-define(["qunit", "artifact/js/Faction", "model/js/MediumAgent", "model/js/SimpleAgent"],
-   function(QUnit, Faction, MediumAgent, SimpleAgent)
+define(["qunit", "redux", "artifact/js/Faction", "model/js/Agent", "model/js/MediumAgent", "model/js/Reducer", "model/js/SimpleAgent"],
+   function(QUnit, Redux, Faction, Agent, MediumAgent, Reducer, SimpleAgent)
    {
       QUnit.module("AgentInterface");
 
       QUnit.test("Agent interface", function(assert)
       {
          // Setup.
+         var store = Redux.createStore(Reducer.root);
          var name = "myAgent";
          var faction = Faction.IMPERIAL;
 
          var agent0 = new SimpleAgent(name + "0", faction);
          var agent1 = new MediumAgent(name + "1", faction);
-         var agents = [agent0, agent1 /*, agent2 */ ];
+         var agent2 = new Agent(store, name + "2", faction);
+         var agents = [agent0, agent1, agent2];
 
          // Run / Verify.
          for (var i = 0; i < agents.length; i++)
@@ -23,12 +25,6 @@ define(["qunit", "artifact/js/Faction", "model/js/MediumAgent", "model/js/Simple
             // Verify the functions exist.
             assert.ok(agent.name, agent.name() + ".name");
             assert.ok(agent.factionKey, agent.name() + ".factionKey");
-
-            if (i === 2)
-            {
-               assert.ok(agent.inputAreaId, agent.name() + ".inputAreaId");
-               assert.ok(agent.imageBase, agent.name() + ".imageBase");
-            }
 
             assert.ok(agent.getPlanningAction, agent.name() + ".getPlanningAction");
             assert.ok(agent.getDecloakAction, agent.name() + ".getDecloakAction");

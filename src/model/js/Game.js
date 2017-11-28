@@ -14,6 +14,8 @@ define(["redux", "common/js/InputValidator",
          // delayIn optional.
 
          var store = Redux.createStore(Reducer.root);
+         var resourceBase = "view/resource/";
+         store.dispatch(Action.setResourceBase(resourceBase));
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
