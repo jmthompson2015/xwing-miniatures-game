@@ -1,9 +1,9 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/AttackDice", "model/js/DamageDealer", "model/js/DefenseDice", "model/js/RangeRuler", "model/js/Selector", "model/js/ShipDestroyedAction", "model/js/TokenAction"],
+  "model/js/Action", "model/js/AttackDice", "model/js/CardAction", "model/js/DamageDealer", "model/js/DefenseDice", "model/js/RangeRuler", "model/js/Selector", "model/js/ShipDestroyedAction"],
    function(InputValidator, Phase, PilotCard, UpgradeCard,
-      Action, AttackDice, DamageDealer, DefenseDice, RangeRuler, Selector, ShipDestroyedAction, TokenAction)
+      Action, AttackDice, CardAction, DamageDealer, DefenseDice, RangeRuler, Selector, ShipDestroyedAction)
    {
       function CombatAction(store, attacker, weapon, defender, callback, delayIn, attackDiceClassIn, defenseDiceClassIn)
       {
@@ -392,8 +392,8 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          }
 
          var store = this.store();
-         store.dispatch(TokenAction.clearTokenUsedAbilities(attacker));
-         store.dispatch(TokenAction.clearTokenUsedAbilities(defender));
+         store.dispatch(CardAction.clearTokenUsedAbilities(attacker));
+         store.dispatch(CardAction.clearTokenUsedAbilities(defender));
 
          if (myDefender.isDestroyed())
          {

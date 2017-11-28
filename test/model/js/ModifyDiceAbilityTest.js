@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/DiceModification",
-  "model/js/Action", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/ModifyDiceAbility", "model/js/TargetLock", "model/js/TokenAction",
+  "model/js/Action", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/ModifyDiceAbility", "model/js/TargetLock", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, DiceModification,
-      Action, AttackDice, CombatAction, DefenseDice, ModifyDiceAbility, TargetLock, TokenAction,
+      Action, AttackDice, CombatAction, DefenseDice, ModifyDiceAbility, TargetLock, CardAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("ModifyDiceAbility");
@@ -116,7 +116,7 @@ define(["qunit", "artifact/js/DiceModification",
          var store = environment.store();
          var attacker = environment.tokens()[2]; // X-Wing.
          var defender = environment.tokens()[0]; // TIE Fighter.
-         store.dispatch(TokenAction.addEvadeCount(defender));
+         store.dispatch(CardAction.addEvadeCount(defender));
          var defenseDice = DefenseDice.get(store, attacker.id());
          assert.equal(defender.evadeCount(), 1);
          assert.equal(defender.focusCount(), 0);
@@ -146,7 +146,7 @@ define(["qunit", "artifact/js/DiceModification",
          var attacker = environment.tokens()[2]; // X-Wing.
          var defender = environment.tokens()[0]; // TIE Fighter.
          var defenseDice = DefenseDice.get(store, attacker.id());
-         store.dispatch(TokenAction.addFocusCount(defender));
+         store.dispatch(CardAction.addFocusCount(defender));
          assert.equal(defender.evadeCount(), 0);
          assert.equal(defender.focusCount(), 1);
          var evadeCount0 = defenseDice.evadeCount();
@@ -180,8 +180,8 @@ define(["qunit", "artifact/js/DiceModification",
          };
 
          environment.setActiveToken(attacker);
-         store.dispatch(TokenAction.addFocusCount(attacker));
-         store.dispatch(TokenAction.addStressCount(attacker));
+         store.dispatch(CardAction.addFocusCount(attacker));
+         store.dispatch(CardAction.addStressCount(attacker));
 
          store.dispatch(Action.setTokenAttackDice(attacker.id(), (new MockAttackDice(store, attacker.id())).values()));
          store.dispatch(Action.setTokenDefenseDice(attacker.id(), (new MockDefenseDice(store, attacker.id())).values()));

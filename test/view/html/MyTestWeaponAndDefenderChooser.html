@@ -19,11 +19,11 @@
 
 		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger", "artifact/js/PilotCard", "model/js/Position", "artifact/js/Faction",
 				"artifact/js/UpgradeCard",
-				"model/js/Environment", "model/js/Reducer",  "model/js/Squad", "model/js/Token",
+				"model/js/Environment", "model/js/Reducer",  "model/js/Squad", "model/js/CardInstance",
 				"view/js/WeaponAndDefenderChooser"
 			],
 			function(React, ReactDOM, DOM, Redux, Logger, PilotCard, Position, Faction, UpgradeCard,
-				Environment, Reducer, Squad, Token, WeaponAndDefenderChooser)
+				Environment, Reducer, Squad, CardInstance, WeaponAndDefenderChooser)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -32,15 +32,15 @@
 				var store00 = Redux.createStore(Reducer.root);
 				var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
 				var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
-				var attacker = new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION,
+				var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION,
 					UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE
 				]);
-				var defender0 = new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
-				var defender1 = new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
-				var defender2 = new Token(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent);
-				var defender3 = new Token(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent);
-				var defender4 = new Token(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent);
-				var defender5 = new Token(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent);
+				var defender0 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+				var defender1 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+				var defender2 = new CardInstance(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent);
+				var defender3 = new CardInstance(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent);
+				var defender4 = new CardInstance(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent);
+				var defender5 = new CardInstance(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent);
 
 				var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad #1", [defender0, defender1, defender2, defender3, defender4, defender5]);
 				var squad2 = new Squad(Faction.REBEL, "squad2", 2016, "squad #2", [attacker]);

@@ -35,12 +35,12 @@
 		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger", "model/js/Ability", "artifact/js/DiceModification", "artifact/js/Phase",
 				"artifact/js/PilotCard", "model/js/Position", "artifact/js/Faction", "artifact/js/UpgradeCard", "model/js/Action", "model/js/Adjudicator",
 				"model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/ModifyDiceAbility", "model/js/Reducer",
-				 "model/js/Squad", "model/js/Token", "model/js/TokenAction", "view/js/CombatUI", "../test/model/js/MockAttackDice",
+				 "model/js/Squad", "model/js/CardInstance", "model/js/CardAction", "view/js/CombatUI", "../test/model/js/MockAttackDice",
 				"../test/model/js/MockDefenseDice"
 			],
 			function(React, ReactDOM, DOM, Redux, Logger, Ability, DiceModification, Phase, PilotCardCard, Position, Faction, UpgradeCard, Action, Adjudicator,
 				AttackDice,
-				CombatAction, DefenseDice, Environment, ModifyDiceAbility, Reducer, Squad, Token, TokenAction, CombatUI, MockAttackDice, MockDefenseDice)
+				CombatAction, DefenseDice, Environment, ModifyDiceAbility, Reducer, Squad, CardInstance, CardAction, CombatUI, MockAttackDice, MockDefenseDice)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -51,8 +51,8 @@
 				var store00 = Redux.createStore(Reducer.root);
 				var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
 				var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
-				var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new Token(store00, PilotCardCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
-				var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCardCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES,
+				var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCardCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
+				var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCardCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES,
 					UpgradeCard.R2_D2
 				])]);
 				var positions1 = [new Position(305, 20, 90)];
@@ -67,7 +67,7 @@
 
 				var attackDice = new AttackDice(store, attacker.id(), 5);
 				var defenseDice = new DefenseDice(store, attacker.id(), 0);
-				store.dispatch(TokenAction.addEvadeCount(defender));
+				store.dispatch(CardAction.addEvadeCount(defender));
 				environment.setActiveToken(attacker);
 				var weapon = attacker.primaryWeapon();
 				var callback = function() {};

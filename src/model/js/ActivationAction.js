@@ -2,8 +2,8 @@
 
 define(["immutable", "common/js/InputValidator",
   "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/Phase",
-  "model/js/Action", "model/js/ManeuverAction", "model/js/TokenAction"],
-   function(Immutable, InputValidator, Difficulty, Event, Maneuver, Phase, Action, ManeuverAction, TokenAction)
+  "model/js/Action", "model/js/CardAction", "model/js/ManeuverAction"],
+   function(Immutable, InputValidator, Difficulty, Event, Maneuver, Phase, Action, CardAction, ManeuverAction)
    {
       function ActivationAction(store, tokenId, callback, delayIn)
       {
@@ -276,7 +276,7 @@ define(["immutable", "common/js/InputValidator",
                   {
                      var store = this.store();
                      var value = Math.min(diff, maneuver.energy);
-                     store.dispatch(TokenAction.addEnergyCount(token, value));
+                     store.dispatch(CardAction.addEnergyCount(token, value));
                   }
                }
             }
@@ -358,7 +358,7 @@ define(["immutable", "common/js/InputValidator",
 
          if (token)
          {
-            store.dispatch(TokenAction.clearTokenUsedAbilities(token));
+            store.dispatch(CardAction.clearTokenUsedAbilities(token));
          }
 
          setTimeout(this.callback(), this.delay());

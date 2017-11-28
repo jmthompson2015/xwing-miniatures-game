@@ -1,9 +1,9 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/DualToken", "model/js/Token"],
-   function(InputValidator, PilotCard, DualToken, Token)
+define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/CardInstance", "model/js/DualCardInstance"],
+   function(InputValidator, PilotCard, CardInstance, DualCardInstance)
    {
-      var TokenFactory = {
+      var CardInstanceFactory = {
          create: function(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft)
          {
             InputValidator.validateNotNull("store", store);
@@ -18,11 +18,11 @@ define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/DualToken
 
             if (pilot.fore || pilot.aft)
             {
-               answer = new DualToken(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft);
+               answer = new DualCardInstance(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft);
             }
             else
             {
-               answer = new Token(store, pilotKey, agent, upgradeKeysFore);
+               answer = new CardInstance(store, pilotKey, agent, upgradeKeysFore);
             }
 
             return answer;
@@ -43,11 +43,11 @@ define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/DualToken
 
                if (idFore !== undefined || idAft !== undefined)
                {
-                  answer = DualToken.get(store, id);
+                  answer = DualCardInstance.get(store, id);
                }
                else
                {
-                  answer = Token.get(store, id);
+                  answer = CardInstance.get(store, id);
                }
             }
 
@@ -55,5 +55,5 @@ define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/DualToken
          },
       };
 
-      return TokenFactory;
+      return CardInstanceFactory;
    });

@@ -18,11 +18,11 @@
 		"use strict";
 
 		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger", "artifact/js/PilotCard", "artifact/js/Faction",
-				"model/js/Environment", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/Token",
+				"model/js/Environment", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/CardInstance",
 				"view/js/PlanningPanel"
 			],
 			function(React, ReactDOM, DOM, Redux, Logger, PilotCardCard, Faction,
-				Environment, Reducer, Squad, SquadBuilder, Token,
+				Environment, Reducer, Squad, SquadBuilder, CardInstance,
 				PlanningPanel)
 			{
 				window.LOGGER = new Logger();
@@ -35,9 +35,9 @@
 				var teamKey2 = Faction.REBEL;
 
 				var imperialAgent = new Agent(store, "Imperial Agent", teamKey1);
-				var token0 = new Token(store, PilotCardCard.ACADEMY_PILOT, imperialAgent);
-				var token1 = new Token(store, PilotCardCard.TEMPEST_SQUADRON_PILOT, imperialAgent);
-				var token2 = new Token(store, PilotCardCard.ALPHA_SQUADRON_PILOT, imperialAgent);
+				var token0 = new CardInstance(store, PilotCardCard.ACADEMY_PILOT, imperialAgent);
+				var token1 = new CardInstance(store, PilotCardCard.TEMPEST_SQUADRON_PILOT, imperialAgent);
+				var token2 = new CardInstance(store, PilotCardCard.ALPHA_SQUADRON_PILOT, imperialAgent);
 				var rebelAgent = new Agent(store, "Rebel Agent", teamKey2);
 				var tokens1 = [token0, token1, token2];
 				var squad1 = new Squad(teamKey1, "Squad #1", 2017, "squad1", tokens1);

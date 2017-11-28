@@ -35,12 +35,12 @@
 		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "model/js/Ability", "artifact/js/DiceModification", "artifact/js/Phase",
 				"artifact/js/UpgradeCard",
 				"model/js/Action", "model/js/Adjudicator", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/DamageDealer",
-				"model/js/ModifyDiceAbility", "model/js/TargetLock", "model/js/TokenAction", "../test/model/js/EnvironmentFactory",
+				"model/js/ModifyDiceAbility", "model/js/TargetLock", "model/js/CardAction", "../test/model/js/EnvironmentFactory",
 				"view/js/CombatUI"
 			],
 			function(React, ReactDOM, DOM, Logger, Ability, DiceModification, Phase, UpgradeCard, Action, Adjudicator, AttackDice, CombatAction, DefenseDice,
 				DamageDealer,
-				ModifyDiceAbility, TargetLock, TokenAction, EnvironmentFactory,
+				ModifyDiceAbility, TargetLock, CardAction, EnvironmentFactory,
 				CombatUI)
 			{
 				window.LOGGER = new Logger();
@@ -53,13 +53,13 @@
 				var adjudicator = new Adjudicator(store);
 				var attacker = environment.tokens()[0];
 				LOGGER.debug("attacker = " + attacker);
-				store.dispatch(TokenAction.addFocusCount(attacker));
+				store.dispatch(CardAction.addFocusCount(attacker));
 				var weapon = attacker.primaryWeapon();
 				var attackDice = new AttackDice(store, attacker.id(), 5);
 				var defender = environment.tokens()[2];
 				LOGGER.debug("defender = " + defender);
-				store.dispatch(TokenAction.addFocusCount(defender));
-				store.dispatch(TokenAction.addEvadeCount(defender));
+				store.dispatch(CardAction.addFocusCount(defender));
+				store.dispatch(CardAction.addEvadeCount(defender));
 				var targetLock = TargetLock.newInstance(store, attacker, defender);
 				var callback = function()
 				{

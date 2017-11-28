@@ -5,9 +5,9 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Phase", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
-  "model/js/Ability", "model/js/Action", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/RangeRuler", "model/js/Selector", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction"],
+  "model/js/Ability", "model/js/Action", "model/js/AttackDice", "model/js/CardAction", "model/js/CombatAction", "model/js/DefenseDice", "model/js/RangeRuler", "model/js/Selector", "model/js/ShipActionAbility", "model/js/TargetLock"],
    function(InputValidator, AttackDiceValue, DefenseDiceValue, Phase, Range, ShipAction, UpgradeCard, UpgradeType,
-      Ability, Action, AttackDice, CombatAction, DefenseDice, RangeRuler, Selector, ShipActionAbility, TargetLock, TokenAction)
+      Ability, Action, AttackDice, CardAction, CombatAction, DefenseDice, RangeRuler, Selector, ShipActionAbility, TargetLock)
    {
       var UpgradeAbility3 = {};
 
@@ -634,7 +634,7 @@ define(["common/js/InputValidator",
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.rerollBlank();
-            store.dispatch(TokenAction.addTokenUsedAbility(defender, new Ability(UpgradeCard, UpgradeCard.LONE_WOLF, UpgradeAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)));
+            store.dispatch(CardAction.addTokenUsedAbility(defender, new Ability(UpgradeCard, UpgradeCard.LONE_WOLF, UpgradeAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)));
             callback();
          },
       };
@@ -721,7 +721,7 @@ define(["common/js/InputValidator",
                var defender = getDefender(attacker);
                var environment = store.getState().environment;
                defender.receiveDamage(environment.drawDamage());
-               store.dispatch(TokenAction.addIonCount(defender, 2));
+               store.dispatch(CardAction.addIonCount(defender, 2));
             }
             callback();
          },
@@ -824,7 +824,7 @@ define(["common/js/InputValidator",
                token.receiveStress();
             }
 
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             var defender = getDefender(token);
             TargetLock.newInstance(store, token, defender, callback);
          },
@@ -1008,7 +1008,7 @@ define(["common/js/InputValidator",
                var environment = store.getState().environment;
                var defender = getDefender(attacker);
                defender.receiveDamage(environment.drawDamage());
-               store.dispatch(TokenAction.addIonCount(defender));
+               store.dispatch(CardAction.addIonCount(defender));
             }
             callback();
          },
@@ -1031,7 +1031,7 @@ define(["common/js/InputValidator",
                var environment = store.getState().environment;
                var defender = getDefender(attacker);
                defender.receiveDamage(environment.drawDamage());
-               store.dispatch(TokenAction.addIonCount(defender));
+               store.dispatch(CardAction.addIonCount(defender));
             }
             callback();
          },
@@ -1056,10 +1056,10 @@ define(["common/js/InputValidator",
             {
                var environment = store.getState().environment;
                var defender = getDefender(attacker);
-               store.dispatch(TokenAction.addIonCount(defender));
+               store.dispatch(CardAction.addIonCount(defender));
                environment.getTokensAtRange(defender, Range.ONE).forEach(function(token)
                {
-                  store.dispatch(TokenAction.addIonCount(token));
+                  store.dispatch(CardAction.addIonCount(token));
                });
             }
             callback();
@@ -1154,7 +1154,7 @@ define(["common/js/InputValidator",
             if (isDefenderHit(attacker))
             {
                var defender = getDefender(attacker);
-               store.dispatch(TokenAction.addTractorBeamCount(defender));
+               store.dispatch(CardAction.addTractorBeamCount(defender));
             }
             callback();
          },
@@ -1369,7 +1369,7 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("attacker", attacker);
 
-         store.dispatch(TokenAction.addFocusCount(attacker, -1));
+         store.dispatch(CardAction.addFocusCount(attacker, -1));
       }
 
       function spendTargetLock(store, attacker, defender)

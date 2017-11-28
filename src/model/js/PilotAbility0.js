@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/ShipAction",
-  "model/js/Ability", "model/js/ActivationAction", "model/js/AttackDice", "model/js/Selector", "model/js/ShipActionAbility", "model/js/TokenAction"],
+  "model/js/Ability", "model/js/ActivationAction", "model/js/AttackDice", "model/js/CardAction", "model/js/Selector", "model/js/ShipActionAbility"],
    function(InputValidator,
       AttackDiceValue, Difficulty, Event, Maneuver, PilotCard, ShipAction,
-      Ability, ActivationAction, AttackDice, Selector, ShipActionAbility, TokenAction)
+      Ability, ActivationAction, AttackDice, CardAction, Selector, ShipActionAbility)
    {
       var PilotAbility0 = {};
 
@@ -58,7 +58,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             callback();
          },
       };
@@ -75,7 +75,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addEvadeCount(token));
+            store.dispatch(CardAction.addEvadeCount(token));
             callback();
          },
       };

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/Token"],
+  "model/js/Agent", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/CardInstance"],
    function(QUnit, Redux, Faction, PilotCard, UpgradeCard,
-      Agent, Reducer, Squad, SquadBuilder, Token)
+      Agent, Reducer, Squad, SquadBuilder, CardInstance)
    {
       QUnit.module("Squad");
 
@@ -16,9 +16,9 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var description = "Lambda Shuttle/TIE Interceptor/Phantom";
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "Agent1", Faction.IMPERIAL);
-         var token0 = new Token(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]);
-         var token1 = new Token(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]);
-         var token2 = new Token(store, PilotCard.CAPTAIN_YORR, agent);
+         var token0 = new CardInstance(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]);
+         var token1 = new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]);
+         var token2 = new CardInstance(store, PilotCard.CAPTAIN_YORR, agent);
          var tokens = [token0, token1, token2];
 
          // Run.
@@ -153,9 +153,9 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var description = "Lambda Shuttle/TIE Interceptor/Phantom";
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "Agent1", Faction.IMPERIAL);
-         var token0 = new Token(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]);
-         var token1 = new Token(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]);
-         var token2 = new Token(store, PilotCard.CAPTAIN_YORR, agent);
+         var token0 = new CardInstance(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]);
+         var token1 = new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]);
+         var token2 = new CardInstance(store, PilotCard.CAPTAIN_YORR, agent);
          var tokens = [token0, token1, token2];
 
          return new Squad(factionKey, name, year, description, tokens);

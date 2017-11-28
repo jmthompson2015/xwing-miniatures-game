@@ -1,9 +1,9 @@
 "use strict";
 
 define(["immutable", "qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard",
-   "model/js/Agent", "model/js/AgentAction", "model/js/Reducer", "model/js/Token"],
+   "model/js/Agent", "model/js/AgentAction", "model/js/CardInstance", "model/js/Reducer"],
    function(Immutable, QUnit, Redux, Faction, PilotCard,
-      Agent, AgentAction, Reducer, Token)
+      Agent, AgentAction, CardInstance, Reducer)
    {
       QUnit.module("AgentReducer");
 
@@ -15,7 +15,7 @@ define(["immutable", "qunit", "redux", "artifact/js/Faction", "artifact/js/Pilot
          assert.equal(store.getState().agentPilots.size, 0);
 
          // Run.
-         var token = new Token(store, PilotCard.LUKE_SKYWALKER, agent);
+         var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
 
          // Verify.
          assert.equal(store.getState().agentPilots.size, 1);
@@ -47,7 +47,7 @@ define(["immutable", "qunit", "redux", "artifact/js/Faction", "artifact/js/Pilot
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "agent1", Faction.REBEL);
-         var token = new Token(store, PilotCard.LUKE_SKYWALKER, agent);
+         var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
          assert.equal(store.getState().agentPilots.size, 1);
          assert.equal(store.getState().agentPilots.get(agent.id()).size, 1);
          assert.equal(store.getState().agentPilots.get(agent.id()).get(0), token.id());

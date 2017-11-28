@@ -2,10 +2,10 @@
 
 define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
   "artifact/js/Difficulty", "artifact/js/Maneuver", "artifact/js/Range", "artifact/js/ShipAction",
-  "model/js/Ability", "model/js/Action", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/ManeuverComputer", "model/js/RangeRuler", "model/js/Reducer", "model/js/Selector", "model/js/Squad", "model/js/TargetLock", "model/js/TokenAction"],
+  "model/js/Ability", "model/js/Action", "model/js/AttackDice", "model/js/CardAction", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/ManeuverComputer", "model/js/RangeRuler", "model/js/Reducer", "model/js/Selector", "model/js/Squad", "model/js/TargetLock"],
    function(Redux, ArrayAugments, InputValidator,
       Difficulty, Maneuver, Range, ShipAction,
-      Ability, Action, AttackDice, CombatAction, DefenseDice, Environment, ManeuverComputer, RangeRuler, Reducer, Selector, Squad, TargetLock, TokenAction)
+      Ability, Action, AttackDice, CardAction, CombatAction, DefenseDice, Environment, ManeuverComputer, RangeRuler, Reducer, Selector, Squad, TargetLock)
    {
       var MediumAgentStrategy = {};
 
@@ -411,10 +411,10 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
          var newAttacker = tokens[0];
          var newDefender = tokens[1];
 
-         newStore.dispatch(TokenAction.addFocusCount(newAttacker, attacker.focusCount()));
+         newStore.dispatch(CardAction.addFocusCount(newAttacker, attacker.focusCount()));
          newEnvironment.setActiveToken(newAttacker);
-         newStore.dispatch(TokenAction.addEvadeCount(newDefender, defender.evadeCount()));
-         newStore.dispatch(TokenAction.addFocusCount(newDefender, defender.focusCount()));
+         newStore.dispatch(CardAction.addEvadeCount(newDefender, defender.evadeCount()));
+         newStore.dispatch(CardAction.addFocusCount(newDefender, defender.focusCount()));
          var oldAttackDice = AttackDice.get(store, attacker.id());
          newStore.dispatch(Action.setTokenAttackDice(newAttacker.id(), oldAttackDice.values()));
          var oldDefenseDice = DefenseDice.get(store, attacker.id());

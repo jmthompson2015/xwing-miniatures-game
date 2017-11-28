@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/Phase", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/AttackDice", "model/js/TokenAction"],
+  "model/js/Action", "model/js/AttackDice", "model/js/CardAction"],
    function(InputValidator,
       AttackDiceValue, Phase, ShipAction, UpgradeCard,
-      Action, AttackDice, TokenAction)
+      Action, AttackDice, CardAction)
    {
       var UpgradeAbility4 = {};
 
@@ -23,7 +23,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addEnergyCount(token));
+            store.dispatch(CardAction.addEnergyCount(token));
             callback();
          },
       };
@@ -65,7 +65,7 @@ define(["common/js/InputValidator",
          },
          finishConsequent: function(store, token, shipActionAbility, callback)
          {
-            store.dispatch(TokenAction.addIonCount(token));
+            store.dispatch(CardAction.addIonCount(token));
             if (shipActionAbility)
             {
                var consequent = shipActionAbility.consequent();

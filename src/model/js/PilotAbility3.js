@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction",
-  "model/js/Selector", "model/js/TargetLock", "model/js/TokenAction"],
+  "model/js/CardAction", "model/js/Selector", "model/js/TargetLock"],
    function(InputValidator,
       AttackDiceValue, DefenseDiceValue, Phase, PilotCard, Range, ShipAction,
-      Selector, TargetLock, TokenAction)
+      CardAction, Selector, TargetLock)
    {
       var PilotAbility3 = {};
 
@@ -64,9 +64,9 @@ define(["common/js/InputValidator",
             var friends = environment.getFriendlyTokensAtRange(token, Range.ONE);
             friends.forEach(function(friend)
             {
-               store.dispatch(TokenAction.addStressCount(friend, -1));
+               store.dispatch(CardAction.addStressCount(friend, -1));
             });
-            store.dispatch(TokenAction.addStressCount(token, -1));
+            store.dispatch(CardAction.addStressCount(token, -1));
             callback();
          },
       };
@@ -81,7 +81,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             callback();
          },
       };
@@ -208,7 +208,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addEvadeCount(token, -1));
+            store.dispatch(CardAction.addEvadeCount(token, -1));
             var attackDice = getAttackDice(token);
             attackDice.addDie(AttackDiceValue.HIT);
             callback();
@@ -424,7 +424,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             callback();
          },
       };
@@ -456,7 +456,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addEvadeCount(token));
+            store.dispatch(CardAction.addEvadeCount(token));
             callback();
          },
       };
@@ -624,7 +624,7 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("attacker", attacker);
 
-         store.dispatch(TokenAction.addFocusCount(attacker, -1));
+         store.dispatch(CardAction.addFocusCount(attacker, -1));
       }
 
       function spendTargetLock(store, attacker, defender)

@@ -36,11 +36,11 @@
     "use strict";
 
     require(["react", "react-dom", "redux", "common/js/Logger", "artifact/js/Faction",
-        "model/js/Reducer", "model/js/Squad", "model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/TokenFactory",
+        "model/js/Reducer", "model/js/Squad", "model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/CardInstanceFactory",
         "view/js/Select", "view/js/SquadBuilderUI"
       ],
       function(React, ReactDOM, Redux, Logger, Faction,
-        DelegateReducer, Squad, AgentSquadAction, AgentSquadReducer, TokenFactory, Select, SquadBuilderUI)
+        DelegateReducer, Squad, AgentSquadAction, AgentSquadReducer, CardInstanceFactory, Select, SquadBuilderUI)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -122,7 +122,7 @@
           if (pilots.size > 0)
           {
             var agent = {};
-            var tokenFactory = TokenFactory;
+            var tokenFactory = CardInstanceFactory;
 
             pilots.forEach(function(pilot, i)
             {
@@ -189,7 +189,7 @@
             squad: store.getState().squad,
             squadBuilderAction: AgentSquadAction,
             squadClass: Squad,
-            tokenFactory: TokenFactory,
+            tokenFactory: CardInstanceFactory,
 
             displayItemChanged: displayItemChanged,
             pilotChanged: pilotChanged,

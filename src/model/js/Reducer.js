@@ -1,9 +1,9 @@
 "use strict";
 
 define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Event", "artifact/js/Phase",
-  "model/js/Action", "model/js/AgentAction", "model/js/AgentReducer", "model/js/EnvironmentAction", "model/js/EnvironmentReducer", "model/js/InitialState", "model/js/TokenAction", "model/js/TokenReducer"],
+  "model/js/Action", "model/js/AgentAction", "model/js/AgentReducer", "model/js/CardAction", "model/js/CardReducer", "model/js/EnvironmentAction", "model/js/EnvironmentReducer", "model/js/InitialState"],
    function(Immutable, ArrayAugments, InputValidator, Event, Phase,
-      Action, AgentAction, AgentReducer, EnvironmentAction, EnvironmentReducer, InitialState, TokenAction, TokenReducer)
+      Action, AgentAction, AgentReducer, CardAction, CardReducer, EnvironmentAction, EnvironmentReducer, InitialState)
    {
       var Reducer = {};
 
@@ -127,29 +127,29 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "art
                case EnvironmentAction.SET_SECOND_SQUAD:
                case EnvironmentAction.SET_TOKEN_TOUCHING:
                   return EnvironmentReducer.reduce(state, action);
-               case TokenAction.ADD_COUNT:
-               case TokenAction.ADD_SECONDARY_WEAPON:
-               case TokenAction.ADD_TOKEN_CRITICAL_DAMAGE:
-               case TokenAction.ADD_TOKEN_DAMAGE:
-               case TokenAction.ADD_TOKEN_UPGRADE:
-               case TokenAction.ADD_TOKEN_UPGRADE_ENERGY:
-               case TokenAction.ADD_TOKEN_USED_ABILITY:
-               case TokenAction.ADD_TOKEN_USED_PER_ROUND_ABILITY:
-               case TokenAction.CLEAR_TOKEN_USED_ABILITIES:
-               case TokenAction.CLEAR_TOKEN_USED_PER_ROUND_ABILITIES:
-               case TokenAction.INCREMENT_NEXT_TOKEN_ID:
-               case TokenAction.REMOVE_SECONDARY_WEAPON:
-               case TokenAction.REMOVE_TOKEN_CRITICAL_DAMAGE:
-               case TokenAction.REMOVE_TOKEN_DAMAGE:
-               case TokenAction.REMOVE_TOKEN_UPGRADE:
-               case TokenAction.REMOVE_TOKEN_USED_ABILITY:
-               case TokenAction.REMOVE_TOKEN_USED_PER_ROUND_ABILITY:
-               case TokenAction.RESET_NEXT_TOKEN_ID:
-               case TokenAction.SET_COUNT:
-               case TokenAction.SET_PRIMARY_WEAPON:
-               case TokenAction.SET_TOKEN:
-               case TokenAction.SET_TOKEN_UPGRADE_ENERGY:
-                  return TokenReducer.reduce(state, action);
+               case CardAction.ADD_COUNT:
+               case CardAction.ADD_SECONDARY_WEAPON:
+               case CardAction.ADD_TOKEN_CRITICAL_DAMAGE:
+               case CardAction.ADD_TOKEN_DAMAGE:
+               case CardAction.ADD_TOKEN_UPGRADE:
+               case CardAction.ADD_TOKEN_UPGRADE_ENERGY:
+               case CardAction.ADD_TOKEN_USED_ABILITY:
+               case CardAction.ADD_TOKEN_USED_PER_ROUND_ABILITY:
+               case CardAction.CLEAR_TOKEN_USED_ABILITIES:
+               case CardAction.CLEAR_TOKEN_USED_PER_ROUND_ABILITIES:
+               case CardAction.INCREMENT_NEXT_TOKEN_ID:
+               case CardAction.REMOVE_SECONDARY_WEAPON:
+               case CardAction.REMOVE_TOKEN_CRITICAL_DAMAGE:
+               case CardAction.REMOVE_TOKEN_DAMAGE:
+               case CardAction.REMOVE_TOKEN_UPGRADE:
+               case CardAction.REMOVE_TOKEN_USED_ABILITY:
+               case CardAction.REMOVE_TOKEN_USED_PER_ROUND_ABILITY:
+               case CardAction.RESET_NEXT_TOKEN_ID:
+               case CardAction.SET_COUNT:
+               case CardAction.SET_PRIMARY_WEAPON:
+               case CardAction.SET_TOKEN:
+               case CardAction.SET_TOKEN_UPGRADE_ENERGY:
+                  return CardReducer.reduce(state, action);
                case Action.ADD_AGENT:
                   return Object.assign(
                   {}, state,

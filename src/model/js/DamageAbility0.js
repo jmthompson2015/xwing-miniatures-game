@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver",
-  "model/js/ActivationAction", "model/js/AttackDice", "model/js/TokenAction"],
+  "model/js/ActivationAction", "model/js/AttackDice", "model/js/CardAction"],
    function(InputValidator,
       AttackDiceValue, DamageCard, Difficulty, Event, Maneuver,
-      ActivationAction, AttackDice, TokenAction)
+      ActivationAction, AttackDice, CardAction)
    {
       var DamageAbility0 = {};
 
@@ -121,8 +121,8 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("token", token);
          InputValidator.validateNotNull("damageKey", damageKey);
 
-         store.dispatch(TokenAction.removeTokenCriticalDamage(token, damageKey));
-         store.dispatch(TokenAction.addTokenDamage(token, damageKey));
+         store.dispatch(CardAction.removeTokenCriticalDamage(token, damageKey));
+         store.dispatch(CardAction.addTokenDamage(token, damageKey));
       }
 
       function getActivationAction(token)

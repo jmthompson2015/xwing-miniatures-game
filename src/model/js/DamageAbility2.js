@@ -4,9 +4,9 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/DamageCard", "artifact/js/Phase",
-  "model/js/Action", "model/js/AttackDice", "model/js/TokenAction"],
+  "model/js/Action", "model/js/AttackDice", "model/js/CardAction"],
    function(InputValidator, AttackDiceValue, DamageCard, Phase,
-      Action, AttackDice, TokenAction)
+      Action, AttackDice, CardAction)
    {
       var DamageAbility2 = {};
 
@@ -188,8 +188,8 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          InputValidator.validateNotNull("token", token);
          InputValidator.validateNotNull("damageKey", damageKey);
 
-         store.dispatch(TokenAction.removeTokenCriticalDamage(token, damageKey));
-         store.dispatch(TokenAction.addTokenDamage(token, damageKey));
+         store.dispatch(CardAction.removeTokenCriticalDamage(token, damageKey));
+         store.dispatch(CardAction.addTokenDamage(token, damageKey));
       }
 
       function getActiveToken(store)

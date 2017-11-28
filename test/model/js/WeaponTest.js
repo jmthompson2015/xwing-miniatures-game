@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/Weapon",
+  "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/TargetLock", "model/js/CardInstance", "model/js/CardAction", "model/js/Weapon",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Faction, FiringArc, PilotCard, Range, UpgradeCard,
-      Agent, Environment, Position, Reducer, Squad, TargetLock, Token, TokenAction, Weapon,
+      Agent, Environment, Position, Reducer, Squad, TargetLock, CardInstance, CardAction, Weapon,
       EnvironmentFactory)
    {
       QUnit.module("Weapon");
@@ -111,8 +111,8 @@ define(["qunit", "redux",
          var store00 = Redux.createStore(Reducer.root);
          var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
          var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
-         var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
-         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
+         var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
+         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
          var positions1 = [new Position(450, 845, 90)];
          var positions2 = [new Position(458, 895, -90)];
 
@@ -130,7 +130,7 @@ define(["qunit", "redux",
          assert.ok(!weapon1.isUsable(attacker, defender));
          assert.ok(!weapon2.isUsable(attacker, defender));
 
-         store.dispatch(TokenAction.addFocusCount(attacker));
+         store.dispatch(CardAction.addFocusCount(attacker));
 
          // Run / Verify.
          assert.ok(weapon0.isUsable(attacker, defender));

@@ -2,11 +2,11 @@
 
 define(["qunit", "redux",
   "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Agent", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/Token", "model/js/TokenAction",
+  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Agent", "model/js/CardAction", "model/js/CardInstance", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/Squad", "model/js/SquadBuilder",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
       Maneuver, PilotCard, Faction, UpgradeCard,
-      Action, ActivationAction, Adjudicator, Agent, Environment, EventObserver, PhaseObserver, Position, Reducer, Squad, SquadBuilder, Token, TokenAction,
+      Action, ActivationAction, Adjudicator, Agent, CardAction, CardInstance, Environment, EventObserver, PhaseObserver, Position, Reducer, Squad, SquadBuilder,
       EnvironmentFactory)
    {
       QUnit.module("ActivationAction");
@@ -81,7 +81,7 @@ define(["qunit", "redux",
          assert.equal(position.y(), 96);
          assert.equal(position.heading(), 90);
          assert.equal(token.energyCount(), 4);
-         store.dispatch(TokenAction.addEnergyCount(token, -2));
+         store.dispatch(CardAction.addEnergyCount(token, -2));
          assert.equal(token.energyCount(), 2);
 
          // Run.
@@ -316,7 +316,7 @@ define(["qunit", "redux",
          };
          var action = createActivationAction(upgradeKey, Maneuver.STRAIGHT_2_EASY, callback);
          var store = action.environment().store();
-         store.dispatch(TokenAction.addShieldCount(action.token(), -1));
+         store.dispatch(CardAction.addShieldCount(action.token(), -1));
          assert.equal(action.token().shieldCount(), 4);
 
          // Run.
@@ -459,8 +459,8 @@ define(["qunit", "redux",
          var store00 = Redux.createStore(Reducer.root);
          var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
          var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
-         var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
-         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey])]);
+         var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
+         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey])]);
          var positions1 = [new Position(400, 500, 90)];
          var positions2 = [new Position(400, 800, -90)];
 
@@ -471,7 +471,7 @@ define(["qunit", "redux",
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
          environment.setActiveToken(token);
-         store.dispatch(TokenAction.addFocusCount(token));
+         store.dispatch(CardAction.addFocusCount(token));
 
          var myManeuverKey = (maneuverKey !== undefined ? maneuverKey : Maneuver.STRAIGHT_3_STANDARD);
 

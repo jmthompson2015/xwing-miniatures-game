@@ -1,9 +1,10 @@
 "use strict";
 
-define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction"],
-   function(Immutable, InputValidator, PilotCard, TargetLock, Token, TokenAction)
+define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
+  "model/js/CardAction", "model/js/CardInstance", "model/js/TargetLock"],
+   function(Immutable, InputValidator, PilotCard, CardAction, CardInstance, TargetLock)
    {
-      function DualToken(store, pilotKey, agent, upgradeKeysForeIn, upgradeKeysAftIn, idIn, isNewIn, idFore, idAft)
+      function DualCardInstance(store, pilotKey, agent, upgradeKeysForeIn, upgradeKeysAftIn, idIn, isNewIn, idFore, idAft)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("pilotKey", pilotKey);
@@ -35,7 +36,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
          if (isNaN(id))
          {
             id = store.getState().nextTokenId;
-            store.dispatch(TokenAction.incrementNextTokenId());
+            store.dispatch(CardAction.incrementNextTokenId());
          }
 
          this.id = function()
@@ -60,14 +61,14 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
          {
             var upgradeKeysFore = (upgradeKeysForeIn ? upgradeKeysForeIn : Immutable.List());
             var upgradeKeysAft = (upgradeKeysAftIn ? upgradeKeysAftIn : Immutable.List());
-            tokenFore = new Token(store, pilotFore, agent, upgradeKeysFore);
-            tokenAft = new Token(store, pilotAft, agent, upgradeKeysAft);
+            tokenFore = new CardInstance(store, pilotFore, agent, upgradeKeysFore);
+            tokenAft = new CardInstance(store, pilotAft, agent, upgradeKeysAft);
             this._save(upgradeKeysFore, upgradeKeysAft, tokenFore, tokenAft);
          }
          else
          {
-            tokenFore = Token.get(store, idFore);
-            tokenAft = Token.get(store, idAft);
+            tokenFore = CardInstance.get(store, idFore);
+            tokenAft = CardInstance.get(store, idAft);
          }
 
          tokenFore.parent = this;
@@ -139,7 +140,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
             if (tokenAft.isDestroyed() && myCrippledTokenAft === undefined)
             {
                var upgradeKeys = [];
-               myCrippledTokenAft = new Token(store, crippledPilotAft(), agent, upgradeKeys);
+               myCrippledTokenAft = new CardInstance(store, crippledPilotAft(), agent, upgradeKeys);
                myCrippledTokenAft.parent = this;
             }
 
@@ -151,7 +152,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
             if (tokenFore.isDestroyed() && myCrippledTokenFore === undefined)
             {
                var upgradeKeys = [];
-               myCrippledTokenFore = new Token(store, crippledPilotFore(), agent, upgradeKeys);
+               myCrippledTokenFore = new CardInstance(store, crippledPilotFore(), agent, upgradeKeys);
                myCrippledTokenFore.parent = this;
             }
 
@@ -184,12 +185,12 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
       //////////////////////////////////////////////////////////////////////////
       // Accessor methods.
 
-      DualToken.prototype.equals = function(other)
+      DualCardInstance.prototype.equals = function(other)
       {
          return this.id() == other.id() && this.pilotKey() == other.pilotKey();
       };
 
-      DualToken.prototype.isDestroyed = function()
+      DualCardInstance.prototype.isDestroyed = function()
       {
          this.tokenFore();
          this.tokenAft();
@@ -199,32 +200,32 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
          return !(myCrippledTokenFore === undefined || myCrippledTokenAft === undefined);
       };
 
-      DualToken.prototype.isHuge = function()
+      DualCardInstance.prototype.isHuge = function()
       {
          return true;
       };
 
-      DualToken.prototype.isStressed = function()
+      DualCardInstance.prototype.isStressed = function()
       {
          return false;
       };
 
-      DualToken.prototype.isUpgradedWith = function()
+      DualCardInstance.prototype.isUpgradedWith = function()
       {
          return false;
       };
 
-      DualToken.prototype.maneuverKeys = function()
+      DualCardInstance.prototype.maneuverKeys = function()
       {
          return this.pilot().shipFaction.ship.maneuverKeys.slice();
       };
 
-      DualToken.prototype.name = function()
+      DualCardInstance.prototype.name = function()
       {
          return this.id() + " " + this.pilot().name;
       };
 
-      DualToken.prototype.pilotName = function()
+      DualCardInstance.prototype.pilotName = function()
       {
          var properties = this.pilot();
          var isUnique = properties.isUnique;
@@ -240,17 +241,17 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
          return answer;
       };
 
-      DualToken.prototype.primaryWeapon = function()
+      DualCardInstance.prototype.primaryWeapon = function()
       {
          return this.tokenFore().primaryWeapon();
       };
 
-      DualToken.prototype.shipName = function()
+      DualCardInstance.prototype.shipName = function()
       {
          return this.pilot().shipFaction.ship.name;
       };
 
-      DualToken.prototype.toString = function()
+      DualCardInstance.prototype.toString = function()
       {
          return this.name();
       };
@@ -258,7 +259,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
       //////////////////////////////////////////////////////////////////////////
       // Mutator methods.
 
-      DualToken.prototype.removeAllTargetLocks = function()
+      DualCardInstance.prototype.removeAllTargetLocks = function()
       {
          var store = this.store();
          TargetLock.removeAllTargetLocks(store, this.tokenFore());
@@ -279,7 +280,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
          }
       };
 
-      DualToken.prototype._save = function(upgradeKeysFore, upgradeKeysAft, tokenFore, tokenAft)
+      DualCardInstance.prototype._save = function(upgradeKeysFore, upgradeKeysAft, tokenFore, tokenAft)
       {
          InputValidator.validateNotNull("upgradeKeysFore", upgradeKeysFore);
          InputValidator.validateNotNull("upgradeKeysAft", upgradeKeysAft);
@@ -291,13 +292,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
          var pilotKey = this.pilotKey();
          var agent = this.agent();
 
-         store.dispatch(TokenAction.setToken(id, pilotKey, agent, tokenFore.id(), tokenAft.id()));
+         store.dispatch(CardAction.setToken(id, pilotKey, agent, tokenFore.id(), tokenAft.id()));
       };
 
       //////////////////////////////////////////////////////////////////////////
       // Utility methods.
 
-      DualToken.prototype.newInstance = function(store, agent)
+      DualCardInstance.prototype.newInstance = function(store, agent)
       {
          var pilotKey = this.pilotKey();
          var tokenFore = this.tokenFore();
@@ -305,10 +306,10 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
          var upgradeKeysFore = tokenFore.upgradeKeys().slice();
          var upgradeKeysAft = tokenAft.upgradeKeys().slice();
 
-         return new DualToken(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft);
+         return new DualCardInstance(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft);
       };
 
-      DualToken.get = function(store, id)
+      DualCardInstance.get = function(store, id)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateIsNumber("id", id);
@@ -326,11 +327,11 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard", "model
             var upgradeKeysAft = store.getState().tokenIdToUpgrades.get(id);
             var isNew = false;
 
-            answer = new DualToken(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft, id, isNew, idFore, idAft);
+            answer = new DualCardInstance(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft, id, isNew, idFore, idAft);
          }
 
          return answer;
       };
 
-      return DualToken;
+      return DualCardInstance;
    });

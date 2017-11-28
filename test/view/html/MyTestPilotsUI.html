@@ -20,10 +20,10 @@
 
 		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/PilotCard", "model/js/Position", "artifact/js/Faction",
 				"model/js/Action",
-				"model/js/Token", "model/js/TokenAction", "../test/model/js/EnvironmentFactory",
+				"model/js/CardInstance", "model/js/CardAction", "../test/model/js/EnvironmentFactory",
 				"view/js/PilotsUI"
 			],
-			function(React, ReactDOM, DOM, Logger, PilotCard, Position, Faction, Action, Token, TokenAction, EnvironmentFactory, PilotsUI)
+			function(React, ReactDOM, DOM, Logger, PilotCard, Position, Faction, Action, CardInstance, CardAction, EnvironmentFactory, PilotsUI)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);

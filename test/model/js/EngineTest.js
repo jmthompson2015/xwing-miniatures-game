@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/Engine", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer",  "model/js/SquadBuilder", "model/js/TokenAction",
+  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/Engine", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer",  "model/js/SquadBuilder", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, DamageCard, PilotCard, UpgradeCard,
-      Action, Adjudicator, Agent, Engine, Environment, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, TokenAction,
+      Action, Adjudicator, Agent, Engine, Environment, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, CardAction,
       EnvironmentFactory)
    {
       QUnit.module("Engine");
@@ -67,7 +67,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var token0 = environment.tokens()[0]; // TIE Phantom
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
-         store.dispatch(TokenAction.addCloakCount(token0));
+         store.dispatch(CardAction.addCloakCount(token0));
          engine.performCombatPhase = function()
          {
             LOGGER.info("performCombatPhase() dummy");
@@ -169,9 +169,9 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
             assert.equal(token2.stressCount(), 1, "token2.stressCount() === 1");
             done();
          };
-         store.dispatch(TokenAction.addStressCount(token0));
-         store.dispatch(TokenAction.addStressCount(token1));
-         store.dispatch(TokenAction.addStressCount(token2));
+         store.dispatch(CardAction.addStressCount(token0));
+         store.dispatch(CardAction.addStressCount(token1));
+         store.dispatch(CardAction.addStressCount(token2));
          assert.equal(token0.stressCount(), 1, "token0.stressCount() === 1");
          assert.equal(token1.stressCount(), 1, "token1.stressCount() === 1");
          assert.equal(token2.stressCount(), 1, "token2.stressCount() === 1");
@@ -188,7 +188,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var environment = engine.environment();
          var token0 = environment.tokens()[0]; // TIE Fighter.
          var store = environment.store();
-         store.dispatch(TokenAction.addTokenUpgrade(token0, UpgradeCard.MARA_JADE));
+         store.dispatch(CardAction.addTokenUpgrade(token0, UpgradeCard.MARA_JADE));
          var position0 = environment.getPositionFor(token0);
          var token1 = environment.tokens()[1]; // TIE Fighter.
          var token2 = environment.tokens()[2]; // X-Wing.
@@ -222,7 +222,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var environment = engine.environment();
          var store = environment.store();
          var token2 = environment.tokens()[2]; // X-Wing.
-         store.dispatch(TokenAction.addTokenUpgrade(token2, UpgradeCard.R5_P9));
+         store.dispatch(CardAction.addTokenUpgrade(token2, UpgradeCard.R5_P9));
          engine.performEndPhase = function()
          {
             LOGGER.info("performEndPhase() dummy");
@@ -235,8 +235,8 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
             assert.equal(token2.shieldCount(), 2, "token2.shieldCount() === 2");
             done();
          };
-         store.dispatch(TokenAction.addFocusCount(token2));
-         store.dispatch(TokenAction.addShieldCount(token2, -1));
+         store.dispatch(CardAction.addFocusCount(token2));
+         store.dispatch(CardAction.addShieldCount(token2, -1));
          assert.equal(token2.focusCount(), 1, "token2.focusCount() === 1");
          assert.equal(token2.shieldCount(), 1, "token2.shieldCount() === 1");
 
@@ -252,9 +252,9 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var environment = engine.environment();
          var token0 = environment.tokens()[0]; // TIE Fighter.
          var store = environment.store();
-         store.dispatch(TokenAction.addTokenUpgrade(token0, UpgradeCard.YSANNE_ISARD));
-         store.dispatch(TokenAction.setShieldCount(token0));
-         store.dispatch(TokenAction.addTokenDamage(token0, DamageCard.BLINDED_PILOT));
+         store.dispatch(CardAction.addTokenUpgrade(token0, UpgradeCard.YSANNE_ISARD));
+         store.dispatch(CardAction.setShieldCount(token0));
+         store.dispatch(CardAction.addTokenDamage(token0, DamageCard.BLINDED_PILOT));
          var position0 = environment.getPositionFor(token0);
          var token2 = environment.tokens()[2]; // X-Wing.
          var position2 = environment.getPositionFor(token2);
@@ -291,17 +291,17 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var environment = engine.environment();
          var store = environment.store();
          var token0 = environment.tokens()[0];
-         store.dispatch(TokenAction.addEvadeCount(token0));
-         store.dispatch(TokenAction.addFocusCount(token0));
-         store.dispatch(TokenAction.addWeaponsDisabledCount(token0));
+         store.dispatch(CardAction.addEvadeCount(token0));
+         store.dispatch(CardAction.addFocusCount(token0));
+         store.dispatch(CardAction.addWeaponsDisabledCount(token0));
          var token1 = environment.tokens()[1];
-         store.dispatch(TokenAction.addEvadeCount(token1));
-         store.dispatch(TokenAction.addFocusCount(token1));
-         store.dispatch(TokenAction.addWeaponsDisabledCount(token1));
+         store.dispatch(CardAction.addEvadeCount(token1));
+         store.dispatch(CardAction.addFocusCount(token1));
+         store.dispatch(CardAction.addWeaponsDisabledCount(token1));
          var token2 = environment.tokens()[2];
-         store.dispatch(TokenAction.addEvadeCount(token2));
-         store.dispatch(TokenAction.addFocusCount(token2));
-         store.dispatch(TokenAction.addWeaponsDisabledCount(token2));
+         store.dispatch(CardAction.addEvadeCount(token2));
+         store.dispatch(CardAction.addFocusCount(token2));
+         store.dispatch(CardAction.addWeaponsDisabledCount(token2));
          engine.performPlanningPhase = function()
          {
             LOGGER.info("performPlanningPhase() dummy");

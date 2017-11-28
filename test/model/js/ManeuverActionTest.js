@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/ShipBase",
-  "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/Position", "model/js/Token",
+  "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/Position", "model/js/CardInstance",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Maneuver, PilotCard, ShipBase,
-      EnvironmentAction, ManeuverAction, Position, Token, EnvironmentFactory)
+      EnvironmentAction, ManeuverAction, Position, CardInstance, EnvironmentFactory)
    {
       QUnit.module("ManeuverAction");
 
@@ -117,7 +117,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var agent = environment.tokens()[2].agent(); // X-Wing
-         var token = new Token(environment.store(), PilotCard.IG_88C, agent);
+         var token = new CardInstance(environment.store(), PilotCard.IG_88C, agent);
          var position = new Position(450, 450, 0);
          store.dispatch(EnvironmentAction.placeToken(position, token));
          var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;

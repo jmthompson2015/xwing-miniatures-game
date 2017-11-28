@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/ActivationAction", "model/js/ShipActionAbility", "model/js/TokenAction"],
+  "model/js/Ability", "model/js/ActivationAction", "model/js/CardAction", "model/js/ShipActionAbility"],
    function(InputValidator,
       Difficulty, Event, Maneuver, ShipAction, UpgradeCard,
-      Ability, ActivationAction, ShipActionAbility, TokenAction)
+      Ability, ActivationAction, CardAction, ShipActionAbility)
    {
       var UpgradeAbility0 = {};
 
@@ -62,7 +62,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             callback();
          },
       };
@@ -112,7 +112,7 @@ define(["common/js/InputValidator",
          {
             if (shipActionAbility)
             {
-               store.dispatch(TokenAction.addStressCount(token));
+               store.dispatch(CardAction.addStressCount(token));
                var consequent = shipActionAbility.consequent();
                consequent(store, token, callback, shipActionAbility.context());
             }
@@ -132,7 +132,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             callback();
          },
       };
@@ -148,7 +148,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             callback();
          },
       };

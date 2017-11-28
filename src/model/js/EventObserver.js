@@ -1,8 +1,8 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "model/js/Action", "model/js/DamageAbility0", "model/js/Observer", "model/js/PilotAbility0", "model/js/TokenAction", "model/js/UpgradeAbility0"],
-   function(InputValidator, Action, DamageAbility0, Observer, PilotAbility0, TokenAction, UpgradeAbility0)
+  "model/js/Action", "model/js/CardAction", "model/js/DamageAbility0", "model/js/Observer", "model/js/PilotAbility0", "model/js/UpgradeAbility0"],
+   function(InputValidator, Action, CardAction, DamageAbility0, Observer, PilotAbility0, UpgradeAbility0)
    {
       function EventObserver(store)
       {
@@ -128,11 +128,11 @@ define(["common/js/InputValidator",
 
             if (ability.sourceObject().oncePerRound)
             {
-               store.dispatch(TokenAction.addTokenUsedPerRoundAbility(token, ability));
+               store.dispatch(CardAction.addTokenUsedPerRoundAbility(token, ability));
             }
             else
             {
-               store.dispatch(TokenAction.addTokenUsedAbility(token, ability));
+               store.dispatch(CardAction.addTokenUsedAbility(token, ability));
             }
 
             var message = ability.sourceObject().name + " ability used.";

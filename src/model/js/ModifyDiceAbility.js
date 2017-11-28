@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/AttackDice", "model/js/DefenseDice", "model/js/Selector", "model/js/TargetLock", "model/js/TokenAction"],
-   function(InputValidator, DiceModification, AttackDice, DefenseDice, Selector, TargetLock, TokenAction)
+define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/AttackDice", "model/js/CardAction", "model/js/DefenseDice", "model/js/Selector", "model/js/TargetLock"],
+   function(InputValidator, DiceModification, AttackDice, CardAction, DefenseDice, Selector, TargetLock)
    {
       var ModifyDiceAbility = {};
 
@@ -24,7 +24,7 @@ define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/At
             var attacker = getActiveToken(store);
             var attackDice = getAttackDice(attacker);
             attackDice.spendFocusToken();
-            store.dispatch(TokenAction.addFocusCount(attacker, -1));
+            store.dispatch(CardAction.addFocusCount(attacker, -1));
             callback();
          },
       };
@@ -67,7 +67,7 @@ define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/At
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.spendEvadeToken();
-            store.dispatch(TokenAction.addEvadeCount(defender, -1));
+            store.dispatch(CardAction.addEvadeCount(defender, -1));
             callback();
          },
       };
@@ -87,7 +87,7 @@ define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/At
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.spendFocusToken();
-            store.dispatch(TokenAction.addFocusCount(defender, -1));
+            store.dispatch(CardAction.addFocusCount(defender, -1));
             callback();
          },
       };

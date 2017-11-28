@@ -53,7 +53,7 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.agentPilots = Immutable.Map();
       this.nextAgentId = 1;
 
-      // Token.
+      // CardInstance.
       this.nextTokenId = 1;
       this.tokenIdToCounts = Immutable.Map();
       this.tokenIdToCriticalDamages = Immutable.Map();

@@ -2,10 +2,10 @@
 
 define(["immutable", "common/js/InputValidator",
   "artifact/js/Bearing", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/PlayFormat",
-  "model/js/Action", "model/js/ManeuverComputer", "model/js/Position", "model/js/ShipFledAction", "model/js/TokenAction"],
+  "model/js/Action", "model/js/CardAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/ShipFledAction"],
    function(Immutable, InputValidator,
       Bearing, Maneuver, PilotCard, PlayFormat,
-      Action, ManeuverComputer, Position, ShipFledAction, TokenAction)
+      Action, CardAction, ManeuverComputer, Position, ShipFledAction)
    {
       function ManeuverAction(store, tokenId, maneuverKey, isBoostIn, fromPositionIn)
       {
@@ -128,12 +128,12 @@ define(["immutable", "common/js/InputValidator",
 
                if (token.isIonized && token.isIonized())
                {
-                  store.dispatch(TokenAction.setIonCount(token));
+                  store.dispatch(CardAction.setIonCount(token));
                }
 
                if (token.pilotKey() === PilotCard.IG_88C && isBoost)
                {
-                  store.dispatch(TokenAction.addEvadeCount(token));
+                  store.dispatch(CardAction.addEvadeCount(token));
                }
             }
          }

@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/Ship", "artifact/js/UpgradeCard",
-   "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction",
+   "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/CardInstance", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Faction, PilotCard, PlayFormat, Range, Ship, UpgradeCard,
-      Agent, Environment, Position, Reducer, Squad, SquadBuilder, TargetLock, Token, TokenAction,
+      Agent, Environment, Position, Reducer, Squad, SquadBuilder, TargetLock, CardInstance, CardAction,
       EnvironmentFactory)
    {
       QUnit.module("Environment");
@@ -65,14 +65,14 @@ define(["qunit", "redux",
          var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
          var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [
-                 new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
-                 new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
-                 new Token(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent),
-                 new Token(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent),
-                 new Token(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent),
-                 new Token(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent)
+                 new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
+                 new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
+                 new CardInstance(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent),
+                 new CardInstance(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent),
+                 new CardInstance(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent),
+                 new CardInstance(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent)
           ]);
-         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
+         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
 
          var store = Redux.createStore(Reducer.root);
          var positions1 = [new Position(450, 845, 90), new Position(450, 795, 90), new Position(450, 745, 90), new Position(450, 695, 90), new Position(450, 645, 90), new Position(450, 595, 90)];
@@ -81,7 +81,7 @@ define(["qunit", "redux",
 
          var attacker = environment.tokens()[6];
          var defender3 = environment.tokens()[3];
-         store.dispatch(TokenAction.addFocusCount(attacker));
+         store.dispatch(CardAction.addFocusCount(attacker));
          TargetLock.newInstance(store, attacker, defender3);
 
          // Run.

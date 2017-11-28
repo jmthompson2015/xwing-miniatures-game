@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-   "model/js/DamageDealer", "model/js/EnvironmentAction", "model/js/Position", "model/js/Token", "model/js/TokenAction",
+   "model/js/DamageDealer", "model/js/EnvironmentAction", "model/js/Position", "model/js/CardInstance", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, PilotCard, UpgradeCard,
-      DamageDealer, EnvironmentAction, Position, Token, TokenAction, EnvironmentFactory)
+      DamageDealer, EnvironmentAction, Position, CardInstance, CardAction, EnvironmentFactory)
    {
       QUnit.module("DamageDealer");
 
@@ -72,7 +72,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var hitCount = 2;
          var criticalHitCount = 1;
          var defender = environment.tokens()[2];
-         store.dispatch(TokenAction.addTokenUpgrade(defender, UpgradeCard.DETERMINATION));
+         store.dispatch(CardAction.addTokenUpgrade(defender, UpgradeCard.DETERMINATION));
          var evadeCount = 0;
          var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
          assert.equal(defender.damageCount(), 0);
@@ -94,9 +94,9 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var hitCount = 2;
          var criticalHitCount = 3;
          var rebelAgent = environment.tokens()[2].agent();
-         var defender = new Token(store, PilotCard.CHEWBACCA, rebelAgent);
+         var defender = new CardInstance(store, PilotCard.CHEWBACCA, rebelAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), defender));
-         store.dispatch(TokenAction.addShieldCount(defender, -3)); // two shields remaining
+         store.dispatch(CardAction.addShieldCount(defender, -3)); // two shields remaining
          var evadeCount = 1;
          var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
          assert.equal(defender.damageCount(), 0);

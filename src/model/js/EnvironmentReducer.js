@@ -112,7 +112,7 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                   damageDiscardPile: [],
                });
             case EnvironmentAction.SET_ACTIVE_TOKEN:
-               LOGGER.info("Active Token: " + action.token);
+               LOGGER.info("Active CardInstance: " + action.token);
                return Object.assign(
                {}, state,
                {

@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/DefenseDice", "model/js/ManeuverAction", "model/js/Position", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction"],
+  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/CardAction", "model/js/DefenseDice", "model/js/ManeuverAction", "model/js/Position", "model/js/ShipActionAbility", "model/js/TargetLock"],
    function(InputValidator,
       Bearing, Difficulty, Maneuver, Phase, ShipAction, UpgradeCard,
-      Ability, Action, ActivationAction, DefenseDice, ManeuverAction, Position, ShipActionAbility, TargetLock, TokenAction)
+      Ability, Action, ActivationAction, CardAction, DefenseDice, ManeuverAction, Position, ShipActionAbility, TargetLock)
    {
       var UpgradeAbility2 = {};
 
@@ -188,7 +188,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addEvadeCount(token));
+            store.dispatch(CardAction.addEvadeCount(token));
             callback();
          },
       };
@@ -205,7 +205,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addEnergyCount(token));
+            store.dispatch(CardAction.addEnergyCount(token));
             callback();
          },
       };
@@ -220,7 +220,7 @@ define(["common/js/InputValidator",
          {
             discardUpgrade(token, UpgradeCard.TIBANNA_GAS_SUPPLIES);
 
-            store.dispatch(TokenAction.addEnergyCount(token, 3));
+            store.dispatch(CardAction.addEnergyCount(token, 3));
             callback();
          },
       };
@@ -310,11 +310,11 @@ define(["common/js/InputValidator",
             var defenseDice = new DefenseDice(store, token.id(), 2);
             if (defenseDice.focusCount() > 0)
             {
-               store.dispatch(TokenAction.addFocusCount(token, defenseDice.focusCount()));
+               store.dispatch(CardAction.addFocusCount(token, defenseDice.focusCount()));
             }
             if (defenseDice.evadeCount() > 0)
             {
-               store.dispatch(TokenAction.addEvadeCount(token, defenseDice.evadeCount()));
+               store.dispatch(CardAction.addEvadeCount(token, defenseDice.evadeCount()));
             }
             callback();
          },
@@ -343,7 +343,7 @@ define(["common/js/InputValidator",
          },
          finishConsequent: function(store, token, shipActionAbility, callback)
          {
-            store.dispatch(TokenAction.addIonCount(token));
+            store.dispatch(CardAction.addIonCount(token));
             if (shipActionAbility)
             {
                var consequent = shipActionAbility.consequent();
@@ -392,7 +392,7 @@ define(["common/js/InputValidator",
             if (defenseDice.evadeCount() === 1 || defenseDice.focusCount() === 1)
             {
                var damageKey = token.damageKeys().get(0);
-               store.dispatch(TokenAction.removeTokenDamage(token.id(), damageKey));
+               store.dispatch(CardAction.removeTokenDamage(token.id(), damageKey));
             }
             callback();
          },
@@ -406,7 +406,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             token.receiveStress();
             token.receiveStress(callback);
          },

@@ -21,10 +21,10 @@
 
 define(["common/js/ArrayAugments", "common/js/InputValidator",
   "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
-  "model/js/Action", "model/js/AgentAction", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad", "model/js/TokenFactory"],
+  "model/js/Action", "model/js/AgentAction", "model/js/CardInstanceFactory", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
    function(ArrayAugments, InputValidator,
       DamageCard, Faction, PlayFormat, Range,
-      Action, AgentAction, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad, TokenFactory)
+      Action, AgentAction, CardInstanceFactory, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
    {
       function Environment(store, agent1, squad1, agent2, squad2, positions1, positions2)
       {
@@ -311,7 +311,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          if (tokenId !== undefined)
          {
             var store = this.store();
-            answer = TokenFactory.get(store, tokenId);
+            answer = CardInstanceFactory.get(store, tokenId);
          }
 
          return answer;
@@ -551,7 +551,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          return tokens.keySeq().reduce(function(accumulator, tokenId)
          {
             var id = parseInt(tokenId);
-            var token = TokenFactory.get(store, id);
+            var token = CardInstanceFactory.get(store, id);
 
             if (token)
             {

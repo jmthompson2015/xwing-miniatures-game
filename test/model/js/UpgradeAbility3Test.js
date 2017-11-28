@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/Phase",
-  "model/js/Action", "model/js/CombatAction", "model/js/TokenAction", "model/js/UpgradeAbility3",
+  "model/js/Action", "model/js/CombatAction", "model/js/CardAction", "model/js/UpgradeAbility3",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Phase,
-      Action, CombatAction, TokenAction, UpgradeAbility,
+      Action, CombatAction, CardAction, UpgradeAbility,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("UpgradeAbility3");
@@ -112,8 +112,8 @@ define(["qunit", "artifact/js/Phase",
          };
 
          environment.setActiveToken(attacker);
-         store.dispatch(TokenAction.addFocusCount(attacker));
-         store.dispatch(TokenAction.addStressCount(attacker));
+         store.dispatch(CardAction.addFocusCount(attacker));
+         store.dispatch(CardAction.addStressCount(attacker));
 
          store.dispatch(Action.setTokenAttackDice(attacker.id(), (new MockAttackDice(store, attacker.id())).values()));
          store.dispatch(Action.setTokenDefenseDice(attacker.id(), (new MockDefenseDice(store, attacker.id())).values()));

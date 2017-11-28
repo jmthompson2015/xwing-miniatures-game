@@ -2,10 +2,10 @@
 
 define(["redux", "common/js/InputValidator",
   "artifact/js/PilotCard", "artifact/js/Faction", "artifact/js/UpgradeCard",
-  "model/js/DualToken", "model/js/Reducer", "model/js/Squad", "model/js/Token"],
+  "model/js/CardInstance", "model/js/DualCardInstance", "model/js/Reducer", "model/js/Squad"],
    function(Redux, InputValidator,
       PilotCard, Faction, UpgradeCard,
-      DualToken, Reducer, Squad, Token)
+      CardInstance, DualCardInstance, Reducer, Squad)
    {
       var SquadBuilders = [];
 
@@ -15,8 +15,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "Worlds #1", 2017, "JumpMasters x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.EXPERTISE, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.K4_SECURITY_DROID, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.GUIDANCE_CHIPS]));
-         answer.push(new Token(store, PilotCard.TEL_TREVURA, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.K4_SECURITY_DROID, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.EXPERTISE, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.K4_SECURITY_DROID, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.TEL_TREVURA, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.K4_SECURITY_DROID, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.GUIDANCE_CHIPS]));
          return answer;
       }));
 
@@ -27,9 +27,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.RESISTANCE, "Worlds #2", 2017, "K-Wing; T-70; X-Wing", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.AUTOBLASTER_TURRET, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.REY, UpgradeCard.ION_BOMBS, UpgradeCard.CLUSTER_MINES, UpgradeCard.GUIDANCE_CHIPS]));
-         answer.push(new Token(store, PilotCard.BIGGS_DARKLIGHTER, agent, [UpgradeCard.R4_D6, UpgradeCard.INTEGRATED_ASTROMECH]));
-         answer.push(new Token(store, PilotCard.JESS_PAVA, agent, [UpgradeCard.M9_G8, UpgradeCard.PATTERN_ANALYZER, UpgradeCard.INTEGRATED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.AUTOBLASTER_TURRET, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.REY, UpgradeCard.ION_BOMBS, UpgradeCard.CLUSTER_MINES, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent, [UpgradeCard.R4_D6, UpgradeCard.INTEGRATED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.JESS_PAVA, agent, [UpgradeCard.M9_G8, UpgradeCard.PATTERN_ANALYZER, UpgradeCard.INTEGRATED_ASTROMECH]));
          return answer;
       }));
 
@@ -40,9 +40,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "Worlds #3", 2017, "HWK-290; Lancer-class; Protectorate", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.FENN_RAU, agent, [UpgradeCard.CONCORD_DAWN_PROTECTOR, UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.ASAJJ_VENTRESS, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.LATTS_RAZZI]));
-         answer.push(new Token(store, PilotCard.PALOB_GODALHI, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.TWIN_LASER_TURRET]));
+         answer.push(new CardInstance(store, PilotCard.FENN_RAU, agent, [UpgradeCard.CONCORD_DAWN_PROTECTOR, UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.ASAJJ_VENTRESS, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.LATTS_RAZZI]));
+         answer.push(new CardInstance(store, PilotCard.PALOB_GODALHI, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.TWIN_LASER_TURRET]));
          return answer;
       }));
 
@@ -54,10 +54,10 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.RESISTANCE, "Worlds #4", 2017, "ARC-170; T-70; TIE Fighter; X-Wing", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.BIGGS_DARKLIGHTER, agent, [UpgradeCard.R4_D6, UpgradeCard.INTEGRATED_ASTROMECH]));
-         answer.push(new Token(store, PilotCard.JESS_PAVA, agent, [UpgradeCard.ADAPTABILITY, UpgradeCard.R2_D6, UpgradeCard.PATTERN_ANALYZER, UpgradeCard.INTEGRATED_ASTROMECH]));
-         answer.push(new Token(store, PilotCard.BRAYLEN_STRAMM, agent, [UpgradeCard.GUNNER, UpgradeCard.R3_A2, UpgradeCard.ALLIANCE_OVERHAUL]));
-         answer.push(new Token(store, PilotCard.CAPTAIN_REX, agent));
+         answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent, [UpgradeCard.R4_D6, UpgradeCard.INTEGRATED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.JESS_PAVA, agent, [UpgradeCard.ADAPTABILITY, UpgradeCard.R2_D6, UpgradeCard.PATTERN_ANALYZER, UpgradeCard.INTEGRATED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.BRAYLEN_STRAMM, agent, [UpgradeCard.GUNNER, UpgradeCard.R3_A2, UpgradeCard.ALLIANCE_OVERHAUL]));
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_REX, agent));
          return answer;
       }));
 
@@ -68,17 +68,17 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "Worlds #5", 2017, "JumpMaster; Lancer-class; Protectorate", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.FENN_RAU, agent, [UpgradeCard.CONCORD_DAWN_PROTECTOR, UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.ASAJJ_VENTRESS, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.LATTS_RAZZI]));
-         answer.push(new Token(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.INSPIRING_RECRUIT, UpgradeCard.UNHINGED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.FENN_RAU, agent, [UpgradeCard.CONCORD_DAWN_PROTECTOR, UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.ASAJJ_VENTRESS, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.LATTS_RAZZI]));
+         answer.push(new CardInstance(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.INSPIRING_RECRUIT, UpgradeCard.UNHINGED_ASTROMECH]));
          return answer;
       }));
 
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "JMT", 2017, "Decimator; TIE Defender", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.CAPTAIN_OICUNN, agent, [UpgradeCard.PREDATOR, UpgradeCard.PROTON_TORPEDOES, UpgradeCard.YSANNE_ISARD, UpgradeCard.MARA_JADE, UpgradeCard.GUNNER, UpgradeCard.ION_PROJECTOR]));
-         answer.push(new Token(store, PilotCard.COUNTESS_RYAD, agent, [UpgradeCard.TIE_X7, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.TWIN_ION_ENGINE_MK_II]));
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_OICUNN, agent, [UpgradeCard.PREDATOR, UpgradeCard.PROTON_TORPEDOES, UpgradeCard.YSANNE_ISARD, UpgradeCard.MARA_JADE, UpgradeCard.GUNNER, UpgradeCard.ION_PROJECTOR]));
+         answer.push(new CardInstance(store, PilotCard.COUNTESS_RYAD, agent, [UpgradeCard.TIE_X7, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.TWIN_ION_ENGINE_MK_II]));
          return answer;
       }));
 
@@ -88,8 +88,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "Worlds #1", 2016, "JumpMasters x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.LONE_WOLF, UpgradeCard.ZUCKUSS, UpgradeCard.OVERCLOCKED_R4, UpgradeCard.GLITTERSTIM, UpgradeCard.COUNTERMEASURES]));
-         answer.push(new Token(store, PilotCard.MANAROO, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.SEISMIC_TORPEDO, UpgradeCard.GONK, UpgradeCard.R5_P8, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.LONE_WOLF, UpgradeCard.ZUCKUSS, UpgradeCard.OVERCLOCKED_R4, UpgradeCard.GLITTERSTIM, UpgradeCard.COUNTERMEASURES]));
+         answer.push(new CardInstance(store, PilotCard.MANAROO, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.SEISMIC_TORPEDO, UpgradeCard.GONK, UpgradeCard.R5_P8, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.ENGINE_UPGRADE]));
          return answer;
       }));
 
@@ -99,8 +99,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #2", 2016, "E-Wing; K-Wing", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.HOMING_MISSILES, UpgradeCard.SABINE_WREN, UpgradeCard.CONNER_NET, UpgradeCard.ION_BOMBS, UpgradeCard.ADVANCED_SLAM]));
+         answer.push(new CardInstance(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.HOMING_MISSILES, UpgradeCard.SABINE_WREN, UpgradeCard.CONNER_NET, UpgradeCard.ION_BOMBS, UpgradeCard.ADVANCED_SLAM]));
          return answer;
       }));
 
@@ -111,9 +111,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.FIRST_ORDER, "Worlds #3", 2016, "Lambda-class; TIE/fo; TIE Defender", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.OMEGA_LEADER, agent, [UpgradeCard.JUKE, UpgradeCard.COMM_RELAY, UpgradeCard.SHIELD_UPGRADE]));
-         answer.push(new Token(store, PilotCard.COLONEL_VESSERY, agent, [UpgradeCard.TIE_X7, UpgradeCard.JUKE, UpgradeCard.TWIN_ION_ENGINE_MK_II]));
-         answer.push(new Token(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.SENSOR_JAMMER, UpgradeCard.EMPEROR_PALPATINE]));
+         answer.push(new CardInstance(store, PilotCard.OMEGA_LEADER, agent, [UpgradeCard.JUKE, UpgradeCard.COMM_RELAY, UpgradeCard.SHIELD_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.COLONEL_VESSERY, agent, [UpgradeCard.TIE_X7, UpgradeCard.JUKE, UpgradeCard.TWIN_ION_ENGINE_MK_II]));
+         answer.push(new CardInstance(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.SENSOR_JAMMER, UpgradeCard.EMPEROR_PALPATINE]));
          return answer;
       }));
 
@@ -123,8 +123,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #4", 2016, "A-Wing; YT-1300", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.LUKE_SKYWALKER, UpgradeCard.C_3PO, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.JAKE_FARRELL, agent, [UpgradeCard.A_WING_TEST_PILOT, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.PROTON_ROCKETS, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.LUKE_SKYWALKER, UpgradeCard.C_3PO, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.JAKE_FARRELL, agent, [UpgradeCard.A_WING_TEST_PILOT, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.PROTON_ROCKETS, UpgradeCard.AUTOTHRUSTERS]));
          return answer;
       }));
 
@@ -135,9 +135,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "Worlds #5", 2016, "Lambda-class; TIE Defenders x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.COLONEL_VESSERY, agent, [UpgradeCard.TIE_X7, UpgradeCard.JUKE]));
-         answer.push(new Token(store, PilotCard.COUNTESS_RYAD, agent, [UpgradeCard.TIE_X7, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.TWIN_ION_ENGINE_MK_II]));
-         answer.push(new Token(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.COLLISION_DETECTOR, UpgradeCard.EMPEROR_PALPATINE]));
+         answer.push(new CardInstance(store, PilotCard.COLONEL_VESSERY, agent, [UpgradeCard.TIE_X7, UpgradeCard.JUKE]));
+         answer.push(new CardInstance(store, PilotCard.COUNTESS_RYAD, agent, [UpgradeCard.TIE_X7, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.TWIN_ION_ENGINE_MK_II]));
+         answer.push(new CardInstance(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.COLLISION_DETECTOR, UpgradeCard.EMPEROR_PALPATINE]));
          return answer;
       }));
 
@@ -148,9 +148,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "US Nationals #1", 2016, "Lambda-class; TIE Prototype; TIE Interceptor", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.SENSOR_JAMMER, UpgradeCard.EMPEROR_PALPATINE]));
-         answer.push(new Token(store, PilotCard.THE_INQUISITOR, agent, [UpgradeCard.TIE_V1, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.ROYAL_GUARD_TIE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS, UpgradeCard.STEALTH_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.SENSOR_JAMMER, UpgradeCard.EMPEROR_PALPATINE]));
+         answer.push(new CardInstance(store, PilotCard.THE_INQUISITOR, agent, [UpgradeCard.TIE_V1, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.ROYAL_GUARD_TIE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS, UpgradeCard.STEALTH_DEVICE]));
          return answer;
       }));
 
@@ -160,8 +160,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "US Nationals #2", 2016, "JumpMasters x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.LONE_WOLF, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.ZUCKUSS, UpgradeCard.R5_P8, UpgradeCard.GLITTERSTIM, UpgradeCard.COUNTERMEASURES]));
-         answer.push(new Token(store, PilotCard.MANAROO, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.RECON_SPECIALIST, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.LONE_WOLF, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.ZUCKUSS, UpgradeCard.R5_P8, UpgradeCard.GLITTERSTIM, UpgradeCard.COUNTERMEASURES]));
+         answer.push(new CardInstance(store, PilotCard.MANAROO, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.RECON_SPECIALIST, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.ENGINE_UPGRADE]));
          return answer;
       }));
 
@@ -171,8 +171,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "US Nationals #3", 2016, "Decimator; TIE Phantom", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.ADVANCED_CLOAKING_DEVICE]));
-         answer.push(new Token(store, PilotCard.CAPTAIN_OICUNN, agent, [UpgradeCard.PREDATOR, UpgradeCard.EMPEROR_PALPATINE, UpgradeCard.REBEL_CAPTIVE, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.ADVANCED_CLOAKING_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_OICUNN, agent, [UpgradeCard.PREDATOR, UpgradeCard.EMPEROR_PALPATINE, UpgradeCard.REBEL_CAPTIVE, UpgradeCard.ENGINE_UPGRADE]));
          return answer;
       }));
 
@@ -182,8 +182,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "US Nationals #4", 2016, "JumpMaster; YV-666", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.BOSSK, agent, [UpgradeCard.CRACK_SHOT, UpgradeCard.CONCUSSION_MISSILES, UpgradeCard.ZUCKUSS, UpgradeCard.DENGAR]));
-         answer.push(new Token(store, PilotCard.TEL_TREVURA, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.GONK, UpgradeCard.R5_P8, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.HULL_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.BOSSK, agent, [UpgradeCard.CRACK_SHOT, UpgradeCard.CONCUSSION_MISSILES, UpgradeCard.ZUCKUSS, UpgradeCard.DENGAR]));
+         answer.push(new CardInstance(store, PilotCard.TEL_TREVURA, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.GONK, UpgradeCard.R5_P8, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.HULL_UPGRADE]));
          return answer;
       }));
 
@@ -193,8 +193,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "US Nationals #5", 2016, "JumpMasters x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.MANAROO, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FLECHETTE_TORPEDOES, UpgradeCard.GONK, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.LONE_WOLF, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.ZUCKUSS, UpgradeCard.OVERCLOCKED_R4, UpgradeCard.GLITTERSTIM, UpgradeCard.COUNTERMEASURES]));
+         answer.push(new CardInstance(store, PilotCard.MANAROO, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FLECHETTE_TORPEDOES, UpgradeCard.GONK, UpgradeCard.UNHINGED_ASTROMECH, UpgradeCard.FEEDBACK_ARRAY, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.DENGAR, agent, [UpgradeCard.PUNISHING_ONE, UpgradeCard.LONE_WOLF, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.ZUCKUSS, UpgradeCard.OVERCLOCKED_R4, UpgradeCard.GLITTERSTIM, UpgradeCard.COUNTERMEASURES]));
          return answer;
       }));
 
@@ -202,9 +202,9 @@ define(["redux", "common/js/InputValidator",
       var HugeShipImperialSquadBuilder = new SquadBuilder(Faction.IMPERIAL, "Huge Ships: 168 Points", 2016, "Gozanti-class; Raider-class; TIE Advanced", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.GOZANTI_CLASS_CRUISER, agent));
-         answer.push(new Token(store, PilotCard.JUNO_ECLIPSE, agent));
-         answer.push(new DualToken(store, PilotCard.RAIDER_CLASS_CORVETTE, agent));
+         answer.push(new CardInstance(store, PilotCard.GOZANTI_CLASS_CRUISER, agent));
+         answer.push(new CardInstance(store, PilotCard.JUNO_ECLIPSE, agent));
+         answer.push(new DualCardInstance(store, PilotCard.RAIDER_CLASS_CORVETTE, agent));
          return answer;
       });
       SquadBuilders.push(HugeShipImperialSquadBuilder);
@@ -213,13 +213,13 @@ define(["redux", "common/js/InputValidator",
       var HugeShipRebelSquadBuilder = new SquadBuilder(Faction.REBEL, "Huge Ships: 219 Points", 2016, "CR90; G-75; X-Wing", function(store, agent)
       {
          var answer = [];
-         answer.push(new DualToken(store, PilotCard.CR90_CORVETTE, agent, [UpgradeCard.HAN_SOLO,
+         answer.push(new DualCardInstance(store, PilotCard.CR90_CORVETTE, agent, [UpgradeCard.HAN_SOLO,
               UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.GUNNERY_TEAM,
               UpgradeCard.SENSOR_TEAM, UpgradeCard.TIBANNA_GAS_SUPPLIES, UpgradeCard.CHEWBACCA,
               UpgradeCard.TANTIVE_IV], [UpgradeCard.WEAPONS_ENGINEER, UpgradeCard.QUAD_LASER_CANNONS,
               UpgradeCard.ENGINEERING_TEAM, UpgradeCard.IONIZATION_REACTOR]));
-         answer.push(new Token(store, PilotCard.WES_JANSON, agent, [UpgradeCard.R2_D2]));
-         answer.push(new Token(store, PilotCard.GR_75_MEDIUM_TRANSPORT, agent, [UpgradeCard.DUTYFREE, UpgradeCard.RAYMUS_ANTILLES, UpgradeCard.FREQUENCY_JAMMER, UpgradeCard.EM_EMITTER]));
+         answer.push(new CardInstance(store, PilotCard.WES_JANSON, agent, [UpgradeCard.R2_D2]));
+         answer.push(new CardInstance(store, PilotCard.GR_75_MEDIUM_TRANSPORT, agent, [UpgradeCard.DUTYFREE, UpgradeCard.RAYMUS_ANTILLES, UpgradeCard.FREQUENCY_JAMMER, UpgradeCard.EM_EMITTER]));
          return answer;
       });
       SquadBuilders.push(HugeShipRebelSquadBuilder);
@@ -231,9 +231,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "EKM", 2016, "Aggressors x2; M3-A", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.IG_88B, agent, [UpgradeCard.IG_2000, UpgradeCard.FLECHETTE_CANNON, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.IG_88C, agent, [UpgradeCard.IG_2000, UpgradeCard.ION_CANNON, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.TANSARII_POINT_VETERAN, agent, [UpgradeCard.LONE_WOLF]));
+         answer.push(new CardInstance(store, PilotCard.IG_88B, agent, [UpgradeCard.IG_2000, UpgradeCard.FLECHETTE_CANNON, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.IG_88C, agent, [UpgradeCard.IG_2000, UpgradeCard.ION_CANNON, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.TANSARII_POINT_VETERAN, agent, [UpgradeCard.LONE_WOLF]));
          return answer;
       }));
 
@@ -245,10 +245,10 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.RESISTANCE, "Worlds #1", 2015, "T-70; Y-Wings x2; Z-95", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.POE_DAMERON, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.R2_D2, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.GOLD_SQUADRON_PILOT, agent, [UpgradeCard.BTL_A4_Y_WING, UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.R3_A2]));
-         answer.push(new Token(store, PilotCard.GOLD_SQUADRON_PILOT, agent, [UpgradeCard.TWIN_LASER_TURRET]));
-         answer.push(new Token(store, PilotCard.BANDIT_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.POE_DAMERON, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.R2_D2, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.GOLD_SQUADRON_PILOT, agent, [UpgradeCard.BTL_A4_Y_WING, UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.R3_A2]));
+         answer.push(new CardInstance(store, PilotCard.GOLD_SQUADRON_PILOT, agent, [UpgradeCard.TWIN_LASER_TURRET]));
+         answer.push(new CardInstance(store, PilotCard.BANDIT_SQUADRON_PILOT, agent));
          return answer;
       }));
 
@@ -259,9 +259,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.RESISTANCE, "Worlds #2", 2015, "A-Wing; E-Wing; T-70", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.POE_DAMERON, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.R5_P9, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.PROTOTYPE_PILOT, agent, [UpgradeCard.CHARDAAN_REFIT]));
+         answer.push(new CardInstance(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.POE_DAMERON, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.R5_P9, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.PROTOTYPE_PILOT, agent, [UpgradeCard.CHARDAAN_REFIT]));
          return answer;
       }));
 
@@ -270,8 +270,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "Worlds #3", 2015, "Aggressors x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.IG_88A, agent, [UpgradeCard.IG_2000, UpgradeCard.CRACK_SHOT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.GLITTERSTIM, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.IG_88B, agent, [UpgradeCard.IG_2000, UpgradeCard.CRACK_SHOT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.GLITTERSTIM, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.IG_88A, agent, [UpgradeCard.IG_2000, UpgradeCard.CRACK_SHOT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.GLITTERSTIM, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.IG_88B, agent, [UpgradeCard.IG_2000, UpgradeCard.CRACK_SHOT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.GLITTERSTIM, UpgradeCard.AUTOTHRUSTERS]));
          return answer;
       }));
 
@@ -282,9 +282,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "Worlds #4", 2015, "Lambda-class; TIE Advanced; TIE Interceptor", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.ROYAL_GUARD_TIE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS, UpgradeCard.STEALTH_DEVICE]));
-         answer.push(new Token(store, PilotCard.DARTH_VADER, agent, [UpgradeCard.TIE_X1, UpgradeCard.LONE_WOLF, UpgradeCard.ADVANCED_TARGETING_COMPUTER]));
-         answer.push(new Token(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.EMPEROR_PALPATINE, UpgradeCard.SENSOR_JAMMER]));
+         answer.push(new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.ROYAL_GUARD_TIE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS, UpgradeCard.STEALTH_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.DARTH_VADER, agent, [UpgradeCard.TIE_X1, UpgradeCard.LONE_WOLF, UpgradeCard.ADVANCED_TARGETING_COMPUTER]));
+         answer.push(new CardInstance(store, PilotCard.OMICRON_GROUP_PILOT, agent, [UpgradeCard.EMPEROR_PALPATINE, UpgradeCard.SENSOR_JAMMER]));
          return answer;
       }));
 
@@ -294,9 +294,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #5", 2015, "K-Wings x3", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.TACTICIAN]));
-         answer.push(new Token(store, PilotCard.WARDEN_SQUADRON_PILOT, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.TACTICIAN]));
-         answer.push(new Token(store, PilotCard.WARDEN_SQUADRON_PILOT, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.TACTICIAN]));
+         answer.push(new CardInstance(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.TACTICIAN]));
+         answer.push(new CardInstance(store, PilotCard.WARDEN_SQUADRON_PILOT, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.TACTICIAN]));
+         answer.push(new CardInstance(store, PilotCard.WARDEN_SQUADRON_PILOT, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.TACTICIAN]));
          return answer;
       }));
 
@@ -306,9 +306,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #1", 2015, "B-Wings x2; YT-2400", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.DASH_RENDAR, agent, [UpgradeCard.OUTRIDER, UpgradeCard.LONE_WOLF, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.R2_D2_CREW, UpgradeCard.ANTI_PURSUIT_LASERS]));
-         answer.push(new Token(store, PilotCard.BLUE_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.BLUE_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.DASH_RENDAR, agent, [UpgradeCard.OUTRIDER, UpgradeCard.LONE_WOLF, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.R2_D2_CREW, UpgradeCard.ANTI_PURSUIT_LASERS]));
+         answer.push(new CardInstance(store, PilotCard.BLUE_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.BLUE_SQUADRON_PILOT, agent));
          return answer;
       }));
 
@@ -318,8 +318,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "US Nationals #2", 2015, "Decimator; TIE Interceptor", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.CAPTAIN_OICUNN, agent, [UpgradeCard.PREDATOR, UpgradeCard.YSANNE_ISARD, UpgradeCard.GUNNER, UpgradeCard.REBEL_CAPTIVE, UpgradeCard.PROXIMITY_MINES, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.ROYAL_GUARD_TIE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS, UpgradeCard.STEALTH_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_OICUNN, agent, [UpgradeCard.PREDATOR, UpgradeCard.YSANNE_ISARD, UpgradeCard.GUNNER, UpgradeCard.REBEL_CAPTIVE, UpgradeCard.PROXIMITY_MINES, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.ROYAL_GUARD_TIE, UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.AUTOTHRUSTERS, UpgradeCard.STEALTH_DEVICE]));
          return answer;
       }));
 
@@ -329,8 +329,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #3", 2015, "YT-1300; YT-2400", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.CHEWBACCA, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.LUKE_SKYWALKER, UpgradeCard.C_3PO]));
-         answer.push(new Token(store, PilotCard.EADEN_VRILL, agent, [UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.RECON_SPECIALIST, UpgradeCard.ANTI_PURSUIT_LASERS]));
+         answer.push(new CardInstance(store, PilotCard.CHEWBACCA, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.LUKE_SKYWALKER, UpgradeCard.C_3PO]));
+         answer.push(new CardInstance(store, PilotCard.EADEN_VRILL, agent, [UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.RECON_SPECIALIST, UpgradeCard.ANTI_PURSUIT_LASERS]));
          return answer;
       }));
 
@@ -340,8 +340,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #4", 2015, "E-Wing; YT-2400", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.DASH_RENDAR, agent, [UpgradeCard.OUTRIDER, UpgradeCard.PREDATOR, UpgradeCard.MANGLER_CANNON, UpgradeCard.CHEWBACCA]));
+         answer.push(new CardInstance(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.DASH_RENDAR, agent, [UpgradeCard.OUTRIDER, UpgradeCard.PREDATOR, UpgradeCard.MANGLER_CANNON, UpgradeCard.CHEWBACCA]));
          return answer;
       }));
 
@@ -350,8 +350,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "US Nationals #5", 2015, "Aggressors x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.IG_88B, agent, [UpgradeCard.IG_2000, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.INERTIAL_DAMPENERS, UpgradeCard.AUTOTHRUSTERS]));
-         answer.push(new Token(store, PilotCard.IG_88C, agent, [UpgradeCard.IG_2000, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.INERTIAL_DAMPENERS, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.IG_88B, agent, [UpgradeCard.IG_2000, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.INERTIAL_DAMPENERS, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.IG_88C, agent, [UpgradeCard.IG_2000, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.HEAVY_LASER_CANNON, UpgradeCard.INERTIAL_DAMPENERS, UpgradeCard.AUTOTHRUSTERS]));
          return answer;
       }));
 
@@ -360,18 +360,18 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.SCUM, "Thug Life v2", 2015, "Y-Wings x4", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
-         answer.push(new Token(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
-         answer.push(new Token(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
-         answer.push(new Token(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.SYNDICATE_THUG, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.UNHINGED_ASTROMECH]));
          return answer;
       }));
 
       var CoreSetFirstOrderSquadBuilder = new SquadBuilder(Faction.FIRST_ORDER, "First Order TFA Core Set: 39 Points", 2015, "TIE/fo Fighters x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.EPSILON_LEADER, agent, [UpgradeCard.WIRED]));
-         answer.push(new Token(store, PilotCard.ZETA_ACE, agent));
+         answer.push(new CardInstance(store, PilotCard.EPSILON_LEADER, agent, [UpgradeCard.WIRED]));
+         answer.push(new CardInstance(store, PilotCard.ZETA_ACE, agent));
          return answer;
       });
       SquadBuilders.push(CoreSetFirstOrderSquadBuilder);
@@ -379,7 +379,7 @@ define(["redux", "common/js/InputValidator",
       var CoreSetResistanceSquadBuilder = new SquadBuilder(Faction.RESISTANCE, "Resistance TFA Core Set: 39 Points", 2015, "T-70", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.POE_DAMERON, agent, [UpgradeCard.BB_8, UpgradeCard.PROTON_TORPEDOES, UpgradeCard.WEAPONS_GUIDANCE]));
+         answer.push(new CardInstance(store, PilotCard.POE_DAMERON, agent, [UpgradeCard.BB_8, UpgradeCard.PROTON_TORPEDOES, UpgradeCard.WEAPONS_GUIDANCE]));
          return answer;
       });
       SquadBuilders.push(CoreSetResistanceSquadBuilder);
@@ -390,10 +390,10 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #1", 2014, "YT-1300; Z-95s x3", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.C_3PO, UpgradeCard.R2_D2_CREW, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.TALA_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.TALA_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.TALA_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.C_3PO, UpgradeCard.R2_D2_CREW, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.TALA_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.TALA_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.TALA_SQUADRON_PILOT, agent));
          return answer;
       }));
 
@@ -403,11 +403,11 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "Worlds #2", 2014, "TIE Fighters x4; TIE Phantom", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.REBEL_CAPTIVE, UpgradeCard.ADVANCED_CLOAKING_DEVICE]));
-         answer.push(new Token(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.SWARM_TACTICS]));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.REBEL_CAPTIVE, UpgradeCard.ADVANCED_CLOAKING_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.SWARM_TACTICS]));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
          return answer;
       }));
 
@@ -418,10 +418,10 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #3", 2014, "YT-1300; Z-95s x3", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.GUNNER, UpgradeCard.C_3PO, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.TALA_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.TALA_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.BANDIT_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.PREDATOR, UpgradeCard.GUNNER, UpgradeCard.C_3PO, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.TALA_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.TALA_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.BANDIT_SQUADRON_PILOT, agent));
          return answer;
       }));
 
@@ -434,13 +434,13 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "Worlds #4", 2014, "TIE Fighters x7", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HOWLRUNNER, agent));
-         answer.push(new Token(store, PilotCard.DARK_CURSE, agent));
-         answer.push(new Token(store, PilotCard.BLACK_SQUADRON_PILOT, agent, [UpgradeCard.DRAW_THEIR_FIRE]));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.HOWLRUNNER, agent));
+         answer.push(new CardInstance(store, PilotCard.DARK_CURSE, agent));
+         answer.push(new CardInstance(store, PilotCard.BLACK_SQUADRON_PILOT, agent, [UpgradeCard.DRAW_THEIR_FIRE]));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
          return answer;
       }));
 
@@ -452,10 +452,10 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #5", 2014, "X-Wings x3; Z-95", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.WEDGE_ANTILLES, agent, [UpgradeCard.DRAW_THEIR_FIRE, UpgradeCard.R2_D2]));
-         answer.push(new Token(store, PilotCard.AIREN_CRACKEN, agent, [UpgradeCard.VETERAN_INSTINCTS]));
-         answer.push(new Token(store, PilotCard.BIGGS_DARKLIGHTER, agent));
-         answer.push(new Token(store, PilotCard.ROOKIE_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.WEDGE_ANTILLES, agent, [UpgradeCard.DRAW_THEIR_FIRE, UpgradeCard.R2_D2]));
+         answer.push(new CardInstance(store, PilotCard.AIREN_CRACKEN, agent, [UpgradeCard.VETERAN_INSTINCTS]));
+         answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent));
+         answer.push(new CardInstance(store, PilotCard.ROOKIE_PILOT, agent));
          return answer;
       }));
 
@@ -466,9 +466,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "US Nationals #1", 2014, "Lambda-class; TIE Interceptor; TIE Phantom", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]));
-         answer.push(new Token(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]));
-         answer.push(new Token(store, PilotCard.CAPTAIN_YORR, agent));
+         answer.push(new CardInstance(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]));
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_YORR, agent));
          return answer;
       }));
 
@@ -478,8 +478,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #2", 2014, "YT-1300s x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.LANDO_CALRISSIAN, agent, [UpgradeCard.DRAW_THEIR_FIRE, UpgradeCard.NIEN_NUNB, UpgradeCard.HAN_SOLO]));
-         answer.push(new Token(store, PilotCard.CHEWBACCA, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.DRAW_THEIR_FIRE, UpgradeCard.C_3PO, UpgradeCard.R2_D2_CREW]));
+         answer.push(new CardInstance(store, PilotCard.LANDO_CALRISSIAN, agent, [UpgradeCard.DRAW_THEIR_FIRE, UpgradeCard.NIEN_NUNB, UpgradeCard.HAN_SOLO]));
+         answer.push(new CardInstance(store, PilotCard.CHEWBACCA, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.DRAW_THEIR_FIRE, UpgradeCard.C_3PO, UpgradeCard.R2_D2_CREW]));
          return answer;
       }));
 
@@ -490,9 +490,9 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #3", 2014, "X-Wing; YT-1300; Z-95", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.LUKE_SKYWALKER, UpgradeCard.C_3PO, UpgradeCard.ENGINE_UPGRADE]));
-         answer.push(new Token(store, PilotCard.BIGGS_DARKLIGHTER, agent));
-         answer.push(new Token(store, PilotCard.TALA_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.LUKE_SKYWALKER, UpgradeCard.C_3PO, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent));
+         answer.push(new CardInstance(store, PilotCard.TALA_SQUADRON_PILOT, agent));
          return answer;
       }));
 
@@ -502,13 +502,13 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "US Nationals #4", 2014, "TIE Fighters x7", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.PUSH_THE_LIMIT]));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.PUSH_THE_LIMIT]));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
          return answer;
       }));
 
@@ -518,8 +518,8 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #5", 2014, "E-Wing; YT-1300", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.DETERMINATION, UpgradeCard.LUKE_SKYWALKER]));
-         answer.push(new Token(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2]));
+         answer.push(new CardInstance(store, PilotCard.HAN_SOLO, agent, [UpgradeCard.MILLENNIUM_FALCON, UpgradeCard.DETERMINATION, UpgradeCard.LUKE_SKYWALKER]));
+         answer.push(new CardInstance(store, PilotCard.CORRAN_HORN, agent, [UpgradeCard.PUSH_THE_LIMIT, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.R2_D2]));
          return answer;
       }));
 
@@ -531,10 +531,10 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #1", 2013, "B-Wings x2; X-Wings x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.BIGGS_DARKLIGHTER, agent));
-         answer.push(new Token(store, PilotCard.DAGGER_SQUADRON_PILOT, agent, [UpgradeCard.ADVANCED_SENSORS]));
-         answer.push(new Token(store, PilotCard.DAGGER_SQUADRON_PILOT, agent, [UpgradeCard.ADVANCED_SENSORS]));
-         answer.push(new Token(store, PilotCard.ROOKIE_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent));
+         answer.push(new CardInstance(store, PilotCard.DAGGER_SQUADRON_PILOT, agent, [UpgradeCard.ADVANCED_SENSORS]));
+         answer.push(new CardInstance(store, PilotCard.DAGGER_SQUADRON_PILOT, agent, [UpgradeCard.ADVANCED_SENSORS]));
+         answer.push(new CardInstance(store, PilotCard.ROOKIE_PILOT, agent));
          return answer;
       }));
 
@@ -545,13 +545,13 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "Worlds #2", 2013, "TIE Fighters x7", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.STEALTH_DEVICE, UpgradeCard.DETERMINATION]));
-         answer.push(new Token(store, PilotCard.DARK_CURSE, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.STEALTH_DEVICE, UpgradeCard.DETERMINATION]));
+         answer.push(new CardInstance(store, PilotCard.DARK_CURSE, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
          return answer;
       }));
 
@@ -561,10 +561,10 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #3", 2013, "X-Wings x4", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.SHIELD_UPGRADE, UpgradeCard.R2_D2, UpgradeCard.DRAW_THEIR_FIRE]));
-         answer.push(new Token(store, PilotCard.ROOKIE_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ROOKIE_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ROOKIE_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.SHIELD_UPGRADE, UpgradeCard.R2_D2, UpgradeCard.DRAW_THEIR_FIRE]));
+         answer.push(new CardInstance(store, PilotCard.ROOKIE_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ROOKIE_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ROOKIE_PILOT, agent));
          return answer;
       }));
 
@@ -576,13 +576,13 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.IMPERIAL, "Worlds #4", 2013, "TIE Fighters x7", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.STEALTH_DEVICE]));
-         answer.push(new Token(store, PilotCard.BACKSTABBER, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.HOWLRUNNER, agent, [UpgradeCard.STEALTH_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.BACKSTABBER, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.OBSIDIAN_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent));
          return answer;
       }));
 
@@ -593,19 +593,19 @@ define(["redux", "common/js/InputValidator",
       SquadBuilders.push(new SquadBuilder(Faction.REBEL, "Worlds #5", 2013, "B-Wing; X-Wings x2; Y-Wings x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.BLUE_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ROOKIE_PILOT, agent));
-         answer.push(new Token(store, PilotCard.ROOKIE_PILOT, agent));
-         answer.push(new Token(store, PilotCard.GOLD_SQUADRON_PILOT, agent));
-         answer.push(new Token(store, PilotCard.GOLD_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.BLUE_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ROOKIE_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.ROOKIE_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.GOLD_SQUADRON_PILOT, agent));
+         answer.push(new CardInstance(store, PilotCard.GOLD_SQUADRON_PILOT, agent));
          return answer;
       }));
 
       var CoreSetImperialSquadBuilder = new SquadBuilder(Faction.IMPERIAL, "Imperial Core Set: 36 Points", 2012, "TIE Fighters x2", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.MAULER_MITHEL, agent, [UpgradeCard.MARKSMANSHIP]));
-         answer.push(new Token(store, PilotCard.DARK_CURSE, agent));
+         answer.push(new CardInstance(store, PilotCard.MAULER_MITHEL, agent, [UpgradeCard.MARKSMANSHIP]));
+         answer.push(new CardInstance(store, PilotCard.DARK_CURSE, agent));
          return answer;
       });
       SquadBuilders.push(CoreSetImperialSquadBuilder);
@@ -613,7 +613,7 @@ define(["redux", "common/js/InputValidator",
       var CoreSetRebelSquadBuilder = new SquadBuilder(Faction.REBEL, "Rebel Core Set: 36 Points", 2012, "X-Wing", function(store, agent)
       {
          var answer = [];
-         answer.push(new Token(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2]));
+         answer.push(new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2]));
          return answer;
       });
       SquadBuilders.push(CoreSetRebelSquadBuilder);

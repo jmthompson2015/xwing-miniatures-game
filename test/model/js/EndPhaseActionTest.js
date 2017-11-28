@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "model/js/EndPhaseAction", "model/js/TargetLock", "model/js/TokenAction", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, EndPhaseAction, TargetLock, TokenAction, EnvironmentFactory)
+define(["qunit", "model/js/EndPhaseAction", "model/js/TargetLock", "model/js/CardAction", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, EndPhaseAction, TargetLock, CardAction, EnvironmentFactory)
    {
       QUnit.module("EndPhaseAction");
 
@@ -11,12 +11,12 @@ define(["qunit", "model/js/EndPhaseAction", "model/js/TargetLock", "model/js/Tok
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var token = environment.tokens()[2]; // X-Wing
-         store.dispatch(TokenAction.addEvadeCount(token));
-         store.dispatch(TokenAction.addFocusCount(token, 2));
-         store.dispatch(TokenAction.addReinforceCount(token));
-         store.dispatch(TokenAction.addStressCount(token));
-         store.dispatch(TokenAction.addTractorBeamCount(token));
-         store.dispatch(TokenAction.addWeaponsDisabledCount(token));
+         store.dispatch(CardAction.addEvadeCount(token));
+         store.dispatch(CardAction.addFocusCount(token, 2));
+         store.dispatch(CardAction.addReinforceCount(token));
+         store.dispatch(CardAction.addStressCount(token));
+         store.dispatch(CardAction.addTractorBeamCount(token));
+         store.dispatch(CardAction.addWeaponsDisabledCount(token));
          var defender = environment.tokens()[0];
          TargetLock.newInstance(store, token, defender);
          var callback = function()

@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
-  "model/js/Action", "model/js/CombatAction", "model/js/Position", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/TokenAction",
+  "model/js/Action", "model/js/CombatAction", "model/js/Position", "model/js/ShipActionAbility", "model/js/TargetLock", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Maneuver, ShipAction,
-      Action, CombatAction, Position, ShipActionAbility, TargetLock, TokenAction,
+      Action, CombatAction, Position, ShipActionAbility, TargetLock, CardAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("ShipActionAbility");
@@ -143,7 +143,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var token = environment.tokens()[2]; // X-Wing
          var tokenPosition = environment.getPositionFor(token);
          environment.moveToken(tokenPosition, new Position(458, 890, 270));
-         store.dispatch(TokenAction.addCloakCount(token));
+         store.dispatch(CardAction.addCloakCount(token));
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.DECLOAK];
          var callback = function()
          {
@@ -307,8 +307,8 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          };
 
          environment.setActiveToken(attacker);
-         store.dispatch(TokenAction.addFocusCount(attacker));
-         store.dispatch(TokenAction.addStressCount(attacker));
+         store.dispatch(CardAction.addFocusCount(attacker));
+         store.dispatch(CardAction.addStressCount(attacker));
 
          store.dispatch(Action.setTokenAttackDice(attacker.id(), (new MockAttackDice(store, attacker.id())).values()));
          store.dispatch(Action.setTokenDefenseDice(attacker.id(), (new MockDefenseDice(store, attacker.id())).values()));

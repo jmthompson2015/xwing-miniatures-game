@@ -1,8 +1,8 @@
 "use strict";
 
-define(["qunit", "artifact/js/Phase", "model/js/Action", "model/js/Adjudicator", "model/js/CombatAction", "model/js/PilotAbility3", "model/js/TokenAction",
+define(["qunit", "artifact/js/Phase", "model/js/Action", "model/js/Adjudicator", "model/js/CombatAction", "model/js/PilotAbility3", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
-   function(QUnit, Phase, Action, Adjudicator, CombatAction, PilotAbility, TokenAction,
+   function(QUnit, Phase, Action, Adjudicator, CombatAction, PilotAbility, CardAction,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("PilotAbility3");
@@ -112,8 +112,8 @@ define(["qunit", "artifact/js/Phase", "model/js/Action", "model/js/Adjudicator",
          };
 
          environment.setActiveToken(attacker);
-         store.dispatch(TokenAction.addFocusCount(attacker));
-         store.dispatch(TokenAction.addStressCount(attacker));
+         store.dispatch(CardAction.addFocusCount(attacker));
+         store.dispatch(CardAction.addStressCount(attacker));
 
          store.dispatch(Action.setTokenAttackDice(attacker.id(), (new MockAttackDice(store, attacker.id())).values()));
          store.dispatch(Action.setTokenDefenderHit(attacker, true));

@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Maneuver",
-  "model/js/Action", "model/js/Adjudicator", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/TokenAction",
+  "model/js/Action", "model/js/Adjudicator", "model/js/CardAction", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Maneuver,
-      Action, Adjudicator, Position, Reducer, SquadBuilder, TokenAction, EnvironmentFactory)
+      Action, Adjudicator, CardAction, Position, Reducer, SquadBuilder, EnvironmentFactory)
    {
       QUnit.module("Adjudicator");
 
@@ -27,7 +27,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
          var attacker = environment.tokens()[0];
-         store.dispatch(TokenAction.addCloakCount(attacker));
+         store.dispatch(CardAction.addCloakCount(attacker));
 
          // Run / Verify.
          assert.ok(!adjudicator.canAttack(attacker));
@@ -40,7 +40,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
          var attacker = environment.tokens()[0];
-         store.dispatch(TokenAction.addWeaponsDisabledCount(attacker));
+         store.dispatch(CardAction.addWeaponsDisabledCount(attacker));
 
          // Run / Verify.
          assert.ok(!adjudicator.canAttack(attacker));

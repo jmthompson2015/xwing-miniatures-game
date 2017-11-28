@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCard", "model/js/Action", "model/js/TokenAction"],
-   function(InputValidator, Phase, UpgradeCard, Action, TokenAction)
+define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCard", "model/js/Action", "model/js/CardAction"],
+   function(InputValidator, Phase, UpgradeCard, Action, CardAction)
    {
       function EndPhaseAction(environment, token, callback)
       {
@@ -51,14 +51,14 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCar
 
          var store = this.environment().store();
          var token = this.token();
-         store.dispatch(TokenAction.setEvadeCount(token));
-         store.dispatch(TokenAction.setReinforceCount(token));
-         store.dispatch(TokenAction.setTractorBeamCount(token));
-         store.dispatch(TokenAction.setWeaponsDisabledCount(token));
+         store.dispatch(CardAction.setEvadeCount(token));
+         store.dispatch(CardAction.setReinforceCount(token));
+         store.dispatch(CardAction.setTractorBeamCount(token));
+         store.dispatch(CardAction.setWeaponsDisabledCount(token));
 
          if (!token.isUpgradedWith(UpgradeCard.MOLDY_CROW))
          {
-            store.dispatch(TokenAction.setFocusCount(token));
+            store.dispatch(CardAction.setFocusCount(token));
          }
 
          this.roundEnd();
@@ -96,11 +96,11 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCar
          store.dispatch(Action.setTokenManeuverAction(token.id()));
          store.dispatch(Action.setTokenRange(token));
          environment.setTokenTouching(token, false);
-         store.dispatch(TokenAction.clearTokenUsedAbilities(token));
-         store.dispatch(TokenAction.clearTokenUsedPerRoundAbilities(token));
+         store.dispatch(CardAction.clearTokenUsedAbilities(token));
+         store.dispatch(CardAction.clearTokenUsedPerRoundAbilities(token));
 
          // FIXME: force a recompute.
-         store.dispatch(TokenAction.setEvadeCount(token));
+         store.dispatch(CardAction.setEvadeCount(token));
 
          this.finishIt();
 

@@ -1,7 +1,7 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "model/js/Squad", "model/js/AgentSquadAction", "model/js/TokenFactory", "view/js/SquadBuilderUI"],
-   function(ReactRedux, InputValidator, Squad, AgentSquadAction, TokenFactory, SquadBuilderUI)
+define(["react-redux", "common/js/InputValidator", "model/js/Squad", "model/js/AgentSquadAction", "model/js/CardInstanceFactory", "view/js/SquadBuilderUI"],
+   function(ReactRedux, InputValidator, Squad, AgentSquadAction, CardInstanceFactory, SquadBuilderUI)
    {
       function mapStateToProps(state, ownProps)
       {
@@ -106,7 +106,7 @@ define(["react-redux", "common/js/InputValidator", "model/js/Squad", "model/js/A
                      });
                   }
 
-                  tokens.push(TokenFactory.create(delegateStore, pilot.key, mockAgent, upgradeKeys, upgradeKeysAft));
+                  tokens.push(CardInstanceFactory.create(delegateStore, pilot.key, mockAgent, upgradeKeys, upgradeKeysAft));
                }
             });
          }

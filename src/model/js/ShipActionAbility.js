@@ -4,8 +4,8 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction",
-  "model/js/Action", "model/js/ManeuverAction", "model/js/TargetLock", "model/js/TokenAction"],
-   function(InputValidator, Event, ShipAction, Action, ManeuverAction, TargetLock, TokenAction)
+  "model/js/Action", "model/js/CardAction", "model/js/ManeuverAction", "model/js/TargetLock"],
+   function(InputValidator, Event, ShipAction, Action, CardAction, ManeuverAction, TargetLock)
    {
       var ShipActionAbility = {};
 
@@ -52,7 +52,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addCloakCount(token));
+            store.dispatch(CardAction.addCloakCount(token));
             notifyEvent(store, token, callback, ShipAction.CLOAK);
          },
       };
@@ -81,7 +81,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
             var maneuverKey = context.maneuverKey;
             var maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
             maneuverAction.doIt();
-            store.dispatch(TokenAction.addCloakCount(token, -1));
+            store.dispatch(CardAction.addCloakCount(token, -1));
             notifyEvent(store, token, callback, ShipAction.DECLOAK);
          },
       };
@@ -94,7 +94,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addEvadeCount(token));
+            store.dispatch(CardAction.addEvadeCount(token));
             notifyEvent(store, token, callback, ShipAction.EVADE);
          },
       };
@@ -107,7 +107,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addFocusCount(token));
+            store.dispatch(CardAction.addFocusCount(token));
             notifyEvent(store, token, callback, ShipAction.FOCUS);
          },
       };
@@ -154,7 +154,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(TokenAction.addReinforceCount(token));
+            store.dispatch(CardAction.addReinforceCount(token));
             notifyEvent(store, token, callback, ShipAction.REINFORCE);
          },
       };
@@ -170,7 +170,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
             var maneuverKey = context.maneuverKey;
             var maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
             maneuverAction.doIt();
-            store.dispatch(TokenAction.addWeaponsDisabledCount(token));
+            store.dispatch(CardAction.addWeaponsDisabledCount(token));
             notifyEvent(store, token, callback, ShipAction.SLAM);
          },
       };

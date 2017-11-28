@@ -1,13 +1,13 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/Faction", "artifact/js/PilotCard",  "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/DualToken", "model/js/Reducer", "model/js/Token", "model/js/TokenFactory"],
+  "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
+  "model/js/Agent", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/DualCardInstance", "model/js/Reducer"],
    function(QUnit, Redux,
       Faction, PilotCard, UpgradeCard,
-      Agent, DualToken, Reducer, Token, TokenFactory)
+      Agent, CardInstance, CardInstanceFactory, DualCardInstance, Reducer)
    {
-      QUnit.module("TokenFactory");
+      QUnit.module("CardInstanceFactory");
 
       QUnit.test("create() Academy Pilot", function(assert)
       {
@@ -17,11 +17,11 @@ define(["qunit", "redux",
          var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
 
          // Run.
-         var result = TokenFactory.create(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
+         var result = CardInstanceFactory.create(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
 
          // Verify.
          assert.ok(result);
-         assert.ok(result instanceof Token);
+         assert.ok(result instanceof CardInstance);
          assert.equal(result.pilotKey(), pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.upgradeKeys());
@@ -36,11 +36,11 @@ define(["qunit", "redux",
          var agent = new Agent(store, "Rebel Agent", Faction.REBEL);
 
          // Run.
-         var result = TokenFactory.create(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+         var result = CardInstanceFactory.create(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
 
          // Verify.
          assert.ok(result);
-         assert.ok(result instanceof DualToken);
+         assert.ok(result instanceof DualCardInstance);
          assert.equal(result.pilotKey(), pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.tokenFore().upgradeKeys());
@@ -55,14 +55,14 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.ACADEMY_PILOT;
          var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
-         var token = new Token(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
+         var token = new CardInstance(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
 
          // Run.
-         var result = TokenFactory.get(store, token.id());
+         var result = CardInstanceFactory.get(store, token.id());
 
          // Verify.
          assert.ok(result);
-         assert.ok(result instanceof Token);
+         assert.ok(result instanceof CardInstance);
          assert.equal(result.pilotKey(), pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.upgradeKeys());
@@ -75,14 +75,14 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.CR90_CORVETTE;
          var agent = new Agent(store, "Rebel Agent", Faction.REBEL);
-         var token = new DualToken(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+         var token = new DualCardInstance(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
 
          // Run.
-         var result = TokenFactory.get(store, token.id());
+         var result = CardInstanceFactory.get(store, token.id());
 
          // Verify.
          assert.ok(result);
-         assert.ok(result instanceof DualToken);
+         assert.ok(result instanceof DualCardInstance);
          assert.equal(result.pilotKey(), pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.tokenFore().upgradeKeys());

@@ -2,13 +2,13 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver",
-  "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/Selector",  "model/js/Squad", "model/js/TargetLock", "model/js/Token", "model/js/TokenAction", "model/js/UpgradeAbility3",
+  "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/AttackDice", "model/js/CardAction", "model/js/CardInstance", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver",
+  "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/Selector", "model/js/Squad", "model/js/TargetLock", "model/js/UpgradeAbility3",
   "../../../test/model/js/EnvironmentFactory", "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Redux,
       Faction, Phase, PilotCard, Range, UpgradeCard,
-      Ability, Action, Adjudicator, Agent, AttackDice, CombatAction, DefenseDice, Environment, EnvironmentAction, EventObserver,
-      PhaseObserver, Position, Reducer, Selector, Squad, TargetLock, Token, TokenAction, UpgradeAbility3,
+      Ability, Action, Adjudicator, Agent, AttackDice, CardAction, CardInstance, CombatAction, DefenseDice, Environment, EnvironmentAction, EventObserver,
+      PhaseObserver, Position, Reducer, Selector, Squad, TargetLock, UpgradeAbility3,
       EnvironmentFactory, MockAttackDice, MockDefenseDice)
    {
       QUnit.module("CombatAction-2");
@@ -569,10 +569,10 @@ define(["qunit", "redux",
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
          var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
-         var attacker = new Token(store00, PilotCard.WHISPER, imperialAgent);
+         var attacker = new CardInstance(store00, PilotCard.WHISPER, imperialAgent);
          var attackerPosition = new Position(458, 895, -90);
          var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
-         var defender = new Token(store00, PilotCard.DASH_RENDAR, rebelAgent);
+         var defender = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent);
          var defenderPosition = new Position(450, 845, 90);
 
          var store = Redux.createStore(Reducer.root);
@@ -623,7 +623,7 @@ define(["qunit", "redux",
          //     var isAccepted = (ability !== undefined);
          //     callback(ability, isAccepted);
          //  };
-         var attacker = new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
+         var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
          var attackerPosition = new Position(458, 895, -90);
 
          var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
@@ -631,7 +631,7 @@ define(["qunit", "redux",
          //  {
          //     callback(undefined, false);
          //  };
-         var defender = new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+         var defender = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
          var myY = (y !== undefined ? y : 845);
          var defenderPosition = new Position(450, myY, 90);
 
@@ -665,7 +665,7 @@ define(["qunit", "redux",
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
 
-         store.dispatch(TokenAction.addFocusCount(attacker));
+         store.dispatch(CardAction.addFocusCount(attacker));
          TargetLock.newInstance(store, attacker, defender);
 
          var weapon = attacker.secondaryWeapons().get(0);
@@ -696,7 +696,7 @@ define(["qunit", "redux",
          //  {
          //     callback(undefined, false);
          //  };
-         var attacker = new Token(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
+         var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
          var attackerPosition = new Position(458, 895, -90);
 
          var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
@@ -704,7 +704,7 @@ define(["qunit", "redux",
          //  {
          //     callback(undefined, false);
          //  };
-         var defender = new Token(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+         var defender = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
          var defenderPosition = new Position(450, 845, 90);
 
          var store = Redux.createStore(Reducer.root);
