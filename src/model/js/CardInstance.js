@@ -33,7 +33,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          if (isNaN(id))
          {
-            id = store.getState().nextTokenId;
+            id = store.getState().nextCardId;
             store.dispatch(CardAction.incrementNextCardId());
          }
 
@@ -264,7 +264,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          var state = this.state();
          var id = this.id();
-         var counts = state.tokenIdToCounts.get(id);
+         var counts = state.cardCounts.get(id);
          var answer;
 
          if (counts)
@@ -284,7 +284,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var state = this.state();
          var id = this.id();
-         var answer = state.tokenIdToCriticalDamages.get(id);
+         var answer = state.cardCriticalDamages.get(id);
 
          return (answer ? answer : Immutable.List());
       };
@@ -306,7 +306,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var state = this.state();
          var id = this.id();
-         var answer = state.tokenIdToDamages.get(id);
+         var answer = state.cardDamages.get(id);
 
          return (answer ? answer : Immutable.List());
       };
@@ -368,7 +368,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("sourceKey", sourceKey);
 
          var state = this.state();
-         var usedAbilities = state.tokenIdToUsedAbilities.get(this.id());
+         var usedAbilities = state.cardUsedAbilities.get(this.id());
          var answer = false;
 
          for (var i = 0; !answer && i < usedAbilities.size; i++)
@@ -413,7 +413,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("sourceKey", sourceKey);
 
          var state = this.state();
-         var usedAbilities = state.tokenIdToUsedPerRoundAbilities.get(this.id());
+         var usedAbilities = state.cardUsedPerRoundAbilities.get(this.id());
          var answer = false;
 
          for (var i = 0; !answer && i < usedAbilities.size; i++)
@@ -560,7 +560,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          var state = this.state();
          var id = this.id();
 
-         return state.tokenIdToPrimaryWeapon.get(id);
+         return state.cardPrimaryWeapon.get(id);
       };
 
       CardInstance.prototype.primaryWeaponValue = function()
@@ -584,7 +584,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var state = this.state();
          var id = this.id();
-         var answer = state.tokenIdToSecondaryWeapons.get(id);
+         var answer = state.cardSecondaryWeapons.get(id);
 
          return (answer !== undefined ? answer : Immutable.List());
       };
@@ -749,7 +749,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var state = this.state();
          var id = this.id();
-         var answer = state.tokenIdToUpgrades.get(id);
+         var answer = state.cardUpgrades.get(id);
 
          return (answer !== undefined ? answer : Immutable.List());
       };
@@ -828,7 +828,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       CardInstance.prototype.usedAbilities = function(source, sourceKey)
       {
          var state = this.state();
-         var answer = state.tokenIdToUsedAbilities.get(this.id());
+         var answer = state.cardUsedAbilities.get(this.id());
 
          if (source)
          {
@@ -853,7 +853,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var state = this.state();
          var answer = [];
-         var usedAbilities = state.tokenIdToUsedAbilities.get(this.id());
+         var usedAbilities = state.cardUsedAbilities.get(this.id());
 
          for (var i = 0; i < usedAbilities.size; i++)
          {
@@ -871,7 +871,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       CardInstance.prototype.usedPerRoundAbilities = function(source, sourceKey)
       {
          var state = this.state();
-         var answer = state.tokenIdToUsedPerRoundAbilities.get(this.id());
+         var answer = state.cardUsedPerRoundAbilities.get(this.id());
 
          if (source)
          {
@@ -896,7 +896,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var state = this.state();
          var answer = [];
-         var usedAbilities = state.tokenIdToUsedPerRoundAbilities.get(this.id());
+         var usedAbilities = state.cardUsedPerRoundAbilities.get(this.id());
 
          for (var i = 0; i < usedAbilities.size; i++)
          {
@@ -1241,7 +1241,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             }
 
             var agent = values.get("agent");
-            var upgradeKeys = store.getState().tokenIdToUpgrades.get(id);
+            var upgradeKeys = store.getState().cardUpgrades.get(id);
             var isNew = false;
 
             answer = new CardInstance(store, pilotKey, agent, upgradeKeys, id, isNew);

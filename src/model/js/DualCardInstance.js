@@ -35,7 +35,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
 
          if (isNaN(id))
          {
-            id = store.getState().nextTokenId;
+            id = store.getState().nextCardId;
             store.dispatch(CardAction.incrementNextCardId());
          }
 
@@ -323,8 +323,8 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
             var agent = values.get("agent");
             var idFore = values.get("idFore");
             var idAft = values.get("idAft");
-            var upgradeKeysFore = store.getState().tokenIdToUpgrades.get(id);
-            var upgradeKeysAft = store.getState().tokenIdToUpgrades.get(id);
+            var upgradeKeysFore = store.getState().cardUpgrades.get(id);
+            var upgradeKeysAft = store.getState().cardUpgrades.get(id);
             var isNew = false;
 
             answer = new DualCardInstance(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft, id, isNew, idFore, idAft);

@@ -54,16 +54,16 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.nextAgentId = 1;
 
       // CardInstance.
-      this.nextTokenId = 1;
-      this.tokenIdToCounts = Immutable.Map();
-      this.tokenIdToCriticalDamages = Immutable.Map();
-      this.tokenIdToDamages = Immutable.Map();
-      this.tokenIdToPrimaryWeapon = Immutable.Map();
-      this.tokenIdToSecondaryWeapons = Immutable.Map();
-      this.tokenIdToUpgradeEnergy = Immutable.Map();
-      this.tokenIdToUpgrades = Immutable.Map();
-      this.tokenIdToUsedAbilities = Immutable.Map();
-      this.tokenIdToUsedPerRoundAbilities = Immutable.Map();
+      this.nextCardId = 1;
+      this.cardCounts = Immutable.Map();
+      this.cardCriticalDamages = Immutable.Map();
+      this.cardDamages = Immutable.Map();
+      this.cardPrimaryWeapon = Immutable.Map();
+      this.cardSecondaryWeapons = Immutable.Map();
+      this.cardUpgradeEnergy = Immutable.Map();
+      this.cardUpgrades = Immutable.Map();
+      this.cardUsedAbilities = Immutable.Map();
+      this.cardUsedPerRoundAbilities = Immutable.Map();
    }
 
    if (Object.freeze)

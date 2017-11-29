@@ -16,22 +16,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.CLOAK;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addCloakCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addCloakCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addCount()", function(assert)
@@ -41,29 +41,29 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = "focus";
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addCount(token, property));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addCount(token, property, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
 
          // Run.
          store.dispatch(CardAction.addCount(token, property, -4));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
       });
 
       QUnit.test("addEnergyCount()", function(assert)
@@ -73,22 +73,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.ENERGY;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addEnergyCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addEnergyCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addEvadeCount()", function(assert)
@@ -98,22 +98,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.EVADE;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addEvadeCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addEvadeCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addFocusCount()", function(assert)
@@ -123,22 +123,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.FOCUS;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addFocusCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addFocusCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addIonCount()", function(assert)
@@ -148,22 +148,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.ION;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addIonCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addIonCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addReinforceCount()", function(assert)
@@ -173,22 +173,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.REINFORCE;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addReinforceCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addReinforceCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addShieldCount()", function(assert)
@@ -198,22 +198,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.SHIELD;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addShieldCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addShieldCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addStressCount()", function(assert)
@@ -223,22 +223,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.STRESS;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addStressCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addStressCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("addTokenCriticalDamage()", function(assert)
@@ -249,13 +249,13 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var damageKey0 = DamageCard.BLINDED_PILOT;
          var damageKey1 = DamageCard.CONSOLE_FIRE;
-         assert.ok(!store.getState().tokenIdToCriticalDamages[token.id()]);
+         assert.ok(!store.getState().cardCriticalDamages[token.id()]);
 
          // Run.
          store.dispatch(CardAction.addCriticalDamage(token, damageKey0));
 
          // Verify.
-         var damages = store.getState().tokenIdToCriticalDamages.get(token.id());
+         var damages = store.getState().cardCriticalDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 1);
          assert.equal(damages.get(0), damageKey0);
@@ -264,7 +264,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.addCriticalDamage(token, damageKey1));
 
          // Verify.
-         damages = store.getState().tokenIdToCriticalDamages.get(token.id());
+         damages = store.getState().cardCriticalDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 2);
          assert.equal(damages.get(0), damageKey0);
@@ -278,13 +278,13 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          var damageKey0 = DamageCard.BLINDED_PILOT;
          var damageKey1 = DamageCard.CONSOLE_FIRE;
-         assert.ok(!store.getState().tokenIdToDamages[token.id()]);
+         assert.ok(!store.getState().cardDamages[token.id()]);
 
          // Run.
          store.dispatch(CardAction.addDamage(token, damageKey0));
 
          // Verify.
-         var damages = store.getState().tokenIdToDamages.get(token.id());
+         var damages = store.getState().cardDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 1);
          assert.equal(damages.get(0), damageKey0);
@@ -293,7 +293,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.addDamage(token, damageKey1));
 
          // Verify.
-         damages = store.getState().tokenIdToDamages.get(token.id());
+         damages = store.getState().cardDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 2);
          assert.equal(damages.get(0), damageKey0);
@@ -308,13 +308,13 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
          var upgradeKey1 = UpgradeCard.CALCULATION;
-         assert.ok(!store.getState().tokenIdToUpgrades.get(token.id()));
+         assert.ok(!store.getState().cardUpgrades.get(token.id()));
 
          // Run.
          store.dispatch(CardAction.addUpgrade(token, upgradeKey0));
 
          // Verify.
-         var upgrades = store.getState().tokenIdToUpgrades.get(token.id());
+         var upgrades = store.getState().cardUpgrades.get(token.id());
          assert.ok(upgrades);
          assert.equal(upgrades.size, 1);
          assert.equal(upgrades.get(0), upgradeKey0);
@@ -323,7 +323,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.addUpgrade(token, upgradeKey1));
 
          // Verify.
-         upgrades = store.getState().tokenIdToUpgrades.get(token.id());
+         upgrades = store.getState().cardUpgrades.get(token.id());
          assert.ok(upgrades);
          assert.equal(upgrades.size, 2);
          assert.equal(upgrades.get(0), upgradeKey0);
@@ -337,13 +337,13 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
          var upgradeKey1 = UpgradeCard.CALCULATION;
-         assert.ok(!store.getState().tokenIdToUpgradeEnergy.get(token.id()));
+         assert.ok(!store.getState().cardUpgradeEnergy.get(token.id()));
 
          // Run.
          store.dispatch(CardAction.addUpgradeEnergy(token, upgradeKey0));
 
          // Verify.
-         var upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());
+         var upgradeEnergy = store.getState().cardUpgradeEnergy.get(token.id());
          assert.ok(upgradeEnergy);
          assert.ok(upgradeEnergy.get(upgradeKey0));
          assert.ok(!upgradeEnergy.get(upgradeKey1));
@@ -353,7 +353,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.addUpgradeEnergy(token, upgradeKey1, 2));
 
          // Verify.
-         upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());
+         upgradeEnergy = store.getState().cardUpgradeEnergy.get(token.id());
          assert.ok(upgradeEnergy);
          assert.ok(upgradeEnergy.get(upgradeKey0));
          assert.ok(upgradeEnergy.get(upgradeKey1));
@@ -470,22 +470,22 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.WEAPONS_DISABLED;
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 0);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
          // Run.
          store.dispatch(CardAction.addWeaponsDisabledCount(token));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.addWeaponsDisabledCount(token, 2));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 3);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 3);
       });
 
       QUnit.test("clearTokenUsedAbilities()", function(assert)
@@ -536,19 +536,19 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         assert.equal(store.getState().nextTokenId, 1);
+         assert.equal(store.getState().nextCardId, 1);
 
          // Run.
          store.dispatch(CardAction.incrementNextCardId());
 
          // Verify.
-         assert.equal(store.getState().nextTokenId, 2);
+         assert.equal(store.getState().nextCardId, 2);
 
          // Run.
          store.dispatch(CardAction.incrementNextCardId());
 
          // Verify.
-         assert.equal(store.getState().nextTokenId, 3);
+         assert.equal(store.getState().nextCardId, 3);
       });
 
       QUnit.test("removeTokenCriticalDamage()", function(assert)
@@ -561,7 +561,7 @@ define(["qunit", "redux",
          var damageKey1 = DamageCard.CONSOLE_FIRE;
          store.dispatch(CardAction.addCriticalDamage(token, damageKey0));
          store.dispatch(CardAction.addCriticalDamage(token, damageKey1));
-         var damages = store.getState().tokenIdToCriticalDamages.get(token.id());
+         var damages = store.getState().cardCriticalDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 2);
          assert.equal(damages.get(0), damageKey0);
@@ -571,7 +571,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.removeCriticalDamage(token, damageKey1));
 
          // Verify.
-         damages = store.getState().tokenIdToCriticalDamages.get(token.id());
+         damages = store.getState().cardCriticalDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 1);
          assert.equal(damages.get(0), damageKey0);
@@ -580,7 +580,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.removeCriticalDamage(token, damageKey0));
 
          // Verify.
-         damages = store.getState().tokenIdToCriticalDamages.get(token.id());
+         damages = store.getState().cardCriticalDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 0);
       });
@@ -594,7 +594,7 @@ define(["qunit", "redux",
          var damageKey1 = DamageCard.CONSOLE_FIRE;
          store.dispatch(CardAction.addDamage(token, damageKey0));
          store.dispatch(CardAction.addDamage(token, damageKey1));
-         var damages = store.getState().tokenIdToDamages.get(token.id());
+         var damages = store.getState().cardDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 2);
          assert.equal(damages.get(0), damageKey0);
@@ -604,7 +604,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.removeDamage(token, damageKey1));
 
          // Verify.
-         damages = store.getState().tokenIdToDamages.get(token.id());
+         damages = store.getState().cardDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 1);
          assert.equal(damages.get(0), damageKey0);
@@ -613,7 +613,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.removeDamage(token, damageKey0));
 
          // Verify.
-         damages = store.getState().tokenIdToDamages.get(token.id());
+         damages = store.getState().cardDamages.get(token.id());
          assert.ok(damages);
          assert.equal(damages.size, 0);
       });
@@ -628,25 +628,25 @@ define(["qunit", "redux",
          var upgradeKey1 = UpgradeCard.CALCULATION;
          store.dispatch(CardAction.addUpgrade(token, upgradeKey0));
          store.dispatch(CardAction.addUpgrade(token, upgradeKey1));
-         assert.ok(store.getState().tokenIdToUpgrades.get(token.id()));
-         assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).size, 2);
-         assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).get(0), upgradeKey0);
-         assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).get(1), upgradeKey1);
+         assert.ok(store.getState().cardUpgrades.get(token.id()));
+         assert.equal(store.getState().cardUpgrades.get(token.id()).size, 2);
+         assert.equal(store.getState().cardUpgrades.get(token.id()).get(0), upgradeKey0);
+         assert.equal(store.getState().cardUpgrades.get(token.id()).get(1), upgradeKey1);
 
          // Run.
          store.dispatch(CardAction.removeUpgrade(token, upgradeKey1));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToUpgrades.get(token.id()));
-         assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).size, 1);
-         assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).get(0), upgradeKey0);
+         assert.ok(store.getState().cardUpgrades.get(token.id()));
+         assert.equal(store.getState().cardUpgrades.get(token.id()).size, 1);
+         assert.equal(store.getState().cardUpgrades.get(token.id()).get(0), upgradeKey0);
 
          // Run.
          store.dispatch(CardAction.removeUpgrade(token, upgradeKey0));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToUpgrades.get(token.id()));
-         assert.equal(store.getState().tokenIdToUpgrades.get(token.id()).size, 0);
+         assert.ok(store.getState().cardUpgrades.get(token.id()));
+         assert.equal(store.getState().cardUpgrades.get(token.id()).size, 0);
       });
 
       QUnit.test("removeTokenUsedAbility()", function(assert)
@@ -753,15 +753,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.CLOAK;
          store.dispatch(CardAction.addCloakCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setCloakCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setCount()", function(assert)
@@ -772,15 +772,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = "focus";
          store.dispatch(CardAction.addCount(token, property));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setCount(token, property, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setEnergyCount()", function(assert)
@@ -791,15 +791,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.ENERGY;
          store.dispatch(CardAction.addEnergyCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setEnergyCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setEvadeCount()", function(assert)
@@ -810,15 +810,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.EVADE;
          store.dispatch(CardAction.addEvadeCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setEvadeCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setFocusCount()", function(assert)
@@ -829,15 +829,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.FOCUS;
          store.dispatch(CardAction.addFocusCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setFocusCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setIonCount()", function(assert)
@@ -848,15 +848,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.ION;
          store.dispatch(CardAction.addIonCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setIonCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setReinforceCount()", function(assert)
@@ -867,15 +867,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.REINFORCE;
          store.dispatch(CardAction.addReinforceCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setReinforceCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setShieldCount()", function(assert)
@@ -886,15 +886,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.SHIELD;
          store.dispatch(CardAction.addShieldCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setShieldCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setStressCount()", function(assert)
@@ -905,15 +905,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.STRESS;
          store.dispatch(CardAction.addStressCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setStressCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
       QUnit.test("setUpgradeEnergy()", function(assert)
@@ -923,13 +923,13 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
          var upgradeKey1 = UpgradeCard.CALCULATION;
-         assert.ok(!store.getState().tokenIdToUpgradeEnergy.get(token.id()));
+         assert.ok(!store.getState().cardUpgradeEnergy.get(token.id()));
 
          // Run.
          store.dispatch(CardAction.setUpgradeEnergy(token, upgradeKey0, 1));
 
          // Verify.
-         var upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());
+         var upgradeEnergy = store.getState().cardUpgradeEnergy.get(token.id());
          assert.ok(upgradeEnergy);
          assert.equal(upgradeEnergy.get(upgradeKey0), 1);
          assert.ok(!upgradeEnergy.get(upgradeKey1), 0);
@@ -938,7 +938,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.setUpgradeEnergy(token, upgradeKey1, 2));
 
          // Verify.
-         upgradeEnergy = store.getState().tokenIdToUpgradeEnergy.get(token.id());
+         upgradeEnergy = store.getState().cardUpgradeEnergy.get(token.id());
          assert.ok(upgradeEnergy);
          assert.equal(upgradeEnergy.get(upgradeKey0), 1);
          assert.equal(upgradeEnergy.get(upgradeKey1), 2);
@@ -952,14 +952,14 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
          var property = Count.WEAPONS_DISABLED;
          store.dispatch(CardAction.addWeaponsDisabledCount(token));
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 1);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
 
          // Run.
          store.dispatch(CardAction.setWeaponsDisabledCount(token, 12));
 
          // Verify.
-         assert.ok(store.getState().tokenIdToCounts.get(token.id()));
-         assert.equal(store.getState().tokenIdToCounts.get(token.id()).get(property), 12);
+         assert.ok(store.getState().cardCounts.get(token.id()));
+         assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
    });
