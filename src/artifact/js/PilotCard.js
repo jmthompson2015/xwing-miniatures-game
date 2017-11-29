@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Faction", "artifact/js/ShipFaction", "artifact/js/UpgradeType"],
-   function(ArrayAugments, InputValidator, Faction, ShipFaction, UpgradeType)
+define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/CardType", "artifact/js/Faction", "artifact/js/ShipFaction", "artifact/js/UpgradeType"],
+   function(ArrayAugments, InputValidator, CardType, Faction, ShipFaction, UpgradeType)
    {
       var PilotCard = {
          ACADEMY_PILOT: "academyPilot",
@@ -3019,6 +3019,66 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          },
       };
 
+      PilotCard.keys = function()
+      {
+         return Object.keys(PilotCard.properties);
+      };
+
+      PilotCard.values = function()
+      {
+         return Object.values(PilotCard.properties);
+      };
+
+      PilotCard.keys().forEach(function(pilotKey)
+      {
+         var pilot = PilotCard.properties[pilotKey];
+         pilot.cardTypeKey = CardType.PILOT;
+         pilot.xwingType = PilotCard;
+         pilot.shipFaction = ShipFaction.properties[pilot.shipFactionKey];
+
+         if (pilot.upgradeTypeKeys !== undefined)
+         {
+            pilot.upgradeTypes = pilot.upgradeTypeKeys.map(function(typeKey)
+            {
+               return UpgradeType.properties[typeKey];
+            });
+         }
+
+         if (pilot.description && pilot.description.toLowerCase().indexOf("once per round") !== -1)
+         {
+            pilot.oncePerRound = true;
+         }
+
+         if (pilot.fore)
+         {
+            pilot.fore.cardTypeKey = CardType.PILOT;
+            pilot.fore.xwingType = PilotCard;
+            pilot.fore.parent = pilot;
+            pilot.fore.shipFaction = ShipFaction.properties[pilot.fore.shipFactionKey];
+
+            if (pilot.fore.description.toLowerCase().indexOf("once per round") !== -1)
+            {
+               pilot.fore.oncePerRound = true;
+            }
+         }
+
+         if (pilot.aft)
+         {
+            pilot.aft.cardTypeKey = CardType.PILOT;
+            pilot.aft.xwingType = PilotCard;
+            pilot.aft.parent = pilot;
+            pilot.aft.shipFaction = ShipFaction.properties[pilot.aft.shipFactionKey];
+
+            if (pilot.aft.description.toLowerCase().indexOf("once per round") !== -1)
+            {
+               pilot.aft.oncePerRound = true;
+            }
+         }
+      });
+
+      //////////////////////////////////////////////////////////////////////////
+      // Utility methods.
+
       PilotCard.getName = function(pilotKey)
       {
          InputValidator.validateNotNull("pilotKey", pilotKey);
@@ -3031,9 +3091,27 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          return answer;
       };
 
-      PilotCard.keys = function()
+      PilotCard.keysByFaction = function(factionKey, isStrict)
       {
-         return Object.keys(PilotCard.properties);
+         InputValidator.validateNotNull("factionKey", factionKey);
+
+         var answer = this.keys().filter(function(pilotKey)
+         {
+            var pilot = PilotCard.properties[pilotKey];
+            return pilot.shipFaction.factionKey === factionKey;
+         });
+
+         if (!isStrict)
+         {
+            var friend = Faction.friend(factionKey);
+
+            if (friend)
+            {
+               answer.xwingAddAll(this.keysByFaction(friend, true));
+            }
+         }
+
+         return answer;
       };
 
       PilotCard.keysByShipAndFaction = function(shipKey, factionKey, isStrict)
@@ -3060,82 +3138,10 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          });
       };
 
-      PilotCard.keysByFaction = function(factionKey, isStrict)
-      {
-         InputValidator.validateNotNull("factionKey", factionKey);
-
-         var answer = this.keys().filter(function(pilotKey)
-         {
-            var pilot = PilotCard.properties[pilotKey];
-            return pilot.shipFaction.factionKey === factionKey;
-         });
-
-         if (!isStrict)
-         {
-            var friend = Faction.friend(factionKey);
-
-            if (friend)
-            {
-               answer.xwingAddAll(this.keysByFaction(friend, true));
-            }
-         }
-
-         return answer;
-      };
-
       PilotCard.toString = function()
       {
          return "PilotCard";
       };
-
-      PilotCard.values = function()
-      {
-         return Object.values(PilotCard.properties);
-      };
-
-      PilotCard.keys().forEach(function(pilotKey)
-      {
-         var pilot = PilotCard.properties[pilotKey];
-         pilot.xwingType = PilotCard;
-         pilot.shipFaction = ShipFaction.properties[pilot.shipFactionKey];
-
-         if (pilot.upgradeTypeKeys !== undefined)
-         {
-            pilot.upgradeTypes = pilot.upgradeTypeKeys.map(function(typeKey)
-            {
-               return UpgradeType.properties[typeKey];
-            });
-         }
-
-         if (pilot.description && pilot.description.toLowerCase().indexOf("once per round") !== -1)
-         {
-            pilot.oncePerRound = true;
-         }
-
-         if (pilot.fore)
-         {
-            pilot.fore.xwingType = PilotCard;
-            pilot.fore.parent = pilot;
-            pilot.fore.shipFaction = ShipFaction.properties[pilot.fore.shipFactionKey];
-
-            if (pilot.fore.description.toLowerCase().indexOf("once per round") !== -1)
-            {
-               pilot.fore.oncePerRound = true;
-            }
-         }
-
-         if (pilot.aft)
-         {
-            pilot.aft.xwingType = PilotCard;
-            pilot.aft.parent = pilot;
-            pilot.aft.shipFaction = ShipFaction.properties[pilot.aft.shipFactionKey];
-
-            if (pilot.aft.description.toLowerCase().indexOf("once per round") !== -1)
-            {
-               pilot.aft.oncePerRound = true;
-            }
-         }
-      });
 
       if (Object.freeze)
       {

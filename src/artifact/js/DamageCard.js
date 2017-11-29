@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
-   function(ArrayAugments, DamageCardTrait)
+define(["common/js/ArrayAugments", "artifact/js/CardType", "artifact/js/DamageCardTrait"],
+   function(ArrayAugments, CardType, DamageCardTrait)
    {
       var DamageCard = {
          BLINDED_PILOT: "blindedPilot",
@@ -278,6 +278,31 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
          },
       };
 
+      DamageCard.keys = function()
+      {
+         return Object.keys(DamageCard.properties);
+      };
+
+      DamageCard.values = function()
+      {
+         return Object.values(DamageCard.properties);
+      };
+
+      DamageCard.keys().forEach(function(damageKey)
+      {
+         var damage = DamageCard.properties[damageKey];
+         damage.cardTypeKey = CardType.DAMAGE;
+         damage.xwingType = DamageCard;
+
+         if (damage.hasAction)
+         {
+            damage.oncePerRound = true;
+         }
+      });
+
+      //////////////////////////////////////////////////////////////////////////
+      // Utility methods.
+
       DamageCard.createDeckV1 = function()
       {
          // There are two of each, except seven of Direct Hit!
@@ -322,11 +347,6 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
          return answer;
       };
 
-      DamageCard.keys = function()
-      {
-         return Object.keys(DamageCard.properties);
-      };
-
       DamageCard.keysV1 = function()
       {
          var values = this.keys();
@@ -351,22 +371,6 @@ define(["common/js/ArrayAugments", "artifact/js/DamageCardTrait"],
       {
          return "DamageCard";
       };
-
-      DamageCard.values = function()
-      {
-         return Object.values(DamageCard.properties);
-      };
-
-      DamageCard.keys().forEach(function(damageKey)
-      {
-         var damage = DamageCard.properties[damageKey];
-         damage.xwingType = DamageCard;
-
-         if (damage.hasAction)
-         {
-            damage.oncePerRound = true;
-         }
-      });
 
       if (Object.freeze)
       {

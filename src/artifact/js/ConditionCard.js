@@ -1,6 +1,6 @@
 "use strict";
 
-define(function()
+define(["artifact/js/CardType"], function(CardType)
 {
    var ConditionCard = {
       FANATICAL_DEVOTION: "fanaticalDevotion",
@@ -28,14 +28,24 @@ define(function()
       return Object.keys(ConditionCard.properties);
    };
 
-   ConditionCard.toString = function()
-   {
-      return "ConditionCard";
-   };
-
    ConditionCard.values = function()
    {
       return Object.values(ConditionCard.properties);
+   };
+
+   ConditionCard.keys().forEach(function(upgradeKey)
+   {
+      var condition = ConditionCard.properties[upgradeKey];
+      condition.cardTypeKey = CardType.CONDITION;
+      condition.xwingType = ConditionCard;
+   });
+
+   //////////////////////////////////////////////////////////////////////////
+   // Utility methods.
+
+   ConditionCard.toString = function()
+   {
+      return "ConditionCard";
    };
 
    if (Object.freeze)

@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeHeader", "artifact/js/UpgradeRestriction", "artifact/js/UpgradeType"],
-   function(InputValidator, FiringArc, PilotCard, Range, UpgradeHeader, UpgradeRestriction, UpgradeType)
+define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringArc", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/UpgradeHeader", "artifact/js/UpgradeRestriction", "artifact/js/UpgradeType"],
+   function(InputValidator, CardType, FiringArc, PilotCard, Range, UpgradeHeader, UpgradeRestriction, UpgradeType)
    {
       var UpgradeCard = {
          A_WING_TEST_PILOT: "aWingTestPilot",
@@ -3289,6 +3289,53 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
          },
       };
 
+      UpgradeCard.keys = function()
+      {
+         return Object.keys(UpgradeCard.properties);
+      };
+
+      UpgradeCard.values = function()
+      {
+         return Object.values(UpgradeCard.properties);
+      };
+
+      UpgradeCard.keys().forEach(function(upgradeKey)
+      {
+         var upgrade = UpgradeCard.properties[upgradeKey];
+         upgrade.cardTypeKey = CardType.UPGRADE;
+         upgrade.xwingType = UpgradeCard;
+         upgrade.type = UpgradeType.properties[upgrade.typeKey];
+
+         if (upgrade.headerKey !== undefined)
+         {
+            upgrade.header = UpgradeHeader.properties[upgrade.headerKey];
+         }
+
+         if (upgrade.rangeKeys !== undefined)
+         {
+            upgrade.ranges = upgrade.rangeKeys.map(function(rangeKey)
+            {
+               return Range.properties[rangeKey];
+            });
+         }
+
+         if (upgrade.restrictionKeys !== undefined)
+         {
+            upgrade.restrictions = upgrade.restrictionKeys.map(function(restrictionKey)
+            {
+               return UpgradeRestriction.properties[restrictionKey];
+            });
+         }
+
+         if (upgrade.header === UpgradeHeader.ACTION || upgrade.description.toLowerCase().indexOf("once per round") !== -1)
+         {
+            upgrade.oncePerRound = true;
+         }
+      });
+
+      //////////////////////////////////////////////////////////////////////////
+      // Utility methods.
+
       UpgradeCard.getName = function(upgradeKey)
       {
          InputValidator.validateNotNull("upgradeKey", upgradeKey);
@@ -3299,11 +3346,6 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
          answer += upgrade.name;
 
          return answer;
-      };
-
-      UpgradeCard.keys = function()
-      {
-         return Object.keys(UpgradeCard.properties);
       };
 
       UpgradeCard.keysByPilotAndType = function(pilotKey, upgradeTypeKey)
@@ -3344,44 +3386,6 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/PilotC
       {
          return "UpgradeCard";
       };
-
-      UpgradeCard.values = function()
-      {
-         return Object.values(UpgradeCard.properties);
-      };
-
-      UpgradeCard.keys().forEach(function(upgradeKey)
-      {
-         var upgrade = UpgradeCard.properties[upgradeKey];
-         upgrade.xwingType = UpgradeCard;
-         upgrade.type = UpgradeType.properties[upgrade.typeKey];
-
-         if (upgrade.headerKey !== undefined)
-         {
-            upgrade.header = UpgradeHeader.properties[upgrade.headerKey];
-         }
-
-         if (upgrade.rangeKeys !== undefined)
-         {
-            upgrade.ranges = upgrade.rangeKeys.map(function(rangeKey)
-            {
-               return Range.properties[rangeKey];
-            });
-         }
-
-         if (upgrade.restrictionKeys !== undefined)
-         {
-            upgrade.restrictions = upgrade.restrictionKeys.map(function(restrictionKey)
-            {
-               return UpgradeRestriction.properties[restrictionKey];
-            });
-         }
-
-         if (upgrade.header === UpgradeHeader.ACTION || upgrade.description.toLowerCase().indexOf("once per round") !== -1)
-         {
-            upgrade.oncePerRound = true;
-         }
-      });
 
       if (Object.freeze)
       {
