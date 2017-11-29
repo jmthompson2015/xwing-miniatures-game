@@ -74,21 +74,21 @@ define(["qunit", "redux",
          var token2 = environment.tokens()[2];
          var fromPosition = environment.getPositionFor(token2);
          var toPosition = new Position(120, 220, 45);
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 3);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 3);
-         assert.equal(store.getState().tokens.keySeq().size, 3);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 3);
 
          // Run.
          store.dispatch(EnvironmentAction.moveToken(fromPosition, toPosition));
 
          // Verify.
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 3);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 3);
-         assert.equal(store.getState().tokens.keySeq().size, 3);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 3);
 
          var token22 = CardInstance.get(store, token2.id());
          assert.ok(token22.equals(token2));
-         assert.equal(store.getState().tokenIdToPosition[token2.id()], toPosition);
+         assert.equal(store.getState().cardPosition[token2.id()], toPosition);
       });
 
       QUnit.test("placeToken()", function(assert)
@@ -97,20 +97,20 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var position = new Position(100, 200, 45);
          var agent = new Agent(store, "Charlie", Faction.REBEL);
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 0);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 0);
-         assert.equal(store.getState().tokens.keySeq().size, 0);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 0);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 0);
+         assert.equal(store.getState().cardInstances.keySeq().size, 0);
          var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
 
          // Run.
          store.dispatch(EnvironmentAction.placeToken(position, token));
 
          // Verify.
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 1);
-         assert.equal(store.getState().positionToTokenId[position], token.id(), "positionToTokenId[position] = " + store.getState().positionToTokenId[position]);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 1);
-         assert.equal(store.getState().tokenIdToPosition[token.id()], position, "tokenIdToPosition[" + token.id() + "] = " + store.getState().tokenIdToPosition[token.id()]);
-         assert.equal(store.getState().tokens.keySeq().size, 1);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 1);
+         assert.equal(store.getState().positionToCardId[position], token.id(), "positionToCardId[position] = " + store.getState().positionToCardId[position]);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 1);
+         assert.equal(store.getState().cardPosition[token.id()], position, "cardPosition[" + token.id() + "] = " + store.getState().cardPosition[token.id()]);
+         assert.equal(store.getState().cardInstances.keySeq().size, 1);
       });
 
       QUnit.test("removeToken()", function(assert)
@@ -119,17 +119,17 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var token0 = environment.tokens()[0];
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 3);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 3);
-         assert.equal(store.getState().tokens.keySeq().size, 3);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 3);
 
          // Run.
          store.dispatch(EnvironmentAction.removeToken(token0));
 
          // Verify.
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 2);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 2);
-         assert.equal(store.getState().tokens.keySeq().size, 2);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 2);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 2);
+         assert.equal(store.getState().cardInstances.keySeq().size, 2);
       });
 
       QUnit.test("removeTokenAt()", function(assert)
@@ -139,17 +139,17 @@ define(["qunit", "redux",
          var store = environment.store();
          var token0 = environment.tokens()[0];
          var position0 = environment.getPositionFor(token0);
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 3);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 3);
-         assert.equal(store.getState().tokens.keySeq().size, 3);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 3);
 
          // Run.
          store.dispatch(EnvironmentAction.removeTokenAt(position0));
 
          // Verify.
-         assert.equal(Object.keys(store.getState().positionToTokenId).length, 2);
-         assert.equal(Object.keys(store.getState().tokenIdToPosition).length, 2);
-         assert.equal(store.getState().tokens.keySeq().size, 2);
+         assert.equal(Object.keys(store.getState().positionToCardId).length, 2);
+         assert.equal(Object.keys(store.getState().cardPosition).length, 2);
+         assert.equal(store.getState().cardInstances.keySeq().size, 2);
       });
 
       QUnit.test("replenishDamageDeck()", function(assert)
@@ -181,19 +181,19 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          var token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, new Agent(store, "Rebel", Faction.REBEL));
-         assert.ok(!store.getState().activeTokenId);
+         assert.ok(!store.getState().activeCardId);
 
          // Run.
          store.dispatch(EnvironmentAction.setActiveToken(token0));
 
          // Verify.
-         assert.equal(store.getState().activeTokenId, token0.id());
+         assert.equal(store.getState().activeCardId, token0.id());
 
          // Run.
          store.dispatch(EnvironmentAction.setActiveToken(token1));
 
          // Verify.
-         assert.equal(store.getState().activeTokenId, token1.id());
+         assert.equal(store.getState().activeCardId, token1.id());
       });
 
       QUnit.test("setDamageDeck()", function(assert)
@@ -306,18 +306,18 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
-         assert.ok(!store.getState().tokenIdToIsTouching[token.id()]);
+         assert.ok(!store.getState().cardIsTouching[token.id()]);
 
          // Run.
          store.dispatch(EnvironmentAction.setTokenTouching(token, true));
 
          // Verify.
-         assert.equal(store.getState().tokenIdToIsTouching[token.id()], true);
+         assert.equal(store.getState().cardIsTouching[token.id()], true);
 
          // Run.
          store.dispatch(EnvironmentAction.setTokenTouching(token, false));
 
          // Verify.
-         assert.equal(store.getState().tokenIdToIsTouching[token.id()], false);
+         assert.equal(store.getState().cardIsTouching[token.id()], false);
       });
    });

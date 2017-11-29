@@ -69,7 +69,7 @@ define(["immutable", "common/js/InputValidator",
          var store = this.store();
          var tokenId = this.tokenId();
 
-         return store.getState().tokenIdToManeuver[tokenId];
+         return store.getState().cardManeuver[tokenId];
       };
 
       ActivationAction.prototype.maneuverKey = function()
@@ -394,7 +394,7 @@ define(["immutable", "common/js/InputValidator",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateIsNumber("tokenId", tokenId);
 
-         var values = store.getState().tokenIdToActivationAction[tokenId];
+         var values = store.getState().cardActivationAction[tokenId];
 
          var answer;
 

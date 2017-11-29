@@ -95,11 +95,11 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                });
             case CardAction.SET_CARD_INSTANCE:
                // LOGGER.info("SET_TOKEN: payload = " + JSON.stringify(action.payload));
-               var newCards = state.tokens.set(action.payload.get("id"), action.payload);
+               var newCards = state.cardInstances.set(action.payload.get("id"), action.payload);
                return Object.assign(
                {}, state,
                {
-                  tokens: newCards,
+                  cardInstances: newCards,
                });
             default:
                LOGGER.warn("CardReducer.reduce: Unhandled action type: " + action.type);

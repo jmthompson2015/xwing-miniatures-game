@@ -227,75 +227,75 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "art
                      resourceBase: action.resourceBase,
                   });
                case Action.SET_TOKEN_ACTIVATION_ACTION:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToActivationAction, Action.SET_TOKEN_ACTIVATION_ACTION, action.type, action.tokenId, action.activationActionValues);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardActivationAction, Action.SET_TOKEN_ACTIVATION_ACTION, action.type, action.tokenId, action.activationActionValues);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToActivationAction: newTokenIdToData,
+                     cardActivationAction: newTokenIdToData,
                   });
                case Action.SET_TOKEN_ATTACK_DICE:
                   // LOGGER.info("Reducer.root() SET_TOKEN_ATTACK_DICE action.tokenId = " + action.tokenId + " action.attackDiceValues = " + action.attackDiceValues);
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToAttackDice, Action.SET_TOKEN_ATTACK_DICE, action.type, action.tokenId, action.attackDiceValues);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardAttackDice, Action.SET_TOKEN_ATTACK_DICE, action.type, action.tokenId, action.attackDiceValues);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToAttackDice: newTokenIdToData,
+                     cardAttackDice: newTokenIdToData,
                   });
                case Action.SET_TOKEN_COMBAT_ACTION:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToCombatAction, Action.SET_TOKEN_COMBAT_ACTION, action.type, action.token.id(), action.combatAction);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardCombatAction, Action.SET_TOKEN_COMBAT_ACTION, action.type, action.token.id(), action.combatAction);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToCombatAction: newTokenIdToData,
+                     cardCombatAction: newTokenIdToData,
                   });
                case Action.SET_TOKEN_DAMAGE_DEALER:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToDamageDealer, Action.SET_TOKEN_DAMAGE_DEALER, action.type, action.token.id(), action.damageDealer);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardDamageDealer, Action.SET_TOKEN_DAMAGE_DEALER, action.type, action.token.id(), action.damageDealer);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToDamageDealer: newTokenIdToData,
+                     cardDamageDealer: newTokenIdToData,
                   });
                case Action.SET_TOKEN_DEFENDER_HIT:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToIsDefenderHit, Action.SET_TOKEN_DEFENDER_HIT, action.type, action.token.id(), action.isDefenderHit);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardIsDefenderHit, Action.SET_TOKEN_DEFENDER_HIT, action.type, action.token.id(), action.isDefenderHit);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToIsDefenderHit: newTokenIdToData,
+                     cardIsDefenderHit: newTokenIdToData,
                   });
                case Action.SET_TOKEN_DEFENSE_DICE:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToDefenseDice, Action.SET_TOKEN_DEFENSE_DICE, action.type, action.tokenId, action.defenseDiceValues);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardDefenseDice, Action.SET_TOKEN_DEFENSE_DICE, action.type, action.tokenId, action.defenseDiceValues);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToDefenseDice: newTokenIdToData,
+                     cardDefenseDice: newTokenIdToData,
                   });
                case Action.SET_TOKEN_IN_FIRING_ARC:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToIsInFiringArc, Action.SET_TOKEN_IN_FIRING_ARC, action.type, action.token.id(), action.isInFiringArc);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardIsInFiringArc, Action.SET_TOKEN_IN_FIRING_ARC, action.type, action.token.id(), action.isInFiringArc);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToIsInFiringArc: newTokenIdToData,
+                     cardIsInFiringArc: newTokenIdToData,
                   });
                case Action.SET_TOKEN_MANEUVER:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToManeuver, Action.SET_TOKEN_MANEUVER, action.type, action.token.id(), action.maneuver);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardManeuver, Action.SET_TOKEN_MANEUVER, action.type, action.token.id(), action.maneuver);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToManeuver: newTokenIdToData,
+                     cardManeuver: newTokenIdToData,
                   });
                case Action.SET_TOKEN_MANEUVER_ACTION:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToManeuverAction, Action.SET_TOKEN_MANEUVER_ACTION, action.type, action.tokenId, action.maneuverActionValues);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardManeuverAction, Action.SET_TOKEN_MANEUVER_ACTION, action.type, action.tokenId, action.maneuverActionValues);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToManeuverAction: newTokenIdToData,
+                     cardManeuverAction: newTokenIdToData,
                   });
                case Action.SET_TOKEN_RANGE:
-                  newTokenIdToData = Reducer.tokenIdToData(state.tokenIdToRange, Action.SET_TOKEN_RANGE, action.type, action.token.id(), action.rangeKey);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardRange, Action.SET_TOKEN_RANGE, action.type, action.token.id(), action.rangeKey);
                   return Object.assign(
                   {}, state,
                   {
-                     tokenIdToRange: newTokenIdToData,
+                     cardRange: newTokenIdToData,
                   });
                case Action.SET_USER_MESSAGE:
                   return Object.assign(

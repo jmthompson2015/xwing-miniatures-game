@@ -101,7 +101,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
          var store = this.store();
          var attackerId = this.attackerId();
 
-         return store.getState().tokenIdToDefenseDice[attackerId];
+         return store.getState().cardDefenseDice[attackerId];
       };
 
       //////////////////////////////////////////////////////////////////////////
@@ -262,7 +262,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateIsNumber("attackerId", attackerId);
 
-         var values = store.getState().tokenIdToDefenseDice[attackerId];
+         var values = store.getState().cardDefenseDice[attackerId];
 
          return new DefenseDice(store, attackerId, values);
       };

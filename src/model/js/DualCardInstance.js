@@ -314,7 +314,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateIsNumber("id", id);
 
-         var values = store.getState().tokens.get(id);
+         var values = store.getState().cardInstances.get(id);
          var answer;
 
          if (values !== undefined)

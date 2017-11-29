@@ -34,7 +34,7 @@ define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/CardInsta
             InputValidator.validateIsNumber("id", id);
 
             var answer;
-            var tokenValues = store.getState().tokens.get(id);
+            var tokenValues = store.getState().cardInstances.get(id);
 
             if (tokenValues)
             {

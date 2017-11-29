@@ -14,7 +14,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.tokenIdToCombatAction[token.id()];
+      return state.cardCombatAction[token.id()];
    };
 
    Selector.damageDealer = function(state, attacker)
@@ -22,7 +22,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("attacker", attacker);
 
-      return state.tokenIdToDamageDealer[attacker.id()];
+      return state.cardDamageDealer[attacker.id()];
    };
 
    Selector.environment = function(state)
@@ -35,7 +35,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.tokenIdToIsDefenderHit[token.id()];
+      return state.cardIsDefenderHit[token.id()];
    };
 
    Selector.isInFiringArc = function(state, token)
@@ -43,7 +43,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.tokenIdToIsInFiringArc[token.id()];
+      return state.cardIsInFiringArc[token.id()];
    };
 
    Selector.maneuver = function(state, token)
@@ -51,7 +51,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.tokenIdToManeuver[token.id()];
+      return state.cardManeuver[token.id()];
    };
 
    Selector.rangeKey = function(state, attacker)
@@ -59,7 +59,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("attacker", attacker);
 
-      return state.tokenIdToRange[attacker.id()];
+      return state.cardRange[attacker.id()];
    };
 
    if (Object.freeze)

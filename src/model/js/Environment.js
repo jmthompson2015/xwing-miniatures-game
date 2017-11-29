@@ -55,9 +55,9 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       Environment.prototype.activeToken = function()
       {
          var store = this.store();
-         var activeTokenId = store.getState().activeTokenId;
+         var activeCardId = store.getState().activeCardId;
 
-         return (activeTokenId !== undefined ? this.getTokenById(activeTokenId) : undefined);
+         return (activeCardId !== undefined ? this.getTokenById(activeCardId) : undefined);
       };
 
       Environment.prototype.createTokenPositions = function()
@@ -244,7 +244,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          }
          else
          {
-            answer = store.getState().tokenIdToPosition[token.id()];
+            answer = store.getState().cardPosition[token.id()];
          }
 
          return answer;
@@ -294,7 +294,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
          var store = this.store();
          var answer;
-         var tokenId = store.getState().positionToTokenId[position];
+         var tokenId = store.getState().positionToCardId[position];
 
          if (tokenId !== undefined)
          {
@@ -491,7 +491,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("token", token);
 
          var store = this.store();
-         var answer = store.getState().tokenIdToIsTouching[token.id()];
+         var answer = store.getState().cardIsTouching[token.id()];
 
          return (answer !== undefined ? answer : false);
       };
@@ -531,7 +531,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       Environment.prototype.toString = function()
       {
          var store = this.store();
-         var tokens = store.getState().tokens;
+         var tokens = store.getState().cardInstances;
          var callback = function(accumulator, tokenId)
          {
             var myTokenId = parseInt(tokenId);
@@ -546,7 +546,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       Environment.prototype.tokens = function(isPure)
       {
          var store = this.store();
-         var tokens = store.getState().tokens;
+         var tokens = store.getState().cardInstances;
 
          return tokens.keySeq().reduce(function(accumulator, tokenId)
          {

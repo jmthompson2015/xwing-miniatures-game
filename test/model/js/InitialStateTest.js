@@ -14,6 +14,6 @@ define(["qunit", "artifact/js/Phase", "model/js/InitialState"],
          assert.ok(!result.playFormatKey);
          assert.equal(result.round, 0);
          assert.equal(result.phaseKey, Phase.SETUP);
-         assert.ok(!result.activeTokenId);
+         assert.ok(!result.activeCardId);
       });
    });
