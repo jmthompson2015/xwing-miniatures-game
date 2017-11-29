@@ -127,7 +127,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
 
          if (!answer)
          {
-            var shipBase = defender.pilot().shipFaction.ship.shipBase;
+            var shipBase = defender.card().shipFaction.ship.shipBase;
             var polygon = ManeuverComputer.computePolygon(shipBase, defenderPosition.x(), defenderPosition.y(),
                defenderPosition.heading());
             var points = polygon.points();

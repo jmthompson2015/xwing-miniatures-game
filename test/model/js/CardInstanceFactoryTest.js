@@ -22,7 +22,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.ok(result instanceof CardInstance);
-         assert.equal(result.pilotKey(), pilotKey);
+         assert.equal(result.card().key, pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.upgradeKeys());
          assert.equal(result.upgradeKeys().size, 1);
@@ -41,7 +41,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.ok(result instanceof DualCardInstance);
-         assert.equal(result.pilotKey(), pilotKey);
+         assert.equal(result.card().key, pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.tokenFore().upgradeKeys());
          assert.equal(result.tokenFore().upgradeKeys().size, 3);
@@ -63,7 +63,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.ok(result instanceof CardInstance);
-         assert.equal(result.pilotKey(), pilotKey);
+         assert.equal(result.card().key, pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.upgradeKeys());
          assert.equal(result.upgradeKeys().size, 1);
@@ -83,7 +83,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.ok(result instanceof DualCardInstance);
-         assert.equal(result.pilotKey(), pilotKey);
+         assert.equal(result.card().key, pilotKey);
          assert.equal(result.agent(), agent);
          assert.ok(result.tokenFore().upgradeKeys());
          assert.equal(result.tokenFore().upgradeKeys().size, 3);

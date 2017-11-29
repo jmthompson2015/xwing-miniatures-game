@@ -16,7 +16,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          var maneuverKey = Maneuver.STRAIGHT_1_EASY;
          var token = environment.tokens()[2]; // X-Wing
          var fromPosition = environment.getPositionFor(token);
-         var shipBaseKey = token.pilot().shipFaction.ship.shipBaseKey;
+         var shipBaseKey = token.card().shipFaction.ship.shipBaseKey;
 
          // Run.
          var result = new ManeuverAction(store, token.id(), maneuverKey);

@@ -78,19 +78,19 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
             assert.ok(true, "test resumed from async operation");
 
             var token = environment.tokens()[0]; // TIE Phantom
-            if (token.pilotKey() === PilotCard.WHISPER)
+            if (token.card().key === PilotCard.WHISPER)
             {
                if (token.isCloaked())
                {
                   // Ship re-cloaked.
                   console.log("ship re-cloaked");
-                  assert.equal(token.pilotKey(), PilotCard.WHISPER);
+                  assert.equal(token.card().key, PilotCard.WHISPER);
                   assert.equal(token.isCloaked(), true);
                   assert.equal(token.cloakCount(), 1);
                }
                else
                {
-                  assert.equal(token.pilotKey(), PilotCard.WHISPER);
+                  assert.equal(token.card().key, PilotCard.WHISPER);
                   assert.equal(token.isCloaked(), false);
                   assert.equal(token.cloakCount(), 0);
                }

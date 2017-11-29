@@ -343,10 +343,10 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/Maneuver
 
          var token = this.activationQueue().shift();
          environment.setActiveToken(token);
-         var factionKey = token.pilot().shipFaction.factionKey;
+         var factionKey = token.card().shipFaction.factionKey;
          var myToken = token;
 
-         if (token.parent && token.pilot().key.endsWith("fore"))
+         if (token.parent && token.card().key.endsWith("fore"))
          {
             myToken = token.parent;
          }

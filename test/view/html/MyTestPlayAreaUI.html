@@ -48,15 +48,15 @@
 
 				var tokenPositions = environment.createTokenPositions();
 				var explosionPosition = new Position(400, 400, 0);
-				var explosionShipBase = token1.pilot().shipFaction.ship.shipBase;
+				var explosionShipBase = token1.card().shipFaction.ship.shipBase;
 				var laserFromPosition = environment.getPositionFor(token3);
 				var laserToPosition = environment.getPositionFor(token2);
 				var laserIsPrimary = true;
-				var laserFactionColor = token3.pilot().shipFaction.faction.color;
+				var laserFactionColor = token3.card().shipFaction.faction.color;
 				var maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_LEFT_2_HARD];
 				// var maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_RIGHT_2_HARD];
 				var maneuverFromPosition = environment.getPositionFor(token1);
-				var maneuverShipBase = token1.pilot().shipFaction.ship.shipBase;
+				var maneuverShipBase = token1.card().shipFaction.ship.shipBase;
 				var scale = 0.75;
 
 				var element = React.createElement(PlayAreaUI,

@@ -108,9 +108,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             {
                pilotSkillValue: myToken.pilotSkillValue(),
                pilotName: token.pilotName(),
-               pilotDescription: (token.pilot().isFlavorText ? undefined : token.pilot().description),
+               pilotDescription: (token.card().isFlavorText ? undefined : token.card().description),
                shipName: (myTokenAft ? myToken.ship().name : token.shipName()),
-               faction: token.pilot().shipFaction.faction,
+               faction: token.card().shipFaction.faction,
                pilotAftSkillValue: (myTokenAft ? myTokenAft.pilotSkillValue() : undefined),
                shipAftName: (myTokenAft ? myTokenAft.ship().name : undefined),
                resourceBase: this.props.resourceBase,
@@ -281,7 +281,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
          render: function()
          {
             var myToken = this.props.token;
-            var faction = myToken.pilot().shipFaction.faction;
+            var faction = myToken.card().shipFaction.faction;
             var cells = [];
             var shipStateKeys = [ShipState.PRIMARY_WEAPON, ShipState.ENERGY, ShipState.AGILITY, ShipState.HULL, ShipState.SHIELD];
 

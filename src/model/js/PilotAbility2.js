@@ -73,7 +73,7 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("speed", speed);
 
          var answer;
-         var maneuverKeys = token.pilot().shipFaction.ship.maneuverKeys;
+         var maneuverKeys = token.card().shipFaction.ship.maneuverKeys;
 
          for (var i = 0; i < maneuverKeys.length; i++)
          {

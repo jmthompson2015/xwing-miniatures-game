@@ -238,7 +238,7 @@ define(["create-react-class", "prop-types", "react-dom-factories", "common/js/In
                tokenPositions.forEach(function(tokenPosition)
                {
                   var token = tokenPosition.token;
-                  var shipFactionKey = token.pilot().shipFactionKey;
+                  var shipFactionKey = token.card().shipFactionKey;
                   var id = token.id();
                   var image = this.shipFactionToImage[shipFactionKey];
                   var position = tokenPosition.position;
@@ -258,7 +258,7 @@ define(["create-react-class", "prop-types", "react-dom-factories", "common/js/In
 
             tokenPositions.forEach(function(tokenPosition)
             {
-               var shipFaction = tokenPosition.token.pilot().shipFaction;
+               var shipFaction = tokenPosition.token.card().shipFaction;
                if (!shipFactions.includes(shipFaction))
                {
                   shipFactions.push(shipFaction);

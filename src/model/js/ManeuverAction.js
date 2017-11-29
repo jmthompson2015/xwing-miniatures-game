@@ -70,7 +70,7 @@ define(["immutable", "common/js/InputValidator",
       ManeuverAction.prototype.shipBase = function()
       {
          var token = this.token();
-         var pilot = token.pilot();
+         var pilot = token.card();
          var shipBase = pilot.shipFaction.ship.shipBase;
 
          return shipBase;
@@ -131,7 +131,7 @@ define(["immutable", "common/js/InputValidator",
                   store.dispatch(CardAction.setIonCount(token));
                }
 
-               if (token.pilotKey() === PilotCard.IG_88C && isBoost)
+               if (token.card().key === PilotCard.IG_88C && isBoost)
                {
                   store.dispatch(CardAction.addEvadeCount(token));
                }

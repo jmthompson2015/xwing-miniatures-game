@@ -91,7 +91,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          InputValidator.validateNotNull("token", token);
 
          var fromPosition = environment.getPositionFor(token);
-         var shipBase = token.pilot().shipFaction.ship.shipBase;
+         var shipBase = token.card().shipFaction.ship.shipBase;
          var playFormatKey = environment.playFormatKey();
          var maneuverKeys = token.maneuverKeys();
 
@@ -134,7 +134,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
             }
          });
 
-         var pilotKey = attacker.pilot().key;
+         var pilotKey = attacker.card().key;
 
          if (!attacker.isAbilityUsed(PilotCard, pilotKey) && !attacker.isPerRoundAbilityUsed(PilotCard, pilotKey))
          {
@@ -188,7 +188,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
             }
          });
 
-         var pilotKey = defender.pilot().key;
+         var pilotKey = defender.card().key;
 
          if (!defender.isAbilityUsed(PilotCard, pilotKey) && !defender.isPerRoundAbilityUsed(PilotCard, pilotKey))
          {
@@ -244,7 +244,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          var maneuverKeysMap = {};
          maneuverKeysMap[ShipAction.BARREL_ROLL] = [Maneuver.BARREL_ROLL_LEFT_1_STANDARD, Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
          maneuverKeysMap[ShipAction.BOOST] = [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_STANDARD, Maneuver.BANK_RIGHT_1_STANDARD];
-         maneuverKeysMap[ShipAction.SLAM] = token.pilot().shipFaction.ship.maneuverKeys;
+         maneuverKeysMap[ShipAction.SLAM] = token.card().shipFaction.ship.maneuverKeys;
          var canDoItMap = {};
          canDoItMap[ShipAction.BARREL_ROLL] = function(maneuverKey)
          {

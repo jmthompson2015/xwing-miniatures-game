@@ -145,7 +145,7 @@ define(["immutable", "common/js/InputValidator",
          var maneuverKey = this.maneuverKey();
          var parentToken = token;
 
-         if (token.parent && token.pilot().key.endsWith("fore"))
+         if (token.parent && token.card().key.endsWith("fore"))
          {
             parentToken = token.parent;
          }

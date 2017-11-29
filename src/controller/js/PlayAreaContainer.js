@@ -67,7 +67,7 @@ define(["react-redux", "common/js/InputValidator", "artifact/js/Phase", "artifac
 
                         answer.explosion = {
                            position: toPosition,
-                           shipBase: defender.pilot().shipFaction.ship.shipBase,
+                           shipBase: defender.card().shipFaction.ship.shipBase,
                            audioClip: document.getElementById("explosionAudio"),
                         };
                      }
@@ -99,7 +99,7 @@ define(["react-redux", "common/js/InputValidator", "artifact/js/Phase", "artifac
                   if (toPosition && !defender.isDestroyed())
                   {
                      var isPrimary = combatAction.weapon().isPrimary();
-                     var factionColor = attacker.pilot().shipFaction.faction.color;
+                     var factionColor = attacker.card().shipFaction.faction.color;
                      var audioClip;
 
                      if (LASER_AUDIO_PHASES.includes(state.phaseKey))
@@ -159,7 +159,7 @@ define(["react-redux", "common/js/InputValidator", "artifact/js/Phase", "artifac
       {
          var answer;
 
-         var shipKey = token.pilot().shipFaction.shipKey;
+         var shipKey = token.card().shipFaction.shipKey;
 
          if (shipKey === Ship.YT_1300 || shipKey === Ship.YT_2400)
          {
@@ -171,7 +171,7 @@ define(["react-redux", "common/js/InputValidator", "artifact/js/Phase", "artifac
          }
          else
          {
-            var factionKey = token.pilot().shipFaction.factionKey;
+            var factionKey = token.card().shipFaction.factionKey;
 
             if (factionKey === Faction.IMPERIAL)
             {

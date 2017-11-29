@@ -25,7 +25,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(token);
          assert.equal(token.id(), 1);
-         assert.equal(token.pilotKey(), PilotCard.DARTH_VADER);
+         assert.equal(token.card().key, PilotCard.DARTH_VADER);
          assert.equal(token.agent(), imperialAgent);
          assert.equal(token.upgradeKeys().size, 1);
          assert.equal(token.upgradeKeys().get(0), UpgradeCard.CLUSTER_MISSILES);
@@ -79,7 +79,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.id(), 1);
-         assert.equal(result.pilotKey(), PilotCard.DARTH_VADER);
+         assert.equal(result.card().key, PilotCard.DARTH_VADER);
          assert.equal(result.agent(), imperialAgent);
          assert.equal(result.upgradeKeys().size, 1);
          assert.equal(result.upgradeKeys().get(0), UpgradeCard.CLUSTER_MISSILES);
@@ -129,8 +129,8 @@ define(["qunit", "redux",
          var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
          var token = new CardInstance(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.PREDATOR, UpgradeCard.MANGLER_CANNON, UpgradeCard.CHEWBACCA]);
          assert.equal(token.id(), 1);
-         assert.equal(token.pilotKey(), PilotCard.DASH_RENDAR);
-         assert.equal(token.pilot().shipFaction.shipKey, Ship.YT_2400);
+         assert.equal(token.card().key, PilotCard.DASH_RENDAR);
+         assert.equal(token.card().shipFaction.shipKey, Ship.YT_2400);
          assert.equal(token.name(), "1 Dash Rendar (YT-2400)");
          assert.equal(token.secondaryWeapons().size, 1);
          var weapon1 = token.secondaryWeapons().get(0);
@@ -146,8 +146,8 @@ define(["qunit", "redux",
          var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
          var token = new CardInstance(store, PilotCard.GR_75_MEDIUM_TRANSPORT, rebelAgent, [UpgradeCard.CARLIST_RIEEKAN, UpgradeCard.EM_EMITTER]);
          assert.equal(token.id(), 1);
-         assert.equal(token.pilotKey(), PilotCard.GR_75_MEDIUM_TRANSPORT);
-         assert.equal(token.pilot().shipFaction.shipKey, Ship.GR_75_MEDIUM_TRANSPORT);
+         assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
+         assert.equal(token.card().shipFaction.shipKey, Ship.GR_75_MEDIUM_TRANSPORT);
          assert.equal(token.name(), "1 GR-75 Medium Transport");
          assert.equal(token.secondaryWeapons().size, 0);
       });
@@ -220,12 +220,12 @@ define(["qunit", "redux",
          token0 = tokens[0];
          token1 = tokens[1];
          assert.equal(token0.id(), 1);
-         assert.equal(token0.pilotKey(), PilotCard.ACADEMY_PILOT);
-         assert.equal(token0.pilot().shipFaction.shipKey, Ship.TIE_FIGHTER);
+         assert.equal(token0.card().key, PilotCard.ACADEMY_PILOT);
+         assert.equal(token0.card().shipFaction.shipKey, Ship.TIE_FIGHTER);
          assert.equal(token0.name(), "1 Academy Pilot (TIE Fighter)");
          assert.equal(token1.id(), 2);
-         assert.equal(token1.pilotKey(), PilotCard.ROOKIE_PILOT);
-         assert.equal(token1.pilot().shipFaction.shipKey, Ship.X_WING);
+         assert.equal(token1.card().key, PilotCard.ROOKIE_PILOT);
+         assert.equal(token1.card().shipFaction.shipKey, Ship.X_WING);
          assert.equal(token1.name(), "2 Rookie Pilot (X-Wing)");
 
          assert.equal(token0.computeAttackDiceCount(environment, token0.primaryWeapon(), token1, Range.ONE), 3);
@@ -327,8 +327,8 @@ define(["qunit", "redux",
          var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          assert.equal(token0.id(), 1);
-         assert.equal(token0.pilotKey(), PilotCard.ACADEMY_PILOT);
-         assert.equal(token0.pilot().shipFaction.shipKey, Ship.TIE_FIGHTER);
+         assert.equal(token0.card().key, PilotCard.ACADEMY_PILOT);
+         assert.equal(token0.card().shipFaction.shipKey, Ship.TIE_FIGHTER);
          assert.equal(token0.name(), "1 Academy Pilot (TIE Fighter)");
          var environment;
          assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.ONE), 3);
@@ -343,8 +343,8 @@ define(["qunit", "redux",
          var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
          var token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
          assert.equal(token1.id(), 2);
-         assert.equal(token1.pilotKey(), PilotCard.ROOKIE_PILOT);
-         assert.equal(token1.pilot().shipFaction.shipKey, Ship.X_WING);
+         assert.equal(token1.card().key, PilotCard.ROOKIE_PILOT);
+         assert.equal(token1.card().shipFaction.shipKey, Ship.X_WING);
          assert.equal(token1.name(), "2 Rookie Pilot (X-Wing)");
          assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), Range.ONE), 2);
          assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), Range.TWO), 2);

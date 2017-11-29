@@ -225,7 +225,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
                var length = 72;
                var x, y;
 
-               if (token.pilot().key.endsWith(".fore"))
+               if (token.card().key.endsWith(".fore"))
                {
                   x = parentPosition.x() + length * Math.cos(angle);
                   y = parentPosition.y() + length * Math.sin(angle);
@@ -381,8 +381,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
                   if (answer === 0)
                   {
-                     var teamKey0 = token0.pilot().shipFaction.factionKey;
-                     var teamKey1 = token1.pilot().shipFaction.factionKey;
+                     var teamKey0 = token0.card().shipFaction.factionKey;
+                     var teamKey1 = token1.card().shipFaction.factionKey;
 
                      if (Faction.isFriendly(teamKey0, teamKey1))
                      {
@@ -415,8 +415,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
             if (answer === 0)
             {
-               var teamKey0 = token0.pilot().shipFaction.factionKey;
-               var teamKey1 = token1.pilot().shipFaction.factionKey;
+               var teamKey0 = token0.card().shipFaction.factionKey;
+               var teamKey1 = token1.card().shipFaction.factionKey;
 
                if (Faction.isFriendly(teamKey0, teamKey1))
                {
@@ -445,7 +445,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       {
          return this.tokens(isPure).filter(function(token)
          {
-            return Faction.isFriendly(token.pilot().shipFaction.factionKey, factionKey);
+            return Faction.isFriendly(token.card().shipFaction.factionKey, factionKey);
          });
       };
 
@@ -455,7 +455,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
          var answer = [];
 
-         var shipBase = token.pilot().shipFaction.ship.shipBase;
+         var shipBase = token.card().shipFaction.ship.shipBase;
          var tokenPosition = this.getPositionFor(token);
          var polygon = ManeuverComputer.computePolygon(shipBase, tokenPosition.x(), tokenPosition.y(), tokenPosition.heading());
          var tokens = this.getTokensForActivation(false);
@@ -464,7 +464,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          {
             if (!token.equals(token2))
             {
-               var shipBase2 = token2.pilot().shipFaction.ship.shipBase;
+               var shipBase2 = token2.card().shipFaction.ship.shipBase;
                var tokenPosition2 = this.getPositionFor(token2);
                var polygon2 = ManeuverComputer.computePolygon(shipBase2, tokenPosition2.x(), tokenPosition2.y(), tokenPosition2.heading());
 
@@ -555,7 +555,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
             if (token)
             {
-               var pilotKey = token.pilotKey();
+               var pilotKey = token.card().key;
 
                if (isPure && token.tokenFore && token.tokenAft)
                {
@@ -737,7 +737,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
             }
             else
             {
-               var shipBase = token.pilot().shipFaction.ship.shipBase;
+               var shipBase = token.card().shipFaction.ship.shipBase;
                var x = i * dx;
                var y = (shipBase.width / 2);
 

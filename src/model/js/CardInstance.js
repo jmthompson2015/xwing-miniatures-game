@@ -1,32 +1,46 @@
 "use strict";
 
 define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
-  "artifact/js/Bearing", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
+  "artifact/js/Bearing", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
   "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
    function(Immutable, ArrayAugments, InputValidator,
-      Bearing, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
+      Bearing, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
       Ability, Action, AgentAction, CardAction, RangeRuler, TargetLock, Weapon)
    {
-      function CardInstance(store, pilotKeyIn, agent, upgradeKeysIn, idIn, isNewIn)
+      function CardInstance(store, cardOrKey, agent, upgradeKeysIn, idIn, isNewIn)
       {
          InputValidator.validateNotNull("store", store);
-         InputValidator.validateNotNull("pilotKeyIn", pilotKeyIn);
+         InputValidator.validateNotNull("cardOrKey", cardOrKey);
          InputValidator.validateNotNull("agent", agent);
          // upgradeKeys optional.
          // idIn optional. default: determined from store
          // isNewIn optional. default: true
 
-         var pilotKey, pilot;
+         var card;
 
-         if (typeof pilotKeyIn === "string")
+         if (typeof cardOrKey === "string")
          {
-            pilotKey = pilotKeyIn;
-            pilot = PilotCard.properties[pilotKey];
+            var cardKey = cardOrKey;
+            card = PilotCard.properties[cardKey];
+
+            if (card === undefined)
+            {
+               card = UpgradeCard.properties[cardKey];
+            }
+
+            if (card === undefined)
+            {
+               card = DamageCard.properties[cardKey];
+            }
+
+            if (card === undefined)
+            {
+               card = ConditionCard.properties[cardKey];
+            }
          }
          else
          {
-            pilot = pilotKeyIn;
-            pilotKey = pilot.key;
+            card = cardOrKey;
          }
 
          var id = idIn;
@@ -47,14 +61,9 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             return id;
          };
 
-         this.pilot = function()
+         this.card = function()
          {
-            return pilot;
-         };
-
-         this.pilotKey = function()
-         {
-            return pilotKey;
+            return card;
          };
 
          this.agent = function()
@@ -141,12 +150,12 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          {
             answer = weapon.weaponValue();
 
-            if (rangeKey === Range.ONE && weapon.isPrimary() && defender.pilotKey() !== PilotCard.ZERTIK_STROM)
+            if (rangeKey === Range.ONE && weapon.isPrimary() && defender.card().key !== PilotCard.ZERTIK_STROM)
             {
                // Bonus attack die at range one.
                answer++;
 
-               if (this.pilotKey() === PilotCard.TALONBANE_COBRA)
+               if (this.card().key === PilotCard.TALONBANE_COBRA)
                {
                   answer++;
                }
@@ -156,7 +165,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             var defenderPosition = environment.getPositionFor(defender);
             var firingArc, isInFiringArc;
 
-            if (this.pilotKey() === PilotCard.BACKSTABBER)
+            if (this.card().key === PilotCard.BACKSTABBER)
             {
                firingArc = FiringArc.FORWARD;
                isInFiringArc = weapon.isDefenderInFiringArc(defenderPosition, firingArc, this, attackerPosition);
@@ -167,17 +176,17 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
                }
             }
 
-            if (this.pilotKey() === PilotCard.EADEN_VRILL && weapon.isPrimary() && defender.isStressed())
+            if (this.card().key === PilotCard.EADEN_VRILL && weapon.isPrimary() && defender.isStressed())
             {
                answer++;
             }
 
-            if (this.pilotKey() === PilotCard.FENN_RAU && rangeKey === Range.ONE)
+            if (this.card().key === PilotCard.FENN_RAU && rangeKey === Range.ONE)
             {
                answer++;
             }
 
-            if (this.pilotKey() === PilotCard.KAVIL)
+            if (this.card().key === PilotCard.KAVIL)
             {
                firingArc = weapon.primaryFiringArc();
                isInFiringArc = weapon.isDefenderInFiringArc(attackerPosition, firingArc, defender, defenderPosition);
@@ -188,17 +197,17 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
                }
             }
 
-            if (this.pilotKey() === PilotCard.MAULER_MITHEL && rangeKey === Range.ONE)
+            if (this.card().key === PilotCard.MAULER_MITHEL && rangeKey === Range.ONE)
             {
                answer++;
             }
 
-            if (this.pilotKey() === PilotCard.NDRU_SUHLAK && environment.getFriendlyTokensAtRange(this, Range.ONE).length === 0 && environment.getFriendlyTokensAtRange(this, Range.TWO).length === 0)
+            if (this.card().key === PilotCard.NDRU_SUHLAK && environment.getFriendlyTokensAtRange(this, Range.ONE).length === 0 && environment.getFriendlyTokensAtRange(this, Range.TWO).length === 0)
             {
                answer++;
             }
 
-            if (this.pilotKey() === PilotCard.SCOURGE && (defender.damageCount() > 0 || defender.criticalDamageCount() > 0))
+            if (this.card().key === PilotCard.SCOURGE && (defender.damageCount() > 0 || defender.criticalDamageCount() > 0))
             {
                answer++;
             }
@@ -231,18 +240,18 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             // Bonus defense die at range three, four, and five.
             answer++;
 
-            if (this.pilotKey() === PilotCard.TALONBANE_COBRA)
+            if (this.card().key === PilotCard.TALONBANE_COBRA)
             {
                answer++;
             }
          }
 
-         if (this.pilotKey() === PilotCard.FENN_RAU && rangeKey === Range.ONE)
+         if (this.card().key === PilotCard.FENN_RAU && rangeKey === Range.ONE)
          {
             answer++;
          }
 
-         if (this.pilotKey() === PilotCard.GRAZ_THE_HUNTER)
+         if (this.card().key === PilotCard.GRAZ_THE_HUNTER)
          {
             var attackerPosition = environment.getPositionFor(attacker);
             var defenderPosition = environment.getPositionFor(this);
@@ -336,7 +345,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          if (other)
          {
-            answer = this.id() == other.id() && this.pilotKey() == other.pilotKey();
+            answer = this.id() == other.id() && this.card().key == other.card().key;
          }
 
          return answer;
@@ -465,7 +474,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
                answer = this._changeBearingManeuversToDifficulty(answer, Bearing.TURN_RIGHT, Difficulty.HARD);
             }
 
-            if (this.pilotKey() === PilotCard.ELLO_ASTY && !this.isStressed())
+            if (this.card().key === PilotCard.ELLO_ASTY && !this.isStressed())
             {
                answer = this._changeBearingManeuversToDifficulty(answer, Bearing.TALLON_ROLL_LEFT, Difficulty.STANDARD);
                answer = this._changeBearingManeuversToDifficulty(answer, Bearing.TALLON_ROLL_RIGHT, Difficulty.STANDARD);
@@ -507,8 +516,8 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.name = function()
       {
-         var pilotName = this.pilot().name;
-         var shipName = this.pilot().shipFaction.ship.name;
+         var pilotName = this.card().name;
+         var shipName = this.card().shipFaction.ship.name;
          var answer = this.id() + " " + pilotName;
 
          if (!pilotName.startsWith(shipName))
@@ -523,12 +532,12 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var answer = this.id() + " ";
 
-         if (this.pilot().isUnique)
+         if (this.card().isUnique)
          {
             answer += "\u2022 ";
          }
 
-         answer += this.pilot().name;
+         answer += this.card().name;
 
          return answer;
       };
@@ -537,7 +546,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var answer = this.key(Value.PILOT_SKILL);
 
-         if (this.pilotKey() === PilotCard.EPSILON_ACE)
+         if (this.card().key === PilotCard.EPSILON_ACE)
          {
             var damageCount = this.damageCount();
             var criticalDamageCount = this.criticalDamageCount();
@@ -601,7 +610,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.ship = function()
       {
-         var pilot = this.pilot();
+         var pilot = this.card();
          var ship = pilot.shipFaction.ship;
 
          if (pilot.key.endsWith(".fore"))
@@ -671,7 +680,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.shipName = function()
       {
-         return this.pilot().shipFaction.ship.name;
+         return this.card().shipFaction.ship.name;
       };
 
       CardInstance.prototype.shipState = function(property)
@@ -679,7 +688,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("property", property);
 
          var propertyName = property + "Value";
-         var pilot = this.pilot();
+         var pilot = this.card();
          var ship = this.ship();
          var answer = pilot[propertyName];
 
@@ -706,7 +715,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          var answer = this.upgrades().reduce(function(accumulator, upgrade)
          {
             return accumulator + upgrade.squadPointCost;
-         }, this.pilot().squadPointCost);
+         }, this.card().squadPointCost);
 
          return answer;
       };
@@ -806,7 +815,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("abilityType", abilityType);
          InputValidator.validateNotNull("abilityKey", abilityKey);
 
-         var sourceKeys = [this.pilotKey()];
+         var sourceKeys = [this.card().key];
          var usedKeys = this.usedAbilityKeys(PilotCard);
          usedKeys = usedKeys.concat(this.usedPerRoundAbilityKeys(PilotCard));
 
@@ -916,7 +925,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("property", property);
 
          var propertyName = property + "Value";
-         var pilot = this.pilot();
+         var pilot = this.card();
          var answer = pilot[propertyName];
 
          if (answer === undefined)
@@ -996,7 +1005,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          LOGGER.debug("CardInstance.receiveCriticalDamage() damageKey = " + damageKey);
 
-         if (this.pilotKey() === PilotCard.CHEWBACCA)
+         if (this.card().key === PilotCard.CHEWBACCA)
          {
             this.receiveDamage(damageKey);
          }
@@ -1080,7 +1089,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          var store = this.store();
          var id = this.id();
-         var pilotKey = this.pilotKey();
+         var pilotKey = this.card().key;
          var agent = this.agent();
 
          store.dispatch(CardAction.setCardInstance(id, pilotKey, agent));
@@ -1139,7 +1148,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("agent", agent);
 
-         var pilotKey = this.pilotKey();
+         var pilotKey = this.card().key;
          var answer = new CardInstance(store, pilotKey, agent);
 
          this.upgrades().forEach(function(upgrade)

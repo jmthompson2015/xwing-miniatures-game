@@ -54,7 +54,7 @@ define(["redux", "common/js/InputValidator",
          if (fromPosition)
          {
             var maneuver = Maneuver.properties[maneuverKey];
-            var shipBase = attacker.pilot().shipFaction.ship.shipBase;
+            var shipBase = attacker.card().shipFaction.ship.shipBase;
             var toPolygon = ManeuverComputer.computeToPolygon(environment.playFormatKey(), maneuver, fromPosition,
                shipBase);
 
@@ -69,7 +69,7 @@ define(["redux", "common/js/InputValidator",
 
                   if (token !== attacker)
                   {
-                     var myShipBase = token.pilot().shipFaction.ship.shipBase;
+                     var myShipBase = token.card().shipFaction.ship.shipBase;
                      var position = environment.getPositionFor(token);
                      var polygon = ManeuverComputer.computePolygon(myShipBase, position.x(), position.y(),
                         position.heading());
@@ -120,7 +120,7 @@ define(["redux", "common/js/InputValidator",
          // if the ship is touching another ship.
          var store = this.store();
          var environment = Selector.environment(store.getState());
-         return (attacker.pilotKey() === PilotCard.TYCHO_CELCHU || !attacker.isStressed()) && !environment.isTouching(attacker);
+         return (attacker.card().key === PilotCard.TYCHO_CELCHU || !attacker.isStressed()) && !environment.isTouching(attacker);
       };
 
       Adjudicator.prototype.canSlam = function(token, maneuverKey)
@@ -140,7 +140,7 @@ define(["redux", "common/js/InputValidator",
             speed = previousManeuver.speed;
          }
 
-         var ship = token.pilot().shipFaction.ship;
+         var ship = token.card().shipFaction.ship;
          var maneuverKeys = ship.maneuverKeys;
          var slamManeuver = Maneuver.properties[maneuverKey];
          var store = this.store();
@@ -151,7 +151,7 @@ define(["redux", "common/js/InputValidator",
          if (fromPosition)
          {
             var playFormatKey = environment.playFormatKey();
-            var shipBase = token.pilot().shipFaction.ship.shipBase;
+            var shipBase = token.card().shipFaction.ship.shipBase;
             toPolygon = ManeuverComputer.computeToPolygon(playFormatKey, slamManeuver, fromPosition, shipBase);
          }
 

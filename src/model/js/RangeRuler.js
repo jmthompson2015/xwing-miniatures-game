@@ -36,9 +36,9 @@ define(["common/js/InputValidator", "artifact/js/Range", "model/js/ManeuverCompu
 
          var distance = attackerPosition.computeDistance(defenderPosition);
 
-         var attackerPolygon = ManeuverComputer.computePolygon(attacker.pilot().shipFaction.ship.shipBase, attackerPosition
+         var attackerPolygon = ManeuverComputer.computePolygon(attacker.card().shipFaction.ship.shipBase, attackerPosition
             .x(), attackerPosition.y(), attackerPosition.heading());
-         var defenderPolygon = ManeuverComputer.computePolygon(defender.pilot().shipFaction.ship.shipBase, defenderPosition
+         var defenderPolygon = ManeuverComputer.computePolygon(defender.card().shipFaction.ship.shipBase, defenderPosition
             .x(), defenderPosition.y(), defenderPosition.heading());
 
          var points0 = attackerPolygon.points();

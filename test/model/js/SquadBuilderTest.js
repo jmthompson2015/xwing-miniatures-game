@@ -22,12 +22,12 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var tokens = result.tokens();
          assert.ok(tokens);
          assert.equal(tokens.length, 2);
-         assert.equal(tokens[0].pilotKey(), PilotCard.EPSILON_LEADER);
-         assert.equal(tokens[1].pilotKey(), PilotCard.ZETA_ACE);
+         assert.equal(tokens[0].card().key, PilotCard.EPSILON_LEADER);
+         assert.equal(tokens[1].card().key, PilotCard.ZETA_ACE);
 
          for (var i = 0; i < 2; i++)
          {
-            assert.equal(tokens[i].pilot().shipFaction.shipKey, Ship.TIE_FO_FIGHTER);
+            assert.equal(tokens[i].card().shipFaction.shipKey, Ship.TIE_FO_FIGHTER);
          }
       });
 
@@ -67,12 +67,12 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var tokens = result.tokens();
          assert.ok(tokens);
          assert.equal(tokens.length, 2);
-         assert.equal(tokens[0].pilotKey(), PilotCard.MAULER_MITHEL);
-         assert.equal(tokens[1].pilotKey(), PilotCard.DARK_CURSE);
+         assert.equal(tokens[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(tokens[1].card().key, PilotCard.DARK_CURSE);
 
          for (var i = 0; i < 2; i++)
          {
-            assert.equal(tokens[i].pilot().shipFaction.shipKey, Ship.TIE_FIGHTER);
+            assert.equal(tokens[i].card().shipFaction.shipKey, Ship.TIE_FIGHTER);
          }
       });
 
@@ -115,8 +115,8 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var tokens = result.tokens();
          assert.ok(tokens);
          assert.equal(tokens.length, 1);
-         assert.equal(tokens[0].pilotKey(), PilotCard.LUKE_SKYWALKER);
-         assert.equal(tokens[0].pilot().shipFaction.shipKey, Ship.X_WING);
+         assert.equal(tokens[0].card().key, PilotCard.LUKE_SKYWALKER);
+         assert.equal(tokens[0].card().shipFaction.shipKey, Ship.X_WING);
       });
 
       QUnit.test("CoreSetRebelSquadBuilder description()", function(assert)
@@ -158,8 +158,8 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var tokens = result.tokens();
          assert.ok(tokens);
          assert.equal(tokens.length, 1);
-         assert.equal(tokens[0].pilotKey(), PilotCard.POE_DAMERON);
-         assert.equal(tokens[0].pilot().shipFaction.shipKey, Ship.T_70_X_WING);
+         assert.equal(tokens[0].card().key, PilotCard.POE_DAMERON);
+         assert.equal(tokens[0].card().shipFaction.shipKey, Ship.T_70_X_WING);
       });
 
       QUnit.test("CoreSetResistanceSquadBuilder description()", function(assert)

@@ -26,7 +26,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
             tokens.forEach(function(token, i)
             {
-               var pilot = token.pilot();
+               var pilot = token.card();
                var ship = pilot.shipFaction.ship;
                rows.push(this.createShipRow(ship, i, "row" + rows.length));
 

@@ -24,7 +24,7 @@ define(["common/js/InputValidator", "common/js/MathAugments",
          InputValidator.validateNotNull("shipDataMap", shipDataMap);
 
          var answer = -2;
-         var shipBase = token.pilot().shipFaction.ship.shipBase;
+         var shipBase = token.card().shipFaction.ship.shipBase;
          var shipData0 = shipDataMap[token];
          var position0 = shipData0.position;
          var polygon1 = shipData1.polygon;
@@ -414,7 +414,7 @@ define(["common/js/InputValidator", "common/js/MathAugments",
          InputValidator.validateNotNull("fromPosition", fromPosition);
 
          var answer = {};
-         var shipBase = token.pilot().shipFaction.ship.shipBase;
+         var shipBase = token.card().shipFaction.ship.shipBase;
          var tokens = environment.getTokensForActivation(false);
 
          tokens.forEach(function(token1)
@@ -434,7 +434,7 @@ define(["common/js/InputValidator", "common/js/MathAugments",
             else
             {
                position1 = environment.getPositionFor(token1);
-               var shipBase1 = token1.pilot().shipFaction.ship.shipBase;
+               var shipBase1 = token1.card().shipFaction.ship.shipBase;
                polygon1 = ManeuverComputer.computePolygon(shipBase1, position1.x(), position1.y(), position1.heading());
             }
 

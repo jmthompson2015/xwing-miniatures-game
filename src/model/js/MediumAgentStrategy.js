@@ -174,7 +174,7 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
          tokens.forEach(function(token)
          {
             var fromPosition = environment.getPositionFor(token);
-            var shipBase = token.pilot().shipFaction.ship.shipBase;
+            var shipBase = token.card().shipFaction.ship.shipBase;
 
             // Find the maneuvers which keep the ship on the battlefield.
             var validManeuvers = tokenToValidManeuvers[token];

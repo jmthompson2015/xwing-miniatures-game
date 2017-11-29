@@ -196,7 +196,7 @@ define(["common/js/InputValidator",
          {
             var attackDice = getAttackDice(token);
             var defender = getDefender(token);
-            var count = (defender.pilot().isUnique ? 2 : 1);
+            var count = (defender.card().isUnique ? 2 : 1);
             attackDice.rerollBlankAndFocus(count);
             callback();
          },

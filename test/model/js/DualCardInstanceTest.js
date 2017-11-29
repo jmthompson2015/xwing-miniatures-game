@@ -18,8 +18,8 @@ define(["qunit", "redux",
          var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
          assert.equal(token.id(), 1);
-         assert.equal(token.pilotKey(), PilotCard.CR90_CORVETTE);
-         assert.equal(token.pilot().shipFaction.shipKey, Ship.CR90_CORVETTE);
+         assert.equal(token.card().key, PilotCard.CR90_CORVETTE);
+         assert.equal(token.card().shipFaction.shipKey, Ship.CR90_CORVETTE);
          assert.equal(token.name(), "1 CR90 Corvette");
 
          var tokenFore = token.tokenFore();
@@ -105,7 +105,7 @@ define(["qunit", "redux",
 
          // Verify.
          assert.ok(result);
-         assert.equal(result.pilot().key, "cr90Corvette.aft");
+         assert.equal(result.card().key, "cr90Corvette.aft");
       });
 
       QUnit.test("tokenAft() crippled", function(assert)
@@ -129,7 +129,7 @@ define(["qunit", "redux",
 
          // Verify.
          assert.ok(result);
-         assert.equal(result.pilot().key, "cr90Corvette.crippledAft");
+         assert.equal(result.card().key, "cr90Corvette.crippledAft");
       });
 
       QUnit.test("tokenFore()", function(assert)
@@ -147,7 +147,7 @@ define(["qunit", "redux",
 
          // Verify.
          assert.ok(result);
-         assert.equal(result.pilot().key, "cr90Corvette.fore");
+         assert.equal(result.card().key, "cr90Corvette.fore");
       });
 
       QUnit.test("tokenFore() crippled", function(assert)
@@ -171,7 +171,7 @@ define(["qunit", "redux",
 
          // Verify.
          assert.ok(result);
-         assert.equal(result.pilot().key, "cr90Corvette.crippledFore");
+         assert.equal(result.card().key, "cr90Corvette.crippledFore");
       });
 
       QUnit.test("tokenFore().ship()", function(assert)

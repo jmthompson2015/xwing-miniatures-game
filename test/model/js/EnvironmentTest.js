@@ -338,7 +338,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 2);
-         assert.equal(result[0].pilot().shipFaction.factionKey, Faction.IMPERIAL);
+         assert.equal(result[0].card().shipFaction.factionKey, Faction.IMPERIAL);
       });
 
       QUnit.test("getFriendlyTokensAtRange() zero", function(assert)
@@ -373,7 +373,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].pilotKey(), PilotCard.DARK_CURSE);
+         assert.equal(result[0].card().key, PilotCard.DARK_CURSE);
       });
 
       QUnit.test("getPositionFor()", function(assert)
@@ -537,7 +537,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          var token = environment.getTokenAt(position);
-         assert.strictEqual(token.pilotKey(), PilotCard.MAULER_MITHEL);
+         assert.strictEqual(token.card().key, PilotCard.MAULER_MITHEL);
       });
 
       QUnit.test("getTokenAt() 2", function(assert)
@@ -546,7 +546,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          var token = environment.getTokenAt(position);
-         assert.strictEqual(token.pilotKey(), PilotCard.DARK_CURSE);
+         assert.strictEqual(token.card().key, PilotCard.DARK_CURSE);
       });
 
       QUnit.test("getTokenAt() 3", function(assert)
@@ -555,7 +555,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          var token = environment.getTokenAt(position);
-         assert.strictEqual(token.pilotKey(), PilotCard.LUKE_SKYWALKER);
+         assert.strictEqual(token.card().key, PilotCard.LUKE_SKYWALKER);
       });
 
       QUnit.test("getTokenById()", function(assert)
@@ -584,8 +584,8 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 2);
-         assert.equal(result[0].pilotKey(), PilotCard.MAULER_MITHEL);
-         assert.equal(result[1].pilotKey(), PilotCard.DARK_CURSE);
+         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
       });
 
       QUnit.test("getTokensForActivation()", function(assert)
@@ -604,17 +604,17 @@ define(["qunit", "redux",
          {
             token = result[i++];
             assert.equal(token.id(), 2);
-            assert.equal(token.pilotKey(), PilotCard.DARK_CURSE);
+            assert.equal(token.card().key, PilotCard.DARK_CURSE);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 1);
-            assert.equal(token.pilotKey(), PilotCard.MAULER_MITHEL);
+            assert.equal(token.card().key, PilotCard.MAULER_MITHEL);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 3);
-            assert.equal(token.pilotKey(), PilotCard.LUKE_SKYWALKER);
+            assert.equal(token.card().key, PilotCard.LUKE_SKYWALKER);
          }
       });
 
@@ -635,39 +635,39 @@ define(["qunit", "redux",
             token = result[i++];
             assert.equal(token.id(), 2);
             assert.equal(token.pilotSkillValue(), 8);
-            assert.equal(token.pilotKey(), PilotCard.JUNO_ECLIPSE);
+            assert.equal(token.card().key, PilotCard.JUNO_ECLIPSE);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 9);
             assert.equal(token.pilotSkillValue(), 8);
-            assert.equal(token.pilotKey(), PilotCard.WES_JANSON);
+            assert.equal(token.card().key, PilotCard.WES_JANSON);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 1);
             assert.equal(token.pilotSkillValue(), 2);
-            assert.equal(token.pilotKey(), PilotCard.GOZANTI_CLASS_CRUISER);
+            assert.equal(token.card().key, PilotCard.GOZANTI_CLASS_CRUISER);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 10);
             assert.equal(token.pilotSkillValue(), 3);
-            assert.equal(token.pilotKey(), PilotCard.GR_75_MEDIUM_TRANSPORT);
+            assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 3);
             assert.equal(token.tokenFore().pilotSkillValue(), 4);
             assert.equal(token.tokenAft().pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.RAIDER_CLASS_CORVETTE);
+            assert.equal(token.card().key, PilotCard.RAIDER_CLASS_CORVETTE);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 6);
             assert.equal(token.tokenFore().pilotSkillValue(), 4);
             assert.equal(token.tokenAft().pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.CR90_CORVETTE);
+            assert.equal(token.card().key, PilotCard.CR90_CORVETTE);
          }
       });
 
@@ -688,49 +688,49 @@ define(["qunit", "redux",
             token = result[i++];
             assert.equal(token.id(), 2);
             assert.equal(token.pilotSkillValue(), 8);
-            assert.equal(token.pilotKey(), PilotCard.JUNO_ECLIPSE);
+            assert.equal(token.card().key, PilotCard.JUNO_ECLIPSE);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 9);
             assert.equal(token.pilotSkillValue(), 8);
-            assert.equal(token.pilotKey(), PilotCard.WES_JANSON);
+            assert.equal(token.card().key, PilotCard.WES_JANSON);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 1);
             assert.equal(token.pilotSkillValue(), 2);
-            assert.equal(token.pilotKey(), PilotCard.GOZANTI_CLASS_CRUISER);
+            assert.equal(token.card().key, PilotCard.GOZANTI_CLASS_CRUISER);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 10);
             assert.equal(token.pilotSkillValue(), 3);
-            assert.equal(token.pilotKey(), PilotCard.GR_75_MEDIUM_TRANSPORT);
+            assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 4);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.RAIDER_CLASS_CORVETTE + ".fore");
+            assert.equal(token.card().key, PilotCard.RAIDER_CLASS_CORVETTE + ".fore");
          }
          {
             token = result[i++];
             assert.equal(token.id(), 5);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.RAIDER_CLASS_CORVETTE + ".aft");
+            assert.equal(token.card().key, PilotCard.RAIDER_CLASS_CORVETTE + ".aft");
          }
          {
             token = result[i++];
             assert.equal(token.id(), 7);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.CR90_CORVETTE + ".fore");
+            assert.equal(token.card().key, PilotCard.CR90_CORVETTE + ".fore");
          }
          {
             token = result[i++];
             assert.equal(token.id(), 8);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.CR90_CORVETTE + ".aft");
+            assert.equal(token.card().key, PilotCard.CR90_CORVETTE + ".aft");
          }
       });
 
@@ -750,17 +750,17 @@ define(["qunit", "redux",
          {
             token = result[i++];
             assert.equal(token.id(), 3);
-            assert.equal(token.pilotKey(), PilotCard.LUKE_SKYWALKER);
+            assert.equal(token.card().key, PilotCard.LUKE_SKYWALKER);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 1);
-            assert.equal(token.pilotKey(), PilotCard.MAULER_MITHEL);
+            assert.equal(token.card().key, PilotCard.MAULER_MITHEL);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 2);
-            assert.equal(token.pilotKey(), PilotCard.DARK_CURSE);
+            assert.equal(token.card().key, PilotCard.DARK_CURSE);
          }
       });
 
@@ -781,49 +781,49 @@ define(["qunit", "redux",
             token = result[i++];
             assert.equal(token.id(), 2);
             assert.equal(token.pilotSkillValue(), 8);
-            assert.equal(token.pilotKey(), PilotCard.JUNO_ECLIPSE);
+            assert.equal(token.card().key, PilotCard.JUNO_ECLIPSE);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 9);
             assert.equal(token.pilotSkillValue(), 8);
-            assert.equal(token.pilotKey(), PilotCard.WES_JANSON);
+            assert.equal(token.card().key, PilotCard.WES_JANSON);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 4);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.RAIDER_CLASS_CORVETTE + ".fore");
+            assert.equal(token.card().key, PilotCard.RAIDER_CLASS_CORVETTE + ".fore");
          }
          {
             token = result[i++];
             assert.equal(token.id(), 5);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.RAIDER_CLASS_CORVETTE + ".aft");
+            assert.equal(token.card().key, PilotCard.RAIDER_CLASS_CORVETTE + ".aft");
          }
          {
             token = result[i++];
             assert.equal(token.id(), 7);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.CR90_CORVETTE + ".fore");
+            assert.equal(token.card().key, PilotCard.CR90_CORVETTE + ".fore");
          }
          {
             token = result[i++];
             assert.equal(token.id(), 8);
             assert.equal(token.pilotSkillValue(), 4);
-            assert.equal(token.pilotKey(), PilotCard.CR90_CORVETTE + ".aft");
+            assert.equal(token.card().key, PilotCard.CR90_CORVETTE + ".aft");
          }
          {
             token = result[i++];
             assert.equal(token.id(), 10);
             assert.equal(token.pilotSkillValue(), 3);
-            assert.equal(token.pilotKey(), PilotCard.GR_75_MEDIUM_TRANSPORT);
+            assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          }
          {
             token = result[i++];
             assert.equal(token.id(), 1);
             assert.equal(token.pilotSkillValue(), 2);
-            assert.equal(token.pilotKey(), PilotCard.GOZANTI_CLASS_CRUISER);
+            assert.equal(token.card().key, PilotCard.GOZANTI_CLASS_CRUISER);
          }
       });
 
@@ -838,8 +838,8 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 2);
-         assert.equal(result[0].pilotKey(), PilotCard.EPSILON_LEADER);
-         assert.equal(result[1].pilotKey(), PilotCard.ZETA_ACE);
+         assert.equal(result[0].card().key, PilotCard.EPSILON_LEADER);
+         assert.equal(result[1].card().key, PilotCard.ZETA_ACE);
       });
 
       QUnit.test("getTokensForFaction() Imperial", function(assert)
@@ -853,8 +853,8 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 2);
-         assert.equal(result[0].pilotKey(), PilotCard.MAULER_MITHEL);
-         assert.equal(result[1].pilotKey(), PilotCard.DARK_CURSE);
+         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
       });
 
       QUnit.test("getTokensForFaction() Imperial mixed teams", function(assert)
@@ -873,9 +873,9 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 3);
-         assert.equal(result[0].pilotKey(), PilotCard.OMEGA_LEADER);
-         assert.equal(result[1].pilotKey(), PilotCard.COLONEL_VESSERY);
-         assert.equal(result[2].pilotKey(), PilotCard.OMICRON_GROUP_PILOT);
+         assert.equal(result[0].card().key, PilotCard.OMEGA_LEADER);
+         assert.equal(result[1].card().key, PilotCard.COLONEL_VESSERY);
+         assert.equal(result[2].card().key, PilotCard.OMICRON_GROUP_PILOT);
       });
 
       QUnit.test("getTokensForFaction() Imperial pure", function(assert)
@@ -890,8 +890,8 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 2);
-         assert.equal(result[0].pilotKey(), PilotCard.MAULER_MITHEL);
-         assert.equal(result[1].pilotKey(), PilotCard.DARK_CURSE);
+         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
       });
 
       QUnit.test("getTokensForFaction() Rebel", function(assert)
@@ -905,7 +905,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].pilotKey(), PilotCard.LUKE_SKYWALKER);
+         assert.equal(result[0].card().key, PilotCard.LUKE_SKYWALKER);
       });
 
       QUnit.test("getTokensForFaction() Resistance", function(assert)
@@ -919,7 +919,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].pilotKey(), PilotCard.POE_DAMERON);
+         assert.equal(result[0].card().key, PilotCard.POE_DAMERON);
       });
 
       QUnit.test("getTokensTouching()", function(assert)
@@ -938,7 +938,7 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].pilot().shipFaction.shipKey, Ship.X_WING);
+         assert.equal(result[0].card().shipFaction.shipKey, Ship.X_WING);
       });
 
       QUnit.test("getUnfriendlyTokensAtRange() one", function(assert)
@@ -956,8 +956,8 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 2);
-         assert.equal(result[0].pilotKey(), PilotCard.MAULER_MITHEL);
-         assert.equal(result[1].pilotKey(), PilotCard.DARK_CURSE);
+         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
       });
 
       QUnit.test("incrementRound()", function(assert)
@@ -1054,9 +1054,9 @@ define(["qunit", "redux",
 
          var tokens = environment.tokens();
          assert.equal(tokens.length, 3);
-         assert.equal(tokens[0].pilotKey(), PilotCard.MAULER_MITHEL);
-         assert.equal(tokens[1].pilotKey(), PilotCard.DARK_CURSE);
-         assert.equal(tokens[2].pilotKey(), PilotCard.LUKE_SKYWALKER);
+         assert.equal(tokens[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(tokens[1].card().key, PilotCard.DARK_CURSE);
+         assert.equal(tokens[2].card().key, PilotCard.LUKE_SKYWALKER);
       });
 
       QUnit.test("tokens() Pure", function(assert)
@@ -1066,9 +1066,9 @@ define(["qunit", "redux",
          var isPure = true;
          var tokens = environment.tokens(isPure);
          assert.equal(tokens.length, 3);
-         assert.equal(tokens[0].pilotKey(), PilotCard.MAULER_MITHEL);
-         assert.equal(tokens[1].pilotKey(), PilotCard.DARK_CURSE);
-         assert.equal(tokens[2].pilotKey(), PilotCard.LUKE_SKYWALKER);
+         assert.equal(tokens[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(tokens[1].card().key, PilotCard.DARK_CURSE);
+         assert.equal(tokens[2].card().key, PilotCard.LUKE_SKYWALKER);
       });
 
       QUnit.test("toString()", function(assert)

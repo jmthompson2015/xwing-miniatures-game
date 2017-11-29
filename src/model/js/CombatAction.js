@@ -260,7 +260,7 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          var damageDealer = new DamageDealer(environment, attackDice.hitCount(), attackDice.criticalHitCount(), defender, defenseDice.evadeCount());
          store.dispatch(Action.setTokenDamageDealer(attacker, damageDealer));
          var isDefenderHit = (damageDealer.hits() + damageDealer.criticalHits() > 0);
-         if (attacker.pilotKey() === PilotCard.LIEUTENANT_BLOUNT)
+         if (attacker.card().key === PilotCard.LIEUTENANT_BLOUNT)
          {
             isDefenderHit = true;
          }

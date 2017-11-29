@@ -147,8 +147,8 @@ define(["qunit", "redux",
          var newTokens = newEnvironment.tokens();
          assert.ok(newTokens);
          assert.equal(newTokens.length, 2, "newTokens.length === 2");
-         assert.equal(newTokens[0].pilotKey(), attacker.pilotKey());
-         assert.equal(newTokens[1].pilotKey(), defender.pilotKey());
+         assert.equal(newTokens[0].card().key, attacker.card().key);
+         assert.equal(newTokens[1].card().key, defender.card().key);
       });
 
       QUnit.test("determineValidManeuvers()", function(assert)
