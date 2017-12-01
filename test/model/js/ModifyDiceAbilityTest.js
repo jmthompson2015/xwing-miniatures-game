@@ -14,7 +14,7 @@ define(["qunit", "artifact/js/DiceModification",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          var abilities = ModifyDiceAbility;
@@ -37,7 +37,7 @@ define(["qunit", "artifact/js/DiceModification",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var callback = function()
          {
             LOGGER.info("in callback()");
@@ -64,7 +64,7 @@ define(["qunit", "artifact/js/DiceModification",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var attacker = environment.activeToken();
+         var attacker = environment.activeCardInstance();
          var attackDice = AttackDice.get(store, attacker.id());
          assert.equal(attacker.focusCount(), 1);
          var focusCount0 = attackDice.focusCount();
@@ -88,8 +88,8 @@ define(["qunit", "artifact/js/DiceModification",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // X-Wing.
-         var defender = environment.tokens()[0]; // TIE Fighter.
+         var attacker = environment.pilotInstances()[2]; // X-Wing.
+         var defender = environment.pilotInstances()[0]; // TIE Fighter.
          TargetLock.newInstance(store, attacker, defender);
          var attackDice = AttackDice.get(store, attacker.id());
          var blankCount0 = attackDice.blankCount();
@@ -114,8 +114,8 @@ define(["qunit", "artifact/js/DiceModification",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // X-Wing.
-         var defender = environment.tokens()[0]; // TIE Fighter.
+         var attacker = environment.pilotInstances()[2]; // X-Wing.
+         var defender = environment.pilotInstances()[0]; // TIE Fighter.
          store.dispatch(CardAction.addEvadeCount(defender));
          var defenseDice = DefenseDice.get(store, attacker.id());
          assert.equal(defender.evadeCount(), 1);
@@ -143,8 +143,8 @@ define(["qunit", "artifact/js/DiceModification",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // X-Wing.
-         var defender = environment.tokens()[0]; // TIE Fighter.
+         var attacker = environment.pilotInstances()[2]; // X-Wing.
+         var defender = environment.pilotInstances()[0]; // TIE Fighter.
          var defenseDice = DefenseDice.get(store, attacker.id());
          store.dispatch(CardAction.addFocusCount(defender));
          assert.equal(defender.evadeCount(), 0);
@@ -171,9 +171,9 @@ define(["qunit", "artifact/js/DiceModification",
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // X-Wing.
+         var attacker = environment.pilotInstances()[2]; // X-Wing.
          var weapon = attacker.primaryWeapon();
-         var defender = environment.tokens()[0]; // TIE Fighter.
+         var defender = environment.pilotInstances()[0]; // TIE Fighter.
          var callback = function()
          {
             LOGGER.info("in callback()");

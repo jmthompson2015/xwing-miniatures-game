@@ -20,11 +20,11 @@
 "use strict";
 
 define(["common/js/ArrayAugments", "common/js/InputValidator",
-  "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
-  "model/js/Action", "model/js/AgentAction", "model/js/CardInstanceFactory", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
+  "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
+  "model/js/Action", "model/js/AgentAction", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/DualCardInstance", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
    function(ArrayAugments, InputValidator,
-      DamageCard, Faction, PlayFormat, Range,
-      Action, AgentAction, CardInstanceFactory, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
+      CardType, DamageCard, Faction, PlayFormat, Range,
+      Action, AgentAction, CardInstance, CardInstanceFactory, DualCardInstance, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
    {
       function Environment(store, agent1, squad1, agent2, squad2, positions1, positions2)
       {
@@ -52,19 +52,47 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       //////////////////////////////////////////////////////////////////////////
       // Accessor methods.
 
-      Environment.prototype.activeToken = function()
+      Environment.prototype.activeCardInstance = function()
       {
          var store = this.store();
          var activeCardId = store.getState().activeCardId;
 
-         return (activeCardId !== undefined ? this.getTokenById(activeCardId) : undefined);
+         return (activeCardId !== undefined ? CardInstanceFactory.get(store, activeCardId) : undefined);
+      };
+
+      Environment.prototype.cardInstances = function()
+      {
+         var store = this.store();
+         var cardInstances = store.getState().cardInstances;
+         var keys = cardInstances.keySeq().toArray();
+
+         return keys.reduce(function(accumulator, id)
+         {
+            var values = cardInstances.get(id);
+
+            if (values.get("idFore") !== undefined)
+            {
+               accumulator.push(DualCardInstance.get(store, id));
+            }
+            else
+            {
+               var cardKey = values.get("cardKey");
+
+               if (!cardKey.endsWith(".fore") && !cardKey.endsWith(".aft"))
+               {
+                  accumulator.push(CardInstance.get(store, id));
+               }
+            }
+
+            return accumulator;
+         }, []);
       };
 
       Environment.prototype.createTokenPositions = function()
       {
          var answer = [];
 
-         var tokens = this.tokens();
+         var tokens = this.pilotInstances();
 
          tokens.forEach(function(token)
          {
@@ -92,7 +120,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          {
             var primaryWeapon = attacker.primaryWeapon();
 
-            if (primaryWeapon && (!weaponIn || weaponIn === primaryWeapon))
+            if (primaryWeapon && (!weaponIn || weaponIn.equals(primaryWeapon)))
             {
                var rangeToDefenders = this._createRangeToDefenders(attacker, attackerPosition, primaryWeapon);
 
@@ -106,7 +134,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
             weapons.forEach(function(weapon)
             {
-               if (!weaponIn || weaponIn === weapon)
+               if (!weaponIn || weaponIn.equals(weapon))
                {
                   rangeToDefenders = this._createRangeToDefenders(attacker, attackerPosition, weapon);
 
@@ -324,7 +352,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
          var position0 = this.getPositionFor(token0);
 
-         return this.tokens().filter(function(token)
+         return this.pilotInstances().filter(function(token)
          {
             var answer;
 
@@ -353,7 +381,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
       Environment.prototype.getTokensForActivation = function(isPure)
       {
-         return this.tokens(isPure).sort(
+         return this.pilotInstances(isPure).sort(
             function(token0, token1)
             {
                var answer;
@@ -407,7 +435,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       {
          var isPure = true;
 
-         return this.tokens(isPure).sort(function(token0, token1)
+         return this.pilotInstances(isPure).sort(function(token0, token1)
          {
             var skill0 = token0.pilotSkillValue();
             var skill1 = token1.pilotSkillValue();
@@ -443,7 +471,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
       Environment.prototype.getTokensForFaction = function(factionKey, isPure)
       {
-         return this.tokens(isPure).filter(function(token)
+         return this.pilotInstances(isPure).filter(function(token)
          {
             return Faction.isFriendly(token.card().shipFaction.factionKey, factionKey);
          });
@@ -496,6 +524,27 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          return (answer !== undefined ? answer : false);
       };
 
+      Environment.prototype.pilotInstances = function(isPure)
+      {
+         return this.cardInstances().reduce(function(accumulator, cardInstance)
+         {
+            if (cardInstance.card().cardTypeKey === CardType.PILOT)
+            {
+               if (isPure && cardInstance.tokenFore && cardInstance.tokenAft)
+               {
+                  accumulator.push(cardInstance.tokenFore());
+                  accumulator.push(cardInstance.tokenAft());
+               }
+               else
+               {
+                  accumulator.push(cardInstance);
+               }
+            }
+
+            return accumulator;
+         }, []);
+      };
+
       Environment.prototype.playFormat = function()
       {
          return PlayFormat.properties[this.playFormatKey()];
@@ -530,46 +579,13 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
       Environment.prototype.toString = function()
       {
-         var store = this.store();
-         var tokens = store.getState().cardInstances;
-         var callback = function(accumulator, tokenId)
+         var tokens = this.pilotInstances();
+         var getPositionFor = this.getPositionFor.bind(this);
+         return tokens.reduce(function(accumulator, token)
          {
-            var myTokenId = parseInt(tokenId);
-            var token = this.getTokenById(myTokenId);
-            var position = this.getPositionFor(token);
+            var position = getPositionFor(token);
             return accumulator + position.toString() + " " + token.toString() + "\n";
-         };
-
-         return tokens.keySeq().reduce(callback.bind(this), "");
-      };
-
-      Environment.prototype.tokens = function(isPure)
-      {
-         var store = this.store();
-         var tokens = store.getState().cardInstances;
-
-         return tokens.keySeq().reduce(function(accumulator, tokenId)
-         {
-            var id = parseInt(tokenId);
-            var token = CardInstanceFactory.get(store, id);
-
-            if (token)
-            {
-               var pilotKey = token.card().key;
-
-               if (isPure && token.tokenFore && token.tokenAft)
-               {
-                  accumulator.push(token.tokenFore());
-                  accumulator.push(token.tokenAft());
-               }
-               else if (!(pilotKey.endsWith(".fore") || pilotKey.endsWith(".aft")))
-               {
-                  accumulator.push(token);
-               }
-            }
-
-            return accumulator;
-         }, []);
+         }, "");
       };
 
       //////////////////////////////////////////////////////////////////////////

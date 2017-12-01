@@ -52,7 +52,7 @@
 
 				var store = Redux.createStore(Reducer.root);
 				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1);
-				var tokens = environment.tokens();
+				var tokens = environment.pilotInstances();
 				defender0 = tokens[0];
 				defender1 = tokens[1];
 				defender2 = tokens[2];

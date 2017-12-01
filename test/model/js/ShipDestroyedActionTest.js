@@ -12,7 +12,7 @@ define(["qunit", "model/js/Position", "model/js/ShipDestroyedAction", "model/js/
          var store = environment.store();
          var fromPosition = new Position(305, 20, 90); // TIE Fighter.
          var token = environment.getTokenAt(fromPosition);
-         var defender = environment.tokens()[2]; // X-Wing.
+         var defender = environment.pilotInstances()[2]; // X-Wing.
          TargetLock.newInstance(store, token, defender);
          assert.equal(store.getState().targetLocks.size, 1);
          var shipDestroyedAction = new ShipDestroyedAction(environment, token, fromPosition);

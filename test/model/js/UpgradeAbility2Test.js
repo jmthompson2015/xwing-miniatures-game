@@ -14,7 +14,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -42,7 +42,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var callback = function()
          {
             LOGGER.info("in callback()");
@@ -75,7 +75,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -106,7 +106,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase",
          var store = environment.store();
          Adjudicator.create(store);
 
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var maneuverKey = Maneuver.STRAIGHT_3_STANDARD;
          var callback = function()
          {

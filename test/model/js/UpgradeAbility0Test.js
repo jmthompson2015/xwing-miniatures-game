@@ -14,7 +14,7 @@ define(["qunit", "artifact/js/Event", "artifact/js/Maneuver",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Event.keys().forEach(function(eventKey)
@@ -42,7 +42,7 @@ define(["qunit", "artifact/js/Event", "artifact/js/Maneuver",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Event.keys().forEach(function(eventKey)
@@ -73,7 +73,7 @@ define(["qunit", "artifact/js/Event", "artifact/js/Maneuver",
          var store = environment.store();
          Adjudicator.create(store);
 
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var maneuverKey = Maneuver.STRAIGHT_2_EASY;
          var callback = function()
          {

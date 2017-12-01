@@ -1,8 +1,8 @@
 "use strict";
 
-define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
+define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/PilotCard",
   "model/js/CardAction", "model/js/CardInstance", "model/js/TargetLock"],
-   function(Immutable, InputValidator, PilotCard, CardAction, CardInstance, TargetLock)
+   function(Immutable, InputValidator, CardResolver, CardType, PilotCard, CardAction, CardInstance, TargetLock)
    {
       function DualCardInstance(store, cardOrKey, agent, upgradeKeysForeIn, upgradeKeysAftIn, idIn, isNewIn, idFore, idAft)
       {
@@ -22,21 +22,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
          {
             var cardKey = cardOrKey;
             card = PilotCard.properties[cardKey];
-
-            //  if (card === undefined)
-            //  {
-            //     card = UpgradeCard.properties[cardKey];
-            //  }
-            //
-            //  if (card === undefined)
-            //  {
-            //     card = DamageCard.properties[cardKey];
-            //  }
-            //
-            //  if (card === undefined)
-            //  {
-            //     card = ConditionCard.properties[cardKey];
-            //  }
          }
          else
          {
@@ -310,10 +295,11 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
 
          var store = this.store();
          var id = this.id();
-         var pilotKey = this.card().key;
+         var cardTypeKey = this.card().cardTypeKey;
+         var cardKey = this.card().key;
          var agent = this.agent();
 
-         store.dispatch(CardAction.setCardInstance(id, pilotKey, agent, tokenFore.id(), tokenAft.id()));
+         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, tokenFore.id(), tokenAft.id()));
       };
 
       //////////////////////////////////////////////////////////////////////////
@@ -321,13 +307,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
 
       DualCardInstance.prototype.newInstance = function(store, agent)
       {
-         var pilotKey = this.card().key;
+         var card = this.card();
          var tokenFore = this.tokenFore();
          var tokenAft = this.tokenAft();
          var upgradeKeysFore = tokenFore.upgradeKeys().slice();
          var upgradeKeysAft = tokenAft.upgradeKeys().slice();
 
-         return new DualCardInstance(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft);
+         return new DualCardInstance(store, card, agent, upgradeKeysFore, upgradeKeysAft);
       };
 
       DualCardInstance.get = function(store, id)
@@ -340,7 +326,9 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
 
          if (values !== undefined)
          {
-            var pilotKey = values.get("pilotKey");
+            var cardTypeKey = values.get("cardTypeKey");
+            var cardKey = values.get("cardKey");
+            var card = CardResolver.resolve(cardTypeKey, cardKey);
             var agent = values.get("agent");
             var idFore = values.get("idFore");
             var idAft = values.get("idAft");
@@ -348,7 +336,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/PilotCard",
             var upgradeKeysAft = store.getState().cardUpgrades.get(id);
             var isNew = false;
 
-            answer = new DualCardInstance(store, pilotKey, agent, upgradeKeysFore, upgradeKeysAft, id, isNew, idFore, idAft);
+            answer = new DualCardInstance(store, card, agent, upgradeKeysFore, upgradeKeysAft, id, isNew, idFore, idAft);
          }
 
          return answer;

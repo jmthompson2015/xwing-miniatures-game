@@ -10,7 +10,7 @@ define(["qunit", "artifact/js/Phase", "model/js/DamageAbility4", "../../../test/
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -40,7 +40,7 @@ define(["qunit", "artifact/js/Phase", "model/js/DamageAbility4", "../../../test/
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -70,7 +70,7 @@ define(["qunit", "artifact/js/Phase", "model/js/DamageAbility4", "../../../test/
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -98,7 +98,7 @@ define(["qunit", "artifact/js/Phase", "model/js/DamageAbility4", "../../../test/
       function createEnvironment()
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          environment.setActiveToken(token);
 

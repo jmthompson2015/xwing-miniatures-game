@@ -407,7 +407,7 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
          var squad2 = new Squad(environment.secondAgent().factionKey(), "Second Squad", 2017, "description", [defender]);
          var newEnvironment = new Environment(newStore, environment.firstAgent(), squad1, environment.secondAgent(), squad2, [attackerPosition], [defenderPosition]);
          newStore.dispatch(Action.setEnvironment(newEnvironment));
-         var tokens = newEnvironment.tokens();
+         var tokens = newEnvironment.pilotInstances();
          var newAttacker = tokens[0];
          var newDefender = tokens[1];
 

@@ -28,7 +28,7 @@ define(["qunit", "redux",
          var store = environment.store();
          var name = "myAgent";
          var agent = new Agent(store, name, Faction.IMPERIAL);
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          var token2 = tokens[2];
          LOGGER.debug("token2 = " + token2);
 
@@ -86,7 +86,7 @@ define(["qunit", "redux",
 
             // Verify.
             assert.ok(weapon);
-            assert.equal(weapon, token0.primaryWeapon());
+            assert.equal(weapon.equals(token0.primaryWeapon()), true);
             assert.ok(defender);
             assert.equal(defender.id(), token2.id());
          }
@@ -104,8 +104,8 @@ define(["qunit", "redux",
          var oldPosition0 = new Position(305, 20, 90);
          var position0 = new Position(458, 695, 90);
          store.dispatch(EnvironmentAction.moveToken(oldPosition0, position0));
-         var token0 = environment.tokens()[0];
-         var token2 = environment.tokens()[2];
+         var token0 = environment.pilotInstances()[0];
+         var token2 = environment.pilotInstances()[2];
          TargetLock.newInstance(store, token2, token0);
          var agent = token2.agent();
 
@@ -113,7 +113,7 @@ define(["qunit", "redux",
          {
             // Verify.
             assert.ok(weapon);
-            assert.equal(weapon, token2.secondaryWeapons().get(0));
+            assert.equal(weapon.equals(token2.secondaryWeapons()[0]), true);
             assert.ok(defender);
             assert.ok(defender.equals(token0));
          };
@@ -144,7 +144,7 @@ define(["qunit", "redux",
          assert.ok(result);
          var newEnvironment = result.getState().environment;
          assert.ok(newEnvironment);
-         var newTokens = newEnvironment.tokens();
+         var newTokens = newEnvironment.pilotInstances();
          assert.ok(newTokens);
          assert.equal(newTokens.length, 2, "newTokens.length === 2");
          assert.equal(newTokens[0].card().key, attacker.card().key);
@@ -155,7 +155,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
-         var token = environment.tokens()[0]; // TIE Fighter.
+         var token = environment.pilotInstances()[0]; // TIE Fighter.
          var agent = token.agent();
 
          // Run.
@@ -170,7 +170,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
-         var token = environment.tokens()[0]; // TIE Fighter.
+         var token = environment.pilotInstances()[0]; // TIE Fighter.
          var agent = token.agent();
          var position0 = environment.getPositionFor(token);
          LOGGER.debug("before position0 = " + position0);
@@ -202,8 +202,8 @@ define(["qunit", "redux",
 
          var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
-         var attacker = environment.tokens()[1]; // X-Wing.
-         var defender = environment.tokens()[0]; // VT-49 Decimator.
+         var attacker = environment.pilotInstances()[1]; // X-Wing.
+         var defender = environment.pilotInstances()[0]; // VT-49 Decimator.
          store.dispatch(CardAction.addEvadeCount(defender));
          environment.setActiveToken(attacker);
          var weapon = attacker.primaryWeapon();
@@ -227,7 +227,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var token = environment.tokens()[0]; // TIE Fighter.
+         var token = environment.pilotInstances()[0]; // TIE Fighter.
          var agent = token.agent();
 
          // Run.
@@ -248,9 +248,10 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var agent = token.agent();
-         store.dispatch(CardAction.addUpgrade(token, UpgradeCard.LANDO_CALRISSIAN));
+         var upgrade = new CardInstance(store, UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN]);
+         store.dispatch(CardAction.addUpgrade(token, upgrade));
          store.dispatch(CardAction.addCriticalDamage(token, DamageCard.CONSOLE_FIRE));
          environment.setActiveToken(token);
 
@@ -289,7 +290,7 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
          var adjudicator = Adjudicator.create(store);
-         var token = environment.tokens()[3]; // K-Wing.
+         var token = environment.pilotInstances()[3]; // K-Wing.
          var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_2_EASY];
          store.dispatch(Action.setTokenManeuver(token, previousManeuver));
 
@@ -361,8 +362,8 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var attacker = environment.tokens()[0]; // TIE Fighter
-         var defender = environment.tokens()[2]; // X-Wing
+         var attacker = environment.pilotInstances()[0]; // TIE Fighter
+         var defender = environment.pilotInstances()[2]; // X-Wing
          var weapon = attacker.primaryWeapon();
          var caCallback = function() {};
          var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, undefined, MockAttackDice, MockDefenseDice);
@@ -390,8 +391,8 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var attacker = environment.tokens()[2]; // X-Wing
-         var defender = environment.tokens()[0]; // TIE Fighter
+         var attacker = environment.pilotInstances()[2]; // X-Wing
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
          var weapon = attacker.primaryWeapon();
          var caCallback = function() {};
          var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, undefined, MockAttackDice, MockDefenseDice);
@@ -518,7 +519,7 @@ define(["qunit", "redux",
          var adjudicator = Adjudicator.create(store);
          var name = "myAgent";
          var agent = new Agent(store, name, Faction.IMPERIAL);
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          var token2 = tokens[2];
          LOGGER.debug("token2 = " + token2);
 
@@ -556,7 +557,7 @@ define(["qunit", "redux",
          var environment = new Environment(store, firstAgent, firstSquad, secondAgent, secondSquad);
          firstAgent = environment.firstAgent();
          secondAgent = environment.secondAgent();
-         var token = environment.tokens()[1];
+         var token = environment.pilotInstances()[1];
          var adjudicator = Adjudicator.create(store);
          var callback = function(tokenToManeuver)
          {

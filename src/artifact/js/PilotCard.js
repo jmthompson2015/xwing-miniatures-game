@@ -3074,6 +3074,22 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                pilot.aft.oncePerRound = true;
             }
          }
+
+         if (pilot.crippledFore)
+         {
+            pilot.crippledFore.cardTypeKey = CardType.PILOT;
+            pilot.crippledFore.xwingType = PilotCard;
+            pilot.crippledFore.parent = pilot;
+            pilot.crippledFore.shipFaction = ShipFaction.properties[pilot.crippledFore.shipFactionKey];
+         }
+
+         if (pilot.crippledAft)
+         {
+            pilot.crippledAft.cardTypeKey = CardType.PILOT;
+            pilot.crippledAft.xwingType = PilotCard;
+            pilot.crippledAft.parent = pilot;
+            pilot.crippledAft.shipFaction = ShipFaction.properties[pilot.crippledAft.shipFactionKey];
+         }
       });
 
       //////////////////////////////////////////////////////////////////////////

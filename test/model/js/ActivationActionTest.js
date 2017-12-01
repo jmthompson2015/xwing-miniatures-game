@@ -46,7 +46,7 @@ define(["qunit", "redux",
          var squad2 = squadBuilder2.buildSquad(agent2);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          Adjudicator.create(store);
-         var token = environment.tokens()[0]; // Gozanti-class Cruiser
+         var token = environment.pilotInstances()[0]; // Gozanti-class Cruiser
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
          var maneuverKey = Maneuver.STRAIGHT_1_3;
@@ -154,7 +154,7 @@ define(["qunit", "redux",
          var squad2 = squadBuilder2.buildSquad(agent2);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          Adjudicator.create(store);
-         var token = environment.tokens()[2]; // Lambda-class Shuttle
+         var token = environment.pilotInstances()[2]; // Lambda-class Shuttle
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
          var maneuverKey = Maneuver.STATIONARY_0_HARD;
@@ -238,7 +238,7 @@ define(["qunit", "redux",
             assert.ok(true, "test resumed from async operation");
 
             var environment = action.environment();
-            var token = environment.activeToken();
+            var token = environment.activeCardInstance();
             var activationAction = ActivationAction.get(token.store(), token.id());
             assert.ok(activationAction);
             assert.equal(activationAction.maneuverKey(), Maneuver.BANK_LEFT_2_STANDARD);
@@ -372,7 +372,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          Adjudicator.create(store);
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
          var callback = function()
          {
@@ -414,7 +414,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          Adjudicator.create(store);
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var maneuverKey = Maneuver.KOIOGRAN_TURN_4_HARD;
          var callback = function()
          {
@@ -467,7 +467,7 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          Adjudicator.create(store);
          var environment = new Environment(store, rebelAgent, squad1, imperialAgent, squad2, positions1, positions2);
-         var token = environment.tokens()[1];
+         var token = environment.pilotInstances()[1];
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
          environment.setActiveToken(token);

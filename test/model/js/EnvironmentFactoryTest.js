@@ -11,12 +11,12 @@ define(["qunit", "../../../test/model/js/EnvironmentFactory"], function(QUnit, E
 
       // Verify.
       assert.ok(result);
-      assert.equal(result.tokens().length, 3);
-      var token0 = result.tokens()[0]; // TIE Fighter.
+      assert.equal(result.pilotInstances().length, 3);
+      var token0 = result.pilotInstances()[0]; // TIE Fighter.
       assert.equal(token0.card().key, "maulerMithel");
-      var token1 = result.tokens()[1]; // TIE Fighter.
+      var token1 = result.pilotInstances()[1]; // TIE Fighter.
       assert.equal(token1.card().key, "darkCurse");
-      var token2 = result.tokens()[2]; // X-Wing.
+      var token2 = result.pilotInstances()[2]; // X-Wing.
       assert.equal(token2.card().key, "lukeSkywalker");
    });
 
@@ -27,12 +27,12 @@ define(["qunit", "../../../test/model/js/EnvironmentFactory"], function(QUnit, E
 
       // Verify.
       assert.ok(result);
-      assert.equal(result.tokens().length, 3);
-      var token0 = result.tokens()[0]; // TIE Fighter.
+      assert.equal(result.pilotInstances().length, 3);
+      var token0 = result.pilotInstances()[0]; // TIE Fighter.
       assert.equal(token0.card().key, "epsilonLeader");
-      var token1 = result.tokens()[1]; // TIE Fighter.
+      var token1 = result.pilotInstances()[1]; // TIE Fighter.
       assert.equal(token1.card().key, "zetaAce");
-      var token2 = result.tokens()[2]; // X-Wing.
+      var token2 = result.pilotInstances()[2]; // X-Wing.
       assert.equal(token2.card().key, "poeDameron");
    });
 
@@ -43,7 +43,7 @@ define(["qunit", "../../../test/model/js/EnvironmentFactory"], function(QUnit, E
 
       // Verify.
       assert.ok(result);
-      var tokens = result.tokens();
+      var tokens = result.pilotInstances();
       assert.equal(tokens.length, 6);
       var i = 0;
       assert.equal(tokens[i++].card().key, "gozantiClassCruiser");

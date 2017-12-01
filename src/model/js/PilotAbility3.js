@@ -93,13 +93,13 @@ define(["common/js/InputValidator",
          // When an enemy ship declares you as the target of an attack, you may acquire a target lock on that ship.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             return token.equals(defender);
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             TargetLock.newInstance(store, token, attacker, callback);
          },
       };
@@ -113,7 +113,7 @@ define(["common/js/InputValidator",
          {
             var defender = getDefender(token);
             var targetLocks = TargetLock.getByDefender(store, defender);
-            return isActiveToken(store, token) && targetLocks.length > 0;
+            return isActiveCardInstance(store, token) && targetLocks.length > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -132,7 +132,7 @@ define(["common/js/InputValidator",
             var attackDice = getAttackDice(token);
             var environment = store.getState().environment;
             var shipCount = environment.getUnfriendlyTokensAtRange(token, Range.ONE).length;
-            return isActiveToken(store, token) && shipCount > 0 && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0);
+            return isActiveCardInstance(store, token) && shipCount > 0 && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0);
          },
          consequent: function(store, token, callback)
          {
@@ -150,7 +150,7 @@ define(["common/js/InputValidator",
          {
             var rangeKey = getRangeKey(token);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && [Range.TWO, Range.THREE].includes(rangeKey) && attackDice.blankCount() > 0;
+            return isActiveCardInstance(store, token) && [Range.TWO, Range.THREE].includes(rangeKey) && attackDice.blankCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -165,7 +165,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && token.isStressed() && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0);
+            return isActiveCardInstance(store, token) && token.isStressed() && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0);
          },
          consequent: function(store, token, callback)
          {
@@ -187,7 +187,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && token.isStressed() && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && token.isStressed() && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -204,7 +204,7 @@ define(["common/js/InputValidator",
          {
             var rangeKey = getRangeKey(token);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && [Range.TWO, Range.THREE].includes(rangeKey) && attackDice.evadeCount() > 0;
+            return isActiveCardInstance(store, token) && [Range.TWO, Range.THREE].includes(rangeKey) && attackDice.evadeCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -221,7 +221,7 @@ define(["common/js/InputValidator",
          {
             var weapon = getWeapon(token);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && !weapon.isPrimary() && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0);
+            return isActiveCardInstance(store, token) && !weapon.isPrimary() && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0);
          },
          consequent: function(store, token, callback)
          {
@@ -245,7 +245,7 @@ define(["common/js/InputValidator",
             var defender = getDefender(token);
             var targetLocks = TargetLock.getByDefender(store, defender);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && token.focusCount() > 0 && targetLocks.length > 0 && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0 || attackDice.hitCount() > 0);
+            return isActiveCardInstance(store, token) && token.focusCount() > 0 && targetLocks.length > 0 && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0 || attackDice.hitCount() > 0);
          },
          consequent: function(store, token, callback)
          {
@@ -265,7 +265,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && token.focusCount() > 0 && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && token.focusCount() > 0 && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -281,7 +281,7 @@ define(["common/js/InputValidator",
          {
             var rangeKey = getRangeKey(token);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && [Range.ONE, Range.TWO].includes(rangeKey) && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && [Range.ONE, Range.TWO].includes(rangeKey) && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -297,7 +297,7 @@ define(["common/js/InputValidator",
          {
             var rangeKey = getRangeKey(token);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && rangeKey === Range.ONE && attackDice.hitCount() > 0;
+            return isActiveCardInstance(store, token) && rangeKey === Range.ONE && attackDice.hitCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -314,7 +314,7 @@ define(["common/js/InputValidator",
          // When attacking or defending, you may reroll 1 of your dice for each enemy ship at Range 1.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             var environment = store.getState().environment;
@@ -323,7 +323,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             var environment = store.getState().environment;
             var shipCount = environment.getUnfriendlyTokensAtRange(token, Range.ONE).length;
@@ -336,14 +336,14 @@ define(["common/js/InputValidator",
          // When defending, if you are stressed, you may change up to 2 of your focus results to evade results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             return token.equals(defender) && token.isStressed() && defenseDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.changeOneToValue(DefenseDiceValue.FOCUS, DefenseDiceValue.EVADE);
             defenseDice.changeOneToValue(DefenseDiceValue.FOCUS, DefenseDiceValue.EVADE);
@@ -355,14 +355,14 @@ define(["common/js/InputValidator",
          // When attacking or defending, if you have at least 1 stress token, you may reroll 1 of your dice.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             return token.equals(defender) && token.isStressed() && (defenseDice.blankCount() > 0 || defenseDice.focusCount() > 0);
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             if (defenseDice.blankCount() > 0)
             {
@@ -380,14 +380,14 @@ define(["common/js/InputValidator",
          // When defending, you may change 1 of your Focus results to an Evade result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             return token.equals(defender) && defenseDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.changeOneToValue(DefenseDiceValue.FOCUS, DefenseDiceValue.EVADE);
             callback();
@@ -398,14 +398,14 @@ define(["common/js/InputValidator",
          // While attacking or defending, if you have a Focus token, you may change 1 of your Focus results to a Hit or Evade result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             return token.equals(defender) && token.focusCount() > 0 && defenseDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.changeOneToValue(DefenseDiceValue.FOCUS, DefenseDiceValue.EVADE);
             callback();
@@ -419,8 +419,8 @@ define(["common/js/InputValidator",
          // After you perform an attack that hits, you may assign 1 focus token to your ship.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
-            return isActiveToken(store, token) && isDefenderHit(attacker);
+            var attacker = getActiveCardInstance(store);
+            return isActiveCardInstance(store, token) && isDefenderHit(attacker);
          },
          consequent: function(store, token, callback)
          {
@@ -437,7 +437,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var defender = getDefender(token);
-            return isActiveToken(store, token) && defender.isDestroyed();
+            return isActiveCardInstance(store, token) && defender.isDestroyed();
          },
          consequent: function(store, token, callback)
          {
@@ -450,7 +450,7 @@ define(["common/js/InputValidator",
          // After you defend against an attack, if the attack did not hit, you may assign 1 evade token to your ship.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             return token.equals(defender) && !isDefenderHit(attacker);
          },
@@ -466,7 +466,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var combatAction = getCombatAction(token);
-            return isActiveToken(store, token) && combatAction !== undefined;
+            return isActiveCardInstance(store, token) && combatAction !== undefined;
          },
          consequent: function(store, token, callback)
          {
@@ -533,13 +533,13 @@ define(["common/js/InputValidator",
       };
 
       ////////////////////////////////////////////////////////////////////////
-      function getActiveToken(store)
+      function getActiveCardInstance(store)
       {
          InputValidator.validateNotNull("store", store);
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
       function getAttackDice(attacker)
@@ -603,9 +603,9 @@ define(["common/js/InputValidator",
          return getCombatAction(attacker).weapon();
       }
 
-      function isActiveToken(store, token)
+      function isActiveCardInstance(store, token)
       {
-         var activeToken = getActiveToken(store);
+         var activeToken = getActiveCardInstance(store);
 
          return token.equals(activeToken);
       }

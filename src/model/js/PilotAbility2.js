@@ -19,9 +19,9 @@ define(["common/js/InputValidator",
          // When you reveal a Straight maneuver, you may treat it as a K-Turn maneuver.
          condition: function(store, token)
          {
-            var activeToken = getActiveToken(store);
+            var activeToken = getActiveCardInstance(store);
             var maneuver = getManeuver(activeToken);
-            return isActiveToken(store, token) && maneuver.bearingKey === Bearing.STRAIGHT;
+            return isActiveCardInstance(store, token) && maneuver.bearingKey === Bearing.STRAIGHT;
          },
          consequent: function(store, token, callback)
          {
@@ -41,9 +41,9 @@ define(["common/js/InputValidator",
          // When you reveal a bank maneuver, you may rotate your dial to the other bank maneuver of the same speed.
          condition: function(store, token)
          {
-            var activeToken = getActiveToken(store);
+            var activeToken = getActiveCardInstance(store);
             var maneuver = getManeuver(activeToken);
-            return isActiveToken(store, token) && [Bearing.BANK_LEFT, Bearing.BANK_RIGHT].includes(maneuver.bearingKey);
+            return isActiveCardInstance(store, token) && [Bearing.BANK_LEFT, Bearing.BANK_RIGHT].includes(maneuver.bearingKey);
          },
          consequent: function(store, token, callback)
          {
@@ -97,13 +97,13 @@ define(["common/js/InputValidator",
          return ActivationAction.get(token.store(), token.id());
       }
 
-      function getActiveToken(store)
+      function getActiveCardInstance(store)
       {
          InputValidator.validateNotNull("store", store);
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
       function getManeuver(token)
@@ -122,9 +122,9 @@ define(["common/js/InputValidator",
          return (activationAction ? activationAction.maneuverKey() : undefined);
       }
 
-      function isActiveToken(store, token)
+      function isActiveCardInstance(store, token)
       {
-         var activeToken = getActiveToken(store);
+         var activeToken = getActiveCardInstance(store);
 
          return token.equals(activeToken);
       }

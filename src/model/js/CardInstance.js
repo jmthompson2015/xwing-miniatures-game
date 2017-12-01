@@ -1,17 +1,17 @@
 "use strict";
 
 define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
-  "artifact/js/Bearing", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
+  "artifact/js/Bearing", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
   "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
    function(Immutable, ArrayAugments, InputValidator,
-      Bearing, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
+      Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
       Ability, Action, AgentAction, CardAction, RangeRuler, TargetLock, Weapon)
    {
       function CardInstance(store, cardOrKey, agent, upgradeKeysIn, idIn, isNewIn)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("cardOrKey", cardOrKey);
-         InputValidator.validateNotNull("agent", agent);
+         // agent optional.
          // upgradeKeys optional.
          // idIn optional. default: determined from store
          // isNewIn optional. default: true
@@ -85,7 +85,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.agilityValue = function()
       {
-         var answer = this.key(Value.AGILITY);
+         var answer = this.value(Value.AGILITY);
 
          if (this.isCloaked())
          {
@@ -334,7 +334,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.energyValue = function()
       {
-         var value = this.key(Value.ENERGY);
+         var value = this.value(Value.ENERGY);
 
          return (value !== undefined ? value : null);
       };
@@ -363,7 +363,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.hullValue = function()
       {
-         return this.key(Value.HULL);
+         return this.value(Value.HULL);
       };
 
       CardInstance.prototype.ionCount = function()
@@ -516,13 +516,32 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.name = function()
       {
-         var pilotName = this.card().name;
-         var shipName = this.card().shipFaction.ship.name;
-         var answer = this.id() + " " + pilotName;
+         var answer;
 
-         if (!pilotName.startsWith(shipName))
+         switch (this.card().cardTypeKey)
          {
-            answer += " (" + shipName + ")";
+            case CardType.CONDITION:
+               var conditionName = this.card().name;
+               answer = this.id() + " " + conditionName;
+               break;
+            case CardType.DAMAGE:
+               var damageName = this.card().name;
+               answer = this.id() + " " + damageName;
+               break;
+            case CardType.PILOT:
+               var pilotName = this.card().name;
+               var shipName = this.card().shipFaction.ship.name;
+               answer = this.id() + " " + pilotName;
+
+               if (!pilotName.startsWith(shipName))
+               {
+                  answer += " (" + shipName + ")";
+               }
+               break;
+            case CardType.UPGRADE:
+               var upgradeName = this.card().name;
+               answer = this.id() + " " + upgradeName;
+               break;
          }
 
          return answer;
@@ -544,7 +563,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.pilotSkillValue = function()
       {
-         var answer = this.key(Value.PILOT_SKILL);
+         var answer = this.value(Value.PILOT_SKILL);
 
          if (this.card().key === PilotCard.EPSILON_ACE)
          {
@@ -566,15 +585,15 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.primaryWeapon = function()
       {
-         var state = this.state();
-         var id = this.id();
+         var primaryWeaponValue = this.primaryWeaponValue();
+         var ship = this.ship();
 
-         return state.cardPrimaryWeapon.get(id);
+         return new Weapon("Primary Weapon", primaryWeaponValue, ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
       };
 
       CardInstance.prototype.primaryWeaponValue = function()
       {
-         var answer = this.key(Value.PRIMARY_WEAPON);
+         var answer = this.value(Value.PRIMARY_WEAPON);
 
          if (this.isAbilityUsed(UpgradeCard, UpgradeCard.EXPOSE))
          {
@@ -591,11 +610,17 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.secondaryWeapons = function()
       {
-         var state = this.state();
-         var id = this.id();
-         var answer = state.cardSecondaryWeapons.get(id);
+         return this.upgrades().reduce(function(accumulator, cardInstance)
+         {
+            var card = cardInstance.card();
 
-         return (answer !== undefined ? answer : Immutable.List());
+            if (card.weaponValue !== undefined)
+            {
+               accumulator.push(new Weapon(card.name, card.weaponValue, card.rangeKeys, card.firingArcKey, undefined, card.isWeaponTurret, card));
+            }
+
+            return accumulator;
+         }, []);
       };
 
       CardInstance.prototype.shieldCount = function()
@@ -605,29 +630,34 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.shieldValue = function()
       {
-         return this.key(Value.SHIELD);
+         return this.value(Value.SHIELD);
       };
 
       CardInstance.prototype.ship = function()
       {
+         var ship;
          var pilot = this.card();
-         var ship = pilot.shipFaction.ship;
 
-         if (pilot.key.endsWith(".fore"))
+         if (pilot && pilot.shipFaction)
          {
-            ship = ship.fore;
-         }
-         else if (pilot.key.endsWith(".aft"))
-         {
-            ship = ship.aft;
-         }
-         else if (pilot.key.endsWith(".crippledFore"))
-         {
-            ship = ship.crippledFore;
-         }
-         else if (pilot.key.endsWith(".crippledAft"))
-         {
-            ship = ship.crippledAft;
+            ship = pilot.shipFaction.ship;
+
+            if (pilot.key.endsWith(".fore"))
+            {
+               ship = ship.fore;
+            }
+            else if (pilot.key.endsWith(".aft"))
+            {
+               ship = ship.aft;
+            }
+            else if (pilot.key.endsWith(".crippledFore"))
+            {
+               ship = ship.crippledFore;
+            }
+            else if (pilot.key.endsWith(".crippledAft"))
+            {
+               ship = ship.crippledAft;
+            }
          }
 
          return ship;
@@ -692,17 +722,17 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          var ship = this.ship();
          var answer = pilot[propertyName];
 
-         if (answer === undefined)
+         if (answer === undefined && ship)
          {
             answer = ship[propertyName];
          }
 
-         if (answer === undefined && ship.fore)
+         if (answer === undefined && ship && ship.fore)
          {
             answer = ship.fore[propertyName];
          }
 
-         if (answer === undefined && ship.aft)
+         if (answer === undefined && ship && ship.aft)
          {
             answer = ship.aft[propertyName];
          }
@@ -714,7 +744,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       {
          var answer = this.upgrades().reduce(function(accumulator, upgrade)
          {
-            return accumulator + upgrade.squadPointCost;
+            return accumulator + upgrade.squadPointCost();
          }, this.card().squadPointCost);
 
          return answer;
@@ -754,21 +784,36 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          return this.count(Count.TRACTOR_BEAM);
       };
 
+      CardInstance.prototype.upgrade = function(upgradeKey)
+      {
+         InputValidator.validateIsString("upgradeKey", upgradeKey);
+
+         var upgradeInstances = this.upgrades().filter(function(cardInstance)
+         {
+            return cardInstance.card().key === upgradeKey;
+         });
+
+         var answer;
+
+         if (upgradeInstances.size > 0)
+         {
+            answer = upgradeInstances.get(0);
+         }
+
+         return answer;
+      };
+
       CardInstance.prototype.upgradeKeys = function()
       {
-         var state = this.state();
-         var id = this.id();
-         var answer = state.cardUpgrades.get(id);
-
-         return (answer !== undefined ? answer : Immutable.List());
+         return CardInstance.cardInstancesToKeys(this.upgrades());
       };
 
       CardInstance.prototype.upgrades = function()
       {
-         return this.upgradeKeys().map(function(upgradeKey)
-         {
-            return UpgradeCard.properties[upgradeKey];
-         });
+         var store = this.store();
+         var ids = store.getState().cardUpgrades.get(this.id());
+
+         return CardInstance.idsToCardInstances(store, ids);
       };
 
       CardInstance.prototype.usableAbilities = function(source, sourceKeys, usedKeys, abilityType, abilityKey)
@@ -920,7 +965,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          return answer;
       };
 
-      CardInstance.prototype.key = function(property)
+      CardInstance.prototype.value = function(property)
       {
          InputValidator.validateNotNull("property", property);
 
@@ -932,19 +977,22 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          {
             var ship = this.ship();
 
-            if (ship.fore)
+            if (ship)
             {
-               ship = ship.fore;
-            }
+               if (ship.fore)
+               {
+                  ship = ship.fore;
+               }
 
-            answer = ship[propertyName];
+               answer = ship[propertyName];
+            }
          }
 
          this.upgrades().forEach(function(upgrade)
          {
-            if (upgrade[propertyName] !== undefined)
+            if (upgrade.card()[propertyName] !== undefined)
             {
-               answer += upgrade[propertyName];
+               answer += upgrade.card()[propertyName];
             }
          });
 
@@ -967,28 +1015,12 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       //////////////////////////////////////////////////////////////////////////
       // Mutator methods.
 
-      CardInstance.prototype.discardUpgrade = function(upgradeKey)
+      CardInstance.prototype.discardUpgrade = function(upgradeInstance)
       {
-         InputValidator.validateNotNull("upgradeKey", upgradeKey);
+         InputValidator.validateNotNull("upgradeInstance", upgradeInstance);
 
          var store = this.store();
-         store.dispatch(CardAction.removeUpgrade(this, upgradeKey));
-         var upgrade = UpgradeCard.properties[upgradeKey];
-
-         if (upgrade.weaponValue !== undefined)
-         {
-            var secondaryWeapons = this.secondaryWeapons();
-
-            for (var i = 0; i < secondaryWeapons.size; i++)
-            {
-               var weapon = secondaryWeapons.get(i);
-
-               if (weapon.upgradeKey() === upgradeKey)
-               {
-                  store.dispatch(CardAction.removeSecondaryWeapon(this, weapon));
-               }
-            }
-         }
+         store.dispatch(CardAction.removeUpgrade(this, upgradeInstance));
       };
 
       CardInstance.prototype.flipDamageCardFacedown = function(damageKey)
@@ -1089,14 +1121,17 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          var store = this.store();
          var id = this.id();
-         var pilotKey = this.card().key;
+         var cardTypeKey = this.card().cardTypeKey;
+         var cardKey = this.card().key;
          var agent = this.agent();
 
-         store.dispatch(CardAction.setCardInstance(id, pilotKey, agent));
+         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent));
 
          upgradeKeys.forEach(function(upgradeKey)
          {
-            store.dispatch(CardAction.addUpgrade(this, upgradeKey));
+            var upgrade = UpgradeCard.properties[upgradeKey];
+            var upgradeInstance = new CardInstance(store, upgrade);
+            store.dispatch(CardAction.addUpgrade(this, upgradeInstance));
          }, this);
 
          Count.keys().forEach(function(property)
@@ -1118,26 +1153,13 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             }
          }, this);
 
-         if (this.shipState(Value.PRIMARY_WEAPON) !== null)
-         {
-            var primaryWeapon = this._createPrimaryWeapon();
-            store.dispatch(CardAction.setPrimaryWeapon(this, primaryWeapon));
-         }
-
-         // Initialize the upgrades.
-         this.upgrades().forEach(function(upgrade)
-         {
-            if (upgrade.weaponValue)
-            {
-               var weapon = this._createSecondaryWeapon(upgrade);
-               store.dispatch(CardAction.addSecondaryWeapon(this, weapon));
-            }
-         }, this);
-
          store.dispatch(CardAction.clearUsedAbilities(this));
          store.dispatch(CardAction.clearUsedPerRoundAbilities(this));
 
-         store.dispatch(AgentAction.addPilot(agent, this));
+         if (this.card().cardTypeKey === CardType.PILOT)
+         {
+            store.dispatch(AgentAction.addPilot(agent, this));
+         }
       };
 
       //////////////////////////////////////////////////////////////////////////
@@ -1146,19 +1168,15 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       CardInstance.prototype.newInstance = function(store, agent)
       {
          InputValidator.validateNotNull("store", store);
-         InputValidator.validateNotNull("agent", agent);
+         // agent optional.
 
-         var pilotKey = this.card().key;
-         var answer = new CardInstance(store, pilotKey, agent);
+         var card = this.card();
+         var answer = new CardInstance(store, card, agent);
 
          this.upgrades().forEach(function(upgrade)
          {
-            store.dispatch(CardAction.addUpgrade(answer, upgrade.key));
-
-            if (upgrade.weaponValue)
-            {
-               store.dispatch(CardAction.addSecondaryWeapon(answer, this._createSecondaryWeapon(upgrade)));
-            }
+            var newUpgrade = upgrade.newInstance(store);
+            store.dispatch(CardAction.addUpgrade(answer, newUpgrade));
          }, this);
 
          return answer;
@@ -1226,6 +1244,28 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             upgrade.isWeaponTurret, upgrade.key);
       };
 
+      CardInstance.cardInstancesToIds = function(cardInstances)
+      {
+         InputValidator.validateNotNull("cardInstances", cardInstances);
+
+         return cardInstances.map(function(cardInstance)
+         {
+            return cardInstance.id();
+         });
+      };
+
+      CardInstance.cardInstancesToKeys = function(cardInstances)
+      {
+         InputValidator.validateNotNull("cardInstances", cardInstances);
+
+         return cardInstances.map(function(cardInstance)
+         {
+            InputValidator.validateNotNull("cardInstance", cardInstance);
+            InputValidator.validateNotNull("cardInstance.card()", cardInstance.card());
+            return cardInstance.card().key;
+         });
+      };
+
       CardInstance.get = function(store, id)
       {
          InputValidator.validateNotNull("store", store);
@@ -1236,24 +1276,54 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          if (values !== undefined)
          {
-            var pilotKey = values.get("pilotKey");
+            var cardTypeKey = values.get("cardTypeKey");
+            var cardKey = values.get("cardKey");
+            var card;
 
-            if (pilotKey.endsWith(".fore"))
+            if (cardKey.endsWith(".fore"))
             {
-               pilotKey = pilotKey.substring(0, pilotKey.length - ".fore".length);
-               pilotKey = PilotCard.properties[pilotKey].fore;
+               cardKey = cardKey.substring(0, cardKey.length - ".fore".length);
+               card = PilotCard.properties[cardKey].fore;
             }
-            else if (pilotKey.endsWith(".aft"))
+            else if (cardKey.endsWith(".aft"))
             {
-               pilotKey = pilotKey.substring(0, pilotKey.length - ".aft".length);
-               pilotKey = PilotCard.properties[pilotKey].aft;
+               cardKey = cardKey.substring(0, cardKey.length - ".aft".length);
+               card = PilotCard.properties[cardKey].aft;
+            }
+            else
+            {
+               card = CardResolver.resolve(cardTypeKey, cardKey);
             }
 
             var agent = values.get("agent");
             var upgradeKeys = store.getState().cardUpgrades.get(id);
             var isNew = false;
 
-            answer = new CardInstance(store, pilotKey, agent, upgradeKeys, id, isNew);
+            answer = new CardInstance(store, card, agent, upgradeKeys, id, isNew);
+         }
+
+         return answer;
+      };
+
+      CardInstance.idsToCardInstances = function(store, ids)
+      {
+         InputValidator.validateNotNull("store", store);
+         // ids optional.
+
+         var answer;
+
+         if (ids !== undefined)
+         {
+            answer = ids.map(function(id)
+            {
+               var cardInstance = CardInstance.get(store, id);
+               InputValidator.validateNotNull("cardInstance", cardInstance);
+               return cardInstance;
+            });
+         }
+         else
+         {
+            answer = Immutable.List();
          }
 
          return answer;

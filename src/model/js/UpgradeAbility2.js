@@ -20,11 +20,12 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var maneuver = getManeuver(token);
-            return isActiveToken(store, token) && maneuver.difficultyKey === Difficulty.HARD;
+            return isActiveCardInstance(store, token) && maneuver.difficultyKey === Difficulty.HARD;
          },
          consequent: function(store, token, callback)
          {
-            discardUpgrade(token, UpgradeCard.ADRENALINE_RUSH);
+            var upgradeInstance = token.upgrade(UpgradeCard.ADRENALINE_RUSH);
+            discardUpgrade(token, upgradeInstance);
 
             var oldManeuver = getManeuver(token);
             var newManeuverKey = Maneuver.find(oldManeuver.bearingKey, oldManeuver.speed, Difficulty.STANDARD);
@@ -43,7 +44,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var maneuver = getManeuver(token);
-            return isActiveToken(store, token) && maneuver.difficultyKey === Difficulty.EASY;
+            return isActiveCardInstance(store, token) && maneuver.difficultyKey === Difficulty.EASY;
          },
          consequent: function(store, token, callback)
          {
@@ -78,11 +79,12 @@ define(["common/js/InputValidator",
          // When you reveal your maneuver, you may discard this card to instead perform a white Stationary 0 maneuver. Then receive 1 stress token.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token) && token.isUpgradedWith(UpgradeCard.INERTIAL_DAMPENERS);
          },
          consequent: function(store, token, callback)
          {
-            discardUpgrade(token, UpgradeCard.INERTIAL_DAMPENERS);
+            var upgradeInstance = token.upgrade(UpgradeCard.INERTIAL_DAMPENERS);
+            discardUpgrade(token, upgradeInstance);
 
             var newManeuver = Maneuver.properties[Maneuver.STATIONARY_0_STANDARD];
             store.dispatch(Action.setTokenManeuver(token, newManeuver));
@@ -95,7 +97,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var maneuver = getManeuver(token);
-            return isActiveToken(store, token) && [Bearing.TURN_LEFT, Bearing.TURN_RIGHT].includes(maneuver.bearingKey);
+            return isActiveCardInstance(store, token) && [Bearing.TURN_LEFT, Bearing.TURN_RIGHT].includes(maneuver.bearingKey);
          },
          consequent: function(store, token, callback)
          {
@@ -126,11 +128,12 @@ define(["common/js/InputValidator",
          {
             var maneuver = getManeuver(token);
             var difficultyKey = (maneuver ? maneuver.difficultyKey : undefined);
-            return isActiveToken(store, token) && [Difficulty.STANDARD, Difficulty.EASY].includes(difficultyKey);
+            return isActiveCardInstance(store, token) && token.isUpgradedWith(UpgradeCard.LIGHTNING_REFLEXES) && [Difficulty.STANDARD, Difficulty.EASY].includes(difficultyKey);
          },
          consequent: function(store, token, callback)
          {
-            discardUpgrade(token, UpgradeCard.LIGHTNING_REFLEXES);
+            var upgradeInstance = token.upgrade(UpgradeCard.LIGHTNING_REFLEXES);
+            discardUpgrade(token, upgradeInstance);
 
             var environment = store.getState().environment;
             var fromPosition = environment.getPositionFor(token);
@@ -147,7 +150,7 @@ define(["common/js/InputValidator",
             var maneuver = getManeuver(token);
             var environment = store.getState().environment;
             var defenders = environment.getDefendersInRange(token);
-            return isActiveToken(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.HARD && defenders !== undefined && defenders.length > 0;
+            return isActiveCardInstance(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.HARD && defenders !== undefined && defenders.length > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -184,7 +187,7 @@ define(["common/js/InputValidator",
          {
             var maneuver = getManeuver(token);
             var speed = (maneuver ? maneuver.speed : undefined);
-            return isActiveToken(store, token) && [3, 4, 5].includes(speed);
+            return isActiveCardInstance(store, token) && [3, 4, 5].includes(speed);
          },
          consequent: function(store, token, callback)
          {
@@ -201,7 +204,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var maneuver = getManeuver(token);
-            return isActiveToken(store, token) && maneuver !== undefined && maneuver.bearingKey === Bearing.STRAIGHT;
+            return isActiveCardInstance(store, token) && maneuver !== undefined && maneuver.bearingKey === Bearing.STRAIGHT;
          },
          consequent: function(store, token, callback)
          {
@@ -214,11 +217,12 @@ define(["common/js/InputValidator",
          // You may discard this card to gain 3 energy.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token) && token.isUpgradedWith(UpgradeCard.TIBANNA_GAS_SUPPLIES);
          },
          consequent: function(store, token, callback)
          {
-            discardUpgrade(token, UpgradeCard.TIBANNA_GAS_SUPPLIES);
+            var upgradeInstance = token.upgrade(UpgradeCard.TIBANNA_GAS_SUPPLIES);
+            discardUpgrade(token, upgradeInstance);
 
             store.dispatch(CardAction.addEnergyCount(token, 3));
             callback();
@@ -232,7 +236,7 @@ define(["common/js/InputValidator",
          // Action: Until the end of the round, increase your primary weapon value by 1 and decrease your agility value by 1.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -245,7 +249,7 @@ define(["common/js/InputValidator",
          // Action: Perform a free barrel roll action. If you do not have the Barrel Roll action icon, receive 1 stress token. You may then remove 1 enemy Target Lock from your ship.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -291,7 +295,7 @@ define(["common/js/InputValidator",
          // Action: Until the end of the round, increase your primary weapon value by 1 and decrease your agility value by 1.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -303,7 +307,7 @@ define(["common/js/InputValidator",
          // Action: Roll 2 defense dice. For each Focus result, assign 1 Focus token to your ship. For each Evade result, assign 1 Evade token to your ship.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -324,7 +328,7 @@ define(["common/js/InputValidator",
          // Action: Perform a free boost action. Then receive 1 ion token.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -360,7 +364,7 @@ define(["common/js/InputValidator",
          // Action: When attacking this round, you may change 1 of your Focus results to a Critical Hit result and all of your other Focus results to Hit results.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -372,7 +376,7 @@ define(["common/js/InputValidator",
          // Action: Increase your agility value by 1 until the end of this game round.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -384,7 +388,7 @@ define(["common/js/InputValidator",
          // Action: Roll 1 defense die. On an Evade or Focus result, discard 1 of your facedown Damage cards.
          condition: function(store, token)
          {
-            return isActiveToken(store, token) && token.damageKeys().size > 0;
+            return isActiveCardInstance(store, token) && token.damageKeys().size > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -402,7 +406,7 @@ define(["common/js/InputValidator",
          // Action: Assign 1 focus token to your ship and receive 2 stress tokens. Until the end of the round, when attacking, you may reroll up to 3 attack dice.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -416,7 +420,7 @@ define(["common/js/InputValidator",
          // Action: Execute a white (1 forward) maneuver.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -429,12 +433,12 @@ define(["common/js/InputValidator",
       };
 
       ////////////////////////////////////////////////////////////////////////
-      function discardUpgrade(token, upgradeKey)
+      function discardUpgrade(token, upgradeInstance)
       {
          InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("upgradeKey", upgradeKey);
+         InputValidator.validateNotNull("upgradeInstance", upgradeInstance);
 
-         token.discardUpgrade(upgradeKey);
+         token.discardUpgrade(upgradeInstance);
       }
 
       function findManeuverByBearingSpeed(token, bearing, speed)
@@ -468,13 +472,13 @@ define(["common/js/InputValidator",
          return ActivationAction.get(token.store(), token.id());
       }
 
-      function getActiveToken(store)
+      function getActiveCardInstance(store)
       {
          InputValidator.validateNotNull("store", store);
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
       function getManeuver(token)
@@ -485,9 +489,9 @@ define(["common/js/InputValidator",
          return (activationAction !== undefined ? activationAction.maneuver() : undefined);
       }
 
-      function isActiveToken(store, token)
+      function isActiveCardInstance(store, token)
       {
-         var activeToken = getActiveToken(store);
+         var activeToken = getActiveCardInstance(store);
 
          return token.equals(activeToken);
       }

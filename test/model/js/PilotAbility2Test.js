@@ -12,7 +12,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase", "model/js/Action",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -40,7 +40,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase", "model/js/Action",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var callback = function()
          {
             LOGGER.info("in callback()");
@@ -72,7 +72,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase", "model/js/Action",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -102,7 +102,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase", "model/js/Action",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var maneuverKey = Maneuver.STRAIGHT_3_EASY;
          var callback = function()
          {

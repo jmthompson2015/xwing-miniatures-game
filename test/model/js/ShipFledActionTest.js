@@ -13,7 +13,7 @@ define(["qunit", "model/js/Position", "model/js/ShipFledAction", "model/js/Targe
          var fromPosition = new Position(305, 20, 90);
          LOGGER.trace("fromPosition = " + fromPosition.toString());
          var token = environment.getTokenAt(fromPosition);
-         var defender = environment.tokens()[2]; // X-Wing.
+         var defender = environment.pilotInstances()[2]; // X-Wing.
          TargetLock.newInstance(store, token, defender);
          assert.equal(store.getState().targetLocks.size, 1);
          var shipFledAction = new ShipFledAction(environment, token, fromPosition);

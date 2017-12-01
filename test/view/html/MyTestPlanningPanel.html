@@ -45,9 +45,9 @@
 				var positions1, positions2;
 				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
 
-				token0 = environment.tokens()[0];
-				token1 = environment.tokens()[1];
-				token2 = environment.tokens()[2];
+				token0 = environment.pilotInstances()[0];
+				token1 = environment.pilotInstances()[1];
+				token2 = environment.pilotInstances()[2];
 				tokens1 = [token0, token1, token2];
 
 				var myCallback = function(tokenToManeuver)

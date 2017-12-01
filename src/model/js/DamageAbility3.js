@@ -15,7 +15,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // At the start of each Combat phase, roll 1 attack die. On a Hit result, suffer 1 damage.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -32,7 +32,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // At the start of each Combat phase, roll 1 attack die. On a Hit result, suffer 1 damage.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -46,18 +46,18 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
       };
 
       ////////////////////////////////////////////////////////////////////////
-      function getActiveToken(store)
+      function getActiveCardInstance(store)
       {
          InputValidator.validateNotNull("store", store);
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
-      function isActiveToken(store, token)
+      function isActiveCardInstance(store, token)
       {
-         var activeToken = getActiveToken(store);
+         var activeToken = getActiveCardInstance(store);
 
          return token.equals(activeToken);
       }

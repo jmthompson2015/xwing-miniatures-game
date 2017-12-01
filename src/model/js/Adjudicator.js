@@ -60,7 +60,7 @@ define(["redux", "common/js/InputValidator",
 
             if (toPolygon)
             {
-               var tokens = environment.tokens();
+               var tokens = environment.pilotInstances();
                answer = true;
 
                for (var i = 0; i < tokens.length; i++)

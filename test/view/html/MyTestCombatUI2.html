@@ -61,7 +61,7 @@
 				var store = Redux.createStore(Reducer.root);
 				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
 				var adjudicator = new Adjudicator(store);
-				var tokens = environment.tokens();
+				var tokens = environment.pilotInstances();
 				var attacker = tokens[1]; // X-Wing.
 				var defender = tokens[0]; // VT-49 Decimator.
 

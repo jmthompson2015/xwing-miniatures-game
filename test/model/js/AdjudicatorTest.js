@@ -14,7 +14,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
 
          // Run / Verify.
          assert.ok(adjudicator.canAttack(attacker));
@@ -26,7 +26,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
          store.dispatch(CardAction.addCloakCount(attacker));
 
          // Run / Verify.
@@ -39,7 +39,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
          store.dispatch(CardAction.addWeaponsDisabledCount(attacker));
 
          // Run / Verify.
@@ -52,7 +52,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
 
          // Run / Verify.
          assert.ok(adjudicator.canSelectShipAction(attacker));
@@ -64,7 +64,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
          var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
          store.dispatch(Action.setTokenManeuver(attacker, previousManeuver));
          var maneuverKey = Maneuver.BANK_LEFT_3_STANDARD;
@@ -79,7 +79,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
          var previousManeuver = Maneuver.properties[Maneuver.TURN_LEFT_1_STANDARD];
          store.dispatch(Action.setTokenManeuver(attacker, previousManeuver));
          var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
@@ -94,7 +94,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
          var fromPosition = environment.getPositionFor(attacker);
          var toPosition = new Position(894, fromPosition.y(), fromPosition.heading());
          environment.moveToken(fromPosition, toPosition);
@@ -112,7 +112,7 @@ define(["qunit", "redux", "artifact/js/Maneuver",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var adjudicator = new Adjudicator(store);
-         var attacker = environment.tokens()[0];
+         var attacker = environment.pilotInstances()[0];
          var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
          store.dispatch(Action.setTokenManeuver(attacker, previousManeuver));
          var maneuverKey = Maneuver.BANK_LEFT_2_EASY;

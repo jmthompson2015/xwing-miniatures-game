@@ -2,7 +2,7 @@
 
 define(["qunit", "redux",
   "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/UpgradeCard", "artifact/js/Value",
-  "model/js/Agent", "model/js/DualCardInstance",  "model/js/Reducer"],
+  "model/js/Agent", "model/js/DualCardInstance", "model/js/Reducer"],
    function(QUnit, Redux,
       DamageCard, Faction, PilotCard, Ship, UpgradeCard, Value,
       Agent, DualCardInstance, Reducer)
@@ -26,16 +26,16 @@ define(["qunit", "redux",
          assert.ok(tokenFore);
          assert.equal(tokenFore.name(), "2 CR90 Corvette (fore)");
          assert.equal(tokenFore.upgradeKeys().size, 3);
-         assert.equal(tokenFore.secondaryWeapons().size, 1);
-         var weapon = tokenFore.secondaryWeapons().get(0);
+         assert.equal(tokenFore.secondaryWeapons().length, 1);
+         var weapon = tokenFore.secondaryWeapons()[0];
          assert.ok(weapon);
          assert.equal(weapon.upgradeKey(), UpgradeCard.QUAD_LASER_CANNONS);
 
          var tokenAft = token.tokenAft();
          assert.ok(tokenAft);
-         assert.equal(tokenAft.name(), "3 CR90 Corvette (aft)");
+         assert.equal(tokenAft.name(), "6 CR90 Corvette (aft)");
          assert.equal(tokenAft.upgradeKeys().size, 1);
-         assert.equal(tokenAft.secondaryWeapons().size, 0);
+         assert.equal(tokenAft.secondaryWeapons().length, 0);
       });
 
       QUnit.test("isDestroyed()", function(assert)

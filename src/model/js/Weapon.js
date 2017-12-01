@@ -5,7 +5,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
    function(InputValidator, FiringArc, UpgradeCard, UpgradeHeader,
       ManeuverComputer, RangeRuler, TargetLock)
    {
-      function Weapon(name, weaponValue, rangeKeys, primaryFiringArcKey, auxiliaryFiringArcKey, isTurret, upgradeKey)
+      function Weapon(name, weaponValue, rangeKeys, primaryFiringArcKey, auxiliaryFiringArcKey, isTurret, upgradeCard)
       {
          InputValidator.validateNotNull("name", name);
          InputValidator.validateNotNull("weaponValue", weaponValue);
@@ -13,7 +13,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
          InputValidator.validateNotNull("primaryFiringArcKey", primaryFiringArcKey);
          // auxiliaryFiringArcKey optional.
          // isTurret optional.
-         // upgradeKey optional.
+         // upgradeCard optional.
 
          this.name = function()
          {
@@ -47,7 +47,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
 
          this.upgradeKey = function()
          {
-            return upgradeKey;
+            return (upgradeCard !== undefined ? upgradeCard.key : undefined);
          };
 
          var primaryFiringArc = FiringArc.properties[primaryFiringArcKey];
@@ -64,13 +64,27 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
             return auxiliaryFiringArc;
          };
 
-         var upgrade = UpgradeCard.properties[upgradeKey];
+         var upgrade = upgradeCard;
 
          this.upgrade = function()
          {
             return upgrade;
          };
       }
+
+      Weapon.prototype.equals = function(another)
+      {
+         InputValidator.validateNotNull("another", another);
+
+         var answer = this.name() === another.name();
+
+         if (answer)
+         {
+            answer = this.weaponValue() === another.weaponValue();
+         }
+
+         return answer;
+      };
 
       Weapon.prototype.isUsable = function(attacker, defender)
       {

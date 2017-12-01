@@ -34,7 +34,7 @@ define(["react", "react-dom", "common/js/ArrayAugments", "common/js/InputValidat
                onChange: myCallback,
                pilots: pilotAbilities,
                shipActions: [],
-               token: environment.activeToken(),
+               token: environment.activeCardInstance(),
                upgrades: upgradeAbilities,
             });
             ReactDOM.render(element, document.getElementById(inputAreaId(agent)));

@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/Engine", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer",  "model/js/SquadBuilder", "model/js/CardAction",
+  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CardInstance", "model/js/Engine", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, DamageCard, PilotCard, UpgradeCard,
-      Action, Adjudicator, Agent, Engine, Environment, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, CardAction,
+      Action, Adjudicator, Agent, CardInstance, Engine, Environment, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, CardAction,
       EnvironmentFactory)
    {
       QUnit.module("Engine");
@@ -64,7 +64,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          var adjudicator = Adjudicator.create(store);
          var engine = new Engine(environment, adjudicator, delay);
-         var token0 = environment.tokens()[0]; // TIE Phantom
+         var token0 = environment.pilotInstances()[0]; // TIE Phantom
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
          store.dispatch(CardAction.addCloakCount(token0));
@@ -77,7 +77,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
             // Verify.
             assert.ok(true, "test resumed from async operation");
 
-            var token = environment.tokens()[0]; // TIE Phantom
+            var token = environment.pilotInstances()[0]; // TIE Phantom
             if (token.card().key === PilotCard.WHISPER)
             {
                if (token.isCloaked())
@@ -115,9 +115,9 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          // Setup.
          var engine = createEngine();
          var environment = engine.environment();
-         var token0 = environment.tokens()[0]; // TIE Fighter.
+         var token0 = environment.pilotInstances()[0]; // TIE Fighter.
          var position0 = environment.getPositionFor(token0);
-         var token2 = environment.tokens()[2]; // X-Wing.
+         var token2 = environment.pilotInstances()[2]; // X-Wing.
          var position2 = environment.getPositionFor(token2);
          var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
          environment.moveToken(position2, newPosition2);
@@ -143,7 +143,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var engine = createEngineEpsilonLeader();
          var environment = engine.environment();
          var store = environment.store();
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          var token0 = tokens[0]; // TIE/fo Fighter.
          var position0 = environment.getPositionFor(token0);
          var token1 = tokens[1]; // TIE/fo Fighter.
@@ -186,12 +186,13 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          // Setup.
          var engine = createEngine();
          var environment = engine.environment();
-         var token0 = environment.tokens()[0]; // TIE Fighter.
+         var token0 = environment.pilotInstances()[0]; // TIE Fighter.
          var store = environment.store();
-         store.dispatch(CardAction.addUpgrade(token0, UpgradeCard.MARA_JADE));
+         var upgrade = new CardInstance(store, UpgradeCard.MARA_JADE);
+         store.dispatch(CardAction.addUpgrade(token0, upgrade));
          var position0 = environment.getPositionFor(token0);
-         var token1 = environment.tokens()[1]; // TIE Fighter.
-         var token2 = environment.tokens()[2]; // X-Wing.
+         var token1 = environment.pilotInstances()[1]; // TIE Fighter.
+         var token2 = environment.pilotInstances()[2]; // X-Wing.
          var position2 = environment.getPositionFor(token2);
          var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
          environment.moveToken(position2, newPosition2);
@@ -221,8 +222,9 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var engine = createEngine();
          var environment = engine.environment();
          var store = environment.store();
-         var token2 = environment.tokens()[2]; // X-Wing.
-         store.dispatch(CardAction.addUpgrade(token2, UpgradeCard.R5_P9));
+         var token2 = environment.pilotInstances()[2]; // X-Wing.
+         var upgrade = new CardInstance(store, UpgradeCard.R5_P9);
+         store.dispatch(CardAction.addUpgrade(token2, upgrade));
          engine.performEndPhase = function()
          {
             LOGGER.info("performEndPhase() dummy");
@@ -250,13 +252,14 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          // Setup.
          var engine = createEngine();
          var environment = engine.environment();
-         var token0 = environment.tokens()[0]; // TIE Fighter.
+         var token0 = environment.pilotInstances()[0]; // TIE Fighter.
          var store = environment.store();
-         store.dispatch(CardAction.addUpgrade(token0, UpgradeCard.YSANNE_ISARD));
+         var upgrade = new CardInstance(store, UpgradeCard.YSANNE_ISARD);
+         store.dispatch(CardAction.addUpgrade(token0, upgrade));
          store.dispatch(CardAction.setShieldCount(token0));
          store.dispatch(CardAction.addDamage(token0, DamageCard.BLINDED_PILOT));
          var position0 = environment.getPositionFor(token0);
-         var token2 = environment.tokens()[2]; // X-Wing.
+         var token2 = environment.pilotInstances()[2]; // X-Wing.
          var position2 = environment.getPositionFor(token2);
          var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
          environment.moveToken(position2, newPosition2);
@@ -290,15 +293,15 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var engine = createEngine();
          var environment = engine.environment();
          var store = environment.store();
-         var token0 = environment.tokens()[0];
+         var token0 = environment.pilotInstances()[0];
          store.dispatch(CardAction.addEvadeCount(token0));
          store.dispatch(CardAction.addFocusCount(token0));
          store.dispatch(CardAction.addWeaponsDisabledCount(token0));
-         var token1 = environment.tokens()[1];
+         var token1 = environment.pilotInstances()[1];
          store.dispatch(CardAction.addEvadeCount(token1));
          store.dispatch(CardAction.addFocusCount(token1));
          store.dispatch(CardAction.addWeaponsDisabledCount(token1));
-         var token2 = environment.tokens()[2];
+         var token2 = environment.pilotInstances()[2];
          store.dispatch(CardAction.addEvadeCount(token2));
          store.dispatch(CardAction.addFocusCount(token2));
          store.dispatch(CardAction.addWeaponsDisabledCount(token2));

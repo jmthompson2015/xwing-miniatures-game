@@ -51,12 +51,12 @@
 				var environment = EnvironmentFactory.createCoreSetEnvironment();
 				var store = environment.store();
 				var adjudicator = new Adjudicator(store);
-				var attacker = environment.tokens()[0];
+				var attacker = environment.pilotInstances()[0];
 				LOGGER.debug("attacker = " + attacker);
 				store.dispatch(CardAction.addFocusCount(attacker));
 				var weapon = attacker.primaryWeapon();
 				var attackDice = new AttackDice(store, attacker.id(), 5);
-				var defender = environment.tokens()[2];
+				var defender = environment.pilotInstances()[2];
 				LOGGER.debug("defender = " + defender);
 				store.dispatch(CardAction.addFocusCount(defender));
 				store.dispatch(CardAction.addEvadeCount(defender));

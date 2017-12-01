@@ -118,12 +118,12 @@ define(["qunit", "redux",
 
          var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          var attacker = tokens[1];
          var defender = tokens[0];
-         var weapon0 = attacker.secondaryWeapons().get(0); // Mangler cannon.
-         var weapon1 = attacker.secondaryWeapons().get(1); // Blaster turret.
-         var weapon2 = attacker.secondaryWeapons().get(2); // Cluster missiles.
+         var weapon0 = attacker.secondaryWeapons()[0]; // Mangler cannon.
+         var weapon1 = attacker.secondaryWeapons()[1]; // Blaster turret.
+         var weapon2 = attacker.secondaryWeapons()[2]; // Cluster missiles.
 
          // Run / Verify.
          assert.ok(weapon0.isUsable(attacker, defender));

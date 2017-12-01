@@ -14,7 +14,7 @@ define(["qunit", "artifact/js/Phase",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -42,7 +42,7 @@ define(["qunit", "artifact/js/Phase",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var callback = function()
          {
             LOGGER.info("in callback()");
@@ -74,7 +74,7 @@ define(["qunit", "artifact/js/Phase",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Phase.keys().forEach(function(phaseKey)
@@ -103,9 +103,9 @@ define(["qunit", "artifact/js/Phase",
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // X-Wing.
+         var attacker = environment.pilotInstances()[2]; // X-Wing.
          var weapon = attacker.primaryWeapon();
-         var defender = environment.tokens()[0]; // TIE Fighter.
+         var defender = environment.pilotInstances()[0]; // TIE Fighter.
          var callback = function()
          {
             LOGGER.info("in callback()");

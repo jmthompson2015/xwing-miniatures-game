@@ -33,7 +33,7 @@
 				var environment = EnvironmentFactory.createCoreSetEnvironment(store);
 				store.dispatch(EnvironmentAction.addRound(12));
 				store.dispatch(Action.enqueuePhase(Phase.COMBAT_ROLL_ATTACK_DICE));
-				store.dispatch(EnvironmentAction.setActiveToken(environment.tokens()[0]));
+				store.dispatch(EnvironmentAction.setActiveToken(environment.pilotInstances()[0]));
 				store.dispatch(Action.setUserMessage("Somebody attacked someone."));
 
 				var element = React.createElement(ReactRedux.Provider,

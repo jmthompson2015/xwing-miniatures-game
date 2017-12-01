@@ -27,7 +27,7 @@
 				var store = Redux.createStore(Reducer.root);
 				var environment = EnvironmentFactory.createCoreSetEnvironment(store, HumanAgentStrategy);
 				var adjudicator = new Adjudicator(store);
-				var token = environment.tokens()[0] // TIE Fighter.
+				var token = environment.pilotInstances()[0] // TIE Fighter.
 				environment.setActiveToken(token);
 				var agent = token.agent();
 

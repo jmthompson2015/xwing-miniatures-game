@@ -2,7 +2,7 @@
 
 define(["qunit", "redux",
   "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/Ship", "artifact/js/UpgradeCard",
-   "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/CardInstance", "model/js/CardAction",
+   "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer", "model/js/Squad", "model/js/SquadBuilder", "model/js/TargetLock", "model/js/CardInstance", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, Faction, PilotCard, PlayFormat, Range, Ship, UpgradeCard,
       Agent, Environment, Position, Reducer, Squad, SquadBuilder, TargetLock, CardInstance, CardAction,
@@ -10,18 +10,18 @@ define(["qunit", "redux",
    {
       QUnit.module("Environment");
 
-      QUnit.test("activeToken()", function(assert)
+      QUnit.test("activeCardInstance()", function(assert)
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token0 = environment.tokens()[0]; // TIE Fighter.
-         assert.ok(!environment.activeToken());
+         var token0 = environment.pilotInstances()[0]; // TIE Fighter.
+         assert.ok(!environment.activeCardInstance());
 
          // Run.
          environment.setActiveToken(token0);
 
          // Verify.
-         assert.ok(environment.activeToken().equals(token0));
+         assert.ok(environment.activeCardInstance().equals(token0));
       });
 
       QUnit.test("createWeaponToRangeToDefenders() one", function(assert)
@@ -43,7 +43,9 @@ define(["qunit", "redux",
          {
             var weaponToRangeToDefenders = result[0];
             weapon = weaponToRangeToDefenders.weapon;
-            assert.equal(weapon, attacker.primaryWeapon());
+            // assert.equal(weapon, attacker.primaryWeapon());
+            assert.equal(weapon.name(), attacker.primaryWeapon().name());
+            assert.equal(weapon.weaponValue(), attacker.primaryWeapon().weaponValue());
 
             var rangeToDefendersArray = weaponToRangeToDefenders.rangeToDefenders;
             assert.ok(rangeToDefendersArray);
@@ -79,8 +81,8 @@ define(["qunit", "redux",
          var positions2 = [new Position(458, 895, -90)];
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
 
-         var attacker = environment.tokens()[6];
-         var defender3 = environment.tokens()[3];
+         var attacker = environment.pilotInstances()[6];
+         var defender3 = environment.pilotInstances()[3];
          store.dispatch(CardAction.addFocusCount(attacker));
          TargetLock.newInstance(store, attacker, defender3);
 
@@ -94,7 +96,9 @@ define(["qunit", "redux",
          {
             weaponToRangeToDefenders = result[0];
             weapon = weaponToRangeToDefenders.weapon;
-            assert.equal(weapon, attacker.primaryWeapon());
+            // assert.equal(weapon, attacker.primaryWeapon());
+            assert.equal(weapon.name(), attacker.primaryWeapon().name());
+            assert.equal(weapon.weaponValue(), attacker.primaryWeapon().weaponValue());
 
             rangeToDefendersArray = weaponToRangeToDefenders.rangeToDefenders;
             assert.ok(rangeToDefendersArray);
@@ -192,9 +196,14 @@ define(["qunit", "redux",
          var attacker = environment.getTokenAt(attackerPosition0);
          var attackerPosition = new Position(300, 220, -90);
          environment.moveToken(attackerPosition0, attackerPosition);
-         var defender = environment.tokens()[0]; // TIE Fighter
-         var weapon = attacker.secondaryWeapons().get(0); // Proton Torpedoes
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
+         var weapon = attacker.secondaryWeapons()[0]; // Proton Torpedoes
+         assert.ok(weapon);
+         assert.equal(weapon.name(), "Proton Torpedoes");
          TargetLock.newInstance(store, attacker, defender);
+         assert.ok(attacker);
+         assert.equal(environment.getPositionFor(attacker).x(), 300);
+         assert.equal(environment.getPositionFor(attacker).y(), 220);
 
          // Run.
          var result = environment.createWeaponToRangeToDefenders(attacker, weapon);
@@ -205,7 +214,9 @@ define(["qunit", "redux",
          {
             var weaponToRangeToDefenders = result[0];
             weapon = weaponToRangeToDefenders.weapon;
-            assert.equal(weapon, attacker.secondaryWeapons().get(0));
+            // assert.equal(weapon, attacker.secondaryWeapons()[0]);
+            assert.equal(weapon.name(), attacker.secondaryWeapons()[0].name());
+            assert.equal(weapon.weaponValue(), attacker.secondaryWeapons()[0].weaponValue());
 
             var rangeToDefendersArray = weaponToRangeToDefenders.rangeToDefenders;
             assert.ok(rangeToDefendersArray);
@@ -278,7 +289,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[0]; // TIE Fighter.
+         var attacker = environment.pilotInstances()[0]; // TIE Fighter.
 
          // Run.
          var result = environment.getDefenders(attacker);
@@ -292,7 +303,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[2]; // X-Wing.
+         var attacker = environment.pilotInstances()[2]; // X-Wing.
 
          // Run.
          var result = environment.getDefenders(attacker);
@@ -311,7 +322,7 @@ define(["qunit", "redux",
          var agent2 = new Agent(store, "2", Faction.REBEL);
          var squad2 = SquadBuilder.findByNameAndYear("Worlds #4", 2016).buildSquad(agent1);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
-         var attacker = environment.tokens()[0]; // X-Wing.
+         var attacker = environment.pilotInstances()[0]; // X-Wing.
 
          // Run.
          var result = environment.getDefenders(attacker);
@@ -319,15 +330,15 @@ define(["qunit", "redux",
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 2);
-         assert.ok(result[0].equals(environment.tokens()[2]));
-         assert.ok(result[1].equals(environment.tokens()[3]));
+         assert.ok(result[0].equals(environment.pilotInstances()[2]));
+         assert.ok(result[1].equals(environment.pilotInstances()[3]));
       });
 
       QUnit.test("getDefendersInRange()", function(assert)
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[2]; // X-Wing
+         var attacker = environment.pilotInstances()[2]; // X-Wing
          var attackerPosition0 = environment.getPositionFor(attacker);
          var attackerPosition = new Position(458, 50, -90);
          environment.moveToken(attackerPosition0, attackerPosition);
@@ -345,7 +356,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[2]; // X-Wing
+         var attacker = environment.pilotInstances()[2]; // X-Wing
          var attackerPosition0 = environment.getPositionFor(attacker);
          var attackerPosition = new Position(458, 50, -90);
          environment.moveToken(attackerPosition0, attackerPosition);
@@ -362,7 +373,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[0]; // TIE Fighter
+         var attacker = environment.pilotInstances()[0]; // TIE Fighter
          var attackerPosition0 = environment.getPositionFor(attacker);
          var attackerPosition = new Position(458, 50, -90);
          environment.moveToken(attackerPosition0, attackerPosition);
@@ -380,7 +391,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token = environment.tokens()[0];
+         var token = environment.pilotInstances()[0];
          var position = new Position(305, 20, 90);
 
          // Run.
@@ -395,7 +406,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createHugeShipEnvironment();
-         var token = environment.tokens()[3]; // CR90
+         var token = environment.pilotInstances()[3]; // CR90
 
          // Run.
          var result = environment.getPositionFor(token);
@@ -429,7 +440,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createHugeShipEnvironment();
-         var token = environment.tokens()[3]; // CR90
+         var token = environment.pilotInstances()[3]; // CR90
          var fromPosition = new Position(458, 803, 270);
          var toPosition = new Position(458, 750, 330);
          environment.moveToken(fromPosition, toPosition);
@@ -573,7 +584,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[2]; // X-Wing
+         var attacker = environment.pilotInstances()[2]; // X-Wing
          var attackerPosition0 = environment.getPositionFor(attacker);
          var attackerPosition = new Position(458, 50, -90);
          environment.moveToken(attackerPosition0, attackerPosition);
@@ -603,7 +614,7 @@ define(["qunit", "redux",
          var i = 0;
          {
             token = result[i++];
-            assert.equal(token.id(), 2);
+            assert.equal(token.id(), 3);
             assert.equal(token.card().key, PilotCard.DARK_CURSE);
          }
          {
@@ -613,7 +624,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 3);
+            assert.equal(token.id(), 4);
             assert.equal(token.card().key, PilotCard.LUKE_SKYWALKER);
          }
       });
@@ -639,7 +650,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 9);
+            assert.equal(token.id(), 21);
             assert.equal(token.pilotSkillValue(), 8);
             assert.equal(token.card().key, PilotCard.WES_JANSON);
          }
@@ -651,7 +662,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 10);
+            assert.equal(token.id(), 23);
             assert.equal(token.pilotSkillValue(), 3);
             assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          }
@@ -692,7 +703,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 9);
+            assert.equal(token.id(), 21);
             assert.equal(token.pilotSkillValue(), 8);
             assert.equal(token.card().key, PilotCard.WES_JANSON);
          }
@@ -704,7 +715,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 10);
+            assert.equal(token.id(), 23);
             assert.equal(token.pilotSkillValue(), 3);
             assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          }
@@ -728,7 +739,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 8);
+            assert.equal(token.id(), 16);
             assert.equal(token.pilotSkillValue(), 4);
             assert.equal(token.card().key, PilotCard.CR90_CORVETTE + ".aft");
          }
@@ -749,7 +760,7 @@ define(["qunit", "redux",
          var i = 0;
          {
             token = result[i++];
-            assert.equal(token.id(), 3);
+            assert.equal(token.id(), 4);
             assert.equal(token.card().key, PilotCard.LUKE_SKYWALKER);
          }
          {
@@ -759,7 +770,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 2);
+            assert.equal(token.id(), 3);
             assert.equal(token.card().key, PilotCard.DARK_CURSE);
          }
       });
@@ -785,7 +796,7 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 9);
+            assert.equal(token.id(), 21);
             assert.equal(token.pilotSkillValue(), 8);
             assert.equal(token.card().key, PilotCard.WES_JANSON);
          }
@@ -809,13 +820,13 @@ define(["qunit", "redux",
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 8);
+            assert.equal(token.id(), 16);
             assert.equal(token.pilotSkillValue(), 4);
             assert.equal(token.card().key, PilotCard.CR90_CORVETTE + ".aft");
          }
          {
             token = result[i++];
-            assert.equal(token.id(), 10);
+            assert.equal(token.id(), 23);
             assert.equal(token.pilotSkillValue(), 3);
             assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          }
@@ -945,7 +956,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[2]; // X-Wing
+         var attacker = environment.pilotInstances()[2]; // X-Wing
          var attackerPosition0 = environment.getPositionFor(attacker);
          var attackerPosition = new Position(458, 50, -90);
          environment.moveToken(attackerPosition0, attackerPosition);
@@ -977,7 +988,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token = environment.tokens()[0];
+         var token = environment.pilotInstances()[0];
          var fromPosition = environment.getPositionFor(token);
          var toPosition = new Position(fromPosition.x() + 100, fromPosition.y() + 100, fromPosition.heading() + 90);
          assert.equal(environment.getPositionFor(token), fromPosition);
@@ -989,6 +1000,39 @@ define(["qunit", "redux",
          // Verify.
          assert.strictEqual(environment.getPositionFor(token), toPosition);
          assert.ok(environment.getTokenAt(toPosition).equals(token));
+      });
+
+      QUnit.test("pilotInstances()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+
+         // Run.
+         var result = environment.pilotInstances();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 3);
+         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
+         assert.equal(result[2].card().key, PilotCard.LUKE_SKYWALKER);
+      });
+
+      QUnit.test("pilotInstances() Pure", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var isPure = true;
+
+         // Run.
+         var result = environment.pilotInstances(isPure);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 3);
+         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
+         assert.equal(result[2].card().key, PilotCard.LUKE_SKYWALKER);
       });
 
       QUnit.test("playFormatKey() Standard", function(assert)
@@ -1021,7 +1065,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token = environment.tokens()[0];
+         var token = environment.pilotInstances()[0];
          var position = environment.getPositionFor(token);
          assert.equal(environment.getPositionFor(token), position);
          assert.ok(environment.getTokenAt(position).equals(token));
@@ -1038,7 +1082,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token = environment.tokens()[0];
+         var token = environment.pilotInstances()[0];
          assert.equal(environment.isTouching(token), false);
 
          // Run.
@@ -1052,7 +1096,7 @@ define(["qunit", "redux",
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          assert.equal(tokens.length, 3);
          assert.equal(tokens[0].card().key, PilotCard.MAULER_MITHEL);
          assert.equal(tokens[1].card().key, PilotCard.DARK_CURSE);
@@ -1064,7 +1108,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          var isPure = true;
-         var tokens = environment.tokens(isPure);
+         var tokens = environment.pilotInstances(isPure);
          assert.equal(tokens.length, 3);
          assert.equal(tokens[0].card().key, PilotCard.MAULER_MITHEL);
          assert.equal(tokens[1].card().key, PilotCard.DARK_CURSE);
@@ -1077,6 +1121,6 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          // Run / Verify.
-         assert.equal(environment.toString(), "(305, 20, 90) 1 \"Mauler Mithel\" (TIE Fighter)\n(610, 20, 90) 2 \"Dark Curse\" (TIE Fighter)\n(458, 895, 270) 3 Luke Skywalker (X-Wing)\n");
+         assert.equal(environment.toString(), "(305, 20, 90) 1 \"Mauler Mithel\" (TIE Fighter)\n(610, 20, 90) 3 \"Dark Curse\" (TIE Fighter)\n(458, 895, 270) 4 Luke Skywalker (X-Wing)\n");
       });
    });

@@ -50,7 +50,7 @@
 
 				var store = Redux.createStore(Reducer.root);
 				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
-				var tokens = environment.tokens();
+				var tokens = environment.pilotInstances();
 				attacker = tokens[6];
 				var choices = environment.createWeaponToRangeToDefenders(attacker);
 				var callback = function(weapon, defender)

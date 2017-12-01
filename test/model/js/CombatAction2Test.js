@@ -21,7 +21,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          Adjudicator.create(store);
-         var attacker = environment.tokens()[2]; // Luke Skywalker X-Wing
+         var attacker = environment.pilotInstances()[2]; // Luke Skywalker X-Wing
          assert.ok(attacker);
          attacker.agent().getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
          {
@@ -31,7 +31,7 @@ define(["qunit", "redux",
          assert.ok(weapon);
          var attackerPosition = environment.getPositionFor(attacker);
          var defenderPosition = new Position(305, 20, 90); // Mauler Mithel TIE Fighter
-         var defender = environment.tokens()[0];
+         var defender = environment.pilotInstances()[0];
          defender.agent().getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
          {
             callback(undefined, false);
@@ -70,7 +70,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          Adjudicator.create(store);
-         var attacker = environment.tokens()[2]; // Luke Skywalker X-Wing
+         var attacker = environment.pilotInstances()[2]; // Luke Skywalker X-Wing
          assert.ok(attacker);
          attacker.agent().getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
          {
@@ -80,7 +80,7 @@ define(["qunit", "redux",
          assert.ok(weapon);
          var attackerPosition = environment.getPositionFor(attacker);
          var defenderPosition = new Position(305, 20, 90); // Mauler Mithel TIE Fighter
-         var defender = environment.tokens()[0];
+         var defender = environment.pilotInstances()[0];
          defender.agent().compareResults = function(store, adjudicator, attacker, defender, callback)
          {
             callback(undefined, false);
@@ -120,7 +120,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // Luke Skywalker X-Wing
+         var attacker = environment.pilotInstances()[2]; // Luke Skywalker X-Wing
          assert.ok(attacker);
          attacker.agent().getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
          {
@@ -130,7 +130,7 @@ define(["qunit", "redux",
          assert.ok(weapon);
          var attackerPosition = environment.getPositionFor(attacker);
          var defenderPosition = new Position(305, 20, 90); // Mauler Mithel TIE Fighter
-         var defender = environment.tokens()[0];
+         var defender = environment.pilotInstances()[0];
          defender.agent().getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
          {
             callback(undefined, false);
@@ -189,8 +189,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction2(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
          assert.ok(environment.getPositionFor(attacker), "environment.getPositionFor(attacker) !== undefined");
          assert.ok(environment.getPositionFor(defender), "environment.getPositionFor(defender) !== undefined");
          assert.ok(attacker.isUpgradedWith(upgradeKey), "isUpgradedWith() === true");
@@ -222,8 +222,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
          assert.ok(TargetLock.getFirst(store, attacker, defender));
 
          // Run.
@@ -241,7 +241,7 @@ define(["qunit", "redux",
             assert.ok(true, "test resumed from async operation");
             assert.ok(TargetLock.getFirst(store, attacker, defender));
             assert.ok(attacker.isUpgradedWith(upgradeKey));
-            assert.equal(attacker.secondaryWeapons().size, 1);
+            assert.equal(attacker.secondaryWeapons().length, 1);
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
@@ -254,8 +254,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
 
          // Run.
          var done = assert.async();
@@ -311,7 +311,7 @@ define(["qunit", "redux",
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.ok(attacker.isUpgradedWith(upgradeKey));
-            assert.equal(attacker.secondaryWeapons().size, 1);
+            assert.equal(attacker.secondaryWeapons().length, 1);
             assert.equal(AttackDice.get(store, attacker.id()).size(), 4);
             var attackDice = AttackDice.get(store, attacker.id());
             assert.equal(attackDice.blankCount(), 1);
@@ -326,8 +326,8 @@ define(["qunit", "redux",
          var combatAction = createCombatActionRange2(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
 
          // Run.
          var done = assert.async();
@@ -343,7 +343,7 @@ define(["qunit", "redux",
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.ok(!attacker.isUpgradedWith(upgradeKey));
-            assert.equal(attacker.secondaryWeapons().size, 0);
+            assert.equal(attacker.secondaryWeapons().length, 0);
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
@@ -354,8 +354,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
 
          // Run.
          var done = assert.async();
@@ -371,7 +371,7 @@ define(["qunit", "redux",
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.ok(attacker.isUpgradedWith(upgradeKey));
-            assert.equal(attacker.secondaryWeapons().size, 1);
+            assert.equal(attacker.secondaryWeapons().length, 1);
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
@@ -383,8 +383,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
 
          // Run.
          var done = assert.async();
@@ -400,7 +400,7 @@ define(["qunit", "redux",
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.ok(attacker.isUpgradedWith(upgradeKey));
-            assert.equal(attacker.secondaryWeapons().size, 1);
+            assert.equal(attacker.secondaryWeapons().length, 1);
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
@@ -412,8 +412,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
 
          // Run.
          var done = assert.async();
@@ -429,7 +429,7 @@ define(["qunit", "redux",
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.ok(attacker.isUpgradedWith(upgradeKey));
-            assert.equal(attacker.secondaryWeapons().size, 1);
+            assert.equal(attacker.secondaryWeapons().length, 1);
             var attackDice = AttackDice.get(store, attacker.id());
             assert.equal(attackDice.blankCount(), 1);
             assert.equal(attackDice.criticalHitCount(), 1); // mock dice don't change
@@ -443,8 +443,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
 
          // Run.
          var done = assert.async();
@@ -460,7 +460,7 @@ define(["qunit", "redux",
             // Verify.
             var store = combatAction.store();
             var environment = combatAction.environment();
-            var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
+            var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
             assert.ok(true, "test resumed from async operation");
             assert.ok(attacker.isUpgradedWith(upgradeKey));
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
@@ -493,8 +493,8 @@ define(["qunit", "redux",
          var combatAction = createCombatActionRange2(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
 
          // Run.
          var done = assert.async();
@@ -510,7 +510,7 @@ define(["qunit", "redux",
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.ok(attacker.isUpgradedWith(upgradeKey));
-            assert.equal(attacker.secondaryWeapons().size, 1);
+            assert.equal(attacker.secondaryWeapons().length, 1);
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
@@ -522,8 +522,8 @@ define(["qunit", "redux",
          var combatAction = createCombatAction(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1]; // Dash Rendar YT-2400
-         var defender = environment.tokens()[0]; // Academy PilotCard TIE Fighter
+         var attacker = environment.pilotInstances()[1]; // Dash Rendar YT-2400
+         var defender = environment.pilotInstances()[0]; // Academy PilotCard TIE Fighter
          assert.equal(defender.tractorBeamCount(), 0);
 
          // Run.
@@ -541,7 +541,7 @@ define(["qunit", "redux",
             assert.ok(true, "test resumed from async operation");
             assert.ok(attacker.isUpgradedWith(upgradeKey));
             assert.equal(combatAction.executionCount(), 2);
-            assert.equal(attacker.secondaryWeapons().size, 1);
+            assert.equal(attacker.secondaryWeapons().length, 1);
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
@@ -553,10 +553,10 @@ define(["qunit", "redux",
          var combatAction = createCombatActionRange2(upgradeKey, callback);
          var store = combatAction.store();
          var environment = combatAction.environment();
-         var attacker = environment.tokens()[1];
+         var attacker = environment.pilotInstances()[1];
          assert.ok(attacker.isUpgradedWith(upgradeKey));
-         assert.equal(attacker.secondaryWeapons().size, 1);
-         var defender = environment.tokens()[0];
+         assert.equal(attacker.secondaryWeapons().length, 1);
+         var defender = environment.pilotInstances()[0];
          assert.equal(defender.damageCount(), 0);
 
          // Run.
@@ -581,8 +581,8 @@ define(["qunit", "redux",
          var positions1 = [defenderPosition];
          var positions2 = [attackerPosition];
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
-         defender = environment.tokens()[0];
-         attacker = environment.tokens()[1];
+         defender = environment.pilotInstances()[0];
+         attacker = environment.pilotInstances()[1];
          var weapon = attacker.primaryWeapon();
          Adjudicator.create(store);
          assert.equal(attacker.focusCount(), 0);
@@ -658,8 +658,8 @@ define(["qunit", "redux",
             var isAccepted = (ability !== undefined);
             callback(ability, isAccepted);
          };
-         defender = environment.tokens()[0];
-         attacker = environment.tokens()[1];
+         defender = environment.pilotInstances()[0];
+         attacker = environment.pilotInstances()[1];
          environment.setActiveToken(attacker);
          Adjudicator.create(store);
          EventObserver.observeStore(store);
@@ -668,7 +668,7 @@ define(["qunit", "redux",
          store.dispatch(CardAction.addFocusCount(attacker));
          TargetLock.newInstance(store, attacker, defender);
 
-         var weapon = attacker.secondaryWeapons().get(0);
+         var weapon = attacker.secondaryWeapons()[0];
 
          if (weapon === undefined)
          {
@@ -725,8 +725,8 @@ define(["qunit", "redux",
          {
             callback(undefined, false);
          };
-         defender = environment.tokens()[0];
-         attacker = environment.tokens()[1];
+         defender = environment.pilotInstances()[0];
+         attacker = environment.pilotInstances()[1];
          environment.setActiveToken(attacker);
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);

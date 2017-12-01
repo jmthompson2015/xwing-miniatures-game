@@ -77,9 +77,6 @@ define(["redux", "common/js/InputValidator", "artifact/js/Faction",
          InputValidator.validateNotNull("factionKey", factionKey);
          InputValidator.validateNotNull("resourceBase", resourceBase);
 
-         //  var inputAreaId = "inputArea";
-
-         //  return new type(name, factionKey, inputAreaId, resourceBase);
          return new Agent(store, name, factionKey, undefined, type);
       };
 

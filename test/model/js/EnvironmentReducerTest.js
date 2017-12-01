@@ -2,7 +2,7 @@
 
 define(["qunit", "redux",
   "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Faction",
-  "model/js/Agent", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer",  "model/js/SquadBuilder", "model/js/CardInstance",
+  "model/js/Agent", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardInstance",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
       DamageCard, PilotCard, PlayFormat, Faction,
@@ -71,12 +71,12 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token2 = environment.tokens()[2];
+         var token2 = environment.pilotInstances()[2];
          var fromPosition = environment.getPositionFor(token2);
          var toPosition = new Position(120, 220, 45);
          assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
          assert.equal(Object.keys(store.getState().cardPosition).length, 3);
-         assert.equal(store.getState().cardInstances.keySeq().size, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 6);
 
          // Run.
          store.dispatch(EnvironmentAction.moveToken(fromPosition, toPosition));
@@ -84,7 +84,7 @@ define(["qunit", "redux",
          // Verify.
          assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
          assert.equal(Object.keys(store.getState().cardPosition).length, 3);
-         assert.equal(store.getState().cardInstances.keySeq().size, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 6);
 
          var token22 = CardInstance.get(store, token2.id());
          assert.ok(token22.equals(token2));
@@ -118,10 +118,10 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token0 = environment.tokens()[0];
+         var token0 = environment.pilotInstances()[0];
          assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
          assert.equal(Object.keys(store.getState().cardPosition).length, 3);
-         assert.equal(store.getState().cardInstances.keySeq().size, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 6);
 
          // Run.
          store.dispatch(EnvironmentAction.removeToken(token0));
@@ -129,7 +129,7 @@ define(["qunit", "redux",
          // Verify.
          assert.equal(Object.keys(store.getState().positionToCardId).length, 2);
          assert.equal(Object.keys(store.getState().cardPosition).length, 2);
-         assert.equal(store.getState().cardInstances.keySeq().size, 2);
+         assert.equal(store.getState().cardInstances.keySeq().size, 5);
       });
 
       QUnit.test("removeTokenAt()", function(assert)
@@ -137,11 +137,11 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token0 = environment.tokens()[0];
+         var token0 = environment.pilotInstances()[0];
          var position0 = environment.getPositionFor(token0);
          assert.equal(Object.keys(store.getState().positionToCardId).length, 3);
          assert.equal(Object.keys(store.getState().cardPosition).length, 3);
-         assert.equal(store.getState().cardInstances.keySeq().size, 3);
+         assert.equal(store.getState().cardInstances.keySeq().size, 6);
 
          // Run.
          store.dispatch(EnvironmentAction.removeTokenAt(position0));
@@ -149,7 +149,7 @@ define(["qunit", "redux",
          // Verify.
          assert.equal(Object.keys(store.getState().positionToCardId).length, 2);
          assert.equal(Object.keys(store.getState().cardPosition).length, 2);
-         assert.equal(store.getState().cardInstances.keySeq().size, 2);
+         assert.equal(store.getState().cardInstances.keySeq().size, 5);
       });
 
       QUnit.test("replenishDamageDeck()", function(assert)

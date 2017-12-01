@@ -10,8 +10,8 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[0];
-         var defender = environment.tokens()[2];
+         var attacker = environment.pilotInstances()[0];
+         var defender = environment.pilotInstances()[2];
 
          // Run.
          var result = TargetLock.newInstance(store, attacker, defender);
@@ -29,8 +29,8 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[0];
-         var defender = environment.tokens()[2];
+         var attacker = environment.pilotInstances()[0];
+         var defender = environment.pilotInstances()[2];
          var targetLock = TargetLock.newInstance(store, attacker, defender);
 
          // Run.
@@ -46,8 +46,8 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[0];
-         var defender = environment.tokens()[2];
+         var attacker = environment.pilotInstances()[0];
+         var defender = environment.pilotInstances()[2];
          var targetLock = TargetLock.newInstance(store, attacker, defender);
 
          // Run.
@@ -63,8 +63,8 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[0];
-         var defender = environment.tokens()[2];
+         var attacker = environment.pilotInstances()[0];
+         var defender = environment.pilotInstances()[2];
          var targetLock = TargetLock.newInstance(store, attacker, defender);
          assert.equal(store.getState().targetLocks.size, 1);
          assert.equal(store.getState().targetLocks.get(0).get("id"), "A");
@@ -83,8 +83,8 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[0];
-         var defender = environment.tokens()[2];
+         var attacker = environment.pilotInstances()[0];
+         var defender = environment.pilotInstances()[2];
          TargetLock.newInstance(store, attacker, defender);
 
          // Run.
@@ -104,38 +104,38 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         TargetLock.newInstance(store, environment.tokens()[0], environment.tokens()[1]);
-         TargetLock.newInstance(store, environment.tokens()[1], environment.tokens()[2]);
-         TargetLock.newInstance(store, environment.tokens()[2], environment.tokens()[0]);
+         TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
+         TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
+         TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
 
          // Run.
-         var result = TargetLock.get(store, environment.tokens()[0], environment.tokens()[1]);
+         var result = TargetLock.get(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[0].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[1].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[0].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[1].id());
          assert.equal(result[0].id(), "A");
 
          // Run.
-         result = TargetLock.get(store, environment.tokens()[1], environment.tokens()[2]);
+         result = TargetLock.get(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[1].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[2].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[1].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[2].id());
          assert.equal(result[0].id(), "B");
 
          // Run.
-         result = TargetLock.get(store, environment.tokens()[2], environment.tokens()[0]);
+         result = TargetLock.get(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[2].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[0].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[2].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[0].id());
          assert.equal(result[0].id(), "C");
 
          assert.equal(store.getState().targetLocks.size, 3);
@@ -146,38 +146,38 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         TargetLock.newInstance(store, environment.tokens()[0], environment.tokens()[1]);
-         TargetLock.newInstance(store, environment.tokens()[1], environment.tokens()[2]);
-         TargetLock.newInstance(store, environment.tokens()[2], environment.tokens()[0]);
+         TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
+         TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
+         TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
 
          // Run.
-         var result = TargetLock.getByAttacker(store, environment.tokens()[0]);
+         var result = TargetLock.getByAttacker(store, environment.pilotInstances()[0]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[0].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[1].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[0].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[1].id());
          assert.equal(result[0].id(), "A");
 
          // Run.
-         result = TargetLock.getByAttacker(store, environment.tokens()[1]);
+         result = TargetLock.getByAttacker(store, environment.pilotInstances()[1]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[1].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[2].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[1].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[2].id());
          assert.equal(result[0].id(), "B");
 
          // Run.
-         result = TargetLock.getByAttacker(store, environment.tokens()[2]);
+         result = TargetLock.getByAttacker(store, environment.pilotInstances()[2]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[2].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[0].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[2].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[0].id());
          assert.equal(result[0].id(), "C");
 
          assert.equal(store.getState().targetLocks.size, 3);
@@ -188,38 +188,38 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         TargetLock.newInstance(store, environment.tokens()[0], environment.tokens()[1]);
-         TargetLock.newInstance(store, environment.tokens()[1], environment.tokens()[2]);
-         TargetLock.newInstance(store, environment.tokens()[2], environment.tokens()[0]);
+         TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
+         TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
+         TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
 
          // Run.
-         var result = TargetLock.getByDefender(store, environment.tokens()[1]);
+         var result = TargetLock.getByDefender(store, environment.pilotInstances()[1]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[0].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[1].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[0].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[1].id());
          assert.equal(result[0].id(), "A");
 
          // Run.
-         result = TargetLock.getByDefender(store, environment.tokens()[2]);
+         result = TargetLock.getByDefender(store, environment.pilotInstances()[2]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[1].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[2].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[1].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[2].id());
          assert.equal(result[0].id(), "B");
 
          // Run.
-         result = TargetLock.getByDefender(store, environment.tokens()[0]);
+         result = TargetLock.getByDefender(store, environment.pilotInstances()[0]);
 
          // Verify.
          assert.ok(result);
          assert.equal(result.length, 1);
-         assert.equal(result[0].attacker().id(), environment.tokens()[2].id());
-         assert.equal(result[0].defender().id(), environment.tokens()[0].id());
+         assert.equal(result[0].attacker().id(), environment.pilotInstances()[2].id());
+         assert.equal(result[0].defender().id(), environment.pilotInstances()[0].id());
          assert.equal(result[0].id(), "C");
 
          assert.equal(store.getState().targetLocks.size, 3);
@@ -230,8 +230,8 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[0];
-         var defender = environment.tokens()[2];
+         var attacker = environment.pilotInstances()[0];
+         var defender = environment.pilotInstances()[2];
          var targetLock = TargetLock.newInstance(store, attacker, defender);
 
          // Run.
@@ -273,18 +273,18 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         TargetLock.newInstance(store, environment.tokens()[0], environment.tokens()[1]);
-         TargetLock.newInstance(store, environment.tokens()[1], environment.tokens()[2]);
-         TargetLock.newInstance(store, environment.tokens()[2], environment.tokens()[0]);
+         TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
+         TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
+         TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
          assert.equal(store.getState().targetLocks.size, 3);
 
          // Run.
-         TargetLock.removeAllTargetLocks(store, environment.tokens()[0]);
+         TargetLock.removeAllTargetLocks(store, environment.pilotInstances()[0]);
 
          // Verify.
          assert.equal(store.getState().targetLocks.size, 1);
-         assert.equal(TargetLock.getByAttacker(store, environment.tokens()[0]).length, 0);
-         assert.equal(TargetLock.getByDefender(store, environment.tokens()[0]).length, 0);
+         assert.equal(TargetLock.getByAttacker(store, environment.pilotInstances()[0]).length, 0);
+         assert.equal(TargetLock.getByDefender(store, environment.pilotInstances()[0]).length, 0);
       });
 
       QUnit.test("values()", function(assert)
@@ -292,8 +292,8 @@ define(["qunit", "redux", "model/js/Reducer", "model/js/TargetLock", "../../../t
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[0];
-         var defender = environment.tokens()[2];
+         var attacker = environment.pilotInstances()[0];
+         var defender = environment.pilotInstances()[2];
          var targetLock = TargetLock.newInstance(store, attacker, defender);
 
          // Run.

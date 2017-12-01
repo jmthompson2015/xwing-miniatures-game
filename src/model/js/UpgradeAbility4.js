@@ -19,7 +19,7 @@ define(["common/js/InputValidator",
          // At the start of the End phase, if you have 1 or fewer energy tokens, gain 1 energy token.
          condition: function(store, token)
          {
-            return isActiveToken(store, token) && token.energyCount() <= 1;
+            return isActiveCardInstance(store, token) && token.energyCount() <= 1;
          },
          consequent: function(store, token, callback)
          {
@@ -36,7 +36,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var upgradeKey = UpgradeCard.CLOAKING_DEVICE;
-            return isActiveToken(store, token) && token.isCloaked() && token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
+            return isActiveCardInstance(store, token) && token.isCloaked() && token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
          },
          consequent: function(store, token, callback)
          {
@@ -79,18 +79,18 @@ define(["common/js/InputValidator",
       };
 
       ////////////////////////////////////////////////////////////////////////
-      function getActiveToken(store)
+      function getActiveCardInstance(store)
       {
          InputValidator.validateNotNull("store", store);
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
-      function isActiveToken(store, token)
+      function isActiveCardInstance(store, token)
       {
-         var activeToken = getActiveToken(store);
+         var activeToken = getActiveCardInstance(store);
 
          return token.equals(activeToken);
       }

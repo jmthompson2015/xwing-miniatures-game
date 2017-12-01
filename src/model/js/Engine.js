@@ -304,7 +304,7 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/Maneuver
 
          LOGGER.debug("this.decloakCount() = " + this.decloakCount());
 
-         if (this.decloakCount() === environment.tokens().length)
+         if (this.decloakCount() === environment.pilotInstances().length)
          {
             this.activationQueue(environment.getTokensForActivation(true));
             var function0 = this.processActivationQueue.bind(this);
@@ -448,7 +448,7 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/Maneuver
          if (weapon && defender)
          {
             var environment = this.environment();
-            var attacker = environment.activeToken();
+            var attacker = environment.activeCardInstance();
 
             if (defender)
             {
@@ -542,7 +542,7 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/Maneuver
          LOGGER.trace("Engine.startOrEndPhase() phaseKey = " + phaseKey);
 
          var environment = this.environment();
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          var tokenCount = tokens.length;
          var delay = this.delay();
          var count = 0;

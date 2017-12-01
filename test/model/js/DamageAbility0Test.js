@@ -12,7 +12,7 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Event.keys().forEach(function(eventKey)
@@ -40,7 +40,7 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var callback = function()
          {
             LOGGER.info("in callback()");
@@ -73,7 +73,7 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          environment.setActiveToken(token);
          store.dispatch(CardAction.addCriticalDamage(token, DamageCard.MINOR_EXPLOSION));

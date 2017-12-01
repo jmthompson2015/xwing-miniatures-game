@@ -306,28 +306,31 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-         var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
-         var upgradeKey1 = UpgradeCard.CALCULATION;
+         //  var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
+         //  var upgradeKey1 = UpgradeCard.CALCULATION;
+         var upgrade0 = new CardInstance(store, UpgradeCard.ADRENALINE_RUSH);
+         var upgrade1 = new CardInstance(store, UpgradeCard.CALCULATION);
          assert.ok(!store.getState().cardUpgrades.get(token.id()));
 
          // Run.
-         store.dispatch(CardAction.addUpgrade(token, upgradeKey0));
+         //  store.dispatch(CardAction.addUpgrade(token, upgradeKey0));
+         store.dispatch(CardAction.addUpgrade(token, upgrade0));
 
          // Verify.
          var upgrades = store.getState().cardUpgrades.get(token.id());
          assert.ok(upgrades);
          assert.equal(upgrades.size, 1);
-         assert.equal(upgrades.get(0), upgradeKey0);
+         assert.equal(upgrades.get(0).cardKey, upgrade0.cardKey);
 
          // Run.
-         store.dispatch(CardAction.addUpgrade(token, upgradeKey1));
+         store.dispatch(CardAction.addUpgrade(token, upgrade1));
 
          // Verify.
          upgrades = store.getState().cardUpgrades.get(token.id());
          assert.ok(upgrades);
          assert.equal(upgrades.size, 2);
-         assert.equal(upgrades.get(0), upgradeKey0);
-         assert.equal(upgrades.get(1), upgradeKey1);
+         assert.equal(upgrades.get(0).cardKey, upgrade0.cardKey);
+         assert.equal(upgrades.get(1).cardKey, upgrade1.cardKey);
       });
 
       QUnit.test("addTokenUpgradeEnergy()", function(assert)
@@ -624,25 +627,27 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-         var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
-         var upgradeKey1 = UpgradeCard.CALCULATION;
-         store.dispatch(CardAction.addUpgrade(token, upgradeKey0));
-         store.dispatch(CardAction.addUpgrade(token, upgradeKey1));
+         //  var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
+         //  var upgradeKey1 = UpgradeCard.CALCULATION;
+         var upgrade0 = new CardInstance(store, UpgradeCard.ADRENALINE_RUSH);
+         var upgrade1 = new CardInstance(store, UpgradeCard.CALCULATION);
+         store.dispatch(CardAction.addUpgrade(token, upgrade0));
+         store.dispatch(CardAction.addUpgrade(token, upgrade1));
          assert.ok(store.getState().cardUpgrades.get(token.id()));
          assert.equal(store.getState().cardUpgrades.get(token.id()).size, 2);
-         assert.equal(store.getState().cardUpgrades.get(token.id()).get(0), upgradeKey0);
-         assert.equal(store.getState().cardUpgrades.get(token.id()).get(1), upgradeKey1);
+         assert.equal(store.getState().cardUpgrades.get(token.id()).get(0).cardKey, upgrade0.cardKey);
+         assert.equal(store.getState().cardUpgrades.get(token.id()).get(1).cardKey, upgrade1.cardKey);
 
          // Run.
-         store.dispatch(CardAction.removeUpgrade(token, upgradeKey1));
+         store.dispatch(CardAction.removeUpgrade(token, upgrade1));
 
          // Verify.
          assert.ok(store.getState().cardUpgrades.get(token.id()));
          assert.equal(store.getState().cardUpgrades.get(token.id()).size, 1);
-         assert.equal(store.getState().cardUpgrades.get(token.id()).get(0), upgradeKey0);
+         assert.equal(store.getState().cardUpgrades.get(token.id()).get(0).cardKey, upgrade0.cardKey);
 
          // Run.
-         store.dispatch(CardAction.removeUpgrade(token, upgradeKey0));
+         store.dispatch(CardAction.removeUpgrade(token, upgrade0));
 
          // Verify.
          assert.ok(store.getState().cardUpgrades.get(token.id()));

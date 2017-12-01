@@ -1,6 +1,6 @@
 "use strict";
 
-define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agent", "model/js/EventObserver", "model/js/Environment", "model/js/Reducer",  "model/js/SquadBuilder"],
+define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agent", "model/js/EventObserver", "model/js/Environment", "model/js/Reducer", "model/js/SquadBuilder"],
    function(QUnit, Redux, Event, Action, Agent, EventObserver, Environment, Reducer, SquadBuilder)
    {
       QUnit.module("EventObserver");
@@ -10,7 +10,7 @@ define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agen
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing Luke Skywalker
+         var token = environment.pilotInstances()[2]; // X-Wing Luke Skywalker
          var eventKey = Event.AFTER_EXECUTE_MANEUVER;
          var eventCallback = function(eventData)
          {

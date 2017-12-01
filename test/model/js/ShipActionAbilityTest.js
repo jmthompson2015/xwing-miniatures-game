@@ -14,7 +14,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          var abilities = ShipActionAbility;
@@ -37,7 +37,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var callback = function()
          {
             LOGGER.info("in callback()");
@@ -64,7 +64,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var tokenPosition = environment.getPositionFor(token);
          environment.moveToken(tokenPosition, new Position(458, 890, 270));
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BARREL_ROLL];
@@ -93,7 +93,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var tokenPosition = environment.getPositionFor(token);
          environment.moveToken(tokenPosition, new Position(458, 890, 270));
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BOOST];
@@ -122,7 +122,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.CLOAK];
          var callback = function()
          {
@@ -140,7 +140,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var tokenPosition = environment.getPositionFor(token);
          environment.moveToken(tokenPosition, new Position(458, 890, 270));
          store.dispatch(CardAction.addCloakCount(token));
@@ -172,7 +172,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.EVADE];
          var callback = function()
          {
@@ -190,7 +190,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.FOCUS];
          var callback = function()
          {
@@ -208,8 +208,8 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // X-Wing
-         var defender = environment.tokens()[0]; // TIE Fighter
+         var attacker = environment.pilotInstances()[2]; // X-Wing
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.JAM];
          var callback = function()
          {
@@ -230,7 +230,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.REINFORCE];
          var callback = function()
          {
@@ -248,7 +248,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.SLAM];
          var callback = function()
          {
@@ -275,8 +275,8 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var defender = environment.tokens()[0]; // TIE Fighter
-         var attacker = environment.tokens()[2]; // X-Wing
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
+         var attacker = environment.pilotInstances()[2]; // X-Wing
          var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.TARGET_LOCK];
          assert.equal(store.getState().targetLocks.size, 0);
          assert.ok(TargetLock.getFirst(store, attacker, defender) === undefined);
@@ -298,9 +298,9 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var attacker = environment.tokens()[2]; // X-Wing.
+         var attacker = environment.pilotInstances()[2]; // X-Wing.
          var weapon = attacker.primaryWeapon();
-         var defender = environment.tokens()[0]; // TIE Fighter.
+         var defender = environment.pilotInstances()[0]; // TIE Fighter.
          var callback = function()
          {
             LOGGER.info("in callback()");

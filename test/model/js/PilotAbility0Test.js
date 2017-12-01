@@ -10,7 +10,7 @@ define(["qunit", "artifact/js/Event", "model/js/PilotAbility0", "../../../test/m
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Event.keys().forEach(function(eventKey)
@@ -40,7 +40,7 @@ define(["qunit", "artifact/js/Event", "model/js/PilotAbility0", "../../../test/m
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          // Run / Verify.
          Event.keys().forEach(function(eventKey)
@@ -68,7 +68,7 @@ define(["qunit", "artifact/js/Event", "model/js/PilotAbility0", "../../../test/m
       function createEnvironment()
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
 
          environment.setActiveToken(token);
 

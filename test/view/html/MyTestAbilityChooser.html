@@ -54,7 +54,7 @@
 
 				var environment = EnvironmentFactory.createCoreSetEnvironment();
 				var store = environment.store();
-				var token = environment.tokens()[2]; // X-Wing
+				var token = environment.pilotInstances()[2]; // X-Wing
 
 				var element = React.createElement(AbilityChooser,
 				{

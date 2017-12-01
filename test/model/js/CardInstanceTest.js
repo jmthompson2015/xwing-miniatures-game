@@ -60,8 +60,8 @@ define(["qunit", "redux",
          assert.ok(token.primaryWeapon());
          assert.equal(token.primaryWeapon().weaponValue(), 2, "token.primaryWeapon().weaponValue() === 2");
 
-         assert.equal(token.secondaryWeapons().size, 1, "token.secondaryWeapons().size === 1");
-         var weapon0 = token.secondaryWeapons().get(0);
+         assert.equal(token.secondaryWeapons().length, 1, "token.secondaryWeapons().length === 1");
+         var weapon0 = token.secondaryWeapons()[0];
          assert.equal(weapon0.weaponValue(), 3, "weapon0.weaponValue() === 3");
          assert.equal(weapon0.upgradeKey(), UpgradeCard.CLUSTER_MISSILES);
       });
@@ -114,8 +114,8 @@ define(["qunit", "redux",
          assert.ok(token.primaryWeapon());
          assert.equal(token.primaryWeapon().weaponValue(), 2, "token.primaryWeapon().weaponValue() === 2");
 
-         assert.equal(token.secondaryWeapons().size, 1, "token.secondaryWeapons().size === 1");
-         var weapon0 = token.secondaryWeapons().get(0);
+         assert.equal(token.secondaryWeapons().length, 1, "token.secondaryWeapons().length === 1");
+         var weapon0 = token.secondaryWeapons()[0];
          assert.equal(weapon0.weaponValue(), 3, "weapon0.weaponValue() === 3");
          assert.equal(weapon0.upgradeKey(), UpgradeCard.CLUSTER_MISSILES);
       });
@@ -132,8 +132,8 @@ define(["qunit", "redux",
          assert.equal(token.card().key, PilotCard.DASH_RENDAR);
          assert.equal(token.card().shipFaction.shipKey, Ship.YT_2400);
          assert.equal(token.name(), "1 Dash Rendar (YT-2400)");
-         assert.equal(token.secondaryWeapons().size, 1);
-         var weapon1 = token.secondaryWeapons().get(0);
+         assert.equal(token.secondaryWeapons().length, 1);
+         var weapon1 = token.secondaryWeapons()[0];
          assert.equal(weapon1.upgradeKey(), UpgradeCard.MANGLER_CANNON);
       });
 
@@ -149,7 +149,7 @@ define(["qunit", "redux",
          assert.equal(token.card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          assert.equal(token.card().shipFaction.shipKey, Ship.GR_75_MEDIUM_TRANSPORT);
          assert.equal(token.name(), "1 GR-75 Medium Transport");
-         assert.equal(token.secondaryWeapons().size, 0);
+         assert.equal(token.secondaryWeapons().length, 0);
       });
 
       QUnit.test("agilityValue()", function(assert)
@@ -216,7 +216,7 @@ define(["qunit", "redux",
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token0]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [token1]);
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2);
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          token0 = tokens[0];
          token1 = tokens[1];
          assert.equal(token0.id(), 1);
@@ -241,11 +241,12 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[1]; // Dark Curse
+         var attacker = environment.pilotInstances()[1]; // Dark Curse
          var store = environment.store();
-         store.dispatch(CardAction.addUpgrade(attacker, UpgradeCard.DORSAL_TURRET));
-         var defender = environment.tokens()[2]; // X-Wing
-         assert.equal(attacker.name(), "2 \"Dark Curse\" (TIE Fighter)");
+         var upgrade = new CardInstance(store, UpgradeCard.DORSAL_TURRET);
+         store.dispatch(CardAction.addUpgrade(attacker, upgrade));
+         var defender = environment.pilotInstances()[2]; // X-Wing
+         assert.equal(attacker.name(), "3 \"Dark Curse\" (TIE Fighter)");
          var weapon = attacker.primaryWeapon();
 
          // Run / Verify.
@@ -258,8 +259,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var attacker = environment.tokens()[0]; // Mauler Mithel
-         var defender = environment.tokens()[2]; // X-Wing
+         var attacker = environment.pilotInstances()[0]; // Mauler Mithel
+         var defender = environment.pilotInstances()[2]; // X-Wing
          assert.equal(attacker.name(), "1 \"Mauler Mithel\" (TIE Fighter)");
          var weapon = attacker.primaryWeapon();
 
@@ -273,10 +274,10 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var agent = environment.tokens()[0].agent(); // Mauler Mithel
+         var agent = environment.pilotInstances()[0].agent(); // Mauler Mithel
          var token = new CardInstance(environment.store(), PilotCard.TALONBANE_COBRA, agent);
          var weapon = token.primaryWeapon();
-         var defender = environment.tokens()[2]; // X-Wing
+         var defender = environment.pilotInstances()[2]; // X-Wing
 
          // Run / Verify.
          assert.equal(token.computeAttackDiceCount(environment, weapon, defender, Range.ONE), 5);
@@ -300,7 +301,7 @@ define(["qunit", "redux",
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [defender]);
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, [new Position(10, 20, 30)]);
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          token = tokens[0];
          defender = tokens[1];
 
@@ -357,7 +358,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var agent = environment.tokens()[0].agent(); // Mauler Mithel
+         var agent = environment.pilotInstances()[0].agent(); // Mauler Mithel
          var token = new CardInstance(environment.store(), PilotCard.TALONBANE_COBRA, agent);
          var weapon = token.primaryWeapon();
 
@@ -377,14 +378,15 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.DARTH_VADER, imperialAgent, [UpgradeCard.DETERMINATION,
                         UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE]);
          assert.equal(token.upgradeKeys().size, 3);
-         assert.equal(token.secondaryWeapons().size, 1);
+         assert.equal(token.secondaryWeapons().length, 1);
+         var upgrade = token.upgrades().get(1);
 
          // Run.
-         token.discardUpgrade(UpgradeCard.CLUSTER_MISSILES);
+         token.discardUpgrade(upgrade);
 
          // Verify.
          assert.equal(token.upgradeKeys().size, 2);
-         assert.equal(token.secondaryWeapons().size, 0);
+         assert.equal(token.secondaryWeapons().length, 0);
       });
 
       QUnit.test("energyValue()", function(assert)
@@ -544,7 +546,7 @@ define(["qunit", "redux",
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", []);
          var environment = new Environment(store, agent1, squad1, agent2, squad2, [new Position(200, 200, 0)]);
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          token = tokens[0];
          var maneuverAction = new ManeuverAction(store, token.id(), Maneuver.STRAIGHT_1_STANDARD);
 
@@ -814,11 +816,11 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          // Run / Verify.
-         assert.equal(environment.tokens().length, 3);
+         assert.equal(environment.pilotInstances().length, 3);
          var i = 0;
-         assert.equal(environment.tokens()[i++].name(), "1 \"Mauler Mithel\" (TIE Fighter)");
-         assert.equal(environment.tokens()[i++].name(), "2 \"Dark Curse\" (TIE Fighter)");
-         assert.equal(environment.tokens()[i++].name(), "3 Luke Skywalker (X-Wing)");
+         assert.equal(environment.pilotInstances()[i++].name(), "1 \"Mauler Mithel\" (TIE Fighter)");
+         assert.equal(environment.pilotInstances()[i++].name(), "3 \"Dark Curse\" (TIE Fighter)");
+         assert.equal(environment.pilotInstances()[i++].name(), "4 Luke Skywalker (X-Wing)");
       });
 
       QUnit.test("pilotSkillValue()", function(assert)
@@ -1060,7 +1062,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          store.dispatch(CardAction.addStressCount(token));
          assert.equal(token.stressCount(), 1);
 
@@ -1076,8 +1078,9 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
-         store.dispatch(CardAction.addUpgrade(token, UpgradeCard.KYLE_KATARN));
+         var token = environment.pilotInstances()[2]; // X-Wing
+         var upgrade = new CardInstance(store, UpgradeCard.properties[UpgradeCard.KYLE_KATARN]);
+         store.dispatch(CardAction.addUpgrade(token, upgrade));
          store.dispatch(CardAction.addStressCount(token));
          assert.equal(token.focusCount(), 0);
          assert.equal(token.stressCount(), 1);
@@ -1102,9 +1105,9 @@ define(["qunit", "redux",
 
          // Verify.
          assert.ok(result);
-         assert.equal(result.size, 2);
-         assert.equal(result.get(0).name(), "\"Mangler\" Cannon");
-         assert.equal(result.get(1).name(), "Cluster Missiles");
+         assert.equal(result.length, 2);
+         assert.equal(result[0].name(), "\"Mangler\" Cannon");
+         assert.equal(result[1].name(), "Cluster Missiles");
       });
 
       QUnit.test("shieldCount()", function(assert)
@@ -1232,7 +1235,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[0]; // TIE Fighter.
+         var token = environment.pilotInstances()[0]; // TIE Fighter.
          assert.equal(token.damageCount(), 0);
          assert.equal(token.criticalDamageCount(), 0);
          assert.equal(token.totalDamage(), 0);
@@ -1261,7 +1264,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          var token0 = tokens[0]; // TIE Fighter.
          var token1 = tokens[1]; // TIE Fighter.
          var token2 = tokens[2]; // X-Wing.
@@ -1273,6 +1276,24 @@ define(["qunit", "redux",
          assert.equal(token1.upgradeKeys().size, 0);
          assert.ok(token2.upgradeKeys());
          assert.equal(token2.upgradeKeys().size, 2);
+      });
+
+      QUnit.test("upgrades()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var tokens = environment.pilotInstances();
+         var token0 = tokens[0]; // TIE Fighter.
+         var token1 = tokens[1]; // TIE Fighter.
+         var token2 = tokens[2]; // X-Wing.
+
+         // Run / Verify.
+         assert.ok(token0.upgrades());
+         assert.equal(token0.upgrades().size, 1);
+         assert.ok(token1.upgrades());
+         assert.equal(token1.upgrades().size, 0);
+         assert.ok(token2.upgrades());
+         assert.equal(token2.upgrades().size, 2);
       });
 
       QUnit.test("usableDamageAbilities()", function(assert)
@@ -1287,7 +1308,7 @@ define(["qunit", "redux",
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", []);
          var environment = new Environment(store, agent1, squad1, agent2, squad2, [new Position(300, 300, 0)]);
-         var tokens = environment.tokens();
+         var tokens = environment.pilotInstances();
          token = tokens[0];
 
          var abilityType = DamageAbility2;
@@ -1318,7 +1339,7 @@ define(["qunit", "redux",
          var pilotKey = PilotCard.COUNTESS_RYAD;
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token0 = environment.tokens()[0]; // TIE Fighter.
+         var token0 = environment.pilotInstances()[0]; // TIE Fighter.
          var agent = token0.agent();
          var token = new CardInstance(store, pilotKey, agent);
          var maneuverKey = Maneuver.BANK_LEFT_2_STANDARD;
@@ -1355,12 +1376,13 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing.
+         var token = environment.pilotInstances()[2]; // X-Wing.
          var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
          var abilityType = UpgradeAbility2;
          var abilityKey = Phase.ACTIVATION_REVEAL_DIAL;
          var maneuver = Maneuver.properties[maneuverKey];
-         store.dispatch(CardAction.addUpgrade(token, UpgradeCard.ADRENALINE_RUSH));
+         var upgrade = new CardInstance(store, UpgradeCard.ADRENALINE_RUSH);
+         store.dispatch(CardAction.addUpgrade(token, upgrade));
          environment.setActiveToken(token);
          var callback = function() {};
          ActivationAction.create(store, token.id(), callback);

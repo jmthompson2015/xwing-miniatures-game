@@ -17,7 +17,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // During the Planning phase, you cannot be assigned straight maneuvers. When you reveal a maneuver, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -33,7 +33,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -46,7 +46,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -59,7 +59,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -75,7 +75,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -92,7 +92,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -105,7 +105,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -118,7 +118,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -134,7 +134,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -151,7 +151,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -168,7 +168,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -192,18 +192,18 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          store.dispatch(CardAction.addDamage(token, damageKey));
       }
 
-      function getActiveToken(store)
+      function getActiveCardInstance(store)
       {
          InputValidator.validateNotNull("store", store);
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
-      function isActiveToken(store, token)
+      function isActiveCardInstance(store, token)
       {
-         var activeToken = getActiveToken(store);
+         var activeToken = getActiveCardInstance(store);
 
          return token.equals(activeToken);
       }

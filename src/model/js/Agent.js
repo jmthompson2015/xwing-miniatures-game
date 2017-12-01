@@ -406,19 +406,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          return answer;
       };
 
-      Agent.prototype.factionKey = function()
-      {
-         var answer;
-         var tokens = this.tokens();
-
-         if (tokens.size > 0)
-         {
-            answer = tokens.get(0).factionKey();
-         }
-
-         return answer;
-      };
-
       Agent.prototype.isComputerAgent = function()
       {
          return [SimpleAgentStrategy, MediumAgentStrategy].includes(this._strategy());

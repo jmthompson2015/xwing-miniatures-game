@@ -287,7 +287,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
             shipStateKeys.forEach(function(shipStateKey)
             {
-               var shipStateValue = myToken.key(shipStateKey);
+               var shipStateValue = myToken.value(shipStateKey);
                if (shipStateKey === ShipState.PRIMARY_WEAPON && myToken.ship().isPrimaryWeaponTurret)
                {
                   shipStateKey = ShipState.TURRET_WEAPON;

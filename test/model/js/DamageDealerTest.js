@@ -14,7 +14,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var hitCount = 2;
          var criticalHitCount = 3;
-         var defender = environment.tokens()[0]; // TIE Fighter
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
          var evadeCount = 1;
 
          // Run.
@@ -32,7 +32,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var hitCount = 2;
          var criticalHitCount = 3;
-         var defender = environment.tokens()[0]; // TIE Fighter
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
          var evadeCount = 1;
          var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
          assert.equal(defender.damageCount(), 0);
@@ -51,7 +51,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var hitCount = 2;
          var criticalHitCount = 3;
-         var defender = environment.tokens()[2]; // X-Wing
+         var defender = environment.pilotInstances()[2]; // X-Wing
          var evadeCount = 1;
          var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
          assert.equal(defender.damageCount(), 0);
@@ -71,8 +71,9 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var store = environment.store();
          var hitCount = 2;
          var criticalHitCount = 1;
-         var defender = environment.tokens()[2];
-         store.dispatch(CardAction.addUpgrade(defender, UpgradeCard.DETERMINATION));
+         var defender = environment.pilotInstances()[2];
+         var upgrade = new CardInstance(store, UpgradeCard.DETERMINATION);
+         store.dispatch(CardAction.addUpgrade(defender, upgrade));
          var evadeCount = 0;
          var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
          assert.equal(defender.damageCount(), 0);
@@ -93,7 +94,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var store = environment.store();
          var hitCount = 2;
          var criticalHitCount = 3;
-         var rebelAgent = environment.tokens()[2].agent();
+         var rebelAgent = environment.pilotInstances()[2].agent();
          var defender = new CardInstance(store, PilotCard.CHEWBACCA, rebelAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), defender));
          store.dispatch(CardAction.addShieldCount(defender, -3)); // two shields remaining

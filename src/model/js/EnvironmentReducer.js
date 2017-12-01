@@ -278,7 +278,8 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                return state.set(action.token.id(), Immutable.Map(
                {
                   id: action.token.id(),
-                  pilotKey: action.token.card().key,
+                  cardTypeKey: action.token.card().cardTypeKey,
+                  cardKey: action.token.card().key,
                   agent: action.token.agent(),
                   idFore: (action.token.tokenFore ? action.token.tokenFore().id() : undefined),
                   idAft: (action.token.tokenAft ? action.token.tokenAft().id() : undefined),

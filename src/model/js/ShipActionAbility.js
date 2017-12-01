@@ -201,7 +201,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
       function isActiveToken(store, token)

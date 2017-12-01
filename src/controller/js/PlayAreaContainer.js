@@ -30,7 +30,7 @@ define(["react-redux", "common/js/InputValidator", "artifact/js/Phase", "artifac
             tokenPositions: tokenPositions,
          };
 
-         var activeToken = environment.activeToken();
+         var activeToken = environment.activeCardInstance();
          LOGGER.debug("activeToken = " + activeToken);
 
          if (activeToken)

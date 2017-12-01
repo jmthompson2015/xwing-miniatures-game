@@ -14,7 +14,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          var maneuverKey = Maneuver.STRAIGHT_1_EASY;
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var fromPosition = environment.getPositionFor(token);
          var shipBaseKey = token.card().shipFaction.ship.shipBaseKey;
 
@@ -41,7 +41,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var fromPosition0 = environment.getPositionFor(token);
          var fromPosition = new Position(fromPosition0.x(), fromPosition0.y(), -30);
          environment.moveToken(fromPosition0, fromPosition);
@@ -64,7 +64,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          var fromPosition0 = environment.getPositionFor(token);
          var fromPosition = new Position(fromPosition0.x(), fromPosition0.y(), -30);
          environment.moveToken(fromPosition0, fromPosition);
@@ -87,9 +87,9 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token0 = environment.tokens()[0]; // TIE Fighter
+         var token0 = environment.pilotInstances()[0]; // TIE Fighter
          var fromPosition00 = environment.getPositionFor(token0);
-         var token2 = environment.tokens()[2]; // X-Wing
+         var token2 = environment.pilotInstances()[2]; // X-Wing
          var fromPosition20 = environment.getPositionFor(token2);
          var fromPosition2 = new Position(fromPosition20.x(), fromPosition20.y(), -30);
          environment.moveToken(fromPosition20, fromPosition2);
@@ -116,7 +116,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var agent = environment.tokens()[2].agent(); // X-Wing
+         var agent = environment.pilotInstances()[2].agent(); // X-Wing
          var token = new CardInstance(environment.store(), PilotCard.IG_88C, agent);
          var position = new Position(450, 450, 0);
          store.dispatch(EnvironmentAction.placeToken(position, token));
@@ -137,7 +137,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2];
+         var token = environment.pilotInstances()[2];
          var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
          var isBoost = true;
          var maneuverAction = new ManeuverAction(store, token.id(), maneuverKey, isBoost);
@@ -147,6 +147,6 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
 
          // Verify.
          assert.ok(result);
-         assert.equal(result, "ManeuverAction tokenId=3, maneuverKey=straight1Standard, isBoost?true, fromPosition=(458, 895, 270)");
+         assert.equal(result, "ManeuverAction tokenId=4, maneuverKey=straight1Standard, isBoost?true, fromPosition=(458, 895, 270)");
       });
    });

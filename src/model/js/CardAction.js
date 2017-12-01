@@ -127,16 +127,16 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          return CardAction.addCount(cardInstance, Count.TRACTOR_BEAM, value);
       };
 
-      CardAction.addUpgrade = function(cardInstance, upgradeKey)
+      CardAction.addUpgrade = function(cardInstance, upgradeInstance)
       {
          InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("upgradeKey", upgradeKey);
+         InputValidator.validateNotNull("upgradeInstance", upgradeInstance);
 
          return (
          {
             type: CardAction.ADD_UPGRADE,
             cardInstance: cardInstance,
-            upgradeKey: upgradeKey,
+            upgradeInstance: upgradeInstance,
          });
       };
 
@@ -255,16 +255,16 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          });
       };
 
-      CardAction.removeUpgrade = function(cardInstance, upgradeKey)
+      CardAction.removeUpgrade = function(cardInstance, upgradeInstance)
       {
          InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("upgradeKey", upgradeKey);
+         InputValidator.validateNotNull("upgradeInstance", upgradeInstance);
 
          return (
          {
             type: CardAction.REMOVE_UPGRADE,
             cardInstance: cardInstance,
-            upgradeKey: upgradeKey,
+            upgradeInstance: upgradeInstance,
          });
       };
 
@@ -294,18 +294,20 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          });
       };
 
-      CardAction.setCardInstance = function(id, pilotKey, agent, idFore, idAft)
+      CardAction.setCardInstance = function(id, cardTypeKey, cardKey, agent, idFore, idAft)
       {
          InputValidator.validateIsNumber("id", id);
-         InputValidator.validateNotNull("pilotKey", pilotKey);
-         InputValidator.validateNotNull("agent", agent);
+         InputValidator.validateIsString("cardTypeKey", cardTypeKey);
+         InputValidator.validateIsString("cardKey", cardKey);
+         // agent optional.
          // idFore optional.
          // idAft optional.
 
          var payload = Immutable.Map(
          {
             id: id,
-            pilotKey: pilotKey,
+            cardTypeKey: cardTypeKey,
+            cardKey: cardKey,
             agent: agent,
             idFore: idFore,
             idAft: idAft,

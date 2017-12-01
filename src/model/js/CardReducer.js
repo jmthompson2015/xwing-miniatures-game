@@ -9,6 +9,8 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
       {
          LOGGER.debug("CardReducer.reduce() type = " + action.type);
 
+         var cardId, index, upgradeId;
+         var oldUpgrades;
          var newCardIdToData;
 
          switch (action.type)
@@ -47,12 +49,12 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                   cardDamages: newCardIdToData,
                });
             case CardAction.ADD_UPGRADE:
-            case CardAction.REMOVE_UPGRADE:
-               newCardIdToData = CardReducer.cardIdToArray(state.cardUpgrades, action.type, action.cardInstance.id(), action.upgradeKey);
+               cardId = action.cardInstance.id();
+               oldUpgrades = (state.cardUpgrades.get(cardId) !== undefined ? state.cardUpgrades.get(cardId) : Immutable.List());
                return Object.assign(
                {}, state,
                {
-                  cardUpgrades: newCardIdToData,
+                  cardUpgrades: state.cardUpgrades.set(cardId, oldUpgrades.push(action.upgradeInstance.id())),
                });
             case CardAction.ADD_UPGRADE_ENERGY:
             case CardAction.SET_UPGRADE_ENERGY:
@@ -85,6 +87,17 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                {}, state,
                {
                   nextCardId: state.nextCardId + 1,
+               });
+            case CardAction.REMOVE_UPGRADE:
+               cardId = action.cardInstance.id();
+               upgradeId = action.upgradeInstance.id();
+               oldUpgrades = (state.cardUpgrades.get(cardId) ? state.cardUpgrades.get(cardId) : Immutable.List());
+               index = oldUpgrades.indexOf(upgradeId);
+               var newUpgrades = (index >= 0 ? oldUpgrades.delete(index) : oldUpgrades);
+               return Object.assign(
+               {}, state,
+               {
+                  cardUpgrades: state.cardUpgrades.set(cardId, newUpgrades),
                });
             case CardAction.SET_PRIMARY_WEAPON:
                var newCardPrimaryWeapon = state.cardPrimaryWeapon.set(action.cardInstance.id(), action.weapon);

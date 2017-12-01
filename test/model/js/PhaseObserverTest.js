@@ -1,7 +1,7 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Phase",
-  "model/js/Action", "model/js/Agent", "model/js/Environment", "model/js/PhaseObserver", "model/js/Reducer",  "model/js/SquadBuilder"],
+  "model/js/Action", "model/js/Agent", "model/js/Environment", "model/js/PhaseObserver", "model/js/Reducer", "model/js/SquadBuilder"],
    function(QUnit, Redux, Phase,
       Action, Agent, Environment, PhaseObserver, Reducer, SquadBuilder)
    {
@@ -12,7 +12,7 @@ define(["qunit", "redux", "artifact/js/Phase",
          // Setup.
          var environment = createEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing Luke Skywalker
+         var token = environment.pilotInstances()[2]; // X-Wing Luke Skywalker
          var phaseKey = Phase.ACTIVATION_REVEAL_DIAL;
          var phaseCallback = function(phaseData)
          {

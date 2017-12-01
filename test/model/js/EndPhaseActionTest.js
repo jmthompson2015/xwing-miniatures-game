@@ -10,14 +10,14 @@ define(["qunit", "model/js/EndPhaseAction", "model/js/TargetLock", "model/js/Car
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
-         var token = environment.tokens()[2]; // X-Wing
+         var token = environment.pilotInstances()[2]; // X-Wing
          store.dispatch(CardAction.addEvadeCount(token));
          store.dispatch(CardAction.addFocusCount(token, 2));
          store.dispatch(CardAction.addReinforceCount(token));
          store.dispatch(CardAction.addStressCount(token));
          store.dispatch(CardAction.addTractorBeamCount(token));
          store.dispatch(CardAction.addWeaponsDisabledCount(token));
-         var defender = environment.tokens()[0];
+         var defender = environment.pilotInstances()[0];
          TargetLock.newInstance(store, token, defender);
          var callback = function()
          {

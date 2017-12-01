@@ -35,14 +35,14 @@ define(["common/js/InputValidator",
          // Spend 1 Focus token to perform this attack against 1 ship (even a ship outside your firing arc).
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.BLASTER_TURRET;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendFocusToken(store, attacker);
             callback();
          },
@@ -52,14 +52,14 @@ define(["common/js/InputValidator",
          // Discard this card to attack 1 ship (even a ship outside your firing arc).
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.HOT_SHOT_BLASTER;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             discardUpgrade(attacker);
             callback();
          },
@@ -69,18 +69,18 @@ define(["common/js/InputValidator",
          // When you declare the target of your attack, if the defender is inside your firing arc, you may receive 1 stress token to cause the defender to receive 1 stress token.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var attackerPosition = getAttackerPosition(attacker);
             var firingArc = weapon.primaryFiringArc();
             var defender = getDefender(attacker);
             var defenderPosition = getDefenderPosition(attacker);
             var isDefenderInFiringArc = weapon.isDefenderInFiringArc(attackerPosition, firingArc, defender, defenderPosition);
-            return isActiveToken(store, token) && isDefenderInFiringArc;
+            return isActiveCardInstance(store, token) && isDefenderInFiringArc;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             attacker.receiveStress();
             defender.receiveStress(callback);
@@ -92,13 +92,13 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var upgradeKey = UpgradeCard.REBEL_CAPTIVE;
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             return token.equals(defender) && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             attacker.receiveStress(callback);
          },
       };
@@ -110,16 +110,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack. You may change up to 3 of your blank results to Focus results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.ADVANCED_PROTON_TORPEDOES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             var attackDice = getAttackDice(attacker);
             attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.FOCUS);
@@ -133,9 +133,9 @@ define(["common/js/InputValidator",
          // When attacking, you may spend a Focus token to change 1 of your Focus results to a Critical Hit result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && token.focusCount() > 0 && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && token.focusCount() > 0 && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -150,16 +150,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack twice.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.CLUSTER_MISSILES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             callback();
          },
@@ -169,16 +169,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack. You may change 1 of your blank results to a Hit result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.CONCUSSION_MISSILES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             var attackDice = getAttackDice(attacker);
             attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.HIT);
@@ -190,7 +190,7 @@ define(["common/js/InputValidator",
          // When attacking, you may reroll 1 attack die. If the defender is a unique pilot, you may instead reroll up to 2 attack dice.
          condition: function(store, token)
          {
-            return isActiveToken(store, token);
+            return isActiveCardInstance(store, token);
          },
          consequent: function(store, token, callback)
          {
@@ -206,9 +206,9 @@ define(["common/js/InputValidator",
          // When attacking, if you are not stressed, you may change all of your focus results to hit results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && !token.isStressed() && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && !token.isStressed() && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -222,9 +222,9 @@ define(["common/js/InputValidator",
          // When attacking, if you are stressed, you may change 1 of your Focus results to a Critical Hit result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && token.isStressed() && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && token.isStressed() && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -239,11 +239,11 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var upgradeKey = UpgradeCard.GUIDANCE_CHIPS;
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
             var weapon = getWeapon(attacker);
             var isTorpedoOrMissile = (weapon.upgrade() !== undefined) && [UpgradeType.TORPEDO, UpgradeType.MISSILE].includes(weapon.upgrade().type);
-            return isActiveToken(store, token) && isTorpedoOrMissile && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
+            return isActiveCardInstance(store, token) && isTorpedoOrMissile && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
          },
          consequent: function(store, token, callback)
          {
@@ -261,10 +261,10 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var upgradeKey = UpgradeCard.GUNNERY_TEAM;
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && !weapon.isPrimary() && token.energyCount() > 0 && attackDice.blankCount() > 0 && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
+            return isActiveCardInstance(store, token) && !weapon.isPrimary() && token.energyCount() > 0 && attackDice.blankCount() > 0 && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
          },
          consequent: function(store, token, callback)
          {
@@ -278,11 +278,11 @@ define(["common/js/InputValidator",
          // When attacking, if you have a Target Lock on the defender, you may spend that Target Lock to change all of your Focus results to Hit results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && targetLock !== undefined && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && targetLock !== undefined && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -300,7 +300,7 @@ define(["common/js/InputValidator",
          {
             var weapon = getWeapon(token);
             var attackDice = getAttackDice(token);
-            if (isActiveToken(store, token) && weapon.upgradeKey() === UpgradeCard.HEAVY_LASER_CANNON && attackDice.criticalHitCount() > 0)
+            if (isActiveCardInstance(store, token) && weapon.upgradeKey() === UpgradeCard.HEAVY_LASER_CANNON && attackDice.criticalHitCount() > 0)
             {
                attackDice.changeAllToValue(AttackDiceValue.CRITICAL_HIT, AttackDiceValue.HIT);
             }
@@ -316,11 +316,11 @@ define(["common/js/InputValidator",
          // When attacking or defending, you may reroll 1 of your dice for each other friendly ship at Range 1.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(token);
             var environment = getEnvironment(store);
             var friendlyCount = environment.getFriendlyTokensAtRange(attacker, Range.ONE).length;
-            return isActiveToken(store, token) && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && friendlyCount > 0;
+            return isActiveCardInstance(store, token) && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && friendlyCount > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -336,12 +336,12 @@ define(["common/js/InputValidator",
          // When attacking or defending, if there are no friendly ships at Range 1-2, you may reroll 1 of your blank results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var environment = store.getState().environment;
             var rangeOneTokens = environment.getFriendlyTokensAtRange(token, Range.ONE);
             var rangeTwoTokens = environment.getFriendlyTokensAtRange(token, Range.TWO);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && rangeOneTokens.length === 0 && rangeTwoTokens === 0 && attackDice.blankCount() > 0;
+            return isActiveCardInstance(store, token) && rangeOneTokens.length === 0 && rangeTwoTokens === 0 && attackDice.blankCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -355,15 +355,15 @@ define(["common/js/InputValidator",
          // Attack 1 ship. When attacking, you may change 1 of your Hit results to a Critical Hit result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.MANGLER_CANNON;
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && attackDice.hitCount() > 0 && !attacker.isAbilityUsed(UpgradeCard, upgradeKey);
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && attackDice.hitCount() > 0 && !attacker.isAbilityUsed(UpgradeCard, upgradeKey);
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
             attackDice.changeOneToValue(AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT);
             callback();
@@ -374,9 +374,9 @@ define(["common/js/InputValidator",
          // Action: When attacking this round, you may change 1 of your Focus results to a Critical Hit result and all of your other Focus results to Hit results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && attackDice.focusCount() > 0 && attacker.isPerRoundAbilityUsed(UpgradeCard, UpgradeCard.MARKSMANSHIP);
+            return isActiveCardInstance(store, token) && attackDice.focusCount() > 0 && attacker.isPerRoundAbilityUsed(UpgradeCard, UpgradeCard.MARKSMANSHIP);
          },
          consequent: function(store, token, callback)
          {
@@ -391,10 +391,10 @@ define(["common/js/InputValidator",
          // When attacking at Range 3, you may change 1 of your Hit results to a Critical Hit result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var rangeKey = getRangeKey(attacker);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && rangeKey === Range.THREE && attackDice.hitCount() > 0;
+            return isActiveCardInstance(store, token) && rangeKey === Range.THREE && attackDice.hitCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -408,9 +408,9 @@ define(["common/js/InputValidator",
          // When attacking, if the defender does not have any Focus or Evade tokens, you may receive 1 stress token to roll 1 additional attack die. You cannot use this ability if you have any stress tokens.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
-            return isActiveToken(store, token) && token.stressCount() === 0 && defender.evadeCount() === 0 && defender.focusCount() === 0;
+            return isActiveCardInstance(store, token) && token.stressCount() === 0 && defender.evadeCount() === 0 && defender.focusCount() === 0;
          },
          consequent: function(store, token, callback)
          {
@@ -425,9 +425,9 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var upgradeKey = UpgradeCard.PREDATOR;
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && !attacker.isAbilityUsed(UpgradeCard, upgradeKey);
+            return isActiveCardInstance(store, token) && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && !attacker.isAbilityUsed(UpgradeCard, upgradeKey);
          },
          consequent: function(store, token, callback)
          {
@@ -443,14 +443,14 @@ define(["common/js/InputValidator",
          // Discard this card to perform this attack. You may roll additional attack dice equal to your agility value, to a maximum of 3 additional dice.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.PROTON_ROCKETS;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && token.upgradeKeys().includes(upgradeKey);
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && token.upgradeKeys().includes(upgradeKey);
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             discardUpgrade(attacker);
             callback();
          },
@@ -460,16 +460,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack. You may change 1 of your Focus results to a Critical Hit result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.PROTON_TORPEDOES;
             var defender = getDefender(attacker);
             var targetLock = (defender ? TargetLock.getFirst(store, token, defender) : undefined);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && defender && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && defender && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             var attackDice = getAttackDice(attacker);
             attackDice.changeOneToValue(AttackDiceValue.FOCUS, AttackDiceValue.CRITICAL_HIT);
@@ -482,7 +482,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var attackDice = getAttackDice(token);
-            return isActiveToken(store, token) && (attackDice.blankCount() + attackDice.focusCount() > 0);
+            return isActiveCardInstance(store, token) && (attackDice.blankCount() + attackDice.focusCount() > 0);
          },
          consequent: function(store, token, callback)
          {
@@ -497,9 +497,9 @@ define(["common/js/InputValidator",
          // When attacking, you may spend a focus token to change 1 of your blank results to a Hit result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && token.focusCount() > 0 && attackDice.blankCount() > 0;
+            return isActiveCardInstance(store, token) && token.focusCount() > 0 && attackDice.blankCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -515,9 +515,9 @@ define(["common/js/InputValidator",
          // When attacking or defending, if you are stressed, you may reroll 1 or more of your Focus results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
-            return isActiveToken(store, token) && token.isStressed() && attackDice.focusCount() > 0;
+            return isActiveCardInstance(store, token) && token.isStressed() && attackDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
@@ -534,7 +534,7 @@ define(["common/js/InputValidator",
          // When defending, if you are beyond Range 2 or outside the attacker's firing arc, you may change 1 of your blank results to an Evade result. You can equip this card only if you have the Boost action icon.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var rangeKey = getRangeKey(attacker);
             var defenseDice = getDefenseDice(attacker);
@@ -544,7 +544,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.changeOneToValue(DefenseDiceValue.BLANK, DefenseDiceValue.EVADE);
             callback();
@@ -555,7 +555,7 @@ define(["common/js/InputValidator",
          // When defending, you may reroll 1 of your Focus results. If the attacker's pilot skill value is "2" or lower, you may reroll 1 of your blank results instead.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var pilotSkill = attacker.pilotSkillValue();
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
@@ -563,7 +563,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             if (attacker.pilotSkillValue() <= 2)
             {
@@ -581,7 +581,7 @@ define(["common/js/InputValidator",
          // When attacking or defending, you may reroll 1 of your dice for each other friendly ship at Range 1.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             var environment = getEnvironment(store);
@@ -590,7 +590,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             var environment = getEnvironment(store);
             var friendlyCount = environment.getFriendlyTokensAtRange(token, Range.ONE).length;
@@ -603,13 +603,13 @@ define(["common/js/InputValidator",
          // When attacking, if you have an Evade token, you may change 1 of the defender's Evade results to a Focus result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
-            return isActiveToken(store, token) && token.evadeCount() > 0 && defenseDice.evadeCount() > 0;
+            return isActiveCardInstance(store, token) && token.evadeCount() > 0 && defenseDice.evadeCount() > 0;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.changeOneToValue(DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS);
             callback();
@@ -620,7 +620,7 @@ define(["common/js/InputValidator",
          // When attacking or defending, if there are no friendly ships at Range 1-2, you may reroll 1 of your blank results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var environment = store.getState().environment;
             var rangeOneTokens = environment.getFriendlyTokensAtRange(token, Range.ONE);
@@ -630,7 +630,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.rerollBlank();
@@ -643,14 +643,14 @@ define(["common/js/InputValidator",
          // When defending, you may change 1 of the attacker's Hit results to a Focus result. The attacker cannot reroll the die with the changed result.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var attackDice = getAttackDice(attacker);
             return token.equals(defender) && attackDice.hitCount() > 0;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackDice = getAttackDice(attacker);
             attackDice.changeOneToValue(AttackDiceValue.HIT, AttackDiceValue.FOCUS);
             callback();
@@ -661,14 +661,14 @@ define(["common/js/InputValidator",
          // When attacking or defending, if you are stressed, you may reroll 1 or more of your Focus results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             return token.equals(defender) && token.isStressed() && defenseDice.focusCount() > 0;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.rerollAllFocus();
             callback();
@@ -682,14 +682,14 @@ define(["common/js/InputValidator",
          // Discard this card to perform this attack. If this attack hits, deal 1 faceup Damage card to the defender. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.ADVANCED_HOMING_MISSILES;
-            return isActiveToken(store, token) && weapon && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             discardUpgrade(attacker);
             if (isDefenderHit(attacker))
             {
@@ -705,16 +705,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack. If this attack hits, the defender suffers 1 damage and receives 2 ion tokens. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.ION_PULSE_MISSILES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             discardUpgrade(attacker);
             if (isDefenderHit(attacker))
             {
@@ -731,14 +731,14 @@ define(["common/js/InputValidator",
          // Discard this card to perform this attack. If this attack hits, each friendly ship at Range 1-2 of you may acquire a target lock on the defender. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.XX_23_S_THREAD_TRACERS;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             discardUpgrade(attacker);
             if (isDefenderHit(attacker))
             {
@@ -772,7 +772,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var combatAction = getCombatAction(token);
-            return isActiveToken(store, token) && combatAction !== undefined;
+            return isActiveCardInstance(store, token) && combatAction !== undefined;
          },
          consequent: function(store, token, callback)
          {
@@ -786,16 +786,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack. If this attack hits, each other ship at Range 1 of the defender suffers 1 damage.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.ASSAULT_MISSILES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             if (isDefenderHit(attacker))
             {
@@ -814,8 +814,8 @@ define(["common/js/InputValidator",
          // After you perform an attack that does not hit, if you are not stressed, you must receive 1 Stress token. Then assign 1 Focus token to your ship and acquire a Target Lock on the defender.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
-            return isActiveToken(store, token) && !isDefenderHit(attacker);
+            var attacker = getActiveCardInstance(store);
+            return isActiveCardInstance(store, token) && !isDefenderHit(attacker);
          },
          consequent: function(store, token, callback)
          {
@@ -854,11 +854,11 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var combatAction = getCombatAction(token);
-            return isActiveToken(store, token) && combatAction !== undefined;
+            return isActiveCardInstance(store, token) && combatAction !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             TargetLock.newInstance(store, attacker, defender, callback);
          },
@@ -868,14 +868,14 @@ define(["common/js/InputValidator",
          // Attack 1 ship. If this attack hits, the defender suffers 1 damage and, if the defender is not stressed, it also receives 1 stress token. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.FLECHETTE_CANNON;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
                var environment = store.getState().environment;
@@ -895,16 +895,16 @@ define(["common/js/InputValidator",
          // Discard this card and spend your Target Lock to perform this attack. After you perform this attack, the defender receives 1 stress token if its hull value is "4" or lower.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.FLECHETTE_TORPEDOES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             var defender = getDefender(attacker);
             if (defender.hullValue() <= 4)
@@ -920,12 +920,12 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var upgradeKey = UpgradeCard.GUNNER;
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var attackerPosition = getAttackerPosition(attacker);
             var defender = getDefender(attacker);
             var defenderPosition = getDefenderPosition(attacker);
             var weapon = attacker.primaryWeapon();
-            return isActiveToken(store, token) && !isDefenderHit(attacker) && !attacker.isPerRoundAbilityUsed(UpgradeCard, upgradeKey) && weapon && weapon.isDefenderTargetable(attacker, attackerPosition, defender, defenderPosition);
+            return isActiveCardInstance(store, token) && !isDefenderHit(attacker) && !attacker.isPerRoundAbilityUsed(UpgradeCard, upgradeKey) && weapon && weapon.isDefenderTargetable(attacker, attackerPosition, defender, defenderPosition);
          },
          consequent: function(store, token, callback)
          {
@@ -960,7 +960,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var defender = getDefender(token);
-            return isActiveToken(store, token) && defender.isDestroyed();
+            return isActiveCardInstance(store, token) && defender.isDestroyed();
          },
          consequent: function(store, token, callback)
          {
@@ -995,14 +995,14 @@ define(["common/js/InputValidator",
          // Attack 1 ship. If this attack hits, the defender suffers 1 damage and receives 1 ion token. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.ION_CANNON;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
                var environment = store.getState().environment;
@@ -1018,14 +1018,14 @@ define(["common/js/InputValidator",
          // Attack 1 ship (even a ship outside your firing arc). If this attack hits the target ship, the ship suffers 1 damage and receives 1 ion token. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.ION_CANNON_TURRET;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
                var environment = store.getState().environment;
@@ -1041,16 +1041,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack. If this attack hits, the defender and each ship at Range 1 of it receives 1 ion token.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.ION_TORPEDOES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             if (isDefenderHit(attacker))
             {
@@ -1070,16 +1070,16 @@ define(["common/js/InputValidator",
          // Spend your Target Lock and discard this card to perform this attack. If this attack hits, after dealing damage, remove 1 shield token from the defender.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.PLASMA_TORPEDOES;
             var defender = getDefender(attacker);
             var targetLock = TargetLock.getFirst(store, token, defender);
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             spendTargetLockAndDiscardUpgrade(store, attacker);
             if (isDefenderHit(attacker))
             {
@@ -1094,14 +1094,14 @@ define(["common/js/InputValidator",
          // After you suffer 3 or more damage from an attack, recover 1 shield (up to your shield value).
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             var damageDealer = getDamageDealer(attacker);
             return token.equals(defender) && damageDealer.hits() + damageDealer.criticalHits() >= 3;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             defender.recoverShield();
             callback();
@@ -1112,13 +1112,14 @@ define(["common/js/InputValidator",
          // Increase your agility value by 1. If you are hit by an attack, discard this card.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             return token.equals(defender) && isDefenderHit(attacker);
          },
          consequent: function(store, token, callback)
          {
-            discardUpgrade(token, UpgradeCard.STEALTH_DEVICE);
+            var weapon = getWeapon(token);
+            discardUpgrade(token, weapon.upgradeInstance());
             callback();
          },
       };
@@ -1127,10 +1128,10 @@ define(["common/js/InputValidator",
          // After you perform an attack against a ship inside your firing arc at Range 2, that ship receives 1 stress token.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var inFiringArc = isInFiringArc(attacker);
             var rangeKey = getRangeKey(attacker);
-            return isActiveToken(store, token) && inFiringArc && rangeKey === Range.TWO;
+            return isActiveCardInstance(store, token) && inFiringArc && rangeKey === Range.TWO;
          },
          consequent: function(store, token, callback)
          {
@@ -1143,14 +1144,14 @@ define(["common/js/InputValidator",
          // Attack 1 ship. If this attack hits, the defender receives 1 tractor beam token. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.TRACTOR_BEAM;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
                var defender = getDefender(attacker);
@@ -1164,14 +1165,14 @@ define(["common/js/InputValidator",
          // Perform this attack twice (even against a ship outside your firing arc). Each time this attack hits, the defender suffers 1 damage. Then cancel all dice results.
          condition: function(store, token)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             var weapon = getWeapon(attacker);
             var upgradeKey = UpgradeCard.TWIN_LASER_TURRET;
-            return isActiveToken(store, token) && weapon.upgradeKey() === upgradeKey;
+            return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
          },
          consequent: function(store, token, callback)
          {
-            var attacker = getActiveToken(store);
+            var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
                var environment = store.getState().environment;
@@ -1224,22 +1225,22 @@ define(["common/js/InputValidator",
       };
 
       ////////////////////////////////////////////////////////////////////////
-      function discardUpgrade(token, upgradeKey)
+      function discardUpgrade(token, upgradeInstance)
       {
          InputValidator.validateNotNull("token", token);
          // upgradeKey optional.
 
-         var myUpgradeKey = (upgradeKey === undefined ? getWeapon(token).upgradeKey() : upgradeKey);
-         token.discardUpgrade(myUpgradeKey);
+         var myUpgradeInstance = (upgradeInstance === undefined ? token.upgrade(getWeapon(token).upgradeKey()) : upgradeInstance);
+         token.discardUpgrade(myUpgradeInstance);
       }
 
-      function getActiveToken(store)
+      function getActiveCardInstance(store)
       {
          InputValidator.validateNotNull("store", store);
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
       function getAttackDice(attacker)
@@ -1339,9 +1340,9 @@ define(["common/js/InputValidator",
          return (combatAction ? combatAction.weapon() : undefined);
       }
 
-      function isActiveToken(store, token)
+      function isActiveCardInstance(store, token)
       {
-         var activeToken = getActiveToken(store);
+         var activeToken = getActiveCardInstance(store);
 
          return token.equals(activeToken);
       }

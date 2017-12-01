@@ -99,7 +99,7 @@ define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/At
 
          var environment = store.getState().environment;
 
-         return environment.activeToken();
+         return environment.activeCardInstance();
       }
 
       function getAttackDice(attacker)
