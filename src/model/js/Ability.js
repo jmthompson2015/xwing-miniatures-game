@@ -9,11 +9,11 @@
 define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard"],
    function(InputValidator, DamageCard, PilotCard, ShipAction, UpgradeCard)
    {
-      function Ability(source, sourceKey, type, abilityKey, context)
+      function Ability(source, sourceKey, abilityType, abilityKey, context)
       {
          InputValidator.validateNotNull("source", source);
          InputValidator.validateNotNull("sourceKey", sourceKey);
-         InputValidator.validateNotNull("type", type);
+         InputValidator.validateNotNull("abilityType", abilityType);
          InputValidator.validateNotNull("abilityKey", abilityKey);
          // context optional.
 
@@ -27,9 +27,9 @@ define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/Pilot
             return sourceKey;
          };
 
-         this.type = function()
+         this.abilityType = function()
          {
-            return type;
+            return abilityType;
          };
 
          this.abilityKey = function()
@@ -49,7 +49,7 @@ define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/Pilot
             return sourceObject;
          };
 
-         var myAbility = (type[abilityKey] !== undefined ? type[abilityKey][sourceKey] : undefined);
+         var myAbility = (abilityType[abilityKey] !== undefined ? abilityType[abilityKey][sourceKey] : undefined);
 
          this.ability = function()
          {
@@ -71,7 +71,7 @@ define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/Pilot
 
          var condition = this.condition();
 
-         return condition(store, token);
+         return condition(store, token, this.context());
       };
 
       Ability.prototype.consequent = function()
@@ -80,6 +80,16 @@ define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/Pilot
          var myConsequent = (myAbility !== undefined ? myAbility.consequent : undefined);
 
          return (myConsequent !== undefined ? myConsequent.bind(myAbility) : undefined);
+      };
+
+      Ability.prototype.executeConsequent = function(store, callback)
+      {
+         InputValidator.validateNotNull("store", store);
+         // callback optional.
+
+         var consequent = this.consequent();
+
+         return consequent(store, this.context(), callback);
       };
 
       Ability.prototype.isDamage = function()
@@ -108,7 +118,7 @@ define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/Pilot
 
          answer += "source=" + this.source().toString();
          answer += ",sourceKey=" + this.sourceKey();
-         answer += ",type=" + this.type().toString();
+         answer += ",abilityType=" + this.abilityType().toString();
          answer += ",abilityKey=" + this.abilityKey();
          answer += ",context=" + JSON.stringify(this.context());
 

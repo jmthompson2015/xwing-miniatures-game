@@ -19,7 +19,7 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event", "artifact/js/Pil
          // Run / Verify.
          assert.equal(ability.source(), source);
          assert.equal(ability.sourceKey(), sourceKey);
-         assert.equal(ability.type(), type);
+         assert.equal(ability.abilityType(), type);
          assert.equal(ability.abilityKey(), abilityKey);
 
          assert.ok(ability.sourceObject());
@@ -71,6 +71,6 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event", "artifact/js/Pil
 
          // Verify.
          assert.ok(result);
-         assert.equal(result, "Ability source=UpgradeCard,sourceKey=reconSpecialist,type=model/js/UpgradeAbility0,abilityKey=shipActionPerformed,context=undefined");
+         assert.equal(result, "Ability source=UpgradeCard,sourceKey=reconSpecialist,abilityType=model/js/UpgradeAbility0,abilityKey=shipActionPerformed,context=undefined");
       });
    });

@@ -48,7 +48,7 @@ define(["qunit", "redux", "common/js/ArrayAugments",
             assert.ok(ability);
             assert.ok(ability.source(), PilotCard);
             assert.ok(ability.sourceKey(), PilotCard.LUKE_SKYWALKER);
-            assert.ok(ability.type(), PilotAbility3);
+            assert.ok(ability.abilityType(), PilotAbility3);
             assert.ok(ability.abilityKey(), Phase.COMBAT_MODIFY_DEFENSE_DICE);
             assert.equal(isAccepted, true);
          }
@@ -477,7 +477,7 @@ define(["qunit", "redux", "common/js/ArrayAugments",
             assert.ok(shipAction);
             assert.ok(shipAction.source(), ShipAction);
             assert.ok(shipAction.sourceKey(), ShipAction.FOCUS);
-            assert.ok(shipAction.type(), ShipActionAbility);
+            assert.ok(shipAction.abilityType(), ShipActionAbility);
             assert.ok(shipAction.abilityKey(), ShipActionAbility.ABILITY_KEY);
             assert.equal(isAccepted, true);
          }
