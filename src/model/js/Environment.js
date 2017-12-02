@@ -44,7 +44,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          store.dispatch(Action.setEnvironment(this));
 
          // Initialize the damage deck.
-         store.dispatch(EnvironmentAction.setDamageDeck(DamageCard.createDeckV2()));
+         var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+         store.dispatch(EnvironmentAction.setDamageDeck(damageDeck));
 
          this._placeInitialTokens(agent1, squad1, agent2, squad2, positions1, positions2);
       }

@@ -4,9 +4,9 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/DamageCard", "artifact/js/Phase",
-  "model/js/Action", "model/js/AttackDice", "model/js/CardAction"],
+  "model/js/Action", "model/js/AttackDice"],
    function(InputValidator, AttackDiceValue, DamageCard, Phase,
-      Action, AttackDice, CardAction)
+      Action, AttackDice)
    {
       var DamageAbility2 = {};
 
@@ -17,7 +17,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // During the Planning phase, you cannot be assigned straight maneuvers. When you reveal a maneuver, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.SHAKEN_PILOT_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -33,7 +33,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.CONSOLE_FIRE);
          },
          consequent: function(store, token, callback)
          {
@@ -46,7 +46,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.CONSOLE_FIRE_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -59,7 +59,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.DAMAGED_SENSOR_ARRAY);
          },
          consequent: function(store, token, callback)
          {
@@ -75,7 +75,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.DAMAGED_SENSOR_ARRAY_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -92,7 +92,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.LOOSE_STABILIZER_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -105,7 +105,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.MAJOR_HULL_BREACH_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -118,7 +118,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.STRUCTURAL_DAMAGE);
          },
          consequent: function(store, token, callback)
          {
@@ -134,7 +134,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.STRUCTURAL_DAMAGE_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -151,7 +151,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.WEAPON_MALFUNCTION);
          },
          consequent: function(store, token, callback)
          {
@@ -168,7 +168,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          // Action: Roll 1 attack die. On a Hit or Critical Hit result, flip this card facedown.
          condition: function(store, token)
          {
-            return isActiveCardInstance(store, token);
+            return isActiveCardInstance(store, token) && token.isCriticallyDamagedWith(DamageCard.WEAPONS_FAILURE_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -188,8 +188,8 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          InputValidator.validateNotNull("token", token);
          InputValidator.validateNotNull("damageKey", damageKey);
 
-         store.dispatch(CardAction.removeCriticalDamage(token, damageKey));
-         store.dispatch(CardAction.addDamage(token, damageKey));
+         var damageInstance = token.criticalDamage(damageKey);
+         token.flipDamageCardFacedown(damageInstance);
       }
 
       function getActiveCardInstance(store)

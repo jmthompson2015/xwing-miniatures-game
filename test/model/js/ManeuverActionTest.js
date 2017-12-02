@@ -147,6 +147,6 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/S
 
          // Verify.
          assert.ok(result);
-         assert.equal(result, "ManeuverAction tokenId=4, maneuverKey=straight1Standard, isBoost?true, fromPosition=(458, 895, 270)");
+         assert.equal(result, "ManeuverAction tokenId=37, maneuverKey=straight1Standard, isBoost?true, fromPosition=(458, 895, 270)");
       });
    });

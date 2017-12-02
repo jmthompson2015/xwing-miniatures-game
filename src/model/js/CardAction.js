@@ -6,9 +6,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
       var CardAction = {};
 
       CardAction.ADD_COUNT = "addCount";
-      CardAction.ADD_CRITICAL_DAMAGE = "addCriticalDamage";
       CardAction.ADD_DAMAGE = "addDamage";
-      CardAction.ADD_SECONDARY_WEAPON = "addSecondaryWeapon";
       CardAction.ADD_UPGRADE = "addUpgrade";
       CardAction.ADD_UPGRADE_ENERGY = "addUpgradeEnergy";
       CardAction.ADD_USED_ABILITY = "addUsedAbility";
@@ -16,15 +14,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
       CardAction.CLEAR_USED_ABILITIES = "clearUsedAbilities";
       CardAction.CLEAR_USED_PER_ROUND_ABILITIES = "clearUsedPerRoundAbilities";
       CardAction.INCREMENT_NEXT_CARD_ID = "incrementNextCardId";
-      CardAction.REMOVE_CRITICAL_DAMAGE = "removeCriticalDamage";
       CardAction.REMOVE_DAMAGE = "removeDamage";
-      CardAction.REMOVE_SECONDARY_WEAPON = "removeSecondaryWeapon";
       CardAction.REMOVE_UPGRADE = "removeUpgrade";
       CardAction.REMOVE_USED_ABILITY = "removeUsedAbility";
       CardAction.REMOVE_USED_PER_ROUND_ABILITY = "removeUsedPerRoundAbility";
       CardAction.SET_CARD_INSTANCE = "setCardInstance";
       CardAction.SET_COUNT = "setCount";
-      CardAction.SET_PRIMARY_WEAPON = "setPrimaryWeapon";
+      CardAction.SET_FACE_UP = "setFaceUp";
       CardAction.SET_UPGRADE_ENERGY = "setUpgradeEnergy";
 
       CardAction.addCloakCount = function(cardInstance, value)
@@ -48,29 +44,16 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          });
       };
 
-      CardAction.addCriticalDamage = function(cardInstance, damageKey)
+      CardAction.addDamage = function(cardInstance, damageInstance)
       {
          InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("damageKey", damageKey);
-
-         return (
-         {
-            type: CardAction.ADD_CRITICAL_DAMAGE,
-            cardInstance: cardInstance,
-            damageKey: damageKey,
-         });
-      };
-
-      CardAction.addDamage = function(cardInstance, damageKey)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("damageKey", damageKey);
+         InputValidator.validateNotNull("damageInstance", damageInstance);
 
          return (
          {
             type: CardAction.ADD_DAMAGE,
             cardInstance: cardInstance,
-            damageKey: damageKey,
+            damageInstance: damageInstance,
          });
       };
 
@@ -97,19 +80,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
       CardAction.addReinforceCount = function(cardInstance, value)
       {
          return CardAction.addCount(cardInstance, Count.REINFORCE, value);
-      };
-
-      CardAction.addSecondaryWeapon = function(cardInstance, weapon)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("weapon", weapon);
-
-         return (
-         {
-            type: CardAction.ADD_SECONDARY_WEAPON,
-            cardInstance: cardInstance,
-            weapon: weapon,
-         });
       };
 
       CardAction.addShieldCount = function(cardInstance, value)
@@ -216,42 +186,16 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          });
       };
 
-      CardAction.removeCriticalDamage = function(cardInstance, damageKey)
+      CardAction.removeDamage = function(cardInstance, damageInstance)
       {
          InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("damageKey", damageKey);
-
-         return (
-         {
-            type: CardAction.REMOVE_CRITICAL_DAMAGE,
-            cardInstance: cardInstance,
-            damageKey: damageKey,
-         });
-      };
-
-      CardAction.removeDamage = function(cardInstance, damageKey)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("damageKey", damageKey);
+         InputValidator.validateNotNull("damageInstance", damageInstance);
 
          return (
          {
             type: CardAction.REMOVE_DAMAGE,
             cardInstance: cardInstance,
-            damageKey: damageKey,
-         });
-      };
-
-      CardAction.removeSecondaryWeapon = function(cardInstance, weapon)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("weapon", weapon);
-
-         return (
-         {
-            type: CardAction.REMOVE_SECONDARY_WEAPON,
-            cardInstance: cardInstance,
-            weapon: weapon,
+            damageInstance: damageInstance,
          });
       };
 
@@ -360,16 +304,16 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          return CardAction.setCount(cardInstance, Count.ION, value);
       };
 
-      CardAction.setPrimaryWeapon = function(cardInstance, weapon)
+      CardAction.setFaceUp = function(cardInstance, isFaceUp)
       {
          InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("weapon", weapon);
+         InputValidator.validateIsBoolean("isFaceUp", isFaceUp);
 
          return (
          {
-            type: CardAction.SET_PRIMARY_WEAPON,
+            type: CardAction.SET_FACE_UP,
             cardInstance: cardInstance,
-            weapon: weapon,
+            isFaceUp: isFaceUp,
          });
       };
 

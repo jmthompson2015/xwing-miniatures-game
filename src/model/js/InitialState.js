@@ -48,11 +48,11 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.cardAttackDice = {};
       this.cardCombatAction = {};
       this.cardCounts = Immutable.Map();
-      this.cardCriticalDamages = Immutable.Map();
       this.cardDamageDealer = {};
       this.cardDamages = Immutable.Map();
       this.cardDefenseDice = {};
       this.cardIsDefenderHit = {};
+      this.cardIsFaceUp = Immutable.Map();
       this.cardIsInFiringArc = {};
       this.cardIsTouching = {};
       this.cardManeuver = {};

@@ -219,14 +219,14 @@ define(["qunit", "redux",
          var tokens = environment.pilotInstances();
          token0 = tokens[0];
          token1 = tokens[1];
-         assert.equal(token0.id(), 1);
+         assert.equal(token0.id(), 34);
          assert.equal(token0.card().key, PilotCard.ACADEMY_PILOT);
          assert.equal(token0.card().shipFaction.shipKey, Ship.TIE_FIGHTER);
-         assert.equal(token0.name(), "1 Academy Pilot (TIE Fighter)");
-         assert.equal(token1.id(), 2);
+         assert.equal(token0.name(), "34 Academy Pilot (TIE Fighter)");
+         assert.equal(token1.id(), 35);
          assert.equal(token1.card().key, PilotCard.ROOKIE_PILOT);
          assert.equal(token1.card().shipFaction.shipKey, Ship.X_WING);
-         assert.equal(token1.name(), "2 Rookie Pilot (X-Wing)");
+         assert.equal(token1.name(), "35 Rookie Pilot (X-Wing)");
 
          assert.equal(token0.computeAttackDiceCount(environment, token0.primaryWeapon(), token1, Range.ONE), 3);
          assert.equal(token0.computeAttackDiceCount(environment, token0.primaryWeapon(), token1, Range.TWO), 2);
@@ -246,7 +246,7 @@ define(["qunit", "redux",
          var upgrade = new CardInstance(store, UpgradeCard.DORSAL_TURRET);
          store.dispatch(CardAction.addUpgrade(attacker, upgrade));
          var defender = environment.pilotInstances()[2]; // X-Wing
-         assert.equal(attacker.name(), "3 \"Dark Curse\" (TIE Fighter)");
+         assert.equal(attacker.name(), "36 \"Dark Curse\" (TIE Fighter)");
          var weapon = attacker.primaryWeapon();
 
          // Run / Verify.
@@ -261,7 +261,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var attacker = environment.pilotInstances()[0]; // Mauler Mithel
          var defender = environment.pilotInstances()[2]; // X-Wing
-         assert.equal(attacker.name(), "1 \"Mauler Mithel\" (TIE Fighter)");
+         assert.equal(attacker.name(), "34 \"Mauler Mithel\" (TIE Fighter)");
          var weapon = attacker.primaryWeapon();
 
          // Run / Verify.
@@ -311,7 +311,8 @@ define(["qunit", "redux",
          assert.equal(token.computeAttackDiceCount(environment, token.primaryWeapon(), defender, Range.TWO), 2);
          assert.equal(token.computeAttackDiceCount(environment, token.primaryWeapon(), defender, Range.THREE), 2);
 
-         token.receiveCriticalDamage(DamageCard.BLINDED_PILOT);
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
+         token.receiveCriticalDamage(damage);
          assert.equal(token.damageCount(), 0);
          assert.equal(token.criticalDamageCount(), 1);
          assert.equal(token.computeAttackDiceCount(environment, token.primaryWeapon(), defender, Range.ONE), 0);
@@ -368,6 +369,25 @@ define(["qunit", "redux",
          assert.equal(token.computeDefenseDiceCount(environment, token, weapon, Range.THREE), 4);
          assert.equal(token.computeDefenseDiceCount(environment, token, weapon, RangeRuler.FOUR), 4);
          assert.equal(token.computeDefenseDiceCount(environment, token, weapon, RangeRuler.FIVE), 4);
+      });
+
+      QUnit.test("criticalDamage() Blinded Pilot", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
+         var pilot = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+         var damageKey = DamageCard.BLINDED_PILOT;
+         var damage = new CardInstance(store, damageKey);
+         store.dispatch(CardAction.addDamage(pilot, damage));
+         assert.equal(pilot.isCriticallyDamagedWith(damageKey), true);
+
+         // Run.
+         var result = pilot.criticalDamage(damageKey);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.card().key, damageKey);
       });
 
       QUnit.test("discardUpgrade()", function(assert)
@@ -429,7 +449,7 @@ define(["qunit", "redux",
          var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-         var damage = DamageCard.BLINDED_PILOT;
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
          token.receiveCriticalDamage(damage);
          assert.equal(token.criticalDamageCount(), 1);
          assert.equal(token.damageCount(), 0);
@@ -500,7 +520,8 @@ define(["qunit", "redux",
          assert.equal(token.hullValue(), 3);
 
          // Run / Verify.
-         token.receiveCriticalDamage(DamageCard.DIRECT_HIT);
+         var damage = new CardInstance(store, DamageCard.DIRECT_HIT);
+         token.receiveCriticalDamage(damage);
          assert.equal(token.hullValue(), 3);
       });
 
@@ -592,12 +613,12 @@ define(["qunit", "redux",
          var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-         var damage = DamageCard.BLINDED_PILOT;
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
          assert.ok(!token.isCriticallyDamagedWith(damage));
          token.receiveCriticalDamage(damage);
 
          // Run / Verify.
-         assert.ok(token.isCriticallyDamagedWith(damage));
+         assert.ok(token.isCriticallyDamagedWith(damage.card().key));
       });
 
       QUnit.test("isDestroyed()", function(assert)
@@ -610,11 +631,11 @@ define(["qunit", "redux",
 
          // Run / Verify.
          assert.ok(!token.isDestroyed());
-         token.receiveCriticalDamage(DamageCard.BLINDED_PILOT);
+         token.receiveCriticalDamage(new CardInstance(store, DamageCard.BLINDED_PILOT));
          assert.ok(!token.isDestroyed());
-         token.receiveDamage(DamageCard.CONSOLE_FIRE);
+         token.receiveDamage(new CardInstance(store, DamageCard.CONSOLE_FIRE));
          assert.ok(!token.isDestroyed());
-         token.receiveCriticalDamage(DamageCard.DAMAGED_COCKPIT);
+         token.receiveCriticalDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
          assert.ok(token.isDestroyed());
       });
 
@@ -701,7 +722,7 @@ define(["qunit", "redux",
          var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-         token.receiveCriticalDamage(DamageCard.DAMAGED_ENGINE);
+         token.receiveCriticalDamage(new CardInstance(store, DamageCard.DAMAGED_ENGINE));
 
          // Run.
          var result = token.maneuverKeys();
@@ -818,9 +839,9 @@ define(["qunit", "redux",
          // Run / Verify.
          assert.equal(environment.pilotInstances().length, 3);
          var i = 0;
-         assert.equal(environment.pilotInstances()[i++].name(), "1 \"Mauler Mithel\" (TIE Fighter)");
-         assert.equal(environment.pilotInstances()[i++].name(), "3 \"Dark Curse\" (TIE Fighter)");
-         assert.equal(environment.pilotInstances()[i++].name(), "4 Luke Skywalker (X-Wing)");
+         assert.equal(environment.pilotInstances()[i++].name(), "34 \"Mauler Mithel\" (TIE Fighter)");
+         assert.equal(environment.pilotInstances()[i++].name(), "36 \"Dark Curse\" (TIE Fighter)");
+         assert.equal(environment.pilotInstances()[i++].name(), "37 Luke Skywalker (X-Wing)");
       });
 
       QUnit.test("pilotSkillValue()", function(assert)
@@ -914,7 +935,7 @@ define(["qunit", "redux",
          assert.equal(token.pilotSkillValue(), 1);
 
          // Run.
-         token.receiveCriticalDamage(DamageCard.DAMAGED_COCKPIT);
+         token.receiveCriticalDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
 
          // Verify.
          assert.equal(token.criticalDamageKeys().size, 1);
@@ -932,7 +953,7 @@ define(["qunit", "redux",
          assert.equal(token.pilotSkillValue(), 1);
 
          // Run / Verify.
-         token.receiveCriticalDamage(DamageCard.INJURED_PILOT);
+         token.receiveCriticalDamage(new CardInstance(store, DamageCard.INJURED_PILOT));
          assert.equal(token.pilotSkillValue(), 0);
       });
 
@@ -965,7 +986,7 @@ define(["qunit", "redux",
          assert.equal(token.primaryWeaponValue(), 2);
 
          // Run / Verify.
-         token.receiveCriticalDamage(DamageCard.WEAPON_MALFUNCTION);
+         token.receiveCriticalDamage(new CardInstance(store, DamageCard.WEAPON_MALFUNCTION));
          assert.equal(token.primaryWeaponValue(), 1);
       });
 
@@ -976,7 +997,7 @@ define(["qunit", "redux",
          var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-         var damage = DamageCard.BLINDED_PILOT;
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
          assert.equal(token.criticalDamageCount(), 0);
          assert.ok(!token.isCriticallyDamagedWith(damage));
 
@@ -985,7 +1006,7 @@ define(["qunit", "redux",
 
          // Verify.
          assert.equal(token.criticalDamageCount(), 1);
-         assert.ok(token.isCriticallyDamagedWith(damage));
+         assert.ok(token.isCriticallyDamagedWith(damage.card().key));
       });
 
       QUnit.test("receiveCriticalDamage() Chewbacca", function(assert)
@@ -994,7 +1015,7 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "Imperial Agent", Faction.REBEL);
          var token = new CardInstance(store, PilotCard.CHEWBACCA, agent);
-         var damage = DamageCard.BLINDED_PILOT;
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
          assert.equal(token.damageCount(), 0);
          assert.equal(token.criticalDamageCount(), 0);
 
@@ -1012,7 +1033,7 @@ define(["qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
-         var damage = DamageCard.BLINDED_PILOT;
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
          assert.equal(token.damageCount(), 0);
 
          // Run.
@@ -1046,9 +1067,9 @@ define(["qunit", "redux",
          var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-         var damage = DamageCard.BLINDED_PILOT;
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
          token.receiveCriticalDamage(damage);
-         assert.ok(token.isCriticallyDamagedWith(damage));
+         assert.ok(token.isCriticallyDamagedWith(damage.card().key));
 
          // Run.
          token.removeCriticalDamage(damage);
@@ -1242,7 +1263,7 @@ define(["qunit", "redux",
          assert.ok(!token.isDestroyed());
 
          // Run.
-         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.BLINDED_PILOT));
+         store.dispatch(CardAction.addDamage(token, new CardInstance(store, DamageCard.BLINDED_PILOT)));
 
          // Verify.
          assert.equal(token.damageCount(), 0);
@@ -1251,7 +1272,7 @@ define(["qunit", "redux",
          assert.ok(!token.isDestroyed());
 
          // Run.
-         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.DIRECT_HIT));
+         store.dispatch(CardAction.addDamage(token, new CardInstance(store, DamageCard.DIRECT_HIT)));
 
          // Verify.
          assert.equal(token.damageCount(), 0);
@@ -1324,7 +1345,7 @@ define(["qunit", "redux",
 
          // Run.
          var damageKey = DamageCard.CONSOLE_FIRE;
-         store.dispatch(CardAction.addCriticalDamage(token, damageKey));
+         store.dispatch(CardAction.addDamage(token, new CardInstance(store, damageKey)));
          result = token.usableDamageAbilities(abilityType, abilityKey);
 
          // Verify.

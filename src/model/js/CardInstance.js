@@ -144,7 +144,8 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          if (this.isCriticallyDamagedWith(DamageCard.BLINDED_PILOT))
          {
             answer = 0;
-            this.flipDamageCardFacedown(DamageCard.BLINDED_PILOT);
+            var damageInstance = this.criticalDamage(DamageCard.BLINDED_PILOT);
+            this.flipDamageCardFacedown(damageInstance);
          }
          else
          {
@@ -284,40 +285,86 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          return answer;
       };
 
+      CardInstance.prototype.criticalDamage = function(damageKey)
+      {
+         InputValidator.validateIsString("damageKey", damageKey);
+
+         var damageInstances = this.criticalDamages().filter(function(cardInstance)
+         {
+            return cardInstance.card().key === damageKey;
+         });
+
+         var answer;
+
+         if (damageInstances.size > 0)
+         {
+            answer = damageInstances.get(0);
+         }
+
+         return answer;
+      };
+
       CardInstance.prototype.criticalDamageCount = function()
       {
-         return this.criticalDamageKeys().size;
+         return this.criticalDamages().size;
       };
 
       CardInstance.prototype.criticalDamageKeys = function()
       {
-         var state = this.state();
-         var id = this.id();
-         var answer = state.cardCriticalDamages.get(id);
-
-         return (answer ? answer : Immutable.List());
+         return CardInstance.cardInstancesToKeys(this.criticalDamages());
       };
 
       CardInstance.prototype.criticalDamages = function()
       {
-         return this.criticalDamageKeys().map(function(damageKey)
+         return this.damageInstances().filter(function(cardInstance)
          {
-            return DamageCard.properties[damageKey];
+            return cardInstance.isFaceUp();
          });
+      };
+
+      CardInstance.prototype.damage = function(damageKey)
+      {
+         InputValidator.validateIsString("damageKey", damageKey);
+
+         var damageInstances = this.damages().filter(function(cardInstance)
+         {
+            return cardInstance.card().key === damageKey;
+         });
+
+         var answer;
+
+         if (damageInstances.size > 0)
+         {
+            answer = damageInstances.get(0);
+         }
+
+         return answer;
       };
 
       CardInstance.prototype.damageCount = function()
       {
-         return this.damageKeys().size;
+         return this.damages().size;
+      };
+
+      CardInstance.prototype.damageInstances = function()
+      {
+         var store = this.store();
+         var ids = store.getState().cardDamages.get(this.id());
+
+         return CardInstance.idsToCardInstances(store, ids);
       };
 
       CardInstance.prototype.damageKeys = function()
       {
-         var state = this.state();
-         var id = this.id();
-         var answer = state.cardDamages.get(id);
+         return CardInstance.cardInstancesToKeys(this.damages());
+      };
 
-         return (answer ? answer : Immutable.List());
+      CardInstance.prototype.damages = function()
+      {
+         return this.damageInstances().filter(function(cardInstance)
+         {
+            return !cardInstance.isFaceUp();
+         });
       };
 
       CardInstance.prototype.defenderTargetLocks = function()
@@ -404,6 +451,14 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
       CardInstance.prototype.isDestroyed = function()
       {
          return this.totalDamage() >= this.hullValue();
+      };
+
+      CardInstance.prototype.isFaceUp = function()
+      {
+         var store = this.store();
+         var answer = store.getState().cardIsFaceUp.get(this.id());
+
+         return (answer !== undefined ? answer : true);
       };
 
       CardInstance.prototype.isHuge = function()
@@ -585,10 +640,16 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.primaryWeapon = function()
       {
-         var primaryWeaponValue = this.primaryWeaponValue();
+         var answer;
          var ship = this.ship();
 
-         return new Weapon("Primary Weapon", primaryWeaponValue, ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
+         if (ship)
+         {
+            var primaryWeaponValue = this.primaryWeaponValue();
+            answer = new Weapon("Primary Weapon", primaryWeaponValue, ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
+         }
+
+         return answer;
       };
 
       CardInstance.prototype.primaryWeaponValue = function()
@@ -998,9 +1059,9 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          this.criticalDamages().forEach(function(damage)
          {
-            if (damage[propertyName] !== undefined)
+            if (damage.card()[propertyName] !== undefined)
             {
-               answer += damage[propertyName];
+               answer += damage.card()[propertyName];
             }
          });
 
@@ -1023,41 +1084,45 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          store.dispatch(CardAction.removeUpgrade(this, upgradeInstance));
       };
 
-      CardInstance.prototype.flipDamageCardFacedown = function(damageKey)
+      CardInstance.prototype.flipDamageCardFacedown = function(damageInstance)
       {
-         InputValidator.validateNotNull("damageKey", damageKey);
+         InputValidator.validateNotNull("damageInstance", damageInstance);
 
-         this.removeCriticalDamage(damageKey);
-         this.store().dispatch(CardAction.addDamage(this, damageKey));
+         var store = this.store();
+         store.dispatch(CardAction.setFaceUp(damageInstance, false));
       };
 
-      CardInstance.prototype.receiveCriticalDamage = function(damageKey, callback)
+      CardInstance.prototype.receiveCriticalDamage = function(damageInstance, callback)
       {
-         InputValidator.validateNotNull("damageKey", damageKey);
+         InputValidator.validateNotNull("damageInstance", damageInstance);
 
-         LOGGER.debug("CardInstance.receiveCriticalDamage() damageKey = " + damageKey);
+         LOGGER.debug("CardInstance.receiveCriticalDamage() damageInstance = " + damageInstance);
 
          if (this.card().key === PilotCard.CHEWBACCA)
          {
-            this.receiveDamage(damageKey);
+            this.receiveDamage(damageInstance);
          }
          else
          {
-            this.store().dispatch(CardAction.addCriticalDamage(this, damageKey));
+            var store = this.store();
+            store.dispatch(CardAction.addDamage(this, damageInstance));
+            store.dispatch(CardAction.setFaceUp(damageInstance, true));
             var eventContext = {
-               damageKey: damageKey,
+               damageInstance: damageInstance,
             };
-            this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_CRITICAL_DAMAGE, this, callback, eventContext));
+            store.dispatch(Action.enqueueEvent(Event.RECEIVE_CRITICAL_DAMAGE, this, callback, eventContext));
          }
       };
 
-      CardInstance.prototype.receiveDamage = function(damageKey, callback)
+      CardInstance.prototype.receiveDamage = function(damageInstance, callback)
       {
-         InputValidator.validateNotNull("damageKey", damageKey);
+         InputValidator.validateNotNull("damageInstance", damageInstance);
 
-         this.store().dispatch(CardAction.addDamage(this, damageKey));
+         var store = this.store();
+         store.dispatch(CardAction.addDamage(this, damageInstance));
+         store.dispatch(CardAction.setFaceUp(damageInstance, false));
          var eventContext = {
-            damageKey: damageKey,
+            damageInstance: damageInstance,
          };
          this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_DAMAGE, this, callback, eventContext));
       };
@@ -1081,11 +1146,11 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          }
       };
 
-      CardInstance.prototype.removeCriticalDamage = function(damageKey)
+      CardInstance.prototype.removeCriticalDamage = function(damageInstance)
       {
-         InputValidator.validateNotNull("damageKey", damageKey);
+         InputValidator.validateNotNull("damageInstance", damageInstance);
 
-         this.store().dispatch(CardAction.removeCriticalDamage(this, damageKey));
+         this.store().dispatch(CardAction.removeDamage(this, damageInstance));
       };
 
       CardInstance.prototype.removeShield = function(count, callback)
@@ -1319,6 +1384,32 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
                var cardInstance = CardInstance.get(store, id);
                InputValidator.validateNotNull("cardInstance", cardInstance);
                return cardInstance;
+            });
+         }
+         else
+         {
+            answer = Immutable.List();
+         }
+
+         return answer;
+      };
+
+      CardInstance.keysToCardInstances = function(store, cardTypeKey, cardKeys, agent)
+      {
+         InputValidator.validateNotNull("store", store);
+         InputValidator.validateIsString("cardTypeKey", cardTypeKey);
+         // cardKeys optional.
+         // agent optional.
+
+         var answer;
+
+         if (cardKeys !== undefined)
+         {
+            answer = cardKeys.map(function(cardKey)
+            {
+               var card = CardResolver.resolve(cardTypeKey, cardKey);
+
+               return new CardInstance(store, card, agent);
             });
          }
          else

@@ -104,7 +104,7 @@ define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/Damag
             for (i = 0; i < criticalHits; i++)
             {
                var damage = environment.drawDamage();
-               var trait = DamageCard.properties[damage].trait;
+               var trait = damage.card().trait;
 
                if (defender.isUpgradedWith(UpgradeCard.DETERMINATION) && (trait === DamageCardTrait.PILOT))
                {

@@ -2,10 +2,10 @@
 
 define(["qunit", "redux",
   "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/UpgradeCard", "artifact/js/Value",
-  "model/js/Agent", "model/js/DualCardInstance", "model/js/Reducer"],
+  "model/js/Agent", "model/js/CardInstance", "model/js/DualCardInstance", "model/js/Reducer"],
    function(QUnit, Redux,
       DamageCard, Faction, PilotCard, Ship, UpgradeCard, Value,
-      Agent, DualCardInstance, Reducer)
+      Agent, CardInstance, DualCardInstance, Reducer)
    {
       QUnit.module("DualCardInstance");
 
@@ -51,19 +51,19 @@ define(["qunit", "redux",
          var i;
          for (i = 0; i < tokenFore.hullValue() - 1; i++)
          {
-            tokenFore.receiveDamage(DamageCard.DAMAGED_COCKPIT);
+            tokenFore.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
          }
          var tokenAft = token.tokenAft();
          for (i = 0; i < tokenAft.hullValue() - 1; i++)
          {
-            tokenAft.receiveDamage(DamageCard.DAMAGED_COCKPIT);
+            tokenAft.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
          }
          assert.ok(!token.isDestroyed());
 
          // Run / Verify.
-         tokenFore.receiveDamage(DamageCard.DAMAGED_COCKPIT);
+         tokenFore.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
          assert.ok(!token.isDestroyed());
-         tokenAft.receiveDamage(DamageCard.DAMAGED_COCKPIT);
+         tokenAft.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
          assert.ok(token.isDestroyed());
       });
 
@@ -120,7 +120,7 @@ define(["qunit", "redux",
          var tokenAft = token.tokenAft();
          for (var i = 0; i < tokenAft.hullValue(); i++)
          {
-            token.tokenAft().receiveDamage(DamageCard.BLINDED_PILOT);
+            token.tokenAft().receiveDamage(new CardInstance(store, DamageCard.BLINDED_PILOT));
          }
          assert.ok(tokenAft.isDestroyed());
 
@@ -162,7 +162,7 @@ define(["qunit", "redux",
          var tokenFore = token.tokenFore();
          for (var i = 0; i < tokenFore.hullValue(); i++)
          {
-            token.tokenFore().receiveDamage(DamageCard.BLINDED_PILOT);
+            token.tokenFore().receiveDamage(new CardInstance(store, DamageCard.BLINDED_PILOT));
          }
          assert.ok(tokenFore.isDestroyed());
 

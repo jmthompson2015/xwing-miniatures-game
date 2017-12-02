@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/AttackDiceValue", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver",
-  "model/js/ActivationAction", "model/js/AttackDice", "model/js/CardAction"],
+  "model/js/ActivationAction", "model/js/AttackDice"],
    function(InputValidator,
       AttackDiceValue, DamageCard, Difficulty, Event, Maneuver,
-      ActivationAction, AttackDice, CardAction)
+      ActivationAction, AttackDice)
    {
       var DamageAbility0 = {};
 
@@ -20,7 +20,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var maneuver = getManeuver(token);
-            return isEventToken(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.STANDARD;
+            return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.LOOSE_STABILIZER_V2) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.STANDARD;
          },
          consequent: function(store, token, callback)
          {
@@ -33,7 +33,7 @@ define(["common/js/InputValidator",
          condition: function(store, token)
          {
             var maneuver = getManeuver(token);
-            return isEventToken(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.HARD;
+            return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.MINOR_HULL_BREACH) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.HARD;
          },
          consequent: function(store, token, callback)
          {
@@ -53,7 +53,7 @@ define(["common/js/InputValidator",
          // Roll 1 attack die. On a Hit result, suffer 1 critical damage. Then flip this card facedown.
          condition: function(store, token)
          {
-            return isEventToken(store, token);
+            return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.MAJOR_EXPLOSION_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -71,7 +71,7 @@ define(["common/js/InputValidator",
          // Immediately roll 1 attack die. On a Hit result, suffer 1 damage. Then flip this card facedown.
          condition: function(store, token)
          {
-            return isEventToken(store, token);
+            return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.MINOR_EXPLOSION);
          },
          consequent: function(store, token, callback)
          {
@@ -92,7 +92,7 @@ define(["common/js/InputValidator",
          // Immediately receive 1 stress token. Then flip this card facedown.
          condition: function(store, token)
          {
-            return isEventToken(store, token);
+            return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.THRUST_CONTROL_FIRE);
          },
          consequent: function(store, token, callback)
          {
@@ -105,7 +105,7 @@ define(["common/js/InputValidator",
          // Receive 1 stress token. Then flip this card facedown.
          condition: function(store, token)
          {
-            return isEventToken(store, token);
+            return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.THRUST_CONTROL_FIRE_V2);
          },
          consequent: function(store, token, callback)
          {
@@ -121,8 +121,8 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("token", token);
          InputValidator.validateNotNull("damageKey", damageKey);
 
-         store.dispatch(CardAction.removeCriticalDamage(token, damageKey));
-         store.dispatch(CardAction.addDamage(token, damageKey));
+         var damageInstance = token.criticalDamage(damageKey);
+         token.flipDamageCardFacedown(damageInstance);
       }
 
       function getActivationAction(token)

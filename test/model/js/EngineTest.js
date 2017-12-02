@@ -257,7 +257,8 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var upgrade = new CardInstance(store, UpgradeCard.YSANNE_ISARD);
          store.dispatch(CardAction.addUpgrade(token0, upgrade));
          store.dispatch(CardAction.setShieldCount(token0));
-         store.dispatch(CardAction.addDamage(token0, DamageCard.BLINDED_PILOT));
+         var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
+         token0.receiveDamage(damage);
          var position0 = environment.getPositionFor(token0);
          var token2 = environment.pilotInstances()[2]; // X-Wing.
          var position2 = environment.getPositionFor(token2);

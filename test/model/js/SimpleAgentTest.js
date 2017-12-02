@@ -197,7 +197,8 @@ define(["qunit", "redux", "common/js/ArrayAugments",
          var agent = token.agent();
          var upgrade = new CardInstance(store, UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN]);
          store.dispatch(CardAction.addUpgrade(token, upgrade));
-         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.CONSOLE_FIRE));
+         var damage = new CardInstance(store, DamageCard.CONSOLE_FIRE);
+         token.receiveCriticalDamage(damage);
          environment.setActiveToken(token);
 
          // Run.

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
-  "model/js/Action", "model/js/DamageAbility0", "model/js/CardAction", "../../../test/model/js/EnvironmentFactory"],
+  "model/js/Action", "model/js/CardInstance", "model/js/DamageAbility0", "model/js/CardAction", "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, DamageCard, Event,
-      Action, DamageAbility, CardAction, EnvironmentFactory)
+      Action, CardInstance, DamageAbility, CardAction, EnvironmentFactory)
    {
       QUnit.module("DamageAbility0");
 
@@ -41,10 +41,6 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
          var environment = createEnvironment();
          var store = environment.store();
          var token = environment.pilotInstances()[2]; // X-Wing.
-         var callback = function()
-         {
-            LOGGER.info("in callback()");
-         };
 
          // Run / Verify.
          Event.keys().forEach(function(eventKey)
@@ -55,29 +51,25 @@ define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
             {
                Object.keys(abilities).forEach(function(damageKey)
                {
-                  var ability = abilities[damageKey];
-
-                  if (ability.condition && ability.condition(store, token))
+                  var damageInstance = new CardInstance(store, damageKey);
+                  token.receiveCriticalDamage(damageInstance);
+                  var eventCallback = function()
                   {
-                     ability.consequent(store, token, callback);
                      assert.ok(true, "eventKey = " + eventKey + " damageKey = " + damageKey);
-                  }
+                  };
+                  store.dispatch(Action.enqueueEvent(eventKey, token, eventCallback));
+                  store.dispatch(Action.dequeueEvent());
                });
             }
          });
-
-         assert.ok(true);
       });
 
       function createEnvironment()
       {
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var store = environment.store();
          var token = environment.pilotInstances()[2]; // X-Wing.
 
          environment.setActiveToken(token);
-         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.MINOR_EXPLOSION));
-         store.dispatch(Action.enqueueEvent(Event.RECEIVE_CRITICAL_DAMAGE, token));
 
          return environment;
       }

@@ -127,9 +127,9 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createTFACoreSetEnvironment(store, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var attacker = environment.getTokenById(3); // T-70 X-Wing
+         var attacker = environment.pilotInstances()[2]; // T-70 X-Wing
          var attackerPosition = environment.getPositionFor(attacker);
-         var defender = environment.getTokenById(1); // TIE Fighter
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
          var defenderPosition = environment.getPositionFor(defender);
          var weapon = attacker.primaryWeapon();
          var caCallback = function() {};
@@ -252,7 +252,8 @@ define(["qunit", "redux",
          var agent = token.agent();
          var upgrade = new CardInstance(store, UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN]);
          store.dispatch(CardAction.addUpgrade(token, upgrade));
-         store.dispatch(CardAction.addCriticalDamage(token, DamageCard.CONSOLE_FIRE));
+         var damage = new CardInstance(store, DamageCard.CONSOLE_FIRE);
+         token.receiveCriticalDamage(damage);
          environment.setActiveToken(token);
 
          // Run.

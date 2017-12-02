@@ -9,8 +9,8 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
       {
          LOGGER.debug("CardReducer.reduce() type = " + action.type);
 
-         var cardId, index, upgradeId;
-         var oldUpgrades;
+         var cardId, damageId, index, upgradeId;
+         var oldDamages, oldUpgrades;
          var newCardIdToData;
 
          switch (action.type)
@@ -24,29 +24,13 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                {
                   cardCounts: newCardIdToCounts,
                });
-            case CardAction.ADD_SECONDARY_WEAPON:
-            case CardAction.REMOVE_SECONDARY_WEAPON:
-               newCardIdToData = CardReducer.cardIdToArray(state.cardSecondaryWeapons, action.type, action.cardInstance.id(), action.weapon);
-               return Object.assign(
-               {}, state,
-               {
-                  cardSecondaryWeapons: newCardIdToData,
-               });
-            case CardAction.ADD_CRITICAL_DAMAGE:
-            case CardAction.REMOVE_CRITICAL_DAMAGE:
-               newCardIdToData = CardReducer.cardIdToArray(state.cardCriticalDamages, action.type, action.cardInstance.id(), action.damageKey);
-               return Object.assign(
-               {}, state,
-               {
-                  cardCriticalDamages: newCardIdToData,
-               });
             case CardAction.ADD_DAMAGE:
-            case CardAction.REMOVE_DAMAGE:
-               newCardIdToData = CardReducer.cardIdToArray(state.cardDamages, action.type, action.cardInstance.id(), action.damageKey);
+               cardId = action.cardInstance.id();
+               oldDamages = (state.cardDamages.get(cardId) !== undefined ? state.cardDamages.get(cardId) : Immutable.List());
                return Object.assign(
                {}, state,
                {
-                  cardDamages: newCardIdToData,
+                  cardDamages: state.cardDamages.set(cardId, oldDamages.push(action.damageInstance.id())),
                });
             case CardAction.ADD_UPGRADE:
                cardId = action.cardInstance.id();
@@ -88,6 +72,17 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                {
                   nextCardId: state.nextCardId + 1,
                });
+            case CardAction.REMOVE_DAMAGE:
+               cardId = action.cardInstance.id();
+               damageId = action.damageInstance.id();
+               oldDamages = (state.cardDamages.get(cardId) ? state.cardDamages.get(cardId) : Immutable.List());
+               index = oldDamages.indexOf(damageId);
+               var newDamages = (index >= 0 ? oldDamages.delete(index) : oldDamages);
+               return Object.assign(
+               {}, state,
+               {
+                  cardDamages: state.cardDamages.set(cardId, newDamages),
+               });
             case CardAction.REMOVE_UPGRADE:
                cardId = action.cardInstance.id();
                upgradeId = action.upgradeInstance.id();
@@ -99,13 +94,6 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                {
                   cardUpgrades: state.cardUpgrades.set(cardId, newUpgrades),
                });
-            case CardAction.SET_PRIMARY_WEAPON:
-               var newCardPrimaryWeapon = state.cardPrimaryWeapon.set(action.cardInstance.id(), action.weapon);
-               return Object.assign(
-               {}, state,
-               {
-                  cardPrimaryWeapon: newCardPrimaryWeapon,
-               });
             case CardAction.SET_CARD_INSTANCE:
                // LOGGER.info("SET_TOKEN: payload = " + JSON.stringify(action.payload));
                var newCards = state.cardInstances.set(action.payload.get("id"), action.payload);
@@ -113,6 +101,12 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                {}, state,
                {
                   cardInstances: newCards,
+               });
+            case CardAction.SET_FACE_UP:
+               return Object.assign(
+               {}, state,
+               {
+                  cardIsFaceUp: state.cardIsFaceUp.set(action.cardInstance.id(), action.isFaceUp),
                });
             default:
                LOGGER.warn("CardReducer.reduce: Unhandled action type: " + action.type);
@@ -150,8 +144,6 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
 
          switch (actionType)
          {
-            case CardAction.ADD_SECONDARY_WEAPON:
-            case CardAction.ADD_CRITICAL_DAMAGE:
             case CardAction.ADD_DAMAGE:
             case CardAction.ADD_UPGRADE:
             case CardAction.ADD_USED_ABILITY:
@@ -163,8 +155,6 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
             case CardAction.CLEAR_USED_ABILITIES:
             case CardAction.CLEAR_USED_PER_ROUND_ABILITIES:
                return state.set(actionTokenId, Immutable.List());
-            case CardAction.REMOVE_SECONDARY_WEAPON:
-            case CardAction.REMOVE_CRITICAL_DAMAGE:
             case CardAction.REMOVE_DAMAGE:
             case CardAction.REMOVE_UPGRADE:
             case CardAction.REMOVE_USED_ABILITY:
