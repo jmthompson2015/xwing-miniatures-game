@@ -33,25 +33,27 @@ define(["common/js/InputValidator"], function(InputValidator)
       });
    };
 
-   EnvironmentAction.discardDamage = function(damage)
+   EnvironmentAction.discardDamage = function(damageInstance)
    {
-      InputValidator.validateNotNull("damage", damage);
+      InputValidator.validateNotNull("damageInstance", damageInstance);
+      InputValidator.validateIsFunction("damageInstance.id", damageInstance.id);
 
       return (
       {
          type: EnvironmentAction.DISCARD_DAMAGE,
-         damage: damage,
+         damageInstance: damageInstance,
       });
    };
 
-   EnvironmentAction.drawDamage = function(damage)
+   EnvironmentAction.drawDamage = function(damageInstance)
    {
-      InputValidator.validateNotNull("damage", damage);
+      InputValidator.validateNotNull("damageInstance", damageInstance);
+      InputValidator.validateIsFunction("damageInstance.id", damageInstance.id);
 
       return (
       {
          type: EnvironmentAction.DRAW_DAMAGE,
-         damage: damage,
+         damageInstance: damageInstance,
       });
    };
 
@@ -123,7 +125,7 @@ define(["common/js/InputValidator"], function(InputValidator)
 
    EnvironmentAction.setDamageDeck = function(damageDeck)
    {
-      InputValidator.validateNotNull("damageDeck", damageDeck);
+      InputValidator.validateIsArray("damageDeck", damageDeck);
 
       return (
       {

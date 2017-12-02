@@ -17,8 +17,8 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
 
       // Environment.
       this.activeCardId = undefined;
-      this.damageDeck = [];
-      this.damageDiscardPile = [];
+      this.damageDeck = Immutable.List();
+      this.damageDiscardPile = Immutable.List();
       this.firstAgent = undefined;
       this.firstSquad = undefined;
       this.playAreaScale = 1.0;

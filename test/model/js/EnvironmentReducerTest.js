@@ -1,11 +1,11 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Faction",
+  "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Faction",
   "model/js/Agent", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardInstance",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
-      DamageCard, PilotCard, PlayFormat, Faction,
+      CardType, DamageCard, PilotCard, PlayFormat, Faction,
       Agent, EnvironmentAction, Position, Reducer, SquadBuilder, CardInstance, EnvironmentFactory)
    {
       QUnit.module("EnvironmentReducer");
@@ -32,38 +32,40 @@ define(["qunit", "redux",
       QUnit.test("discardDamage()", function(assert)
       {
          // Setup.
-         var damageDeck = DamageCard.createDeckV2();
          var store = Redux.createStore(Reducer.root);
-         store.dispatch(EnvironmentAction.setDamageDeck(damageDeck));
+         var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+         var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+         store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
          var damage = damageDeck[0];
          store.dispatch(EnvironmentAction.drawDamage(damage));
-         assert.equal(store.getState().damageDeck.length, 32);
-         assert.equal(store.getState().damageDiscardPile.length, 0);
+         assert.equal(store.getState().damageDeck.size, 32);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
 
          // Run.
          store.dispatch(EnvironmentAction.discardDamage(damage));
 
          // Verify.
-         assert.equal(store.getState().damageDeck.length, 32);
-         assert.equal(store.getState().damageDiscardPile.length, 1);
+         assert.equal(store.getState().damageDeck.size, 32);
+         assert.equal(store.getState().damageDiscardPile.size, 1);
       });
 
       QUnit.test("drawDamage()", function(assert)
       {
          // Setup.
-         var damageDeck = DamageCard.createDeckV2();
          var store = Redux.createStore(Reducer.root);
-         store.dispatch(EnvironmentAction.setDamageDeck(damageDeck));
+         var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+         var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+         store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
          var damage = damageDeck[0];
-         assert.equal(store.getState().damageDeck.length, 33);
-         assert.equal(store.getState().damageDiscardPile.length, 0);
+         assert.equal(store.getState().damageDeck.size, 33);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
 
          // Run.
          store.dispatch(EnvironmentAction.drawDamage(damage));
 
          // Verify.
-         assert.equal(store.getState().damageDeck.length, 32);
-         assert.equal(store.getState().damageDiscardPile.length, 0);
+         assert.equal(store.getState().damageDeck.size, 32);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
       });
 
       QUnit.test("moveToken()", function(assert)
@@ -155,24 +157,25 @@ define(["qunit", "redux",
       QUnit.test("replenishDamageDeck()", function(assert)
       {
          // Setup.
-         var damageDeck = DamageCard.createDeckV2();
          var store = Redux.createStore(Reducer.root);
-         store.dispatch(EnvironmentAction.setDamageDeck(damageDeck));
+         var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+         var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+         store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
          for (var i = 0; i < 33; i++)
          {
-            var damage = store.getState().damageDeck[0];
+            var damage = CardInstance.get(store, store.getState().damageDeck.get(0));
             store.dispatch(EnvironmentAction.drawDamage(damage));
             store.dispatch(EnvironmentAction.discardDamage(damage));
          }
-         assert.equal(store.getState().damageDeck.length, 0);
-         assert.equal(store.getState().damageDiscardPile.length, 33);
+         assert.equal(store.getState().damageDeck.size, 0);
+         assert.equal(store.getState().damageDiscardPile.size, 33);
 
          // Run.
          store.dispatch(EnvironmentAction.replenishDamageDeck());
 
          // Verify.
-         assert.equal(store.getState().damageDeck.length, 33);
-         assert.equal(store.getState().damageDiscardPile.length, 0);
+         assert.equal(store.getState().damageDeck.size, 33);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
       });
 
       QUnit.test("setActiveToken()", function(assert)
@@ -199,16 +202,16 @@ define(["qunit", "redux",
       QUnit.test("setDamageDeck()", function(assert)
       {
          // Setup.
-         var damageDeck = DamageCard.createDeckV2();
          var store = Redux.createStore(Reducer.root);
-         assert.equal(store.getState().damageDeck.length, 0);
+         assert.equal(store.getState().damageDeck.size, 0);
+         var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+         var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
 
          // Run.
-         store.dispatch(EnvironmentAction.setDamageDeck(damageDeck));
+         store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
 
          // Verify.
-         assert.equal(store.getState().damageDeck.length, 33);
-         assert.equal(store.getState().damageDeck[0], damageDeck[0]);
+         assert.equal(store.getState().damageDeck.size, 33);
       });
 
       QUnit.test("setFirstAgent()", function(assert)

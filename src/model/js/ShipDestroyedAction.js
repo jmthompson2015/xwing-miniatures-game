@@ -7,6 +7,7 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/TargetLock"],
       {
          InputValidator.validateNotNull("environment", environment);
          InputValidator.validateNotNull("token", token);
+         InputValidator.validateNotNull("fromPosition", fromPosition);
 
          this.environment = function()
          {
@@ -27,28 +28,43 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/TargetLock"],
          {
             LOGGER.trace("ShipDestroyedAction.doIt() start");
 
-            var store = environment.store();
-            TargetLock.removeAllTargetLocks(store, token);
+            var tokens = [];
 
-            // Return the damage cards.
             if (token.tokenFore && token.tokenAft)
             {
-               environment.discardAllDamage(token.tokenFore().damageKeys());
-               environment.discardAllDamage(token.tokenFore().criticalDamageKeys());
-               environment.discardAllDamage(token.tokenAft().damageKeys());
-               environment.discardAllDamage(token.tokenAft().criticalDamageKeys());
+               tokens.push(token.tokenFore());
+               tokens.push(token.tokenAft());
             }
             else
             {
-               environment.discardAllDamage(token.damageKeys());
-               environment.discardAllDamage(token.criticalDamageKeys());
+               tokens.push(token);
             }
 
-            if (token)
+            tokens.forEach(function(token)
             {
-               environment.removeToken(token);
-            }
-            store.dispatch(Action.setUserMessage("Ship destroyed: " + token));
+               var store = environment.store();
+               TargetLock.removeAllTargetLocks(store, token);
+
+               // Return the damage cards.
+               if (token.tokenFore && token.tokenAft)
+               {
+                  environment.discardAllDamage(token.tokenFore().damages());
+                  environment.discardAllDamage(token.tokenFore().criticalDamages());
+                  environment.discardAllDamage(token.tokenAft().damages());
+                  environment.discardAllDamage(token.tokenAft().criticalDamages());
+               }
+               else
+               {
+                  environment.discardAllDamage(token.damages());
+                  environment.discardAllDamage(token.criticalDamages());
+               }
+
+               if (token)
+               {
+                  environment.removeToken(token);
+               }
+               store.dispatch(Action.setUserMessage("Ship destroyed: " + token));
+            });
 
             LOGGER.trace("ShipDestroyedAction.doIt() end");
          };

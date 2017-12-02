@@ -45,7 +45,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
          // Initialize the damage deck.
          var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
-         store.dispatch(EnvironmentAction.setDamageDeck(damageDeck));
+         var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+         store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
 
          this._placeInitialTokens(agent1, squad1, agent2, squad2, positions1, positions2);
       }
@@ -615,15 +616,15 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          var answer;
          var store = this.store();
 
-         if (store.getState().damageDeck.length === 0)
+         if (store.getState().damageDeck.size === 0)
          {
             // Replenish the damage deck from the discard pile.
-            LOGGER.debug("Damage deck empty. Shuffling " + store.getState().damageDiscardPile.length + " discards into damage deck.");
+            LOGGER.debug("Damage deck empty. Shuffling " + store.getState().damageDiscardPile.size + " discards into damage deck.");
             store.dispatch(EnvironmentAction.replenishDamageDeck());
          }
 
-         LOGGER.trace("damageDeck.length = " + store.getState().damageDeck.length);
-         answer = store.getState().damageDeck[0];
+         LOGGER.trace("damageDeck.size = " + store.getState().damageDeck.size);
+         answer = CardInstance.get(store, store.getState().damageDeck.get(0));
          store.dispatch(EnvironmentAction.drawDamage(answer));
 
          return answer;

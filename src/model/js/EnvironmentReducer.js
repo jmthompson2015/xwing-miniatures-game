@@ -9,7 +9,7 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
       {
          LOGGER.debug("EnvironmentReducer.reduce() type = " + action.type);
 
-         var action2, newPositionToTokenId, newTokenIdToData, newTokens;
+         var action2, damageId, newPositionToTokenId, newTokenIdToData, newTokens;
 
          switch (action.type)
          {
@@ -21,17 +21,20 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                   round: state.round + action.key,
                });
             case EnvironmentAction.DISCARD_DAMAGE:
+               damageId = action.damageInstance.id();
                return Object.assign(
                {}, state,
                {
-                  damageDiscardPile: EnvironmentReducer.damageDiscardPile(state.damageDiscardPile, action),
+                  damageDiscardPile: state.damageDiscardPile.push(damageId),
                });
             case EnvironmentAction.DRAW_DAMAGE:
-            case EnvironmentAction.SET_DAMAGE_DECK:
+               damageId = action.damageInstance.id();
+               var index = state.damageDeck.indexOf(damageId);
+               var newDamages = (index >= 0 ? state.damageDeck.delete(index) : state.damageDeck);
                return Object.assign(
                {}, state,
                {
-                  damageDeck: EnvironmentReducer.damageDeck(state.damageDeck, action),
+                  damageDeck: newDamages,
                });
             case EnvironmentAction.MOVE_TOKEN:
                var tokenId = state.positionToCardId[action.fromPosition];
@@ -103,13 +106,13 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                }
                return state;
             case EnvironmentAction.REPLENISH_DAMAGE_DECK:
-               var newDamageDeck = state.damageDiscardPile.slice();
+               var newDamageDeck = state.damageDiscardPile.toJS();
                newDamageDeck.xwingShuffle();
                return Object.assign(
                {}, state,
                {
-                  damageDeck: newDamageDeck,
-                  damageDiscardPile: [],
+                  damageDeck: Immutable.List(newDamageDeck),
+                  damageDiscardPile: Immutable.List(),
                });
             case EnvironmentAction.SET_ACTIVE_TOKEN:
                LOGGER.info("Active CardInstance: " + action.token);
@@ -117,6 +120,12 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                {}, state,
                {
                   activeCardId: (action.token ? action.token.id() : undefined),
+               });
+            case EnvironmentAction.SET_DAMAGE_DECK:
+               return Object.assign(
+               {}, state,
+               {
+                  damageDeck: Immutable.List(action.damageDeck),
                });
             case EnvironmentAction.SET_FIRST_AGENT:
                return Object.assign(
@@ -166,45 +175,6 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                });
             default:
                LOGGER.warn("EnvironmentReducer.reduce: Unhandled action type: " + action.type);
-               return state;
-         }
-      };
-
-      EnvironmentReducer.damageDeck = function(state, action)
-      {
-         LOGGER.debug("EnvironmentReducer.positionToToken() type = " + action.type);
-
-         var newDamageDeck;
-
-         switch (action.type)
-         {
-            case EnvironmentAction.DRAW_DAMAGE:
-               newDamageDeck = state.slice();
-               newDamageDeck.xwingRemove(action.damage);
-               return newDamageDeck;
-            case EnvironmentAction.SET_DAMAGE_DECK:
-               newDamageDeck = action.damageDeck.slice();
-               return newDamageDeck;
-            default:
-               LOGGER.warn("EnvironmentReducer.damageDeck: Unhandled action type: " + action.type);
-               return state;
-         }
-      };
-
-      EnvironmentReducer.damageDiscardPile = function(state, action)
-      {
-         LOGGER.debug("EnvironmentReducer.positionToToken() type = " + action.type);
-
-         var newDamageDiscardPile;
-
-         switch (action.type)
-         {
-            case EnvironmentAction.DISCARD_DAMAGE:
-               newDamageDiscardPile = state.slice();
-               newDamageDiscardPile.push(action.damage);
-               return newDamageDiscardPile;
-            default:
-               LOGGER.warn("EnvironmentReducer.damageDiscardPile: Unhandled action type: " + action.type);
                return state;
          }
       };

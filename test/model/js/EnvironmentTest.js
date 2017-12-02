@@ -233,54 +233,57 @@ define(["qunit", "redux",
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
          var damage = environment.drawDamage();
-         assert.equal(environment.store().getState().damageDeck.length, 32);
-         assert.equal(environment.store().getState().damageDiscardPile.length, 0);
+         assert.equal(store.getState().damageDeck.size, 32);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
 
          // Run.
          environment.discardDamage(damage);
 
          // Verify.
-         assert.equal(environment.store().getState().damageDeck.length, 32);
-         assert.equal(environment.store().getState().damageDiscardPile.length, 1);
-         assert.equal(environment.store().getState().damageDiscardPile[0], damage);
+         assert.equal(store.getState().damageDeck.size, 32);
+         assert.equal(store.getState().damageDiscardPile.size, 1);
+         assert.equal(CardInstance.get(store, store.getState().damageDiscardPile.get(0)).card().key, damage.card().key);
       });
 
       QUnit.test("drawDamage()", function(assert)
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
-         assert.equal(environment.store().getState().damageDeck.length, 33);
-         assert.equal(environment.store().getState().damageDiscardPile.length, 0);
+         var store = environment.store();
+         assert.equal(store.getState().damageDeck.size, 33);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
 
          // Run.
          var result = environment.drawDamage();
 
          // Verify.
          assert.ok(result);
-         assert.equal(environment.store().getState().damageDeck.length, 32);
-         assert.equal(environment.store().getState().damageDiscardPile.length, 0);
+         assert.equal(store.getState().damageDeck.size, 32);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
       });
 
       QUnit.test("drawDamage() empty", function(assert)
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
          for (var i = 0; i < 33; i++)
          {
             var damage = environment.drawDamage();
             environment.discardDamage(damage);
          }
-         assert.equal(environment.store().getState().damageDeck.length, 0);
-         assert.equal(environment.store().getState().damageDiscardPile.length, 33);
+         assert.equal(store.getState().damageDeck.size, 0);
+         assert.equal(store.getState().damageDiscardPile.size, 33);
 
          // Run.
          var result = environment.drawDamage();
 
          // Verify.
          assert.ok(result);
-         assert.equal(environment.store().getState().damageDeck.length, 32);
-         assert.equal(environment.store().getState().damageDiscardPile.length, 0);
+         assert.equal(store.getState().damageDeck.size, 32);
+         assert.equal(store.getState().damageDiscardPile.size, 0);
       });
 
       QUnit.test("getDefenders() Imperial vs Rebel", function(assert)

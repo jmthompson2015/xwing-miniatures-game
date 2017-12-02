@@ -46,10 +46,23 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/TargetLock"],
                TargetLock.removeAllTargetLocks(store, token);
 
                // Return the damage cards.
-               environment.discardAllDamage(token.damageKeys());
-               environment.discardAllDamage(token.criticalDamageKeys());
+               if (token.tokenFore && token.tokenAft)
+               {
+                  environment.discardAllDamage(token.tokenFore().damages());
+                  environment.discardAllDamage(token.tokenFore().criticalDamages());
+                  environment.discardAllDamage(token.tokenAft().damages());
+                  environment.discardAllDamage(token.tokenAft().criticalDamages());
+               }
+               else
+               {
+                  environment.discardAllDamage(token.damages());
+                  environment.discardAllDamage(token.criticalDamages());
+               }
 
-               environment.removeToken(token);
+               if (token)
+               {
+                  environment.removeToken(token);
+               }
                store.dispatch(Action.setUserMessage("Ship fled the battlefield: " + token));
             });
 
