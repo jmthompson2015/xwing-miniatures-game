@@ -59,7 +59,6 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.cardManeuverAction = {};
       this.cardPosition = {};
       this.cardRange = {};
-      this.cardUpgradeEnergy = Immutable.Map();
       this.cardUpgrades = Immutable.Map();
       this.cardUsedAbilities = Immutable.Map();
       this.cardUsedPerRoundAbilities = Immutable.Map();

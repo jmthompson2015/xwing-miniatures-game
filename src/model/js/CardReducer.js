@@ -40,14 +40,6 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                {
                   cardUpgrades: state.cardUpgrades.set(cardId, oldUpgrades.push(action.upgradeInstance.id())),
                });
-            case CardAction.ADD_UPGRADE_ENERGY:
-            case CardAction.SET_UPGRADE_ENERGY:
-               var newCardUpgradeEnergy = CardReducer.cardUpgradeEnergy(state.cardUpgradeEnergy, action);
-               return Object.assign(
-               {}, state,
-               {
-                  cardUpgradeEnergy: newCardUpgradeEnergy,
-               });
             case CardAction.ADD_USED_ABILITY:
             case CardAction.CLEAR_USED_ABILITIES:
             case CardAction.REMOVE_USED_ABILITY:
@@ -182,39 +174,6 @@ define(["immutable", "common/js/InputValidator", "model/js/CardAction"],
                return state.set(action.cardInstance.id(), CardReducer.counts(oldTokenIdToCounts, action));
             default:
                LOGGER.warn("CardReducer.cardIdToCounts: Unhandled action type: " + action.type);
-               return state;
-         }
-      };
-
-      CardReducer.cardUpgradeEnergy = function(state, action)
-      {
-         LOGGER.debug("cardUpgradeEnergy() type = " + action.type);
-
-         switch (action.type)
-         {
-            case CardAction.ADD_UPGRADE_ENERGY:
-            case CardAction.SET_UPGRADE_ENERGY:
-               var oldTokenIdToUpgradeEnergy = (state.get(action.cardInstance.id()) ? state.get(action.cardInstance.id()) : Immutable.Map());
-               return state.set(action.cardInstance.id(), CardReducer.upgradeEnergy(oldTokenIdToUpgradeEnergy, action));
-            default:
-               LOGGER.warn("CardReducer.cardUpgradeEnergy: Unhandled action type: " + action.type);
-               return state;
-         }
-      };
-
-      CardReducer.upgradeEnergy = function(state, action)
-      {
-         LOGGER.debug("upgradeEnergy() type = " + action.type);
-
-         switch (action.type)
-         {
-            case CardAction.ADD_UPGRADE_ENERGY:
-               var oldValue = (state.get(action.property) ? state.get(action.property) : 0);
-               return state.set(action.upgradeKey, Math.max(oldValue + action.key, 0));
-            case CardAction.SET_UPGRADE_ENERGY:
-               return state.set(action.upgradeKey, action.key);
-            default:
-               LOGGER.warn("CardReducer.upgradeEnergy: Unhandled action type: " + action.type);
                return state;
          }
       };

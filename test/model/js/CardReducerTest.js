@@ -592,34 +592,6 @@ define(["qunit", "redux",
          assert.equal(store.getState().cardCounts.get(token.id()).get(property), 12);
       });
 
-      QUnit.test("setUpgradeEnergy()", function(assert)
-      {
-         // Setup.
-         var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
-         var upgradeKey0 = UpgradeCard.ADRENALINE_RUSH;
-         var upgradeKey1 = UpgradeCard.CALCULATION;
-         assert.ok(!store.getState().cardUpgradeEnergy.get(token.id()));
-
-         // Run.
-         store.dispatch(CardAction.setUpgradeEnergy(token, upgradeKey0, 1));
-
-         // Verify.
-         var upgradeEnergy = store.getState().cardUpgradeEnergy.get(token.id());
-         assert.ok(upgradeEnergy);
-         assert.equal(upgradeEnergy.get(upgradeKey0), 1);
-         assert.ok(!upgradeEnergy.get(upgradeKey1), 0);
-
-         // Run.
-         store.dispatch(CardAction.setUpgradeEnergy(token, upgradeKey1, 2));
-
-         // Verify.
-         upgradeEnergy = store.getState().cardUpgradeEnergy.get(token.id());
-         assert.ok(upgradeEnergy);
-         assert.equal(upgradeEnergy.get(upgradeKey0), 1);
-         assert.equal(upgradeEnergy.get(upgradeKey1), 2);
-      });
-
       QUnit.test("setWeaponsDisabledCount()", function(assert)
       {
          // Setup.

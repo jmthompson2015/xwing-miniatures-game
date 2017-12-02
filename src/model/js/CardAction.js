@@ -8,7 +8,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
       CardAction.ADD_COUNT = "addCount";
       CardAction.ADD_DAMAGE = "addDamage";
       CardAction.ADD_UPGRADE = "addUpgrade";
-      CardAction.ADD_UPGRADE_ENERGY = "addUpgradeEnergy";
       CardAction.ADD_USED_ABILITY = "addUsedAbility";
       CardAction.ADD_USED_PER_ROUND_ABILITY = "addUsedPerRoundAbility";
       CardAction.CLEAR_USED_ABILITIES = "clearUsedAbilities";
@@ -21,7 +20,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
       CardAction.SET_CARD_INSTANCE = "setCardInstance";
       CardAction.SET_COUNT = "setCount";
       CardAction.SET_FACE_UP = "setFaceUp";
-      CardAction.SET_UPGRADE_ENERGY = "setUpgradeEnergy";
 
       CardAction.addCloakCount = function(cardInstance, value)
       {
@@ -107,21 +105,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
             type: CardAction.ADD_UPGRADE,
             cardInstance: cardInstance,
             upgradeInstance: upgradeInstance,
-         });
-      };
-
-      CardAction.addUpgradeEnergy = function(cardInstance, upgradeKey, value)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("upgradeKey", upgradeKey);
-         var myValue = (value !== undefined ? value : 1);
-
-         return (
-         {
-            type: CardAction.ADD_UPGRADE_ENERGY,
-            cardInstance: cardInstance,
-            upgradeKey: upgradeKey,
-            key: myValue,
          });
       };
 
@@ -335,21 +318,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
       CardAction.setTractorBeamCount = function(cardInstance, value)
       {
          return CardAction.setCount(cardInstance, Count.TRACTOR_BEAM, value);
-      };
-
-      CardAction.setUpgradeEnergy = function(cardInstance, upgradeKey, value)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateNotNull("upgradeKey", upgradeKey);
-         var myValue = (value !== undefined ? value : 0);
-
-         return (
-         {
-            type: CardAction.SET_UPGRADE_ENERGY,
-            cardInstance: cardInstance,
-            upgradeKey: upgradeKey,
-            key: myValue,
-         });
       };
 
       CardAction.setWeaponsDisabledCount = function(cardInstance, value)
