@@ -2,10 +2,11 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/ShipState", "artifact/js/UpgradeCard",
-  "view/js/EntityUI", "view/js/FactionUI", "view/js/LabeledImage", "view/js/ShipStateUI"],
+  "view/js/EntityUI", "view/js/FactionUI", "view/js/LabeledImage", "view/js/ShipStateUI",
+  "controller/js/TokenPanelContainer"],
    function(createReactClass, PropTypes, React, DOM,
       Count, DamageCard, ShipState, UpgradeCard,
-      EntityUI, FactionUI, LabeledImage, ShipStateUI)
+      EntityUI, FactionUI, LabeledImage, ShipStateUI, TokenPanelContainer)
    {
       var PilotCardCompactUI = createReactClass(
       {
@@ -71,7 +72,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                var cell33 = createCell(DOM.div(
                {
                   className: "pilotCardTokensTable bg-xw-medium center",
-               }, this.createTokensPanel(myTokenAft, attackerAftTargetLocks, defenderAftTargetLocks)), "tokensPanel1");
+               }, this.createTokensPanel(myTokenAft)), "tokensPanel1");
 
                rows.push(createRow([cell1, cell11], "statsRow"));
                rows.push(createRow([cell2, cell22], "upgradeRow"));
@@ -126,14 +127,11 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             });
          },
 
-         createTokensPanel: function(token, attackerTargetLocks, defenderTargetLocks)
+         createTokensPanel: function(token)
          {
-            return React.createElement(TokensPanel,
+            return React.createElement(TokenPanelContainer,
             {
-               attackerTargetLocks: attackerTargetLocks,
-               defenderTargetLocks: defenderTargetLocks,
-               resourceBase: this.props.resourceBase,
-               token: token,
+               cardInstance: token,
             });
          },
 
@@ -311,94 +309,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             var row = createRow(cells);
 
             return createTable(row, "statsTable", "pilotCardStatsTable bg-dark-gray center");
-         },
-      });
-
-      var TokensPanel = createReactClass(
-      {
-         propTypes:
-         {
-            attackerTargetLocks: PropTypes.array.isRequired,
-            defenderTargetLocks: PropTypes.array.isRequired,
-            resourceBase: PropTypes.string.isRequired,
-            token: PropTypes.object.isRequired,
-         },
-
-         render: function()
-         {
-            var myToken = this.props.token;
-            var attackerTargetLocks = this.props.attackerTargetLocks;
-            var defenderTargetLocks = this.props.defenderTargetLocks;
-
-            var cells = [];
-            var countKeys = Count.keys();
-
-            countKeys.forEach(function(countKey)
-            {
-               var countValue = myToken.count(countKey);
-               if (countValue !== undefined && countValue > 0)
-               {
-                  var count = Count.properties[countKey];
-                  var element = React.createElement(LabeledImage,
-                  {
-                     image: count.image,
-                     resourceBase: this.props.resourceBase,
-                     label: String(countValue),
-                     labelClass: "lightImageText b f5 white",
-                     title: count.name,
-                  });
-                  cells.push(createCell(element, count.key + countValue));
-               }
-            }, this);
-
-            attackerTargetLocks.forEach(function(targetLock)
-            {
-               var title = "Target Lock to " + targetLock.defender().name();
-               var element = React.createElement(LabeledImage,
-               {
-                  image: "token/AttackerTargetLock32.png",
-                  resourceBase: this.props.resourceBase,
-                  label: targetLock.id(),
-                  labelClass: "lightImageText b f5 white",
-                  title: title,
-                  width: 38,
-               });
-               var key = "attackerTargetLock" + targetLock.attacker() + targetLock.defender();
-               cells.push(createCell(element, key));
-            }, this);
-
-            defenderTargetLocks.forEach(function(targetLock)
-            {
-               var title = "Target Lock from " + targetLock.attacker().name();
-               var element = React.createElement(LabeledImage,
-               {
-                  image: "token/DefenderTargetLock32.png",
-                  resourceBase: this.props.resourceBase,
-                  label: targetLock.id(),
-                  labelClass: "lightImageText b f5 white",
-                  title: title,
-                  width: 38,
-               });
-               var key = "defenderTargetLock" + targetLock.attacker() + targetLock.defender();
-               cells.push(createCell(element, key));
-            }, this);
-
-            if (myToken.damageCount() > 0)
-            {
-               var element = React.createElement(LabeledImage,
-               {
-                  image: "pilotCard/Damage32.jpg",
-                  resourceBase: this.props.resourceBase,
-                  label: String(myToken.damageCount()),
-                  labelClass: "darkImageText b black f5",
-                  title: "Damage",
-               });
-               cells.push(createCell(element, "damageCell" + myToken.damageCount()));
-            }
-
-            var row = createRow(cells);
-
-            return createTable(row, "tokensTable", "pilotCardTokensTable bg-xw-medium center");
          },
       });
 

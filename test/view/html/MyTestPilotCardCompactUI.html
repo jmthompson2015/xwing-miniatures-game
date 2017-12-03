@@ -43,12 +43,12 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/Faction",
-				"artifact/js/UpgradeCard",
-				"model/js/Action", "model/js/Agent", "model/js/CardAction", "model/js/CardInstance", "model/js/DualCardInstance", "model/js/Environment",
-				"model/js/Position", "model/js/Reducer", "model/js/Squad", "model/js/TargetLock", "view/js/PilotCardCompactUI"
+		require(["react", "react-dom", "react-dom-factories", "react-redux", "redux", "common/js/Logger", "artifact/js/DamageCard", "artifact/js/PilotCard",
+				"artifact/js/Faction", "artifact/js/UpgradeCard", "model/js/Action", "model/js/Agent", "model/js/CardAction", "model/js/CardInstance",
+				"model/js/DualCardInstance", "model/js/Environment", "model/js/Position", "model/js/Reducer", "model/js/Squad", "model/js/TargetLock",
+				"view/js/PilotCardCompactUI"
 			],
-			function(React, ReactDOM, DOM, Redux, Logger, DamageCard, PilotCard, Faction, UpgradeCard,
+			function(React, ReactDOM, DOM, ReactRedux, Redux, Logger, DamageCard, PilotCard, Faction, UpgradeCard,
 				Action, Agent, CardAction, CardInstance, DualCardInstance, Environment, Position, Reducer, Squad, TargetLock, PilotCardCompactUI)
 			{
 				window.LOGGER = new Logger();
@@ -87,6 +87,7 @@
 				var positions2 = [new Position(50, 50, 0), new Position(201, 200, 0), new Position(100, 100, 0), new Position(150, 150, 0)];
 
 				var store = Redux.createStore(Reducer.root);
+				store.dispatch(Action.setResourceBase(resourceBase));
 				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
 				imperialAgent = environment.firstAgent();
 				rebelAgent = environment.secondAgent();
@@ -134,11 +135,14 @@
 
 				tokens.forEach(function(token, i)
 				{
-					var element = React.createElement(PilotCardCompactUI,
+					var element = React.createElement(ReactRedux.Provider,
+					{
+						store: store,
+					}, React.createElement(PilotCardCompactUI,
 					{
 						resourceBase: resourceBase,
 						token: token,
-					});
+					}));
 					ReactDOM.render(element, document.getElementById("panel" + i));
 				});
 			});
