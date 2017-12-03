@@ -1,7 +1,7 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/Reducer",  "model/js/Squad", "model/js/SquadBuilder", "model/js/CardInstance"],
+  "model/js/Agent", "model/js/Reducer", "model/js/Squad", "model/js/SquadBuilder", "model/js/CardInstance"],
    function(QUnit, Redux, Faction, PilotCard, UpgradeCard,
       Agent, Reducer, Squad, SquadBuilder, CardInstance)
    {
@@ -15,7 +15,7 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var year = 2014;
          var description = "Lambda Shuttle/TIE Interceptor/Phantom";
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Agent1", Faction.IMPERIAL);
+         var agent = new Agent(store, "Agent1");
          var token0 = new CardInstance(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]);
          var token1 = new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]);
          var token2 = new CardInstance(store, PilotCard.CAPTAIN_YORR, agent);
@@ -152,7 +152,7 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          var year = 2014;
          var description = "Lambda Shuttle/TIE Interceptor/Phantom";
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Agent1", Faction.IMPERIAL);
+         var agent = new Agent(store, "Agent1");
          var token0 = new CardInstance(store, PilotCard.WHISPER, agent, [UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.FIRE_CONTROL_SYSTEM, UpgradeCard.GUNNER, UpgradeCard.ADVANCED_CLOAKING_DEVICE]);
          var token1 = new CardInstance(store, PilotCard.SOONTIR_FEL, agent, [UpgradeCard.PUSH_THE_LIMIT]);
          var token2 = new CardInstance(store, PilotCard.CAPTAIN_YORR, agent);
@@ -164,7 +164,7 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
       function createSquad1()
       {
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Agent1", Faction.IMPERIAL);
+         var agent = new Agent(store, "Agent1");
 
          return SquadBuilder.HugeShipRebelSquadBuilder.buildSquad(agent);
       }

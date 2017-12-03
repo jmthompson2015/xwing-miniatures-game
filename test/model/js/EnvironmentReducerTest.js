@@ -98,7 +98,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var position = new Position(100, 200, 45);
-         var agent = new Agent(store, "Charlie", Faction.REBEL);
+         var agent = new Agent(store, "Charlie");
          assert.equal(Object.keys(store.getState().positionToCardId).length, 0);
          assert.equal(Object.keys(store.getState().cardPosition).length, 0);
          assert.equal(store.getState().cardInstances.keySeq().size, 0);
@@ -182,8 +182,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
-         var token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, new Agent(store, "Rebel", Faction.REBEL));
+         var token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+         var token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, new Agent(store, "Rebel"));
          assert.ok(!store.getState().activeCardId);
 
          // Run.
@@ -218,7 +218,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Bob", Faction.IMPERIAL);
+         var agent = new Agent(store, "Bob");
          assert.ok(!store.getState().firstAgent);
 
          // Run.
@@ -232,7 +232,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Bob", Faction.IMPERIAL);
+         var agent = new Agent(store, "Bob");
          var squad = SquadBuilder.CoreSetImperialSquadBuilder.buildSquad(agent);
          assert.ok(!store.getState().firstSquad);
 
@@ -279,7 +279,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Mike", Faction.REBEL);
+         var agent = new Agent(store, "Mike");
          assert.ok(!store.getState().secondAgent);
 
          // Run.
@@ -293,7 +293,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Mike", Faction.REBEL);
+         var agent = new Agent(store, "Mike");
          var squad = SquadBuilder.CoreSetRebelSquadBuilder.buildSquad(agent);
          assert.ok(!store.getState().secondSquad);
 
@@ -308,7 +308,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          assert.ok(!store.getState().cardIsTouching[token.id()]);
 
          // Run.

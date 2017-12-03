@@ -11,7 +11,7 @@ define(["immutable", "qunit", "redux", "artifact/js/Faction", "artifact/js/Pilot
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "agent1", Faction.REBEL);
+         var agent = new Agent(store, "agent1");
          assert.equal(store.getState().agentPilots.size, 0);
 
          // Run.
@@ -46,7 +46,7 @@ define(["immutable", "qunit", "redux", "artifact/js/Faction", "artifact/js/Pilot
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "agent1", Faction.REBEL);
+         var agent = new Agent(store, "agent1");
          var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
          assert.equal(store.getState().agentPilots.size, 1);
          assert.equal(store.getState().agentPilots.get(agent.id()).size, 1);

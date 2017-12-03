@@ -1221,7 +1221,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          store.dispatch(CardAction.clearUsedAbilities(this));
          store.dispatch(CardAction.clearUsedPerRoundAbilities(this));
 
-         if (this.card().cardTypeKey === CardType.PILOT)
+         if (this.card().cardTypeKey === CardType.PILOT && !this.card().key.endsWith(".fore") && !this.card().key.endsWith(".aft"))
          {
             store.dispatch(AgentAction.addPilot(agent, this));
          }

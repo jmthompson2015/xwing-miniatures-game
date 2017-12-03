@@ -19,7 +19,7 @@ define(["immutable", "model/js/Agent", "model/js/AgentSquadAction", "model/js/Ag
          switch (action.type)
          {
             case AgentSquadAction.SET_AGENT_NAME:
-               newAgent = new Agent(state.delegateStore, action.agentName, state.faction.key, undefined, state.agentType);
+               newAgent = new Agent(state.delegateStore, action.agentName, undefined, state.agentType);
                return Object.assign(
                {}, state,
                {
@@ -27,7 +27,7 @@ define(["immutable", "model/js/Agent", "model/js/AgentSquadAction", "model/js/Ag
                   agentName: action.agentName,
                });
             case AgentSquadAction.SET_AGENT_TYPE:
-               newAgent = new Agent(state.delegateStore, state.agentName, state.faction.key, undefined, action.agentType);
+               newAgent = new Agent(state.delegateStore, state.agentName, undefined, action.agentType);
                return Object.assign(
                {}, state,
                {
@@ -35,7 +35,7 @@ define(["immutable", "model/js/Agent", "model/js/AgentSquadAction", "model/js/Ag
                   agentType: action.agentType,
                });
             case AgentSquadAction.SET_FACTION:
-               newAgent = new Agent(state.delegateStore, state.agentName, action.faction.key, undefined, state.agentType);
+               newAgent = new Agent(state.delegateStore, state.agentName, undefined, state.agentType);
                return Object.assign(
                {}, state,
                {

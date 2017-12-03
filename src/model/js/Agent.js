@@ -1,15 +1,14 @@
 "use strict";
 
 define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader",
-  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/DamageAbility2", "model/js/ManeuverComputer", "model/js/MediumAgentStrategy", "model/js/ModifyDiceAbility", "model/js/PilotAbility3", "model/js/Selector", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/TargetLock", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3"],
+  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/DamageAbility2", "model/js/ManeuverComputer", "model/js/MediumAgentStrategy", "model/js/ModifyDiceAbility", "model/js/PilotAbility3", "model/js/Selector", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/TargetLock", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3"],
    function(Immutable, InputValidator, DamageCard, DiceModification, Maneuver, Phase, PilotCard, PlayFormat, Range, ShipAction, UpgradeCard, UpgradeHeader,
-      Ability, Action, AgentAction, DamageAbility2, ManeuverComputer, MediumAgentStrategy, ModifyDiceAbility, PilotAbility3, Selector, ShipActionAbility, SimpleAgentStrategy, TargetLock, UpgradeAbility2, UpgradeAbility3)
+      Ability, Action, AgentAction, CardInstance, CardInstanceFactory, DamageAbility2, ManeuverComputer, MediumAgentStrategy, ModifyDiceAbility, PilotAbility3, Selector, ShipActionAbility, SimpleAgentStrategy, TargetLock, UpgradeAbility2, UpgradeAbility3)
    {
-      function Agent(store, name, factionKey, idIn, strategyIn, isNewIn)
+      function Agent(store, name, idIn, strategyIn, isNewIn)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateIsString("name", name);
-         InputValidator.validateIsString("factionKey", factionKey);
          // idIn optional. default: determined from store
          // strategyIn optional. default: SimpleAgentStrategy
          // isNewIn optional. default: true
@@ -22,11 +21,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          this.name = function()
          {
             return name;
-         };
-
-         this.factionKey = function()
-         {
-            return factionKey;
          };
 
          var id = idIn;
@@ -413,7 +407,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
 
       Agent.prototype.toString = function()
       {
-         return this.name() + ", " + this._strategy().name + ", " + this.factionKey();
+         return this.name() + ", " + this._strategy().name;
       };
 
       //////////////////////////////////////////////////////////////////////////
@@ -460,8 +454,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          InputValidator.validateNotNull("defenseDice", defenseDice);
          InputValidator.validateNotNull("damageDealer", damageDealer);
          InputValidator.validateIsFunction("callback", callback);
-
-         LOGGER.info("Agent.dealDamage()");
 
          var store = this.store();
          var weapon = Selector.combatAction(store.getState(), attacker).weapon();
@@ -510,8 +502,8 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateIsFunction("callback", callback);
 
-         var faction = this.factionKey();
-         var tokens = environment.getTokensForFaction(faction);
+         var isPure = false;
+         var tokens = this.pilotInstances(isPure);
          var tokenToValidManeuvers = {};
 
          tokens.forEach(function(token)
@@ -534,6 +526,33 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          this._strategy().chooseShipAction(this, token, shipActionKeys, callback);
       };
 
+      Agent.prototype.pilotInstances = function(isPureIn)
+      {
+         var store = this.store();
+         var isPure = (isPureIn !== undefined ? isPureIn : false);
+         var ids = store.getState().agentPilots.get(this.id());
+         var answer = Agent.idsToCardInstances(store, ids).toJS();
+
+         if (isPure)
+         {
+            answer = answer.reduce(function(accumulator, cardInstance)
+            {
+               if (cardInstance.tokenFore !== undefined && cardInstance.tokenAft !== undefined)
+               {
+                  accumulator.push(cardInstance.tokenFore());
+                  accumulator.push(cardInstance.tokenAft());
+               }
+               else
+               {
+                  accumulator.push(cardInstance);
+               }
+               return accumulator;
+            }, []);
+         }
+
+         return answer;
+      };
+
       //////////////////////////////////////////////////////////////////////////
       // Mutator methods.
 
@@ -546,7 +565,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
             id: id,
             name: this.name(),
             strategy: this._strategy(),
-            factionKey: this.factionKey(),
          });
 
          store.dispatch(Action.addAgent(id, values));
@@ -559,7 +577,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
       {
          InputValidator.validateNotNull("store", store);
 
-         return new Agent(store, this.name(), this.factionKey(), undefined, this._strategy());
+         return new Agent(store, this.name(), undefined, this._strategy());
       };
 
       Agent.get = function(store, id)
@@ -573,11 +591,34 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          if (values !== undefined)
          {
             var name = values.get("name");
-            var factionKey = values.get("factionKey");
             var strategy = values.get("strategy");
             var isNew = false;
 
-            answer = new Agent(store, name, factionKey, id, strategy, isNew);
+            answer = new Agent(store, name, id, strategy, isNew);
+         }
+
+         return answer;
+      };
+
+      Agent.idsToCardInstances = function(store, ids)
+      {
+         InputValidator.validateNotNull("store", store);
+         // ids optional.
+
+         var answer;
+
+         if (ids !== undefined)
+         {
+            answer = ids.map(function(id)
+            {
+               var cardInstance = CardInstanceFactory.get(store, id);
+               InputValidator.validateNotNull("cardInstance", cardInstance);
+               return cardInstance;
+            });
+         }
+         else
+         {
+            answer = Immutable.List();
          }
 
          return answer;

@@ -18,7 +18,7 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-dom-factories", "common/js/Logger",  "model/js/SquadBuilder", "artifact/js/Faction",
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "model/js/SquadBuilder", "artifact/js/Faction",
 				"view/js/SquadChooser"
 			],
 			function(React, ReactDOM, DOM, Logger, SquadBuilder, Faction, SquadChooser)
@@ -29,7 +29,7 @@
 
 				var resourceBase = "../../../src/view/resource/";
 				var faction = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM].xwingRandomElement();
-				var agent = new Agent(store, "Placeholder", faction);
+				var agent = new Agent(store, "Placeholder");
 				var squadBuilders = SquadBuilder.findByFaction(faction);
 
 				var element = React.createElement(SquadChooser,

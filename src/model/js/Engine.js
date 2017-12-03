@@ -343,7 +343,6 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/Maneuver
 
          var token = this.activationQueue().shift();
          environment.setActiveToken(token);
-         var factionKey = token.card().shipFaction.factionKey;
          var myToken = token;
 
          if (token.parent && token.card().key.endsWith("fore"))
@@ -351,14 +350,9 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/Maneuver
             myToken = token.parent;
          }
 
-         var maneuverKey;
-         var firstFaction = environment.firstAgent().factionKey();
+         var maneuverKey = this.firstTokenToManeuver()[myToken];
 
-         if (Faction.isFriendly(factionKey, firstFaction))
-         {
-            maneuverKey = this.firstTokenToManeuver()[myToken];
-         }
-         else
+         if (maneuverKey === undefined)
          {
             maneuverKey = this.secondTokenToManeuver()[myToken];
          }

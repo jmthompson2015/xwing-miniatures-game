@@ -24,7 +24,7 @@
 		"use strict";
 
 		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger",
-				"artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction", "model/js/Reducer",  "model/js/CardInstance",
+				"artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction", "model/js/Reducer", "model/js/CardInstance",
 				"view/js/ManeuverChooser"
 			],
 			function(React, ReactDOM, DOM, Redux, Logger, Maneuver, PilotCard, Faction, Reducer, CardInstance, ManeuverChooser)
@@ -36,7 +36,7 @@
 				var resourceBase = "../../../src/view/resource/";
 				var store = Redux.createStore(Reducer.root);
 
-				var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
+				var imperialAgent = new Agent(store, "Imperial Agent");
 				var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
 				var maneuverKeys = token.maneuverKeys();
 				var maneuvers = maneuverKeys.map(function(maneuverKey)
@@ -54,7 +54,7 @@
 				});
 				ReactDOM.render(element, document.getElementById("inputArea0"));
 
-				var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
+				var rebelAgent = new Agent(store, "Rebel Agent");
 				token = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
 				var maneuverKeys = token.maneuverKeys();
 				var maneuvers = maneuverKeys.map(function(maneuverKey)

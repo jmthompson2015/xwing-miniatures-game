@@ -15,7 +15,7 @@ define(["qunit", "redux",
          var inputAreaId = "firstPilotCardInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var rebelAgent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
          assert.equal(token.id(), 1);
          assert.equal(token.card().key, PilotCard.CR90_CORVETTE);
@@ -45,7 +45,7 @@ define(["qunit", "redux",
          var inputAreaId = "firstPilotCardInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var rebelAgent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
          var tokenFore = token.tokenFore();
          var i;
@@ -71,7 +71,7 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "name", Faction.REBEL);
+         var agent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, agent);
 
          // Run / Verify.
@@ -97,7 +97,7 @@ define(["qunit", "redux",
          var inputAreaId = "firstPilotCardInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var rebelAgent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
 
          // Run.
@@ -115,7 +115,7 @@ define(["qunit", "redux",
          var inputAreaId = "firstPilotCardInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var rebelAgent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
          var tokenAft = token.tokenAft();
          for (var i = 0; i < tokenAft.hullValue(); i++)
@@ -139,7 +139,7 @@ define(["qunit", "redux",
          var inputAreaId = "firstPilotCardInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var rebelAgent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
 
          // Run.
@@ -157,7 +157,7 @@ define(["qunit", "redux",
          var inputAreaId = "firstPilotCardInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var rebelAgent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
          var tokenFore = token.tokenFore();
          for (var i = 0; i < tokenFore.hullValue(); i++)
@@ -181,7 +181,7 @@ define(["qunit", "redux",
          var inputAreaId = "firstPilotCardInputArea";
          var iconBase = "../resources/icons/";
          var imageBase = "../resources/images/";
-         var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var rebelAgent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
 
          // Run.

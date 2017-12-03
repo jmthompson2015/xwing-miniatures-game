@@ -233,7 +233,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       {
          return this.getTokensAtRange(token0, range).filter(function(token)
          {
-            return Faction.isFriendly(token.agent().factionKey(), token0.agent().factionKey());
+            return Faction.isFriendly(token.card().shipFaction.factionKey, token0.card().shipFaction.factionKey);
          });
       };
 
@@ -512,7 +512,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
       {
          return this.getTokensAtRange(token0, range).filter(function(token)
          {
-            return !Faction.isFriendly(token.agent().factionKey(), token0.agent().factionKey());
+            return !Faction.isFriendly(token.card().shipFaction.factionKey, token0.card().shipFaction.factionKey);
          });
       };
 

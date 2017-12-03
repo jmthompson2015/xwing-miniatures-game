@@ -19,7 +19,7 @@
 		"use strict";
 
 		require(["react", "react-dom", "react-dom-factories", "react-redux", "redux", "common/js/Logger", "artifact/js/Faction",
-				"model/js/AgentSquadAction", "model/js/AgentSquadReducer",  "model/js/Reducer",  "model/js/SquadBuilder",
+				"model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/Reducer", "model/js/SquadBuilder",
 				"view/js/AgentSquadUI", "controller/js/SquadBuilderContainer"
 			],
 			function(React, ReactDOM, DOM, ReactRedux, Redux, Logger, Faction,
@@ -34,7 +34,7 @@
 				var delegateStore = Redux.createStore(Reducer.root);
 				store.dispatch(AgentSquadAction.setDelegateStore(delegateStore));
 				var faction = Faction.properties[Faction.IMPERIAL];
-				var agent = new Agent(store, "Placeholder", faction.key);
+				var agent = new Agent(store, "Placeholder");
 				var factionToSquadBuilders = {};
 				[Faction.IMPERIAL, Faction.REBEL, Faction.SCUM].forEach(function(factionKey)
 				{

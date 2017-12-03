@@ -21,7 +21,7 @@
 		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger", "artifact/js/PilotCard", "model/js/Position", "artifact/js/Range",
 				"artifact/js/Faction",
 				"artifact/js/UpgradeCard", "model/js/Environment", "model/js/Reducer",
-				 "model/js/Squad",
+				"model/js/Squad",
 				"model/js/SquadBuilder", "model/js/CardInstance", "view/js/TokenChooser"
 			],
 			function(React, ReactDOM, DOM, Redux, Logger, PilotCard, Position, Range, Faction, UpgradeCard, Environment, Reducer, Squad, SquadBuilder,
@@ -32,10 +32,11 @@
 				LOGGER.setTraceEnabled(false);
 				LOGGER.setDebugEnabled(false);
 
-				var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
-				var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
+				var imperialAgent = new Agent(store, "Imperial Agent");
+				var rebelAgent = new Agent(store, "Rebel Agent");
 				var store = Redux.createStore(Reducer.root);
-				var attacker = new CardInstance(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard
+				var attacker = new CardInstance(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON,
+					UpgradeCard
 					.CLUSTER_MISSILES,
 					UpgradeCard.ENGINE_UPGRADE
 				]);

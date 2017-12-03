@@ -1,8 +1,8 @@
 "use strict";
 
 define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/PilotCard",
-  "model/js/CardAction", "model/js/CardInstance", "model/js/TargetLock"],
-   function(Immutable, InputValidator, CardResolver, CardType, PilotCard, CardAction, CardInstance, TargetLock)
+  "model/js/AgentAction", "model/js/CardAction", "model/js/CardInstance", "model/js/TargetLock"],
+   function(Immutable, InputValidator, CardResolver, CardType, PilotCard, AgentAction, CardAction, CardInstance, TargetLock)
    {
       function DualCardInstance(store, cardOrKey, agent, upgradeKeysForeIn, upgradeKeysAftIn, idIn, isNewIn, idFore, idAft)
       {
@@ -300,6 +300,11 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
          var agent = this.agent();
 
          store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, tokenFore.id(), tokenAft.id()));
+
+         if (this.card().cardTypeKey === CardType.PILOT)
+         {
+            store.dispatch(AgentAction.addPilot(agent, this));
+         }
       };
 
       //////////////////////////////////////////////////////////////////////////

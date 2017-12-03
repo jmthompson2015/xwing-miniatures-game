@@ -14,11 +14,10 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var result = new Agent(store, "myAgent", "myFaction", undefined, MediumAgentStrategy);
+         var result = new Agent(store, "myAgent", undefined, MediumAgentStrategy);
 
          // Run / Verify.
          assert.equal(result.name(), "myAgent");
-         assert.equal(result.factionKey(), "myFaction");
       });
 
       QUnit.test("chooseAbility()", function(assert)
@@ -27,7 +26,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
          var name = "myAgent";
-         var agent = new Agent(store, name, Faction.IMPERIAL);
+         var agent = new Agent(store, name);
          var tokens = environment.pilotInstances();
          var token2 = tokens[2];
          LOGGER.debug("token2 = " + token2);
@@ -63,7 +62,7 @@ define(["qunit", "redux",
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
          var name = "myAgent";
-         var agent = new Agent(store, name, Faction.IMPERIAL);
+         var agent = new Agent(store, name);
 
          var oldPosition0 = new Position(305, 20, 90);
          var token0 = environment.getTokenAt(oldPosition0);
@@ -193,8 +192,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent");
+         var rebelAgent = new Agent(store00, "Rebel Agent");
          var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2])]);
          var positions1 = [new Position(305, 20, 90)];
@@ -281,8 +280,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent");
+         var rebelAgent = new Agent(store00, "Rebel Agent");
          var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]), new CardInstance(store00, PilotCard.DARK_CURSE, imperialAgent)]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2]), new CardInstance(store00, PilotCard.MIRANDA_DONI, rebelAgent)]);
          var positions1 = [new Position(305, 20, 90), new Position(610, 20, 90)];
@@ -329,7 +328,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
-         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent");
          var token = new CardInstance(store, PilotCard.SIGMA_SQUADRON_PILOT, agent);
          store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 0), token));
          store.dispatch(CardAction.addCloakCount(token));
@@ -519,7 +518,7 @@ define(["qunit", "redux",
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
          var name = "myAgent";
-         var agent = new Agent(store, name, Faction.IMPERIAL);
+         var agent = new Agent(store, name);
          var tokens = environment.pilotInstances();
          var token2 = tokens[2];
          LOGGER.debug("token2 = " + token2);
@@ -576,13 +575,13 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "myAgent", Faction.IMPERIAL, undefined, MediumAgentStrategy);
+         var agent = new Agent(store, "myAgent", undefined, MediumAgentStrategy);
 
          // Run.
          var result = agent.toString();
 
          // Verify.
          assert.ok(result);
-         assert.equal(result, "myAgent, MediumAgent, imperial");
+         assert.equal(result, "myAgent, MediumAgent");
       });
    });

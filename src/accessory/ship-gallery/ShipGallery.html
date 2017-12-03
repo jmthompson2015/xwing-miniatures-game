@@ -47,7 +47,7 @@
             var factionKey = this.props.factionKey;
             var isStrict = true;
             var shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
-            var agent = new Agent(store, "Agent", factionKey);
+            var agent = new Agent(store, "Agent");
 
             var cells = [];
             var excludes = [ShipFaction.IMPERIAL_TIE_BOMBER_V2,

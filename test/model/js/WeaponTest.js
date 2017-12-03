@@ -109,8 +109,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent");
+         var rebelAgent = new Agent(store00, "Rebel Agent");
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
          var positions1 = [new Position(450, 845, 90)];

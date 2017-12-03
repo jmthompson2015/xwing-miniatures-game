@@ -40,8 +40,8 @@ define(["qunit", "redux",
          var squadBuilder1 = SquadBuilder.HugeShipImperialSquadBuilder;
          var squadBuilder2 = SquadBuilder.HugeShipRebelSquadBuilder;
          var store = Redux.createStore(Reducer.root);
-         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
-         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
+         var agent1 = new Agent(store, "1");
+         var agent2 = new Agent(store, "2");
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
@@ -148,8 +148,8 @@ define(["qunit", "redux",
          var squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #4", 2015);
          var squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
          var store = Redux.createStore(Reducer.root);
-         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
-         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
+         var agent1 = new Agent(store, "1");
+         var agent2 = new Agent(store, "2");
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
@@ -457,8 +457,8 @@ define(["qunit", "redux",
       function createActivationAction(upgradeKey, maneuverKey, callback0)
       {
          var store00 = Redux.createStore(Reducer.root);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var rebelAgent = new Agent(store00, "Rebel Agent");
+         var imperialAgent = new Agent(store00, "Imperial Agent");
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
          var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey])]);
          var positions1 = [new Position(400, 500, 90)];

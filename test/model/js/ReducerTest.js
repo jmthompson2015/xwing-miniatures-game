@@ -2,7 +2,7 @@
 
 define(["immutable", "qunit", "redux",
   "artifact/js/Faction", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range",
-  "model/js/Action", "model/js/Agent", "model/js/AttackDice", "model/js/DefenseDice", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer",  "model/js/TargetLock", "model/js/CardInstance"],
+  "model/js/Action", "model/js/Agent", "model/js/AttackDice", "model/js/DefenseDice", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/TargetLock", "model/js/CardInstance"],
    function(Immutable, QUnit, Redux,
       Faction, Event, Maneuver, Phase, PilotCard, Range,
       Action, Agent, AttackDice, DefenseDice, EnvironmentAction, Position, Reducer, TargetLock, CardInstance)
@@ -13,9 +13,9 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent0 = new Agent(store, "Alpha", Faction.REBEL);
+         var agent0 = new Agent(store, "Alpha");
          var attacker = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent0);
-         var agent1 = new Agent(store, "Bravo", Faction.IMPERIAL);
+         var agent1 = new Agent(store, "Bravo");
          var defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent1);
          assert.equal(store.getState().targetLocks.size, 0);
          var targetLock = Immutable.Map(
@@ -39,7 +39,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Rebel", Faction.REBEL);
+         var agent = new Agent(store, "Rebel");
          var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
          store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
          var token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
@@ -79,7 +79,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Rebel", Faction.REBEL);
+         var agent = new Agent(store, "Rebel");
          var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
          store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
          var token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
@@ -119,7 +119,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Rebel", Faction.REBEL);
+         var agent = new Agent(store, "Rebel");
          var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
          store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
          assert.equal(store.getState().eventQueue.size, 0);
@@ -155,7 +155,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Rebel", Faction.REBEL);
+         var agent = new Agent(store, "Rebel");
          var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
          store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
          assert.equal(store.getState().phaseQueue.size, 0);
@@ -223,9 +223,9 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent0 = new Agent(store, "Alpha", Faction.REBEL);
+         var agent0 = new Agent(store, "Alpha");
          var attacker = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent0);
-         var agent1 = new Agent(store, "Bravo", Faction.IMPERIAL);
+         var agent1 = new Agent(store, "Bravo");
          var defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent1);
          var targetLock = TargetLock.newInstance(store, attacker, defender);
          //  store.dispatch(Action.addTargetLock(targetLock));
@@ -246,7 +246,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var activationAction = {};
          assert.ok(!store.getState().cardActivationAction[token.id()]);
 
@@ -262,7 +262,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          assert.ok(store.getState().cardAttackDice[token.id()] === undefined);
          var attackDice = new AttackDice(store, token.id(), 3);
 
@@ -278,7 +278,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var combatAction = {};
          assert.ok(!store.getState().cardCombatAction[token.id()]);
 
@@ -294,7 +294,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var damageDealer = {};
          assert.ok(!store.getState().cardDamageDealer[token.id()]);
 
@@ -310,7 +310,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          assert.ok(!store.getState().cardIsDefenderHit[token.id()]);
 
          // Run.
@@ -330,7 +330,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          assert.ok(store.getState().cardDefenseDice[token.id()] === undefined);
          var defenseDice = new DefenseDice(store, token.id(), 3);
 
@@ -346,7 +346,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          assert.ok(!store.getState().cardIsInFiringArc[token.id()]);
 
          // Run.
@@ -366,7 +366,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var maneuverKey0 = Maneuver.STRAIGHT_1_STANDARD;
          var maneuverKey1 = Maneuver.BANK_RIGHT_2_STANDARD;
          assert.ok(!store.getState().cardManeuver[token.id()]);
@@ -392,7 +392,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var maneuverAction = {};
          assert.ok(!store.getState().cardManeuverAction[token.id()]);
 
@@ -408,7 +408,7 @@ define(["immutable", "qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial", Faction.IMPERIAL));
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var rangeKey = Range.TWO;
          assert.ok(!store.getState().cardRange[token.id()]);
 

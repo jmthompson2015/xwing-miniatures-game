@@ -75,7 +75,7 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
                var mockEnvironment = mockStore.getState().environment;
                var mockAttacker = mockEnvironment.getTokenById(1);
                var mockAttackDice = AttackDice.get(mockStore, mockAttacker.id());
-               var mod = new Ability(modification.source(), modification.sourceKey(), modification.type(), modification.abilityKey());
+               var mod = new Ability(modification.source(), modification.sourceKey(), modification.abilityType(), modification.abilityKey());
                var consequent = mod.consequent();
                var callback = function() {};
                consequent(mockStore, mockAttacker, callback);
@@ -161,7 +161,7 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
       MediumAgentStrategy.choosePlanningActions = function(agent, tokens, tokenToValidManeuvers, callback)
       {
          InputValidator.validateNotNull("agent", agent);
-         InputValidator.validateNotNull("tokens", tokens);
+         InputValidator.validateIsArray("tokens", tokens);
          InputValidator.validateNotNull("tokenToValidManeuvers", tokenToValidManeuvers);
          InputValidator.validateIsFunction("callback", callback);
 
@@ -403,8 +403,10 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
          var environment = store.getState().environment;
          var newStore = Redux.createStore(Reducer.root);
 
-         var squad1 = new Squad(environment.firstAgent().factionKey(), "First Squad", 2017, "description", [attacker]);
-         var squad2 = new Squad(environment.secondAgent().factionKey(), "Second Squad", 2017, "description", [defender]);
+         var factionKey1 = attacker.card().shipFaction.factionKey;
+         var factionKey2 = defender.card().shipFaction.factionKey;
+         var squad1 = new Squad(factionKey1, "First Squad", 2017, "description", [attacker]);
+         var squad2 = new Squad(factionKey2, "Second Squad", 2017, "description", [defender]);
          var newEnvironment = new Environment(newStore, environment.firstAgent(), squad1, environment.secondAgent(), squad2, [attackerPosition], [defenderPosition]);
          newStore.dispatch(Action.setEnvironment(newEnvironment));
          var tokens = newEnvironment.pilotInstances();

@@ -89,11 +89,8 @@
 				{
 					LOGGER.info("compete() " + squadBuilder1 + " vs " + squadBuilder2);
 					var store = Redux.createStore(DelegateReducer.root);
-					var factionKey1 = squadBuilder1.factionKey();
-					var agent1 = new Agent(store, "Agent1", factionKey1, undefined, MediumAgentStrategy);
-
-					var factionKey2 = squadBuilder2.factionKey();
-					var agent2 = new Agent(store, "Agent2", factionKey2, undefined, MediumAgentStrategy);
+					var agent1 = new Agent(store, "Agent1", undefined, MediumAgentStrategy);
+					var agent2 = new Agent(store, "Agent2", undefined, MediumAgentStrategy);
 
 					startNewGame(agent1, squadBuilder1, agent2, squadBuilder2);
 					LOGGER.info("compete() end");

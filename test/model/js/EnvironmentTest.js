@@ -63,8 +63,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var imperialAgent = new Agent(store00, "Imperial Agent");
+         var rebelAgent = new Agent(store00, "Rebel Agent");
          var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [
                  new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
                  new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent),
@@ -318,9 +318,9 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var agent1 = new Agent(store, "1", Faction.REBEL);
+         var agent1 = new Agent(store, "1");
          var squad1 = SquadBuilder.findByNameAndYear("Worlds #2", 2016).buildSquad(agent1);
-         var agent2 = new Agent(store, "2", Faction.REBEL);
+         var agent2 = new Agent(store, "2");
          var squad2 = SquadBuilder.findByNameAndYear("Worlds #4", 2016).buildSquad(agent1);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          var attacker = environment.pilotInstances()[0]; // X-Wing.
@@ -845,8 +845,8 @@ define(["qunit", "redux",
       {
          // Setup.
          var store = Redux.createStore(Reducer.root);
-         var foAgent = new Agent(store, "First Order Agent", Faction.FIRST_ORDER);
-         var resistanceAgent = new Agent(store, "Resistance Agent", Faction.RESISTANCE);
+         var foAgent = new Agent(store, "First Order Agent");
+         var resistanceAgent = new Agent(store, "Resistance Agent");
          var squad1 = SquadBuilder.findByNameAndYear("Worlds #3", 2016).buildSquad(foAgent);
          var squad2 = SquadBuilder.CoreSetResistanceSquadBuilder.buildSquad(resistanceAgent);
          var environment = new Environment(store, foAgent, squad1, resistanceAgent, squad2);

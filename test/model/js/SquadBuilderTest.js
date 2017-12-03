@@ -1,7 +1,7 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Ship",
-  "model/js/Agent",  "model/js/SquadBuilder", "model/js/Reducer"],
+  "model/js/Agent", "model/js/SquadBuilder", "model/js/Reducer"],
    function(QUnit, Redux, Faction, PilotCard, Ship,
       Agent, SquadBuilder, Reducer)
    {
@@ -12,7 +12,7 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var squadBuilder = SquadBuilder.CoreSetFirstOrderSquadBuilder;
-         var agent = new Agent(store, "FirstOrder Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "FirstOrder Agent");
 
          // Run.
          var result = squadBuilder.buildSquad(agent);
@@ -57,7 +57,7 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var squadBuilder = SquadBuilder.CoreSetImperialSquadBuilder;
-         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent");
 
          // Run.
          var result = squadBuilder.buildSquad(agent);
@@ -102,10 +102,7 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var squadBuilder = SquadBuilder.CoreSetRebelSquadBuilder;
-         var inputAreaId = "firstPilotInputArea";
-         var iconBase = "../resources/icons/";
-         var imageBase = "../resources/images/";
-         var agent = new Agent(store, "Rebel Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var agent = new Agent(store, "Rebel Agent");
 
          // Run.
          var result = squadBuilder.buildSquad(agent);
@@ -145,10 +142,7 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var squadBuilder = SquadBuilder.CoreSetResistanceSquadBuilder;
-         var inputAreaId = "firstPilotInputArea";
-         var iconBase = "../resources/icons/";
-         var imageBase = "../resources/images/";
-         var agent = new Agent(store, "Resistance Agent", Faction.REBEL, inputAreaId, iconBase, imageBase);
+         var agent = new Agent(store, "Resistance Agent");
 
          // Run.
          var result = squadBuilder.buildSquad(agent);

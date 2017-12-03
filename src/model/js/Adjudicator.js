@@ -168,12 +168,12 @@ define(["redux", "common/js/InputValidator",
          // Compare squad point costs.
          var store = Redux.createStore(Reducer.root);
          var factionKey1 = squadBuilder1.factionKey();
-         var agent1 = new Agent(store, "Agent1", factionKey1);
+         var agent1 = new Agent(store, "Agent1");
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squadPointCost1 = squad1.squadPointCost();
 
          var factionKey2 = squadBuilder2.factionKey();
-         var agent2 = new Agent(store, "Agent2", factionKey2);
+         var agent2 = new Agent(store, "Agent2");
          var squad2 = squadBuilder2.buildSquad(agent2);
          var squadPointCost2 = squad2.squadPointCost();
 

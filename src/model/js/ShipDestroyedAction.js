@@ -7,7 +7,7 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/TargetLock"],
       {
          InputValidator.validateNotNull("environment", environment);
          InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("fromPosition", fromPosition);
+         // InputValidator.validateNotNull("fromPosition", fromPosition);
 
          this.environment = function()
          {

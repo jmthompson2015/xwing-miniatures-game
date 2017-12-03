@@ -14,7 +14,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.ACADEMY_PILOT;
-         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent");
 
          // Run.
          var result = CardInstanceFactory.create(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
@@ -33,7 +33,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.CR90_CORVETTE;
-         var agent = new Agent(store, "Rebel Agent", Faction.REBEL);
+         var agent = new Agent(store, "Rebel Agent");
 
          // Run.
          var result = CardInstanceFactory.create(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
@@ -54,7 +54,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.ACADEMY_PILOT;
-         var agent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
+         var agent = new Agent(store, "Imperial Agent");
          var token = new CardInstance(store, pilotKey, agent, [UpgradeCard.MARKSMANSHIP]);
 
          // Run.
@@ -74,7 +74,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var pilotKey = PilotCard.CR90_CORVETTE;
-         var agent = new Agent(store, "Rebel Agent", Faction.REBEL);
+         var agent = new Agent(store, "Rebel Agent");
          var token = new DualCardInstance(store, pilotKey, agent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
 
          // Run.

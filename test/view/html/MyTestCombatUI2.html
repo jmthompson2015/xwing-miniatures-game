@@ -35,7 +35,7 @@
 		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger", "model/js/Ability", "artifact/js/DiceModification", "artifact/js/Phase",
 				"artifact/js/PilotCard", "model/js/Position", "artifact/js/Faction", "artifact/js/UpgradeCard", "model/js/Action", "model/js/Adjudicator",
 				"model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/ModifyDiceAbility", "model/js/Reducer",
-				 "model/js/Squad", "model/js/CardInstance", "model/js/CardAction", "view/js/CombatUI", "../test/model/js/MockAttackDice",
+				"model/js/Squad", "model/js/CardInstance", "model/js/CardAction", "view/js/CombatUI", "../test/model/js/MockAttackDice",
 				"../test/model/js/MockDefenseDice"
 			],
 			function(React, ReactDOM, DOM, Redux, Logger, Ability, DiceModification, Phase, PilotCardCard, Position, Faction, UpgradeCard, Action, Adjudicator,
@@ -49,8 +49,8 @@
 				var resourceBase = "../../../src/view/resource/";
 
 				var store00 = Redux.createStore(Reducer.root);
-				var imperialAgent = new Agent(store, "Imperial Agent", Faction.IMPERIAL);
-				var rebelAgent = new Agent(store, "Rebel Agent", Faction.REBEL);
+				var imperialAgent = new Agent(store, "Imperial Agent");
+				var rebelAgent = new Agent(store, "Rebel Agent");
 				var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCardCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
 				var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCardCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES,
 					UpgradeCard.R2_D2

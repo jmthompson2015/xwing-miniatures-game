@@ -43,9 +43,8 @@ define(["redux", "common/js/InputValidator", "model/js/Agent", "model/js/Reducer
       {
          InputValidator.validateNotNull("squadBuilder", squadBuilder);
 
-         var factionKey = squadBuilder.factionKey();
          var store = Redux.createStore(Reducer.root);
-         var agent = new Agent(store, "Agent1", factionKey);
+         var agent = new Agent(store, "Agent1");
          var squad = squadBuilder.buildSquad(agent);
          var sumStats = TableRow.computeSumStats(squad);
          var ratioPrimaryWeaponAgility = TableRow.computeRatioPrimaryWeaponAgility(squad);

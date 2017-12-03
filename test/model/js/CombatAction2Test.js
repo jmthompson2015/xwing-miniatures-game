@@ -568,10 +568,10 @@ define(["qunit", "redux",
       {
          // Setup.
          var store00 = Redux.createStore(Reducer.root);
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var imperialAgent = new Agent(store00, "Imperial Agent");
          var attacker = new CardInstance(store00, PilotCard.WHISPER, imperialAgent);
          var attackerPosition = new Position(458, 895, -90);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var rebelAgent = new Agent(store00, "Rebel Agent");
          var defender = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent);
          var defenderPosition = new Position(450, 845, 90);
 
@@ -611,7 +611,7 @@ define(["qunit", "redux",
       function createCombatAction(upgradeKey, callback0, y)
       {
          var store00 = Redux.createStore(Reducer.root);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var rebelAgent = new Agent(store00, "Rebel Agent");
          //  rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
          //  {
          //     var rawAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][upgradeKey];
@@ -626,7 +626,7 @@ define(["qunit", "redux",
          var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
          var attackerPosition = new Position(458, 895, -90);
 
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var imperialAgent = new Agent(store00, "Imperial Agent");
          //  imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
          //  {
          //     callback(undefined, false);
@@ -691,7 +691,7 @@ define(["qunit", "redux",
       function createCombatAction2(upgradeKey, callback0)
       {
          var store00 = Redux.createStore(Reducer.root);
-         var rebelAgent = new Agent(store00, "Rebel Agent", Faction.REBEL);
+         var rebelAgent = new Agent(store00, "Rebel Agent");
          //  rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
          //  {
          //     callback(undefined, false);
@@ -699,7 +699,7 @@ define(["qunit", "redux",
          var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
          var attackerPosition = new Position(458, 895, -90);
 
-         var imperialAgent = new Agent(store00, "Imperial Agent", Faction.IMPERIAL);
+         var imperialAgent = new Agent(store00, "Imperial Agent");
          //  imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
          //  {
          //     callback(undefined, false);

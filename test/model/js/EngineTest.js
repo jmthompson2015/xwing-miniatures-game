@@ -57,8 +57,8 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #2", 2014);
          var squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
          var store = Redux.createStore(Reducer.root);
-         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
-         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
+         var agent1 = new Agent(store, "1");
+         var agent2 = new Agent(store, "2");
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);

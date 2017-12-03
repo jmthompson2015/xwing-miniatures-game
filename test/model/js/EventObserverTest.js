@@ -36,8 +36,8 @@ define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agen
          var squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
          var squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
          var store = Redux.createStore(Reducer.root);
-         var agent1 = new Agent(store, "1", squadBuilder1.factionKey());
-         var agent2 = new Agent(store, "2", squadBuilder2.factionKey());
+         var agent1 = new Agent(store, "1");
+         var agent2 = new Agent(store, "2");
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
