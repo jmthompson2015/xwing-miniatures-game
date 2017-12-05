@@ -85,7 +85,52 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.agilityValue = function()
       {
-         var answer = this.value(Value.AGILITY);
+         var base = this.baseAgilityValue();
+         var bonus = this.bonusAgilityValue();
+
+         return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
+      };
+
+      CardInstance.prototype.attackerTargetLocks = function()
+      {
+         var store = this.store();
+
+         return TargetLock.getByAttacker(store, this);
+      };
+
+      CardInstance.prototype.baseAgilityValue = function()
+      {
+         return this.value(Value.AGILITY);
+      };
+
+      CardInstance.prototype.baseEnergyValue = function()
+      {
+         return this.value(Value.ENERGY);
+      };
+
+      CardInstance.prototype.baseHullValue = function()
+      {
+         return this.value(Value.HULL);
+      };
+
+      CardInstance.prototype.basePilotSkillValue = function()
+      {
+         return this.value(Value.PILOT_SKILL);
+      };
+
+      CardInstance.prototype.basePrimaryWeaponValue = function()
+      {
+         return this.value(Value.PRIMARY_WEAPON);
+      };
+
+      CardInstance.prototype.baseShieldValue = function()
+      {
+         return this.value(Value.SHIELD);
+      };
+
+      CardInstance.prototype.bonusAgilityValue = function()
+      {
+         var answer = this._bonusValue(Value.AGILITY);
 
          if (this.isCloaked())
          {
@@ -107,24 +152,58 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             answer++;
          }
 
-         if (this.tractorBeamCount)
-         {
-            var tractorBeamCount = this.tractorBeamCount();
+         answer -= this.tractorBeamCount();
 
-            if (tractorBeamCount !== undefined)
+         return answer;
+      };
+
+      CardInstance.prototype.bonusEnergyValue = function()
+      {
+         return this._bonusValue(Value.ENERGY);
+      };
+
+      CardInstance.prototype.bonusHullValue = function()
+      {
+         return this._bonusValue(Value.HULL);
+      };
+
+      CardInstance.prototype.bonusPilotSkillValue = function()
+      {
+         var answer = this._bonusValue(Value.PILOT_SKILL);
+
+         if (this.card().key === PilotCard.EPSILON_ACE)
+         {
+            var damageCount = this.damageCount();
+            var criticalDamageCount = this.criticalDamageCount();
+            if (damageCount === 0 && criticalDamageCount === 0)
             {
-               answer -= tractorBeamCount;
+               answer = 12 - this.basePilotSkillValue();
             }
+         }
+
+         if (this.isCriticallyDamagedWith(DamageCard.DAMAGED_COCKPIT) || this.isCriticallyDamagedWith(DamageCard.INJURED_PILOT))
+         {
+            answer = -this.basePilotSkillValue();
          }
 
          return answer;
       };
 
-      CardInstance.prototype.attackerTargetLocks = function()
+      CardInstance.prototype.bonusPrimaryWeaponValue = function()
       {
-         var store = this.store();
+         var answer = this._bonusValue(Value.PRIMARY_WEAPON);
 
-         return TargetLock.getByAttacker(store, this);
+         if (this.isAbilityUsed(UpgradeCard, UpgradeCard.EXPOSE))
+         {
+            answer++;
+         }
+
+         return answer;
+      };
+
+      CardInstance.prototype.bonusShieldValue = function()
+      {
+         return this._bonusValue(Value.SHIELD);
       };
 
       CardInstance.prototype.cloakCount = function()
@@ -381,9 +460,10 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.energyValue = function()
       {
-         var value = this.value(Value.ENERGY);
+         var base = this.baseEnergyValue();
+         var bonus = this.bonusEnergyValue();
 
-         return (value !== undefined ? value : null);
+         return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
       };
 
       CardInstance.prototype.equals = function(other)
@@ -410,7 +490,10 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.hullValue = function()
       {
-         return this.value(Value.HULL);
+         var base = this.baseHullValue();
+         var bonus = this.bonusHullValue();
+
+         return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
       };
 
       CardInstance.prototype.ionCount = function()
@@ -618,24 +701,10 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.pilotSkillValue = function()
       {
-         var answer = this.value(Value.PILOT_SKILL);
+         var base = this.basePilotSkillValue();
+         var bonus = this.bonusPilotSkillValue();
 
-         if (this.card().key === PilotCard.EPSILON_ACE)
-         {
-            var damageCount = this.damageCount();
-            var criticalDamageCount = this.criticalDamageCount();
-            if (damageCount === 0 && criticalDamageCount === 0)
-            {
-               answer = 12;
-            }
-         }
-
-         if (this.isCriticallyDamagedWith(DamageCard.DAMAGED_COCKPIT) || this.isCriticallyDamagedWith(DamageCard.INJURED_PILOT))
-         {
-            answer = 0;
-         }
-
-         return answer;
+         return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
       };
 
       CardInstance.prototype.primaryWeapon = function()
@@ -646,7 +715,11 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          if (ship)
          {
             var primaryWeaponValue = this.primaryWeaponValue();
-            answer = new Weapon("Primary Weapon", primaryWeaponValue, ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
+
+            if (primaryWeaponValue !== undefined)
+            {
+               answer = new Weapon("Primary Weapon", primaryWeaponValue, ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
+            }
          }
 
          return answer;
@@ -654,14 +727,10 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.primaryWeaponValue = function()
       {
-         var answer = this.value(Value.PRIMARY_WEAPON);
+         var base = this.basePrimaryWeaponValue();
+         var bonus = this.bonusPrimaryWeaponValue();
 
-         if (this.isAbilityUsed(UpgradeCard, UpgradeCard.EXPOSE))
-         {
-            answer++;
-         }
-
-         return answer;
+         return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
       };
 
       CardInstance.prototype.reinforceCount = function()
@@ -691,7 +760,10 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.shieldValue = function()
       {
-         return this.value(Value.SHIELD);
+         var base = this.baseShieldValue();
+         var bonus = this.bonusShieldValue();
+
+         return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
       };
 
       CardInstance.prototype.ship = function()
@@ -1049,28 +1121,34 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
             }
          }
 
-         this.upgrades().forEach(function(upgrade)
-         {
-            if (upgrade.card()[propertyName] !== undefined)
-            {
-               answer += upgrade.card()[propertyName];
-            }
-         });
-
-         this.criticalDamages().forEach(function(damage)
-         {
-            if (damage.card()[propertyName] !== undefined)
-            {
-               answer += damage.card()[propertyName];
-            }
-         });
-
          return answer;
       };
 
       CardInstance.prototype.weaponsDisabledCount = function()
       {
          return this.count(Count.WEAPONS_DISABLED);
+      };
+
+      CardInstance.prototype._bonusValue = function(property)
+      {
+         InputValidator.validateNotNull("property", property);
+
+         var propertyName = property + "Value";
+         var answer = 0;
+
+         this.upgrades().forEach(function(upgradeInstance)
+         {
+            var myCard = upgradeInstance.card();
+            answer += (myCard[propertyName] !== undefined ? myCard[propertyName] : 0);
+         });
+
+         this.criticalDamages().forEach(function(damageInstance)
+         {
+            var myCard = damageInstance.card();
+            answer += (myCard[propertyName] !== undefined ? myCard[propertyName] : 0);
+         });
+
+         return answer;
       };
 
       //////////////////////////////////////////////////////////////////////////
@@ -1210,8 +1288,11 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
                   store.dispatch(CardAction.setEnergyCount(this, value));
                   break;
                case Count.SHIELD:
-                  value = this.shipState(Value.SHIELD);
-                  store.dispatch(CardAction.setShieldCount(this, value));
+                  if (this.card().cardTypeKey === CardType.PILOT)
+                  {
+                     value = this.shipState(Value.SHIELD);
+                     store.dispatch(CardAction.setShieldCount(this, value));
+                  }
                   break;
                default:
                   store.dispatch(CardAction.setCount(this, property));

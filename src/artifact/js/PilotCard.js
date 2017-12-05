@@ -3049,6 +3049,11 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             pilot.oncePerRound = true;
          }
 
+         var imagePath = pilot.name.toLowerCase() + ".png";
+         imagePath = imagePath.replace(/ /g, "-");
+         imagePath = imagePath.replace(/"/g, "");
+         pilot.imagePath = imagePath;
+
          if (pilot.fore)
          {
             pilot.fore.cardTypeKey = CardType.PILOT;
@@ -3060,6 +3065,13 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             {
                pilot.fore.oncePerRound = true;
             }
+
+            imagePath = pilot.fore.name.toLowerCase() + ".png";
+            imagePath = imagePath.replace(/ /g, "-");
+            imagePath = imagePath.replace(/\(/g, "");
+            imagePath = imagePath.replace(/\)/g, "");
+            imagePath = imagePath.replace(/raider-class-corvette/g, "raider-class-corv");
+            pilot.fore.imagePath = imagePath;
          }
 
          if (pilot.aft)
@@ -3073,6 +3085,13 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             {
                pilot.aft.oncePerRound = true;
             }
+
+            imagePath = pilot.aft.name.toLowerCase() + ".png";
+            imagePath = imagePath.replace(/ /g, "-");
+            imagePath = imagePath.replace(/\(/g, "");
+            imagePath = imagePath.replace(/\)/g, "");
+            imagePath = imagePath.replace(/raider-class-corvette/g, "raider-class-corv");
+            pilot.aft.imagePath = imagePath;
          }
 
          if (pilot.crippledFore)

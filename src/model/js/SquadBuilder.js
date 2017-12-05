@@ -55,7 +55,7 @@ define(["redux", "common/js/InputValidator",
       {
          var answer = [];
          answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent, [UpgradeCard.R4_D6, UpgradeCard.INTEGRATED_ASTROMECH]));
-         answer.push(new CardInstance(store, PilotCard.JESS_PAVA, agent, [UpgradeCard.ADAPTABILITY, UpgradeCard.R2_D6, UpgradeCard.PATTERN_ANALYZER, UpgradeCard.INTEGRATED_ASTROMECH]));
+         answer.push(new CardInstance(store, PilotCard.JESS_PAVA, agent, [UpgradeCard.ADAPTABILITY_INCREASE, UpgradeCard.R2_D6, UpgradeCard.PATTERN_ANALYZER, UpgradeCard.INTEGRATED_ASTROMECH]));
          answer.push(new CardInstance(store, PilotCard.BRAYLEN_STRAMM, agent, [UpgradeCard.GUNNER, UpgradeCard.R3_A2, UpgradeCard.ALLIANCE_OVERHAUL]));
          answer.push(new CardInstance(store, PilotCard.CAPTAIN_REX, agent));
          return answer;

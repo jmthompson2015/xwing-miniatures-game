@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyTestCardInstanceUI</title>
+
+  <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
+  <link rel="stylesheet" href="../../../lib/xwing-miniatures-font/xwing-miniatures-font-1.0.26/xwing-miniatures.css">
+  <link rel="stylesheet" href="../../../src/view/css/style.css">
+
+  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
+  <script src="../js/require-config.js"></script>
+  <script src="../../../src/main.js"></script>
+
+</head>
+<body>
+  <div id="panel"></div>
+  <script>
+    "use strict";
+
+    require(["react", "react-dom", "react-dom-factories", "react-redux", "redux", "common/js/Logger", "artifact/js/DamageCard", "artifact/js/Faction",
+        "artifact/js/PilotCard", "artifact/js/UpgradeCard", "model/js/Action", "model/js/CardAction", "model/js/CardInstance", "model/js/Reducer",
+        "model/js/TargetLock", "view/js/CardInstanceUI", "../test/model/js/EnvironmentFactory"
+      ],
+      function(React, ReactDOM, DOM, ReactRedux, Redux, Logger, DamageCard, Faction, PilotCard, UpgradeCard, Action, CardAction, CardInstance, Reducer,
+        TargetLock, CardInstanceUI, EnvironmentFactory)
+      {
+        window.LOGGER = new Logger();
+        LOGGER.setTraceEnabled(false);
+        LOGGER.setDebugEnabled(false);
+
+        var resourceBase = "../../../src/view/resource/";
+        var environment = EnvironmentFactory.createCoreSetEnvironment();
+        var store = environment.store();
+        store.dispatch(Action.setResourceBase(resourceBase));
+
+        var pilotInstance0 = environment.pilotInstances()[0];
+        store.dispatch(CardAction.addUpgrade(pilotInstance0, new CardInstance(store, UpgradeCard.HULL_UPGRADE)));
+        var pilotInstance2 = environment.pilotInstances()[2];
+        var i = 1;
+        store.dispatch(CardAction.setCloakCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setEnergyCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setEvadeCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setFocusCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setIonCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setReinforceCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setShieldCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setStressCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setTractorBeamCount(pilotInstance0, i++));
+        store.dispatch(CardAction.setWeaponsDisabledCount(pilotInstance0, i++));
+        TargetLock.newInstance(store, pilotInstance0, pilotInstance2 /*, eventCallback*/ );
+        var damage0 = new CardInstance(store, DamageCard.BLINDED_PILOT);
+        pilotInstance0.receiveDamage(damage0);
+        var critical0 = new CardInstance(store, DamageCard.CONSOLE_FIRE);
+        pilotInstance0.receiveCriticalDamage(critical0);
+        var critical1 = new CardInstance(store, DamageCard.DAMAGED_COCKPIT);
+        pilotInstance2.receiveCriticalDamage(critical1);
+        var critical2 = new CardInstance(store, DamageCard.DIRECT_HIT);
+        pilotInstance2.receiveCriticalDamage(critical2);
+
+        var cells = [];
+
+        addCardInstanceUI(cells, pilotInstance0);
+        addCardInstanceUI(cells, pilotInstance2);
+
+        ReactDOM.render(DOM.div(
+        {}, cells), document.getElementById("panel"));
+
+        function addCardInstanceUI(cells, cardInstance)
+        {
+          var element = React.createElement(ReactRedux.Provider,
+          {
+            store: store,
+          }, React.createElement(CardInstanceUI,
+          {
+            cardInstance: cardInstance,
+          }));
+
+          cells.push(DOM.div(
+          {
+            key: "card" + cells.length,
+            className: "v-top",
+          }, element));
+        }
+      });
+  </script>
+</body>
+
+</html>

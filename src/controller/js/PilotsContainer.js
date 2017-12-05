@@ -5,12 +5,11 @@ define(["react-redux", "common/js/InputValidator", "view/js/PilotsUI"],
    {
       function mapStateToProps(state, ownProps)
       {
-         InputValidator.validateNotNull("faction", ownProps.faction);
+         InputValidator.validateNotNull("agent", ownProps.agent);
          InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
 
-         var environment = state.environment;
-         var faction = ownProps.faction;
-         var tokens = environment.getTokensForFaction(faction.key);
+         var agent = ownProps.agent;
+         var tokens = agent.pilotInstances();
          tokens.sort(function(token0, token1)
          {
             var pilotSkill0 = token0.pilotSkillValue();
@@ -24,6 +23,21 @@ define(["react-redux", "common/js/InputValidator", "view/js/PilotsUI"],
 
             return answer;
          });
+
+         tokens = tokens.reduce(function(accumulator, cardInstance)
+         {
+            if (cardInstance.tokenFore !== undefined && cardInstance.tokenAft !== undefined)
+            {
+               accumulator.push(cardInstance.tokenFore());
+               accumulator.push(cardInstance.tokenAft());
+            }
+            else
+            {
+               accumulator.push(cardInstance);
+            }
+
+            return accumulator;
+         }, []);
 
          return (
          {

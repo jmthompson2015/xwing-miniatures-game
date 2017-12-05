@@ -90,6 +90,7 @@ define(["common/js/InputValidator"], function(InputValidator)
    Squad.prototype.energyValue = function()
    {
       var tokens = this.tokens();
+      var value;
 
       var answer = tokens.reduce(function(accumulator, token)
       {
@@ -97,12 +98,15 @@ define(["common/js/InputValidator"], function(InputValidator)
 
          if (token.tokenFore !== undefined && token.tokenAft !== undefined)
          {
-            myAnswer += token.tokenFore().energyValue();
-            myAnswer += token.tokenAft().energyValue();
+            value = token.tokenFore().energyValue();
+            myAnswer += (value !== undefined ? value : 0);
+            value = token.tokenAft().energyValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
          else
          {
-            myAnswer += token.energyValue();
+            value = token.energyValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
 
          return myAnswer;

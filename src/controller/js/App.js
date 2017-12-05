@@ -79,7 +79,7 @@ require(["react", "react-dom", "react-redux", "redux", "artifact/js/Faction",
             store: store,
          }, React.createElement(PilotsContainer,
          {
-            faction: Faction.properties[environment.firstSquad().factionKey()],
+            agent: environment.firstAgent(),
             resourceBase: resourceBase,
          }));
 
@@ -98,7 +98,7 @@ require(["react", "react-dom", "react-redux", "redux", "artifact/js/Faction",
             store: store,
          }, React.createElement(PilotsContainer,
          {
-            faction: Faction.properties[environment.secondSquad().factionKey()],
+            agent: environment.secondAgent(),
             resourceBase: resourceBase,
          }));
 

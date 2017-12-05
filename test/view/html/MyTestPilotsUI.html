@@ -18,12 +18,10 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/PilotCard", "model/js/Position", "artifact/js/Faction",
-				"model/js/Action",
-				"model/js/CardInstance", "model/js/CardAction", "../test/model/js/EnvironmentFactory",
-				"view/js/PilotsUI"
+		require(["react", "react-dom", "react-dom-factories", "react-redux", "common/js/Logger", "artifact/js/PilotCard", "model/js/Position", "artifact/js/Faction",
+				"model/js/Action", "model/js/CardInstance", "model/js/CardAction", "../test/model/js/EnvironmentFactory", "view/js/PilotsUI"
 			],
-			function(React, ReactDOM, DOM, Logger, PilotCard, Position, Faction, Action, CardInstance, CardAction, EnvironmentFactory, PilotsUI)
+			function(React, ReactDOM, DOM, ReactRedux, Logger, PilotCard, Position, Faction, Action, CardInstance, CardAction, EnvironmentFactory, PilotsUI)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -32,12 +30,16 @@
 				var resourceBase = "../../../src/view/resource/";
 				var environment = EnvironmentFactory.createCoreSetEnvironment();
 				var store = environment.store();
+				store.dispatch(Action.setResourceBase(resourceBase));
 				var tokens = environment.getTokensForFaction(Faction.IMPERIAL);
-				var element = React.createElement(PilotsUI,
+				var element = React.createElement(ReactRedux.Provider,
+				{
+					store: store,
+				}, React.createElement(PilotsUI,
 				{
 					tokens: tokens,
 					resourceBase: resourceBase,
-				});
+				}));
 				ReactDOM.render(element, document.getElementById("pilots"));
 			});
 	</script>

@@ -231,6 +231,11 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
          return this.id() + " " + this.card().name;
       };
 
+      DualCardInstance.prototype.pilotSkillValue = function()
+      {
+         return this.tokenFore().pilotSkillValue();
+      };
+
       DualCardInstance.prototype.pilotName = function()
       {
          var properties = this.card();
@@ -260,6 +265,16 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
       DualCardInstance.prototype.toString = function()
       {
          return this.name();
+      };
+
+      DualCardInstance.prototype.upgradeKeys = function()
+      {
+         return [];
+      };
+
+      DualCardInstance.prototype.upgrades = function()
+      {
+         return [];
       };
 
       //////////////////////////////////////////////////////////////////////////

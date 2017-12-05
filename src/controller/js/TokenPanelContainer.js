@@ -12,6 +12,12 @@ define(["immutable", "react-redux", "common/js/InputValidator", "view/js/TokenPa
          return (
          {
             attackerTargetLocks: cardInstance.attackerTargetLocks(),
+            bonusPilotSkill: cardInstance.bonusPilotSkillValue(),
+            bonusPrimaryWeapon: cardInstance.bonusPrimaryWeaponValue(),
+            bonusEnergy: cardInstance.bonusEnergyValue(),
+            bonusAgility: cardInstance.bonusAgilityValue(),
+            bonusHull: cardInstance.bonusHullValue(),
+            bonusShield: cardInstance.bonusShieldValue(),
             cloakCount: cardInstance.cloakCount(),
             damageCount: cardInstance.damageCount(),
             defenderTargetLocks: cardInstance.defenderTargetLocks(),

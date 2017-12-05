@@ -6,7 +6,8 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
       var UpgradeCard = {
          A_WING_TEST_PILOT: "aWingTestPilot",
          ACCURACY_CORRECTOR: "accuracyCorrector",
-         ADAPTABILITY: "adaptability",
+         ADAPTABILITY_DECREASE: "adaptabilityDecrease",
+         ADAPTABILITY_INCREASE: "adaptabilityIncrease",
          ADMIRAL_OZZEL: "admiralOzzel",
          ADRENALINE_RUSH: "adrenalineRush",
          ADVANCED_CLOAKING_DEVICE: "advancedCloakingDevice",
@@ -324,13 +325,23 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                squadPointCost: 3,
                key: "accuracyCorrector",
             },
-            "adaptability":
+            "adaptabilityDecrease":
             {
-               name: "Adaptability",
+               name: "Adaptability Decrease",
                typeKey: UpgradeType.ELITE,
-               description: "Increase your pilot skill value by 1. / Decrease your pilot skill value by 1.",
+               description: "Decrease your pilot skill value by 1.",
+               pilotSkillValue: -1,
                squadPointCost: 0,
-               key: "adaptability",
+               key: "adaptabilityDecrease",
+            },
+            "adaptabilityIncrease":
+            {
+               name: "Adaptability Increase",
+               typeKey: UpgradeType.ELITE,
+               description: "Increase your pilot skill value by 1.",
+               pilotSkillValue: 1,
+               squadPointCost: 0,
+               key: "adaptabilityIncrease",
             },
             "admiralOzzel":
             {
@@ -3331,6 +3342,12 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
          {
             upgrade.oncePerRound = true;
          }
+
+         var imagePath = upgrade.name.toLowerCase() + ".png";
+         imagePath = imagePath.replace(/\//g, "-");
+         imagePath = imagePath.replace(/ /g, "-");
+         imagePath = imagePath.replace(/mk.-ii/g, "mk2");
+         upgrade.imagePath = imagePath;
       });
 
       //////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "view/js/PilotCardCompactUI"],
-   function(createReactClass, PropTypes, React, DOM, PilotCardCompactUI)
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "view/js/CardInstanceUI"],
+   function(createReactClass, PropTypes, React, DOM, CardInstanceUI)
    {
       var PilotsUI = createReactClass(
       {
@@ -17,10 +17,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "vie
 
             var tokenElements = tokens.map(function(token, i)
             {
-               var element = React.createElement(PilotCardCompactUI,
+               var element = React.createElement(CardInstanceUI,
                {
-                  resourceBase: this.props.resourceBase,
-                  token: token,
+                  cardInstance: token,
                });
                return DOM.td(
                {

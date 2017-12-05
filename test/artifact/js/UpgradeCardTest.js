@@ -88,7 +88,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 299;
+         var length = 300;
          assert.equal(result.length, length);
          assert.equal(result[0], UpgradeCard.A_WING_TEST_PILOT);
          assert.equal(result[length - 1], UpgradeCard.ZUCKUSS);
@@ -165,10 +165,11 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 33;
+         var length = 34;
          assert.equal(result.length, length);
          var i = 0;
-         assert.equal(result[i++], UpgradeCard.ADAPTABILITY);
+         assert.equal(result[i++], UpgradeCard.ADAPTABILITY_DECREASE);
+         assert.equal(result[i++], UpgradeCard.ADAPTABILITY_INCREASE);
          assert.equal(result[i++], UpgradeCard.ADRENALINE_RUSH);
          assert.equal(result[i++], UpgradeCard.CALCULATION);
          assert.equal(result[i++], UpgradeCard.COOL_HAND);
@@ -223,9 +224,9 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 36;
+         var length = 37;
          assert.equal(result.length, length);
-         assert.equal(result[0], UpgradeCard.ADAPTABILITY);
+         assert.equal(result[0], UpgradeCard.ADAPTABILITY_DECREASE);
          assert.equal(result[length - 1], UpgradeCard.WIRED);
       });
    });

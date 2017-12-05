@@ -115,14 +115,25 @@ define(function()
       return Object.keys(UpgradeType.properties);
    };
 
-   UpgradeType.toString = function()
-   {
-      return "UpgradeType";
-   };
-
    UpgradeType.values = function()
    {
       return Object.values(UpgradeType.properties);
+   };
+
+   UpgradeType.keys().forEach(function(upgradeTypeKey)
+   {
+      var upgradeType = UpgradeType.properties[upgradeTypeKey];
+
+      var imagePath = upgradeType.name + "/";
+      upgradeType.imagePath = imagePath;
+   });
+
+   //////////////////////////////////////////////////////////////////////////
+   // Utility methods.
+
+   UpgradeType.toString = function()
+   {
+      return "UpgradeType";
    };
 
    if (Object.freeze)

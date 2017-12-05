@@ -18,11 +18,10 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "artifact/js/Faction",
-				"model/js/Reducer", "../test/model/js/EnvironmentFactory",
+		require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "model/js/Action", "model/js/Reducer", "../test/model/js/EnvironmentFactory",
 				"controller/js/PilotsContainer"
 			],
-			function(React, ReactDOM, ReactRedux, Redux, Logger, Faction, Reducer, EnvironmentFactory, PilotsContainer)
+			function(React, ReactDOM, ReactRedux, Redux, Logger, Action, Reducer, EnvironmentFactory, PilotsContainer)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -30,14 +29,16 @@
 
 				var resourceBase = "../../../src/view/resource/";
 				var store = Redux.createStore(Reducer.root);
+				store.dispatch(Action.setResourceBase(resourceBase));
 				var environment = EnvironmentFactory.createCoreSetEnvironment(store);
+				var agent1 = environment.firstAgent();
 
 				var element = React.createElement(ReactRedux.Provider,
 				{
 					store: store,
 				}, React.createElement(PilotsContainer,
 				{
-					faction: Faction.properties[Faction.IMPERIAL],
+					agent: agent1,
 					resourceBase: resourceBase,
 				}));
 				ReactDOM.render(element, document.getElementById("panel"));

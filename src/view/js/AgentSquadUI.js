@@ -249,7 +249,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
          agent: PropTypes.object.isRequired,
          agentName: PropTypes.string.isRequired,
          agentNumber: PropTypes.number.isRequired,
-         agentType: PropTypes.func.isRequired,
+         agentType: PropTypes.object.isRequired,
          agentTypes: PropTypes.array.isRequired,
          faction: PropTypes.object.isRequired,
          resourceBase: PropTypes.string.isRequired,
