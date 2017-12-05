@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/DamageCardTrait", "artifact/js/UpgradeCard"],
-   function(InputValidator, DamageCard, DamageCardTrait, UpgradeCard)
+define(["common/js/InputValidator", "artifact/js/DamageCardTrait", "artifact/js/UpgradeCard"],
+   function(InputValidator, DamageCardTrait, UpgradeCard)
    {
       function DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount)
       {

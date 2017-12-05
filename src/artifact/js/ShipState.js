@@ -15,7 +15,7 @@ define(function()
       {
          "pilotSkill":
          {
-            name: "PilotCard Skill",
+            name: "Pilot Skill",
             numberClass: "orange",
             key: "pilotSkill",
          },

@@ -1,9 +1,9 @@
 "use strict";
 
-define(["qunit", "artifact/js/DamageCard", "artifact/js/Event",
-  "model/js/Action", "model/js/CardInstance", "model/js/DamageAbility0", "model/js/CardAction", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, DamageCard, Event,
-      Action, CardInstance, DamageAbility, CardAction, EnvironmentFactory)
+define(["qunit", "artifact/js/Event",
+  "model/js/Action", "model/js/CardInstance", "model/js/DamageAbility0", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, Event,
+      Action, CardInstance, DamageAbility, EnvironmentFactory)
    {
       QUnit.module("DamageAbility0");
 

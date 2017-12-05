@@ -1,8 +1,8 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase",
+define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
   "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseAction", "model/js/PlanningAction"],
-   function(InputValidator, Faction, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseAction, PlanningAction)
+   function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseAction, PlanningAction)
    {
       function Engine(environment, adjudicator, delayIn)
       {

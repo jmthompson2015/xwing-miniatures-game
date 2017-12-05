@@ -1,8 +1,8 @@
 "use strict";
 
-define(["redux", "common/js/InputValidator", "artifact/js/Faction",
+define(["redux", "common/js/InputValidator",
   "model/js/Agent", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Reducer", "model/js/SimpleAgentStrategy", "model/js/SquadBuilder"],
-   function(Redux, InputValidator, Faction, Agent, Environment, EventObserver, PhaseObserver, Reducer, SimpleAgentStrategy, SquadBuilder)
+   function(Redux, InputValidator, Agent, Environment, EventObserver, PhaseObserver, Reducer, SimpleAgentStrategy, SquadBuilder)
    {
       var EnvironmentFactory = {};
 

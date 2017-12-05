@@ -1,11 +1,11 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Faction",
+  "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/PlayFormat",
   "model/js/Agent", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardInstance",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
-      CardType, DamageCard, PilotCard, PlayFormat, Faction,
+      CardType, DamageCard, PilotCard, PlayFormat,
       Agent, EnvironmentAction, Position, Reducer, SquadBuilder, CardInstance, EnvironmentFactory)
    {
       QUnit.module("EnvironmentReducer");

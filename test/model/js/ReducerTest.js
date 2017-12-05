@@ -1,10 +1,10 @@
 "use strict";
 
 define(["immutable", "qunit", "redux",
-  "artifact/js/Faction", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range",
+   "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range",
   "model/js/Action", "model/js/Agent", "model/js/AttackDice", "model/js/DefenseDice", "model/js/EnvironmentAction", "model/js/Position", "model/js/Reducer", "model/js/TargetLock", "model/js/CardInstance"],
    function(Immutable, QUnit, Redux,
-      Faction, Event, Maneuver, Phase, PilotCard, Range,
+      Event, Maneuver, Phase, PilotCard, Range,
       Action, Agent, AttackDice, DefenseDice, EnvironmentAction, Position, Reducer, TargetLock, CardInstance)
    {
       QUnit.module("Reducer");

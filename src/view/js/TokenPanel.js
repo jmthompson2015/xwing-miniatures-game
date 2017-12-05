@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Count", "view/js/LabeledImage", "view/js/ReactUtilities"],
-   function(createReactClass, PropTypes, React, DOM, Count, LabeledImage, ReactUtilities)
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "view/js/LabeledImage", "view/js/ReactUtilities"],
+   function(createReactClass, PropTypes, React, DOM, LabeledImage, ReactUtilities)
    {
       var TokenPanel = createReactClass(
       {

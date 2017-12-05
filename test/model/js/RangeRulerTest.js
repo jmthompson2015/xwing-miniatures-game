@@ -1,8 +1,8 @@
 "use strict";
 
-define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Range",
+define(["qunit", "redux", "artifact/js/PilotCard", "artifact/js/Range",
   "model/js/Agent", "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/CardInstance"],
-   function(QUnit, Redux, Faction, PilotCard, Range,
+   function(QUnit, Redux, PilotCard, Range,
       Agent, Position, RangeRuler, Reducer, CardInstance)
    {
       QUnit.module("RangeRuler");

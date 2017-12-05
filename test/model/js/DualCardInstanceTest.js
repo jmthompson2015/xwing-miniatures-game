@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/UpgradeCard", "artifact/js/Value",
+  "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/UpgradeCard", "artifact/js/Value",
   "model/js/Agent", "model/js/CardInstance", "model/js/DualCardInstance", "model/js/Reducer"],
    function(QUnit, Redux,
-      DamageCard, Faction, PilotCard, Ship, UpgradeCard, Value,
+      DamageCard, PilotCard, Ship, UpgradeCard, Value,
       Agent, CardInstance, DualCardInstance, Reducer)
    {
       QUnit.module("DualCardInstance");

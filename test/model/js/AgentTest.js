@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "redux", "artifact/js/Faction", "model/js/Agent", "model/js/Reducer", "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Redux, Faction, Agent, Reducer, EnvironmentFactory)
+define(["qunit", "redux", "model/js/Agent", "model/js/Reducer", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, Redux, Agent, Reducer, EnvironmentFactory)
    {
       QUnit.module("Agent");
 

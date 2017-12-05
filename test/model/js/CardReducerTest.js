@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
+  "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
   "model/js/Ability", "model/js/Agent", "model/js/CardAction", "model/js/CardInstance", "model/js/DamageAbility3", "model/js/EnvironmentAction", "model/js/PilotAbility3", "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/UpgradeAbility3"],
    function(QUnit, Redux,
-      Count, DamageCard, Faction, Phase, PilotCard, ShipAction, UpgradeCard,
+      Count, DamageCard, Phase, PilotCard, ShipAction, UpgradeCard,
       Ability, Agent, CardAction, CardInstance, DamageAbility3, EnvironmentAction, PilotAbility3, Position, Reducer, ShipActionAbility, UpgradeAbility3)
    {
       QUnit.module("CardReducer");

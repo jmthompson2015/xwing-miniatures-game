@@ -1,8 +1,8 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader",
+define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/UpgradeHeader",
   "model/js/ManeuverComputer", "model/js/RangeRuler", "model/js/TargetLock"],
-   function(InputValidator, FiringArc, UpgradeCard, UpgradeHeader,
+   function(InputValidator, FiringArc, UpgradeHeader,
       ManeuverComputer, RangeRuler, TargetLock)
    {
       function Weapon(name, weaponValue, rangeKeys, primaryFiringArcKey, auxiliaryFiringArcKey, isTurret, upgradeCard)

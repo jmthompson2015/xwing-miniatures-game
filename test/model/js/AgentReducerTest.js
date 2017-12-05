@@ -1,8 +1,8 @@
 "use strict";
 
-define(["immutable", "qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard",
+define(["immutable", "qunit", "redux", "artifact/js/PilotCard",
    "model/js/Agent", "model/js/AgentAction", "model/js/CardInstance", "model/js/Reducer"],
-   function(Immutable, QUnit, Redux, Faction, PilotCard,
+   function(Immutable, QUnit, Redux, PilotCard,
       Agent, AgentAction, CardInstance, Reducer)
    {
       QUnit.module("AgentReducer");

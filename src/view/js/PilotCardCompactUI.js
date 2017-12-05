@@ -1,12 +1,12 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories",
-  "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/ShipState", "artifact/js/UpgradeCard",
-  "view/js/EntityUI", "view/js/FactionUI", "view/js/LabeledImage", "view/js/ShipStateUI",
+   "artifact/js/DamageCard", "artifact/js/ShipState", "artifact/js/UpgradeCard",
+  "view/js/EntityUI", "view/js/FactionUI", "view/js/ShipStateUI",
   "controller/js/TokenPanelContainer"],
    function(createReactClass, PropTypes, React, DOM,
-      Count, DamageCard, ShipState, UpgradeCard,
-      EntityUI, FactionUI, LabeledImage, ShipStateUI, TokenPanelContainer)
+      DamageCard, ShipState, UpgradeCard,
+      EntityUI, FactionUI, ShipStateUI, TokenPanelContainer)
    {
       var PilotCardCompactUI = createReactClass(
       {

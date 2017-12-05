@@ -4,11 +4,11 @@ define(["qunit", "artifact/js/ShipState"], function(QUnit, ShipState)
 {
    QUnit.module("ShipState");
 
-   QUnit.test("ShipState properties PilotCard Skill", function(assert)
+   QUnit.test("ShipState properties Pilot Skill", function(assert)
    {
       var shipStateKey = ShipState.PILOT_SKILL;
       var properties = ShipState.properties[shipStateKey];
-      assert.equal(properties.name, "PilotCard Skill");
+      assert.equal(properties.name, "Pilot Skill");
       assert.equal(properties.key, shipStateKey);
    });
 
