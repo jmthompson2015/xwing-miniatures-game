@@ -32,11 +32,9 @@ define(["common/js/InputValidator"], function(InputValidator)
 
    PlanningAction.prototype.doIt = function()
    {
-      var environment = this.environment();
-      var adjudicator = this.adjudicator();
       var agent = this.agent();
 
-      agent.getPlanningAction(environment, adjudicator, this.setTokenToManeuver.bind(this));
+      agent.getPlanningAction(this.setTokenToManeuver.bind(this));
 
       // Wait for agent to respond.
    };

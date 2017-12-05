@@ -56,14 +56,14 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
 
       Agent.prototype.agentClass = Agent;
 
-      Agent.prototype.determineValidDecloakActions = function(environment, adjudicator, token)
+      Agent.prototype.determineValidDecloakActions = function(token)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("token", token);
 
          var answer = [];
          var maneuverKeys = [Maneuver.BARREL_ROLL_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_STANDARD, Maneuver.BARREL_ROLL_RIGHT_2_STANDARD];
+         var store = this.store();
+         var adjudicator = store.getState().adjudicator;
 
          maneuverKeys.forEach(function(maneuverKey)
          {
@@ -79,11 +79,12 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          return answer;
       };
 
-      Agent.prototype.determineValidManeuvers = function(environment, token)
+      Agent.prototype.determineValidManeuvers = function(token)
       {
-         InputValidator.validateNotNull("environment", environment);
          InputValidator.validateNotNull("token", token);
 
+         var store = this.store();
+         var environment = store.getState().environment;
          var fromPosition = environment.getPositionFor(token);
          var shipBase = token.card().shipFaction.ship.shipBase;
          var playFormatKey = environment.playFormatKey();
@@ -105,13 +106,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          });
       };
 
-      Agent.prototype.determineValidModifyAttackDiceActions = function(store, attacker, defender)
+      Agent.prototype.determineValidModifyAttackDiceActions = function(attacker, defender)
       {
-         InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("attacker", attacker);
          InputValidator.validateNotNull("defender", defender);
 
          var answer = [];
+         var store = this.store();
 
          var usedDiceMods = attacker.usedAbilityKeys(DiceModification);
 
@@ -159,14 +160,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          return answer;
       };
 
-      Agent.prototype.determineValidModifyDefenseDiceActions = function(store, attacker, defender)
+      Agent.prototype.determineValidModifyDefenseDiceActions = function(attacker, defender)
       {
-         InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("attacker", attacker);
          InputValidator.validateNotNull("defender", defender);
 
          var answer = [];
-
+         var store = this.store();
          var usedDiceMods = defender.usedAbilityKeys(DiceModification);
 
          DiceModification.keys().forEach(function(modificationKey)
@@ -213,13 +213,15 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          return answer;
       };
 
-      Agent.prototype.determineValidShipActions = function(environment, adjudicator, token, shipActionKeys0)
+      Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("token", token);
+         // shipActionKeys0 optional.
 
          var answer = [];
+         var store = this.store();
+         var environment = store.getState().environment;
+         var adjudicator = store.getState().adjudicator;
 
          if (!adjudicator.canSelectShipAction(token))
          {
@@ -227,7 +229,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          }
 
          var shipActionKeys = (shipActionKeys0 !== undefined ? shipActionKeys0 : token.shipActions());
-         var store = environment.store();
          var usedShipActionKeys = token.usedPerRoundAbilityKeys(ShipAction);
          shipActionKeys = shipActionKeys.filter(function(shipActionKey)
          {
@@ -413,9 +414,8 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
       //////////////////////////////////////////////////////////////////////////
       // Behavior methods.
 
-      Agent.prototype.chooseAbility = function(environment, damageAbilities, pilotAbilities, upgradeAbilities, callback)
+      Agent.prototype.chooseAbility = function(damageAbilities, pilotAbilities, upgradeAbilities, callback)
       {
-         InputValidator.validateNotNull("environment", environment);
          InputValidator.validateNotNull("damageAbilities", damageAbilities);
          InputValidator.validateNotNull("pilotAbilities", pilotAbilities);
          InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
@@ -424,14 +424,14 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          this._strategy().chooseAbility(this, damageAbilities, pilotAbilities, upgradeAbilities, callback);
       };
 
-      Agent.prototype.chooseWeaponAndDefender = function(environment, adjudicator, attacker, callback, weaponIn)
+      Agent.prototype.chooseWeaponAndDefender = function(attacker, callback, weaponIn)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("attacker", attacker);
          InputValidator.validateIsFunction("callback", callback);
          // weapon optional.
 
+         var store = this.store();
+         var environment = store.getState().environment;
          var choices = environment.createWeaponToRangeToDefenders(attacker, weaponIn);
 
          if (choices.length > 0)
@@ -444,10 +444,8 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          }
       };
 
-      Agent.prototype.dealDamage = function(environment, adjudicator, attacker, attackDice, defender, defenseDice, damageDealer, callback)
+      Agent.prototype.dealDamage = function(attacker, attackDice, defender, defenseDice, damageDealer, callback)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("attacker", attacker);
          InputValidator.validateNotNull("attackDice", attackDice);
          InputValidator.validateNotNull("defender", defender);
@@ -461,45 +459,37 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          this._strategy().dealDamage(this, attacker, weapon, attackDice, defender, defenseDice, damageDealer, callback);
       };
 
-      Agent.prototype.getDecloakAction = function(environment, adjudicator, token, callback)
+      Agent.prototype.getDecloakAction = function(token, callback)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("token", token);
          InputValidator.validateIsFunction("callback", callback);
 
-         var decloakActions = this.determineValidDecloakActions(environment, adjudicator, token);
+         var decloakActions = this.determineValidDecloakActions(token);
          this._strategy().chooseDecloakAction(this, token, decloakActions, callback);
       };
 
-      Agent.prototype.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+      Agent.prototype.getModifyAttackDiceAction = function(attacker, defender, callback)
       {
-         InputValidator.validateNotNull("store", store);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("attacker", attacker);
          InputValidator.validateNotNull("defender", defender);
          InputValidator.validateIsFunction("callback", callback);
 
-         var modifications = this.determineValidModifyAttackDiceActions(store, attacker, defender);
+         var modifications = this.determineValidModifyAttackDiceActions(attacker, defender);
          this._strategy().chooseModifyAttackDiceAction(this, attacker, defender, modifications, callback);
       };
 
-      Agent.prototype.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
+      Agent.prototype.getModifyDefenseDiceAction = function(attacker, defender, callback)
       {
-         InputValidator.validateNotNull("store", store);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("attacker", attacker);
          InputValidator.validateNotNull("defender", defender);
          InputValidator.validateIsFunction("callback", callback);
 
-         var modifications = this.determineValidModifyDefenseDiceActions(store, attacker, defender);
+         var modifications = this.determineValidModifyDefenseDiceActions(attacker, defender);
          this._strategy().chooseModifyDefenseDiceAction(this, attacker, defender, modifications, callback);
       };
 
-      Agent.prototype.getPlanningAction = function(environment, adjudicator, callback)
+      Agent.prototype.getPlanningAction = function(callback)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateIsFunction("callback", callback);
 
          var isPure = false;
@@ -508,21 +498,19 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
 
          tokens.forEach(function(token)
          {
-            var validManeuvers = this.determineValidManeuvers(environment, token);
+            var validManeuvers = this.determineValidManeuvers(token);
             tokenToValidManeuvers[token] = validManeuvers;
          }, this);
 
          this._strategy().choosePlanningActions(this, tokens, tokenToValidManeuvers, callback);
       };
 
-      Agent.prototype.getShipAction = function(environment, adjudicator, token, callback, shipActionKeys0)
+      Agent.prototype.getShipAction = function(token, callback, shipActionKeys0)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
          InputValidator.validateNotNull("token", token);
          // shipActionKeys0 optional.
 
-         var shipActionKeys = this.determineValidShipActions(environment, adjudicator, token, shipActionKeys0);
+         var shipActionKeys = this.determineValidShipActions(token, shipActionKeys0);
          this._strategy().chooseShipAction(this, token, shipActionKeys, callback);
       };
 

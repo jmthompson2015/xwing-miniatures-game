@@ -52,7 +52,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.chooseAbility(environment, damageAbilities, pilotAbilities, upgradeAbilities, callback);
+         agent.chooseAbility(damageAbilities, pilotAbilities, upgradeAbilities, callback);
       });
 
       QUnit.test("chooseWeaponAndDefender() Imperial", function(assert)
@@ -60,7 +60,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var name = "myAgent";
          var agent = new Agent(store, name);
 
@@ -91,7 +91,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.chooseWeaponAndDefender(environment, adjudicator, token0, callback);
+         agent.chooseWeaponAndDefender(token0, callback);
       });
 
       QUnit.test("chooseWeaponAndDefender() Rebel", function(assert)
@@ -99,7 +99,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var oldPosition0 = new Position(305, 20, 90);
          var position0 = new Position(458, 695, 90);
          store.dispatch(EnvironmentAction.moveToken(oldPosition0, position0));
@@ -118,7 +118,7 @@ define(["qunit", "redux",
          };
 
          // Run.
-         agent.chooseWeaponAndDefender(environment, adjudicator, token2, callback);
+         agent.chooseWeaponAndDefender(token2, callback);
       });
 
       QUnit.test("cloneStore()", function(assert)
@@ -158,7 +158,7 @@ define(["qunit", "redux",
          var agent = token.agent();
 
          // Run.
-         var result = agent.determineValidManeuvers(environment, token);
+         var result = agent.determineValidManeuvers(token);
 
          // Validate.
          assert.ok(result);
@@ -177,7 +177,7 @@ define(["qunit", "redux",
          environment.moveToken(position0, position);
 
          // Run.
-         var result = agent.determineValidManeuvers(environment, token);
+         var result = agent.determineValidManeuvers(token);
 
          // Validate.
          assert.ok(result);
@@ -201,6 +201,8 @@ define(["qunit", "redux",
 
          var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
+         imperialAgent = environment.firstAgent();
+         rebelAgent = environment.secondAgent();
          var attacker = environment.pilotInstances()[1]; // X-Wing.
          var defender = environment.pilotInstances()[0]; // VT-49 Decimator.
          store.dispatch(CardAction.addEvadeCount(defender));
@@ -212,7 +214,7 @@ define(["qunit", "redux",
          store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
 
          // Run.
-         var result = rebelAgent.determineValidModifyDefenseDiceActions(store, attacker, defender);
+         var result = rebelAgent.determineValidModifyDefenseDiceActions(attacker, defender);
 
          // Validate.
          assert.ok(result);
@@ -225,12 +227,12 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var token = environment.pilotInstances()[0]; // TIE Fighter.
          var agent = token.agent();
 
          // Run.
-         var result = agent.determineValidShipActions(environment, adjudicator, token);
+         var result = agent.determineValidShipActions(token);
 
          // Validate.
          assert.ok(result);
@@ -246,7 +248,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var token = environment.pilotInstances()[2]; // X-Wing.
          var agent = token.agent();
          var upgrade = new CardInstance(store, UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN]);
@@ -256,7 +258,7 @@ define(["qunit", "redux",
          environment.setActiveToken(token);
 
          // Run.
-         var result = agent.determineValidShipActions(environment, adjudicator, token);
+         var result = agent.determineValidShipActions(token);
 
          // Validate.
          assert.ok(result);
@@ -289,13 +291,15 @@ define(["qunit", "redux",
 
          var store = Redux.createStore(Reducer.root);
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
+         imperialAgent = environment.firstAgent();
+         rebelAgent = environment.secondAgent();
          var token = environment.pilotInstances()[3]; // K-Wing.
          var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_2_EASY];
          store.dispatch(Action.setTokenManeuver(token, previousManeuver));
 
          // Run.
-         var result = rebelAgent.determineValidShipActions(environment, adjudicator, token);
+         var result = rebelAgent.determineValidShipActions(token);
 
          // Validate.
          assert.ok(result);
@@ -327,7 +331,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var agent = new Agent(store, "Imperial Agent");
          var token = new CardInstance(store, PilotCard.SIGMA_SQUADRON_PILOT, agent);
          store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 0), token));
@@ -353,7 +357,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         result = agent.getDecloakAction(environment, adjudicator, token, callback);
+         result = agent.getDecloakAction(token, callback);
       });
 
       QUnit.test("getModifyAttackDiceAction() focus", function(assert)
@@ -361,7 +365,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var attacker = environment.pilotInstances()[0]; // TIE Fighter
          var defender = environment.pilotInstances()[2]; // X-Wing
          var weapon = attacker.primaryWeapon();
@@ -382,7 +386,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.getModifyAttackDiceAction(store, adjudicator, attacker, defender, callback);
+         agent.getModifyAttackDiceAction(attacker, defender, callback);
       });
 
       QUnit.test("getModifyDefenseDiceAction() evade", function(assert)
@@ -390,7 +394,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var attacker = environment.pilotInstances()[2]; // X-Wing
          var defender = environment.pilotInstances()[0]; // TIE Fighter
          var weapon = attacker.primaryWeapon();
@@ -411,7 +415,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.getModifyDefenseDiceAction(store, adjudicator, attacker, defender, callback);
+         agent.getModifyDefenseDiceAction(attacker, defender, callback);
       });
 
       QUnit.test("getPlanningAction() Imperial", function(assert)
@@ -419,7 +423,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var agent = environment.firstAgent();
 
          var position0 = new Position(305, 20, 90);
@@ -446,7 +450,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.getPlanningAction(environment, adjudicator, callback);
+         agent.getPlanningAction(callback);
       });
 
       QUnit.test("getPlanningAction() Rebel", function(assert)
@@ -454,7 +458,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var agent = environment.secondAgent();
 
          var position0 = new Position(305, 20, 90);
@@ -482,7 +486,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.getPlanningAction(environment, adjudicator, callback);
+         agent.getPlanningAction(callback);
       });
 
       QUnit.test("getPlanningAction() Rebel 2", function(assert)
@@ -490,7 +494,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var agent = environment.secondAgent();
 
          var oldPosition = new Position(458, 895, -90);
@@ -508,7 +512,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.getPlanningAction(environment, adjudicator, callback);
+         agent.getPlanningAction(callback);
       });
 
       QUnit.test("getShipAction()", function(assert)
@@ -516,7 +520,7 @@ define(["qunit", "redux",
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment(undefined, MediumAgentStrategy, MediumAgentStrategy);
          var store = environment.store();
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var name = "myAgent";
          var agent = new Agent(store, name);
          var tokens = environment.pilotInstances();
@@ -537,7 +541,7 @@ define(["qunit", "redux",
          }
 
          // Run.
-         agent.getShipAction(environment, adjudicator, token2, callback);
+         agent.getShipAction(token2, callback);
       });
 
       QUnit.test("getPlanningAction() IG-88A", function(assert)
@@ -558,7 +562,7 @@ define(["qunit", "redux",
          firstAgent = environment.firstAgent();
          secondAgent = environment.secondAgent();
          var token = environment.pilotInstances()[1];
-         var adjudicator = Adjudicator.create(store);
+         Adjudicator.create(store);
          var callback = function(tokenToManeuver)
          {
             // Verify.
@@ -568,7 +572,7 @@ define(["qunit", "redux",
          };
 
          // Run.
-         secondAgent.getPlanningAction(environment, adjudicator, callback);
+         secondAgent.getPlanningAction(callback);
       });
 
       QUnit.test("toString()", function(assert)

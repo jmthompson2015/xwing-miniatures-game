@@ -49,15 +49,13 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var agent = token.agent();
-            var environment = store.getState().environment;
-            var adjudicator = store.getState().adjudicator;
             var shipActions0 = [ShipAction.BARREL_ROLL];
             var that = this;
             var finishCallback = function(shipActionAbility)
             {
                that.finishConsequent(store, token, shipActionAbility, callback);
             };
-            agent.getShipAction(environment, adjudicator, token, finishCallback, shipActions0);
+            agent.getShipAction(token, finishCallback, shipActions0);
 
             // Wait for agent to respond.
          },
@@ -155,15 +153,13 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var agent = token.agent();
-            var environment = store.getState().environment;
-            var adjudicator = store.getState().adjudicator;
             var shipActions0 = [ShipAction.TARGET_LOCK];
             var that = this;
             var finishCallback = function(shipActionAbility)
             {
                that.finishConsequent(store, token, shipActionAbility, callback);
             };
-            agent.getShipAction(environment, adjudicator, token, finishCallback, shipActions0);
+            agent.getShipAction(token, finishCallback, shipActions0);
 
             // Wait for agent to respond.
          },
@@ -254,15 +250,13 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var agent = token.agent();
-            var environment = store.getState().environment;
-            var adjudicator = store.getState().adjudicator;
             var shipActions0 = [ShipAction.BARREL_ROLL];
             var that = this;
             var finishCallback = function(shipActionAbility)
             {
                that.finishConsequent(store, token, shipActionAbility, callback);
             };
-            agent.getShipAction(environment, adjudicator, token, finishCallback, shipActions0);
+            agent.getShipAction(token, finishCallback, shipActions0);
 
             // Wait for agent to respond.
          },
@@ -333,15 +327,13 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var agent = token.agent();
-            var environment = store.getState().environment;
-            var adjudicator = store.getState().adjudicator;
             var shipActions0 = [ShipAction.BOOST];
             var that = this;
             var finishCallback = function(shipActionAbility)
             {
                that.finishConsequent(store, token, shipActionAbility, callback);
             };
-            agent.getShipAction(environment, adjudicator, token, finishCallback, shipActions0);
+            agent.getShipAction(token, finishCallback, shipActions0);
 
             // Wait for agent to respond.
          },

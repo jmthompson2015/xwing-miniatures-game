@@ -23,7 +23,7 @@ define(["qunit", "redux",
          Adjudicator.create(store);
          var attacker = environment.pilotInstances()[2]; // Luke Skywalker X-Wing
          assert.ok(attacker);
-         attacker.agent().getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+         attacker.agent().getModifyAttackDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
@@ -32,7 +32,7 @@ define(["qunit", "redux",
          var attackerPosition = environment.getPositionFor(attacker);
          var defenderPosition = new Position(305, 20, 90); // Mauler Mithel TIE Fighter
          var defender = environment.pilotInstances()[0];
-         defender.agent().getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
+         defender.agent().getModifyDefenseDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
@@ -72,7 +72,7 @@ define(["qunit", "redux",
          Adjudicator.create(store);
          var attacker = environment.pilotInstances()[2]; // Luke Skywalker X-Wing
          assert.ok(attacker);
-         attacker.agent().getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+         attacker.agent().getModifyAttackDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
@@ -122,7 +122,7 @@ define(["qunit", "redux",
          var store = environment.store();
          var attacker = environment.pilotInstances()[2]; // Luke Skywalker X-Wing
          assert.ok(attacker);
-         attacker.agent().getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+         attacker.agent().getModifyAttackDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
@@ -131,7 +131,7 @@ define(["qunit", "redux",
          var attackerPosition = environment.getPositionFor(attacker);
          var defenderPosition = new Position(305, 20, 90); // Mauler Mithel TIE Fighter
          var defender = environment.pilotInstances()[0];
-         defender.agent().getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
+         defender.agent().getModifyDefenseDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
@@ -612,25 +612,10 @@ define(["qunit", "redux",
       {
          var store00 = Redux.createStore(Reducer.root);
          var rebelAgent = new Agent(store00, "Rebel Agent");
-         //  rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
-         //  {
-         //     var rawAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][upgradeKey];
-         //     var ability;
-         //     if (rawAbility && rawAbility.condition(store, attacker))
-         //     {
-         //        ability = new Ability(UpgradeCard, upgradeKey, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         //     }
-         //     var isAccepted = (ability !== undefined);
-         //     callback(ability, isAccepted);
-         //  };
          var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
          var attackerPosition = new Position(458, 895, -90);
 
          var imperialAgent = new Agent(store00, "Imperial Agent");
-         //  imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
-         //  {
-         //     callback(undefined, false);
-         //  };
          var defender = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
          var myY = (y !== undefined ? y : 845);
          var defenderPosition = new Position(450, myY, 90);
@@ -642,12 +627,12 @@ define(["qunit", "redux",
          var positions2 = [attackerPosition];
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
          imperialAgent = environment.firstAgent();
-         imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
+         imperialAgent.getModifyDefenseDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
          rebelAgent = environment.secondAgent();
-         rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+         rebelAgent.getModifyAttackDiceAction = function(attacker, defender, callback)
          {
             var rawAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][upgradeKey];
             var ability;
@@ -692,18 +677,10 @@ define(["qunit", "redux",
       {
          var store00 = Redux.createStore(Reducer.root);
          var rebelAgent = new Agent(store00, "Rebel Agent");
-         //  rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
-         //  {
-         //     callback(undefined, false);
-         //  };
          var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [upgradeKey]);
          var attackerPosition = new Position(458, 895, -90);
 
          var imperialAgent = new Agent(store00, "Imperial Agent");
-         //  imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
-         //  {
-         //     callback(undefined, false);
-         //  };
          var defender = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
          var defenderPosition = new Position(450, 845, 90);
 
@@ -716,12 +693,12 @@ define(["qunit", "redux",
          var positions2 = [attackerPosition];
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
          imperialAgent = environment.firstAgent();
-         imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
+         imperialAgent.getModifyDefenseDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
          rebelAgent = environment.secondAgent();
-         rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+         rebelAgent.getModifyAttackDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };

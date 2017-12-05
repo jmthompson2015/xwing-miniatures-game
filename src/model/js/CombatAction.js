@@ -284,8 +284,6 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          LOGGER.trace("CombatAction.finishNotifyDamage() start");
 
          var store = this.store();
-         var environment = this.environment();
-         var adjudicator = this.adjudicator();
          var attacker = this.attacker();
          var defender = this.defender();
          var attackerAgent = attacker.agent();
@@ -310,16 +308,16 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          }
          else if (attackerIsComputerAgent && !defenderIsComputerAgent)
          {
-            defenderAgent.dealDamage(environment, adjudicator, attacker, attackDice, defender, defenseDice, damageDealer, callback);
+            defenderAgent.dealDamage(attacker, attackDice, defender, defenseDice, damageDealer, callback);
          }
          else if (!attackerIsComputerAgent && defenderIsComputerAgent)
          {
-            attackerAgent.dealDamage(environment, adjudicator, attacker, attackDice, defender, defenseDice, damageDealer, callback);
+            attackerAgent.dealDamage(attacker, attackDice, defender, defenseDice, damageDealer, callback);
          }
          else if (!attackerIsComputerAgent && !defenderIsComputerAgent)
          {
             // Both human agents.
-            attackerAgent.dealDamage(environment, adjudicator, attacker, attackDice, defender, defenseDice, damageDealer, callback);
+            attackerAgent.dealDamage(attacker, attackDice, defender, defenseDice, damageDealer, callback);
          }
 
          LOGGER.trace("CombatAction.finishNotifyDamage() end");

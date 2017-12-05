@@ -75,10 +75,8 @@ define(["common/js/InputValidator",
             {
                that.finishChooseAbility(eventData, ability, isAccepted);
             };
-            var store = this.store();
-            var environment = store.getState().environment;
             var agent = token.agent();
-            agent.chooseAbility(environment, damageAbilities, pilotAbilities, upgradeAbilities, agentCallback);
+            agent.chooseAbility(damageAbilities, pilotAbilities, upgradeAbilities, agentCallback);
          }
          else
          {

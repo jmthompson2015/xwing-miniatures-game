@@ -357,12 +357,12 @@ define(["qunit", "redux",
          var positions2 = [attackerPosition];
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
          imperialAgent = environment.firstAgent();
-         imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
+         imperialAgent.getModifyDefenseDiceAction = function(attacker, defender, callback)
          {
             callback(undefined);
          };
          rebelAgent = environment.secondAgent();
-         rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+         rebelAgent.getModifyAttackDiceAction = function(attacker, defender, callback)
          {
             callback(undefined);
          };
@@ -560,12 +560,12 @@ define(["qunit", "redux",
          var positions2 = [attackerPosition];
          var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
          imperialAgent = environment.firstAgent();
-         imperialAgent.getModifyDefenseDiceAction = function(store, adjudicator, attacker, defender, callback)
+         imperialAgent.getModifyDefenseDiceAction = function(attacker, defender, callback)
          {
             callback(undefined, false);
          };
          rebelAgent = environment.secondAgent();
-         rebelAgent.getModifyAttackDiceAction = function(store, adjudicator, attacker, defender, callback)
+         rebelAgent.getModifyAttackDiceAction = function(attacker, defender, callback)
          {
             var rawAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][upgradeKey];
             var ability;

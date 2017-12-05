@@ -70,7 +70,6 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/ShipAction
          {
             var store = this.store();
             var environment = store.getState().environment;
-            var adjudicator = store.getState().adjudicator;
             var agent = token.agent();
             var that = this;
             var agentCallback = function(ability, isAccepted)
@@ -85,16 +84,16 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/ShipAction
 
             if (phaseKey === Phase.ACTIVATION_PERFORM_ACTION)
             {
-               agent.getShipAction(environment, adjudicator, token, agentCallback);
+               agent.getShipAction(token, agentCallback);
             }
             else if (phaseKey === Phase.COMBAT_MODIFY_ATTACK_DICE)
             {
-               agent.getModifyAttackDiceAction(store, adjudicator, token, defender, agentCallback);
+               agent.getModifyAttackDiceAction(token, defender, agentCallback);
             }
             else if (phaseKey === Phase.COMBAT_MODIFY_DEFENSE_DICE)
             {
                var defenderAgent = defender.agent();
-               defenderAgent.getModifyDefenseDiceAction(store, adjudicator, token, defender, agentCallback);
+               defenderAgent.getModifyDefenseDiceAction(token, defender, agentCallback);
             }
             else
             {
@@ -106,7 +105,7 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/ShipAction
                if (damageAbilities.length > 0 || pilotAbilities.length > 0 || upgradeAbilities.length > 0)
                {
                   environment.setActiveToken(token);
-                  agent.chooseAbility(environment, damageAbilities, pilotAbilities, upgradeAbilities, agentCallback);
+                  agent.chooseAbility(damageAbilities, pilotAbilities, upgradeAbilities, agentCallback);
                }
                else
                {

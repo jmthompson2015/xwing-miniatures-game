@@ -258,8 +258,7 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
                {
                   LOGGER.debug("checking decloak for " + token);
                   var agent = token.agent();
-                  var adjudicator = this.adjudicator();
-                  agent.getDecloakAction(environment, adjudicator, token, this.setDecloakAction.bind(this));
+                  agent.getDecloakAction(token, this.setDecloakAction.bind(this));
 
                   // Wait for agent to respond.
                }
@@ -423,7 +422,7 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
                // Declare target.
                var agent = attacker.agent();
-               agent.chooseWeaponAndDefender(environment, adjudicator, attacker, this.setWeaponAndDefender.bind(this));
+               agent.chooseWeaponAndDefender(attacker, this.setWeaponAndDefender.bind(this));
 
                // Wait for agent to respond.
             }

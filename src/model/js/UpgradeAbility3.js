@@ -930,15 +930,13 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var agent = token.agent();
-            var environment = getEnvironment(store);
-            var adjudicator = getAdjudicator(store);
             var weapon = token.primaryWeapon();
             var that = this;
             var finishCallback = function(weapon, defender)
             {
                that.finishConsequent(store, token, weapon, defender, callback);
             };
-            agent.chooseWeaponAndDefender(environment, adjudicator, token, finishCallback, weapon);
+            agent.chooseWeaponAndDefender(token, finishCallback, weapon);
          },
          finishConsequent: function(store, token, weapon, defender, callback)
          {
@@ -1252,13 +1250,6 @@ define(["common/js/InputValidator",
          var attackDiceClass = (combatAction ? combatAction.attackDiceClass() : AttackDice);
 
          return attackDiceClass.get(store, attacker.id());
-      }
-
-      function getAdjudicator(store)
-      {
-         InputValidator.validateNotNull("store", store);
-
-         return Selector.adjudicator(store.getState());
       }
 
       function getAttackerPosition(attacker)
