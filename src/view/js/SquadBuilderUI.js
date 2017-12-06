@@ -121,11 +121,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             var answer;
             var displayItem = this.props.displayItem;
 
-            if (displayItem.parent)
-            {
-               displayItem = displayItem.parent;
-            }
-
             if (displayItem)
             {
                var xwingType = displayItem.xwingType;
@@ -152,6 +147,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                         card: displayItem,
                         className: "pilotCardImage fl",
                         resourceBase: this.props.resourceBase,
+                        width: 250,
                      });
                      break;
                   case UpgradeCard:
@@ -161,6 +157,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                         card: displayItem,
                         className: "upgradeCardImage fl",
                         resourceBase: this.props.resourceBase,
+                        width: 178,
                      });
                      break;
                }

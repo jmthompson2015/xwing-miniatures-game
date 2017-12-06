@@ -1,7 +1,7 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "model/js/Squad", "model/js/AgentSquadAction", "model/js/CardInstanceFactory", "view/js/SquadBuilderUI"],
-   function(ReactRedux, InputValidator, Squad, AgentSquadAction, CardInstanceFactory, SquadBuilderUI)
+define(["react-redux", "common/js/InputValidator", "model/js/Agent", "model/js/AgentSquadAction", "model/js/CardInstanceFactory", "model/js/Squad", "view/js/SquadBuilderUI"],
+   function(ReactRedux, InputValidator, Agent, AgentSquadAction, CardInstanceFactory, Squad, SquadBuilderUI)
    {
       function mapStateToProps(state, ownProps)
       {
@@ -71,8 +71,8 @@ define(["react-redux", "common/js/InputValidator", "model/js/Squad", "model/js/A
 
          if (pilots.size > 0)
          {
-            var mockAgent = {};
             var delegateStore = store.getState().delegateStore;
+            var mockAgent = new Agent(delegateStore, "mockAgent");
 
             pilots.forEach(function(pilot, i)
             {
