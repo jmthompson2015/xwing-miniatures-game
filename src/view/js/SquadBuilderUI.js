@@ -2,10 +2,10 @@
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "redux", "common/js/InputValidator",
   "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/ShipState", "artifact/js/ShipFaction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
-  "view/js/FactionUI", "view/js/ImplementedImage", "view/js/PilotCardImage", "view/js/PilotChooser", "view/js/ShipCardUI", "view/js/ShipChooser", "view/js/SquadColumns", "view/js/ShipStateUI", "view/js/UpgradeCardImage", "view/js/UpgradeChooser", "view/js/UpgradeTypeComparator"],
+  "view/js/CardImage", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/PilotChooser", "view/js/ShipCardUI", "view/js/ShipChooser", "view/js/SquadColumns", "view/js/ShipStateUI", "view/js/UpgradeChooser", "view/js/UpgradeTypeComparator"],
    function(createReactClass, PropTypes, React, DOM, Redux, InputValidator,
       PilotCard, Ship, ShipState, ShipFaction, UpgradeCard, UpgradeType,
-      FactionUI, ImplementedImage, PilotCardImage, PilotChooser, ShipCardUI, ShipChooser, SquadColumns, ShipStateUI, UpgradeCardImage, UpgradeChooser, UpgradeTypeComparator)
+      CardImage, FactionUI, ImplementedImage, PilotChooser, ShipCardUI, ShipChooser, SquadColumns, ShipStateUI, UpgradeChooser, UpgradeTypeComparator)
    {
       var SquadBuilderUI = createReactClass(
       {
@@ -146,19 +146,21 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                      });
                      break;
                   case PilotCard:
-                     answer = React.createElement(PilotCardImage,
+                     answer = React.createElement(CardImage,
                      {
                         key: "pilotCard" + displayItem.key,
+                        card: displayItem,
                         className: "pilotCardImage fl",
-                        pilot: displayItem,
+                        resourceBase: this.props.resourceBase,
                      });
                      break;
                   case UpgradeCard:
-                     answer = React.createElement(UpgradeCardImage,
+                     answer = React.createElement(CardImage,
                      {
                         key: "upgradeCard" + displayItem.key,
+                        card: displayItem,
                         className: "upgradeCardImage fl",
-                        upgrade: displayItem,
+                        resourceBase: this.props.resourceBase,
                      });
                      break;
                }

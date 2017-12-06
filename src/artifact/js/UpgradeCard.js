@@ -200,7 +200,8 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
          OVERCLOCKED_R4: "overclockedR4",
          PATTERN_ANALYZER: "patternAnalyzer",
          PHANTOM: "phantom",
-         PIVOT_WING: "pivotWing",
+         PIVOT_WING_ATTACK: "pivotWingAttack",
+         PIVOT_WING_LANDING: "pivotWingLanding",
          PLASMA_TORPEDOES: "plasmaTorpedoes",
          PREDATOR: "predator",
          PRIMED_THRUSTERS: "primedThrusters",
@@ -2280,14 +2281,24 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                squadPointCost: undefined,
                key: "phantom",
             },
-            "pivotWing":
+            "pivotWingAttack":
             {
-               name: "Pivot Wing",
+               name: "Pivot Wing (Attack)",
                typeKey: UpgradeType.TITLE,
                restrictionKeys: [UpgradeRestriction.U_WING_ONLY],
-               description: "Increase your agility value by 1. After you execute a maneuver, you may flip this card. / When you reveal a [Stop 0] maneuver, you may rotate your ship 180°. After you execute a maneuver, you may flip this card.",
+               description: "Increase your agility value by 1. After you execute a maneuver, you may flip this card.",
+               agilityValue: 1,
                squadPointCost: 0,
-               key: "pivotWing",
+               key: "pivotWingAttack",
+            },
+            "pivotWingLanding":
+            {
+               name: "Pivot Wing (Landing)",
+               typeKey: UpgradeType.TITLE,
+               restrictionKeys: [UpgradeRestriction.U_WING_ONLY],
+               description: "When you reveal a [Stop 0] maneuver, you may rotate your ship 180°. After you execute a maneuver, you may flip this card.",
+               squadPointCost: 0,
+               key: "pivotWingLanding",
             },
             "plasmaTorpedoes":
             {
@@ -3344,9 +3355,18 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
          }
 
          var imagePath = upgrade.name.toLowerCase() + ".png";
-         imagePath = imagePath.replace(/\//g, "-");
          imagePath = imagePath.replace(/ /g, "-");
-         imagePath = imagePath.replace(/mk.-ii/g, "mk2");
+         imagePath = imagePath.replace(/\'/g, "-");
+         imagePath = imagePath.replace(/\//g, "-");
+         imagePath = imagePath.replace(/\"/g, "");
+         imagePath = imagePath.replace(/\(/g, "");
+         imagePath = imagePath.replace(/\)/g, "");
+         imagePath = imagePath.replace("-(hotr)", "");
+         imagePath = imagePath.replace("bossk", "bossk-crew");
+         imagePath = imagePath.replace("hound-s-tooth", "hounds-tooth");
+         imagePath = imagePath.replace("kylo-ren-s-shuttle", "kylo-rens-shuttle");
+         imagePath = imagePath.replace("mk.-ii", "mk2");
+         imagePath = imagePath.replace("r2-d2-crew", "r2-d2");
          upgrade.imagePath = imagePath;
       });
 

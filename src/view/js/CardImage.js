@@ -30,34 +30,29 @@ define(["create-react-class", "prop-types", "react-dom-factories", "artifact/js/
          var cardUrl;
          var versionPath = "xwing-data-0.48.0/";
 
-         if (card.cardTypeKey === CardType.DAMAGE)
+         switch (card.cardTypeKey)
          {
-            var damageDeckTypeUrl = "core-tfa/";
-            cardUrl = card.imagePath;
-
-            answer = this.props.resourceBase + "../../../lib/xwing-data/" + versionPath + "images/damage-decks/" + damageDeckTypeUrl + cardUrl;
-         }
-         else if (card.cardTypeKey === CardType.PILOT)
-         {
-            var faction = card.shipFaction.faction;
-            var factionUrl = faction.imagePath;
-            var ship = card.shipFaction.ship;
-            var shipUrl = ship.name.replace(/\//, "-") + "/";
-            cardUrl = card.imagePath;
-
-            answer = this.props.resourceBase + "../../../lib/xwing-data/" + versionPath + "images/pilots/" + factionUrl + shipUrl + cardUrl;
-         }
-         else if (card.cardTypeKey === CardType.UPGRADE)
-         {
-            var upgradeType = card.type;
-            var upgradeTypeUrl = upgradeType.imagePath;
-            cardUrl = card.imagePath;
-
-            answer = this.props.resourceBase + "../../../lib/xwing-data/" + versionPath + "images/upgrades/" + upgradeTypeUrl + cardUrl;
-         }
-         else
-         {
-            throw "Unhandled cardTypeKey: " + card.cardTypeKey + " for card: " + card + " " + card.name;
+            case CardType.DAMAGE:
+               var damageDeckTypeUrl = (card.key.endsWith("V2") ? "core-tfa/" : "core/");
+               cardUrl = card.imagePath;
+               answer = this.props.resourceBase + "../../../lib/xwing-data/" + versionPath + "images/damage-decks/" + damageDeckTypeUrl + cardUrl;
+               break;
+            case CardType.PILOT:
+               var faction = card.shipFaction.faction;
+               var factionUrl = faction.imagePath;
+               var ship = card.shipFaction.ship;
+               var shipUrl = ship.name.replace(/\//, "-") + "/";
+               cardUrl = card.imagePath;
+               answer = this.props.resourceBase + "../../../lib/xwing-data/" + versionPath + "images/pilots/" + factionUrl + shipUrl + cardUrl;
+               break;
+            case CardType.UPGRADE:
+               var upgradeType = card.type;
+               var upgradeTypeUrl = upgradeType.imagePath;
+               cardUrl = card.imagePath;
+               answer = this.props.resourceBase + "../../../lib/xwing-data/" + versionPath + "images/upgrades/" + upgradeTypeUrl + cardUrl;
+               break;
+            default:
+               throw "Unhandled cardTypeKey: " + card.cardTypeKey + " for card: " + card + " " + card.name;
          }
 
          return answer;

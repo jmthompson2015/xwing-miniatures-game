@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Upgrade Card Gallery</title>
+  <title>Damage Card Gallery</title>
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
@@ -18,15 +18,15 @@
 
 </head>
 <body>
-  <h1>Upgrade Card Gallery</h1>
+  <h1>Damage Card Gallery</h1>
   <div id="mainPanel"></div>
   <script>
     "use strict";
 
     require(["create-react-class", "react", "react-dom", "react-dom-factories",
-        "common/js/Logger", "artifact/js/UpgradeCard", "artifact/js/UpgradeType", "view/js/CardImage"
+        "common/js/Logger", "artifact/js/DamageCard", "view/js/CardImage"
       ],
-      function(createReactClass, React, ReactDOM, DOM, Logger, UpgradeCard, UpgradeType, CardImage)
+      function(createReactClass, React, ReactDOM, DOM, Logger, DamageCard, CardImage)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -34,21 +34,20 @@
 
         var resourceBase = "../../../src/view/resource/";
 
-        var UpgradeGallery = createReactClass(
+        var DamageGallery = createReactClass(
         {
           render: function()
           {
-            var upgradeTypeKey = this.props.upgradeTypeKey;
-            var upgradeKeys = UpgradeCard.keysByType(upgradeTypeKey);
+            var damageKeys = this.props.damageKeys;
 
             var cells = [];
 
-            upgradeKeys.forEach(function(upgradeKey)
+            damageKeys.forEach(function(damageKey)
             {
               var element = React.createElement(CardImage,
               {
-                key: "upgradeInstance" + upgradeKey,
-                card: UpgradeCard.properties[upgradeKey],
+                key: "damageInstance" + damageKey,
+                card: DamageCard.properties[damageKey],
                 resourceBase: resourceBase,
                 width: 135,
               });
@@ -62,21 +61,27 @@
 
         var rows = [];
 
-        UpgradeType.keys().forEach(function(upgradeTypeKey, i)
+        rows.push(DOM.h2(
         {
-          var upgradeType = UpgradeType.properties[upgradeTypeKey];
+          key: "damageHeader" + rows.length,
+        }, "Version 1"));
 
-          rows.push(DOM.h2(
-          {
-            key: "upgradeHeader" + rows.length,
-          }, upgradeType.name));
+        rows.push(React.createElement(DamageGallery,
+        {
+          key: "damageGallery" + rows.length,
+          damageKeys: DamageCard.keysV1(),
+        }));
 
-          rows.push(React.createElement(UpgradeGallery,
-          {
-            key: "upgradeGallery" + rows.length,
-            upgradeTypeKey: upgradeTypeKey,
-          }));
-        });
+        rows.push(DOM.h2(
+        {
+          key: "damageHeader" + rows.length,
+        }, "Version 2"));
+
+        rows.push(React.createElement(DamageGallery,
+        {
+          key: "damageGallery" + rows.length,
+          damageKeys: DamageCard.keysV2(),
+        }));
 
         var mainPanel = DOM.div(
         {}, rows);

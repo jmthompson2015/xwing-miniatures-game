@@ -24,13 +24,15 @@
     "use strict";
 
     require(["create-react-class", "react", "react-dom", "react-dom-factories", "common/js/Logger",
-        "artifact/js/Faction", "artifact/js/PilotCard", "view/js/PilotCardImage"
+        "artifact/js/Faction", "artifact/js/PilotCard", "view/js/CardImage"
       ],
-      function(createReactClass, React, ReactDOM, DOM, Logger, Faction, PilotCard, PilotCardImage)
+      function(createReactClass, React, ReactDOM, DOM, Logger, Faction, PilotCard, CardImage)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
         LOGGER.setDebugEnabled(false);
+
+        var resourceBase = "../../../src/view/resource/";
 
         var PilotCardGallery = createReactClass(
         {
@@ -44,12 +46,36 @@
 
             pilotKeys.forEach(function(pilotKey)
             {
-              var element = React.createElement(PilotCardImage,
+              if ([PilotCard.CR90_CORVETTE, PilotCard.RAIDER_CLASS_CORVETTE].includes(pilotKey))
               {
-                key: "pilotInstance" + pilotKey,
-                pilot: PilotCard.properties[pilotKey],
-              });
-              cells.push(element);
+                var element = React.createElement(CardImage,
+                {
+                  key: "pilotInstance" + pilotKey + ".fore",
+                  card: PilotCard.properties[pilotKey].fore,
+                  resourceBase: resourceBase,
+                  width: 200,
+                });
+                cells.push(element);
+                var element = React.createElement(CardImage,
+                {
+                  key: "pilotInstance" + pilotKey + ".aft",
+                  card: PilotCard.properties[pilotKey].aft,
+                  resourceBase: resourceBase,
+                  width: 200,
+                });
+                cells.push(element);
+              }
+              else
+              {
+                var element = React.createElement(CardImage,
+                {
+                  key: "pilotInstance" + pilotKey,
+                  card: PilotCard.properties[pilotKey],
+                  resourceBase: resourceBase,
+                  width: 200,
+                });
+                cells.push(element);
+              }
             });
 
             return DOM.div(
