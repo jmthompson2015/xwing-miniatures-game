@@ -1212,7 +1212,7 @@ define(["qunit", "redux",
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
 
          // Run / Verify.
-         assert.equal(token.toString(), "1 Academy Pilot (TIE Fighter)");
+         assert.equal(token.toString(), "1 Academy Pilot (TIE Fighter) pilot");
       });
 
       QUnit.test("totalDamage()", function(assert)

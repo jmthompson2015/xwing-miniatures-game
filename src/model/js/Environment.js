@@ -21,10 +21,10 @@
 
 define(["common/js/ArrayAugments", "common/js/InputValidator",
   "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
-  "model/js/Action", "model/js/AgentAction", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/DualCardInstance", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
+  "model/js/Action", "model/js/AgentAction", "model/js/CardComparator", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/DualCardInstance", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
    function(ArrayAugments, InputValidator,
       CardType, DamageCard, Faction, PlayFormat, Range,
-      Action, AgentAction, CardInstance, CardInstanceFactory, DualCardInstance, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
+      Action, AgentAction, CardComparator, CardInstance, CardInstanceFactory, DualCardInstance, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
    {
       function Environment(store, agent1, squad1, agent2, squad2, positions1, positions2)
       {
@@ -62,32 +62,28 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          return (activeCardId !== undefined ? CardInstanceFactory.get(store, activeCardId) : undefined);
       };
 
-      Environment.prototype.cardInstances = function()
+      Environment.prototype.cardInstances = function(cardTypeKey)
       {
+         // cardTypeKey optional.
+
          var store = this.store();
          var cardInstances = store.getState().cardInstances;
          var keys = cardInstances.keySeq().toArray();
 
-         return keys.reduce(function(accumulator, id)
+         var answer = keys.map(function(id)
          {
-            var values = cardInstances.get(id);
+            return CardInstanceFactory.get(store, id);
+         });
 
-            if (values.get("idFore") !== undefined)
+         if (cardTypeKey !== undefined)
+         {
+            answer = answer.filter(function(cardInstance)
             {
-               accumulator.push(DualCardInstance.get(store, id));
-            }
-            else
-            {
-               var cardKey = values.get("cardKey");
+               return cardInstance.card().cardTypeKey === cardTypeKey;
+            });
+         }
 
-               if (!cardKey.endsWith(".fore") && !cardKey.endsWith(".aft"))
-               {
-                  accumulator.push(CardInstance.get(store, id));
-               }
-            }
-
-            return accumulator;
-         }, []);
+         return answer;
       };
 
       Environment.prototype.createTokenPositions = function()
@@ -383,92 +379,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
       Environment.prototype.getTokensForActivation = function(isPure)
       {
-         return this.pilotInstances(isPure).sort(
-            function(token0, token1)
-            {
-               var answer;
-               var isHuge0 = token0.isHuge();
-               var isHuge1 = token1.isHuge();
+         var pilotInstances = this.pilotInstances(isPure);
+         pilotInstances.sort(CardComparator.Activation);
 
-               if (isHuge0 === isHuge1)
-               {
-                  answer = 0;
-               }
-               else if (isHuge0 && !isHuge1)
-               {
-                  answer = 1;
-               }
-               else
-               {
-                  answer = -1;
-               }
-
-               if (answer === 0)
-               {
-                  var skill0 = (token0.pilotSkillValue ? token0.pilotSkillValue() : token0.tokenFore().pilotSkillValue());
-                  var skill1 = (token1.pilotSkillValue ? token1.pilotSkillValue() : token1.tokenFore().pilotSkillValue());
-                  answer = skill0 - skill1;
-
-                  if (answer === 0)
-                  {
-                     var teamKey0 = token0.card().shipFaction.factionKey;
-                     var teamKey1 = token1.card().shipFaction.factionKey;
-
-                     if (Faction.isFriendly(teamKey0, teamKey1))
-                     {
-                        answer = 0;
-                     }
-                     else if (Faction.isFriendly(teamKey0, Faction.IMPERIAL))
-                     {
-                        answer = -1;
-                     }
-                     else
-                     {
-                        answer = 1;
-                     }
-                  }
-               }
-
-               return answer;
-            });
+         return pilotInstances;
       };
 
       Environment.prototype.getTokensForCombat = function()
       {
          var isPure = true;
+         var pilotInstances = this.pilotInstances(isPure);
+         pilotInstances.sort(CardComparator.Combat);
 
-         return this.pilotInstances(isPure).sort(function(token0, token1)
-         {
-            var skill0 = token0.pilotSkillValue();
-            var skill1 = token1.pilotSkillValue();
-            var answer = skill1 - skill0;
-
-            if (answer === 0)
-            {
-               var teamKey0 = token0.card().shipFaction.factionKey;
-               var teamKey1 = token1.card().shipFaction.factionKey;
-
-               if (Faction.isFriendly(teamKey0, teamKey1))
-               {
-                  answer = 0;
-               }
-               else if (Faction.isFriendly(teamKey0, Faction.IMPERIAL))
-               {
-                  answer = -1;
-               }
-               else
-               {
-                  answer = 1;
-               }
-            }
-
-            if (answer === 0)
-            {
-               answer = token0.id() - token1.id();
-            }
-
-            return answer;
-         });
+         return pilotInstances;
       };
 
       Environment.prototype.getTokensForFaction = function(factionKey, isPure)
@@ -528,19 +451,22 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
       Environment.prototype.pilotInstances = function(isPure)
       {
-         return this.cardInstances().reduce(function(accumulator, cardInstance)
+         var cardInstances = this.cardInstances(CardType.PILOT);
+
+         return cardInstances.reduce(function(accumulator, cardInstance)
          {
-            if (cardInstance.card().cardTypeKey === CardType.PILOT)
+            if (cardInstance.isChild())
             {
-               if (isPure && cardInstance.tokenFore && cardInstance.tokenAft)
-               {
-                  accumulator.push(cardInstance.tokenFore());
-                  accumulator.push(cardInstance.tokenAft());
-               }
-               else
-               {
-                  accumulator.push(cardInstance);
-               }
+               // Skip it.
+            }
+            else if (isPure && cardInstance.isDual)
+            {
+               accumulator.push(cardInstance.tokenFore());
+               accumulator.push(cardInstance.tokenAft());
+            }
+            else
+            {
+               accumulator.push(cardInstance);
             }
 
             return accumulator;
@@ -653,14 +579,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          store.dispatch(EnvironmentAction.removeToken(token));
          store.dispatch(AgentAction.removePilot(token.agent(), token));
       };
-
-      // Environment.prototype.removeTokenAt = function(position)
-      // {
-      //    InputValidator.validateNotNull("position", position);
-      //
-      //    var store = this.store();
-      //    store.dispatch(EnvironmentAction.removeTokenAt(position));
-      // };
 
       Environment.prototype.setActiveToken = function(newActiveToken)
       {

@@ -188,12 +188,19 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
          }
       }
 
+      DualCardInstance.prototype.isDual = true;
+
       //////////////////////////////////////////////////////////////////////////
       // Accessor methods.
 
       DualCardInstance.prototype.equals = function(other)
       {
          return this.id() == other.id() && this.card().key == other.card().key;
+      };
+
+      DualCardInstance.prototype.isChild = function()
+      {
+         return false;
       };
 
       DualCardInstance.prototype.isDestroyed = function()
@@ -229,11 +236,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
       DualCardInstance.prototype.name = function()
       {
          return this.id() + " " + this.card().name;
-      };
-
-      DualCardInstance.prototype.pilotSkillValue = function()
-      {
-         return this.tokenFore().pilotSkillValue();
       };
 
       DualCardInstance.prototype.pilotName = function()

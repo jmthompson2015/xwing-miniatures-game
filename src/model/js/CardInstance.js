@@ -519,6 +519,13 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          return answer;
       };
 
+      CardInstance.prototype.isChild = function()
+      {
+         var key = this.card().key;
+
+         return key.endsWith(".fore") || key.endsWith(".aft");
+      };
+
       CardInstance.prototype.isCloaked = function()
       {
          return this.cloakCount() > 0;
@@ -897,7 +904,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.toString = function()
       {
-         return this.name();
+         return this.name() + " " + this.card().cardTypeKey;
       };
 
       CardInstance.prototype.totalDamage = function()
@@ -1302,7 +1309,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          store.dispatch(CardAction.clearUsedAbilities(this));
          store.dispatch(CardAction.clearUsedPerRoundAbilities(this));
 
-         if (this.card().cardTypeKey === CardType.PILOT && !this.card().key.endsWith(".fore") && !this.card().key.endsWith(".aft"))
+         if (this.card().cardTypeKey === CardType.PILOT && !this.isChild())
          {
             store.dispatch(AgentAction.addPilot(agent, this));
          }
