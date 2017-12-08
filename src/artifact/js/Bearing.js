@@ -77,16 +77,19 @@ define(function()
          },
          "segnorsLoopLeft":
          {
+            name: "Segnor's Loop Left",
             headingChange: 135,
             key: "segnorsLoopLeft",
          },
          "tallonRollLeft":
          {
+            name: "Tallon Roll Left",
             headingChange: 180,
             key: "tallonRollLeft",
          },
          "kTurn":
          {
+            name: "Koiogran Turn",
             headingChange: 180,
             key: "kTurn",
          },
@@ -98,11 +101,13 @@ define(function()
          },
          "segnorsLoopRight":
          {
+            name: "Segnor's Loop Right",
             headingChange: 225,
             key: "segnorsLoopRight",
          },
          "tallonRollRight":
          {
+            name: "Tallon Roll Right",
             headingChange: 180,
             key: "tallonRollRight",
          },
@@ -114,14 +119,17 @@ define(function()
       return Object.keys(Bearing.properties);
    };
 
-   Bearing.toString = function()
-   {
-      return "Bearing";
-   };
-
    Bearing.values = function()
    {
       return Object.values(Bearing.properties);
+   };
+
+   //////////////////////////////////////////////////////////////////////////
+   // Utility methods.
+
+   Bearing.toString = function()
+   {
+      return "Bearing";
    };
 
    if (Object.freeze)

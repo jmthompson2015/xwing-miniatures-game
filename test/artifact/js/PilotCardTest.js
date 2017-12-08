@@ -95,7 +95,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
          var length = 232;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ACADEMY_PILOT);
-         assert.equal(result[length - 1], PilotCard.ZUCKUSS);
+         assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
 
          var properties = Object.getOwnPropertyNames(PilotCard);
          var count = properties.length - 1 - // properties
@@ -190,7 +190,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
          assert.ok(result);
          var length = 89;
          assert.equal(result.length, length);
-         assert.equal(result[length - 1], PilotCard.ZERTIK_STROM);
+         assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
       });
 
       QUnit.test("keysByFaction() First Order strict", function(assert)
@@ -235,7 +235,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
          var length = 72;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ACADEMY_PILOT);
-         assert.equal(result[length - 1], PilotCard.ZERTIK_STROM);
+         assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
       });
 
       QUnit.test("keysByFaction() Rebel", function(assert)
@@ -264,7 +264,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
          var length = 69;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.AIREN_CRACKEN);
-         assert.equal(result[length - 1], PilotCard.ZEB_ORRELIOS);
+         assert.equal(result[length - 1], PilotCard.GR_75_MEDIUM_TRANSPORT);
       });
 
       QUnit.test("keysByFaction() Resistance", function(assert)
@@ -277,7 +277,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
          var length = 83;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.BLUE_ACE);
-         assert.equal(result[length - 1], PilotCard.ZEB_ORRELIOS);
+         assert.equal(result[length - 1], PilotCard.GR_75_MEDIUM_TRANSPORT);
       });
 
       QUnit.test("keysByFaction() Resistance strict", function(assert)
@@ -306,6 +306,6 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
          var length = 60;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ASAJJ_VENTRESS);
-         assert.equal(result[length - 1], PilotCard.ZUCKUSS);
+         assert.equal(result[length - 1], PilotCard.C_ROC_CRUISER);
       });
    });

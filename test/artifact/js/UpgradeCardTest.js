@@ -88,7 +88,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 300;
+         var length = 301;
          assert.equal(result.length, length);
          assert.equal(result[0], UpgradeCard.A_WING_TEST_PILOT);
          assert.equal(result[length - 1], UpgradeCard.ZUCKUSS);

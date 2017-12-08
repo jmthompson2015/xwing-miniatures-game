@@ -13,6 +13,7 @@ define(function()
       JAM: "jam",
       RECOVER: "recover",
       REINFORCE: "reinforce",
+      RELOAD: "reload",
       ROTATE_ARC: "rotateArc",
       SLAM: "slam",
       TARGET_LOCK: "targetLock",
@@ -79,6 +80,11 @@ define(function()
             isImplemented: true,
             key: "reinforce",
          },
+         "reload":
+         {
+            name: "Reload",
+            key: "reload",
+         },
          "rotateArc":
          {
             name: "Rotate Arc",
@@ -104,11 +110,6 @@ define(function()
       return Object.keys(ShipAction.properties);
    };
 
-   ShipAction.toString = function()
-   {
-      return "ShipAction";
-   };
-
    ShipAction.values = function()
    {
       return Object.values(ShipAction.properties);
@@ -121,6 +122,31 @@ define(function()
 
       shipAction.oncePerRound = true;
    });
+
+   //////////////////////////////////////////////////////////////////////////
+   // Utility methods.
+
+   ShipAction.findByName = function(name)
+   {
+      var answer;
+      var values = ShipAction.values();
+
+      for (var i = 0; i < values.length; i++)
+      {
+         if (values[i].name === name)
+         {
+            answer = values[i];
+            break;
+         }
+      }
+
+      return answer;
+   };
+
+   ShipAction.toString = function()
+   {
+      return "ShipAction";
+   };
 
    if (Object.freeze)
    {

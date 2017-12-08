@@ -10,7 +10,6 @@ define(["qunit", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipB
          var ship = Ship.FIRESPRAY_31;
          var properties = Ship.properties[ship];
          assert.equal(properties.name, "Firespray-31");
-         assert.equal(properties.description, "A Firespray-31.");
          assert.equal(properties.primaryWeaponValue, 3);
          assert.equal(properties.agilityValue, 2);
          assert.equal(properties.hullValue, 6);
@@ -30,7 +29,6 @@ define(["qunit", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipB
          var ship = Ship.TIE_FIGHTER;
          var properties = Ship.properties[ship];
          assert.equal(properties.name, "TIE Fighter");
-         assert.equal(properties.description, "A TIE fighter.");
          assert.equal(properties.primaryWeaponValue, 2);
          assert.equal(properties.agilityValue, 3);
          assert.equal(properties.hullValue, 3);
@@ -49,7 +47,6 @@ define(["qunit", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipB
          var ship = Ship.X_WING;
          var properties = Ship.properties[ship];
          assert.equal(properties.name, "X-Wing");
-         assert.equal(properties.description, "An X-Wing.");
          assert.equal(properties.primaryWeaponValue, 3);
          assert.equal(properties.agilityValue, 2);
          assert.equal(properties.hullValue, 3);
@@ -103,7 +100,7 @@ define(["qunit", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipB
          var length = 43;
          assert.equal(result.length, length);
          assert.equal(result[0], "aWing");
-         assert.equal(result[length - 1], "z95Headhunter");
+         assert.equal(result[length - 1], "raiderClassCorvette");
 
          var properties = Object.getOwnPropertyNames(Ship);
          var count = properties.length - 1 - // properties

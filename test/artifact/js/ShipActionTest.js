@@ -62,7 +62,7 @@ define(["qunit", "artifact/js/ShipAction"], function(QUnit, ShipAction)
 
       // Verify.
       assert.ok(result);
-      assert.equal(result.length, 13);
+      assert.equal(result.length, 14);
       var i = 0;
       assert.equal(result[i++], ShipAction.BARREL_ROLL);
       assert.equal(result[i++], ShipAction.BOOST);
@@ -74,6 +74,7 @@ define(["qunit", "artifact/js/ShipAction"], function(QUnit, ShipAction)
       assert.equal(result[i++], ShipAction.JAM);
       assert.equal(result[i++], ShipAction.RECOVER);
       assert.equal(result[i++], ShipAction.REINFORCE);
+      assert.equal(result[i++], ShipAction.RELOAD);
       assert.equal(result[i++], ShipAction.ROTATE_ARC);
       assert.equal(result[i++], ShipAction.SLAM);
       assert.equal(result[i++], ShipAction.TARGET_LOCK);
@@ -82,6 +83,7 @@ define(["qunit", "artifact/js/ShipAction"], function(QUnit, ShipAction)
       var count = properties.length - 1 - // properties
          1 - // keys
          1 - // toString
+         1 - // findByName
          1; // values
       assert.equal(result.length, count);
    });

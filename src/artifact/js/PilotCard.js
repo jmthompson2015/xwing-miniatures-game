@@ -33,7 +33,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          BOSSK: "bossk",
          BOUNTY_HUNTER: "bountyHunter",
          BRAYLEN_STRAMM: "braylenStramm",
-         C_ROC_CRUISER: "cRocCruiser",
          CAPTAIN_JONUS: "captainJonus",
          CAPTAIN_KAGI: "captainKagi",
          CAPTAIN_OICUNN: "captainOicunn",
@@ -56,7 +55,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          CONTRACTED_SCOUT: "contractedScout",
          CORRAN_HORN: "corranHorn",
          COUNTESS_RYAD: "countessRyad",
-         CR90_CORVETTE: "cr90Corvette",
          CUTLASS_SQUADRON_PILOT: "cutlassSquadronPilot",
          DACE_BONEARM: "daceBonearm",
          DAGGER_SQUADRON_PILOT: "daggerSquadronPilot",
@@ -90,8 +88,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          GENESIS_RED: "genesisRed",
          GLAIVE_SQUADRON_PILOT: "glaiveSquadronPilot",
          GOLD_SQUADRON_PILOT: "goldSquadronPilot",
-         GOZANTI_CLASS_CRUISER: "gozantiClassCruiser",
-         GR_75_MEDIUM_TRANSPORT: "gr75MediumTransport",
          GRAY_SQUADRON_PILOT: "graySquadronPilot",
          GRAZ_THE_HUNTER: "grazTheHunter",
          GREEN_SQUADRON_PILOT: "greenSquadronPilot",
@@ -172,7 +168,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          PROTOTYPE_PILOT: "prototypePilot",
          QUICKDRAW: "quickdraw",
          QUINN_JAST: "quinnJast",
-         RAIDER_CLASS_CORVETTE: "raiderClassCorvette",
          REAR_ADMIRAL_CHIRANEAU: "rearAdmiralChiraneau",
          REBEL_OPERATIVE: "rebelOperative",
          RED_ACE: "redAce",
@@ -236,6 +231,14 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          ZETA_SPECIALIST: "zetaSpecialist",
          ZETA_SQUADRON_PILOT: "zetaSquadronPilot",
          ZUCKUSS: "zuckuss",
+
+         // Huge ships.
+         C_ROC_CRUISER: "cRocCruiser",
+         CR90_CORVETTE: "cr90Corvette",
+         GOZANTI_CLASS_CRUISER: "gozantiClassCruiser",
+         GR_75_MEDIUM_TRANSPORT: "gr75MediumTransport",
+         RAIDER_CLASS_CORVETTE: "raiderClassCorvette",
+
          properties:
          {
             "academyPilot":
@@ -579,17 +582,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.ASTROMECH],
                key: "braylenStramm",
             },
-            "cRocCruiser":
-            {
-               name: "C-ROC Cruiser",
-               description: "The C-ROC cruiser possessed tremendous cargo capacity and powerful engines, making it a mainstay of merchants and smugglers.",
-               isFlavorText: true,
-               shipFactionKey: ShipFaction.SCUM_C_ROC_CRUISER,
-               pilotSkillValue: 1,
-               squadPointCost: 35,
-               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO, UpgradeType.CARGO, UpgradeType.CARGO],
-               key: "cRocCruiser",
-            },
             "captainJonus":
             {
                name: "Captain Jonus",
@@ -845,54 +837,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE],
                isImplemented: true,
                key: "countessRyad",
-            },
-            "cr90Corvette":
-            {
-               fore:
-               {
-                  name: "CR90 Corvette (fore)",
-                  description: "When attacking with your primary weapon, you may spend 1 energy to roll 1 additional attack die.",
-                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
-                  pilotSkillValue: 4,
-                  squadPointCost: 50,
-                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.HARDPOINT,
-                                    UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
-                  key: "cr90Corvette.fore",
-               },
-               aft:
-               {
-                  name: "CR90 Corvette (aft)",
-                  description: "Equipped with 11 Girodyne Ter58 high-output ion-turbine engines and a hardy hull, the Rebel Alliance prized the CR90 for its sublight speed and durability.",
-                  isFlavorText: true,
-                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
-                  pilotSkillValue: 4,
-                  squadPointCost: 40,
-                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM,
-                                    UpgradeType.CARGO],
-                  isImplemented: true,
-                  key: "cr90Corvette.aft",
-               },
-               crippledFore:
-               {
-                  name: "CR90 Corvette (crippled fore)",
-                  description: "Although the CR90 contained 8 Faberstien-Lago 37s escape pods, only 48 of the potential 165 passengers could safely escape.",
-                  isFlavorText: true,
-                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
-                  upgradeTypeKeys: [UpgradeType.CREW],
-                  isImplemented: true,
-                  key: "cr90Corvette.crippledFore",
-               },
-               crippledAft:
-               {
-                  name: "CR90 Corvette (crippled aft)",
-                  description: "You cannot choose or execute Straight 4, Bank Left 2, or Bank Right 2 maneuvers.",
-                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
-                  upgradeTypeKeys: [UpgradeType.CARGO],
-                  key: "cr90Corvette.crippledAft",
-               },
-               name: "CR90 Corvette",
-               shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
-               key: "cr90Corvette",
             },
             "cutlassSquadronPilot":
             {
@@ -1277,30 +1221,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                                 UpgradeType.ASTROMECH],
                isImplemented: true,
                key: "goldSquadronPilot",
-            },
-            "gozantiClassCruiser":
-            {
-               name: "Gozanti-class Cruiser",
-               description: "After you execute a maneuver, you may deploy up to 2 docked ships.",
-               shipFactionKey: ShipFaction.IMPERIAL_GOZANTI_CLASS_CRUISER,
-               pilotSkillValue: 2,
-               squadPointCost: 40,
-               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM,
-                                UpgradeType.CARGO, UpgradeType.CARGO],
-               key: "gozantiClassCruiser",
-            },
-            "gr75MediumTransport":
-            {
-               name: "GR-75 Medium Transport",
-               description: "The GR-75 played an integral role in the evacuation of Hoth, transporting the bulk of the Alliance's supplies and personnel to the rendezvous point.",
-               isFlavorText: true,
-               shipFactionKey: ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT,
-               pilotSkillValue: 3,
-               squadPointCost: 30,
-               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CARGO, UpgradeType.CARGO,
-                                UpgradeType.CARGO],
-               isImplemented: true,
-               key: "gr75MediumTransport",
             },
             "graySquadronPilot":
             {
@@ -2235,53 +2155,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE],
                key: "quinnJast",
             },
-            "raiderClassCorvette":
-            {
-               fore:
-               {
-                  name: "Raider-class Corvette (fore)",
-                  description: "Once per round, after you perform a primary weapon attack, you may spend 2 energy to perform another primary weapon attack.",
-                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
-                  pilotSkillValue: 4,
-                  squadPointCost: 50,
-                  upgradeTypeKeys: [UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO],
-                  key: "raiderClassCorvette.fore",
-               },
-               aft:
-               {
-                  name: "Raider-class Corvette (aft)",
-                  description: "The demise of the Death Star proved to Imperial High Command the importance of anti-fighter craft which renewed interest in the Raider-class corvette.",
-                  isFlavorText: true,
-                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
-                  pilotSkillValue: 4,
-                  squadPointCost: 50,
-                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT,
-                                    UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
-                  isImplemented: true,
-                  key: "raiderClassCorvette.aft",
-               },
-               crippledFore:
-               {
-                  name: "Raider-class Corvette (crippled fore)",
-                  description: "Conceived by Lira Wessex to support the larger craft of the Imperial Navy, the Raider-class corvette was a durable design for a ship of its size.",
-                  isFlavorText: true,
-                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
-                  upgradeTypeKeys: [UpgradeType.HARDPOINT],
-                  isImplemented: true,
-                  key: "raiderClassCorvette.crippledFore",
-               },
-               crippledAft:
-               {
-                  name: "Raider-class Corvette (crippled aft)",
-                  description: "You cannot choose or execute Bank Left 1 or Bank Right 1 maneuvers.",
-                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
-                  upgradeTypeKeys: [UpgradeType.TEAM],
-                  key: "raiderClassCorvette.crippledAft",
-               },
-               name: "Raider-class Corvette",
-               shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
-               key: "raiderClassCorvette",
-            },
             "rearAdmiralChiraneau":
             {
                name: "Rear Admiral Chiraneau",
@@ -3016,6 +2889,140 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CREW, UpgradeType.ILLICIT],
                key: "zuckuss",
             },
+
+            ////////////////////////////////////////////////////////////////////
+            // Huge ships.
+            "cRocCruiser":
+            {
+               name: "C-ROC Cruiser",
+               description: "The C-ROC cruiser possessed tremendous cargo capacity and powerful engines, making it a mainstay of merchants and smugglers.",
+               isFlavorText: true,
+               shipFactionKey: ShipFaction.SCUM_C_ROC_CRUISER,
+               pilotSkillValue: 1,
+               squadPointCost: 35,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO, UpgradeType.CARGO, UpgradeType.CARGO],
+               key: "cRocCruiser",
+            },
+            "cr90Corvette":
+            {
+               fore:
+               {
+                  name: "CR90 Corvette (fore)",
+                  description: "When attacking with your primary weapon, you may spend 1 energy to roll 1 additional attack die.",
+                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
+                  pilotSkillValue: 4,
+                  squadPointCost: 50,
+                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.HARDPOINT,
+                                    UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
+                  key: "cr90Corvette.fore",
+               },
+               aft:
+               {
+                  name: "CR90 Corvette (aft)",
+                  description: "Equipped with 11 Girodyne Ter58 high-output ion-turbine engines and a hardy hull, the Rebel Alliance prized the CR90 for its sublight speed and durability.",
+                  isFlavorText: true,
+                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
+                  pilotSkillValue: 4,
+                  squadPointCost: 40,
+                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM,
+                                    UpgradeType.CARGO],
+                  isImplemented: true,
+                  key: "cr90Corvette.aft",
+               },
+               crippledFore:
+               {
+                  name: "CR90 Corvette (crippled fore)",
+                  description: "Although the CR90 contained 8 Faberstien-Lago 37s escape pods, only 48 of the potential 165 passengers could safely escape.",
+                  isFlavorText: true,
+                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
+                  upgradeTypeKeys: [UpgradeType.CREW],
+                  isImplemented: true,
+                  key: "cr90Corvette.crippledFore",
+               },
+               crippledAft:
+               {
+                  name: "CR90 Corvette (crippled aft)",
+                  description: "You cannot choose or execute Straight 4, Bank Left 2, or Bank Right 2 maneuvers.",
+                  shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
+                  upgradeTypeKeys: [UpgradeType.CARGO],
+                  key: "cr90Corvette.crippledAft",
+               },
+               name: "CR90 Corvette",
+               shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
+               key: "cr90Corvette",
+            },
+            "gozantiClassCruiser":
+            {
+               name: "Gozanti-class Cruiser",
+               description: "After you execute a maneuver, you may deploy up to 2 docked ships.",
+               shipFactionKey: ShipFaction.IMPERIAL_GOZANTI_CLASS_CRUISER,
+               pilotSkillValue: 2,
+               squadPointCost: 40,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM,
+                                UpgradeType.CARGO, UpgradeType.CARGO],
+               key: "gozantiClassCruiser",
+            },
+            "gr75MediumTransport":
+            {
+               name: "GR-75 Medium Transport",
+               description: "The GR-75 played an integral role in the evacuation of Hoth, transporting the bulk of the Alliance's supplies and personnel to the rendezvous point.",
+               isFlavorText: true,
+               shipFactionKey: ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT,
+               pilotSkillValue: 3,
+               squadPointCost: 30,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CARGO, UpgradeType.CARGO,
+                                UpgradeType.CARGO],
+               isImplemented: true,
+               key: "gr75MediumTransport",
+            },
+            "raiderClassCorvette":
+            {
+               fore:
+               {
+                  name: "Raider-class Corvette (fore)",
+                  description: "Once per round, after you perform a primary weapon attack, you may spend 2 energy to perform another primary weapon attack.",
+                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
+                  pilotSkillValue: 4,
+                  squadPointCost: 50,
+                  upgradeTypeKeys: [UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO],
+                  key: "raiderClassCorvette.fore",
+               },
+               aft:
+               {
+                  name: "Raider-class Corvette (aft)",
+                  description: "The demise of the Death Star proved to Imperial High Command the importance of anti-fighter craft which renewed interest in the Raider-class corvette.",
+                  isFlavorText: true,
+                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
+                  pilotSkillValue: 4,
+                  squadPointCost: 50,
+                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT,
+                                                UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
+                  isImplemented: true,
+                  key: "raiderClassCorvette.aft",
+               },
+               crippledFore:
+               {
+                  name: "Raider-class Corvette (crippled fore)",
+                  description: "Conceived by Lira Wessex to support the larger craft of the Imperial Navy, the Raider-class corvette was a durable design for a ship of its size.",
+                  isFlavorText: true,
+                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
+                  upgradeTypeKeys: [UpgradeType.HARDPOINT],
+                  isImplemented: true,
+                  key: "raiderClassCorvette.crippledFore",
+               },
+               crippledAft:
+               {
+                  name: "Raider-class Corvette (crippled aft)",
+                  description: "You cannot choose or execute Bank Left 1 or Bank Right 1 maneuvers.",
+                  shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
+                  upgradeTypeKeys: [UpgradeType.TEAM],
+                  key: "raiderClassCorvette.crippledAft",
+               },
+               name: "Raider-class Corvette",
+               shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
+               key: "raiderClassCorvette",
+            },
+
          },
       };
 

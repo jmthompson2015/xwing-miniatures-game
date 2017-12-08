@@ -9,13 +9,9 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
          ARC_170: "arc170",
          ATTACK_SHUTTLE: "attackShuttle",
          B_WING: "bWing",
-         C_ROC_CRUISER: "cRocCruiser",
-         CR90_CORVETTE: "cr90Corvette",
          E_WING: "eWing",
          FIRESPRAY_31: "firespray31",
-         GOZANTI_CLASS_CRUISER: "gozantiClassCruiser",
          G_1A_STARFIGHTER: "g1AStarfighter",
-         GR_75_MEDIUM_TRANSPORT: "gr75MediumTransport",
          HWK_290: "hwk290",
          JUMPMASTER_5000: "jumpMaster5000",
          K_WING: "kWing",
@@ -24,7 +20,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
          LANCER_CLASS_PURSUIT_CRAFT: "lancerClassPursuitCraft",
          M3_A_INTERCEPTOR: "m3AInterceptor",
          PROTECTORATE_STARFIGHTER: "protectorateStarfighter",
-         RAIDER_CLASS_CORVETTE: "raiderClassCorvette",
          STAR_VIPER: "starViper",
          T_70_X_WING: "t70XWing",
          TIE_ADVANCED: "tieAdvanced",
@@ -47,6 +42,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
          YT_2400: "yt2400",
          YV_666: "yv666",
          Z_95_HEADHUNTER: "z95Headhunter",
+
+         // Huge ships.
+         C_ROC_CRUISER: "cRocCruiser",
+         CR90_CORVETTE: "cr90Corvette",
+         GOZANTI_CLASS_CRUISER: "gozantiClassCruiser",
+         GR_75_MEDIUM_TRANSPORT: "gr75MediumTransport",
+         RAIDER_CLASS_CORVETTE: "raiderClassCorvette",
+
          properties:
          {
             "aWing":
@@ -151,96 +154,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL],
                key: "bWing",
             },
-            "cRocCruiser":
-            {
-               fore:
-               {
-                  name: "C-ROC Cruiser (fore)",
-                  pilotSkillValue: 1,
-                  energyValue: 4,
-                  agilityValue: 0,
-                  hullValue: 10,
-                  shieldValue: 4,
-                  shipBaseKey: ShipBase.LARGE,
-                  key: "cRocCruiser.fore",
-               },
-               aft:
-               {
-                  name: "C-ROC Cruiser (aft)",
-                  shipBaseKey: ShipBase.LARGE,
-                  key: "cRocCruiser.aft",
-               },
-               name: "C-ROC Cruiser",
-               description: "A C-ROC Cruiser.",
-               shipBaseKey: ShipBase.HUGE1,
-               maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
-                                Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
-                                Maneuver.STRAIGHT_3_2, Maneuver.STRAIGHT_4_1],
-               shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE, ShipAction.TARGET_LOCK, ShipAction.JAM],
-               key: "cRocCruiser",
-            },
-            "cr90Corvette":
-            {
-               fore:
-               {
-                  name: "fore",
-                  description: "A CR90 Corvette (fore).",
-                  pilotSkillValue: 4,
-                  primaryWeaponValue: 4,
-                  agilityValue: 0,
-                  hullValue: 8,
-                  shieldValue: 5,
-                  shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
-                  isPrimaryWeaponTurret: true,
-                  primaryWeaponRanges: [Range.THREE, Range.FOUR, Range.FIVE],
-                  shipActionKeys: [ShipAction.COORDINATE, ShipAction.TARGET_LOCK],
-                  key: "cr90Corvette.fore",
-               },
-               aft:
-               {
-                  name: "aft",
-                  description: "A CR90 Corvette (aft).",
-                  pilotSkillValue: 4,
-                  energyValue: 5,
-                  agilityValue: 0,
-                  hullValue: 8,
-                  shieldValue: 3,
-                  shipBaseKey: ShipBase.LARGE,
-                  shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE],
-                  key: "cr90Corvette.aft",
-               },
-               crippledFore:
-               {
-                  name: "crippled fore",
-                  description: "A CR90 Corvette (crippled fore).",
-                  pilotSkillValue: 4,
-                  primaryWeaponValue: 2,
-                  shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
-                  isPrimaryWeaponTurret: true,
-                  primaryWeaponRanges: [Range.THREE, Range.FOUR, Range.FIVE],
-                  shipActionKeys: [],
-                  key: "cr90Corvette.crippledFore",
-               },
-               crippledAft:
-               {
-                  name: "crippled aft",
-                  description: "A CR90 Corvette (crippled aft).",
-                  pilotSkillValue: 4,
-                  energyValue: 1,
-                  shipBaseKey: ShipBase.LARGE,
-                  shipActionKeys: [],
-                  key: "cr90Corvette.crippledAft",
-               },
-               name: "CR90 Corvette",
-               description: "A CR90 Corvette.",
-               shipBaseKey: ShipBase.HUGE2,
-               maneuverKeys: [Maneuver.BANK_LEFT_1_3, Maneuver.BANK_RIGHT_1_3, Maneuver.BANK_LEFT_2_2,
-                                Maneuver.STRAIGHT_2_3, Maneuver.BANK_RIGHT_2_2, Maneuver.STRAIGHT_3_2,
-                                Maneuver.STRAIGHT_4_1],
-               key: "cr90Corvette",
-            },
             "eWing":
             {
                name: "E-Wing",
@@ -306,64 +219,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.EVADE],
                wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Mist_Hunter_Expansion_Pack",
                key: "g1AStarfighter",
-            },
-            "gozantiClassCruiser":
-            {
-               fore:
-               {
-                  name: "Gozanti-class Cruiser (fore)",
-                  pilotSkillValue: 2,
-                  energyValue: 4,
-                  agilityValue: 0,
-                  hullValue: 9,
-                  shieldValue: 5,
-                  shipBaseKey: ShipBase.LARGE,
-                  key: "gozantiClassCruiser.fore",
-               },
-               aft:
-               {
-                  name: "Gozanti-class Cruiser (aft)",
-                  shipBaseKey: ShipBase.LARGE,
-                  key: "gozantiClassCruiser.aft",
-               },
-               name: "Gozanti-class Cruiser",
-               description: "A Gozanti-class Cruiser.",
-               shipBaseKey: ShipBase.HUGE1,
-               maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
-                                Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
-                                Maneuver.STRAIGHT_3_1, Maneuver.STRAIGHT_4_1],
-               shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE, ShipAction.COORDINATE,
-                                ShipAction.TARGET_LOCK],
-               key: "gozantiClassCruiser",
-            },
-            "gr75MediumTransport":
-            {
-               fore:
-               {
-                  name: "GR-75 Medium Transport (fore)",
-                  pilotSkillValue: 3,
-                  energyValue: 4,
-                  agilityValue: 0,
-                  hullValue: 8,
-                  shieldValue: 4,
-                  shipBaseKey: ShipBase.LARGE,
-                  key: "gr75MediumTransport.fore",
-               },
-               aft:
-               {
-                  name: "GR-75 Medium Transport (aft)",
-                  shipBaseKey: ShipBase.LARGE,
-                  key: "gr75MediumTransport.aft",
-               },
-               name: "GR-75 Medium Transport",
-               description: "A GR-75 Medium Transport.",
-               shipBaseKey: ShipBase.HUGE1,
-               maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
-                                Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
-                                Maneuver.STRAIGHT_3_1, Maneuver.STRAIGHT_4_0],
-               shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE, ShipAction.COORDINATE,
-                                ShipAction.JAM],
-               key: "gr75MediumTransport",
             },
             "hwk290":
             {
@@ -527,66 +382,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                                 Maneuver.KOIOGRAN_TURN_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL, ShipAction.BOOST],
                key: "protectorateStarfighter",
-            },
-            "raiderClassCorvette":
-            {
-               fore:
-               {
-                  name: "fore",
-                  description: "A Raider-class Corvette (fore).",
-                  pilotSkillValue: 4,
-                  primaryWeaponValue: 4,
-                  agilityValue: 0,
-                  hullValue: 8,
-                  shieldValue: 6,
-                  shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
-                  primaryWeaponRanges: [Range.TWO, Range.THREE, Range.FOUR],
-                  shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE],
-                  key: "raiderClassCorvette.fore",
-               },
-               aft:
-               {
-                  name: "aft",
-                  description: "A Raider-class Corvette (aft).",
-                  pilotSkillValue: 4,
-                  energyValue: 6,
-                  agilityValue: 0,
-                  hullValue: 8,
-                  shieldValue: 4,
-                  shipBaseKey: ShipBase.LARGE,
-                  shipActionKeys: [ShipAction.COORDINATE, ShipAction.TARGET_LOCK],
-                  key: "raiderClassCorvette.aft",
-               },
-               crippledFore:
-               {
-                  name: "crippled fore",
-                  description: "A Raider-class Corvette (crippled fore).",
-                  pilotSkillValue: 4,
-                  primaryWeaponValue: 2,
-                  shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
-                  primaryWeaponRanges: [Range.TWO, Range.THREE, Range.FOUR],
-                  shipActionKeys: [],
-                  key: "raiderClassCorvette.crippledFore",
-               },
-               crippledAft:
-               {
-                  name: "crippled aft",
-                  description: "A Raider-class Corvette (crippled aft).",
-                  pilotSkillValue: 4,
-                  energyValue: 1,
-                  shipBaseKey: ShipBase.LARGE,
-                  shipActionKeys: [],
-                  key: "raiderClassCorvette.crippledAft",
-               },
-               name: "Raider-class Corvette",
-               description: "A Raider-class Corvette.",
-               shipBaseKey: ShipBase.HUGE2,
-               maneuverKeys: [Maneuver.BANK_LEFT_1_3, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_3,
-                                Maneuver.BANK_LEFT_2_2, Maneuver.STRAIGHT_2_3, Maneuver.BANK_RIGHT_2_2,
-                                Maneuver.STRAIGHT_3_2, Maneuver.STRAIGHT_4_2],
-               key: "raiderClassCorvette",
             },
             "starViper":
             {
@@ -1040,17 +835,223 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
                key: "z95Headhunter",
             },
+
+            ////////////////////////////////////////////////////////////////////
+            // Huge ships.
+            "cRocCruiser":
+            {
+               fore:
+               {
+                  name: "C-ROC Cruiser (fore)",
+                  pilotSkillValue: 1,
+                  energyValue: 4,
+                  agilityValue: 0,
+                  hullValue: 10,
+                  shieldValue: 4,
+                  shipBaseKey: ShipBase.LARGE,
+                  key: "cRocCruiser.fore",
+               },
+               aft:
+               {
+                  name: "C-ROC Cruiser (aft)",
+                  shipBaseKey: ShipBase.LARGE,
+                  key: "cRocCruiser.aft",
+               },
+               name: "C-ROC Cruiser",
+               description: "A C-ROC Cruiser.",
+               shipBaseKey: ShipBase.HUGE1,
+               maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
+                                Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
+                                Maneuver.STRAIGHT_3_2, Maneuver.STRAIGHT_4_1],
+               shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE, ShipAction.TARGET_LOCK, ShipAction.JAM],
+               key: "cRocCruiser",
+            },
+            "cr90Corvette":
+            {
+               fore:
+               {
+                  name: "fore",
+                  description: "A CR90 Corvette (fore).",
+                  pilotSkillValue: 4,
+                  primaryWeaponValue: 4,
+                  agilityValue: 0,
+                  hullValue: 8,
+                  shieldValue: 5,
+                  shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.FORWARD,
+                  isPrimaryWeaponTurret: true,
+                  primaryWeaponRanges: [Range.THREE, Range.FOUR, Range.FIVE],
+                  shipActionKeys: [ShipAction.COORDINATE, ShipAction.TARGET_LOCK],
+                  key: "cr90Corvette.fore",
+               },
+               aft:
+               {
+                  name: "aft",
+                  description: "A CR90 Corvette (aft).",
+                  pilotSkillValue: 4,
+                  energyValue: 5,
+                  agilityValue: 0,
+                  hullValue: 8,
+                  shieldValue: 3,
+                  shipBaseKey: ShipBase.LARGE,
+                  shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE],
+                  key: "cr90Corvette.aft",
+               },
+               crippledFore:
+               {
+                  name: "crippled fore",
+                  description: "A CR90 Corvette (crippled fore).",
+                  pilotSkillValue: 4,
+                  primaryWeaponValue: 2,
+                  shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.FORWARD,
+                  isPrimaryWeaponTurret: true,
+                  primaryWeaponRanges: [Range.THREE, Range.FOUR, Range.FIVE],
+                  shipActionKeys: [],
+                  key: "cr90Corvette.crippledFore",
+               },
+               crippledAft:
+               {
+                  name: "crippled aft",
+                  description: "A CR90 Corvette (crippled aft).",
+                  pilotSkillValue: 4,
+                  energyValue: 1,
+                  shipBaseKey: ShipBase.LARGE,
+                  shipActionKeys: [],
+                  key: "cr90Corvette.crippledAft",
+               },
+               name: "CR90 Corvette",
+               description: "A CR90 Corvette.",
+               shipBaseKey: ShipBase.HUGE2,
+               maneuverKeys: [Maneuver.BANK_LEFT_1_3, Maneuver.BANK_RIGHT_1_3, Maneuver.BANK_LEFT_2_2,
+                                Maneuver.STRAIGHT_2_3, Maneuver.BANK_RIGHT_2_2, Maneuver.STRAIGHT_3_2,
+                                Maneuver.STRAIGHT_4_1],
+               key: "cr90Corvette",
+            },
+            "gozantiClassCruiser":
+            {
+               fore:
+               {
+                  name: "Gozanti-class Cruiser (fore)",
+                  pilotSkillValue: 2,
+                  energyValue: 4,
+                  agilityValue: 0,
+                  hullValue: 9,
+                  shieldValue: 5,
+                  shipBaseKey: ShipBase.LARGE,
+                  key: "gozantiClassCruiser.fore",
+               },
+               aft:
+               {
+                  name: "Gozanti-class Cruiser (aft)",
+                  shipBaseKey: ShipBase.LARGE,
+                  key: "gozantiClassCruiser.aft",
+               },
+               name: "Gozanti-class Cruiser",
+               description: "A Gozanti-class Cruiser.",
+               shipBaseKey: ShipBase.HUGE1,
+               maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
+                                Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
+                                Maneuver.STRAIGHT_3_1, Maneuver.STRAIGHT_4_1],
+               shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE, ShipAction.COORDINATE,
+                                ShipAction.TARGET_LOCK],
+               key: "gozantiClassCruiser",
+            },
+            "gr75MediumTransport":
+            {
+               fore:
+               {
+                  name: "GR-75 Medium Transport (fore)",
+                  pilotSkillValue: 3,
+                  energyValue: 4,
+                  agilityValue: 0,
+                  hullValue: 8,
+                  shieldValue: 4,
+                  shipBaseKey: ShipBase.LARGE,
+                  key: "gr75MediumTransport.fore",
+               },
+               aft:
+               {
+                  name: "GR-75 Medium Transport (aft)",
+                  shipBaseKey: ShipBase.LARGE,
+                  key: "gr75MediumTransport.aft",
+               },
+               name: "GR-75 Medium Transport",
+               description: "A GR-75 Medium Transport.",
+               shipBaseKey: ShipBase.HUGE1,
+               maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
+                                Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
+                                Maneuver.STRAIGHT_3_1, Maneuver.STRAIGHT_4_0],
+               shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE, ShipAction.COORDINATE,
+                                ShipAction.JAM],
+               key: "gr75MediumTransport",
+            },
+            "raiderClassCorvette":
+            {
+               fore:
+               {
+                  name: "fore",
+                  description: "A Raider-class Corvette (fore).",
+                  pilotSkillValue: 4,
+                  primaryWeaponValue: 4,
+                  agilityValue: 0,
+                  hullValue: 8,
+                  shieldValue: 6,
+                  shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.FORWARD,
+                  primaryWeaponRanges: [Range.TWO, Range.THREE, Range.FOUR],
+                  shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE],
+                  key: "raiderClassCorvette.fore",
+               },
+               aft:
+               {
+                  name: "aft",
+                  description: "A Raider-class Corvette (aft).",
+                  pilotSkillValue: 4,
+                  energyValue: 6,
+                  agilityValue: 0,
+                  hullValue: 8,
+                  shieldValue: 4,
+                  shipBaseKey: ShipBase.LARGE,
+                  shipActionKeys: [ShipAction.COORDINATE, ShipAction.TARGET_LOCK],
+                  key: "raiderClassCorvette.aft",
+               },
+               crippledFore:
+               {
+                  name: "crippled fore",
+                  description: "A Raider-class Corvette (crippled fore).",
+                  pilotSkillValue: 4,
+                  primaryWeaponValue: 2,
+                  shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.FORWARD,
+                  primaryWeaponRanges: [Range.TWO, Range.THREE, Range.FOUR],
+                  shipActionKeys: [],
+                  key: "raiderClassCorvette.crippledFore",
+               },
+               crippledAft:
+               {
+                  name: "crippled aft",
+                  description: "A Raider-class Corvette (crippled aft).",
+                  pilotSkillValue: 4,
+                  energyValue: 1,
+                  shipBaseKey: ShipBase.LARGE,
+                  shipActionKeys: [],
+                  key: "raiderClassCorvette.crippledAft",
+               },
+               name: "Raider-class Corvette",
+               description: "A Raider-class Corvette.",
+               shipBaseKey: ShipBase.HUGE2,
+               maneuverKeys: [Maneuver.BANK_LEFT_1_3, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_3,
+                                Maneuver.BANK_LEFT_2_2, Maneuver.STRAIGHT_2_3, Maneuver.BANK_RIGHT_2_2,
+                                Maneuver.STRAIGHT_3_2, Maneuver.STRAIGHT_4_2],
+               key: "raiderClassCorvette",
+            },
          },
       };
 
       Ship.keys = function()
       {
          return Object.keys(Ship.properties);
-      };
-
-      Ship.toString = function()
-      {
-         return "Ship";
       };
 
       Ship.values = function()
@@ -1081,6 +1082,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             ship.aft.xwingType = Ship;
          }
       });
+
+      //////////////////////////////////////////////////////////////////////////
+      // Utility methods.
+
+      Ship.toString = function()
+      {
+         return "Ship";
+      };
 
       if (Object.freeze)
       {
