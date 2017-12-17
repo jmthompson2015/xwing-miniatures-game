@@ -11,9 +11,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
 
          // Imperial.
          IMPERIAL_FIRESPRAY_31: "imperialFirespray31",
-         IMPERIAL_GOZANTI_CLASS_CRUISER: "imperialGozantiClassCruiser",
          IMPERIAL_LAMBDA_CLASS_SHUTTLE: "imperialLambdaClassShuttle",
-         IMPERIAL_RAIDER_CLASS_CORVETTE: "imperialRaiderClassCorvette",
          IMPERIAL_TIE_ADVANCED: "imperialTieAdvanced",
          IMPERIAL_TIE_ADVANCED_PROTOTYPE: "imperialTieAdvancedPrototype",
          IMPERIAL_TIE_BOMBER: "imperialTieBomber",
@@ -35,9 +33,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          REBEL_ATTACK_SHUTTLE: "rebelAttackShuttle",
          REBEL_B_WING: "rebelBWing",
          REBEL_B_WING_V2: "rebelBWingV2",
-         REBEL_CR90_CORVETTE: "rebelCr90Corvette",
          REBEL_E_WING: "rebelEWing",
-         REBEL_GR_75_MEDIUM_TRANSPORT: "rebelGr75MediumTransport",
          REBEL_HWK_290: "rebelHwk290",
          REBEL_K_WING: "rebelKWing",
          REBEL_SABINES_TIE_FIGHTER: "rebelSabinesTieFighter",
@@ -56,7 +52,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
 
          // Scum & Villainy.
          SCUM_AGGRESSOR: "scumAggressor",
-         SCUM_C_ROC_CRUISER: "scumCRocCruiser",
          SCUM_FIRESPRAY_31: "scumFirespray31",
          SCUM_G_1A_STARFIGHTER: "scumG1AStarfighter",
          SCUM_HWK_290: "scumHwk290",
@@ -70,6 +65,13 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          SCUM_Y_WING: "scumYWing",
          SCUM_YV_666: "scumYv666",
          SCUM_Z_95_HEADHUNTER: "scumZ95Headhunter",
+
+         // Huge ships.
+         IMPERIAL_GOZANTI_CLASS_CRUISER: "imperialGozantiClassCruiser",
+         IMPERIAL_RAIDER_CLASS_CORVETTE: "imperialRaiderClassCorvette",
+         REBEL_CR90_CORVETTE: "rebelCr90Corvette",
+         REBEL_GR_75_MEDIUM_TRANSPORT: "rebelGr75MediumTransport",
+         SCUM_C_ROC_CRUISER: "scumCRocCruiser",
 
          properties:
          {
@@ -112,15 +114,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "2",
                key: "imperialFirespray31",
             },
-            "imperialGozantiClassCruiser":
-            {
-               name: "Gozanti-class Cruiser",
-               shipKey: Ship.GOZANTI_CLASS_CRUISER,
-               factionKey: Faction.IMPERIAL,
-               image: "Imperial_Gozanti-class_Cruiser.png",
-               wave: "Huge",
-               key: "imperialGozantiClassCruiser",
-            },
             "imperialLambdaClassShuttle":
             {
                name: "Lambda-class Shuttle",
@@ -129,15 +122,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                image: "Imperial_Lambda-class_Shuttle.png",
                wave: "3",
                key: "imperialLambdaClassShuttle",
-            },
-            "imperialRaiderClassCorvette":
-            {
-               name: "Raider-class Corvette",
-               shipKey: Ship.RAIDER_CLASS_CORVETTE,
-               factionKey: Faction.IMPERIAL,
-               image: "Imperial_Raider-class_Corvette.png",
-               wave: "Huge",
-               key: "imperialRaiderClassCorvette",
             },
             "imperialTieAdvanced":
             {
@@ -312,15 +296,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "Aces",
                key: "rebelBWingV2",
             },
-            "rebelCr90Corvette":
-            {
-               name: "CR90 Corvette",
-               shipKey: Ship.CR90_CORVETTE,
-               factionKey: Faction.REBEL,
-               image: "Rebel_CR90_Corvette.png",
-               wave: "Huge",
-               key: "rebelCr90Corvette",
-            },
             "rebelEWing":
             {
                name: "E-Wing",
@@ -329,15 +304,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                image: "Rebel_E-Wing.png",
                wave: "4",
                key: "rebelEWing",
-            },
-            "rebelGr75MediumTransport":
-            {
-               name: "GR-75 Medium Transport",
-               shipKey: Ship.GR_75_MEDIUM_TRANSPORT,
-               factionKey: Faction.REBEL,
-               image: "Rebel_GR-75_Medium_Transport.png",
-               wave: "Huge",
-               key: "rebelGr75MediumTransport",
             },
             "rebelHwk290":
             {
@@ -469,15 +435,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "6",
                key: "scumAggressor",
             },
-            "scumCRocCruiser":
-            {
-               name: "C-ROC Cruiser",
-               shipKey: Ship.C_ROC_CRUISER,
-               factionKey: Faction.SCUM,
-               image: "Scum_C-ROC_Cruiser.png",
-               wave: "Huge",
-               key: "scumCRocCruiser",
-            },
             "scumFirespray31":
             {
                name: "Firespray-31 (Scum)",
@@ -594,6 +551,54 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                image: "Scum_Z-95_Headhunter.png",
                wave: "6",
                key: "scumZ95Headhunter",
+            },
+
+            ////////////////////////////////////////////////////////////////////
+            // Huge ships.
+            "imperialGozantiClassCruiser":
+            {
+               name: "Gozanti-class Cruiser",
+               shipKey: Ship.GOZANTI_CLASS_CRUISER,
+               factionKey: Faction.IMPERIAL,
+               image: "Imperial_Gozanti-class_Cruiser.png",
+               wave: "Huge",
+               key: "imperialGozantiClassCruiser",
+            },
+            "imperialRaiderClassCorvette":
+            {
+               name: "Raider-class Corvette",
+               shipKey: Ship.RAIDER_CLASS_CORVETTE,
+               factionKey: Faction.IMPERIAL,
+               image: "Imperial_Raider-class_Corvette.png",
+               wave: "Huge",
+               key: "imperialRaiderClassCorvette",
+            },
+            "rebelCr90Corvette":
+            {
+               name: "CR90 Corvette",
+               shipKey: Ship.CR90_CORVETTE,
+               factionKey: Faction.REBEL,
+               image: "Rebel_CR90_Corvette.png",
+               wave: "Huge",
+               key: "rebelCr90Corvette",
+            },
+            "rebelGr75MediumTransport":
+            {
+               name: "GR-75 Medium Transport",
+               shipKey: Ship.GR_75_MEDIUM_TRANSPORT,
+               factionKey: Faction.REBEL,
+               image: "Rebel_GR-75_Medium_Transport.png",
+               wave: "Huge",
+               key: "rebelGr75MediumTransport",
+            },
+            "scumCRocCruiser":
+            {
+               name: "C-ROC Cruiser",
+               shipKey: Ship.C_ROC_CRUISER,
+               factionKey: Faction.SCUM,
+               image: "Scum_C-ROC_Cruiser.png",
+               wave: "Huge",
+               key: "scumCRocCruiser",
             },
          },
       };
