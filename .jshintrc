@@ -17,6 +17,7 @@
       "Reactable": false,
       "require": false,
       "setTimeout": false,
-      "window": false
+      "window": false,
+      "XMLHttpRequest": false
    }
 }

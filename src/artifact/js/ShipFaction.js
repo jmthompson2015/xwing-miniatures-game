@@ -60,7 +60,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          SCUM_FIRESPRAY_31: "scumFirespray31",
          SCUM_G_1A_STARFIGHTER: "scumG1AStarfighter",
          SCUM_HWK_290: "scumHwk290",
-         SCUM_JUMPMASTER_5000: "scumJumpMaster5000",
+         SCUM_JUMP_MASTER_5000: "scumJumpMaster5000",
          SCUM_KIHRAXZ_FIGHTER: "scumKihraxzFighter",
          SCUM_LANCER_CLASS_PURSUIT_CRAFT: "scumLancerClassPursuitCraft",
          SCUM_M3_A_INTERCEPTOR: "scumM3AInterceptor",
@@ -508,7 +508,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             "scumJumpMaster5000":
             {
                name: "JumpMaster 5000",
-               shipKey: Ship.JUMPMASTER_5000,
+               shipKey: Ship.JUMP_MASTER_5000,
                factionKey: Faction.SCUM,
                image: "Scum_JumpMaster_5000.png",
                wave: "8",

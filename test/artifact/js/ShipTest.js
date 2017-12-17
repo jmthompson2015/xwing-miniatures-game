@@ -97,7 +97,7 @@ define(["qunit", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipB
 
          // Verify.
          assert.ok(result);
-         var length = 43;
+         var length = 53;
          assert.equal(result.length, length);
          assert.equal(result[0], "aWing");
          assert.equal(result[length - 1], "raiderClassCorvette");

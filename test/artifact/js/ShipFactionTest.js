@@ -372,7 +372,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], ShipFaction.SCUM_FIRESPRAY_31);
          assert.equal(result[i++], ShipFaction.SCUM_G_1A_STARFIGHTER);
          assert.equal(result[i++], ShipFaction.SCUM_HWK_290);
-         assert.equal(result[i++], ShipFaction.SCUM_JUMPMASTER_5000);
+         assert.equal(result[i++], ShipFaction.SCUM_JUMP_MASTER_5000);
          assert.equal(result[i++], ShipFaction.SCUM_KIHRAXZ_FIGHTER);
          assert.equal(result[i++], ShipFaction.SCUM_LANCER_CLASS_PURSUIT_CRAFT);
          assert.equal(result[i++], ShipFaction.SCUM_M3_A_INTERCEPTOR);

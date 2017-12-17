@@ -2393,7 +2393,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                name: "Punishing One",
                typeKey: UpgradeType.TITLE,
                isUnique: true,
-               restrictionKeys: [UpgradeRestriction.JUMPMASTER_5000_ONLY],
+               restrictionKeys: [UpgradeRestriction.JUMP_MASTER_5000_ONLY],
                description: "Increase your primary weapon value by 1.",
                primaryWeaponValue: 1,
                squadPointCost: 12,

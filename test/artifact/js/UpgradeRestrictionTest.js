@@ -152,7 +152,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeRestriction"],
          assert.equal(result[i++], UpgradeRestriction.HUGE_SHIP_ONLY);
          assert.equal(result[i++], UpgradeRestriction.HWK_290_ONLY);
          assert.equal(result[i++], UpgradeRestriction.IMPERIAL_ONLY);
-         assert.equal(result[i++], UpgradeRestriction.JUMPMASTER_5000_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.JUMP_MASTER_5000_ONLY);
          assert.equal(result[i++], UpgradeRestriction.LAMBDA_CLASS_SHUTTLE_ONLY);
          assert.equal(result[i++], UpgradeRestriction.LANCER_CLASS_PURSUIT_CRAFT_ONLY);
          assert.equal(result[i++], UpgradeRestriction.LARGE_SHIP_ONLY);
