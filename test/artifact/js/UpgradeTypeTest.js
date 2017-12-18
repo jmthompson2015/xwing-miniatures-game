@@ -72,6 +72,7 @@ define(["qunit", "artifact/js/UpgradeType"], function(QUnit, UpgradeType)
       var properties = Object.getOwnPropertyNames(UpgradeType);
       var count = properties.length - 1 - // properties
          1 - // keys
+         1 - // findByName
          1 - // toString
          1; // values
       assert.equal(result.length, count);

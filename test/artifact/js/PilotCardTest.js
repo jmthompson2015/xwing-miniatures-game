@@ -92,7 +92,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 232;
+         var length = 283;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ACADEMY_PILOT);
          assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
@@ -188,7 +188,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 89;
+         var length = 107;
          assert.equal(result.length, length);
          assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
       });
@@ -203,7 +203,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 17;
+         var length = 21;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.BACKDRAFT);
          assert.equal(result[length - 1], PilotCard.ZETA_SQUADRON_PILOT);
@@ -216,7 +216,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 89;
+         var length = 107;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ACADEMY_PILOT);
          assert.equal(result[length - 1], PilotCard.ZETA_SQUADRON_PILOT);
@@ -232,7 +232,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 72;
+         var length = 86;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ACADEMY_PILOT);
          assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
@@ -245,9 +245,9 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 83;
+         var length = 99;
          assert.equal(result.length, length);
-         assert.equal(result[0], PilotCard.AIREN_CRACKEN);
+         assert.equal(result[0], PilotCard.AHSOKA_TANO);
          assert.equal(result[length - 1], PilotCard.SNAP_WEXLEY);
       });
 
@@ -261,9 +261,9 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 69;
+         var length = 81;
          assert.equal(result.length, length);
-         assert.equal(result[0], PilotCard.AIREN_CRACKEN);
+         assert.equal(result[0], PilotCard.AHSOKA_TANO);
          assert.equal(result[length - 1], PilotCard.GR_75_MEDIUM_TRANSPORT);
       });
 
@@ -274,7 +274,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 83;
+         var length = 99;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.BLUE_ACE);
          assert.equal(result[length - 1], PilotCard.GR_75_MEDIUM_TRANSPORT);
@@ -290,7 +290,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 14;
+         var length = 18;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.BLUE_ACE);
          assert.equal(result[length - 1], PilotCard.SNAP_WEXLEY);
@@ -303,7 +303,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 60;
+         var length = 77;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ASAJJ_VENTRESS);
          assert.equal(result[length - 1], PilotCard.C_ROC_CRUISER);

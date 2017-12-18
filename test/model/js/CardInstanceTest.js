@@ -720,7 +720,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "Rebel Agent");
-         var token = new CardInstance(store, PilotCard.CHEWBACCA, agent, [UpgradeCard.NIEN_NUNB]);
+         var token = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, agent, [UpgradeCard.NIEN_NUNB]);
 
          // Run.
          var result = token.maneuverKeys();
@@ -984,7 +984,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "Imperial Agent");
-         var token = new CardInstance(store, PilotCard.CHEWBACCA, agent);
+         var token = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, agent);
          var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
          assert.equal(token.damageCount(), 0);
          assert.equal(token.criticalDamageCount(), 0);

@@ -1183,7 +1183,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
          LOGGER.debug("CardInstance.receiveCriticalDamage() damageInstance = " + damageInstance);
 
-         if (this.card().key === PilotCard.CHEWBACCA)
+         if (this.card().key === PilotCard.CHEWBACCA_REBEL)
          {
             this.receiveDamage(damageInstance);
          }

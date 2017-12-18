@@ -5,8 +5,10 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
    {
       var PilotCard = {
          ACADEMY_PILOT: "academyPilot",
+         AHSOKA_TANO: "ahsokaTano",
          AIREN_CRACKEN: "airenCracken",
          ALPHA_SQUADRON_PILOT: "alphaSquadronPilot",
+         AP_5: "ap5",
          ARVEL_CRYNYD: "arvelCrynyd",
          ASAJJ_VENTRESS: "asajjVentress",
          AVENGER_SQUADRON_PILOT: "avengerSquadronPilot",
@@ -16,48 +18,63 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          BARON_OF_THE_EMPIRE: "baronOfTheEmpire",
          BIGGS_DARKLIGHTER: "biggsDarklighter",
          BINAYRE_PIRATE: "binayrePirate",
-         BLACK_EIGHT_SQ_PILOT: "blackEightSqPilot",
+         BLACKMOON_SQUADRON_PILOT: "blackmoonSquadronPilot",
+         BLACK_EIGHT_SQUADRON_PILOT: "blackEightSquadronPilot",
          BLACK_SQUADRON_PILOT: "blackSquadronPilot",
+         BLACK_SQUADRON_SCOUT: "blackSquadronScout",
          BLACK_SUN_ACE: "blackSunAce",
+         BLACK_SUN_ASSASSIN: "blackSunAssassin",
          BLACK_SUN_ENFORCER: "blackSunEnforcer",
          BLACK_SUN_SOLDIER: "blackSunSoldier",
          BLACK_SUN_VIGO: "blackSunVigo",
-         BLACKMOON_SQUADRON_PILOT: "blackmoonSquadronPilot",
          BLUE_ACE: "blueAce",
          BLUE_SQUADRON_NOVICE: "blueSquadronNovice",
          BLUE_SQUADRON_PATHFINDER: "blueSquadronPathfinder",
          BLUE_SQUADRON_PILOT: "blueSquadronPilot",
-         BOBA_FETT_IMPERIAL: "bobaFettImperial",
-         BOBA_FETT_SCUM: "bobaFettScum",
+         BOBA_FETT_IMPERIAL: "bobaFett_imperial",
+         BOBA_FETT_SCUM: "bobaFett_scum",
          BODHI_ROOK: "bodhiRook",
          BOSSK: "bossk",
          BOUNTY_HUNTER: "bountyHunter",
          BRAYLEN_STRAMM: "braylenStramm",
          CAPTAIN_JONUS: "captainJonus",
+         CAPTAIN_JOSTERO: "captainJostero",
          CAPTAIN_KAGI: "captainKagi",
+         CAPTAIN_NYM_REBEL: "captainNym_rebel",
+         CAPTAIN_NYM_SCUM: "captainNym_scum",
          CAPTAIN_OICUNN: "captainOicunn",
          CAPTAIN_REX: "captainRex",
          CAPTAIN_YORR: "captainYorr",
          CARNOR_JAX: "carnorJax",
+         CARTEL_BRUTE: "cartelBrute",
+         CARTEL_EXECUTIONER: "cartelExecutioner",
          CARTEL_MARAUDER: "cartelMarauder",
          CARTEL_SPACER: "cartelSpacer",
          CASSIAN_ANDOR: "cassianAndor",
          CHASER: "chaser",
-         CHEWBACCA: "chewbacca",
-         CHEWBACCA_HOTR: "chewbaccaHotr",
+         CHEWBACCA_REBEL: "chewbacca_rebel",
+         CHEWBACCA_RESISTANCE: "chewbacca_resistance",
          CHOPPER: "chopper",
+         COBALT_LEADER: "cobaltLeader",
          COLONEL_JENDON: "colonelJendon",
          COLONEL_VESSERY: "colonelVessery",
          COMMANDER_ALOZEN: "commanderAlozen",
          COMMANDER_KENKIRK: "commanderKenkirk",
          CONCORD_DAWN_ACE: "concordDawnAce",
          CONCORD_DAWN_VETERAN: "concordDawnVeteran",
+         CONSTABLE_ZUVIO: "constableZuvio",
          CONTRACTED_SCOUT: "contractedScout",
          CORRAN_HORN: "corranHorn",
+         COUNTDOWN: "countdown",
          COUNTESS_RYAD: "countessRyad",
+         CRIMSON_LEADER: "crimsonLeader",
+         CRIMSON_SPECIALIST: "crimsonSpecialist",
+         CRIMSON_SQUADRON_PILOT: "crimsonSquadronPilot",
          CUTLASS_SQUADRON_PILOT: "cutlassSquadronPilot",
          DACE_BONEARM: "daceBonearm",
          DAGGER_SQUADRON_PILOT: "daggerSquadronPilot",
+         DALAN_OBEROS_M12_L_KIMOGILA_FIGHTER: "dalanOberos_m12LKimogilaFighter",
+         DALAN_OBEROS_STAR_VIPER: "dalanOberos_starViper",
          DARK_CURSE: "darkCurse",
          DARTH_VADER: "darthVader",
          DASH_RENDAR: "dashRendar",
@@ -65,7 +82,9 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          DEATHRAIN: "deathrain",
          DELTA_SQUADRON_PILOT: "deltaSquadronPilot",
          DENGAR: "dengar",
+         DOUBLE_EDGE: "doubleEdge",
          DREA_RENTHAL: "dreaRenthal",
+         DUCHESS: "duchess",
          DUTCH_VANDER: "dutchVander",
          EADEN_VRILL: "eadenVrill",
          ECHO: "echo",
@@ -76,9 +95,12 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          EPSILON_SQUADRON_PILOT: "epsilonSquadronPilot",
          ESEGE_TUKETU: "esegeTuketu",
          ETAHN_ABAHT: "etahnAbaht",
-         EZRA_BRIDGER: "ezraBridger",
+         EZRA_BRIDGER_ATTACK_SHUTTLE: "ezraBridger_attackShuttle",
+         EZRA_BRIDGER_SHEATHIPEDE_CLASS_SHUTTLE: "ezraBridger_sheathipedeClassShuttle",
          FELS_WRATH: "felsWrath",
-         FENN_RAU: "fennRau",
+         FENN_RAU_REBEL: "fennRau_rebel",
+         FENN_RAU_SCUM: "fennRau_scum",
+         FIRST_ORDER_TEST_PILOT: "firstOrderTestPilot",
          FOUR_LOM: "fourLom",
          GAMMA_SQUADRON_PILOT: "gammaSquadronPilot",
          GAMMA_SQUADRON_VETERAN: "gammaSquadronVeteran",
@@ -93,22 +115,24 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          GREEN_SQUADRON_PILOT: "greenSquadronPilot",
          GUARDIAN_SQUADRON_PILOT: "guardianSquadronPilot",
          GURI: "guri",
-         HAN_SOLO: "hanSolo",
-         HAN_SOLO_HOTR: "hanSoloHotr",
+         HAN_SOLO_REBEL: "hanSolo_rebel",
+         HAN_SOLO_RESISTANCE: "hanSolo_resistance",
          HEFF_TOBBER: "heffTobber",
-         HERA_SYNDULLA_ATTACK_SHUTTLE: "heraSyndullaAttackShuttle",
-         HERA_SYNDULLA_VCX_100: "heraSyndullaVcx100",
+         HERA_SYNDULLA_ATTACK_SHUTTLE: "heraSyndulla_attackShuttle",
+         HERA_SYNDULLA_VCX_100: "heraSyndulla_vcx100",
          HIRED_GUN: "hiredGun",
          HOBBIE_KLIVIAN: "hobbieKlivian",
          HORTON_SALM: "hortonSalm",
          HOWLRUNNER: "howlrunner",
          IBTISAM: "ibtisam",
-         IG_88A: "ig88A",
-         IG_88B: "ig88B",
-         IG_88C: "ig88C",
-         IG_88D: "ig88D",
+         IG_88A: "ig88a",
+         IG_88B: "ig88b",
+         IG_88C: "ig88c",
+         IG_88D: "ig88d",
+         IMPERIAL_TRAINEE: "imperialTrainee",
          INALDRA: "inaldra",
          JAKE_FARRELL: "jakeFarrell",
+         JAKKU_GUNRUNNER: "jakkuGunrunner",
          JAN_ORS: "janOrs",
          JEK_PORKINS: "jekPorkins",
          JESS_PAVA: "jessPava",
@@ -116,8 +140,10 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          KAATO_LEEACHOS: "kaatoLeeachos",
          KAD_SOLUS: "kadSolus",
          KANAN_JARRUS: "kananJarrus",
-         KATH_SCARLET_IMPERIAL: "kathScarletImperial",
-         KATH_SCARLET_SCUM: "kathScarletScum",
+         KARTHAKK_PIRATE: "karthakkPirate",
+         KASHYYYK_DEFENDER: "kashyyykDefender",
+         KATH_SCARLET_IMPERIAL: "kathScarlet_imperial",
+         KATH_SCARLET_SCUM: "kathScarlet_scum",
          KAVIL: "kavil",
          KETSU_ONYO: "ketsuOnyo",
          KEYAN_FARLANDER: "keyanFarlander",
@@ -125,7 +151,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          KNAVE_SQUADRON_PILOT: "knaveSquadronPilot",
          KRASSIS_TRELIX: "krassisTrelix",
          KYLE_KATARN: "kyleKatarn",
-         KYLO_REN: "kyloRen",
+         KYLO_REN_TIE_SILENCER: "kyloRen_tieSilencer",
+         KYLO_REN_UPSILON_CLASS_SHUTTLE: "kyloRen_upsilonClassShuttle",
          LAETIN_ASHERA: "laetinAshera",
          LANDO_CALRISSIAN: "landoCalrissian",
          LATTS_RAZZI: "lattsRazzi",
@@ -133,24 +160,30 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          LIEUTENANT_BLOUNT: "lieutenantBlount",
          LIEUTENANT_COLZET: "lieutenantColzet",
          LIEUTENANT_DORMITZ: "lieutenantDormitz",
+         LIEUTENANT_KARSABI: "lieutenantKarsabi",
+         LIEUTENANT_KESTAL: "lieutenantKestal",
          LIEUTENANT_LORRIR: "lieutenantLorrir",
+         LOK_REVENANT: "lokRevenant",
          LOTHAL_REBEL: "lothalRebel",
+         LOWHHRICK: "lowhhrick",
          LUKE_SKYWALKER: "lukeSkywalker",
-         MAAREK_STELE_TIE_ADVANCED: "maarekSteleTieAdvanced",
-         MAAREK_STELE_TIE_DEFENDER: "maarekSteleTieDefender",
+         MAAREK_STELE_TIE_ADVANCED: "maarekStele_tieAdvanced",
+         MAAREK_STELE_TIE_DEFENDER: "maarekStele_tieDefender",
          MAJOR_RHYMER: "majorRhymer",
          MAJOR_STRIDAN: "majorStridan",
+         MAJOR_VYNDER: "majorVynder",
          MANAROO: "manaroo",
          MANDALORIAN_MERCENARY: "mandalorianMercenary",
          MAULER_MITHEL: "maulerMithel",
          MIRANDA_DONI: "mirandaDoni",
          MORALO_EVAL: "moraloEval",
          NASHTAH_PUP_PILOT: "nashtahPupPilot",
-         NERA_DANTELS: "neraDantels",
          NDRU_SUHLAK: "ndruSuhlak",
+         NERA_DANTELS: "neraDantels",
          NIEN_NUNB: "nienNunb",
          NIGHT_BEAST: "nightBeast",
          NORRA_WEXLEY: "norraWexley",
+         NU_SQUADRON_PILOT: "nuSquadronPilot",
          OBSIDIAN_SQUADRON_PILOT: "obsidianSquadronPilot",
          OLD_TEROCH: "oldTeroch",
          OMEGA_ACE: "omegaAce",
@@ -158,41 +191,50 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          OMEGA_SPECIALIST: "omegaSpecialist",
          OMEGA_SQUADRON_PILOT: "omegaSquadronPilot",
          OMICRON_GROUP_PILOT: "omicronGroupPilot",
+         ONYX_SQUADRON_ESCORT: "onyxSquadronEscort",
          ONYX_SQUADRON_PILOT: "onyxSquadronPilot",
          OUTER_RIM_SMUGGLER: "outerRimSmuggler",
          PALOB_GODALHI: "palobGodalhi",
          PATROL_LEADER: "patrolLeader",
          POE_DAMERON: "poeDameron",
-         POE_DAMERON_HOTR: "poeDameronHotr",
+         POE_DAMERON_HOTR: "poeDameron_hotr",
          PRINCE_XIZOR: "princeXizor",
          PROTOTYPE_PILOT: "prototypePilot",
+         PURE_SABACC: "pureSabacc",
          QUICKDRAW: "quickdraw",
          QUINN_JAST: "quinnJast",
          REAR_ADMIRAL_CHIRANEAU: "rearAdmiralChiraneau",
          REBEL_OPERATIVE: "rebelOperative",
+         REDLINE: "redline",
          RED_ACE: "redAce",
          RED_SQUADRON_PILOT: "redSquadronPilot",
          RED_SQUADRON_VETERAN: "redSquadronVeteran",
-         REDLINE: "redline",
          RESISTANCE_SYMPATHIZER: "resistanceSympathizer",
          REXLER_BRATH: "rexlerBrath",
          REY: "rey",
+         RHO_SQUADRON_VETERAN: "rhoSquadronVeteran",
          ROARK_GARNET: "roarkGarnet",
          ROOKIE_PILOT: "rookiePilot",
          ROYAL_GUARD_PILOT: "royalGuardPilot",
          RUTHLESS_FREELANCER: "ruthlessFreelancer",
          SABER_SQUADRON_PILOT: "saberSquadronPilot",
-         SABINE_WREN_REBEL: "sabineWrenRebel",
-         SABINE_WREN_SCUM: "sabineWrenScum",
+         SABINE_WREN_ATTACK_SHUTTLE: "sabineWren_attackShuttle",
+         SABINE_WREN_LANCER_CLASS_PURSUIT_CRAFT: "sabineWren_lancerClassPursuitCraft",
+         SABINE_WREN_TIE_FIGHTER: "sabineWren_tieFighter",
+         SARCO_PLANK: "sarcoPlank",
+         SCARIF_DEFENDER: "scarifDefender",
          SCIMITAR_SQUADRON_PILOT: "scimitarSquadronPilot",
          SCOURGE: "scourge",
          SERISSU: "serissu",
          SHADOWPORT_HUNTER: "shadowportHunter",
          SHADOW_SQUADRON_PILOT: "shadowSquadronPilot",
          SHARA_BEY: "sharaBey",
+         SIENAR_JAEMUS_ANALYST: "sienarJaemusAnalyst",
+         SIENAR_SPECIALIST: "sienarSpecialist",
          SIENAR_TEST_PILOT: "sienarTestPilot",
          SIGMA_SQUADRON_PILOT: "sigmaSquadronPilot",
          SNAP_WEXLEY: "snapWexley",
+         SOL_SIXXA: "solSixxa",
          SOONTIR_FEL: "soontirFel",
          SPICE_RUNNER: "spiceRunner",
          STARKILLER_BASE_PILOT: "starkillerBasePilot",
@@ -206,15 +248,20 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          TEL_TREVURA: "telTrevura",
          TEMPEST_SQUADRON_PILOT: "tempestSquadronPilot",
          TEN_NUMB: "tenNumb",
+         TEST_PILOT_BLACKOUT: "testPilotBlackout",
          TETRAN_COWALL: "tetranCowall",
          THANE_KYRELL: "thaneKyrell",
          THE_INQUISITOR: "theInquisitor",
+         THWEEK: "thweek",
          TOMAX_BREN: "tomaxBren",
+         TORANI_KULDA: "toraniKulda",
          TORKIL_MUX: "torkilMux",
          TRANDOSHAN_SLAVER: "trandoshanSlaver",
          TURR_PHENNIR: "turrPhennir",
          TYCHO_CELCHU: "tychoCelchu",
+         UNKAR_PLUTT: "unkarPlutt",
          VALEN_RUDOR: "valenRudor",
+         VIKTOR_HEL: "viktorHel",
          WAMPA: "wampa",
          WARDEN_SQUADRON_PILOT: "wardenSquadronPilot",
          WEDGE_ANTILLES: "wedgeAntilles",
@@ -222,9 +269,13 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
          WHISPER: "whisper",
          WILD_SPACE_FRINGER: "wildSpaceFringer",
          WINGED_GUNDARK: "wingedGundark",
+         WOOKIEE_LIBERATOR: "wookieeLiberator",
+         WULLFFWARRO: "wullffwarro",
          YOUNGSTER: "youngster",
          ZEALOUS_RECRUIT: "zealousRecruit",
-         ZEB_ORRELIOS: "zebOrrelios",
+         ZEB_ORRELIOS_ATTACK_SHUTTLE: "zebOrrelios_attackShuttle",
+         ZEB_ORRELIOS_SHEATHIPEDE_CLASS_SHUTTLE: "zebOrrelios_sheathipedeClassShuttle",
+         ZEB_ORRELIOS_TIE_FIGHTER: "zebOrrelios_tieFighter",
          ZERTIK_STROM: "zertikStrom",
          ZETA_ACE: "zetaAce",
          ZETA_LEADER: "zetaLeader",
@@ -253,6 +304,17 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "academyPilot",
             },
+            "ahsokaTano":
+            {
+               name: "Ahsoka Tano",
+               description: "At the start of the Combat phase, you may spend 1 focus token to choose a friendly ship at Range 1. It may perform 1 free action.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_TIE_FIGHTER,
+               pilotSkillValue: 7,
+               squadPointCost: 17,
+               upgradeTypeKeys: [UpgradeType.ELITE],
+               key: "ahsokaTano",
+            },
             "airenCracken":
             {
                name: "Airen Cracken",
@@ -275,6 +337,17 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [],
                isImplemented: true,
                key: "alphaSquadronPilot",
+            },
+            "ap5":
+            {
+               name: "AP-5",
+               description: "When you perform the coordinate action, after you choose a friendly ship and before it performs a free action, you may receive 2 stress tokens to remove 1 stress token from it.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_SHEATHIPEDE_CLASS_SHUTTLE,
+               pilotSkillValue: 1,
+               squadPointCost: 15,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.ASTROMECH],
+               key: "ap5",
             },
             "arvelCrynyd":
             {
@@ -313,7 +386,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "backdraft":
             {
                name: "\"Backdraft\"",
-               description: "When attacking a ship inside your auxiliary firing arc, you may add 1 critical result.",
+               description: "When attacking a ship inside your auxiliary firing arc, you may add 1 [Critical Hit] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.FIRST_ORDER_TIE_SF_FIGHTER,
                pilotSkillValue: 7,
@@ -324,7 +397,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "backstabber":
             {
                name: "\"Backstabber\"",
-               description: "When attacking from outside the defender's firing arc, roll 1 additional attack die.",
+               description: "When attacking from outside the defender\'s firing arc, roll 1 additional attack die.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_FIGHTER,
                pilotSkillValue: 6,
@@ -360,7 +433,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "biggsDarklighter":
             {
                name: "Biggs Darklighter",
-               description: "Other friendly ships at Range 1 cannot be targeted by attacks if the attacker could target you instead.",
+               description: "Once per game, at the start of the Combat phase, you may choose that until the end of the round, other friendly ships at Range 1 cannot be targeted by attacks if the attacker could target you instead.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_X_WING,
                pilotSkillValue: 5,
@@ -371,7 +444,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "binayrePirate":
             {
                name: "Binayre Pirate",
-               description: "Operating from the Double Worlds, Talus and Tralus, Kath Scarlet's gang of smugglers and pirates would never be described as reputable or dependable - even by other criminals.",
+               description: "Operating from the Double Worlds, Talus and Tralus, Kath Scarlet\'s gang of smugglers and pirates would never be described as reputable or dependable - even by other criminals.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_Z_95_HEADHUNTER,
                pilotSkillValue: 1,
@@ -380,18 +453,14 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "binayrePirate",
             },
-            "blackEightSqPilot":
+            "blackEightSquadronPilot":
             {
-               name: "Black Eight Sq. Pilot",
-               description: "Darth Vader's hand-picked Black Eight Squadron earned its reputation for ruthlessness when its bombardment of Callos rendered the planet uninhabitable.",
-               isFlavorText: true,
+               name: "Black Eight Squadron Pilot",
                shipFactionKey: ShipFaction.IMPERIAL_TIE_PUNISHER,
                pilotSkillValue: 4,
                squadPointCost: 23,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
-               isImplemented: true,
-               key: "blackEightSqPilot",
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
+               key: "blackEightSquadronPilot",
             },
             "blackSquadronPilot":
             {
@@ -405,6 +474,15 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "blackSquadronPilot",
             },
+            "blackSquadronScout":
+            {
+               name: "Black Squadron Scout",
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
+               pilotSkillValue: 4,
+               squadPointCost: 20,
+               upgradeTypeKeys: [UpgradeType.ELITE],
+               key: "blackSquadronScout",
+            },
             "blackSunAce":
             {
                name: "Black Sun Ace",
@@ -416,6 +494,15 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.ILLICIT],
                isImplemented: true,
                key: "blackSunAce",
+            },
+            "blackSunAssassin":
+            {
+               name: "Black Sun Assassin",
+               shipFactionKey: ShipFaction.SCUM_STAR_VIPER,
+               pilotSkillValue: 5,
+               squadPointCost: 28,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO],
+               key: "blackSunAssassin",
             },
             "blackSunEnforcer":
             {
@@ -432,7 +519,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "blackSunSoldier":
             {
                name: "Black Sun Soldier",
-               description: "The vast and influential Black Sun crime syndicate can always find a use for talented pilots, provided they aren't particular about how they earn their credits.",
+               description: "The vast and influential Black Sun crime syndicate can always find a use for talented pilots, provided they aren\'t particular about how they earn their credits.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_Z_95_HEADHUNTER,
                pilotSkillValue: 3,
@@ -468,7 +555,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "blueAce":
             {
                name: "\"Blue Ace\"",
-               description: "When performing a boost action, you may use the left or right 1 turn template.",
+               description: "When performing a boost action, you may use the ([Turn Left] 1) or ([Turn Right] 1) template.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_T_70_X_WING,
                pilotSkillValue: 5,
@@ -491,50 +578,48 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "blueSquadronPathfinder":
             {
                name: "Blue Squadron Pathfinder",
-               description: "Used for deploying troops under the cover of darkness or into the heat of battle, the U-wing fulfilled the Rebel Alliance's need for a hardy transport craft.",
+               description: "Used for deploying troops under the cover of darkness or into the heat of battle, the U-wing fulfilled the Rebel Alliance\'s need for a hardy transport craft.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_U_WING,
                pilotSkillValue: 2,
                squadPointCost: 23,
                upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
+               isImplemented: true,
                key: "blueSquadronPathfinder",
             },
             "blueSquadronPilot":
             {
                name: "Blue Squadron Pilot",
-               description: "Because of its heavy weapons array and resilient shielding, the B-wing solidified itself as the Alliance's most formidable assault fighter.",
+               description: "Because of its heavy weapons array and resilient shielding, the B-wing solidified itself as the Alliance\'s most formidable assault fighter.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_B_WING,
                pilotSkillValue: 2,
                squadPointCost: 22,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.TORPEDO,
-                                UpgradeType.TORPEDO],
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.TORPEDO, UpgradeType.TORPEDO],
                isImplemented: true,
                key: "blueSquadronPilot",
             },
-            "bobaFettImperial":
+            "bobaFett_imperial":
             {
-               name: "Boba Fett (Imperial)",
-               description: "When you reveal a bank maneuver, you may rotate your dial to the other bank maneuver of the same speed.",
+               name: "Boba Fett",
+               description: "When you reveal a bank maneuver ([Bank Left] or [Bank Right]), you may rotate your dial to the other bank maneuver of the same speed.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_FIRESPRAY_31,
                pilotSkillValue: 8,
                squadPointCost: 39,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB],
-               isImplemented: true,
-               key: "bobaFettImperial",
+               key: "bobaFett_imperial",
             },
-            "bobaFettScum":
+            "bobaFett_scum":
             {
-               name: "Boba Fett (Scum)",
+               name: "Boba Fett",
                description: "When attacking or defending, you may reroll 1 of your dice for each enemy ship at Range 1.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_FIRESPRAY_31,
                pilotSkillValue: 8,
                squadPointCost: 39,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.ILLICIT],
-               isImplemented: true,
-               key: "bobaFettScum",
+               key: "bobaFett_scum",
             },
             "bodhiRook":
             {
@@ -550,13 +635,12 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "bossk":
             {
                name: "Bossk",
-               description: "When you perform an attack that hits, before dealing damage, you may cancel 1 of your Critical Hit results to add 2 Hit results.",
+               description: "When you perform an attack that hits, before dealing damage, you may cancel 1 of your [Critical Hit] results to add 2 [Hit] results.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_YV_666,
                pilotSkillValue: 7,
                squadPointCost: 35,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE,
-                                UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.ILLICIT],
                key: "bossk",
             },
             "bountyHunter":
@@ -574,7 +658,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "braylenStramm":
             {
                name: "Braylen Stramm",
-               description: "After you execute a maneuver, you may roll an attack die. On a hit or critical result, remove 1 stress token from your ship.",
+               description: "After you execute a maneuver, you may roll an attack die. On a [Hit] or [Critical Hit] result, remove 1 stress token from your ship.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_ARC_170,
                pilotSkillValue: 3,
@@ -590,9 +674,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.IMPERIAL_TIE_BOMBER,
                pilotSkillValue: 6,
                squadPointCost: 22,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB],
                key: "captainJonus",
+            },
+            "captainJostero":
+            {
+               name: "Captain Jostero",
+               description: "Once per round, after an enemy ship that is not defending from an attack suffers damage, you may perform an attack against that ship.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_KIHRAXZ_FIGHTER,
+               pilotSkillValue: 4,
+               squadPointCost: 24,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.ILLICIT],
+               key: "captainJostero",
             },
             "captainKagi":
             {
@@ -605,6 +699,28 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.CREW, UpgradeType.CREW],
                key: "captainKagi",
             },
+            "captainNym_rebel":
+            {
+               name: "Captain Nym",
+               description: "Once per round, you may prevent a friendly bomb from detonating.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_SCURRG_H_6_BOMBER,
+               pilotSkillValue: 8,
+               squadPointCost: 30,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               key: "captainNym_rebel",
+            },
+            "captainNym_scum":
+            {
+               name: "Captain Nym",
+               description: "You may ignore friendly bombs. When a friendly ship is defending, if the attacker measures range through a friendly bomb token, the defender may add 1 [Evade] result.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_SCURRG_H_6_BOMBER,
+               pilotSkillValue: 8,
+               squadPointCost: 30,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               key: "captainNym_scum",
+            },
             "captainOicunn":
             {
                name: "Captain Oicunn",
@@ -613,14 +729,13 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.IMPERIAL_VT_49_DECIMATOR,
                pilotSkillValue: 4,
                squadPointCost: 42,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW,
-                                UpgradeType.CREW, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.BOMB],
                key: "captainOicunn",
             },
             "captainRex":
             {
                name: "Captain Rex",
-               description: "After you perform an attack, assign the 'Suppressive Fire' Condition card to the defender.",
+               description: "After you perform an attack, assign the \"Suppressive Fire\" Condition card to the defender.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_TIE_FIGHTER,
                pilotSkillValue: 4,
@@ -650,10 +765,28 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE],
                key: "carnorJax",
             },
+            "cartelBrute":
+            {
+               name: "Cartel Brute",
+               shipFactionKey: ShipFaction.SCUM_M12_L_KIMOGILA_FIGHTER,
+               pilotSkillValue: 3,
+               squadPointCost: 22,
+               upgradeTypeKeys: [UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               key: "cartelBrute",
+            },
+            "cartelExecutioner":
+            {
+               name: "Cartel Executioner",
+               shipFactionKey: ShipFaction.SCUM_M12_L_KIMOGILA_FIGHTER,
+               pilotSkillValue: 5,
+               squadPointCost: 24,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               key: "cartelExecutioner",
+            },
             "cartelMarauder":
             {
                name: "Cartel Marauder",
-               description: "The versatile Kihraxz was modeled after Incom's popular X-wing starfighter, but an array of after-market modification kits ensured a wide variety of designs.",
+               description: "The versatile Kihraxz was modeled after Incom\'s popular X-wing starfighter, but an array of after-market modification kits ensured a wide variety of designs.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_KIHRAXZ_FIGHTER,
                pilotSkillValue: 2,
@@ -665,7 +798,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "cartelSpacer":
             {
                name: "Cartel Spacer",
-               description: "MandalMotors M3-A \"Scyk\" Interceptor was purchased in large quantities by the Hutt Cartel and the Car'das smugglers due to its low cost and customizability.",
+               description: "MandalMotors M3-A \"Scyk\" Interceptor was purchased in large quantities by the Hutt Cartel and the Car\'das smugglers due to its low cost and customizability.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_M3_A_INTERCEPTOR,
                pilotSkillValue: 2,
@@ -696,7 +829,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [],
                key: "chaser",
             },
-            "chewbacca":
+            "chewbacca_rebel":
             {
                name: "Chewbacca",
                description: "When you are dealt a faceup Damage card, immediately flip it facedown (without resolving its ability).",
@@ -706,18 +839,18 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                squadPointCost: 42,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW],
                isImplemented: true,
-               key: "chewbacca",
+               key: "chewbacca_rebel",
             },
-            "chewbaccaHotr":
+            "chewbacca_resistance":
             {
-               name: "Chewbacca (HotR)",
-               description: "When another friendly ship at Range 1-3 is destroyed (but has not fled the battlefield), you may perform an attack.",
+               name: "Chewbacca",
+               description: "After another friendly ship at Range 1-3 is destroyed (but has not fled the battlefield), you may perform an attack.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_YT_1300,
                pilotSkillValue: 5,
                squadPointCost: 42,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW],
-               key: "chewbaccaHotr",
+               key: "chewbacca_resistance",
             },
             "chopper":
             {
@@ -727,9 +860,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.REBEL_VCX_100,
                pilotSkillValue: 4,
                squadPointCost: 37,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TURRET, UpgradeType.TORPEDO,
-                                UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
                key: "chopper",
+            },
+            "cobaltLeader":
+            {
+               name: "\"Cobalt Leader\"",
+               description: "When attacking, if the defender is at range 1 of a bomb token, the defender rolls 1 fewer defense die (to a minimum of 0).",
+               isUnique: true,
+               shipFactionKey: ShipFaction.RESISTANCE_B_SF_17_BOMBER,
+               pilotSkillValue: 6,
+               squadPointCost: 28,
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.BOMB, UpgradeType.BOMB, UpgradeType.TECH],
+               key: "cobaltLeader",
             },
             "colonelJendon":
             {
@@ -753,30 +896,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE],
                isImplemented: true,
                key: "colonelVessery",
-            },
-            "concordDawnAce":
-            {
-               name: "Concord Dawn Ace",
-               description: "The elite of the Concord Dawn Protectorate mastered the Concordia Face Off maneuver, leveraging their ships' narrow attack profile to execute deadly head-on charges.",
-               isFlavorText: true,
-               shipFactionKey: ShipFaction.SCUM_PROTECTORATE_STARFIGHTER,
-               pilotSkillValue: 5,
-               squadPointCost: 23,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO],
-               isImplemented: true,
-               key: "concordDawnAce",
-            },
-            "concordDawnVeteran":
-            {
-               name: "Concord Dawn Veteran",
-               description: "Concord Dawn Protectors favored an aggressive approach, using their craft's pivot wing technology to achieve unmatched agility in the pursuit of their quarry.",
-               isFlavorText: true,
-               shipFactionKey: ShipFaction.SCUM_PROTECTORATE_STARFIGHTER,
-               pilotSkillValue: 3,
-               squadPointCost: 22,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO],
-               isImplemented: true,
-               key: "concordDawnVeteran",
             },
             "commanderAlozen":
             {
@@ -802,6 +921,41 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "commanderKenkirk",
             },
+            "concordDawnAce":
+            {
+               name: "Concord Dawn Ace",
+               description: "The elite of the Concord Dawn Protectorate mastered the Concordia Face Off maneuver, leveraging their ships\' narrow attack profile to execute deadly head-on charges.",
+               isFlavorText: true,
+               shipFactionKey: ShipFaction.SCUM_PROTECTORATE_STARFIGHTER,
+               pilotSkillValue: 5,
+               squadPointCost: 23,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO],
+               isImplemented: true,
+               key: "concordDawnAce",
+            },
+            "concordDawnVeteran":
+            {
+               name: "Concord Dawn Veteran",
+               description: "Concord Dawn Protectors favored an aggressive approach, using their craft\'s pivot wing technology to achieve unmatched agility in the pursuit of their quarry.",
+               isFlavorText: true,
+               shipFactionKey: ShipFaction.SCUM_PROTECTORATE_STARFIGHTER,
+               pilotSkillValue: 3,
+               squadPointCost: 22,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO],
+               isImplemented: true,
+               key: "concordDawnVeteran",
+            },
+            "constableZuvio":
+            {
+               name: "Constable Zuvio",
+               description: "When you reveal a reverse maneuver, you may drop a bomb using your front guides (including a bomb with the \"<strong>Action:</strong>\" header).",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_QUADJUMPER,
+               pilotSkillValue: 7,
+               squadPointCost: 19,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.TECH, UpgradeType.ILLICIT],
+               key: "constableZuvio",
+            },
             "contractedScout":
             {
                name: "Contracted Scout",
@@ -810,7 +964,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_JUMP_MASTER_5000,
                pilotSkillValue: 3,
                squadPointCost: 25,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.ILLICIT],
                isImplemented: true,
                key: "contractedScout",
             },
@@ -822,14 +976,24 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.REBEL_E_WING,
                pilotSkillValue: 8,
                squadPointCost: 35,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TORPEDO,
-                                UpgradeType.ASTROMECH],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.ASTROMECH],
                key: "corranHorn",
+            },
+            "countdown":
+            {
+               name: "\"Countdown\"",
+               description: "When defending, if you are not stressed, during the \"Compare Results\" step, you may suffer 1 damage to cancel <strong>all</strong> dice results. If you do, receive 1 stress token.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
+               pilotSkillValue: 5,
+               squadPointCost: 20,
+               upgradeTypeKeys: [],
+               key: "countdown",
             },
             "countessRyad":
             {
                name: "Countess Ryad",
-               description: "When you reveal a Straight maneuver, you may treat it as a K-Turn maneuver.",
+               description: "When you reveal a [Straight] maneuver, you may treat it as a [Koiogran Turn] maneuver.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_DEFENDER_V2,
                pilotSkillValue: 5,
@@ -837,6 +1001,37 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE],
                isImplemented: true,
                key: "countessRyad",
+            },
+            "crimsonLeader":
+            {
+               name: "\"Crimson Leader\"",
+               description: "When attacking, if the defender is inside your firing arc, you may spend 1 [Hit] or [Critical Hit] result to assign the \"Rattled\" Condition to the defender.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.RESISTANCE_B_SF_17_BOMBER,
+               pilotSkillValue: 7,
+               squadPointCost: 29,
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.BOMB, UpgradeType.BOMB, UpgradeType.TECH],
+               key: "crimsonLeader",
+            },
+            "crimsonSpecialist":
+            {
+               name: "\"Crimson Specialist\"",
+               description: "When placing a bomb token you dropped after revealing your manuever dial, you may place the bomb token anywhere on the play area touching your ship.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.RESISTANCE_B_SF_17_BOMBER,
+               pilotSkillValue: 4,
+               squadPointCost: 27,
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.BOMB, UpgradeType.BOMB, UpgradeType.TECH],
+               key: "crimsonSpecialist",
+            },
+            "crimsonSquadronPilot":
+            {
+               name: "Crimson Squadron Pilot",
+               shipFactionKey: ShipFaction.RESISTANCE_B_SF_17_BOMBER,
+               pilotSkillValue: 1,
+               squadPointCost: 25,
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.BOMB, UpgradeType.BOMB, UpgradeType.TECH],
+               key: "crimsonSquadronPilot",
             },
             "cutlassSquadronPilot":
             {
@@ -846,8 +1041,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.IMPERIAL_TIE_PUNISHER,
                pilotSkillValue: 2,
                squadPointCost: 21,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
                isImplemented: true,
                key: "cutlassSquadronPilot",
             },
@@ -865,15 +1059,36 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "daggerSquadronPilot":
             {
                name: "Dagger Squadron Pilot",
-               description: "A unique gyrostabilization system surrounds the B-wing's cockpit, ensuring that the pilot always remains stationary during flight.",
+               description: "A unique gyrostabilization system surrounds the B-wing\'s cockpit, ensuring that the pilot always remains stationary during flight.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_B_WING_V2,
                pilotSkillValue: 4,
                squadPointCost: 24,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.TORPEDO,
-                                UpgradeType.TORPEDO],
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.TORPEDO, UpgradeType.TORPEDO],
                isImplemented: true,
                key: "daggerSquadronPilot",
+            },
+            "dalanOberos_m12LKimogilaFighter":
+            {
+               name: "Dalan Oberos",
+               description: "At the start of the Combat phase, you may acquire a target lock on an enemy ship inside your bullseye firing arc at Range 1-3.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_M12_L_KIMOGILA_FIGHTER,
+               pilotSkillValue: 7,
+               squadPointCost: 25,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               key: "dalanOberos_m12LKimogilaFighter",
+            },
+            "dalanOberos_starViper":
+            {
+               name: "Dalan Oberos",
+               description: "If you are not stressed, when you reveal a turn, bank, or Segnor\'s Loop maneuver, you may instead treat it as a red Tallon Roll maneuver of the same direction (left or right) using the template of the original revealed maneuver.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_STAR_VIPER,
+               pilotSkillValue: 6,
+               squadPointCost: 30,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO],
+               key: "dalanOberos_starViper",
             },
             "darkCurse":
             {
@@ -911,7 +1126,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "deathfire":
             {
                name: "\"Deathfire\"",
-               description: "When you reveal your maneuver dial or after you perform an action, you may perform a Bomb Upgrade card action as a free action.",
+               description: "When you reveal your maneuver dial or after you perform an action, you may perform a [Bomb] Upgrade card action as a free action.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_BOMBER_V2,
                pilotSkillValue: 3,
@@ -927,8 +1142,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.IMPERIAL_TIE_PUNISHER,
                pilotSkillValue: 6,
                squadPointCost: 26,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
                key: "deathrain",
             },
             "deltaSquadronPilot":
@@ -951,9 +1165,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_JUMP_MASTER_5000,
                pilotSkillValue: 9,
                squadPointCost: 33,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.CREW, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.ILLICIT],
                key: "dengar",
+            },
+            "doubleEdge":
+            {
+               name: "\"Double Edge\"",
+               description: "Once per round, after you perform a secondary weapon attack that does not hit, you may perform an attack with a different weapon.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_AGGRESSOR,
+               pilotSkillValue: 4,
+               squadPointCost: 19,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.MISSILE, UpgradeType.MISSILE],
+               key: "doubleEdge",
             },
             "dreaRenthal":
             {
@@ -963,9 +1187,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_Y_WING,
                pilotSkillValue: 5,
                squadPointCost: 22,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.SALVAGED_ASTROMECH],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.SALVAGED_ASTROMECH],
                key: "dreaRenthal",
+            },
+            "duchess":
+            {
+               name: "\"Duchess\"",
+               description: "While you have the \"Adaptive Ailerons\" Upgrade card equipped, you may choose to ignore its card ability.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
+               pilotSkillValue: 8,
+               squadPointCost: 23,
+               upgradeTypeKeys: [UpgradeType.ELITE],
+               key: "duchess",
             },
             "dutchVander":
             {
@@ -975,8 +1209,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.REBEL_Y_WING,
                pilotSkillValue: 6,
                squadPointCost: 23,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.ASTROMECH],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.ASTROMECH],
                key: "dutchVander",
             },
             "eadenVrill":
@@ -994,7 +1227,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "echo":
             {
                name: "\"Echo\"",
-               description: "When you decloak, you must use the left or right bank 2 template instead of the straight 2 template.",
+               description: "When you decloak, you must use the ([Bank Left] 2) or ([Bank Right] 2) template instead of the ([Straight] 2) template.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_PHANTOM,
                pilotSkillValue: 6,
@@ -1005,7 +1238,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "elloAsty":
             {
                name: "Ello Asty",
-               description: "When you are not stressed, you may treat your Talon Roll Left and Talon Roll Right maneuvers as white maneuvers.",
+               description: "While you are not stressed, you may treat your [Tallon Roll Left] and [Tallon Roll Right] maneuvers as white maneuvers.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_T_70_X_WING,
                pilotSkillValue: 7,
@@ -1017,7 +1250,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "emonAzzameen":
             {
                name: "Emon Azzameen",
-               description: "When dropping a bomb, you may use the Left, Straight, or Right 3 template instead of the Straight 1 template.",
+               description: "When dropping a bomb, you may use the ([Turn Left] 3), ([Straight] 3) or ([Turn Right] 3) template instead of the ([Straight] 1) template.",
+               isUnique: true,
                shipFactionKey: ShipFaction.SCUM_FIRESPRAY_31,
                pilotSkillValue: 6,
                squadPointCost: 36,
@@ -1063,42 +1297,51 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "esegeTuketu":
             {
                name: "Esege Tuketu",
-               description: "When another friendly ship at Range 1-2 is attacking, it may treat your Focus tokens as its own.",
+               description: "When another friendly ship at Range 1-2 is attacking, it may treat your focus tokens as its own.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_K_WING,
                pilotSkillValue: 6,
                squadPointCost: 28,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
                key: "esegeTuketu",
             },
             "etahnAbaht":
             {
-               name: "Etahn A'baht",
-               description: "When an enemy ship inside your firing arc at Range 1-3 is defending, the attacker may change 1 of its Hit results to a Critical Hit result.",
+               name: "Etahn A\'baht",
+               description: "When an enemy ship inside your firing arc at Range 1-3 is defending, the attacker may change 1 of its [Hit] results to a [Critical Hit] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_E_WING,
                pilotSkillValue: 5,
                squadPointCost: 32,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TORPEDO,
-                                UpgradeType.ASTROMECH],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.ASTROMECH],
                key: "etahnAbaht",
             },
-            "ezraBridger":
+            "ezraBridger_attackShuttle":
             {
                name: "Ezra Bridger",
-               description: "When defending, if you are stressed, you may change up to 2 of your focus results to evade results.",
+               description: "When defending, if you are stressed, you may change up to 2 of your [Focus] results to [Evade] results.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_ATTACK_SHUTTLE,
                pilotSkillValue: 4,
                squadPointCost: 20,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.CREW],
                isImplemented: true,
-               key: "ezraBridger",
+               key: "ezraBridger_attackShuttle",
+            },
+            "ezraBridger_sheathipedeClassShuttle":
+            {
+               name: "Ezra Bridger",
+               description: "When defending, if you are stressed, you may change up to 2 of your [Focus] results to [Evade] results.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_SHEATHIPEDE_CLASS_SHUTTLE,
+               pilotSkillValue: 5,
+               squadPointCost: 17,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.ASTROMECH],
+               key: "ezraBridger_sheathipedeClassShuttle",
             },
             "felsWrath":
             {
-               name: "\"Fel's Wrath\"",
+               name: "\"Fel\'s Wrath\"",
                description: "When the number of Damage cards assigned to you equals or exceeds your hull value, you are not destroyed until the end of the Combat phase.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2,
@@ -1107,17 +1350,36 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [],
                key: "felsWrath",
             },
-            "fennRau":
+            "fennRau_rebel":
             {
                name: "Fenn Rau",
-               description: "When attacking or defending, if the enemy ship is at Range 1, you may roll 1 additional dice.",
+               description: "When an enemy ship inside your firing arc at Range 1-3 becomes the active ship during the Combat phase, if you are not stressed, you may receive 1 stress token. If you do, that ship cannot spend tokens to modify its dice when attacking this round.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_SHEATHIPEDE_CLASS_SHUTTLE,
+               pilotSkillValue: 9,
+               squadPointCost: 20,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.ASTROMECH],
+               key: "fennRau_rebel",
+            },
+            "fennRau_scum":
+            {
+               name: "Fenn Rau",
+               description: "When attacking or defending, if the enemy is at Range 1, you may roll 1 additional die.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_PROTECTORATE_STARFIGHTER,
                pilotSkillValue: 9,
                squadPointCost: 28,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO],
-               isImplemented: true,
-               key: "fennRau",
+               key: "fennRau_scum",
+            },
+            "firstOrderTestPilot":
+            {
+               name: "First Order Test Pilot",
+               shipFactionKey: ShipFaction.FIRST_ORDER_TIE_SILENCER,
+               pilotSkillValue: 6,
+               squadPointCost: 29,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TECH],
+               key: "firstOrderTestPilot",
             },
             "fourLom":
             {
@@ -1144,13 +1406,14 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             },
             "gammaSquadronVeteran":
             {
-               name: "Gamma Squadron Pilot",
+               name: "Gamma Squadron Veteran",
                description: "The white-striped TIE bombers flown by the elite Gamma Squadron possess enhanced maneuverability, allowing them to nimbly strike capital ships with fearsome ease.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_BOMBER_V2,
                pilotSkillValue: 5,
                squadPointCost: 19,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB],
+               isImplemented: true,
                key: "gammaSquadronVeteran",
             },
             "gandFindsman":
@@ -1190,7 +1453,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "genesisRed":
             {
                name: "Genesis Red",
-               description: "After you aquire a target lock, assign focus and evade tokens to your ship until you have the same number of each token as the locked ship.",
+               description: "After you acquire a target lock, assign focus and evade tokens to your ship until you have the same number of each token as the locked ship.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_M3_A_INTERCEPTOR_V2,
                pilotSkillValue: 7,
@@ -1207,18 +1470,18 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                pilotSkillValue: 6,
                squadPointCost: 34,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE],
+               isImplemented: true,
                key: "glaiveSquadronPilot",
             },
             "goldSquadronPilot":
             {
                name: "Gold Squadron Pilot",
-               description: "The versatile and reliable BTL-A4 Y-wing was the Rebellion's primary starfighter until the arrival of the T-65 X-wing.",
+               description: "The versatile and reliable BTL-A4 Y-wing was the Rebellion\'s primary starfighter until the arrival of the T-65 X-wing.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_Y_WING,
                pilotSkillValue: 2,
                squadPointCost: 18,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.ASTROMECH],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.ASTROMECH],
                isImplemented: true,
                key: "goldSquadronPilot",
             },
@@ -1236,7 +1499,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             },
             "grazTheHunter":
             {
-               name: "Graz The Hunter",
+               name: "Graz the Hunter",
                description: "When defending, if the attacker is inside your firing arc, roll 1 additional defense die.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_KIHRAXZ_FIGHTER,
@@ -1261,13 +1524,12 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "guardianSquadronPilot":
             {
                name: "Guardian Squadron Pilot",
-               description: "The K-wing's surprising acceleration, heavy armor plating, and devastating ordnance made it a favorite for hit-and-run operations.",
+               description: "The K-wing\'s surprising acceleration, heavy armor plating, and devastating ordnance made it a favorite for hit-and-run operations.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_K_WING,
                pilotSkillValue: 4,
                squadPointCost: 25,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
                isImplemented: true,
                key: "guardianSquadronPilot",
             },
@@ -1283,7 +1545,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "guri",
             },
-            "hanSolo":
+            "hanSolo_rebel":
             {
                name: "Han Solo",
                description: "When attacking, you may reroll all of your dice. If you choose to do so, you must reroll as many of your dice as possible.",
@@ -1292,18 +1554,18 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                pilotSkillValue: 9,
                squadPointCost: 46,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW],
-               key: "hanSolo",
+               key: "hanSolo_rebel",
             },
-            "hanSoloHotr":
+            "hanSolo_resistance":
             {
-               name: "Han Solo (HotR)",
-               description: "When you are placed during setup, you can be placed anywhere in the play area beyond Range 3 of the enemy ships.",
+               name: "Han Solo",
+               description: "When you are placed during setup, you can be placed anywhere in the play area beyond Range 3 of enemy ships.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_YT_1300,
                pilotSkillValue: 9,
                squadPointCost: 46,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW],
-               key: "hanSoloHotr",
+               key: "hanSolo_resistance",
             },
             "heffTobber":
             {
@@ -1316,28 +1578,27 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
                key: "heffTobber",
             },
-            "heraSyndullaAttackShuttle":
+            "heraSyndulla_attackShuttle":
             {
-               name: "Hera Syndulla (Attack Shuttle)",
+               name: "Hera Syndulla",
                description: "When you reveal a green or red maneuver, you may rotate your dial to another maneuver of the same difficulty.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_ATTACK_SHUTTLE,
                pilotSkillValue: 7,
                squadPointCost: 22,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.CREW],
-               key: "heraSyndullaAttackShuttle",
+               key: "heraSyndulla_attackShuttle",
             },
-            "heraSyndullaVcx100":
+            "heraSyndulla_vcx100":
             {
-               name: "Hera Syndulla (VCX-100)",
-               description: "When you reveal a red or green maneuver, you may rotate your dial to another maneuver of the same difficulty.",
+               name: "Hera Syndulla",
+               description: "When you reveal a green or red maneuver, you may rotate your dial to another maneuver of the same difficulty.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_VCX_100,
                pilotSkillValue: 7,
                squadPointCost: 40,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TURRET, UpgradeType.TORPEDO,
-                                UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
-               key: "heraSyndullaVcx100",
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
+               key: "heraSyndulla_vcx100",
             },
             "hiredGun":
             {
@@ -1347,8 +1608,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_Y_WING,
                pilotSkillValue: 4,
                squadPointCost: 20,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.SALVAGED_ASTROMECH],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.SALVAGED_ASTROMECH],
                isImplemented: true,
                key: "hiredGun",
             },
@@ -1398,7 +1658,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "ibtisam",
             },
-            "ig88A":
+            "ig88a":
             {
                name: "IG-88A",
                description: "After you perform an attack that destroys the defender, you may recover 1 shield.",
@@ -1406,24 +1666,21 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_AGGRESSOR,
                pilotSkillValue: 6,
                squadPointCost: 36,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON,
-                                UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
-               isImplemented: true,
-               key: "ig88A",
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
+               key: "ig88a",
             },
-            "ig88B":
+            "ig88b":
             {
                name: "IG-88B",
-               description: "Once per round, after you perform an attack that does not hit, you may perform an attack with an equipped Cannon secondary weapon.",
+               description: "Once per round, after you perform an attack that does not hit, you may perform an attack with an equipped [Cannon] secondary weapon.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_AGGRESSOR,
                pilotSkillValue: 6,
                squadPointCost: 36,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON,
-                                UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
-               key: "ig88B",
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
+               key: "ig88b",
             },
-            "ig88C":
+            "ig88c":
             {
                name: "IG-88C",
                description: "After you perform a boost action, you may perform a free evade action.",
@@ -1431,22 +1688,29 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_AGGRESSOR,
                pilotSkillValue: 6,
                squadPointCost: 36,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON,
-                                UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
-               isImplemented: true,
-               key: "ig88C",
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
+               key: "ig88c",
             },
-            "ig88D":
+            "ig88d":
             {
                name: "IG-88D",
-               description: "You may execute the Segnor's Loop Left or Right 3 maneuver using the corresponding Turn Left or Right 3 template.",
+               description: "You may execute the ([Segnor\'s Loop Left] 3) or ([Segnor\'s Loop Right] 3) maneuver using the corresponding ([Turn Left] 3) or ([Turn Right] 3) template.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_AGGRESSOR,
                pilotSkillValue: 6,
                squadPointCost: 36,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON,
-                                UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
-               key: "ig88D",
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT],
+               key: "ig88d",
+            },
+            "imperialTrainee":
+            {
+               name: "Imperial Trainee",
+               isUnique: false,
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
+               pilotSkillValue: 1,
+               squadPointCost: 17,
+               upgradeTypeKeys: [],
+               key: "imperialTrainee",
             },
             "inaldra":
             {
@@ -1470,6 +1734,16 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE],
                key: "jakeFarrell",
             },
+            "jakkuGunrunner":
+            {
+               name: "Jakku Gunrunner",
+               isUnique: false,
+               shipFactionKey: ShipFaction.SCUM_QUADJUMPER,
+               pilotSkillValue: 1,
+               squadPointCost: 15,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.TECH, UpgradeType.ILLICIT],
+               key: "jakkuGunrunner",
+            },
             "janOrs":
             {
                name: "Jan Ors",
@@ -1484,7 +1758,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "jekPorkins":
             {
                name: "Jek Porkins",
-               description: "When you receive a stress token, you may remove it and roll 1 attack die. On a Hit result, deal 1 facedown Damage card to this ship.",
+               description: "When you receive a stress token, you may remove it and roll 1 attack die. On a [Hit] result, deal 1 facedown Damage card to this ship.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_X_WING,
                pilotSkillValue: 7,
@@ -1518,7 +1792,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             },
             "kaatoLeeachos":
             {
-               name: "Kaa'To Leeachos",
+               name: "Kaa\'to Leeachos",
                description: "At the start of the Combat phase, you may remove 1 focus or evade token from another friendly ship at Range 1-2 and assign it to yourself.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_Z_95_HEADHUNTER,
@@ -1546,31 +1820,48 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.REBEL_VCX_100,
                pilotSkillValue: 5,
                squadPointCost: 38,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TURRET, UpgradeType.TORPEDO,
-                                UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW],
                key: "kananJarrus",
             },
-            "kathScarletImperial":
+            "karthakkPirate":
             {
-               name: "Kath Scarlet (Imperial)",
-               description: "When attacking, the defender receives 1 stress token if he cancels at least 1 Critical Hit result.",
+               name: "Karthakk Pirate",
+               shipFactionKey: ShipFaction.SCUM_SCURRG_H_6_BOMBER,
+               pilotSkillValue: 1,
+               squadPointCost: 24,
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               key: "karthakkPirate",
+            },
+            "kashyyykDefender":
+            {
+               name: "Kashyyyk Defender",
+               shipFactionKey: ShipFaction.REBEL_AUZITUCK_GUNSHIP,
+               pilotSkillValue: 1,
+               squadPointCost: 24,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW],
+               key: "kashyyykDefender",
+            },
+            "kathScarlet_imperial":
+            {
+               name: "Kath Scarlet",
+               description: "When attacking, the defender receives 1 stress token if he cancels at least 1 [Critical Hit] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_FIRESPRAY_31,
                pilotSkillValue: 7,
                squadPointCost: 38,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB],
-               key: "kathScarletImperial",
+               key: "kathScarlet_imperial",
             },
-            "kathScarletScum":
+            "kathScarlet_scum":
             {
-               name: "Kath Scarlet (Scum)",
+               name: "Kath Scarlet",
                description: "When attacking a ship inside your auxiliary firing arc, roll 1 additional attack die.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_FIRESPRAY_31,
                pilotSkillValue: 7,
                squadPointCost: 38,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.ILLICIT],
-               key: "kathScarletScum",
+               key: "kathScarlet_scum",
             },
             "kavil":
             {
@@ -1587,7 +1878,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "ketsuOnyo":
             {
                name: "Ketsu Onyo",
-               description: "At the start of the Combat phase, you may choose a ship at Range 1. If it is inside your primary and mobile firing arcs, assign 1 tractor beam token to it.",
+               description: "At the start of the Combat phase, you may choose a ship at Range 1. If it is inside your primary <strong>and</strong> mobile firing arcs, assign 1 tractor beam token to it.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_LANCER_CLASS_PURSUIT_CRAFT,
                pilotSkillValue: 7,
@@ -1598,7 +1889,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "keyanFarlander":
             {
                name: "Keyan Farlander",
-               description: "When attacking, you may remove 1 stress token to change all of your Focus results to Hit results.",
+               description: "When attacking, you may remove 1 stress token to change all of your [Focus] results to [Hit] results.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_B_WING_V2,
                pilotSkillValue: 7,
@@ -1610,7 +1901,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "kirKanos":
             {
                name: "Kir Kanos",
-               description: "When attacking at Range 2-3, you may spend 1 evade token to add 1 Hit result to your roll.",
+               description: "When attacking at Range 2-3, you may spend 1 evade token to add 1 [Hit] result to your roll.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V3,
                pilotSkillValue: 6,
@@ -1654,20 +1945,31 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.CREW],
                key: "kyleKatarn",
             },
-            "kyloRen":
+            "kyloRen_tieSilencer":
             {
                name: "Kylo Ren",
-               description: "The first time you are hit by an attack each round, assign the \"I'll Show You the Dark Side\" Condition card to the attacker.",
+               description: "The first time you are hit by an attack each round, assign the \"I\'ll Show You the Dark Side\" Condition card to the defender.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.FIRST_ORDER_TIE_SILENCER,
+               pilotSkillValue: 9,
+               squadPointCost: 35,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TECH],
+               key: "kyloRen_tieSilencer",
+            },
+            "kyloRen_upsilonClassShuttle":
+            {
+               name: "Kylo Ren",
+               description: "The first time you are hit by an attack each round, assign the \"I\'ll Show You the Dark Side\" Condition card to the defender.",
                isUnique: true,
                shipFactionKey: ShipFaction.FIRST_ORDER_UPSILON_CLASS_SHUTTLE,
                pilotSkillValue: 6,
                squadPointCost: 34,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.TECH, UpgradeType.TECH],
-               key: "kyloRen",
+               key: "kyloRen_upsilonClassShuttle",
             },
             "laetinAshera":
             {
-               name: "Laetin A'shera",
+               name: "Laetin A\'shera",
                description: "After you defend against an attack, if the attack did not hit, you may assign 1 evade token to your ship.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_M3_A_INTERCEPTOR,
@@ -1680,7 +1982,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "landoCalrissian":
             {
                name: "Lando Calrissian",
-               description: "After you execute a green maneuver, choose 1 other friendly ship at Range 1. That ship may perform 1 free action shown in its action bar.",
+               description: "After you execute a green maneuver, choose 1 other friendly ship at Range 1. That ship may perform 1 free action shown on its action bar.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_YT_1300,
                pilotSkillValue: 7,
@@ -1691,13 +1993,12 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "lattsRazzi":
             {
                name: "Latts Razzi",
-               description: "When a friendly ship declares an attack, you may spend a Target Lock you have on the defender to reduce its agility by 1 for that attack.",
+               description: "When a friendly ship declares an attack, you may spend a target lock you have on the defender to reduce its agility by 1 for that attack.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_YV_666,
                pilotSkillValue: 5,
                squadPointCost: 33,
-               upgradeTypeKeys: [UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW,
-                                UpgradeType.CREW, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.ILLICIT],
                key: "lattsRazzi",
             },
             "leebo":
@@ -1745,16 +2046,47 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.TECH, UpgradeType.TECH],
                key: "lieutenantDormitz",
             },
+            "lieutenantKarsabi":
+            {
+               name: "Lieutenant Karsabi",
+               description: "When you receive a weapons disabled token, if you are not stressed, you may receive 1 stress token to remove it.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING,
+               pilotSkillValue: 5,
+               squadPointCost: 24,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.MISSILE],
+               key: "lieutenantKarsabi",
+            },
+            "lieutenantKestal":
+            {
+               name: "Lieutenant Kestal",
+               description: "When attacking, you may spend 1 focus token to cancel all of the defender\'s blank and [Focus] results.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_AGGRESSOR,
+               pilotSkillValue: 7,
+               squadPointCost: 22,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.MISSILE, UpgradeType.MISSILE],
+               key: "lieutenantKestal",
+            },
             "lieutenantLorrir":
             {
                name: "Lieutenant Lorrir",
-               description: "When performing a barrel roll action, you may receive 1 stress token to use the left or right bank 1 template instead of the straight 1 template.",
+               description: "When performing a barrel roll action, you may receive 1 stress token to use the ([Bank Left] 1) or ([Bank Right] 1) template instead of the ([Straight] 1) template.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2,
                pilotSkillValue: 5,
                squadPointCost: 23,
                upgradeTypeKeys: [],
                key: "lieutenantLorrir",
+            },
+            "lokRevenant":
+            {
+               name: "Lok Revenant",
+               shipFactionKey: ShipFaction.SCUM_SCURRG_H_6_BOMBER,
+               pilotSkillValue: 3,
+               squadPointCost: 26,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               key: "lokRevenant",
             },
             "lothalRebel":
             {
@@ -1768,10 +2100,21 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "lothalRebel",
             },
+            "lowhhrick":
+            {
+               name: "Lowhhrick",
+               description: "When another friendly ship at Range 1 is defending, you may spend 1 reinforce token. If you do, the defender adds 1 [Evade] result.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_AUZITUCK_GUNSHIP,
+               pilotSkillValue: 5,
+               squadPointCost: 28,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.CREW],
+               key: "lowhhrick",
+            },
             "lukeSkywalker":
             {
                name: "Luke Skywalker",
-               description: "When defending, you may change 1 of your Focus results to an Evade result.",
+               description: "When defending, you may change 1 of your [Focus] results to a [Evade] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_X_WING,
                pilotSkillValue: 8,
@@ -1780,7 +2123,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "lukeSkywalker",
             },
-            "maarekSteleTieAdvanced":
+            "maarekStele_tieAdvanced":
             {
                name: "Maarek Stele",
                description: "When your attack deals a faceup Damage card to the defender, instead draw 3 Damage cards, choose 1 to deal, and discard the others.",
@@ -1789,18 +2132,18 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                pilotSkillValue: 7,
                squadPointCost: 27,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE],
-               key: "maarekSteleTieAdvanced",
+               key: "maarekStele_tieAdvanced",
             },
-            "maarekSteleTieDefender":
+            "maarekStele_tieDefender":
             {
                name: "Maarek Stele",
                description: "When your attack deals a faceup Damage card to the defender, instead draw 3 Damage cards, choose 1 to deal, and discard the others.",
                isUnique: true,
-               shipFactionKey: ShipFaction.IMPERIAL_TIE_DEFENDER_V2,
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_DEFENDER,
                pilotSkillValue: 7,
                squadPointCost: 35,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE],
-               key: "maarekSteleTieDefender",
+               key: "maarekStele_tieDefender",
             },
             "majorRhymer":
             {
@@ -1810,8 +2153,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.IMPERIAL_TIE_BOMBER,
                pilotSkillValue: 7,
                squadPointCost: 26,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB],
                key: "majorRhymer",
             },
             "majorStridan":
@@ -1825,16 +2167,26 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.TECH, UpgradeType.TECH],
                key: "majorStridan",
             },
+            "majorVynder":
+            {
+               name: "Major Vynder",
+               description: "When defending, if you have a weapons disabled token, roll 1 additional defense die.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING,
+               pilotSkillValue: 7,
+               squadPointCost: 26,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.MISSILE],
+               key: "majorVynder",
+            },
             "manaroo":
             {
                name: "Manaroo",
-               description: "At the start of the Combat phase, you may assign all focus, evade, and target lock tokens assigned to you to another friendly ship.",
+               description: "At the start of the Combat phase, you may assign all focus, evade, and target lock tokens assigned to you to another friendly ship at Range 1.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_JUMP_MASTER_5000,
                pilotSkillValue: 4,
                squadPointCost: 27,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.CREW, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.ILLICIT],
                key: "manaroo",
             },
             "mandalorianMercenary":
@@ -1864,41 +2216,37 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "mirandaDoni":
             {
                name: "Miranda Doni",
-               description: "Once per round when attacking, you may either spend 1 Shield to roll 1 additional attack die or roll 1 fewer attack die to recover 1 Shield.",
+               description: "Once per round when attacking, you may either spend 1 shield to roll 1 additional attack die <strong>or</strong> roll 1 fewer attack die to recover 1 shield.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_K_WING,
                pilotSkillValue: 8,
                squadPointCost: 29,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
                key: "mirandaDoni",
             },
             "moraloEval":
             {
                name: "Moralo Eval",
-               description: "You can perform Cannon secondary weapon attacks against ships inside your auxiliary firing arc.",
+               description: "You can perform [Cannon] secondary weapon attacks against ships inside your auxiliary firing arc.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_YV_666,
                pilotSkillValue: 6,
                squadPointCost: 34,
-               upgradeTypeKeys: [UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW,
-                                UpgradeType.CREW, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.ILLICIT],
                key: "moraloEval",
             },
             "nashtahPupPilot":
             {
                name: "Nashtah Pup Pilot",
-               description: "You have the pilot skill and pilot ability of the friendly destroyed ship equipped with the Hound's Tooth Upgrade card.",
+               description: "You have the pilot skill and pilot ability of the friendly destroyed ship equipped with the Hound\'s Tooth Upgrade card.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_Z_95_HEADHUNTER,
-               pilotSkillValue: undefined,
-               squadPointCost: undefined,
                upgradeTypeKeys: [],
                key: "nashtahPupPilot",
             },
             "ndruSuhlak":
             {
-               name: "N'Dru Suhlak",
+               name: "N\'dru Suhlak",
                description: "When attacking, if there are no other friendly ships at Range 1-2, roll 1 additional attack die.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_Z_95_HEADHUNTER,
@@ -1911,19 +2259,18 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "neraDantels":
             {
                name: "Nera Dantels",
-               description: "You can perform Torpedo secondary weapon attacks against enemy ships outside your firing arc.",
+               description: "You can perform [Torpedo] secondary weapon attacks against enemy ships outside your firing arc.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_B_WING_V2,
                pilotSkillValue: 5,
                squadPointCost: 26,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON,
-                                UpgradeType.TORPEDO, UpgradeType.TORPEDO],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.TORPEDO, UpgradeType.TORPEDO],
                key: "neraDantels",
             },
             "nienNunb":
             {
                name: "Nien Nunb",
-               description: "When you recieve a stress token, if there is an enemy ship inside your firing arc at Range 1, you may discard that stress token.",
+               description: "When you receive a stress token, if there is an enemy ship inside your firing arc at Range 1, you may discard that stress token.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_T_70_X_WING_V2,
                pilotSkillValue: 7,
@@ -1946,7 +2293,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "norraWexley":
             {
                name: "Norra Wexley",
-               description: "When attacking or defending, you may spend a target lock you have on the enemy ship to add 1 Focus result to your roll.",
+               description: "When attacking or defending, you may spend a target lock you have on the enemy ship to add 1 [Focus] result to your roll.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_ARC_170,
                pilotSkillValue: 7,
@@ -1954,10 +2301,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.ASTROMECH],
                key: "norraWexley",
             },
+            "nuSquadronPilot":
+            {
+               name: "Nu Squadron Pilot",
+               shipFactionKey: ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING,
+               pilotSkillValue: 2,
+               squadPointCost: 18,
+               upgradeTypeKeys: [UpgradeType.TORPEDO, UpgradeType.MISSILE],
+               key: "nuSquadronPilot",
+            },
             "obsidianSquadronPilot":
             {
                name: "Obsidian Squadron Pilot",
-               description: "The TIE fighter's Twin Ion Engine system was designed for speed, making the TIE one of the most maneuverable starships ever produced.",
+               description: "The TIE fighter\'s Twin Ion Engine system was designed for speed, making the TIE one of the most maneuverable starships ever produced.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_FIGHTER,
                pilotSkillValue: 3,
@@ -1980,7 +2336,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "omegaAce":
             {
                name: "\"Omega Ace\"",
-               description: "When attacking, you may spend a focus token and a target lock you have on the defender to change all of your results to Critical Hit results.",
+               description: "When attacking, you may spend a focus token and a target lock you have on the defender to change all of your results to [Critical Hit] results.",
                isUnique: true,
                shipFactionKey: ShipFaction.FIRST_ORDER_TIE_FO_FIGHTER,
                pilotSkillValue: 7,
@@ -2009,6 +2365,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                pilotSkillValue: 5,
                squadPointCost: 25,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.MISSILE, UpgradeType.TECH],
+               isImplemented: true,
                key: "omegaSpecialist",
             },
             "omegaSquadronPilot":
@@ -2019,7 +2376,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.FIRST_ORDER_TIE_FO_FIGHTER,
                pilotSkillValue: 4,
                squadPointCost: 17,
-               upgradeTypeKeys: [UpgradeType.TECH],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TECH],
                isImplemented: true,
                key: "omegaSquadronPilot",
             },
@@ -2034,6 +2391,15 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.CREW, UpgradeType.CREW],
                isImplemented: true,
                key: "omicronGroupPilot",
+            },
+            "onyxSquadronEscort":
+            {
+               name: "Onyx Squadron Escort",
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_AGGRESSOR,
+               pilotSkillValue: 5,
+               squadPointCost: 19,
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.MISSILE, UpgradeType.MISSILE],
+               key: "onyxSquadronEscort",
             },
             "onyxSquadronPilot":
             {
@@ -2055,6 +2421,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.REBEL_YT_1300,
                pilotSkillValue: 1,
                primaryWeaponValue: 2,
+               agilityValue: 1,
                hullValue: 6,
                shieldValue: 4,
                squadPointCost: 27,
@@ -2081,39 +2448,37 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.IMPERIAL_VT_49_DECIMATOR,
                pilotSkillValue: 3,
                squadPointCost: 40,
-               upgradeTypeKeys: [UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW,
-                                UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.BOMB],
                isImplemented: true,
                key: "patrolLeader",
             },
             "poeDameron":
             {
                name: "Poe Dameron",
-               description: "While attacking or defending, if you have a Focus token, you may change 1 of your Focus results to a Hit or Evade result.",
+               description: "While attacking or defending, if you have a focus token, you may change 1 of your [Focus] results to a [Hit] or [Evade] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_T_70_X_WING,
                pilotSkillValue: 8,
                squadPointCost: 31,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.ASTROMECH,
-                                UpgradeType.TECH],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.ASTROMECH, UpgradeType.TECH],
                isImplemented: true,
                key: "poeDameron",
             },
-            "poeDameronHotr":
+            "poeDameron_hotr":
             {
-               name: "Poe Dameron (HotR)",
-               description: "While attacking or defending, if you have a Focus token, you may change 1 of your Focus results to a Hit or Evade result.",
+               name: "Poe Dameron",
+               description: "While attacking or defending, if you have a focus token, you may change 1 of your [Focus] results to a [Hit] or [Evade] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_T_70_X_WING_V2,
                pilotSkillValue: 9,
                squadPointCost: 33,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.ASTROMECH, UpgradeType.TECH],
-               key: "poeDameronHotr",
+               key: "poeDameron_hotr",
             },
             "princeXizor":
             {
                name: "Prince Xizor",
-               description: "When defending, a friendly ship at Range 1 may suffer 1 uncanceled Hit or Critical Hit result instead of you.",
+               description: "When defending, a friendly ship at Range 1 may suffer 1 uncanceled [Hit] or [Critical Hit] result instead of you.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_STAR_VIPER,
                pilotSkillValue: 7,
@@ -2133,6 +2498,17 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "prototypePilot",
             },
+            "pureSabacc":
+            {
+               name: "\"Pure Sabacc\"",
+               description: "When attacking, if you have 1 or fewer Damage cards, roll 1 additional attack die.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
+               pilotSkillValue: 6,
+               squadPointCost: 22,
+               upgradeTypeKeys: [UpgradeType.ELITE],
+               key: "pureSabacc",
+            },
             "quickdraw":
             {
                name: "\"Quickdraw\"",
@@ -2147,7 +2523,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "quinnJast":
             {
                name: "Quinn Jast",
-               description: "At the start of Combat phase, you may receive a weapons disabled token to flip one of your discarded Torpedo or Missile Upgrade cards faceup.",
+               description: "At the start of the Combat phase, you may receive a weapons disabled token to flip one of your discarded [Torpedo] or [Missile] Upgrade cards faceup.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_M3_A_INTERCEPTOR_V2,
                pilotSkillValue: 6,
@@ -2158,7 +2534,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "rearAdmiralChiraneau":
             {
                name: "Rear Admiral Chiraneau",
-               description: "When attacking at Range 1-2, you may change 1 of your Focus results to a Critical Hit result.",
+               description: "When attacking at Range 1-2, you may change one of your [Focus] results to a [Critical Hit] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_VT_49_DECIMATOR,
                pilotSkillValue: 8,
@@ -2187,7 +2563,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.RESISTANCE_T_70_X_WING,
                pilotSkillValue: 6,
                squadPointCost: 29,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.ASTROMECH, UpgradeType.TECH],
+               upgradeTypeKeys: [UpgradeType.TORPEDO, UpgradeType.ASTROMECH, UpgradeType.TECH],
                isImplemented: true,
                key: "redAce",
             },
@@ -2223,8 +2599,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.IMPERIAL_TIE_PUNISHER,
                pilotSkillValue: 7,
                squadPointCost: 27,
-               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB],
                key: "redline",
             },
             "resistanceSympathizer":
@@ -2236,6 +2611,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                pilotSkillValue: 3,
                squadPointCost: 38,
                upgradeTypeKeys: [UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW],
+               isImplemented: true,
                key: "resistanceSympathizer",
             },
             "rexlerBrath":
@@ -2260,10 +2636,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW],
                key: "rey",
             },
+            "rhoSquadronVeteran":
+            {
+               name: "Rho Squadron Veteran",
+               shipFactionKey: ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING,
+               pilotSkillValue: 4,
+               squadPointCost: 21,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.MISSILE],
+               key: "rhoSquadronVeteran",
+            },
             "roarkGarnet":
             {
                name: "Roark Garnet",
-               description: "At the start of the Combat phase, choose 1 other friendly ship at Range 1-3. Until the end fo the phase, treat that ship's pilot skill value as \"12.\"",
+               description: "At the start of the Combat phase, choose 1 other friendly ship at Range 1-3. Until the end of the phase, treat that ship\'s pilot skill value as \"12.\"",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_HWK_290,
                pilotSkillValue: 4,
@@ -2286,7 +2671,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "royalGuardPilot":
             {
                name: "Royal Guard Pilot",
-               description: "Only members of the Emperor's royal guard are permitted to fly their unique crimson fighters, which are often used to escort the Emperor's shuttle as well as its decoys.",
+               description: "Only members of the Emperor\'s royal guard are permitted to fly their unique crimson fighters, which are often used to escort the Emperor\'s shuttle as well as its decoys.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V3,
                pilotSkillValue: 6,
@@ -2310,7 +2695,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "saberSquadronPilot":
             {
                name: "Saber Squadron Pilot",
-               description: "Led by Baron Soontir Fel, the pilots of Saber Squadron are among the Empire's best. Their TIE interceptors are marked with red stripes to designate pilots with at least ten confirmed kills.",
+               description: "Led by Baron Soontir Fel, the pilots of Saber Squadron are among the Empire\'s best. Their TIE interceptors are marked with red stripes to designate pilots with at least ten confirmed kills.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2,
                pilotSkillValue: 4,
@@ -2319,27 +2704,58 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "saberSquadronPilot",
             },
-            "sabineWrenRebel":
+            "sabineWren_attackShuttle":
             {
-               name: "Sabine Wren (Rebel)",
+               name: "Sabine Wren",
                description: "Immediately before you reveal your maneuver, you may perform a free boost or barrel roll action.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_ATTACK_SHUTTLE,
                pilotSkillValue: 5,
                squadPointCost: 21,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.CREW],
-               key: "sabineWrenRebel",
+               key: "sabineWren_attackShuttle",
             },
-            "sabineWrenScum":
+            "sabineWren_lancerClassPursuitCraft":
             {
-               name: "Sabine Wren (Scum)",
-               description: "When defending against an enemy ship inside your mobile firing arc at Range 1-2, you may add 1 Focus result to your roll.",
+               name: "Sabine Wren",
+               description: "When defending against an enemy ship inside your mobile firing arc at Range 1-2, you may add 1 [Focus] result to your roll.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_LANCER_CLASS_PURSUIT_CRAFT,
                pilotSkillValue: 5,
                squadPointCost: 35,
                upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.ILLICIT, UpgradeType.ILLICIT],
-               key: "sabineWrenScum",
+               key: "sabineWren_lancerClassPursuitCraft",
+            },
+            "sabineWren_tieFighter":
+            {
+               name: "Sabine Wren",
+               description: "Immediately before you reveal your maneuver, you may perform a free boost or barrel roll action.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_TIE_FIGHTER,
+               pilotSkillValue: 5,
+               squadPointCost: 15,
+               upgradeTypeKeys: [UpgradeType.ELITE],
+               key: "sabineWren_tieFighter",
+            },
+            "sarcoPlank":
+            {
+               name: "Sarco Plank",
+               description: "When defending, instead of using your agility value, you may roll a number of defense dice equal to the speed of the maneuver you executed this round.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_QUADJUMPER,
+               pilotSkillValue: 5,
+               squadPointCost: 18,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.TECH, UpgradeType.ILLICIT],
+               key: "sarcoPlank",
+            },
+            "scarifDefender":
+            {
+               name: "Scarif Defender",
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
+               pilotSkillValue: 3,
+               squadPointCost: 18,
+               upgradeTypeKeys: [],
+               key: "scarifDefender",
             },
             "scimitarSquadronPilot":
             {
@@ -2368,7 +2784,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "serissu":
             {
                name: "Serissu",
-               description: "When another friendly ship at Range 1 is defending, it may reroll 1 defense die.",
+               description: "When another friendly ship at Range 1 is defending it may reroll 1 defense die.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_M3_A_INTERCEPTOR,
                pilotSkillValue: 8,
@@ -2397,6 +2813,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                pilotSkillValue: 2,
                squadPointCost: 33,
                upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.ILLICIT, UpgradeType.ILLICIT],
+               isImplemented: true,
                key: "shadowportHunter",
             },
             "sharaBey":
@@ -2410,10 +2827,28 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.ASTROMECH],
                key: "sharaBey",
             },
+            "sienarJaemusAnalyst":
+            {
+               name: "Sienar-Jaemus Analyst",
+               shipFactionKey: ShipFaction.FIRST_ORDER_TIE_SILENCER,
+               pilotSkillValue: 4,
+               squadPointCost: 26,
+               upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.TECH],
+               key: "sienarJaemusAnalyst",
+            },
+            "sienarSpecialist":
+            {
+               name: "Sienar Specialist",
+               shipFactionKey: ShipFaction.IMPERIAL_TIE_AGGRESSOR,
+               pilotSkillValue: 2,
+               squadPointCost: 17,
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.MISSILE, UpgradeType.MISSILE],
+               key: "sienarSpecialist",
+            },
             "sienarTestPilot":
             {
                name: "Sienar Test Pilot",
-               description: "Sienar Fleet System's TIE Advanced v1 was a groundbreaking starfighter design featuring upgraded engines, a missile launcher, and folding s-foils.",
+               description: "Sienar Fleet System\'s TIE Advanced v1 was a groundbreaking starfighter design featuring upgraded engines, a missile launcher, and folding s-foils.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_ADVANCED_PROTOTYPE,
                pilotSkillValue: 2,
@@ -2437,13 +2872,24 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "snapWexley":
             {
                name: "\"Snap\" Wexley",
-               description: "After you execute a 2-, 3- or 4-speed maneuver, if you are not touching a ship, you may perform a free boost action.",
+               description: "After you execute a 2-, 3-, or 4-speed maneuver, if you are not touching a ship, you may perform a free boost action.",
                isUnique: true,
                shipFactionKey: ShipFaction.RESISTANCE_T_70_X_WING_V2,
                pilotSkillValue: 6,
                squadPointCost: 28,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.ASTROMECH, UpgradeType.TECH],
                key: "snapWexley",
+            },
+            "solSixxa":
+            {
+               name: "Sol Sixxa",
+               description: "When dropping a bomb, you may use the ([Turn Left] 1) or ([Turn Right] 1) template instead of the ([Straight] 1) template.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_SCURRG_H_6_BOMBER,
+               pilotSkillValue: 6,
+               squadPointCost: 28,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               key: "solSixxa",
             },
             "soontirFel":
             {
@@ -2472,12 +2918,13 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "starkillerBasePilot":
             {
                name: "Starkiller Base Pilot",
-               description: "The Upsilon-class shuttle served as a command ship for many of the First Order's elite officers and agents as they spread terror across the galaxy.",
+               description: "The Upsilon-class shuttle served as a command ship for many of the First Order\'s elite officers and agents as they spread terror across the galaxy.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.FIRST_ORDER_UPSILON_CLASS_SHUTTLE,
                pilotSkillValue: 2,
                squadPointCost: 30,
                upgradeTypeKeys: [UpgradeType.SYSTEM, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.TECH, UpgradeType.TECH],
+               isImplemented: true,
                key: "starkillerBasePilot",
             },
             "stormSquadronPilot":
@@ -2506,13 +2953,12 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "syndicateThug":
             {
                name: "Syndicate Thug",
-               description: "Though far from nimble, the Y-wing's heavy hull, substantial shielding, and turret-mounted cannons make them excellent patrol craft.",
+               description: "Though far from nimble, the Y-wing\'s heavy hull, substantial shielding, and turret-mounted cannons make them excellent patrol craft.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_Y_WING,
                pilotSkillValue: 2,
                squadPointCost: 18,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.SALVAGED_ASTROMECH],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.SALVAGED_ASTROMECH],
                isImplemented: true,
                key: "syndicateThug",
             },
@@ -2543,7 +2989,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "tansariiPointVeteran":
             {
                name: "Tansarii Point Veteran",
-               description: "The defeat of Black Sun ace Talonbane Cobra by Car'das smugglers turned the tide of the Battle of Tansarii Point Station. Survivors of the clash are respected throughout the sector.",
+               description: "The defeat of Black Sun ace Talonbane Cobra by Car\'das smugglers turned the tide of the Battle of Tansarii Point Station. Survivors of the clash are respected throughout the sector.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_M3_A_INTERCEPTOR,
                pilotSkillValue: 5,
@@ -2572,8 +3018,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_JUMP_MASTER_5000,
                pilotSkillValue: 7,
                squadPointCost: 30,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.CREW, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.ILLICIT],
                key: "telTrevura",
             },
             "tempestSquadronPilot":
@@ -2591,19 +3036,29 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "tenNumb":
             {
                name: "Ten Numb",
-               description: "When attacking, 1 of your Critical Hit results cannot be canceled by defense dice.",
+               description: "When attacking, 1 of your [Critical Hit] results cannot be canceled by defense dice.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_B_WING,
                pilotSkillValue: 8,
                squadPointCost: 31,
-               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON,
-                                UpgradeType.TORPEDO, UpgradeType.TORPEDO],
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.TORPEDO, UpgradeType.TORPEDO],
                key: "tenNumb",
+            },
+            "testPilotBlackout":
+            {
+               name: "Test Pilot \"Blackout\"",
+               description: "When attacking, if the attack is obstructed, the defender rolls 2 fewer defense dice (to a minimum of 0).",
+               isUnique: true,
+               shipFactionKey: ShipFaction.FIRST_ORDER_TIE_SILENCER,
+               pilotSkillValue: 7,
+               squadPointCost: 31,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TECH],
+               key: "testPilotBlackout",
             },
             "tetranCowall":
             {
                name: "Tetran Cowall",
-               description: "When you reveal a Koiogran turn maneuver, you may treat the speed of that maneuver as \"1,\" \"3,\" or \"5.\"",
+               description: "When you reveal a [Koiogran Turn] maneuver, you may treat the speed of that maneuver as \"1,\" \"3,\" or \"5\".",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2,
                pilotSkillValue: 7,
@@ -2633,10 +3088,21 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE],
                key: "theInquisitor",
             },
+            "thweek":
+            {
+               name: "Thweek",
+               description: "During setup, before the \"Place Forces\" step, you may choose 1 enemy ship and assign the \"Shadowed\" or \"Mimicked\" Condition card to it.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_STAR_VIPER,
+               pilotSkillValue: 4,
+               squadPointCost: 28,
+               upgradeTypeKeys: [UpgradeType.TORPEDO],
+               key: "thweek",
+            },
             "tomaxBren":
             {
                name: "Tomax Bren",
-               description: "Once per round, after you discard an Elite Upgrade card, flip that card faceup.",
+               description: "Once per round, after you discard an [Elite] Upgrade card, flip that card faceup.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_BOMBER_V2,
                pilotSkillValue: 8,
@@ -2644,10 +3110,21 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB],
                key: "tomaxBren",
             },
+            "toraniKulda":
+            {
+               name: "Torani Kulda",
+               description: "After you perform an attack, each enemy ship inside your bullseye firing arc at Range 1-3 must choose to suffer 1 damage or remove all of its focus and evade tokens.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_M12_L_KIMOGILA_FIGHTER,
+               pilotSkillValue: 8,
+               squadPointCost: 27,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT],
+               key: "toraniKulda",
+            },
             "torkilMux":
             {
                name: "Torkil Mux",
-               description: "At the end of the Activation phase, choose 1 enemy ship at Range 1-2. Until the end of the Combat phase, treat that ship's pilot skill value as \"0\".",
+               description: "At the end of the Activation phase, choose 1 enemy ship at Range 1-2. Until the end of the Combat phase, treat that ship\'s pilot skill value as \"0\".",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_HWK_290,
                pilotSkillValue: 3,
@@ -2663,8 +3140,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                shipFactionKey: ShipFaction.SCUM_YV_666,
                pilotSkillValue: 2,
                squadPointCost: 29,
-               upgradeTypeKeys: [UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW,
-                                UpgradeType.CREW, UpgradeType.ILLICIT],
+               upgradeTypeKeys: [UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.ILLICIT],
                isImplemented: true,
                key: "trandoshanSlaver",
             },
@@ -2692,6 +3168,17 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "tychoCelchu",
             },
+            "unkarPlutt":
+            {
+               name: "Unkar Plutt",
+               description: "At the end of the Activation phase, you <strong>must</strong> assign a tractor beam token to each ship you are touching.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_QUADJUMPER,
+               pilotSkillValue: 3,
+               squadPointCost: 17,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.TECH, UpgradeType.ILLICIT],
+               key: "unkarPlutt",
+            },
             "valenRudor":
             {
                name: "Valen Rudor",
@@ -2704,10 +3191,21 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "valenRudor",
             },
+            "viktorHel":
+            {
+               name: "Viktor Hel",
+               description: "After defending, if you did not roll exactly 2 defense dice, the attacker receives 1 stress token.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.SCUM_KIHRAXZ_FIGHTER,
+               pilotSkillValue: 7,
+               squadPointCost: 25,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.ILLICIT],
+               key: "viktorHel",
+            },
             "wampa":
             {
                name: "\"Wampa\"",
-               description: "When attacking, you may cancel all dice results. If you cancel a critical result, deal 1 facedown Damage card to the defender.",
+               description: "When attacking, you may cancel all dice results. If you cancel a [Critical Hit] result, deal 1 facedown Damage card to the defender.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_FIGHTER,
                pilotSkillValue: 4,
@@ -2718,20 +3216,19 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "wardenSquadronPilot":
             {
                name: "Warden Squadron Pilot",
-               description: "Koensayr Manufacturing's K-wing boasted an advanced Sublight Acceleration Motor (SLAM) and an unprecedented 18 hard points, granting it unrivaled speed and firepower.",
+               description: "Koensayr Manufacturing\'s K-wing boasted an advanced Sublight Acceleration Motor (SLAM) and an unprecedented 18 hard points, granting it unrivaled speed and firepower.",
                isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_K_WING,
                pilotSkillValue: 2,
                squadPointCost: 23,
-               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO,
-                                UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
+               upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB],
                isImplemented: true,
                key: "wardenSquadronPilot",
             },
             "wedgeAntilles":
             {
                name: "Wedge Antilles",
-               description: "When attacking, reduce the defender's agility value by 1 (to a minimum of \"0\").",
+               description: "When attacking, reduce the defender\'s agility value by 1 (to a minimum of \"0\").",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_X_WING,
                pilotSkillValue: 9,
@@ -2777,7 +3274,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "wingedGundark":
             {
                name: "\"Winged Gundark\"",
-               description: "When attacking at Range 1, you may change 1 of your Hit results to a Critical Hit result.",
+               description: "When attacking at Range 1, you may change 1 of your [Hit] results to a [Critical Hit] result.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_FIGHTER,
                pilotSkillValue: 5,
@@ -2786,10 +3283,30 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "wingedGundark",
             },
+            "wookieeLiberator":
+            {
+               name: "Wookiee Liberator",
+               shipFactionKey: ShipFaction.REBEL_AUZITUCK_GUNSHIP,
+               pilotSkillValue: 3,
+               squadPointCost: 26,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.CREW],
+               key: "wookieeLiberator",
+            },
+            "wullffwarro":
+            {
+               name: "Wullffwarro",
+               description: "When attacking, if you have no shields and at least 1 Damage card assigned to you, roll 1 additional attack die.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_AUZITUCK_GUNSHIP,
+               pilotSkillValue: 7,
+               squadPointCost: 30,
+               upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.CREW],
+               key: "wullffwarro",
+            },
             "youngster":
             {
                name: "\"Youngster\"",
-               description: "Friendly TIE fighters at Range 1-3 may perform the action on your equipped Elite Talent Upgrade card.",
+               description: "Friendly TIE fighters at Range 1-3 may perform the action on your equipped [Elite] Upgrade card.",
                isUnique: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_FIGHTER,
                pilotSkillValue: 6,
@@ -2809,16 +3326,38 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isImplemented: true,
                key: "zealousRecruit",
             },
-            "zebOrrelios":
+            "zebOrrelios_attackShuttle":
             {
                name: "\"Zeb\" Orrelios",
-               description: "When defending, you may cancel critical hit results before hit results.",
+               description: "When defending, you may cancel [Critical Hit] results before [Hit] results.",
                isUnique: true,
                shipFactionKey: ShipFaction.REBEL_ATTACK_SHUTTLE,
                pilotSkillValue: 3,
                squadPointCost: 18,
                upgradeTypeKeys: [UpgradeType.TURRET, UpgradeType.CREW],
-               key: "zebOrrelios",
+               key: "zebOrrelios_attackShuttle",
+            },
+            "zebOrrelios_sheathipedeClassShuttle":
+            {
+               name: "\"Zeb\" Orrelios",
+               description: "When defending, you may cancel [Critical Hit] results before [Hit] results.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_SHEATHIPEDE_CLASS_SHUTTLE,
+               pilotSkillValue: 3,
+               squadPointCost: 16,
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.ASTROMECH],
+               key: "zebOrrelios_sheathipedeClassShuttle",
+            },
+            "zebOrrelios_tieFighter":
+            {
+               name: "\"Zeb\" Orrelios",
+               description: "When defending, you may cancel [Critical Hit] results before [Hit] results.",
+               isUnique: true,
+               shipFactionKey: ShipFaction.REBEL_TIE_FIGHTER,
+               pilotSkillValue: 3,
+               squadPointCost: 13,
+               upgradeTypeKeys: [],
+               key: "zebOrrelios_tieFighter",
             },
             "zertikStrom":
             {
@@ -2835,7 +3374,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "zetaAce":
             {
                name: "\"Zeta Ace\"",
-               description: "When performing a barrel roll, you may use the Straight 2 template (instead of the Straight 1 template).",
+               description: "When performing a barrel roll, you may use the ([Straight] 2) template (instead of the ([Straight] 1) template).",
                isUnique: true,
                shipFactionKey: ShipFaction.FIRST_ORDER_TIE_FO_FIGHTER,
                pilotSkillValue: 5,
@@ -2881,7 +3420,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "zuckuss":
             {
                name: "Zuckuss",
-               description: "When attacking, you may roll 1 additional attack die. If you do, then the defender rolls 1 additional defense die.",
+               description: "When attacking you may roll 1 additional attack die. If you do, the defender rolls 1 additional defense die.",
                isUnique: true,
                shipFactionKey: ShipFaction.SCUM_G_1A_STARFIGHTER,
                pilotSkillValue: 7,

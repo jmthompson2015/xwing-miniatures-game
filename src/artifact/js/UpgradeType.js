@@ -131,6 +131,23 @@ define(function()
    //////////////////////////////////////////////////////////////////////////
    // Utility methods.
 
+   UpgradeType.findByName = function(name)
+   {
+      var answer;
+      var values = UpgradeType.values();
+
+      for (var i = 0; i < values.length; i++)
+      {
+         if (values[i].name === name)
+         {
+            answer = values[i];
+            break;
+         }
+      }
+
+      return answer;
+   };
+
    UpgradeType.toString = function()
    {
       return "UpgradeType";

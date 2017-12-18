@@ -95,7 +95,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          var hitCount = 2;
          var criticalHitCount = 3;
          var rebelAgent = environment.pilotInstances()[2].agent();
-         var defender = new CardInstance(store, PilotCard.CHEWBACCA, rebelAgent);
+         var defender = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, rebelAgent);
          store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), defender));
          store.dispatch(CardAction.addShieldCount(defender, -3)); // two shields remaining
          var evadeCount = 1;

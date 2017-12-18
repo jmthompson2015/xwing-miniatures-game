@@ -89,7 +89,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeRestriction"],
          assert.ok(restriction.passes(PilotCard.EPSILON_ACE)); // TIE/fo Fighter.
          assert.ok(restriction.passes(PilotCard.ALPHA_SQUADRON_PILOT)); // TIE Interceptor.
          assert.ok(restriction.passes(PilotCard.ECHO)); // TIE Phantom.
-         assert.ok(restriction.passes(PilotCard.BLACK_EIGHT_SQ_PILOT)); // TIE Punisher.
+         assert.ok(restriction.passes(PilotCard.BLACK_EIGHT_SQUADRON_PILOT)); // TIE Punisher.
 
          assert.ok(!restriction.passes(PilotCard.AIREN_CRACKEN));
          assert.ok(!restriction.passes(PilotCard.ARVEL_CRYNYD));
