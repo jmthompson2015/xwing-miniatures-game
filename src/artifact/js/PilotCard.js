@@ -622,7 +622,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                name: "Captain Rex",
                description: "After you perform an attack, assign the 'Suppressive Fire' Condition card to the defender.",
                isUnique: true,
-               shipFactionKey: ShipFaction.REBEL_SABINES_TIE_FIGHTER,
+               shipFactionKey: ShipFaction.REBEL_TIE_FIGHTER,
                pilotSkillValue: 4,
                squadPointCost: 14,
                upgradeTypeKeys: [],

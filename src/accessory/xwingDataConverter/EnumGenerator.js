@@ -51,7 +51,7 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
 
       if (PILOT_APPEND_FACTION.includes(pilot.name))
       {
-         answer += FactionConverter.createEnumName(pilot.faction);
+         answer += "_" + FactionConverter.createEnumName(pilot.faction);
       }
       else if (PILOT_APPEND_SHIP.includes(pilot.name))
       {
@@ -77,7 +77,7 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
 
       if (PILOT_APPEND_FACTION.includes(pilot.name))
       {
-         answer += FactionConverter.createEnumValue(pilot.faction);
+         answer += "_" + FactionConverter.createEnumValue(pilot.faction);
       }
       else if (PILOT_APPEND_SHIP.includes(pilot.name))
       {
@@ -131,6 +131,31 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
       answer = answer.replace("TIE Adv.", "TIE Advanced");
 
       answer = EnumGenerator.createEnumValue(answer);
+
+      return (isQuoted ? EnumGenerator.quoteValue(answer) : answer);
+   };
+
+   EnumGenerator.createShipFactionEnumName = function(ship, factionIndex)
+   {
+      InputValidator.validateNotNull("ship", ship);
+      InputValidator.validateIsNumber("factionIndex", factionIndex);
+
+      var factionName = FactionConverter.createEnumName(ship.faction[factionIndex]);
+      var shipName = EnumGenerator.createShipEnumName(ship);
+      var answer = factionName + "_" + shipName;
+
+      return answer;
+   };
+
+   EnumGenerator.createShipFactionEnumValue = function(ship, factionIndex, isQuotedIn)
+   {
+      InputValidator.validateNotNull("ship", ship);
+      InputValidator.validateIsNumber("factionIndex", factionIndex);
+
+      var isQuoted = (isQuotedIn !== undefined ? isQuotedIn : true);
+      var factionValue = FactionConverter.createEnumValue(ship.faction[factionIndex]);
+      var shipValue = EnumGenerator.createShipEnumValue(ship, false);
+      var answer = factionValue + "_" + shipValue;
 
       return (isQuoted ? EnumGenerator.quoteValue(answer) : answer);
    };

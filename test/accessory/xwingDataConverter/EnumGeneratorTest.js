@@ -8,6 +8,9 @@ define(["qunit", "accessory/xwingDataConverter/EnumGenerator"], function(QUnit, 
    var ENUM_NAMES = ["ACADEMY_PILOT", "ARC_170", "CHOPPER", "GRAZ_THE_HUNTER", "LUKE_SKYWALKER", "M3_A_INTERCEPTOR", "TIE_X7"];
    var ENUM_VALUES = ["academyPilot", "arc170", "chopper", "grazTheHunter", "lukeSkywalker", "m3AInterceptor", "tieX7"];
 
+   /////////////////////////////////////////////////////////////////////////////
+   // Pilots.
+
    var BOBA_FETT_IMPERIAL = {
       "name": "Boba Fett",
       "ship": "Firespray-31",
@@ -49,6 +52,32 @@ define(["qunit", "accessory/xwingDataConverter/EnumGenerator"], function(QUnit, 
       "ship": "T-70 X-wing",
       "faction": "Resistance",
    };
+
+   /////////////////////////////////////////////////////////////////////////////
+   // Ships.
+
+   var JUMP_MASTER_5000 = {
+      "name": "JumpMaster 5000",
+      "faction": ["Scum and Villainy"],
+   };
+
+   var STAR_VIPER = {
+      "name": "StarViper",
+      "faction": ["Scum and Villainy"],
+   };
+
+   var X_WING = {
+      "name": "X-wing",
+      "faction": ["Rebel Alliance"],
+   };
+
+   var Y_WING = {
+      "name": "Y-wing",
+      "faction": ["Rebel Alliance", "Scum and Villainy"],
+   };
+
+   /////////////////////////////////////////////////////////////////////////////
+   // Upgrades.
 
    var ADAPTABILITY_DECREASE = {
       "name": "Adaptability (-1)",
@@ -158,6 +187,40 @@ define(["qunit", "accessory/xwingDataConverter/EnumGenerator"], function(QUnit, 
       assert.equal(EnumGenerator.createPilotEnumValue(DALAN_OBEROS_STAR_VIPER), "\"dalanOberos_starViper\"");
       assert.equal(EnumGenerator.createPilotEnumValue(POE_DAMERON), "\"poeDameron\"");
       assert.equal(EnumGenerator.createPilotEnumValue(POE_DAMERON_HOTR), "\"poeDameron_hotr\"");
+   });
+
+   QUnit.test("createShipEnumName", function(assert)
+   {
+      // Run / Verify.
+      assert.equal(EnumGenerator.createShipEnumName(JUMP_MASTER_5000), "JUMP_MASTER_5000");
+      assert.equal(EnumGenerator.createShipEnumName(STAR_VIPER), "STAR_VIPER");
+      assert.equal(EnumGenerator.createShipEnumName(X_WING), "X_WING");
+   });
+
+   QUnit.test("createShipEnumValue", function(assert)
+   {
+      // Run / Verify.
+      assert.equal(EnumGenerator.createShipEnumValue(JUMP_MASTER_5000), "\"jumpMaster5000\"");
+      assert.equal(EnumGenerator.createShipEnumValue(STAR_VIPER), "\"starViper\"");
+      assert.equal(EnumGenerator.createShipEnumValue(X_WING), "\"xWing\"");
+   });
+
+   QUnit.test("createShipFactionEnumName", function(assert)
+   {
+      // Run / Verify.
+      assert.equal(EnumGenerator.createShipFactionEnumName(JUMP_MASTER_5000, 0), "SCUM_JUMP_MASTER_5000");
+      assert.equal(EnumGenerator.createShipFactionEnumName(STAR_VIPER, 0), "SCUM_STAR_VIPER");
+      assert.equal(EnumGenerator.createShipFactionEnumName(X_WING, 0), "REBEL_X_WING");
+      assert.equal(EnumGenerator.createShipFactionEnumName(Y_WING, 0), "REBEL_Y_WING");
+   });
+
+   QUnit.test("createShipFactionEnumValue", function(assert)
+   {
+      // Run / Verify.
+      assert.equal(EnumGenerator.createShipFactionEnumValue(JUMP_MASTER_5000, 0), "\"scum_jumpMaster5000\"");
+      assert.equal(EnumGenerator.createShipFactionEnumValue(STAR_VIPER, 0), "\"scum_starViper\"");
+      assert.equal(EnumGenerator.createShipFactionEnumValue(X_WING, 0), "\"rebel_xWing\"");
+      assert.equal(EnumGenerator.createShipFactionEnumValue(Y_WING, 0), "\"rebel_yWing\"");
    });
 
    QUnit.test("createUpgradeEnumName", function(assert)

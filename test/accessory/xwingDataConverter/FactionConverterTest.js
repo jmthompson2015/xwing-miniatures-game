@@ -5,8 +5,8 @@ define(["qunit", "accessory/xwingDataConverter/FactionConverter"], function(QUni
    QUnit.module("FactionConverter");
 
    var NAMES = ["First Order", "Galactic Empire", "Rebel Alliance", "Resistance", "Scum and Villainy"];
-   var ENUM_NAMES = ["_FIRST_ORDER", "_IMPERIAL", "_REBEL", "_RESISTANCE", "_SCUM"];
-   var ENUM_VALUES = ["_firstOrder", "_imperial", "_rebel", "_resistance", "_scum"];
+   var ENUM_NAMES = ["FIRST_ORDER", "IMPERIAL", "REBEL", "RESISTANCE", "SCUM"];
+   var ENUM_VALUES = ["firstOrder", "imperial", "rebel", "resistance", "scum"];
 
    QUnit.test("createEnumName", function(assert)
    {

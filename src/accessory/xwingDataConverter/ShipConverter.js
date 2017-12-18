@@ -234,7 +234,7 @@ define(["artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Ship", "ar
       {
          var name = ship.name;
          name = name.replace("-wing", "-Wing");
-         name = "\"" + name + "\"";
+         name = EnumGenerator.quoteValue(name);
          var primaryFiringArc = ShipConverter.determinePrimaryFiringArc(ship);
          var auxiliaryFiringArc = ShipConverter.determineAuxiliaryFiringArc(ship);
 

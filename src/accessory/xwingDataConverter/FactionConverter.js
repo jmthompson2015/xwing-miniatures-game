@@ -13,19 +13,19 @@ define(["common/js/InputValidator"], function(InputValidator)
       switch (factionName)
       {
          case "First Order":
-            answer = "_FIRST_ORDER";
+            answer = "FIRST_ORDER";
             break;
          case "Galactic Empire":
-            answer = "_IMPERIAL";
+            answer = "IMPERIAL";
             break;
          case "Rebel Alliance":
-            answer = "_REBEL";
+            answer = "REBEL";
             break;
          case "Resistance":
-            answer = "_RESISTANCE";
+            answer = "RESISTANCE";
             break;
          case "Scum and Villainy":
-            answer = "_SCUM";
+            answer = "SCUM";
             break;
       }
 
@@ -41,19 +41,19 @@ define(["common/js/InputValidator"], function(InputValidator)
       switch (factionName)
       {
          case "First Order":
-            answer = "_firstOrder";
+            answer = "firstOrder";
             break;
          case "Galactic Empire":
-            answer = "_imperial";
+            answer = "imperial";
             break;
          case "Rebel Alliance":
-            answer = "_rebel";
+            answer = "rebel";
             break;
          case "Resistance":
-            answer = "_resistance";
+            answer = "resistance";
             break;
          case "Scum and Villainy":
-            answer = "_scum";
+            answer = "scum";
             break;
       }
 
