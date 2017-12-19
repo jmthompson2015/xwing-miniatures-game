@@ -112,18 +112,6 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
          return enums.join("");
       };
 
-      function createProperty(propertyName, propertyValue)
-      {
-         var answer = "";
-
-         if (propertyValue !== undefined)
-         {
-            answer = propertyName + ": " + propertyValue + ",<br/>";
-         }
-
-         return answer;
-      }
-
       function determineDescription(pilot, pilotCard)
       {
          var answer = pilot.text;
@@ -145,6 +133,18 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
             answer = answer.replace(/<br \/>/g, "&lt;br />");
 
             answer = EnumGenerator.quoteValue(answer);
+         }
+
+         return answer;
+      }
+
+      function determineImage(pilot)
+      {
+         var answer;
+
+         if (pilot.image !== undefined)
+         {
+            answer = EnumGenerator.quoteValue(pilot.image);
          }
 
          return answer;
@@ -244,24 +244,26 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
          var shipFactionKey = PilotConverter.determineShipFactionKey(pilot, pilotCard);
          var isFlavorText = determineIsFlavorText(pilotCard);
          var isImplemented = (isFlavorText ? true : determineIsImplemented(pilotCard));
+         var image = determineImage(pilot);
 
          var answer = "";
 
-         answer += createProperty("name", name);
-         answer += createProperty("description", determineDescription(pilot, pilotCard));
-         answer += createProperty("isFlavorText", isFlavorText);
-         answer += createProperty("isUnique", pilot.unique);
-         answer += createProperty("shipFactionKey", shipFactionKey);
-         answer += createProperty("pilotSkillValue", (pilot.skill !== "?" ? pilot.skill : undefined));
-         answer += createProperty("primaryWeaponValue", (pilot.ship_override !== undefined ? pilot.ship_override.attack : undefined));
-         answer += createProperty("energyValue", (pilot.ship_override !== undefined ? pilot.ship_override.energy : undefined));
-         answer += createProperty("agilityValue", (pilot.ship_override !== undefined ? pilot.ship_override.agility : undefined));
-         answer += createProperty("hullValue", (pilot.ship_override !== undefined ? pilot.ship_override.hull : undefined));
-         answer += createProperty("shieldValue", (pilot.ship_override !== undefined ? pilot.ship_override.shields : undefined));
-         answer += createProperty("squadPointCost", (pilot.points !== "?" ? pilot.points : undefined));
-         answer += createProperty("upgradeTypeKeys", determineUpgradeTypeKeys(pilot));
-         answer += createProperty("isImplemented", isImplemented);
-         answer += createProperty("key", EnumGenerator.createPilotEnumValue(pilot));
+         answer += EnumGenerator.createProperty("name", name);
+         answer += EnumGenerator.createProperty("description", determineDescription(pilot, pilotCard));
+         answer += EnumGenerator.createProperty("isFlavorText", isFlavorText);
+         answer += EnumGenerator.createProperty("isUnique", pilot.unique);
+         answer += EnumGenerator.createProperty("shipFactionKey", shipFactionKey);
+         answer += EnumGenerator.createProperty("pilotSkillValue", (pilot.skill !== "?" ? pilot.skill : undefined));
+         answer += EnumGenerator.createProperty("primaryWeaponValue", (pilot.ship_override !== undefined ? pilot.ship_override.attack : undefined));
+         answer += EnumGenerator.createProperty("energyValue", (pilot.ship_override !== undefined ? pilot.ship_override.energy : undefined));
+         answer += EnumGenerator.createProperty("agilityValue", (pilot.ship_override !== undefined ? pilot.ship_override.agility : undefined));
+         answer += EnumGenerator.createProperty("hullValue", (pilot.ship_override !== undefined ? pilot.ship_override.hull : undefined));
+         answer += EnumGenerator.createProperty("shieldValue", (pilot.ship_override !== undefined ? pilot.ship_override.shields : undefined));
+         answer += EnumGenerator.createProperty("image", image);
+         answer += EnumGenerator.createProperty("squadPointCost", (pilot.points !== "?" ? pilot.points : undefined));
+         answer += EnumGenerator.createProperty("upgradeTypeKeys", determineUpgradeTypeKeys(pilot));
+         answer += EnumGenerator.createProperty("isImplemented", isImplemented);
+         answer += EnumGenerator.createProperty("key", EnumGenerator.createPilotEnumValue(pilot));
 
          return answer;
       }
