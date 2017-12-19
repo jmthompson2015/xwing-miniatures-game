@@ -636,7 +636,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
                answer = this._changeSpeedManeuversToDifficulty(answer, 2, Difficulty.EASY);
             }
 
-            if (this.isUpgradedWith(UpgradeCard.TWIN_ION_ENGINE_MK_II))
+            if (this.isUpgradedWith(UpgradeCard.TWIN_ION_ENGINE_MKII))
             {
                answer = this._changeBearingManeuversToDifficulty(answer, Bearing.BANK_LEFT, Difficulty.EASY);
                answer = this._changeBearingManeuversToDifficulty(answer, Bearing.BANK_RIGHT, Difficulty.EASY);

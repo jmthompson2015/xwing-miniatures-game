@@ -78,25 +78,6 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeRestriction"],
          assert.ok(UpgradeRestriction.passes([], PilotCard.DUTCH_VANDER));
       });
 
-      QUnit.test("passes() TIE only", function(assert)
-      {
-         var restriction = UpgradeRestriction.properties[UpgradeRestriction.TIE_ONLY];
-
-         assert.ok(restriction.passes(PilotCard.DARTH_VADER)); // TIE Advanced.
-         assert.ok(restriction.passes(PilotCard.CAPTAIN_JONUS)); // TIE Bomber.
-         assert.ok(restriction.passes(PilotCard.COLONEL_VESSERY)); // TIE Defender.
-         assert.ok(restriction.passes(PilotCard.ACADEMY_PILOT)); // TIE Fighter.
-         assert.ok(restriction.passes(PilotCard.EPSILON_ACE)); // TIE/fo Fighter.
-         assert.ok(restriction.passes(PilotCard.ALPHA_SQUADRON_PILOT)); // TIE Interceptor.
-         assert.ok(restriction.passes(PilotCard.ECHO)); // TIE Phantom.
-         assert.ok(restriction.passes(PilotCard.BLACK_EIGHT_SQUADRON_PILOT)); // TIE Punisher.
-
-         assert.ok(!restriction.passes(PilotCard.AIREN_CRACKEN));
-         assert.ok(!restriction.passes(PilotCard.ARVEL_CRYNYD));
-         assert.ok(!restriction.passes(PilotCard.BANDIT_SQUADRON_PILOT));
-         assert.ok(!restriction.passes(PilotCard.LUKE_SKYWALKER));
-      });
-
       QUnit.test("passes() X-Wing only", function(assert)
       {
          var restriction = UpgradeRestriction.properties[UpgradeRestriction.X_WING_ONLY];
@@ -135,49 +116,62 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeRestriction"],
 
          // Verify.
          assert.ok(result);
-         var length = 50;
+         var length = 63;
          assert.equal(result.length, length);
          var i = 0;
+         assert.equal(result[i++], UpgradeRestriction.ALPHA_CLASS_STAR_WING_ONLY);
          assert.equal(result[i++], UpgradeRestriction.A_WING_ONLY);
          assert.equal(result[i++], UpgradeRestriction.AGGRESSOR_ONLY);
          assert.equal(result[i++], UpgradeRestriction.ARC_170_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.ATTACK_SHUTTLE_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.B_SF_17_BOMBER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.B_WING_ONLY);
          assert.equal(result[i++], UpgradeRestriction.C_ROC_CRUISER_AND_GR_75_ONLY);
          assert.equal(result[i++], UpgradeRestriction.C_ROC_CRUISER_ONLY);
-         assert.equal(result[i++], UpgradeRestriction.CR90_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.CR90_CORVETTE_FORE_ONLY);
          assert.equal(result[i++], UpgradeRestriction.FIRESPRAY_31_ONLY);
          assert.equal(result[i++], UpgradeRestriction.G_1A_STARFIGHTER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.GOZANTI_CLASS_CRUISER_ONLY);
-         assert.equal(result[i++], UpgradeRestriction.GR_75_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.GR_75_MEDIUM_TRANSPORT_ONLY);
          assert.equal(result[i++], UpgradeRestriction.HUGE_SHIP_ONLY);
          assert.equal(result[i++], UpgradeRestriction.HWK_290_ONLY);
          assert.equal(result[i++], UpgradeRestriction.IMPERIAL_ONLY);
          assert.equal(result[i++], UpgradeRestriction.JUMP_MASTER_5000_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.KIHRAXZ_FIGHTER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.LAMBDA_CLASS_SHUTTLE_ONLY);
          assert.equal(result[i++], UpgradeRestriction.LANCER_CLASS_PURSUIT_CRAFT_ONLY);
          assert.equal(result[i++], UpgradeRestriction.LARGE_SHIP_ONLY);
          assert.equal(result[i++], UpgradeRestriction.LIMITED);
+         assert.equal(result[i++], UpgradeRestriction.M12_L_KIMOGILA_FIGHTER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.M3_A_INTERCEPTOR_ONLY);
          assert.equal(result[i++], UpgradeRestriction.PILOT_SKILL_ABOVE_1);
          assert.equal(result[i++], UpgradeRestriction.PILOT_SKILL_ABOVE_2);
          assert.equal(result[i++], UpgradeRestriction.PILOT_SKILL_ABOVE_3);
          assert.equal(result[i++], UpgradeRestriction.PILOT_SKILL_ABOVE_4);
          assert.equal(result[i++], UpgradeRestriction.PROTECTORATE_STARFIGHTER_ONLY);
-         assert.equal(result[i++], UpgradeRestriction.RAIDER_CLASS_CORVETTE_AFT_SECTION_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.QUADJUMPER_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.RAIDER_CLASS_CORVETTE_AFT_ONLY);
          assert.equal(result[i++], UpgradeRestriction.REBEL_AND_SCUM_ONLY);
          assert.equal(result[i++], UpgradeRestriction.REBEL_ONLY);
          assert.equal(result[i++], UpgradeRestriction.SCUM_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.SCURRG_H_6_BOMBER_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.SHEATHIPEDE_CLASS_SHUTTLE_ONLY);
          assert.equal(result[i++], UpgradeRestriction.SMALL_SHIP_ONLY);
          assert.equal(result[i++], UpgradeRestriction.STAR_VIPER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.T_70_X_WING_ONLY);
          assert.equal(result[i++], UpgradeRestriction.TIE_ADVANCED_ONLY);
          assert.equal(result[i++], UpgradeRestriction.TIE_ADVANCED_PROTOTYPE_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.TIE_AGGRESSOR_ONLY);
          assert.equal(result[i++], UpgradeRestriction.TIE_BOMBER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.TIE_DEFENDER_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.TIE_FIGHTER_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.TIE_FO_FIGHTER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.TIE_INTERCEPTOR_ONLY);
-         assert.equal(result[i++], UpgradeRestriction.TIE_ONLY);
          assert.equal(result[i++], UpgradeRestriction.TIE_PHANTOM_ONLY);
-         assert.equal(result[i++], UpgradeRestriction.TIE_SF_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.TIE_PUNISHER_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.TIE_SF_FIGHTER_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.TIE_SILENCER_ONLY);
+         assert.equal(result[i++], UpgradeRestriction.TIE_STRIKER_ONLY);
          assert.equal(result[i++], UpgradeRestriction.U_WING_ONLY);
          assert.equal(result[i++], UpgradeRestriction.UPSILON_CLASS_SHUTTLE_ONLY);
          assert.equal(result[i++], UpgradeRestriction.VCX_100_ONLY);

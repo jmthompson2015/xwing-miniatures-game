@@ -304,7 +304,7 @@ define(["qunit", "redux",
       QUnit.test("doIt() R2-D2", function(assert)
       {
          // Setup.
-         var upgradeKey = UpgradeCard.R2_D2;
+         var upgradeKey = UpgradeCard.R2_D2_ASTROMECH;
          var callback = function()
          {
             // Verify.
@@ -327,7 +327,7 @@ define(["qunit", "redux",
       QUnit.test("doIt() R2-D2 at max", function(assert)
       {
          // Setup.
-         var upgradeKey = UpgradeCard.R2_D2;
+         var upgradeKey = UpgradeCard.R2_D2_ASTROMECH;
          var callback = function()
          {
             // Verify.

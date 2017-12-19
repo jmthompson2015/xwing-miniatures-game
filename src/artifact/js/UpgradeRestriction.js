@@ -117,33 +117,47 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
          PILOT_SKILL_ABOVE_4: "pilotSkillAbove4",
 
          // Ship specific.
+         ALPHA_CLASS_STAR_WING_ONLY: "alphaClassStarWingOnly",
          A_WING_ONLY: "aWingOnly",
          AGGRESSOR_ONLY: "aggressorOnly",
          ARC_170_ONLY: "arc170Only",
+         ATTACK_SHUTTLE_ONLY: "attackShuttleOnly",
+         B_SF_17_BOMBER_ONLY: "bSf17BomberOnly",
          B_WING_ONLY: "bWingOnly",
          C_ROC_CRUISER_AND_GR_75_ONLY: "cRocCruiserAndGr75Only",
          C_ROC_CRUISER_ONLY: "cRocCruiserOnly",
-         CR90_ONLY: "cr90Only",
+         CR90_CORVETTE_FORE_ONLY: "cr90CorvetteForeOnly",
          FIRESPRAY_31_ONLY: "firespray31Only",
          G_1A_STARFIGHTER_ONLY: "g1AStarfighterOnly",
          GOZANTI_CLASS_CRUISER_ONLY: "gozantiClassCruiserOnly",
-         GR_75_ONLY: "gr75Only",
+         GR_75_MEDIUM_TRANSPORT_ONLY: "gr75MediumTransportOnly",
          HWK_290_ONLY: "hwk290Only",
          JUMP_MASTER_5000_ONLY: "jumpMaster5000Only",
+         KIHRAXZ_FIGHTER_ONLY: "kihraxzFighterOnly",
          LAMBDA_CLASS_SHUTTLE_ONLY: "lambdaClassShuttleOnly",
          LANCER_CLASS_PURSUIT_CRAFT_ONLY: "lancerClassPursuitCraftOnly",
+         M12_L_KIMOGILA_FIGHTER_ONLY: "m12LKimogilaFighterOnly",
          M3_A_INTERCEPTOR_ONLY: "m3AInterceptorOnly",
          PROTECTORATE_STARFIGHTER_ONLY: "protectorateStarfighterOnly",
-         RAIDER_CLASS_CORVETTE_AFT_SECTION_ONLY: "raiderClassCorvetteAftSectionOnly",
+         QUADJUMPER_ONLY: "quadjumperOnly",
+         RAIDER_CLASS_CORVETTE_AFT_ONLY: "raiderClassCorvetteAftOnly",
+         SCURRG_H_6_BOMBER_ONLY: "scurrgH6BomberOnly",
+         SHEATHIPEDE_CLASS_SHUTTLE_ONLY: "sheathipedeClassShuttleOnly",
          STAR_VIPER_ONLY: "starViperOnly",
          T_70_X_WING_ONLY: "t70XWingOnly",
          TIE_ADVANCED_ONLY: "tieAdvancedOnly",
          TIE_ADVANCED_PROTOTYPE_ONLY: "tieAdvancedPrototypeOnly",
+         TIE_AGGRESSOR_ONLY: "tieAggressorOnly",
          TIE_BOMBER_ONLY: "tieBomberOnly",
          TIE_DEFENDER_ONLY: "tieDefenderOnly",
+         TIE_FIGHTER_ONLY: "tieFighterOnly",
+         TIE_FO_FIGHTER_ONLY: "tieFoFighterOnly",
          TIE_INTERCEPTOR_ONLY: "tieInterceptorOnly",
          TIE_PHANTOM_ONLY: "tiePhantomOnly",
-         TIE_SF_ONLY: "tieSfOnly",
+         TIE_PUNISHER_ONLY: "tiePunisherOnly",
+         TIE_SF_FIGHTER_ONLY: "tieSfFighterOnly",
+         TIE_SILENCER_ONLY: "tieSilencerOnly",
+         TIE_STRIKER_ONLY: "tieStrikerOnly",
          U_WING_ONLY: "uWingOnly",
          UPSILON_CLASS_SHUTTLE_ONLY: "upsilonClassShuttleOnly",
          VCX_100_ONLY: "vcx100Only",
@@ -168,13 +182,15 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
 
          // Miscellaneous.
          LIMITED: "limited",
-         TIE_ONLY: "tieOnly",
 
          properties:
          {
+            "alphaClassStarWingOnly": new ShipRestriction(Ship.ALPHA_CLASS_STAR_WING),
             "aWingOnly": new ShipRestriction(Ship.A_WING),
             "aggressorOnly": new ShipRestriction(Ship.AGGRESSOR),
             "arc170Only": new ShipRestriction(Ship.ARC_170),
+            "attackShuttleOnly": new ShipRestriction(Ship.ATTACK_SHUTTLE),
+            "bSf17BomberOnly": new ShipRestriction(Ship.B_SF_17_BOMBER),
             "bWingOnly": new ShipRestriction(Ship.B_WING),
             "cRocCruiserAndGr75Only":
             {
@@ -187,11 +203,11 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
                }
             },
             "cRocCruiserOnly": new ShipRestriction(Ship.C_ROC_CRUISER),
-            "cr90Only": new ShipRestriction(Ship.CR90_CORVETTE),
+            "cr90CorvetteForeOnly": new ShipRestriction("cr90Corvette.fore"),
             "firespray31Only": new ShipRestriction(Ship.FIRESPRAY_31),
             "g1AStarfighterOnly": new ShipRestriction(Ship.G_1A_STARFIGHTER),
             "gozantiClassCruiserOnly": new ShipRestriction(Ship.GOZANTI_CLASS_CRUISER),
-            "gr75Only": new ShipRestriction(Ship.GR_75_MEDIUM_TRANSPORT),
+            "gr75MediumTransportOnly": new ShipRestriction(Ship.GR_75_MEDIUM_TRANSPORT),
             "hugeShipOnly":
             {
                name: "Huge ship only.",
@@ -205,6 +221,7 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
             "hwk290Only": new ShipRestriction(Ship.HWK_290),
             "imperialOnly": new FactionRestriction(Faction.IMPERIAL),
             "jumpMaster5000Only": new ShipRestriction(Ship.JUMP_MASTER_5000),
+            "kihraxzFighterOnly": new ShipRestriction(Ship.KIHRAXZ_FIGHTER),
             "lambdaClassShuttleOnly": new ShipRestriction(Ship.LAMBDA_CLASS_SHUTTLE),
             "lancerClassPursuitCraftOnly": new ShipRestriction(Ship.LANCER_CLASS_PURSUIT_CRAFT),
             "largeShipOnly": new ShipSizeRestriction(ShipBase.LARGE),
@@ -217,13 +234,15 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
                   return true;
                }
             },
+            "m12LKimogilaFighterOnly": new ShipRestriction(Ship.M12_L_KIMOGILA_FIGHTER),
             "m3AInterceptorOnly": new ShipRestriction(Ship.M3_A_INTERCEPTOR),
             "pilotSkillAbove1": new PilotCardSkillRestriction(1),
             "pilotSkillAbove2": new PilotCardSkillRestriction(2),
             "pilotSkillAbove3": new PilotCardSkillRestriction(3),
             "pilotSkillAbove4": new PilotCardSkillRestriction(4),
             "protectorateStarfighterOnly": new ShipRestriction(Ship.PROTECTORATE_STARFIGHTER),
-            "raiderClassCorvetteAftSectionOnly": new ShipRestriction("raiderClassCorvette.aft"),
+            "quadjumperOnly": new ShipRestriction(Ship.QUADJUMPER),
+            "raiderClassCorvetteAftOnly": new ShipRestriction("raiderClassCorvette.aft"),
             "rebelAndScumOnly":
             {
                name: "Rebel and Scum only.",
@@ -236,26 +255,24 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
             },
             "rebelOnly": new FactionRestriction(Faction.REBEL),
             "scumOnly": new FactionRestriction(Faction.SCUM),
+            "scurrgH6BomberOnly": new ShipRestriction(Ship.SCURRG_H_6_BOMBER),
+            "sheathipedeClassShuttleOnly": new ShipRestriction(Ship.SHEATHIPEDE_CLASS_SHUTTLE),
             "smallShipOnly": new ShipSizeRestriction(ShipBase.SMALL),
             "starViperOnly": new ShipRestriction(Ship.STAR_VIPER),
             "t70XWingOnly": new ShipRestriction(Ship.T_70_X_WING),
             "tieAdvancedOnly": new ShipRestriction(Ship.TIE_ADVANCED),
             "tieAdvancedPrototypeOnly": new ShipRestriction(Ship.TIE_ADVANCED_PROTOTYPE),
+            "tieAggressorOnly": new ShipRestriction(Ship.TIE_AGGRESSOR),
             "tieBomberOnly": new ShipRestriction(Ship.TIE_BOMBER),
             "tieDefenderOnly": new ShipRestriction(Ship.TIE_DEFENDER),
+            "tieFighterOnly": new ShipRestriction(Ship.TIE_FIGHTER),
+            "tieFoFighterOnly": new ShipRestriction(Ship.TIE_FO_FIGHTER),
             "tieInterceptorOnly": new ShipRestriction(Ship.TIE_INTERCEPTOR),
-            "tieOnly":
-            {
-               name: "TIE only.",
-               passes: function(pilotKey)
-               {
-                  var pilot = PilotCard.properties[pilotKey];
-                  var shipKey = pilot.shipFaction.shipKey;
-                  return Ship.properties[shipKey].name.startsWith("TIE");
-               }
-            },
             "tiePhantomOnly": new ShipRestriction(Ship.TIE_PHANTOM),
-            "tieSfOnly": new ShipRestriction(Ship.TIE_SF_FIGHTER),
+            "tiePunisherOnly": new ShipRestriction(Ship.TIE_PUNISHER),
+            "tieSfFighterOnly": new ShipRestriction(Ship.TIE_SF_FIGHTER),
+            "tieSilencerOnly": new ShipRestriction(Ship.TIE_SILENCER),
+            "tieStrikerOnly": new ShipRestriction(Ship.TIE_STRIKER),
             "uWingOnly": new ShipRestriction(Ship.U_WING),
             "upsilonClassShuttleOnly": new ShipRestriction(Ship.UPSILON_CLASS_SHUTTLE),
             "vcx100Only": new ShipRestriction(Ship.VCX_100),
@@ -304,7 +321,7 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
             {
                if (!UpgradeRestriction.properties[restrictionKey])
                {
-                  throw "Can't find properties for restrictionKey: " + restrictionKey;
+                  throw "Can't find properties for restrictionKey: " + restrictionKey + " pilotKey: " + pilotKey;
                }
                return previousValue && UpgradeRestriction.properties[restrictionKey].passes(pilotKey);
             }, true);

@@ -37,10 +37,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
          assert.ok(result.restrictionKeys);
          assert.equal(result.restrictionKeys.length, 1);
          assert.equal(result.restrictionKeys[0], UpgradeRestriction.REBEL_ONLY);
-         assert
-            .equal(
-               result.description,
-               "Once per round, before you roll 1 or more defense dice, you may guess aloud a number of Evade results. If you roll that many Evade results (before modifying dice), add 1 Evade result.");
+         assert.equal(result.description, "Once per round, before you roll 1 or more defense dice, you may guess aloud a number of [Evade] results. If you roll that many [Evade] results (before modifying dice), add 1 [Evade] result.");
          assert.equal(result.squadPointCost, 3);
          assert.equal(result.key, upgradeCard);
       });
@@ -48,7 +45,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
       QUnit.test("getName()", function(assert)
       {
          assert.equal(UpgradeCard.getName(UpgradeCard.DETERMINATION), "Determination");
-         assert.equal(UpgradeCard.getName(UpgradeCard.R2_D2), "\u2022 R2-D2");
+         assert.equal(UpgradeCard.getName(UpgradeCard.R2_D2_ASTROMECH), "\u2022 R2-D2");
       });
 
       QUnit.test("keys and values", function(assert)
@@ -88,9 +85,9 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 301;
+         var length = 354;
          assert.equal(result.length, length);
-         assert.equal(result[0], UpgradeCard.A_WING_TEST_PILOT);
+         assert.equal(result[0], UpgradeCard.A_SCORE_TO_SETTLE);
          assert.equal(result[length - 1], UpgradeCard.ZUCKUSS);
 
          var properties = Object.getOwnPropertyNames(UpgradeCard);
@@ -111,7 +108,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 17;
+         var length = 19;
          assert.equal(result.length, length);
          assert.equal(result[0], UpgradeCard.BB_8);
          assert.equal(result[length - 1], UpgradeCard.TARGETING_ASTROMECH);
@@ -165,9 +162,10 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 34;
+         var length = 40;
          assert.equal(result.length, length);
          var i = 0;
+         assert.equal(result[i++], UpgradeCard.A_SCORE_TO_SETTLE);
          assert.equal(result[i++], UpgradeCard.ADAPTABILITY_DECREASE);
          assert.equal(result[i++], UpgradeCard.ADAPTABILITY_INCREASE);
          assert.equal(result[i++], UpgradeCard.ADRENALINE_RUSH);
@@ -176,6 +174,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
          assert.equal(result[i++], UpgradeCard.CRACK_SHOT);
          assert.equal(result[i++], UpgradeCard.DAREDEVIL);
          assert.equal(result[i++], UpgradeCard.DEADEYE);
+         assert.equal(result[i++], UpgradeCard.DEBRIS_GAMBIT);
          assert.equal(result[i++], UpgradeCard.DECOY);
          assert.equal(result[i++], UpgradeCard.DETERMINATION);
          assert.equal(result[i++], UpgradeCard.DRAW_THEIR_FIRE);
@@ -183,6 +182,8 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
          assert.equal(result[i++], UpgradeCard.EXPERT_HANDLING);
          assert.equal(result[i++], UpgradeCard.EXPERTISE);
          assert.equal(result[i++], UpgradeCard.EXPOSE);
+         assert.equal(result[i++], UpgradeCard.INTENSITY);
+         assert.equal(result[i++], UpgradeCard.INTENSITY_EXHAUSTED);
          assert.equal(result[i++], UpgradeCard.INTIMIDATION);
          assert.equal(result[i++], UpgradeCard.JUKE);
          assert.equal(result[i++], UpgradeCard.LIGHTNING_REFLEXES);
@@ -194,9 +195,11 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
          assert.equal(result[i++], UpgradeCard.PUSH_THE_LIMIT);
          assert.equal(result[i++], UpgradeCard.RAGE);
          assert.equal(result[i++], UpgradeCard.RUTHLESSNESS);
+         assert.equal(result[i++], UpgradeCard.SATURATION_SALVO);
          assert.equal(result[i++], UpgradeCard.SNAP_SHOT);
          assert.equal(result[i++], UpgradeCard.SQUAD_LEADER);
          assert.equal(result[i++], UpgradeCard.STAY_ON_TARGET);
+         assert.equal(result[i++], UpgradeCard.SWARM_LEADER);
          assert.equal(result[i++], UpgradeCard.SWARM_TACTICS);
          assert.equal(result[i++], UpgradeCard.TRICK_SHOT);
          assert.equal(result[i++], UpgradeCard.VETERAN_INSTINCTS);
@@ -211,7 +214,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 17;
+         var length = 19;
          assert.equal(result.length, length);
          assert.equal(result[0], UpgradeCard.BB_8);
          assert.equal(result[length - 1], UpgradeCard.TARGETING_ASTROMECH);
@@ -224,9 +227,9 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
 
          // Verify.
          assert.ok(result);
-         var length = 37;
+         var length = 44;
          assert.equal(result.length, length);
-         assert.equal(result[0], UpgradeCard.ADAPTABILITY_DECREASE);
+         assert.equal(result[0], UpgradeCard.A_SCORE_TO_SETTLE);
          assert.equal(result[length - 1], UpgradeCard.WIRED);
       });
    });

@@ -140,7 +140,7 @@ define(["qunit", "redux", "common/js/ArrayAugments",
          var imperialAgent = new Agent(store00, "Imperial Agent");
          var rebelAgent = new Agent(store00, "Rebel Agent");
          var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
-         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2])]);
+         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH])]);
          var positions1 = [new Position(305, 20, 90)];
          var positions2 = [new Position(458, 895, 270)];
 
@@ -230,7 +230,7 @@ define(["qunit", "redux", "common/js/ArrayAugments",
          var imperialAgent = new Agent(store00, "Imperial Agent");
          var rebelAgent = new Agent(store00, "Rebel Agent");
          var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]), new CardInstance(store00, PilotCard.DARK_CURSE, imperialAgent)]);
-         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2]), new CardInstance(store00, PilotCard.MIRANDA_DONI, rebelAgent)]);
+         var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH]), new CardInstance(store00, PilotCard.MIRANDA_DONI, rebelAgent)]);
          var positions1 = [new Position(305, 20, 90), new Position(610, 20, 90)];
          var positions2 = [new Position(458, 895, 270), new Position(400, 400, 0)];
 

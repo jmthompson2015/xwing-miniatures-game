@@ -65,7 +65,7 @@ define(["common/js/InputValidator",
          },
       };
 
-      UpgradeAbility0[Event.AFTER_EXECUTE_MANEUVER][UpgradeCard.R2_D2] = {
+      UpgradeAbility0[Event.AFTER_EXECUTE_MANEUVER][UpgradeCard.R2_D2_ASTROMECH] = {
          // After executing a green maneuver, you may recover 1 shield (up to your shield value).
          condition: function(store, token)
          {

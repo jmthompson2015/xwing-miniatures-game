@@ -764,7 +764,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "Imperial Agent");
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent, [UpgradeCard.TWIN_ION_ENGINE_MK_II]);
+         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent, [UpgradeCard.TWIN_ION_ENGINE_MKII]);
 
          // Run.
          var result = token.maneuverKeys();
@@ -1184,7 +1184,7 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var agent = new Agent(store, "name");
-         var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.R2_D2, UpgradeCard.VETERAN_INSTINCTS]);
+         var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.R2_D2_ASTROMECH, UpgradeCard.VETERAN_INSTINCTS]);
 
          // Run / Verify.
          assert.equal(token.squadPointCost(), 33);
