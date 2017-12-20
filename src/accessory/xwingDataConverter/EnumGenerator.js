@@ -4,6 +4,25 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
 {
    var EnumGenerator = {};
 
+   EnumGenerator.createDamageEnumName = function(damage)
+   {
+      var answer = damage.name;
+
+      answer = EnumGenerator.createEnumName(answer);
+
+      return answer;
+   };
+
+   EnumGenerator.createDamageEnumValue = function(damage, isQuotedIn)
+   {
+      var isQuoted = (isQuotedIn !== undefined ? isQuotedIn : true);
+
+      var answer = damage.name;
+      answer = EnumGenerator.createEnumValue(answer);
+
+      return (isQuoted ? EnumGenerator.quoteValue(answer) : answer);
+   };
+
    EnumGenerator.createEnumName = function(name)
    {
       var answer = name;
@@ -12,6 +31,7 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
       answer = answer.replace(/-/g, "_");
       answer = answer.replace(/\//g, "_");
 
+      answer = answer.replace(/!/g, "");
       answer = answer.replace(/'/g, "");
       answer = answer.replace(/"/g, "");
       answer = answer.replace(/\(/g, "");
@@ -29,6 +49,7 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
       answer = answer.replace(/-/g, " ");
       answer = answer.replace(/\//g, " ");
 
+      answer = answer.replace(/!/g, "");
       answer = answer.replace(/'/g, "");
       answer = answer.replace(/"/g, "");
       answer = answer.replace(/\(/g, "");

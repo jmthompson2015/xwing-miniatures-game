@@ -49,6 +49,7 @@ define(["qunit", "artifact/js/DamageCardTrait"], function(QUnit, DamageCardTrait
       var properties = Object.getOwnPropertyNames(DamageCardTrait);
       var count = properties.length - 1 - // properties
          1 - // keys
+         1 - // findByName
          1 - // toString
          1; // values
       assert.equal(result.length, count);

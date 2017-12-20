@@ -25,14 +25,34 @@ define(function()
       return Object.keys(DamageCardTrait.properties);
    };
 
-   DamageCardTrait.toString = function()
-   {
-      return "DamageCardTrait";
-   };
-
    DamageCardTrait.values = function()
    {
       return Object.values(DamageCardTrait.properties);
+   };
+
+   //////////////////////////////////////////////////////////////////////////
+   // Utility methods.
+
+   DamageCardTrait.findByName = function(name)
+   {
+      var answer;
+      var values = DamageCardTrait.values();
+
+      for (var i = 0; i < values.length; i++)
+      {
+         if (values[i].name === name)
+         {
+            answer = values[i];
+            break;
+         }
+      }
+
+      return answer;
+   };
+
+   DamageCardTrait.toString = function()
+   {
+      return "DamageCardTrait";
    };
 
    if (Object.freeze)
