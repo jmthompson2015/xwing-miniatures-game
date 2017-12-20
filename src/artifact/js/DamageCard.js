@@ -326,11 +326,6 @@ define(["common/js/ArrayAugments", "artifact/js/CardType", "artifact/js/DamageCa
          {
             damage.oncePerRound = true;
          }
-
-         var imagePath = damage.name.toLowerCase() + ".png";
-         imagePath = imagePath.replace(/ /g, "-");
-         imagePath = imagePath.replace(/!/g, "");
-         damage.imagePath = imagePath;
       });
 
       //////////////////////////////////////////////////////////////////////////

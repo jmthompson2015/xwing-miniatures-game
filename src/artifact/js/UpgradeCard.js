@@ -4262,21 +4262,6 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
          {
             upgrade.oncePerRound = true;
          }
-
-         var imagePath = upgrade.name.toLowerCase() + ".png";
-         imagePath = imagePath.replace(/ /g, "-");
-         imagePath = imagePath.replace(/\'/g, "-");
-         imagePath = imagePath.replace(/\//g, "-");
-         imagePath = imagePath.replace(/\"/g, "");
-         imagePath = imagePath.replace(/\(/g, "");
-         imagePath = imagePath.replace(/\)/g, "");
-         imagePath = imagePath.replace("-(hotr)", "");
-         imagePath = imagePath.replace("bossk", "bossk-crew");
-         imagePath = imagePath.replace("hound-s-tooth", "hounds-tooth");
-         imagePath = imagePath.replace("kylo-ren-s-shuttle", "kylo-rens-shuttle");
-         imagePath = imagePath.replace("mk.-ii", "mkii");
-         imagePath = imagePath.replace("r2-d2-crew", "r2-d2");
-         upgrade.imagePath = imagePath;
       });
 
       //////////////////////////////////////////////////////////////////////////

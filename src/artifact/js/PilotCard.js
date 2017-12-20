@@ -3871,25 +3871,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             pilot.oncePerRound = true;
          }
 
-         var imagePath = pilot.name.toLowerCase() + ".png";
-         imagePath = imagePath.toLowerCase();
-         imagePath = imagePath.replace(/\'/g, "-");
-         imagePath = imagePath.replace(/\"/g, "");
-         imagePath = imagePath.replace(/ /g, "-");
-         imagePath = imagePath.replace("-(attack-shuttle)", "");
-         imagePath = imagePath.replace("-(hotr)", "");
-         imagePath = imagePath.replace("-(imperial)", "");
-         imagePath = imagePath.replace("-(rebel)", "");
-         imagePath = imagePath.replace("-(scum)", "");
-         imagePath = imagePath.replace("-(vcx-100)", "");
-         imagePath = imagePath.replace("black-eight-sq.-pilot", "black-eight-squadron-pilot");
-         imagePath = imagePath.replace("cr90-corvette-(aft)", "cr90-corvette-aft");
-         imagePath = imagePath.replace("cr90-corvette-(fore)", "cr90-corvette-fore");
-         imagePath = imagePath.replace("nashtah-pup-pilot", "nashtah-pup");
-         imagePath = imagePath.replace("raider-class-corvette-(aft)", "raider-class-corv-aft");
-         imagePath = imagePath.replace("raider-class-corvette-(fore)", "raider-class-corv-fore");
-         pilot.imagePath = imagePath;
-
          if (pilot.fore)
          {
             pilot.fore.cardTypeKey = CardType.PILOT;
@@ -3901,13 +3882,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             {
                pilot.fore.oncePerRound = true;
             }
-
-            imagePath = pilot.fore.name.toLowerCase() + ".png";
-            imagePath = imagePath.replace(/ /g, "-");
-            imagePath = imagePath.replace(/\(/g, "");
-            imagePath = imagePath.replace(/\)/g, "");
-            imagePath = imagePath.replace(/raider-class-corvette/g, "raider-class-corv");
-            pilot.fore.imagePath = imagePath;
          }
 
          if (pilot.aft)
@@ -3921,13 +3895,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             {
                pilot.aft.oncePerRound = true;
             }
-
-            imagePath = pilot.aft.name.toLowerCase() + ".png";
-            imagePath = imagePath.replace(/ /g, "-");
-            imagePath = imagePath.replace(/\(/g, "");
-            imagePath = imagePath.replace(/\)/g, "");
-            imagePath = imagePath.replace(/raider-class-corvette/g, "raider-class-corv");
-            pilot.aft.imagePath = imagePath;
          }
 
          if (pilot.crippledFore)

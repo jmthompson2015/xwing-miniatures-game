@@ -120,14 +120,6 @@ define(function()
       return Object.values(UpgradeType.properties);
    };
 
-   UpgradeType.keys().forEach(function(upgradeTypeKey)
-   {
-      var upgradeType = UpgradeType.properties[upgradeTypeKey];
-
-      var imagePath = upgradeType.name + "/";
-      upgradeType.imagePath = imagePath;
-   });
-
    //////////////////////////////////////////////////////////////////////////
    // Utility methods.
 

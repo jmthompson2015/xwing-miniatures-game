@@ -32,23 +32,10 @@ define(["create-react-class", "prop-types", "react-dom-factories", "artifact/js/
          switch (card.cardTypeKey)
          {
             case CardType.DAMAGE:
-               var damageDeckTypeUrl = (card.key.endsWith("V2") ? "core-tfa/" : "core/");
-               cardUrl = card.imagePath;
-               answer = this.props.resourceBase + "../../../lib/xwing-data/images/damage-decks/" + damageDeckTypeUrl + cardUrl;
-               break;
             case CardType.PILOT:
-               var faction = card.shipFaction.faction;
-               var factionUrl = faction.imagePath;
-               var ship = card.shipFaction.ship;
-               var shipUrl = ship.name.replace(/\//, "-") + "/";
-               cardUrl = card.imagePath;
-               answer = this.props.resourceBase + "../../../lib/xwing-data/images/pilots/" + factionUrl + shipUrl + cardUrl;
-               break;
             case CardType.UPGRADE:
-               var upgradeType = card.type;
-               var upgradeTypeUrl = upgradeType.imagePath;
-               cardUrl = card.imagePath;
-               answer = this.props.resourceBase + "../../../lib/xwing-data/images/upgrades/" + upgradeTypeUrl + cardUrl;
+               cardUrl = card.image;
+               answer = this.props.resourceBase + "../../../lib/xwing-data/images/" + cardUrl;
                break;
             default:
                throw "Unhandled cardTypeKey: " + card.cardTypeKey + " for card: " + card + " " + card.name;
