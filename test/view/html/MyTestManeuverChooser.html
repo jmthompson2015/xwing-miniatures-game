@@ -23,11 +23,10 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger",
-				"artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction", "model/js/Reducer", "model/js/CardInstance",
-				"view/js/ManeuverChooser"
+		require(["react", "react-dom", "react-dom-factories", "redux", "common/js/Logger", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Faction",
+				"model/js/Agent", "model/js/Reducer", "model/js/CardInstance", "view/js/ManeuverChooser"
 			],
-			function(React, ReactDOM, DOM, Redux, Logger, Maneuver, PilotCard, Faction, Reducer, CardInstance, ManeuverChooser)
+			function(React, ReactDOM, DOM, Redux, Logger, Maneuver, PilotCard, Faction, Agent, Reducer, CardInstance, ManeuverChooser)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);

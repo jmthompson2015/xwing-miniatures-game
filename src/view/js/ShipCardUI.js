@@ -46,13 +46,21 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             {
                images.push(this.createShipImage(ShipFaction.REBEL_B_WING_V2));
             }
+            else if (shipFactionKey === ShipFaction.RESISTANCE_T_70_X_WING)
+            {
+               images.push(this.createShipImage(ShipFaction.RESISTANCE_T_70_X_WING_V2));
+            }
+            else if (shipFactionKey === ShipFaction.SCUM_KIHRAXZ_FIGHTER)
+            {
+               images.push(this.createShipImage(ShipFaction.SCUM_KIHRAXZ_FIGHTER_V2));
+            }
             else if (shipFactionKey === ShipFaction.SCUM_M3_A_INTERCEPTOR)
             {
                images.push(this.createShipImage(ShipFaction.SCUM_M3_A_INTERCEPTOR_V2));
             }
-            else if (shipFactionKey === ShipFaction.RESISTANCE_T_70_X_WING)
+            else if (shipFactionKey === ShipFaction.SCUM_STAR_VIPER)
             {
-               images.push(this.createShipImage(ShipFaction.RESISTANCE_T_70_X_WING_V2));
+               images.push(this.createShipImage(ShipFaction.SCUM_STAR_VIPER_V2));
             }
 
             var imagePanel;

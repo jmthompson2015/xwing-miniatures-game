@@ -1780,7 +1780,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "genius":
             {
                name: "\"Genius\"",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                isUnique: true,
                description: "After you reveal and execute a maneuver, if you did not overlap a ship, you may discard 1 of your equipped [Bomb] Upgrade cards without the \"<strong>Action:</strong>\" header to drop the corresponding bomb token.",
                image: "upgrades/Salvaged Astromech/genius.png",
@@ -2858,7 +2858,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "overclockedR4":
             {
                name: "Overclocked R4",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                description: "During the Combat phase, when you spend a focus token, you may receive 1 stress token to assign 1 focus token to your ship.",
                image: "upgrades/Salvaged Astromech/overclocked-r4.png",
                squadPointCost: 1,
@@ -3149,7 +3149,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "r4Agromech":
             {
                name: "R4 Agromech",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                description: "When attacking, after you spend a focus token, you may acquire a target lock on the defender.",
                image: "upgrades/Salvaged Astromech/r4-agromech.png",
                squadPointCost: 2,
@@ -3158,7 +3158,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "r4B11":
             {
                name: "R4-B11",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                isUnique: true,
                description: "When attacking, if you have a target lock on the defender, you may spend the target lock to choose any or all defense dice. The defender must reroll the chosen dice.",
                image: "upgrades/Salvaged Astromech/r4-b11.png",
@@ -3178,7 +3178,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "r4E1":
             {
                name: "R4-E1",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                description: "You can perform actions on your [Torpedo] and [Bomb] Upgrade cards even if you are stressed. After you perform an action in this way, you may discard this card to remove 1 stress token from your ship.",
                image: "upgrades/Salvaged Astromech/r4-e1.png",
                squadPointCost: 1,
@@ -3218,7 +3218,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "r5P8":
             {
                name: "R5-P8",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                isUnique: true,
                description: "Once per round, after defending, you may roll 1 attack die. On a [Hit] result, the attacker suffers 1 damage. On a [Critical Hit] result, you and the attacker each suffer 1 damage.",
                image: "upgrades/Salvaged Astromech/r5-p8.png",
@@ -3239,7 +3239,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "r5Tk":
             {
                name: "R5-TK",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                isUnique: true,
                description: "You can acquire target locks on friendly ships.<br /><br />You can attack friendly ships.",
                image: "upgrades/Salvaged Astromech/r5-tk.png",
@@ -3434,7 +3434,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "salvagedAstromech":
             {
                name: "Salvaged Astromech",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                description: "When you are dealt a faceup Damage card with the <strong>Ship</strong> trait, you may immediately discard that card (before resolving its effect).<br /><br />Then, discard this Upgrade card.",
                image: "upgrades/Salvaged Astromech/salvaged-astromech.png",
                squadPointCost: 2,
@@ -4024,7 +4024,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             "unhingedAstromech":
             {
                name: "Unhinged Astromech",
-               typeKey: UpgradeType.SALVAGEDASTROMECH,
+               typeKey: UpgradeType.SALVAGED_ASTROMECH,
                description: "You may treat all 3-speed maneuvers as green maneuvers.",
                image: "upgrades/Salvaged Astromech/unhinged-astromech.png",
                squadPointCost: 1,

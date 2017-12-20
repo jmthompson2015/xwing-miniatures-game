@@ -9,7 +9,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
       {
          var shipFaction = ShipFaction.IMPERIAL_FIRESPRAY_31;
          var properties = ShipFaction.properties[shipFaction];
-         assert.equal(properties.name, "Firespray-31");
+         assert.equal(properties.name, "Firespray-31 (Imperial)");
          assert.equal(properties.shipKey, Ship.FIRESPRAY_31);
          assert.equal(properties.factionKey, Faction.IMPERIAL);
          assert.equal(properties.key, shipFaction);
@@ -19,7 +19,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
       {
          var shipFaction = ShipFaction.IMPERIAL_TIE_FIGHTER;
          var properties = ShipFaction.properties[shipFaction];
-         assert.equal(properties.name, "TIE Fighter");
+         assert.equal(properties.name, "TIE Fighter (Imperial)");
          assert.equal(properties.shipKey, Ship.TIE_FIGHTER);
          assert.equal(properties.factionKey, Faction.IMPERIAL);
          assert.equal(properties.key, shipFaction);
@@ -39,7 +39,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
       {
          var shipFaction = ShipFaction.SCUM_FIRESPRAY_31;
          var properties = ShipFaction.properties[shipFaction];
-         assert.equal(properties.name, "Firespray-31");
+         assert.equal(properties.name, "Firespray-31 (Scum)");
          assert.equal(properties.shipKey, Ship.FIRESPRAY_31);
          assert.equal(properties.factionKey, Faction.SCUM);
          assert.equal(properties.key, shipFaction);

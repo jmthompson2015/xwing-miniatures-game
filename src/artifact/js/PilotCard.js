@@ -470,6 +470,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "blackEightSquadronPilot":
             {
                name: "Black Eight Squadron Pilot",
+               description: "Darth Vader's hand-picked Black Eight Squadron earned its reputation for ruthlessness when its bombardment of Callos rendered the planet uninhabitable.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_PUNISHER,
                pilotSkillValue: 4,
                image: "pilots/Galactic Empire/TIE Punisher/black-eight-squadron-pilot.png",
@@ -493,6 +495,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "blackSquadronScout":
             {
                name: "Black Squadron Scout",
+               description: "Black Squadron pilots who had proven themselves as highly adept pilots were occasionally issued TIE strikers when sent on atmospheric missions.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
                pilotSkillValue: 4,
                image: "pilots/Galactic Empire/TIE Striker/black-squadron-scout.png",
@@ -516,6 +520,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "blackSunAssassin":
             {
                name: "Black Sun Assassin",
+               description: "Although assassinations can be handled with a shot in the dark or a dire substance added to a drink, a flaming shuttle tumbling from the sky sends a very different message.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_STAR_VIPER,
                pilotSkillValue: 5,
                image: "pilots/Scum and Villainy/StarViper/black-sun-assassin.png",
@@ -810,6 +816,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "cartelBrute":
             {
                name: "Cartel Brute",
+               description: "Like many of those pilots who favored it, the M12-L Kimogila fighter was a blunt instrument, trading maneuverability for raw destructive power.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_M12_L_KIMOGILA_FIGHTER,
                pilotSkillValue: 3,
                image: "pilots/Scum and Villainy/M12-L Kimogila Fighter/cartel-brute.png",
@@ -820,6 +828,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "cartelExecutioner":
             {
                name: "Cartel Executioner",
+               description: "Many veteran pilots in the service of the Hutt kajidics and other criminal operations chose the M12-L Kimogila fighter for its firepower and dreaded reputation alike.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_M12_L_KIMOGILA_FIGHTER,
                pilotSkillValue: 5,
                image: "pilots/Scum and Villainy/M12-L Kimogila Fighter/cartel-executioner.png",
@@ -1092,6 +1102,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "crimsonSquadronPilot":
             {
                name: "Crimson Squadron Pilot",
+               description: "Used by the Resistance to strike against First Order emplacements and capital ships, the Slayn & Korpil B/SF-17 heavy bomber carried an intimidating ordnance payload.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.RESISTANCE_B_SF_17_BOMBER,
                pilotSkillValue: 1,
                image: "pilots/Resistance/B-SF-17 Bomber/crimson-squadron-pilot.png",
@@ -1471,6 +1483,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "firstOrderTestPilot":
             {
                name: "First Order Test Pilot",
+               description: "Engineered for speed and incredible handling, the TIE silencer was devastating in the hands of those who could unlock its full potential. Any lesser pilot would be overwhelmed or lose control of the nimble craft.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.FIRST_ORDER_TIE_SILENCER,
                pilotSkillValue: 6,
                image: "pilots/First Order/TIE Silencer/first-order-test-pilot.png",
@@ -1830,6 +1844,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "imperialTrainee":
             {
                name: "Imperial Trainee",
+               description: "After the Republic fell and as the Empire rose, the new galactic government required thousands of new pilots to replace the decommissioned clones.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
                pilotSkillValue: 1,
                image: "pilots/Galactic Empire/TIE Striker/imperial-trainee.png",
@@ -1864,6 +1880,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "jakkuGunrunner":
             {
                name: "Jakku Gunrunner",
+               description: "The Quadrijet transfer spacetug, commonly called a \"Quadjumper,\" was nimble in space and atmosphere alike, making it popular among both smugglers and explorers.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_QUADJUMPER,
                pilotSkillValue: 1,
                image: "pilots/Scum and Villainy/Quadjumper/jakku-gunrunner.png",
@@ -1960,6 +1978,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "karthakkPirate":
             {
                name: "Karthakk Pirate",
+               description: "The Nubian Design Collective crafted the Scurrg H-6 Bomber with combat versatility in mind, arming it with powerful shields and a bristling array of destructive weaponry.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_SCURRG_H_6_BOMBER,
                pilotSkillValue: 1,
                image: "pilots/Scum and Villainy/Scurrg H-6 Bomber/karthakk-pirate.png",
@@ -1970,6 +1990,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "kashyyykDefender":
             {
                name: "Kashyyyk Defender",
+               description: "Appazanna Engineering Works of Kashyyyk produced vessels such as the Auzituck gunship, the Owevvaor jet catamaran, and the Raddaugh Gnasp fluttercraft.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_AUZITUCK_GUNSHIP,
                pilotSkillValue: 1,
                image: "pilots/Rebel Alliance/Auzituck Gunship/kashyyyk-defender.png",
@@ -2239,6 +2261,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "lokRevenant":
             {
                name: "Lok Revenant",
+               description: "Led by the pirate captain Nym, the Lok Revenants were formed to resist the Trade Federation in the Karthakk system and carried the fight to the Empire during its ascendancy.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_SCURRG_H_6_BOMBER,
                pilotSkillValue: 3,
                image: "pilots/Scum and Villainy/Scurrg H-6 Bomber/lok-revenant.png",
@@ -2481,6 +2505,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "nuSquadronPilot":
             {
                name: "Nu Squadron Pilot",
+               description: "With a design inspired by other Cygnus Spaceworks vessels, the Alpha-class star wing was a versatile craft assigned to Imperial Navy specialist units that needed a starfighter they could outfit for multiple roles.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING,
                pilotSkillValue: 2,
                image: "pilots/Galactic Empire/Alpha-class Star Wing/nu-squadron-pilot.png",
@@ -2580,6 +2606,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "onyxSquadronEscort":
             {
                name: "Onyx Squadron Escort",
+               description: "Designed for extended engagements, the TIE/ag was flown primarily by elite pilots trained to leverage both its unique weapons loadout and its maneuverabilty to full effect.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_AGGRESSOR,
                pilotSkillValue: 5,
                image: "pilots/Galactic Empire/TIE Aggressor/onyx-squadron-escort.png",
@@ -2845,6 +2873,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "rhoSquadronVeteran":
             {
                name: "Rho Squadron Veteran",
+               description: "The elite pilots of Rho Squadron served in numerous campaigns of terror against the Rebellion, using both the Xg-1 assault configuration and Os-1 arsenal loadout of the Alpha-class star wing to devastating effect.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING,
                pilotSkillValue: 4,
                image: "pilots/Galactic Empire/Alpha-class Star Wing/rho-squadron-veteran.png",
@@ -2967,6 +2997,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "scarifDefender":
             {
                name: "Scarif Defender",
+               description: "To protect the secret jungle base, the Empire required a vigilant and swift defense force.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_STRIKER,
                pilotSkillValue: 3,
                image: "pilots/Galactic Empire/TIE Striker/scarif-defender.png",
@@ -3053,6 +3085,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "sienarJaemusAnalyst":
             {
                name: "Sienar-Jaemus Analyst",
+               description: "With its menacing design and impressive firepower, the Sienar-Jamus TIE/vn space superiority fighter was crafted for use by the most elite among the First Order.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.FIRST_ORDER_TIE_SILENCER,
                pilotSkillValue: 4,
                image: "pilots/First Order/TIE Silencer/sienar-jaemus-analyst.png",
@@ -3063,6 +3097,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "sienarSpecialist":
             {
                name: "Sienar Specialist",
+               description: "During the development of the TIE aggressor, Sienar Fleet Systems valued performance and versatility over raw cost efficiency.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.IMPERIAL_TIE_AGGRESSOR,
                pilotSkillValue: 2,
                image: "pilots/Galactic Empire/TIE Aggressor/sienar-specialist.png",
@@ -3549,6 +3585,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
             "wookieeLiberator":
             {
                name: "Wookiee Liberator",
+               description: "Equipped with three wide-range Sureggi twin laser cannons, the Auzituck gunship acted as a powerful deterrent to slaver operations in the Kashyyyk system.",
+               isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_AUZITUCK_GUNSHIP,
                pilotSkillValue: 3,
                image: "pilots/Rebel Alliance/Auzituck Gunship/wookiee-liberator.png",
@@ -3714,6 +3752,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isFlavorText: true,
                shipFactionKey: ShipFaction.SCUM_C_ROC_CRUISER,
                pilotSkillValue: 1,
+               image: "pilots/Scum and Villainy/C-ROC Cruiser/c-roc-cruiser.png",
                squadPointCost: 35,
                upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO, UpgradeType.CARGO, UpgradeType.CARGO],
                key: "cRocCruiser",
@@ -3726,9 +3765,9 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                   description: "When attacking with your primary weapon, you may spend 1 energy to roll 1 additional attack die.",
                   shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
                   pilotSkillValue: 4,
+                  image: "pilots/Rebel Alliance/CR90 Corvette/cr90-corvette-fore.png",
                   squadPointCost: 50,
-                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.HARDPOINT,
-                                    UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
+                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
                   key: "cr90Corvette.fore",
                },
                aft:
@@ -3738,9 +3777,9 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                   isFlavorText: true,
                   shipFactionKey: ShipFaction.REBEL_CR90_CORVETTE,
                   pilotSkillValue: 4,
+                  image: "pilots/Rebel Alliance/CR90 Corvette/cr90-corvette-aft.png",
                   squadPointCost: 40,
-                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM,
-                                    UpgradeType.CARGO],
+                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO],
                   isImplemented: true,
                   key: "cr90Corvette.aft",
                },
@@ -3772,9 +3811,9 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                description: "After you execute a maneuver, you may deploy up to 2 docked ships.",
                shipFactionKey: ShipFaction.IMPERIAL_GOZANTI_CLASS_CRUISER,
                pilotSkillValue: 2,
+               image: "pilots/Galactic Empire/Gozanti-class Cruiser/gozanti-class-cruiser.png",
                squadPointCost: 40,
-               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM,
-                                UpgradeType.CARGO, UpgradeType.CARGO],
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO, UpgradeType.CARGO],
                key: "gozantiClassCruiser",
             },
             "gr75MediumTransport":
@@ -3784,9 +3823,9 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                isFlavorText: true,
                shipFactionKey: ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT,
                pilotSkillValue: 3,
+               image: "pilots/Rebel Alliance/GR-75 Medium Transport/gr-75-medium-transport.png",
                squadPointCost: 30,
-               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CARGO, UpgradeType.CARGO,
-                                UpgradeType.CARGO],
+               upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CARGO, UpgradeType.CARGO, UpgradeType.CARGO],
                isImplemented: true,
                key: "gr75MediumTransport",
             },
@@ -3798,6 +3837,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                   description: "Once per round, after you perform a primary weapon attack, you may spend 2 energy to perform another primary weapon attack.",
                   shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
                   pilotSkillValue: 4,
+                  image: "pilots/Galactic Empire/Raider-class Corvette/raider-class-corv-fore.png",
                   squadPointCost: 50,
                   upgradeTypeKeys: [UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.CARGO],
                   key: "raiderClassCorvette.fore",
@@ -3809,9 +3849,9 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
                   isFlavorText: true,
                   shipFactionKey: ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE,
                   pilotSkillValue: 4,
+                  image: "pilots/Galactic Empire/Raider-class Corvette/raider-class-corv-aft.png",
                   squadPointCost: 50,
-                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT,
-                                                UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
+                  upgradeTypeKeys: [UpgradeType.CREW, UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO],
                   isImplemented: true,
                   key: "raiderClassCorvette.aft",
                },

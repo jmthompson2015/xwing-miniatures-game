@@ -89,7 +89,7 @@ define(["qunit", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/M
 
          // Verify.
          assert.ok(result);
-         var length = 93;
+         var length = 94;
          assert.equal(result.length, length);
          assert.equal(result[0], "bankLeft1Easy");
          assert.equal(result[length - 1], "turnRight3Standard");

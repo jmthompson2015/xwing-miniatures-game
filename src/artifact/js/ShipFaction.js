@@ -136,7 +136,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "imperial_firespray31":
             {
-               name: "Firespray-31",
+               name: "Firespray-31 (Imperial)",
                shipKey: Ship.FIRESPRAY_31,
                factionKey: Faction.IMPERIAL,
                image: "Firespray-31.png",
@@ -216,7 +216,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "imperial_tieFighter":
             {
-               name: "TIE Fighter",
+               name: "TIE Fighter (Imperial)",
                shipKey: Ship.TIE_FIGHTER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Fighter.png",
@@ -360,7 +360,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "rebel_hwk290":
             {
-               name: "HWK-290",
+               name: "HWK-290 (Rebel)",
                shipKey: Ship.HWK_290,
                factionKey: Faction.REBEL,
                image: "HWK-290.png",
@@ -378,7 +378,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "rebel_scurrgH6Bomber":
             {
-               name: "Scurrg H-6 Bomber",
+               name: "Scurrg H-6 Bomber (Rebel)",
                shipKey: Ship.SCURRG_H_6_BOMBER,
                factionKey: Faction.REBEL,
                wave: "11",
@@ -394,10 +394,10 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "rebel_tieFighter":
             {
-               name: "TIE Fighter",
+               name: "TIE Fighter (Rebel)",
                shipKey: Ship.TIE_FIGHTER,
                factionKey: Faction.REBEL,
-               image: "Rebel_Sabines_TIE_Fighter.png",
+               image: "Rebel_TIE_Fighter.png",
                wave: "10",
                key: "rebel_tieFighter",
             },
@@ -430,7 +430,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "rebel_yWing":
             {
-               name: "Y-Wing",
+               name: "Y-Wing (Rebel)",
                shipKey: Ship.Y_WING,
                factionKey: Faction.REBEL,
                image: "Rebel_Y-Wing.png",
@@ -439,7 +439,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "rebel_yt1300":
             {
-               name: "YT-1300",
+               name: "YT-1300 (Rebel)",
                shipKey: Ship.YT_1300,
                factionKey: Faction.REBEL,
                image: "Rebel_YT-1300.png",
@@ -457,7 +457,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "rebel_z95Headhunter":
             {
-               name: "Z-95 Headhunter",
+               name: "Z-95 Headhunter (Rebel)",
                shipKey: Ship.Z_95_HEADHUNTER,
                factionKey: Faction.REBEL,
                image: "Rebel_Z-95_Headhunter.png",
@@ -494,7 +494,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "resistance_yt1300":
             {
-               name: "YT-1300",
+               name: "YT-1300 (Resistance)",
                shipKey: Ship.YT_1300,
                factionKey: Faction.RESISTANCE,
                image: "Resistance_YT-1300.png",
@@ -514,7 +514,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "scum_firespray31":
             {
-               name: "Firespray-31",
+               name: "Firespray-31 (Scum)",
                shipKey: Ship.FIRESPRAY_31,
                factionKey: Faction.SCUM,
                image: "Firespray-31.png",
@@ -532,7 +532,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "scum_hwk290":
             {
-               name: "HWK-290",
+               name: "HWK-290 (Scum)",
                shipKey: Ship.HWK_290,
                factionKey: Faction.SCUM,
                image: "HWK-290.png",
@@ -619,7 +619,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "scum_scurrgH6Bomber":
             {
-               name: "Scurrg H-6 Bomber",
+               name: "Scurrg H-6 Bomber (Scum)",
                shipKey: Ship.SCURRG_H_6_BOMBER,
                factionKey: Faction.SCUM,
                wave: "11",
@@ -644,7 +644,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "scum_yWing":
             {
-               name: "Y-Wing",
+               name: "Y-Wing (Scum)",
                shipKey: Ship.Y_WING,
                factionKey: Faction.SCUM,
                image: "Scum_Y-Wing.png",
@@ -662,7 +662,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
             },
             "scum_z95Headhunter":
             {
-               name: "Z-95 Headhunter",
+               name: "Z-95 Headhunter (Scum)",
                shipKey: Ship.Z_95_HEADHUNTER,
                factionKey: Faction.SCUM,
                image: "Scum_Z-95_Headhunter.png",
@@ -725,9 +725,24 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          return Object.keys(ShipFaction.properties);
       };
 
+      ShipFaction.values = function()
+      {
+         return Object.values(ShipFaction.properties);
+      };
+
+      ShipFaction.keys().forEach(function(shipFactionKey)
+      {
+         var shipFaction = ShipFaction.properties[shipFactionKey];
+         shipFaction.ship = Ship.properties[shipFaction.shipKey];
+         shipFaction.faction = Faction.properties[shipFaction.factionKey];
+      });
+
+      //////////////////////////////////////////////////////////////////////////
+      // Utility methods.
+
       ShipFaction.keysByFaction = function(factionKey, isStrict)
       {
-         InputValidator.validateNotNull("factionKey", factionKey);
+         InputValidator.validateIsString("factionKey", factionKey);
 
          var answer = this.keys().filter(function(shipFactionKey)
          {
@@ -749,8 +764,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
 
       ShipFaction.keysByShipAndFaction = function(shipKey, factionKey, isStrict)
       {
-         InputValidator.validateNotNull("shipKey", shipKey);
-         InputValidator.validateNotNull("factionKey", factionKey);
+         InputValidator.validateIsString("shipKey", shipKey);
+         InputValidator.validateIsString("factionKey", factionKey);
 
          var answer = this.keysByFaction(factionKey, isStrict).filter(function(shipFactionKey)
          {
@@ -762,7 +777,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
 
       ShipFaction.shipKeysByFaction = function(factionKey, isStrict)
       {
-         InputValidator.validateNotNull("factionKey", factionKey);
+         InputValidator.validateIsString("factionKey", factionKey);
 
          var shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
 
@@ -783,18 +798,6 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
       {
          return "ShipFaction";
       };
-
-      ShipFaction.values = function()
-      {
-         return Object.values(ShipFaction.properties);
-      };
-
-      ShipFaction.keys().forEach(function(shipFactionKey)
-      {
-         var shipFaction = ShipFaction.properties[shipFactionKey];
-         shipFaction.ship = Ship.properties[shipFaction.shipKey];
-         shipFaction.faction = Faction.properties[shipFaction.factionKey];
-      });
 
       if (Object.freeze)
       {

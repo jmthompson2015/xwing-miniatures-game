@@ -81,6 +81,7 @@ define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Difficul
          STRAIGHT_4_STANDARD: "straight4Standard",
          STRAIGHT_5_EASY: "straight5Easy",
          STRAIGHT_5_STANDARD: "straight5Standard",
+         STRAIGHT_5_HARD: "straight5Hard",
 
          // Straight with energy.
          STRAIGHT_1_3: "straight1_3",
@@ -569,6 +570,13 @@ define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Difficul
                difficultyKey: Difficulty.STANDARD,
                key: "straight5Standard",
             },
+            "straight5Hard":
+            {
+               bearingKey: Bearing.STRAIGHT,
+               speed: 5,
+               difficultyKey: Difficulty.HARD,
+               key: "straight5Hard",
+            },
             "straight1_3":
             {
                bearingKey: Bearing.STRAIGHT,
@@ -844,11 +852,31 @@ define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Difficul
          },
       };
 
+      Maneuver.keys = function()
+      {
+         return Object.keys(Maneuver.properties);
+      };
+
+      Maneuver.values = function()
+      {
+         return Object.values(Maneuver.properties);
+      };
+
+      Maneuver.keys().forEach(function(maneuverKey)
+      {
+         var maneuver = Maneuver.properties[maneuverKey];
+         maneuver.bearing = Bearing.properties[maneuver.bearingKey];
+         maneuver.difficulty = Difficulty.properties[maneuver.difficultyKey];
+      });
+
+      //////////////////////////////////////////////////////////////////////////
+      // Utility methods.
+
       Maneuver.find = function(bearingKey, speed, difficultyKey)
       {
          //  InputValidator.validateNotNull("bearingKey", bearingKey);
          InputValidator.validateIsNumber("speed", speed);
-         InputValidator.validateNotNull("difficultyKey", difficultyKey);
+         InputValidator.validateIsString("difficultyKey", difficultyKey);
 
          var answer;
 
@@ -869,11 +897,6 @@ define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Difficul
          return answer;
       };
 
-      Maneuver.keys = function()
-      {
-         return Object.keys(Maneuver.properties);
-      };
-
       Maneuver.toString = function(maneuverKey)
       {
          var answer = "Maneuver";
@@ -890,18 +913,6 @@ define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Difficul
 
          return answer;
       };
-
-      Maneuver.values = function()
-      {
-         return Object.values(Maneuver.properties);
-      };
-
-      Maneuver.keys().forEach(function(maneuverKey)
-      {
-         var maneuver = Maneuver.properties[maneuverKey];
-         maneuver.bearing = Bearing.properties[maneuver.bearingKey];
-         maneuver.difficulty = Difficulty.properties[maneuver.difficultyKey];
-      });
 
       if (Object.freeze)
       {
