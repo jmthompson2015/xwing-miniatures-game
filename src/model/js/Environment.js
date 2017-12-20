@@ -21,10 +21,10 @@
 
 define(["common/js/ArrayAugments", "common/js/InputValidator",
   "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
-  "model/js/Action", "model/js/AgentAction", "model/js/CardComparator", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/DualCardInstance", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
+  "model/js/Action", "model/js/AgentAction", "model/js/CardComparator", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
    function(ArrayAugments, InputValidator,
       CardType, DamageCard, Faction, PlayFormat, Range,
-      Action, AgentAction, CardComparator, CardInstance, CardInstanceFactory, DualCardInstance, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
+      Action, AgentAction, CardComparator, CardInstance, CardInstanceFactory, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
    {
       function Environment(store, agent1, squad1, agent2, squad2, positions1, positions2)
       {

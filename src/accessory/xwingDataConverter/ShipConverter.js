@@ -1,7 +1,7 @@
 "use strict";
 
-define(["artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Ship", "artifact/js/ShipAction", "accessory/xwingDataConverter/EnumGenerator", "common/js/FileLoader"],
-   function(Bearing, Difficulty, Ship, ShipAction, EnumGenerator, FileLoader)
+define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Ship", "artifact/js/ShipAction", "accessory/xwingDataConverter/EnumGenerator"],
+   function(FileLoader, Bearing, Difficulty, Ship, ShipAction, EnumGenerator)
    {
       var ShipConverter = {};
 

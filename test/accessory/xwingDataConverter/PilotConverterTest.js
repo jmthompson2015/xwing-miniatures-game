@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "accessory/xwingDataConverter/PilotConverter", "artifact/js/PilotCard"],
-   function(QUnit, PilotConverter, PilotCard)
+define(["qunit", "artifact/js/PilotCard", "accessory/xwingDataConverter/PilotConverter"],
+   function(QUnit, PilotCard, PilotConverter)
    {
       QUnit.module("PilotConverter");
 

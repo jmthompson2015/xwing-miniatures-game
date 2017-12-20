@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/DamageCard", "artifact/js/DamageCardTrait", "artifact/js/Difficulty", "artifact/js/Ship", "artifact/js/ShipAction", "artifact/js/ShipFaction", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/FactionConverter", "common/js/FileLoader"],
-   function(InputValidator, Bearing, DamageCard, DamageCardTrait, Difficulty, Ship, ShipAction, ShipFaction, EnumGenerator, FactionConverter, FileLoader)
+define(["common/js/FileLoader", "artifact/js/DamageCard", "artifact/js/DamageCardTrait", "accessory/xwingDataConverter/EnumGenerator"],
+   function(FileLoader, DamageCard, DamageCardTrait, EnumGenerator)
    {
       var DamageConverter = {};
 

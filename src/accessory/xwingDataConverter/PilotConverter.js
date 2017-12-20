@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/PilotCard", "artifact/js/ShipAction", "artifact/js/UpgradeType", "view/js/UpgradeTypeComparator", "accessory/xwingDataConverter/EnumGenerator"],
-   function(FileLoader, Bearing, Difficulty, PilotCard, ShipAction, UpgradeType, UpgradeTypeComparator, EnumGenerator)
+define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/UpgradeTypeComparator", "accessory/xwingDataConverter/EnumGenerator"],
+   function(FileLoader, PilotCard, UpgradeType, UpgradeTypeComparator, EnumGenerator)
    {
       var PilotConverter = {};
 
