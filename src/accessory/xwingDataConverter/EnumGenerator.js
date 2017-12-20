@@ -4,6 +4,25 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
 {
    var EnumGenerator = {};
 
+   EnumGenerator.createConditionEnumName = function(condition)
+   {
+      var answer = condition.name;
+
+      answer = EnumGenerator.createEnumName(answer);
+
+      return answer;
+   };
+
+   EnumGenerator.createConditionEnumValue = function(condition, isQuotedIn)
+   {
+      var isQuoted = (isQuotedIn !== undefined ? isQuotedIn : true);
+
+      var answer = condition.name;
+      answer = EnumGenerator.createEnumValue(answer);
+
+      return (isQuoted ? EnumGenerator.quoteValue(answer) : answer);
+   };
+
    EnumGenerator.createDamageEnumName = function(damage)
    {
       var answer = damage.name;

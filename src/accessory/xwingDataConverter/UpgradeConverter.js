@@ -3,9 +3,9 @@
 define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader", "artifact/js/UpgradeType", "accessory/xwingDataConverter/EnumGenerator"],
    function(FileLoader, UpgradeCard, UpgradeHeader, UpgradeType, EnumGenerator)
    {
-      var XwingDataUpgradeConverter = {};
+      var UpgradeConverter = {};
 
-      XwingDataUpgradeConverter.convert = function(callback)
+      UpgradeConverter.convert = function(callback)
       {
          var finishConvert = this.finishConvert.bind(this);
          var finishCallback = function(response)
@@ -16,7 +16,7 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
          FileLoader.loadFile("../../../lib/xwing-data/data/upgrades.js", finishCallback);
       };
 
-      XwingDataUpgradeConverter.finishConvert = function(response, callback)
+      UpgradeConverter.finishConvert = function(response, callback)
       {
          var upgradeArray = JSON.parse(response);
 
@@ -389,5 +389,5 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
          return answer;
       }
 
-      return XwingDataUpgradeConverter;
+      return UpgradeConverter;
    });

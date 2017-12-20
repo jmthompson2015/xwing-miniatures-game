@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ConditionConverter</title>
+
+	<link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.min.css">
+
+	<script src="../../../lib/react/react-15.6.1.js"></script>
+	<script src="../../../lib/react-dom/react-dom-15.6.1.js"></script>
+	<script src="../../../lib/create-react-class/create-react-class-15.6.0.js"></script>
+	<script src="../../../lib/react-dom-factories/react-dom-factories-1.0.1.js"></script>
+	<script src="../../../lib/reactable/reactable-0.14.1.js"></script>
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script>
+		require.config(
+		{
+			"baseUrl": "../../../src",
+		});
+	</script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<h1>ConditionCard.js fragment</h1>
+	<div id="panel"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "accessory/xwingDataConverter/ConditionConverter"],
+			function(React, ReactDOM, DOM, Logger, ConditionConverter)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../../../src/view/resource/";
+
+				ConditionConverter.convert(myCallback);
+				document.getElementById("panel").innerHTML = "Working...";
+
+				function myCallback(conditionArray, enums, properties)
+				{
+					LOGGER.info("myCallback() conditionArray.length = " + conditionArray.length);
+					document.getElementById("panel").innerHTML = enums + "<br/>" + properties;
+				}
+			});
+	</script>
+</body>
+
+</html>

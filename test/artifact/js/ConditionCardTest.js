@@ -9,7 +9,7 @@ define(["qunit", "artifact/js/ConditionCard"], function(QUnit, ConditionCard)
       var upgrade = ConditionCard.FANATICAL_DEVOTION;
       var properties = ConditionCard.properties[upgrade];
       assert.equal(properties.name, "Fanatical Devotion");
-      assert.equal(properties.description, "When defending, you cannot spend focus tokens. When attacking, if you spend a focus token to change all focus results to hit results, set aside the first focus result that you change. The set-aside hit result cannot be canceled by defense dice, but the defender may cancel critical hit results before it.");
+      assert.equal(properties.description, "When defending, you cannot spend focus tokens.<br /><br />When attacking, if you spend a focus token to change all [Focus] results to [Hit] results, set aside the first [Focus] result that you change. The set-aside [Hit] result cannot be canceled by defense dice, but the defender may cancel [Critical Hit] results before it.<br /><br />During the End phase, remove this card.");
       assert.equal(properties.key, "fanaticalDevotion");
    });
 
@@ -50,11 +50,17 @@ define(["qunit", "artifact/js/ConditionCard"], function(QUnit, ConditionCard)
 
       // Verify.
       assert.ok(result);
-      var length = 2;
+      var length = 8;
       assert.equal(result.length, length);
       var i = 0;
+      assert.equal(result[i++], ConditionCard.A_DEBT_TO_PAY);
       assert.equal(result[i++], ConditionCard.FANATICAL_DEVOTION);
+      assert.equal(result[i++], ConditionCard.HARPOONED);
       assert.equal(result[i++], ConditionCard.ILL_SHOW_YOU_THE_DARK_SIDE);
+      assert.equal(result[i++], ConditionCard.MIMICKED);
+      assert.equal(result[i++], ConditionCard.RATTLED);
+      assert.equal(result[i++], ConditionCard.SHADOWED);
+      assert.equal(result[i++], ConditionCard.SUPPRESSIVE_FIRE);
 
       var properties = Object.getOwnPropertyNames(ConditionCard);
       var count = properties.length - 1 - // properties
