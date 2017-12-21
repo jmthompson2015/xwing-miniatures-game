@@ -90,6 +90,35 @@ define(["qunit", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipB
          });
       });
 
+      QUnit.test("required properties", function(assert)
+      {
+         Ship.values().forEach(function(ship)
+         {
+            assert.ok(ship.name, "Missing name for " + ship.name);
+            assert.ok(ship.shipBaseKey, "Missing shipBaseKey for " + ship.name);
+            assert.ok(ship.maneuverKeys, "Missing maneuverKeys for " + ship.name);
+            ship.maneuverKeys.forEach(function(maneuverKey)
+            {
+               assert.ok(maneuverKey, "Missing maneuverKey for " + ship.name);
+            });
+            assert.ok(ship.key, "Missing key for " + ship.name);
+
+            if (!ShipBase.isHuge(ship.shipBaseKey))
+            {
+               assert.equal(ship.primaryWeaponValue !== undefined, true, "Missing primaryWeaponValue for " + ship.name);
+               assert.equal(ship.agilityValue !== undefined, true, "Missing agilityValue for " + ship.name);
+               assert.equal(ship.hullValue !== undefined, true, "Missing hullValue for " + ship.name);
+               assert.equal(ship.shieldValue !== undefined, true, "Missing shieldValue for " + ship.name);
+               assert.ok(ship.primaryFiringArcKey, "Missing primaryFiringArcKey for " + ship.name);
+               assert.ok(ship.shipActionKeys, "Missing shipActionKeys for " + ship.name);
+               ship.shipActionKeys.forEach(function(shipActionKey)
+               {
+                  assert.ok(shipActionKey, "Missing shipActionKey for " + ship.name);
+               });
+            }
+         });
+      });
+
       QUnit.test("values()", function(assert)
       {
          // Run.

@@ -308,4 +308,31 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
          assert.equal(result[0], PilotCard.ASAJJ_VENTRESS);
          assert.equal(result[length - 1], PilotCard.C_ROC_CRUISER);
       });
+
+      QUnit.test("required properties", function(assert)
+      {
+         PilotCard.values().forEach(function(pilot)
+         {
+            assert.ok(pilot.name, "Missing name for " + pilot.name);
+            assert.ok(pilot.shipFactionKey, "Missing shipFactionKey for " + pilot.name);
+            assert.ok(pilot.key, "Missing key for " + pilot.name);
+
+            if (pilot.fore === undefined && pilot.aft === undefined)
+            {
+               assert.ok(pilot.description, "Missing description for " + pilot.name);
+               assert.ok(pilot.image, "Missing image for " + pilot.name);
+               assert.ok(pilot.upgradeTypeKeys, "Missing upgradeTypeKeys for " + pilot.name);
+               pilot.upgradeTypeKeys.forEach(function(upgradeTypeKey)
+               {
+                  assert.ok(upgradeTypeKey, "Missing upgradeTypeKey for " + pilot.name);
+               });
+
+               if (pilot.key !== PilotCard.NASHTAH_PUP_PILOT)
+               {
+                  assert.ok(pilot.pilotSkillValue, "Missing pilotSkillValue for " + pilot.name);
+                  assert.ok(pilot.squadPointCost, "Missing squadPointCost for " + pilot.name);
+               }
+            }
+         });
+      });
    });

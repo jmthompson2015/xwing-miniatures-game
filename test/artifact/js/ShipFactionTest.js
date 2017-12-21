@@ -413,6 +413,19 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], ShipFaction.SCUM_C_ROC_CRUISER);
       });
 
+      QUnit.test("required properties", function(assert)
+      {
+         ShipFaction.values().forEach(function(shipFaction)
+         {
+            assert.ok(shipFaction.name, "Missing name for " + shipFaction.name);
+            assert.ok(shipFaction.shipKey, "Missing shipKey for " + shipFaction.name);
+            assert.ok(shipFaction.factionKey, "Missing factionKey for " + shipFaction.name);
+            assert.ok(shipFaction.image, "Missing image for " + shipFaction.name);
+            assert.ok(shipFaction.wave, "Missing wave for " + shipFaction.name);
+            assert.ok(shipFaction.key, "Missing key for " + shipFaction.name);
+         });
+      });
+
       QUnit.test("shipKeysByFaction() First Order strict", function(assert)
       {
          // Setup.

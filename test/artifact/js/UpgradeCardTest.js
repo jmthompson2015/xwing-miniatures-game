@@ -207,6 +207,19 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "artifact/j
          assert.equal(result[i++], UpgradeCard.WIRED);
       });
 
+      QUnit.test("required properties", function(assert)
+      {
+         UpgradeCard.values().forEach(function(upgrade)
+         {
+            assert.ok(upgrade.name, "Missing name for " + upgrade.name);
+            assert.ok(upgrade.typeKey, "Missing typeKey for " + upgrade.name);
+            assert.ok(upgrade.image, "Missing image for " + upgrade.name);
+            assert.ok(upgrade.description, "Missing description for " + upgrade.name);
+            assert.equal(upgrade.squadPointCost !== undefined, true, "Missing squadPointCost for " + upgrade.name);
+            assert.ok(upgrade.key, "Missing key for " + upgrade.name);
+         });
+      });
+
       QUnit.test("valuesByType() Astromech", function(assert)
       {
          // Run.
