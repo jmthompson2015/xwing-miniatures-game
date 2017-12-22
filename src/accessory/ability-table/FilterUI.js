@@ -116,7 +116,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                switch (column.key)
                {
                   case "deck":
-                     values = ["DamageCard", "PilotCard", "UpgradeCard"];
+                     values = ["ConditionCard", "DamageCard", "PilotCard", "UpgradeCard"];
                      break;
                   case "type":
                      values = [];

@@ -15,6 +15,8 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHea
          var action;
          switch (deck)
          {
+            case "ConditionCard":
+               break;
             case "DamageCard":
                type = ability.trait;
                if (ability.hasAction)

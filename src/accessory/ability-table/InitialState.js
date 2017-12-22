@@ -1,14 +1,22 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "model/js/EntityFilter", "model/js/RangeFilter",
+  "artifact/js/ConditionCard", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "model/js/EntityFilter", "model/js/RangeFilter",
   "accessory/ability-table/DefaultFilters", "accessory/ability-table/TableRow"],
-   function(InputValidator, DamageCard, PilotCard, UpgradeCard, EntityFilter, RangeFilter, DefaultFilters, TableRow)
+   function(InputValidator, ConditionCard, DamageCard, PilotCard, UpgradeCard, EntityFilter, RangeFilter, DefaultFilters, TableRow)
    {
       function InitialState()
       {
          this.tableRows = [];
          this.filteredTableRows = [];
+
+         ConditionCard.keys().forEach(function(conditionKey)
+         {
+            var condition = ConditionCard.properties[conditionKey];
+            var tableRows = TableRow.createTableRow(condition, "ConditionCard");
+            this.tableRows.push(tableRows);
+            this.filteredTableRows.push(tableRows);
+         }, this);
 
          DamageCard.keys().forEach(function(damageKey)
          {

@@ -30,11 +30,11 @@
     "use strict";
 
     require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathAugments",
-        "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
+        "artifact/js/ConditionCard", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
         "accessory/ability-table/AbilityTableContainer", "accessory/ability-table/Reducer"
       ],
       function(React, ReactDOM, ReactRedux, Redux, Logger, MathAugments,
-        DamageCard, PilotCard, UpgradeCard, AbilityTableContainer, Reducer)
+        ConditionCard, DamageCard, PilotCard, UpgradeCard, AbilityTableContainer, Reducer)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -43,7 +43,13 @@
         var resourceBase = "../../../src/view/resource/";
         var store = Redux.createStore(Reducer.root);
 
-        var implementedCount = DamageCard.keys().reduce(function(accumulator, damageKey)
+        var implementedCount = ConditionCard.keys().reduce(function(accumulator, conditionKey)
+        {
+          var condition = ConditionCard.properties[conditionKey];
+          return accumulator + (condition.isImplemented ? 1 : 0);
+        }, 0);
+
+        implementedCount += DamageCard.keys().reduce(function(accumulator, damageKey)
         {
           var damage = DamageCard.properties[damageKey];
           return accumulator + (damage.isImplemented ? 1 : 0);
