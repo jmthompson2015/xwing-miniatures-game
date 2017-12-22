@@ -9,6 +9,55 @@ define(["redux", "common/js/InputValidator",
    {
       var SquadBuilders = [];
 
+      // Paul Heaver (97 points, wave 11 content)
+      SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #1", 2017, "Scurrg; K-Wing", function(store, agent)
+      {
+         var answer = [];
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_NYM_REBEL, agent, [UpgradeCard.HAVOC, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.ADVANCED_SENSORS, UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.BOMBLET_GENERATOR, UpgradeCard.GENIUS, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.SABINE_WREN, UpgradeCard.CLUSTER_MINES, UpgradeCard.ION_BOMBS, UpgradeCard.THERMAL_DETONATORS, UpgradeCard.ADVANCED_SLAM]));
+         return answer;
+      }));
+
+      // Tim Hilton (100 points, wave 11 content)
+      SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #2", 2017, "Auzituck; K-Wing; X-Wing", function(store, agent)
+      {
+         var answer = [];
+         answer.push(new CardInstance(store, PilotCard.LOWHHRICK, agent, [UpgradeCard.DRAW_THEIR_FIRE, UpgradeCard.WOOKIEE_COMMANDOS]));
+         answer.push(new CardInstance(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.CONCUSSION_MISSILES, UpgradeCard.SABINE_WREN, UpgradeCard.BOMBLET_GENERATOR, UpgradeCard.LONG_RANGE_SCANNERS]));
+         answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent, [UpgradeCard.R4_D6, UpgradeCard.INTEGRATED_ASTROMECH]));
+         return answer;
+      }));
+
+      // Josh Holt (100 points, wave 11 content)
+      SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #3", 2017, "Auzituck; K-Wing; X-Wing", function(store, agent)
+      {
+         var answer = [];
+         answer.push(new CardInstance(store, PilotCard.LOWHHRICK, agent, [UpgradeCard.SELFLESSNESS, UpgradeCard.WOOKIEE_COMMANDOS]));
+         answer.push(new CardInstance(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.CONCUSSION_MISSILES, UpgradeCard.SABINE_WREN, UpgradeCard.BOMBLET_GENERATOR, UpgradeCard.LONG_RANGE_SCANNERS]));
+         answer.push(new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent, [UpgradeCard.R4_D6, UpgradeCard.INTEGRATED_ASTROMECH]));
+         return answer;
+      }));
+
+      // Travis Johnson (100 points, wave 8 content)
+      SquadBuilders.push(new SquadBuilder(Faction.SCUM, "US Nationals #4", 2017, "JumpMasters x3", function(store, agent)
+      {
+         var answer = [];
+         answer.push(new CardInstance(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.R4_AGROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.R4_AGROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.R4_AGROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         return answer;
+      }));
+
+      // Marcel Manzano (100 points, wave 8 content)
+      SquadBuilders.push(new SquadBuilder(Faction.SCUM, "US Nationals #5", 2017, "JumpMasters x3", function(store, agent)
+      {
+         var answer = [];
+         answer.push(new CardInstance(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.R4_AGROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.R4_AGROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.CONTRACTED_SCOUT, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.PLASMA_TORPEDOES, UpgradeCard.INTELLIGENCE_AGENT, UpgradeCard.R4_AGROMECH, UpgradeCard.GUIDANCE_CHIPS]));
+         return answer;
+      }));
+
       // Justin Phua
       // - Dengar + Expertise + Extra Munitions + Plasma Torpedoes + K4 Security Droid + Unhinged Astromech + Guidance Chips + Punishing One
       // - Tel Trevura + Veteran Instincts + Extra Munitions + Plasma Torpedoes + K4 Security Droid + Unhinged Astromech + Guidance Chips

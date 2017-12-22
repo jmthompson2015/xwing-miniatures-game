@@ -92,7 +92,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 283;
+         var length = 287;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ACADEMY_PILOT);
          assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
@@ -303,7 +303,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
 
          // Verify.
          assert.ok(result);
-         var length = 77;
+         var length = 81;
          assert.equal(result.length, length);
          assert.equal(result[0], PilotCard.ASAJJ_VENTRESS);
          assert.equal(result[length - 1], PilotCard.C_ROC_CRUISER);

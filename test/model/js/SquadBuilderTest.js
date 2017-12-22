@@ -195,20 +195,20 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
       {
          var result = SquadBuilder.findByFaction(Faction.REBEL);
          assert.ok(result);
-         assert.equal(result.length, 22);
+         assert.equal(result.length, 25);
       });
 
       QUnit.test("SquadBuilder.findByFaction() Resistance", function(assert)
       {
          var result = SquadBuilder.findByFaction(Faction.RESISTANCE);
          assert.ok(result);
-         assert.equal(result.length, 22);
+         assert.equal(result.length, 25);
       });
 
       QUnit.test("SquadBuilder.findByFaction() Scum", function(assert)
       {
          var result = SquadBuilder.findByFaction(Faction.SCUM);
          assert.ok(result);
-         assert.equal(result.length, 11);
+         assert.equal(result.length, 13);
       });
    });
