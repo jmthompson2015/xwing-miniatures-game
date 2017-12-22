@@ -2136,7 +2136,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             {
                name: "Integrated Astromech",
                typeKey: UpgradeType.MODIFICATION,
-               restrictionKeys: [UpgradeRestriction.T_70_X_WING_ONLY, UpgradeRestriction.X_WING_ONLY],
+               restrictionKeys: [UpgradeRestriction.X_WING_ONLY],
                description: "When you are dealt a Damage card, you may discard 1 of your [Astromech] Upgrade cards to discard that Damage card (without resolving its effect).",
                image: "upgrades/Modification/integrated-astromech.png",
                squadPointCost: 0,
@@ -2518,7 +2518,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             {
                name: "Lightweight Frame",
                typeKey: UpgradeType.MODIFICATION,
-               restrictionKeys: [UpgradeRestriction.TIE_ADVANCED_ONLY, UpgradeRestriction.TIE_ADVANCED_PROTOTYPE_ONLY, UpgradeRestriction.TIE_BOMBER_ONLY, UpgradeRestriction.TIE_DEFENDER_ONLY, UpgradeRestriction.TIE_FIGHTER_ONLY, UpgradeRestriction.TIE_FO_FIGHTER_ONLY, UpgradeRestriction.TIE_INTERCEPTOR_ONLY, UpgradeRestriction.TIE_PHANTOM_ONLY, UpgradeRestriction.TIE_PUNISHER_ONLY, UpgradeRestriction.TIE_SF_FIGHTER_ONLY, UpgradeRestriction.TIE_SILENCER_ONLY, UpgradeRestriction.TIE_STRIKER_ONLY],
+               restrictionKeys: [UpgradeRestriction.TIE_ONLY],
                description: "When defending, after rolling defense dice, if there are more attack dice than defense dice, roll 1 additional defense die.<br /><br />You cannot equip this card if your agility value is \"3\" or higher.",
                image: "upgrades/Modification/lightweight-frame.png",
                squadPointCost: 2,
@@ -2736,7 +2736,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             {
                name: "Navigator",
                typeKey: UpgradeType.CREW,
-               restrictionKeys: [UpgradeRestriction.LARGE_SHIP_ONLY, UpgradeRestriction.SMALL_SHIP_ONLY],
+               restrictionKeys: [UpgradeRestriction.SMALL_AND_LARGE_SHIP_ONLY],
                description: "When you reveal a maneuver, you may rotate your dial to another maneuver with the same bearing.<br /><br />You cannot rotate to a red maneuver if you have any stress tokens.",
                image: "upgrades/Crew/navigator.png",
                squadPointCost: 3,
@@ -3066,7 +3066,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             {
                name: "Quick-release Cargo Locks",
                typeKey: UpgradeType.CARGO,
-               restrictionKeys: [UpgradeRestriction.C_ROC_CRUISER_ONLY, UpgradeRestriction.GR_75_MEDIUM_TRANSPORT_ONLY, UpgradeRestriction.LIMITED],
+               restrictionKeys: [UpgradeRestriction.C_ROC_CRUISER_AND_GR_75_ONLY, UpgradeRestriction.LIMITED],
                description: "At the end of the Activation phase, you may discard this card to <strong>place</strong> 1 container token.",
                image: "upgrades/Cargo/quick-release-cargo-locks.png",
                squadPointCost: 2,
@@ -3609,7 +3609,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             {
                name: "Smuggling Compartment",
                typeKey: UpgradeType.MODIFICATION,
-               restrictionKeys: [UpgradeRestriction.LIMITED, UpgradeRestriction.YT_1300_ONLY, UpgradeRestriction.YT_2400_ONLY],
+               restrictionKeys: [UpgradeRestriction.LIMITED, UpgradeRestriction.YT_1300_AND_YT_2400_ONLY],
                description: "Your upgrade bar gains the [Illicit] upgrade icon.<br /><br />You may equip 1 additional Modification upgrade that costs 3 or fewer squad points.",
                image: "upgrades/Modification/smuggling-compartment.png",
                squadPointCost: 0,
@@ -3987,7 +3987,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
             {
                name: "Twin Ion Engine Mk. II",
                typeKey: UpgradeType.MODIFICATION,
-               restrictionKeys: [UpgradeRestriction.TIE_ADVANCED_ONLY, UpgradeRestriction.TIE_ADVANCED_PROTOTYPE_ONLY, UpgradeRestriction.TIE_AGGRESSOR_ONLY, UpgradeRestriction.TIE_BOMBER_ONLY, UpgradeRestriction.TIE_DEFENDER_ONLY, UpgradeRestriction.TIE_FIGHTER_ONLY, UpgradeRestriction.TIE_FO_FIGHTER_ONLY, UpgradeRestriction.TIE_INTERCEPTOR_ONLY, UpgradeRestriction.TIE_PHANTOM_ONLY, UpgradeRestriction.TIE_PUNISHER_ONLY, UpgradeRestriction.TIE_SF_FIGHTER_ONLY, UpgradeRestriction.TIE_SILENCER_ONLY, UpgradeRestriction.TIE_STRIKER_ONLY],
+               restrictionKeys: [UpgradeRestriction.TIE_ONLY],
                description: "You may treat all bank maneuvers ([Bank Left] or [Bank Right]) as green maneuvers.",
                image: "upgrades/Modification/twin-ion-engine-mkii.png",
                squadPointCost: 1,

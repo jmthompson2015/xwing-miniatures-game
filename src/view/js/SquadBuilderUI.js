@@ -556,6 +556,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                answer.push(UpgradeType.CREW);
             }
 
+            if (upgradeKeys.includes(UpgradeCard.HAVOC))
+            {
+               answer.push(UpgradeType.SYSTEM);
+               answer.push(UpgradeType.SALVAGED_ASTROMECH);
+               answer.xwingRemove(UpgradeType.CREW);
+            }
+
             if (upgradeKeys.includes(UpgradeCard.MERCHANT_ONE))
             {
                answer.push(UpgradeType.CREW);

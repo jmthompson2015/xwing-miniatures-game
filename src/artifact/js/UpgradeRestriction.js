@@ -3,6 +3,41 @@
 define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/ShipBase"],
    function(InputValidator, Faction, PilotCard, Ship, ShipBase)
    {
+      function FactionGroupRestriction(name, factionKeys)
+      {
+         InputValidator.validateIsString("name", name);
+         InputValidator.validateIsArray("factionKeys", factionKeys);
+
+         return (
+         {
+            name: name,
+            passes: function(pilotKey)
+            {
+               var pilot = PilotCard.properties[pilotKey];
+               var myFactionKey = pilot.shipFaction.factionKey;
+               return factionKeys.includes(myFactionKey);
+            }
+         });
+      }
+
+      function FactionRestriction(factionKey)
+      {
+         InputValidator.validateNotNull("factionKey", factionKey);
+
+         var props = Faction.properties[factionKey];
+
+         return (
+         {
+            name: props.name + " only.",
+            passes: function(pilotKey)
+            {
+               var pilot = PilotCard.properties[pilotKey];
+               var myFactionKey = pilot.shipFaction.factionKey;
+               return myFactionKey === factionKey;
+            }
+         });
+      }
+
       function PilotCardSkillRestriction(pilotSkill)
       {
          InputValidator.validateNotNull("pilotSkill", pilotSkill);
@@ -31,20 +66,19 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
          });
       }
 
-      function ShipSizeRestriction(shipBaseKey)
+      function ShipGroupRestriction(name, shipKeys)
       {
-         InputValidator.validateNotNull("shipBaseKey", shipBaseKey);
-
-         var props = ShipBase.properties[shipBaseKey];
+         InputValidator.validateIsString("name", name);
+         InputValidator.validateIsArray("shipKeys", shipKeys);
 
          return (
          {
-            name: props.name + " only.",
+            name: name,
             passes: function(pilotKey)
             {
                var pilot = PilotCard.properties[pilotKey];
-               var myShipBaseKey = pilot.shipFaction.ship.shipBaseKey;
-               return myShipBaseKey === shipBaseKey;
+               var myShipKey = pilot.shipFaction.shipKey;
+               return shipKeys.includes(myShipKey);
             }
          });
       }
@@ -91,11 +125,28 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
          });
       }
 
-      function FactionRestriction(factionKey)
+      function ShipSizeGroupRestriction(name, shipBaseKeys)
       {
-         InputValidator.validateNotNull("factionKey", factionKey);
+         InputValidator.validateIsString("name", name);
+         InputValidator.validateIsArray("shipBaseKeys", shipBaseKeys);
 
-         var props = Faction.properties[factionKey];
+         return (
+         {
+            name: name,
+            passes: function(pilotKey)
+            {
+               var pilot = PilotCard.properties[pilotKey];
+               var myShipBaseKey = pilot.shipFaction.ship.shipBaseKey;
+               return shipBaseKeys.includes(myShipBaseKey);
+            }
+         });
+      }
+
+      function ShipSizeRestriction(shipBaseKey)
+      {
+         InputValidator.validateNotNull("shipBaseKey", shipBaseKey);
+
+         var props = ShipBase.properties[shipBaseKey];
 
          return (
          {
@@ -103,13 +154,19 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
             passes: function(pilotKey)
             {
                var pilot = PilotCard.properties[pilotKey];
-               var myFactionKey = pilot.shipFaction.factionKey;
-               return myFactionKey === factionKey;
+               var myShipBaseKey = pilot.shipFaction.ship.shipBaseKey;
+               return myShipBaseKey === shipBaseKey;
             }
          });
       }
 
       var UpgradeRestriction = {
+         // Faction specific.
+         IMPERIAL_ONLY: "imperialOnly",
+         REBEL_ONLY: "rebelOnly",
+         SCUM_ONLY: "scumOnly",
+         REBEL_AND_SCUM_ONLY: "rebelAndScumOnly",
+
          // PilotCard skill lower bound.
          PILOT_SKILL_ABOVE_1: "pilotSkillAbove1",
          PILOT_SKILL_ABOVE_2: "pilotSkillAbove2",
@@ -124,7 +181,6 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
          ATTACK_SHUTTLE_ONLY: "attackShuttleOnly",
          B_SF_17_BOMBER_ONLY: "bSf17BomberOnly",
          B_WING_ONLY: "bWingOnly",
-         C_ROC_CRUISER_AND_GR_75_ONLY: "cRocCruiserAndGr75Only",
          C_ROC_CRUISER_ONLY: "cRocCruiserOnly",
          CR90_CORVETTE_FORE_ONLY: "cr90CorvetteForeOnly",
          FIRESPRAY_31_ONLY: "firespray31Only",
@@ -162,29 +218,40 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
          UPSILON_CLASS_SHUTTLE_ONLY: "upsilonClassShuttleOnly",
          VCX_100_ONLY: "vcx100Only",
          VT_49_DECIMATOR_ONLY: "vt49DecimatorOnly",
-         X_WING_ONLY: "xWingOnly",
-         YT_1300_AND_YT_2400_ONLY: "yt1300AndYt2400Only",
          YT_1300_ONLY: "yt1300Only",
          YT_2400_ONLY: "yt2400Only",
          Y_WING_ONLY: "yWingOnly",
          YV_666_ONLY: "yv666Only",
+         C_ROC_CRUISER_AND_GR_75_ONLY: "cRocCruiserAndGr75Only",
+         TIE_ONLY: "tieOnly",
+         X_WING_ONLY: "xWingOnly",
+         YT_1300_AND_YT_2400_ONLY: "yt1300AndYt2400Only",
 
          // Ship size.
          HUGE_SHIP_ONLY: "hugeShipOnly",
          LARGE_SHIP_ONLY: "largeShipOnly",
          SMALL_SHIP_ONLY: "smallShipOnly",
-
-         // Faction specific.
-         IMPERIAL_ONLY: "imperialOnly",
-         REBEL_AND_SCUM_ONLY: "rebelAndScumOnly",
-         REBEL_ONLY: "rebelOnly",
-         SCUM_ONLY: "scumOnly",
+         SMALL_AND_LARGE_SHIP_ONLY: "smallAndLargeShipOnly",
 
          // Miscellaneous.
          LIMITED: "limited",
 
          properties:
          {
+            // Faction specific.
+            "imperialOnly": new FactionRestriction(Faction.IMPERIAL),
+            "rebelOnly": new FactionRestriction(Faction.REBEL),
+            "scumOnly": new FactionRestriction(Faction.SCUM),
+
+            "rebelAndScumOnly": new FactionGroupRestriction("Rebel and Scum only.", [Faction.REBEL, Faction.SCUM]),
+
+            // PilotCard skill lower bound.
+            "pilotSkillAbove1": new PilotCardSkillRestriction(1),
+            "pilotSkillAbove2": new PilotCardSkillRestriction(2),
+            "pilotSkillAbove3": new PilotCardSkillRestriction(3),
+            "pilotSkillAbove4": new PilotCardSkillRestriction(4),
+
+            // Ship specific.
             "alphaClassStarWingOnly": new ShipRestriction(Ship.ALPHA_CLASS_STAR_WING),
             "aWingOnly": new ShipRestriction(Ship.A_WING),
             "aggressorOnly": new ShipRestriction(Ship.AGGRESSOR),
@@ -192,72 +259,24 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
             "attackShuttleOnly": new ShipRestriction(Ship.ATTACK_SHUTTLE),
             "bSf17BomberOnly": new ShipRestriction(Ship.B_SF_17_BOMBER),
             "bWingOnly": new ShipRestriction(Ship.B_WING),
-            "cRocCruiserAndGr75Only":
-            {
-               name: "C-ROC Cruiser and GR-75 only.",
-               passes: function(pilotKey)
-               {
-                  var pilot = PilotCard.properties[pilotKey];
-                  var shipKey = pilot.shipFaction.shipKey;
-                  return shipKey === Ship.C_ROC_CRUISER || shipKey === Ship.GR_75_MEDIUM_TRANSPORT;
-               }
-            },
             "cRocCruiserOnly": new ShipRestriction(Ship.C_ROC_CRUISER),
             "cr90CorvetteForeOnly": new ShipRestriction("cr90Corvette.fore"),
             "firespray31Only": new ShipRestriction(Ship.FIRESPRAY_31),
             "g1AStarfighterOnly": new ShipRestriction(Ship.G_1A_STARFIGHTER),
             "gozantiClassCruiserOnly": new ShipRestriction(Ship.GOZANTI_CLASS_CRUISER),
             "gr75MediumTransportOnly": new ShipRestriction(Ship.GR_75_MEDIUM_TRANSPORT),
-            "hugeShipOnly":
-            {
-               name: "Huge ship only.",
-               passes: function(pilotKey)
-               {
-                  var pilot = PilotCard.properties[pilotKey];
-                  var shipBaseKey = pilot.shipFaction.ship.shipBaseKey;
-                  return ShipBase.isHuge(shipBaseKey);
-               }
-            },
             "hwk290Only": new ShipRestriction(Ship.HWK_290),
-            "imperialOnly": new FactionRestriction(Faction.IMPERIAL),
             "jumpMaster5000Only": new ShipRestriction(Ship.JUMP_MASTER_5000),
             "kihraxzFighterOnly": new ShipRestriction(Ship.KIHRAXZ_FIGHTER),
             "lambdaClassShuttleOnly": new ShipRestriction(Ship.LAMBDA_CLASS_SHUTTLE),
             "lancerClassPursuitCraftOnly": new ShipRestriction(Ship.LANCER_CLASS_PURSUIT_CRAFT),
-            "largeShipOnly": new ShipSizeRestriction(ShipBase.LARGE),
-            "limited":
-            {
-               name: "Limited.",
-               passes: function(pilotKey)
-               {
-                  // FIXME: implement Limited.passes()
-                  return true;
-               }
-            },
             "m12LKimogilaFighterOnly": new ShipRestriction(Ship.M12_L_KIMOGILA_FIGHTER),
             "m3AInterceptorOnly": new ShipRestriction(Ship.M3_A_INTERCEPTOR),
-            "pilotSkillAbove1": new PilotCardSkillRestriction(1),
-            "pilotSkillAbove2": new PilotCardSkillRestriction(2),
-            "pilotSkillAbove3": new PilotCardSkillRestriction(3),
-            "pilotSkillAbove4": new PilotCardSkillRestriction(4),
             "protectorateStarfighterOnly": new ShipRestriction(Ship.PROTECTORATE_STARFIGHTER),
             "quadjumperOnly": new ShipRestriction(Ship.QUADJUMPER),
             "raiderClassCorvetteAftOnly": new ShipRestriction("raiderClassCorvette.aft"),
-            "rebelAndScumOnly":
-            {
-               name: "Rebel and Scum only.",
-               passes: function(pilotKey)
-               {
-                  var pilot = PilotCard.properties[pilotKey];
-                  var factionKey = pilot.shipFaction.factionKey;
-                  return factionKey === Faction.REBEL || factionKey === Faction.SCUM;
-               }
-            },
-            "rebelOnly": new FactionRestriction(Faction.REBEL),
-            "scumOnly": new FactionRestriction(Faction.SCUM),
             "scurrgH6BomberOnly": new ShipRestriction(Ship.SCURRG_H_6_BOMBER),
             "sheathipedeClassShuttleOnly": new ShipRestriction(Ship.SHEATHIPEDE_CLASS_SHUTTLE),
-            "smallShipOnly": new ShipSizeRestriction(ShipBase.SMALL),
             "starViperOnly": new ShipRestriction(Ship.STAR_VIPER),
             "t70XWingOnly": new ShipRestriction(Ship.T_70_X_WING),
             "tieAdvancedOnly": new ShipRestriction(Ship.TIE_ADVANCED),
@@ -277,30 +296,52 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
             "upsilonClassShuttleOnly": new ShipRestriction(Ship.UPSILON_CLASS_SHUTTLE),
             "vcx100Only": new ShipRestriction(Ship.VCX_100),
             "vt49DecimatorOnly": new ShipRestriction(Ship.VT_49_DECIMATOR),
-            "xWingOnly":
-            {
-               name: "X-Wing only.",
-               passes: function(pilotKey)
-               {
-                  var pilot = PilotCard.properties[pilotKey];
-                  var shipKey = pilot.shipFaction.shipKey;
-                  return shipKey === Ship.X_WING || shipKey === Ship.T_70_X_WING;
-               }
-            },
-            "yt1300AndYt2400Only":
-            {
-               name: "YT-1300 and YT-2400 only.",
-               passes: function(pilotKey)
-               {
-                  var pilot = PilotCard.properties[pilotKey];
-                  var shipKey = pilot.shipFaction.shipKey;
-                  return shipKey === Ship.YT_1300 || shipKey === Ship.YT_2400;
-               }
-            },
             "yt1300Only": new ShipRestriction(Ship.YT_1300),
             "yt2400Only": new ShipRestriction(Ship.YT_2400),
             "yWingOnly": new ShipRestriction(Ship.Y_WING),
             "yv666Only": new ShipRestriction(Ship.YV_666),
+
+            "cRocCruiserAndGr75Only": new ShipGroupRestriction("C-ROC Cruiser and GR-75 only.", [Ship.C_ROC_CRUISER, Ship.GR_75_MEDIUM_TRANSPORT]),
+            "tieOnly":
+            {
+               name: "TIE only.",
+               passes: function(pilotKey)
+               {
+                  var pilot = PilotCard.properties[pilotKey];
+                  var shipKey = pilot.shipFaction.shipKey;
+                  return Ship.properties[shipKey].name.startsWith("TIE");
+               }
+            },
+            "xWingOnly": new ShipGroupRestriction("X-Wing only.", [Ship.X_WING, Ship.T_70_X_WING]),
+            "yt1300AndYt2400Only": new ShipGroupRestriction("YT-1300 and YT-2400 only.", [Ship.YT_1300, Ship.YT_2400]),
+
+            // Ship size.
+            "hugeShipOnly":
+            {
+               name: "Huge ship only.",
+               passes: function(pilotKey)
+               {
+                  var pilot = PilotCard.properties[pilotKey];
+                  var shipBaseKey = pilot.shipFaction.ship.shipBaseKey;
+                  return ShipBase.isHuge(shipBaseKey);
+               }
+            },
+            "largeShipOnly": new ShipSizeRestriction(ShipBase.LARGE),
+            "smallShipOnly": new ShipSizeRestriction(ShipBase.SMALL),
+
+            "smallAndLargeShipOnly": new ShipSizeGroupRestriction("Small and large ship only.", [ShipBase.SMALL, ShipBase.LARGE]),
+
+            // Miscellaneous.
+            "limited":
+            {
+               name: "Limited.",
+               passes: function( /* pilotKey */ )
+               {
+                  // FIXME: implement Limited.passes()
+                  return true;
+               }
+            },
+
          },
       };
 
