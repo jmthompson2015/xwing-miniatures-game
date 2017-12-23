@@ -21,7 +21,7 @@ define(["redux", "common/js/InputValidator",
          PhaseObserver.observeStore(store);
 
          var adjudicator = Adjudicator.create(store);
-         var engine = new Engine(environment, adjudicator, delayIn);
+         var engine = new Engine(store, delayIn);
 
          this.adjudicator = function()
          {

@@ -4,24 +4,22 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
   "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseAction", "model/js/PlanningAction"],
    function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseAction, PlanningAction)
    {
-      function Engine(environment, adjudicator, delayIn)
+      function Engine(store, delayIn)
       {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("adjudicator", adjudicator);
+         InputValidator.validateNotNull("store", store);
          // delayIn optional.
 
          this.environment = function()
          {
-            return environment;
+            return store.getState().environment;
          };
 
          this.adjudicator = function()
          {
-            return adjudicator;
+            return store.getState().adjudicator;
          };
 
          var delay = (delayIn !== undefined ? delayIn : 1000);
-         var store = environment.store();
 
          var firstTokenToManeuver;
          var secondTokenToManeuver;
