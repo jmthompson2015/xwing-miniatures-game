@@ -5,14 +5,11 @@ define(["immutable", "common/js/InputValidator",
   "model/js/Action", "model/js/CardAction", "model/js/ManeuverAction"],
    function(Immutable, InputValidator, Difficulty, Event, Maneuver, Phase, Action, CardAction, ManeuverAction)
    {
-      function ActivationAction(store, tokenId, callback, delayIn)
+      function ActivationAction(store, tokenId, callback)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateIsNumber("tokenId", tokenId);
          InputValidator.validateNotNull("callback", callback);
-         // delayIn optional. default: 1000 ms
-
-         var delay = (delayIn !== undefined ? delayIn : 1000);
 
          this.store = function()
          {
@@ -28,19 +25,14 @@ define(["immutable", "common/js/InputValidator",
          {
             return callback;
          };
-
-         this.delay = function()
-         {
-            return delay;
-         };
       }
 
       //////////////////////////////////////////////////////////////////////////
       // Creation methods.
 
-      ActivationAction.create = function(store, tokenId, callback, delay)
+      ActivationAction.create = function(store, tokenId, callback)
       {
-         var activationAction = new ActivationAction(store, tokenId, callback, delay);
+         var activationAction = new ActivationAction(store, tokenId, callback);
 
          activationAction._save();
 
@@ -55,6 +47,13 @@ define(["immutable", "common/js/InputValidator",
          var store = this.store();
 
          return store.getState().adjudicator;
+      };
+
+      ActivationAction.prototype.delay = function()
+      {
+         var store = this.store();
+
+         return store.getState().delay;
       };
 
       ActivationAction.prototype.environment = function()
@@ -374,13 +373,11 @@ define(["immutable", "common/js/InputValidator",
          var store = this.store();
          var tokenId = this.tokenId();
          var callback = this.callback();
-         var delay = this.delay();
 
          var values = Immutable.Map(
          {
             tokenId: tokenId,
             callback: callback,
-            delay: delay,
          });
 
          store.dispatch(Action.setTokenActivationAction(tokenId, values));
@@ -401,9 +398,8 @@ define(["immutable", "common/js/InputValidator",
          if (values !== undefined)
          {
             var callback = values.get("callback");
-            var delay = values.get("delay");
 
-            answer = new ActivationAction(store, tokenId, callback, delay);
+            answer = new ActivationAction(store, tokenId, callback);
          }
 
          return answer;

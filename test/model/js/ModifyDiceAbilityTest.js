@@ -187,7 +187,7 @@ define(["qunit", "artifact/js/DiceModification",
          store.dispatch(Action.setTokenDefenseDice(attacker.id(), (new MockDefenseDice(store, attacker.id())).values()));
          store.dispatch(Action.setTokenInFiringArc(attacker, true));
 
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, undefined, MockAttackDice, MockDefenseDice);
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
          store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
 
          return environment;

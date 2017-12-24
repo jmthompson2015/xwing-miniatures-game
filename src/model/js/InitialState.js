@@ -6,6 +6,7 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
    {
       this.adjudicator = undefined;
       this.environment = undefined;
+      this.delay = 1000;
       this.eventData = undefined;
       this.eventQueue = Immutable.List();
       this.isGameOver = false;

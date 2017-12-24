@@ -5,14 +5,13 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
    function(InputValidator, Phase, PilotCard, UpgradeCard,
       Action, AttackDice, CardAction, DamageDealer, DefenseDice, RangeRuler, Selector, ShipDestroyedAction)
    {
-      function CombatAction(store, attacker, weapon, defender, callback, delayIn, attackDiceClassIn, defenseDiceClassIn)
+      function CombatAction(store, attacker, weapon, defender, callback, attackDiceClassIn, defenseDiceClassIn)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("attacker", attacker);
          InputValidator.validateNotNull("weapon", weapon);
          InputValidator.validateNotNull("defender", defender);
          InputValidator.validateNotNull("callback", callback);
-         // delayIn optional.
          // attackDiceClassIn optional.
          // defenseDiceClassIn optional.
 
@@ -21,7 +20,6 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
             throw "ERROR: attacker === defender when creating CombatAction " + attacker;
          }
 
-         var delay = (delayIn !== undefined ? delayIn : 1000);
          var attackDiceClass = (attackDiceClassIn ? attackDiceClassIn : AttackDice);
          var defenseDiceClass = (defenseDiceClassIn ? defenseDiceClassIn : DefenseDice);
 
@@ -48,11 +46,6 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          this.callback = function()
          {
             return callback;
-         };
-
-         this.delay = function()
-         {
-            return delay;
          };
 
          this.attackDiceClass = function()
@@ -101,6 +94,13 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          var environment = this.environment();
          var defender = this.defender();
          return environment.getPositionFor(defender);
+      };
+
+      CombatAction.prototype.delay = function()
+      {
+         var store = this.store();
+
+         return store.getState().delay;
       };
 
       CombatAction.prototype.environment = function()

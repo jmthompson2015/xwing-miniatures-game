@@ -114,8 +114,8 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/Phase",
          };
 
          environment.setActiveToken(token);
-
-         ActivationAction.create(store, token.id(), callback, delay);
+         store.dispatch(Action.setDelay(delay));
+         ActivationAction.create(store, token.id(), callback);
          var maneuver = Maneuver.properties[maneuverKey];
          store.dispatch(Action.setTokenManeuver(token, maneuver));
 

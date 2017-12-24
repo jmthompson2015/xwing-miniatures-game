@@ -71,8 +71,8 @@
 				environment.setActiveToken(attacker);
 				var weapon = attacker.primaryWeapon();
 				var callback = function() {};
-				var delayIn = 10;
-				var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delayIn, MockAttackDice, MockDefenseDice);
+				store.dispatch(Action.setDelay(10));
+				var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
 				store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
 				var modifications1 = [new Ability(DiceModification, DiceModification.DEFENSE_SPEND_EVADE, ModifyDiceAbility, ModifyDiceAbility.DEFENSE_KEY)];
 

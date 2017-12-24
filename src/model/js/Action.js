@@ -15,6 +15,7 @@ define(["common/js/InputValidator"], function(InputValidator)
    Action.INCREMENT_NEXT_TARGET_LOCK_ID = "incrementNextTargetLockId";
    Action.REMOVE_TARGET_LOCK = "removeTargetLock";
    Action.SET_ADJUDICATOR = "setAdjudicator";
+   Action.SET_DELAY = "setDelay";
    Action.SET_ENVIRONMENT = "setEnvironment";
    Action.SET_GAME_OVER = "setGameOver";
    Action.SET_RESOURCE_BASE = "setResourceBase";
@@ -147,6 +148,17 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          type: Action.SET_ADJUDICATOR,
          adjudicator: adjudicator,
+      });
+   };
+
+   Action.setDelay = function(delay)
+   {
+      InputValidator.validateIsNumber("delay", delay);
+
+      return (
+      {
+         type: Action.SET_DELAY,
+         delay: delay,
       });
    };
 

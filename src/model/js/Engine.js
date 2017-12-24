@@ -4,22 +4,14 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
   "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseAction", "model/js/PlanningAction"],
    function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseAction, PlanningAction)
    {
-      function Engine(store, delayIn, callback)
+      function Engine(store, callback)
       {
          InputValidator.validateNotNull("store", store);
-         // delayIn optional.
          // callback optional.
 
          this.store = function()
          {
             return store;
-         };
-
-         var delay = (delayIn !== undefined ? delayIn : 1000);
-
-         this.delay = function()
-         {
-            return delay;
          };
 
          this.callback = function()
@@ -162,6 +154,13 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
          var store = this.store();
 
          return store.getState().adjudicator;
+      };
+
+      Engine.prototype.delay = function()
+      {
+         var store = this.store();
+
+         return store.getState().delay;
       };
 
       Engine.prototype.environment = function()
@@ -368,7 +367,7 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             maneuverKey = this.secondTokenToManeuver()[myToken];
          }
 
-         var activationAction = ActivationAction.create(store, token.id(), this.processActivationQueue.bind(this), this.delay());
+         var activationAction = ActivationAction.create(store, token.id(), this.processActivationQueue.bind(this));
          var maneuver = Maneuver.properties[maneuverKey];
          store.dispatch(Action.setTokenManeuver(token, maneuver));
 
@@ -460,7 +459,7 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
                var store = this.store();
                store.dispatch(Action.setUserMessage(attacker + " fires upon " + defender));
 
-               var combatAction = new CombatAction(store, attacker, weapon, defender, this.processCombatQueue.bind(this), this.delay());
+               var combatAction = new CombatAction(store, attacker, weapon, defender, this.processCombatQueue.bind(this));
 
                setTimeout(function()
                {

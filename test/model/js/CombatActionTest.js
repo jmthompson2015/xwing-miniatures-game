@@ -5,10 +5,10 @@
 
 define(["qunit", "redux",
   "artifact/js/DamageCard", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Faction", "artifact/js/UpgradeCard",
-   "model/js/Ability", "model/js/Adjudicator", "model/js/Agent", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/Selector", "model/js/Squad", "model/js/TargetLock", "model/js/CardInstance", "model/js/CardAction", "model/js/UpgradeAbility3",
+   "model/js/Ability", "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/AttackDice", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/Selector", "model/js/Squad", "model/js/TargetLock", "model/js/CardInstance", "model/js/CardAction", "model/js/UpgradeAbility3",
    "../../../test/model/js/MockAttackDice", "../../../test/model/js/MockDefenseDice"],
    function(QUnit, Redux, DamageCard, Phase, PilotCard, Faction, UpgradeCard,
-      Ability, Adjudicator, Agent, AttackDice, CombatAction, DefenseDice, Environment, EnvironmentAction, EventObserver, PhaseObserver, Position, Reducer, Selector, Squad, TargetLock, CardInstance, CardAction, UpgradeAbility3,
+      Ability, Action, Adjudicator, Agent, AttackDice, CombatAction, DefenseDice, Environment, EnvironmentAction, EventObserver, PhaseObserver, Position, Reducer, Selector, Squad, TargetLock, CardInstance, CardAction, UpgradeAbility3,
       MockAttackDice, MockDefenseDice)
    {
       QUnit.module("CombatAction-1");
@@ -397,7 +397,8 @@ define(["qunit", "redux",
          };
          TargetLock.newInstance(store, attacker, defender);
          environment.setActiveToken(attacker);
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
          assert.ok(attacker.isUpgradedWith(upgradeKey));
          assert.equal(attacker.secondaryWeapons().length, 1);
          assert.equal(defender.shieldCount(), 4);
@@ -462,7 +463,8 @@ define(["qunit", "redux",
             done();
          };
          environment.setActiveToken(attacker);
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delay, undefined, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, undefined, MockDefenseDice);
          assert.ok(attacker.isUpgradedWith(upgradeKey));
          assert.equal(attacker.secondaryWeapons().length, 1);
 
@@ -598,7 +600,9 @@ define(["qunit", "redux",
             LOGGER.info("callback() start");
          });
 
-         return new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+
+         return new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
       }
 
       function createCombatActionRange2(upgradeKey, callback0)

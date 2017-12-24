@@ -44,6 +44,7 @@ define(["qunit", "redux",
          var agent2 = new Agent(store, "2");
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
+         store.dispatch(Action.setDelay(delay));
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          Adjudicator.create(store);
          var token = environment.pilotInstances()[0]; // Gozanti-class Cruiser
@@ -73,7 +74,7 @@ define(["qunit", "redux",
 
             done();
          };
-         var action = ActivationAction.create(store, token.id(), callback, delay);
+         var action = ActivationAction.create(store, token.id(), callback);
          var maneuver = Maneuver.properties[maneuverKey];
          store.dispatch(Action.setTokenManeuver(token, maneuver));
          var position = environment.getPositionFor(token);
@@ -152,6 +153,7 @@ define(["qunit", "redux",
          var agent2 = new Agent(store, "2");
          var squad1 = squadBuilder1.buildSquad(agent1);
          var squad2 = squadBuilder2.buildSquad(agent2);
+         store.dispatch(Action.setDelay(delay));
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          Adjudicator.create(store);
          var token = environment.pilotInstances()[2]; // Lambda-class Shuttle
@@ -178,7 +180,7 @@ define(["qunit", "redux",
 
             done();
          };
-         var action = ActivationAction.create(store, token.id(), callback, delay);
+         var action = ActivationAction.create(store, token.id(), callback);
          action.performAction = function()
          {
             // Skip the ship action.
@@ -372,6 +374,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          Adjudicator.create(store);
+         store.dispatch(Action.setDelay(delay));
          var token = environment.pilotInstances()[2]; // X-Wing
          var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
          var callback = function()
@@ -395,7 +398,7 @@ define(["qunit", "redux",
 
             done();
          };
-         var action = ActivationAction.create(store, token.id(), callback, delay);
+         var action = ActivationAction.create(store, token.id(), callback);
          var maneuver = Maneuver.properties[maneuverKey];
          store.dispatch(Action.setTokenManeuver(token, maneuver));
          var position = environment.getPositionFor(token);
@@ -414,6 +417,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var store = environment.store();
          Adjudicator.create(store);
+         store.dispatch(Action.setDelay(delay));
          var token = environment.pilotInstances()[2]; // X-Wing
          var maneuverKey = Maneuver.KOIOGRAN_TURN_4_HARD;
          var callback = function()
@@ -436,7 +440,7 @@ define(["qunit", "redux",
 
             done();
          };
-         var action = ActivationAction.create(store, token.id(), callback, delay);
+         var action = ActivationAction.create(store, token.id(), callback);
          action.performAction = function()
          {
             // Skip the ship action.
@@ -480,7 +484,8 @@ define(["qunit", "redux",
             LOGGER.info("callback() start");
          });
 
-         var answer = ActivationAction.create(store, token.id(), callback, delay);
+         store.dispatch(Action.setDelay(delay));
+         var answer = ActivationAction.create(store, token.id(), callback);
          var maneuver = Maneuver.properties[myManeuverKey];
          store.dispatch(Action.setTokenManeuver(token, maneuver));
          return answer;

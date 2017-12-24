@@ -11,6 +11,8 @@ define(["qunit", "redux", "common/js/ArrayAugments",
    {
       QUnit.module("SimpleAgent");
 
+      var delay = 10;
+
       QUnit.test("properties", function(assert)
       {
          // Setup.
@@ -154,8 +156,8 @@ define(["qunit", "redux", "common/js/ArrayAugments",
          environment.setActiveToken(attacker);
          var weapon = attacker.primaryWeapon();
          var callback = function() {};
-         var delayIn = 10;
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delayIn, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
          store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
 
          // Run.
@@ -315,7 +317,8 @@ define(["qunit", "redux", "common/js/ArrayAugments",
          var defender = environment.pilotInstances()[2]; // X-Wing
          var weapon = attacker.primaryWeapon();
          var caCallback = function() {};
-         var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, undefined, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, MockAttackDice, MockDefenseDice);
          var agent = attacker.agent();
          environment.setActiveToken(attacker);
          store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
@@ -344,7 +347,8 @@ define(["qunit", "redux", "common/js/ArrayAugments",
          var defender = environment.pilotInstances()[0]; // TIE Fighter
          var weapon = attacker.primaryWeapon();
          var caCallback = function() {};
-         var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, undefined, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, MockAttackDice, MockDefenseDice);
          var agent = defender.agent();
          environment.setActiveToken(attacker);
          store.dispatch(Action.setTokenCombatAction(attacker, combatAction));

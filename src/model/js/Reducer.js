@@ -200,6 +200,12 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "art
                   {
                      adjudicator: action.adjudicator,
                   });
+               case Action.SET_DELAY:
+                  return Object.assign(
+                  {}, state,
+                  {
+                     delay: action.delay,
+                  });
                case Action.SET_ENVIRONMENT:
                   return Object.assign(
                   {}, state,

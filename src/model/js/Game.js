@@ -20,8 +20,13 @@ define(["redux", "common/js/InputValidator",
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
 
+         if (delayIn !== undefined)
+         {
+            store.dispatch(Action.setDelay(delayIn));
+         }
+
          var adjudicator = Adjudicator.create(store);
-         var engine = new Engine(store, delayIn);
+         var engine = new Engine(store);
 
          this.adjudicator = function()
          {

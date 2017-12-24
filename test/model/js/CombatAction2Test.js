@@ -45,7 +45,8 @@ define(["qunit", "redux",
             LOGGER.info("callback() start");
          };
          environment.setActiveToken(attacker);
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
          combatAction.rollDefenseDice = function()
          {
             var callback = this.callback();
@@ -94,7 +95,8 @@ define(["qunit", "redux",
             LOGGER.info("callback() start");
          };
          environment.setActiveToken(attacker);
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
          combatAction.compareResults = function()
          {
             var callback = this.callback();
@@ -155,7 +157,8 @@ define(["qunit", "redux",
             done();
          };
          environment.setActiveToken(attacker);
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
 
          // Run.
          var done = assert.async();
@@ -601,7 +604,8 @@ define(["qunit", "redux",
             done();
          };
          environment.setActiveToken(attacker);
-         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+         var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
 
          // Run.
          var done = assert.async();
@@ -665,7 +669,9 @@ define(["qunit", "redux",
             LOGGER.info("callback() start");
          });
 
-         return new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+
+         return new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
       }
 
       function createCombatActionRange2(upgradeKey, callback0)
@@ -714,7 +720,9 @@ define(["qunit", "redux",
             LOGGER.info("callback() start");
          });
 
-         return new CombatAction(store, attacker, weapon, defender, callback, delay, MockAttackDice, MockDefenseDice);
+         store.dispatch(Action.setDelay(delay));
+
+         return new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
       }
 
       function verifyAttackDice(assert, attackDice)

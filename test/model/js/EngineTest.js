@@ -63,7 +63,8 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var squad2 = squadBuilder2.buildSquad(agent2);
          var environment = new Environment(store, agent1, squad1, agent2, squad2);
          Adjudicator.create(store);
-         var engine = new Engine(store, delay);
+         store.dispatch(Action.setDelay(delay));
+         var engine = new Engine(store);
          var token0 = environment.pilotInstances()[0]; // TIE Phantom
          EventObserver.observeStore(store);
          PhaseObserver.observeStore(store);
@@ -369,8 +370,9 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
          store.dispatch(Action.setAdjudicator(adjudicator));
+         store.dispatch(Action.setDelay(delay));
 
-         return new Engine(store, delay);
+         return new Engine(store);
       }
 
       function createEngineEpsilonLeader()
@@ -379,7 +381,8 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          var store = environment.store();
          var adjudicator = Adjudicator.create(store);
          store.dispatch(Action.setAdjudicator(adjudicator));
+         store.dispatch(Action.setDelay(delay));
 
-         return new Engine(store, delay);
+         return new Engine(store);
       }
    });

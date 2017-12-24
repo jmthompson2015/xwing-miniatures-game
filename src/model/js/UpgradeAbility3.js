@@ -942,8 +942,7 @@ define(["common/js/InputValidator",
          {
             if (defender)
             {
-               var delay = getCombatAction(token).delay();
-               var combatAction = new CombatAction(store, token, weapon, defender, callback, delay);
+               var combatAction = new CombatAction(store, token, weapon, defender, callback);
                combatAction.doIt();
             }
             else
