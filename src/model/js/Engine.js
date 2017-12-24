@@ -4,22 +4,28 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
   "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseAction", "model/js/PlanningAction"],
    function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseAction, PlanningAction)
    {
-      function Engine(store, delayIn)
+      function Engine(store, delayIn, callback)
       {
          InputValidator.validateNotNull("store", store);
          // delayIn optional.
+         // callback optional.
 
-         this.environment = function()
+         this.store = function()
          {
-            return store.getState().environment;
-         };
-
-         this.adjudicator = function()
-         {
-            return store.getState().adjudicator;
+            return store;
          };
 
          var delay = (delayIn !== undefined ? delayIn : 1000);
+
+         this.delay = function()
+         {
+            return delay;
+         };
+
+         this.callback = function()
+         {
+            return callback;
+         };
 
          var firstTokenToManeuver;
          var secondTokenToManeuver;
@@ -33,19 +39,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
          var activationPhaseCallback = this.performCombatPhase.bind(this);
          var combatPhaseCallback = this.performEndPhase.bind(this);
          var endPhaseCallback = this.performPlanningPhase.bind(this);
-
-         //////////////////////////////////////////////////////////////////////////
-         // Accessor methods.
-
-         this.delay = function()
-         {
-            return delay;
-         };
-
-         this.store = function()
-         {
-            return store;
-         };
 
          //////////////////////////////////////////////////////////////////////////
          // Mutator methods.
@@ -162,6 +155,23 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
       }
 
       //////////////////////////////////////////////////////////////////////////
+      // Accessor methods.
+
+      Engine.prototype.adjudicator = function()
+      {
+         var store = this.store();
+
+         return store.getState().adjudicator;
+      };
+
+      Engine.prototype.environment = function()
+      {
+         var store = this.store();
+
+         return store.getState().environment;
+      };
+
+      //////////////////////////////////////////////////////////////////////////
       // Behavior methods.
 
       Engine.prototype.performPlanningPhase = function(planningCallback, activationCallback)
@@ -179,7 +189,11 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             this.activationPhaseCallback(activationCallback);
          }
 
-         if (!this.isGameOver())
+         if (this.isGameOver())
+         {
+            this.processGameOver();
+         }
+         else
          {
             LOGGER.trace("Engine.performPlanningPhase() start");
 
@@ -198,10 +212,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             secondPlanningAction.doIt();
 
             // Wait for agents to respond.
-         }
-         else
-         {
-            this.planningPhaseCallback()();
          }
       };
 
@@ -237,7 +247,11 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
       Engine.prototype.performActivationPhase = function()
       {
-         if (!this.isGameOver())
+         if (this.isGameOver())
+         {
+            this.processGameOver();
+         }
+         else
          {
             LOGGER.trace("Engine.performActivationPhase() start");
             var store = this.store();
@@ -376,16 +390,16 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
          var environment = this.environment();
 
-         if (!this.isGameOver())
+         if (this.isGameOver())
+         {
+            this.processGameOver();
+         }
+         else
          {
             LOGGER.trace("Engine.performCombatPhase() start");
             this.combatQueue(environment.getTokensForCombat());
             var processCombatQueue = this.processCombatQueue.bind(this);
             this.startOrEndPhase(Phase.COMBAT_START, processCombatQueue);
-         }
-         else
-         {
-            this.combatPhaseCallback()();
          }
       };
 
@@ -468,7 +482,11 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             this.endPhaseCallback(callback);
          }
 
-         if (!this.isGameOver())
+         if (this.isGameOver())
+         {
+            this.processGameOver();
+         }
+         else
          {
             LOGGER.trace("Engine.performEndPhase() start");
             var store = this.store();
@@ -477,10 +495,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             var environment = this.environment();
             this.endQueue(environment.getTokensForCombat());
             this.processEndQueue();
-         }
-         else
-         {
-            this.endPhaseCallback()();
          }
       };
 
@@ -558,27 +572,28 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
       Engine.prototype.isGameOver = function()
       {
+         return this.adjudicator().isGameOver();
+      };
+
+      Engine.prototype.processGameOver = function()
+      {
+         LOGGER.info("Game over.");
+
+         var environment = this.environment();
+         var adjudicator = this.adjudicator();
+         var winner = adjudicator.determineWinner(environment);
          var store = this.store();
-         var answer = store.getState().isGameOver;
+         store.dispatch(Action.setGameOver(winner));
 
-         if (!answer)
+         var message = (winner === undefined ? "Game is a draw." : winner.name() + " won! ");
+         store.dispatch(Action.setUserMessage(message));
+
+         var callback = this.callback();
+
+         if (callback)
          {
-            var environment = this.environment();
-            var adjudicator = this.adjudicator();
-            answer = adjudicator.isGameOver(environment);
-
-            if (answer)
-            {
-               LOGGER.debug("adjudicator.isGameOver() ? " + adjudicator.isGameOver(environment));
-               var winner = adjudicator.determineWinner(environment);
-               store.dispatch(Action.setGameOver(winner));
-
-               var message = (winner === undefined ? "Game is a draw." : winner.name() + " won! ");
-               store.dispatch(Action.setUserMessage(message));
-            }
+            callback();
          }
-
-         return answer;
       };
 
       return Engine;
