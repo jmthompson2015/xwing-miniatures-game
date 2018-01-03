@@ -25,7 +25,7 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.firstSquad = undefined;
       this.playAreaScale = 1.0;
       this.playFormatKey = undefined;
-      this.positionToCardId = {};
+      this.positionToCardId = Immutable.Map();
       this.round = 0;
       this.secondAgent = undefined;
       this.secondSquad = undefined;
@@ -59,7 +59,7 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.cardIsTouching = {};
       this.cardManeuver = {};
       this.cardManeuverAction = {};
-      this.cardPosition = {};
+      this.cardPosition = Immutable.Map();
       this.cardRange = {};
       this.cardUpgrades = Immutable.Map();
       this.cardUsedAbilities = Immutable.Map();

@@ -270,7 +270,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          }
          else
          {
-            answer = store.getState().cardPosition[token.id()];
+            answer = store.getState().cardPosition.get(token.id());
          }
 
          return answer;
@@ -320,7 +320,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
          var store = this.store();
          var answer;
-         var tokenId = store.getState().positionToCardId[position];
+         var tokenId = store.getState().positionToCardId.get(position.toString());
 
          if (tokenId !== undefined)
          {

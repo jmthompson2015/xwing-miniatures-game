@@ -37,7 +37,7 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                   damageDeck: newDamages,
                });
             case EnvironmentAction.MOVE_TOKEN:
-               var tokenId = state.positionToCardId[action.fromPosition];
+               var tokenId = state.positionToCardId.get(action.fromPosition.toString());
                action.id = tokenId;
                newPositionToTokenId = EnvironmentReducer.positionToCardId(state.positionToCardId, action);
                newTokenIdToData = EnvironmentReducer.cardPosition(state.cardPosition, action);
@@ -61,7 +61,7 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
             case EnvironmentAction.REMOVE_TOKEN:
                newTokenIdToData = EnvironmentReducer.cardPosition(state.cardPosition, action);
                newTokens = EnvironmentReducer.tokens(state.cardInstances, action);
-               var position = state.cardPosition[action.token.id()];
+               var position = state.cardPosition.get(action.token.id());
                if (position)
                {
                   action2 = EnvironmentAction.removeTokenAt(position);
@@ -86,7 +86,7 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                return state;
             case EnvironmentAction.REMOVE_TOKEN_AT:
                // LOGGER.info("EnvironmentReducer REMOVE_TOKEN_AT state.positionToCardId[action.position] = " + state.positionToCardId[action.position]);
-               tokenId = state.positionToCardId[action.position];
+               tokenId = state.positionToCardId.get(action.position.toString());
                if (tokenId !== undefined)
                {
                   tokenId = parseInt(tokenId);
@@ -188,21 +188,12 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
          switch (action.type)
          {
             case EnvironmentAction.MOVE_TOKEN:
-               newPositionToTokenId = Object.assign(
-               {}, state);
-               delete newPositionToTokenId[action.fromPosition];
-               newPositionToTokenId[action.toPosition] = action.id;
-               return newPositionToTokenId;
+               newPositionToTokenId = state.delete(action.fromPosition.toString());
+               return newPositionToTokenId.set(action.toPosition.toString(), action.id);
             case EnvironmentAction.PLACE_TOKEN:
-               newPositionToTokenId = Object.assign(
-               {}, state);
-               newPositionToTokenId[action.position] = action.token.id();
-               return newPositionToTokenId;
+               return state.set(action.position.toString(), action.token.id());
             case EnvironmentAction.REMOVE_TOKEN_AT:
-               newPositionToTokenId = Object.assign(
-               {}, state);
-               delete newPositionToTokenId[action.position];
-               return newPositionToTokenId;
+               return state.delete(action.position.toString());
             default:
                LOGGER.warn("EnvironmentReducer.positionToCardId: Unhandled action type: " + action.type);
                return state;
@@ -213,25 +204,14 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
       {
          LOGGER.debug("EnvironmentReducer.cardPosition() type = " + action.type);
 
-         var newTokenIdToPosition;
-
          switch (action.type)
          {
             case EnvironmentAction.MOVE_TOKEN:
-               newTokenIdToPosition = Object.assign(
-               {}, state);
-               newTokenIdToPosition[action.id] = action.toPosition;
-               return newTokenIdToPosition;
+               return state.set(action.id, action.toPosition);
             case EnvironmentAction.PLACE_TOKEN:
-               newTokenIdToPosition = Object.assign(
-               {}, state);
-               newTokenIdToPosition[action.token.id()] = action.position;
-               return newTokenIdToPosition;
+               return state.set(action.token.id(), action.position);
             case EnvironmentAction.REMOVE_TOKEN:
-               newTokenIdToPosition = Object.assign(
-               {}, state);
-               delete newTokenIdToPosition[action.token.id()];
-               return newTokenIdToPosition;
+               return state.delete(action.token.id());
             default:
                LOGGER.warn("EnvironmentReducer.cardPosition: Unhandled action type: " + action.type);
                return state;
