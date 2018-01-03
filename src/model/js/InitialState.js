@@ -46,21 +46,21 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
 
       // CardInstance.
       this.nextCardId = 1;
-      this.cardActivationAction = {};
-      this.cardAttackDice = {};
-      this.cardCombatAction = {};
+      this.cardActivationAction = Immutable.Map();
+      this.cardAttackDice = Immutable.Map();
+      this.cardCombatAction = Immutable.Map();
       this.cardCounts = Immutable.Map();
-      this.cardDamageDealer = {};
+      this.cardDamageDealer = Immutable.Map();
       this.cardDamages = Immutable.Map();
-      this.cardDefenseDice = {};
-      this.cardIsDefenderHit = {};
+      this.cardDefenseDice = Immutable.Map();
+      this.cardIsDefenderHit = Immutable.Map();
       this.cardIsFaceUp = Immutable.Map();
-      this.cardIsInFiringArc = {};
-      this.cardIsTouching = {};
-      this.cardManeuver = {};
-      this.cardManeuverAction = {};
+      this.cardIsInFiringArc = Immutable.Map();
+      this.cardIsTouching = Immutable.Map();
+      this.cardManeuver = Immutable.Map();
+      this.cardManeuverAction = Immutable.Map();
       this.cardPosition = Immutable.Map();
-      this.cardRange = {};
+      this.cardRange = Immutable.Map();
       this.cardUpgrades = Immutable.Map();
       this.cardUsedAbilities = Immutable.Map();
       this.cardUsedPerRoundAbilities = Immutable.Map();

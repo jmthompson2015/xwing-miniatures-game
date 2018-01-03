@@ -105,7 +105,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
       {
          var store = this.store();
          var attackerId = this.attackerId();
-         var answer = store.getState().cardAttackDice[attackerId];
+         var answer = store.getState().cardAttackDice.get(attackerId);
 
          return (answer !== undefined ? answer : []);
       };

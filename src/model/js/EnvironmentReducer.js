@@ -158,14 +158,10 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                   secondSquad: action.squad,
                });
             case EnvironmentAction.SET_TOKEN_TOUCHING:
-               // newTokenIdToData = EnvironmentReducer.tokenIdToData(state.cardIsTouching, Action.SET_TOKEN_TOUCHING, action.type, action.token.id(), action.isTouching);
-               newTokenIdToData = Object.assign(
-               {}, state.cardIsTouching);
-               newTokenIdToData[action.token.id()] = action.isTouching;
                return Object.assign(
                {}, state,
                {
-                  cardIsTouching: newTokenIdToData,
+                  cardIsTouching: state.cardIsTouching.set(action.token.id(), action.isTouching),
                });
             default:
                LOGGER.warn("EnvironmentReducer.reduce: Unhandled action type: " + action.type);

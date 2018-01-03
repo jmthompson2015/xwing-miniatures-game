@@ -14,7 +14,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.cardCombatAction[token.id()];
+      return state.cardCombatAction.get(token.id());
    };
 
    Selector.damageDealer = function(state, attacker)
@@ -22,7 +22,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("attacker", attacker);
 
-      return state.cardDamageDealer[attacker.id()];
+      return state.cardDamageDealer.get(attacker.id());
    };
 
    Selector.environment = function(state)
@@ -35,7 +35,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.cardIsDefenderHit[token.id()];
+      return state.cardIsDefenderHit.get(token.id());
    };
 
    Selector.isInFiringArc = function(state, token)
@@ -43,7 +43,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.cardIsInFiringArc[token.id()];
+      return state.cardIsInFiringArc.get(token.id());
    };
 
    Selector.maneuver = function(state, token)
@@ -51,7 +51,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("token", token);
 
-      return state.cardManeuver[token.id()];
+      return state.cardManeuver.get(token.id());
    };
 
    Selector.rangeKey = function(state, attacker)
@@ -59,7 +59,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       InputValidator.validateNotNull("state", state);
       InputValidator.validateNotNull("attacker", attacker);
 
-      return state.cardRange[attacker.id()];
+      return state.cardRange.get(attacker.id());
    };
 
    if (Object.freeze)

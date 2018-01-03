@@ -309,18 +309,18 @@ define(["qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-         assert.ok(!store.getState().cardIsTouching[token.id()]);
+         assert.ok(!store.getState().cardIsTouching.get(token.id()));
 
          // Run.
          store.dispatch(EnvironmentAction.setTokenTouching(token, true));
 
          // Verify.
-         assert.equal(store.getState().cardIsTouching[token.id()], true);
+         assert.equal(store.getState().cardIsTouching.get(token.id()), true);
 
          // Run.
          store.dispatch(EnvironmentAction.setTokenTouching(token, false));
 
          // Verify.
-         assert.equal(store.getState().cardIsTouching[token.id()], false);
+         assert.equal(store.getState().cardIsTouching.get(token.id()), false);
       });
    });

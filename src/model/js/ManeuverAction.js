@@ -286,7 +286,7 @@ define(["immutable", "common/js/InputValidator",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateIsNumber("tokenId", tokenId);
 
-         var values = store.getState().cardManeuverAction[tokenId];
+         var values = store.getState().cardManeuverAction.get(tokenId);
          var answer;
 
          if (values !== undefined)

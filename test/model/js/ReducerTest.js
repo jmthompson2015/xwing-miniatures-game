@@ -248,14 +248,14 @@ define(["immutable", "qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var activationAction = {};
-         assert.ok(!store.getState().cardActivationAction[token.id()]);
+         assert.ok(!store.getState().cardActivationAction.get(token.id()));
 
          // Run.
          store.dispatch(Action.setTokenActivationAction(token.id(), activationAction));
 
          // Verify.
-         assert.ok(store.getState().cardActivationAction[token.id()]);
-         assert.equal(store.getState().cardActivationAction[token.id()], activationAction);
+         assert.ok(store.getState().cardActivationAction.get(token.id()));
+         assert.equal(store.getState().cardActivationAction.get(token.id()), activationAction);
       });
 
       QUnit.test("setTokenAttackDice()", function(assert)
@@ -263,15 +263,17 @@ define(["immutable", "qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-         assert.ok(store.getState().cardAttackDice[token.id()] === undefined);
+         assert.ok(store.getState().cardAttackDice.get(token.id()) === undefined);
          var attackDice = new AttackDice(store, token.id(), 3);
 
          // Run.
          store.dispatch(Action.setTokenAttackDice(token.id(), attackDice.values()));
 
          // Verify.
-         assert.ok(store.getState().cardAttackDice[token.id()] !== undefined);
-         assert.equal(store.getState().cardAttackDice[token.id()], attackDice.values());
+         var result = store.getState().cardAttackDice.get(token.id());
+         assert.ok(result);
+         assert.equal(result.size, attackDice.values().size);
+         assert.equal(result, attackDice.values());
       });
 
       QUnit.test("setTokenCombatAction()", function(assert)
@@ -280,14 +282,14 @@ define(["immutable", "qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var combatAction = {};
-         assert.ok(!store.getState().cardCombatAction[token.id()]);
+         assert.ok(!store.getState().cardCombatAction.get(token.id()));
 
          // Run.
          store.dispatch(Action.setTokenCombatAction(token, combatAction));
 
          // Verify.
-         assert.ok(store.getState().cardCombatAction[token.id()]);
-         assert.equal(store.getState().cardCombatAction[token.id()], combatAction);
+         assert.ok(store.getState().cardCombatAction.get(token.id()));
+         assert.equal(store.getState().cardCombatAction.get(token.id()), combatAction);
       });
 
       QUnit.test("setTokenDamageDealer()", function(assert)
@@ -296,14 +298,14 @@ define(["immutable", "qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var damageDealer = {};
-         assert.ok(!store.getState().cardDamageDealer[token.id()]);
+         assert.ok(!store.getState().cardDamageDealer.get(token.id()));
 
          // Run.
          store.dispatch(Action.setTokenDamageDealer(token, damageDealer));
 
          // Verify.
-         assert.ok(store.getState().cardDamageDealer[token.id()]);
-         assert.equal(store.getState().cardDamageDealer[token.id()], damageDealer);
+         assert.ok(store.getState().cardDamageDealer.get(token.id()));
+         assert.equal(store.getState().cardDamageDealer.get(token.id()), damageDealer);
       });
 
       QUnit.test("setTokenDefenderHit()", function(assert)
@@ -311,19 +313,19 @@ define(["immutable", "qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-         assert.ok(!store.getState().cardIsDefenderHit[token.id()]);
+         assert.ok(!store.getState().cardIsDefenderHit.get(token.id()));
 
          // Run.
          store.dispatch(Action.setTokenDefenderHit(token, true));
 
          // Verify.
-         assert.equal(store.getState().cardIsDefenderHit[token.id()], true);
+         assert.equal(store.getState().cardIsDefenderHit.get(token.id()), true);
 
          // Run.
          store.dispatch(Action.setTokenDefenderHit(token, false));
 
          // Verify.
-         assert.equal(store.getState().cardIsDefenderHit[token.id()], false);
+         assert.equal(store.getState().cardIsDefenderHit.get(token.id()), false);
       });
 
       QUnit.test("setTokenDefenseDice()", function(assert)
@@ -331,15 +333,17 @@ define(["immutable", "qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-         assert.ok(store.getState().cardDefenseDice[token.id()] === undefined);
+         assert.ok(store.getState().cardDefenseDice.get(token.id()) === undefined);
          var defenseDice = new DefenseDice(store, token.id(), 3);
 
          // Run.
          store.dispatch(Action.setTokenDefenseDice(token.id(), defenseDice.values()));
 
          // Verify.
-         assert.ok(store.getState().cardDefenseDice[token.id()] !== undefined);
-         assert.equal(store.getState().cardDefenseDice[token.id()], defenseDice.values());
+         var result = store.getState().cardDefenseDice.get(token.id());
+         assert.ok(result);
+         assert.equal(result.size, defenseDice.values().size);
+         assert.equal(result, defenseDice.values());
       });
 
       QUnit.test("setTokenInFiringArc()", function(assert)
@@ -347,19 +351,19 @@ define(["immutable", "qunit", "redux",
          // Setup.
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-         assert.ok(!store.getState().cardIsInFiringArc[token.id()]);
+         assert.ok(!store.getState().cardIsInFiringArc.get(token.id()));
 
          // Run.
          store.dispatch(Action.setTokenInFiringArc(token, true));
 
          // Verify.
-         assert.equal(store.getState().cardIsInFiringArc[token.id()], true);
+         assert.equal(store.getState().cardIsInFiringArc.get(token.id()), true);
 
          // Run.
          store.dispatch(Action.setTokenInFiringArc(token, false));
 
          // Verify.
-         assert.equal(store.getState().cardIsInFiringArc[token.id()], false);
+         assert.equal(store.getState().cardIsInFiringArc.get(token.id()), false);
       });
 
       QUnit.test("setTokenManeuver()", function(assert)
@@ -376,16 +380,16 @@ define(["immutable", "qunit", "redux",
          store.dispatch(Action.setTokenManeuver(token, maneuver0));
 
          // Verify.
-         assert.ok(store.getState().cardManeuver[token.id()]);
-         assert.equal(store.getState().cardManeuver[token.id()], maneuver0);
+         assert.ok(store.getState().cardManeuver.get(token.id()));
+         assert.equal(store.getState().cardManeuver.get(token.id()), maneuver0);
 
          // Run.
          var maneuver1 = Maneuver.properties[maneuverKey1];
          store.dispatch(Action.setTokenManeuver(token, maneuver1));
 
          // Verify.
-         assert.ok(store.getState().cardManeuver[token.id()]);
-         assert.equal(store.getState().cardManeuver[token.id()], maneuver1);
+         assert.ok(store.getState().cardManeuver.get(token.id()));
+         assert.equal(store.getState().cardManeuver.get(token.id()), maneuver1);
       });
 
       QUnit.test("setTokenManeuverAction()", function(assert)
@@ -394,14 +398,14 @@ define(["immutable", "qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var maneuverAction = {};
-         assert.ok(!store.getState().cardManeuverAction[token.id()]);
+         assert.ok(!store.getState().cardManeuverAction.get(token.id()));
 
          // Run.
          store.dispatch(Action.setTokenManeuverAction(token.id(), maneuverAction));
 
          // Verify.
-         assert.ok(store.getState().cardManeuverAction[token.id()]);
-         assert.equal(store.getState().cardManeuverAction[token.id()], maneuverAction);
+         assert.ok(store.getState().cardManeuverAction.get(token.id()));
+         assert.equal(store.getState().cardManeuverAction.get(token.id()), maneuverAction);
       });
 
       QUnit.test("setTokenRange()", function(assert)
@@ -410,14 +414,14 @@ define(["immutable", "qunit", "redux",
          var store = Redux.createStore(Reducer.root);
          var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
          var rangeKey = Range.TWO;
-         assert.ok(!store.getState().cardRange[token.id()]);
+         assert.ok(!store.getState().cardRange.get(token.id()));
 
          // Run.
          store.dispatch(Action.setTokenRange(token, rangeKey));
 
          // Verify.
-         assert.ok(store.getState().cardRange[token.id()]);
-         assert.equal(store.getState().cardRange[token.id()], rangeKey);
+         assert.ok(store.getState().cardRange.get(token.id()));
+         assert.equal(store.getState().cardRange.get(token.id()), rangeKey);
       });
 
       QUnit.test("setUserMessage()", function(assert)

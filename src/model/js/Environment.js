@@ -444,7 +444,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("token", token);
 
          var store = this.store();
-         var answer = store.getState().cardIsTouching[token.id()];
+         var answer = store.getState().cardIsTouching.get(token.id());
 
          return (answer !== undefined ? answer : false);
       };

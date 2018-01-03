@@ -80,10 +80,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "art
          switch (actionType)
          {
             case type:
-               var newTokenIdToData = Object.assign(
-               {}, state);
-               newTokenIdToData[actionTokenId] = actionData;
-               return newTokenIdToData;
+               return state.set(actionTokenId, actionData);
             default:
                LOGGER.warn("Reducer.tokenIdToData: Unhandled action type: " + actionType);
                return state;
