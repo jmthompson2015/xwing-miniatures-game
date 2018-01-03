@@ -882,9 +882,13 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
 
       CardInstance.prototype.squadPointCost = function()
       {
+         var isVaksai = this.isUpgradedWith(UpgradeCard.VAKSAI);
+
          var answer = this.upgrades().reduce(function(accumulator, upgrade)
          {
-            return accumulator + upgrade.squadPointCost();
+            var value = upgrade.squadPointCost();
+            value = (isVaksai ? Math.max(0, value - 1) : value);
+            return accumulator + value;
          }, this.card().squadPointCost);
 
          return answer;

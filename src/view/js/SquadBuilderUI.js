@@ -429,6 +429,14 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             InputValidator.validateNotNull("rowKey", rowKey);
 
             var upgradeCards = this.props.pilotIndexToUpgrades.get(pilotIndex);
+            var isVaksai = upgradeCards.reduce(function(accumulator, upgradeCard)
+            {
+               if (upgradeCard && upgradeCard.key === UpgradeCard.VAKSAI)
+               {
+                  accumulator = true;
+               }
+               return accumulator;
+            }, false);
             var upgradeCard = upgradeCards.get(upgradeIndex);
 
             var upgradeChooser = React.createElement(UpgradeChooser,
@@ -476,6 +484,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                         resourceBase: this.props.resourceBase,
                         isImplemented: isImplemented,
                      });
+                     break;
+                  case "squadPointCost":
+                     if (upgradeCard && upgradeCard[column.key] !== undefined)
+                     {
+                        value = upgradeCard[column.key];
+                        value = (isVaksai ? Math.max(0, value - 1) : value);
+                     }
                      break;
                   default:
                      value = (upgradeCard && upgradeCard[column.key] !== undefined ? upgradeCard[column.key] : undefined);
@@ -563,6 +578,14 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                answer.xwingRemove(UpgradeType.CREW);
             }
 
+            if (upgradeKeys.includes(UpgradeCard.HEAVY_SCYK_INTERCEPTOR))
+            {
+               // FIXME: this is an OR not an AND.
+               answer.push(UpgradeType.CANNON);
+               answer.push(UpgradeType.TORPEDO);
+               answer.push(UpgradeType.MISSILE);
+            }
+
             if (upgradeKeys.includes(UpgradeCard.MERCHANT_ONE))
             {
                answer.push(UpgradeType.CREW);
@@ -573,6 +596,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             if (upgradeKeys.includes(UpgradeCard.R2_D6))
             {
                answer.push(UpgradeType.ELITE);
+            }
+
+            if (upgradeKeys.includes(UpgradeCard.SABINES_MASTERPIECE))
+            {
+               answer.push(UpgradeType.CREW);
+               answer.push(UpgradeType.ILLICIT);
             }
 
             if (upgradeKeys.includes(UpgradeCard.SABINE_WREN))
@@ -589,6 +618,11 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             {
                answer.push(UpgradeType.ILLICIT);
                answer.push(UpgradeType.MODIFICATION);
+            }
+
+            if (upgradeKeys.includes(UpgradeCard.STAR_VIPER_MKII))
+            {
+               answer.push(UpgradeType.TITLE);
             }
 
             if (upgradeKeys.includes(UpgradeCard.TANTIVE_IV))
@@ -615,6 +649,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             {
                answer.xwingRemove(UpgradeType.CANNON);
                answer.xwingRemove(UpgradeType.MISSILE);
+            }
+
+            if (upgradeKeys.includes(UpgradeCard.VAKSAI))
+            {
+               answer.push(UpgradeType.MODIFICATION);
+               answer.push(UpgradeType.MODIFICATION);
             }
 
             if (upgradeKeys.includes(UpgradeCard.VIRAGO))
