@@ -39,37 +39,33 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
             case EnvironmentAction.MOVE_TOKEN:
                var tokenId = state.positionToCardId.get(action.fromPosition.toString());
                action.id = tokenId;
-               newPositionToTokenId = EnvironmentReducer.positionToCardId(state.positionToCardId, action);
-               newTokenIdToData = EnvironmentReducer.cardPosition(state.cardPosition, action);
+               newPositionToTokenId = state.positionToCardId.delete(action.fromPosition.toString());
+               newPositionToTokenId = newPositionToTokenId.set(action.toPosition.toString(), action.id);
                return Object.assign(
                {}, state,
                {
                   positionToCardId: newPositionToTokenId,
-                  cardPosition: newTokenIdToData,
+                  cardPosition: state.cardPosition.set(action.id, action.toPosition),
                });
             case EnvironmentAction.PLACE_TOKEN:
-               newPositionToTokenId = EnvironmentReducer.positionToCardId(state.positionToCardId, action);
-               newTokenIdToData = EnvironmentReducer.cardPosition(state.cardPosition, action);
                newTokens = EnvironmentReducer.tokens(state.cardInstances, action);
                return Object.assign(
                {}, state,
                {
-                  positionToCardId: newPositionToTokenId,
-                  cardPosition: newTokenIdToData,
+                  positionToCardId: state.positionToCardId.set(action.position.toString(), action.token.id()),
+                  cardPosition: state.cardPosition.set(action.token.id(), action.position),
                   cardInstances: newTokens,
                });
             case EnvironmentAction.REMOVE_TOKEN:
-               newTokenIdToData = EnvironmentReducer.cardPosition(state.cardPosition, action);
+               newTokenIdToData = state.cardPosition.delete(action.token.id());
                newTokens = EnvironmentReducer.tokens(state.cardInstances, action);
                var position = state.cardPosition.get(action.token.id());
                if (position)
                {
-                  action2 = EnvironmentAction.removeTokenAt(position);
-                  newPositionToTokenId = EnvironmentReducer.positionToCardId(state.positionToCardId, action2);
                   return Object.assign(
                   {}, state,
                   {
-                     positionToCardId: newPositionToTokenId,
+                     positionToCardId: state.positionToCardId.delete(position.toString()),
                      cardPosition: newTokenIdToData,
                      cardInstances: newTokens,
                   });
@@ -93,14 +89,12 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                   var environment = state.environment;
                   action.token = environment.getTokenById(tokenId);
                   action2 = EnvironmentAction.removeToken(action.token);
-                  newPositionToTokenId = EnvironmentReducer.positionToCardId(state.positionToCardId, action);
-                  newTokenIdToData = EnvironmentReducer.cardPosition(state.cardPosition, action2);
                   newTokens = EnvironmentReducer.tokens(state.cardInstances, action2);
                   return Object.assign(
                   {}, state,
                   {
-                     positionToCardId: newPositionToTokenId,
-                     cardPosition: newTokenIdToData,
+                     positionToCardId: state.positionToCardId.delete(action.position.toString()),
+                     cardPosition: state.cardPosition.delete(action.token.id()),
                      cardInstances: newTokens,
                   });
                }
@@ -175,45 +169,6 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                });
             default:
                LOGGER.warn("EnvironmentReducer.reduce: Unhandled action type: " + action.type);
-               return state;
-         }
-      };
-
-      EnvironmentReducer.positionToCardId = function(state, action)
-      {
-         LOGGER.debug("EnvironmentReducer.positionToCardId() type = " + action.type);
-
-         var newPositionToTokenId;
-
-         switch (action.type)
-         {
-            case EnvironmentAction.MOVE_TOKEN:
-               newPositionToTokenId = state.delete(action.fromPosition.toString());
-               return newPositionToTokenId.set(action.toPosition.toString(), action.id);
-            case EnvironmentAction.PLACE_TOKEN:
-               return state.set(action.position.toString(), action.token.id());
-            case EnvironmentAction.REMOVE_TOKEN_AT:
-               return state.delete(action.position.toString());
-            default:
-               LOGGER.warn("EnvironmentReducer.positionToCardId: Unhandled action type: " + action.type);
-               return state;
-         }
-      };
-
-      EnvironmentReducer.cardPosition = function(state, action)
-      {
-         LOGGER.debug("EnvironmentReducer.cardPosition() type = " + action.type);
-
-         switch (action.type)
-         {
-            case EnvironmentAction.MOVE_TOKEN:
-               return state.set(action.id, action.toPosition);
-            case EnvironmentAction.PLACE_TOKEN:
-               return state.set(action.token.id(), action.position);
-            case EnvironmentAction.REMOVE_TOKEN:
-               return state.delete(action.token.id());
-            default:
-               LOGGER.warn("EnvironmentReducer.cardPosition: Unhandled action type: " + action.type);
                return state;
          }
       };
