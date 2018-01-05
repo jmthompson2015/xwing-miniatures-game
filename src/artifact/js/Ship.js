@@ -65,7 +65,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "aggressor":
             {
                name: "Aggressor",
-               description: "An Aggressor.",
                primaryWeaponValue: 3,
                agilityValue: 3,
                hullValue: 4,
@@ -101,7 +100,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "arc170":
             {
                name: "ARC-170",
-               description: "An ARC-170.",
                primaryWeaponValue: 2,
                agilityValue: 1,
                hullValue: 6,
@@ -132,6 +130,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.EVADE, ShipAction.FOCUS],
                wave: "8",
+               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Ghost_Expansion_Pack",
                key: "attackshuttle",
             },
             "auzituckgunship":
@@ -227,7 +226,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "firespray31":
             {
                name: "Firespray-31",
-               description: "A Firespray-31.",
                primaryWeaponValue: 3,
                agilityValue: 2,
                hullValue: 6,
@@ -264,7 +262,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "hwk290":
             {
                name: "HWK-290",
-               description: "An HWK-290.",
                primaryWeaponValue: 1,
                agilityValue: 2,
                hullValue: 4,
@@ -295,6 +292,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
                wave: "8",
+               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Punishing_One_Expansion_Pack",
                key: "jumpmaster5000",
             },
             "kihraxzfighter":
@@ -402,6 +400,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.KOIOGRAN_TURN_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL, ShipAction.EVADE],
                wave: "6",
+               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/M3-A_Scyk_Interceptor_Expansion_Pack",
                key: "m3ainterceptor",
             },
             "protectoratestarfighter":
@@ -542,6 +541,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_5_STANDARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.BOOST, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
                wave: "8",
+               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Inquisitor%27s_TIE_Expansion_Pack",
                key: "tieadvprototype",
             },
             "tieaggressor":
@@ -775,7 +775,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "vcx100":
             {
                name: "VCX-100",
-               description: "A VCX-100.",
                primaryWeaponValue: 4,
                agilityValue: 0,
                hullValue: 10,
@@ -830,7 +829,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "yt1300":
             {
                name: "YT-1300",
-               description: "A YT-1300.",
                primaryWeaponValue: 3,
                agilityValue: 1,
                hullValue: 8,
@@ -850,7 +848,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "yt2400":
             {
                name: "YT-2400",
-               description: "A YT-2400.",
                primaryWeaponValue: 2,
                agilityValue: 2,
                hullValue: 5,
@@ -870,7 +867,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
             "yv666":
             {
                name: "YV-666",
-               description: "A YV-666.",
                primaryWeaponValue: 3,
                agilityValue: 1,
                hullValue: 6,

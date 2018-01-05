@@ -105,30 +105,13 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
          return answer;
       };
 
-      function determineDescription(shipCard)
-      {
-         var answer;
-
-         if (shipCard)
-         {
-            answer = shipCard.description;
-         }
-
-         return EnumGenerator.quoteValue(answer);
-      }
-
-      function determinePrimaryWeaponTurret(ship, shipCard)
+      function determinePrimaryWeaponTurret(ship)
       {
          var answer;
 
          if (ship && ship.firing_arcs.includes("Turret"))
          {
             answer = true;
-         }
-
-         if (answer === undefined && shipCard)
-         {
-            answer = shipCard.isPrimaryWeaponTurret;
          }
 
          return answer;
@@ -264,15 +247,13 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
          var auxiliaryFiringArc = ShipConverter.determineAuxiliaryFiringArc(ship);
 
          var shipCard = findShipCard(ship);
-         var description = determineDescription(shipCard);
-         var isPrimaryWeaponTurret = determinePrimaryWeaponTurret(ship, shipCard);
+         var isPrimaryWeaponTurret = determinePrimaryWeaponTurret(ship);
          var wave = EnumGenerator.quoteValue(ship.wave);
          var wikiUrl = determineWikiUrl(shipCard);
 
          var answer = "";
 
          answer += EnumGenerator.createProperty("name", name);
-         answer += EnumGenerator.createProperty("description", description);
          answer += EnumGenerator.createProperty("primaryWeaponValue", ship.attack);
          answer += EnumGenerator.createProperty("agilityValue", ship.agility);
          answer += EnumGenerator.createProperty("hullValue", ship.hull);
