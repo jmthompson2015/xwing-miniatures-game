@@ -105,7 +105,14 @@ define(["common/js/InputValidator", "common/js/JSONFileLoader", "accessory/xwing
 
          if (sources && sources.length > 0)
          {
-            answer = sources[0];
+            if (sources[0].wave === 0 && sources.length > 1)
+            {
+               answer = sources[1];
+            }
+            else
+            {
+               answer = sources[0];
+            }
          }
 
          return answer;

@@ -5,79 +5,79 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
    {
       var ShipFaction = {
          // First Order.
-         FIRST_ORDER_TIE_FO_FIGHTER: "firstOrder_tieFoFighter",
-         FIRST_ORDER_TIE_SF_FIGHTER: "firstOrder_tieSfFighter",
-         FIRST_ORDER_TIE_SILENCER: "firstOrder_tieSilencer",
-         FIRST_ORDER_UPSILON_CLASS_SHUTTLE: "firstOrder_upsilonClassShuttle",
+         FIRST_ORDER_TIE_FO_FIGHTER: "firstOrder_tiefofighter",
+         FIRST_ORDER_TIE_SF_FIGHTER: "firstOrder_tiesffighter",
+         FIRST_ORDER_TIE_SILENCER: "firstOrder_tiesilencer",
+         FIRST_ORDER_UPSILON_CLASS_SHUTTLE: "firstOrder_upsilonclassshuttle",
 
          // Imperial.
-         IMPERIAL_ALPHA_CLASS_STAR_WING: "imperial_alphaClassStarWing",
+         IMPERIAL_ALPHA_CLASS_STAR_WING: "imperial_alphaclassstarwing",
          IMPERIAL_FIRESPRAY_31: "imperial_firespray31",
-         IMPERIAL_LAMBDA_CLASS_SHUTTLE: "imperial_lambdaClassShuttle",
-         IMPERIAL_TIE_ADVANCED: "imperial_tieAdvanced",
-         IMPERIAL_TIE_ADVANCED_PROTOTYPE: "imperial_tieAdvancedPrototype",
-         IMPERIAL_TIE_AGGRESSOR: "imperial_tieAggressor",
-         IMPERIAL_TIE_BOMBER: "imperial_tieBomber",
-         IMPERIAL_TIE_BOMBER_V2: "imperial_tieBomberV2",
-         IMPERIAL_TIE_DEFENDER: "imperial_tieDefender",
-         IMPERIAL_TIE_DEFENDER_V2: "imperial_tieDefenderV2",
-         IMPERIAL_TIE_FIGHTER: "imperial_tieFighter",
-         IMPERIAL_TIE_INTERCEPTOR: "imperial_tieInterceptor",
-         IMPERIAL_TIE_INTERCEPTOR_V2: "imperial_tieInterceptorV2",
-         IMPERIAL_TIE_INTERCEPTOR_V3: "imperial_tieInterceptorV3",
-         IMPERIAL_TIE_PHANTOM: "imperial_tiePhantom",
-         IMPERIAL_TIE_PUNISHER: "imperial_tiePunisher",
-         IMPERIAL_TIE_STRIKER: "imperial_tieStriker",
-         IMPERIAL_VT_49_DECIMATOR: "imperial_vt49Decimator",
+         IMPERIAL_LAMBDA_CLASS_SHUTTLE: "imperial_lambdaclassshuttle",
+         IMPERIAL_TIE_ADVANCED: "imperial_tieadvanced",
+         IMPERIAL_TIE_ADVANCED_PROTOTYPE: "imperial_tieadvprototype",
+         IMPERIAL_TIE_AGGRESSOR: "imperial_tieaggressor",
+         IMPERIAL_TIE_BOMBER: "imperial_tiebomber",
+         IMPERIAL_TIE_BOMBER_V2: "imperial_tiebomberv2",
+         IMPERIAL_TIE_DEFENDER: "imperial_tiedefender",
+         IMPERIAL_TIE_DEFENDER_V2: "imperial_tiedefenderv2",
+         IMPERIAL_TIE_FIGHTER: "imperial_tiefighter",
+         IMPERIAL_TIE_INTERCEPTOR: "imperial_tieinterceptor",
+         IMPERIAL_TIE_INTERCEPTOR_V2: "imperial_tieinterceptorv2",
+         IMPERIAL_TIE_INTERCEPTOR_V3: "imperial_tieinterceptorv3",
+         IMPERIAL_TIE_PHANTOM: "imperial_tiephantom",
+         IMPERIAL_TIE_PUNISHER: "imperial_tiepunisher",
+         IMPERIAL_TIE_STRIKER: "imperial_tiestriker",
+         IMPERIAL_VT_49_DECIMATOR: "imperial_vt49decimator",
 
          // Rebel.
          REBEL_ARC_170: "rebel_arc170",
-         REBEL_ATTACK_SHUTTLE: "rebel_attackShuttle",
-         REBEL_AUZITUCK_GUNSHIP: "rebel_auzituckGunship",
-         REBEL_A_WING: "rebel_aWing",
-         REBEL_A_WING_V2: "rebel_aWingV2",
-         REBEL_B_WING: "rebel_bWing",
-         REBEL_B_WING_V2: "rebel_bWingV2",
-         REBEL_E_WING: "rebel_eWing",
+         REBEL_ATTACK_SHUTTLE: "rebel_attackshuttle",
+         REBEL_AUZITUCK_GUNSHIP: "rebel_auzituckgunship",
+         REBEL_A_WING: "rebel_awing",
+         REBEL_A_WING_V2: "rebel_awingv2",
+         REBEL_B_WING: "rebel_bwing",
+         REBEL_B_WING_V2: "rebel_bwingv2",
+         REBEL_E_WING: "rebel_ewing",
          REBEL_HWK_290: "rebel_hwk290",
-         REBEL_K_WING: "rebel_kWing",
-         REBEL_SCURRG_H_6_BOMBER: "rebel_scurrgH6Bomber",
-         REBEL_SHEATHIPEDE_CLASS_SHUTTLE: "rebel_sheathipedeClassShuttle",
-         REBEL_TIE_FIGHTER: "rebel_tieFighter",
-         REBEL_U_WING: "rebel_uWing",
+         REBEL_K_WING: "rebel_kwing",
+         REBEL_SCURRG_H_6_BOMBER: "rebel_scurrgh6bomber",
+         REBEL_SHEATHIPEDE_CLASS_SHUTTLE: "rebel_sheathipedeclassshuttle",
+         REBEL_TIE_FIGHTER: "rebel_tiefighter",
+         REBEL_U_WING: "rebel_uwing",
          REBEL_VCX_100: "rebel_vcx100",
-         REBEL_X_WING: "rebel_xWing",
+         REBEL_X_WING: "rebel_xwing",
          REBEL_YT_1300: "rebel_yt1300",
          REBEL_YT_2400: "rebel_yt2400",
-         REBEL_Y_WING: "rebel_yWing",
-         REBEL_Z_95_HEADHUNTER: "rebel_z95Headhunter",
+         REBEL_Y_WING: "rebel_ywing",
+         REBEL_Z_95_HEADHUNTER: "rebel_z95headhunter",
 
          // Resistance.
-         RESISTANCE_B_SF_17_BOMBER: "resistance_bSf17Bomber",
-         RESISTANCE_T_70_X_WING: "resistance_t70XWing",
-         RESISTANCE_T_70_X_WING_V2: "resistance_t70XWingV2",
+         RESISTANCE_B_SF_17_BOMBER: "resistance_bsf17bomber",
+         RESISTANCE_T_70_X_WING: "resistance_t70xwing",
+         RESISTANCE_T_70_X_WING_V2: "resistance_t70xwingv2",
          RESISTANCE_YT_1300: "resistance_yt1300",
 
          // Scum & Villainy.
          SCUM_AGGRESSOR: "scum_aggressor",
          SCUM_FIRESPRAY_31: "scum_firespray31",
-         SCUM_G_1A_STARFIGHTER: "scum_g1aStarfighter",
+         SCUM_G_1A_STARFIGHTER: "scum_g1astarfighter",
          SCUM_HWK_290: "scum_hwk290",
-         SCUM_JUMP_MASTER_5000: "scum_jumpMaster5000",
-         SCUM_KIHRAXZ_FIGHTER: "scum_kihraxzFighter",
-         SCUM_KIHRAXZ_FIGHTER_V2: "scum_kihraxzFighterV2",
-         SCUM_LANCER_CLASS_PURSUIT_CRAFT: "scum_lancerClassPursuitCraft",
-         SCUM_M12_L_KIMOGILA_FIGHTER: "scum_m12LKimogilaFighter",
-         SCUM_M3_A_INTERCEPTOR: "scum_m3AInterceptor",
-         SCUM_M3_A_INTERCEPTOR_V2: "scum_m3AInterceptorV2",
-         SCUM_PROTECTORATE_STARFIGHTER: "scum_protectorateStarfighter",
+         SCUM_JUMP_MASTER_5000: "scum_jumpmaster5000",
+         SCUM_KIHRAXZ_FIGHTER: "scum_kihraxzfighter",
+         SCUM_KIHRAXZ_FIGHTER_V2: "scum_kihraxzfighterv2",
+         SCUM_LANCER_CLASS_PURSUIT_CRAFT: "scum_lancerclasspursuitcraft",
+         SCUM_M12_L_KIMOGILA_FIGHTER: "scum_m12lkimogilafighter",
+         SCUM_M3_A_INTERCEPTOR: "scum_m3ainterceptor",
+         SCUM_M3_A_INTERCEPTOR_V2: "scum_m3ainterceptorv2",
+         SCUM_PROTECTORATE_STARFIGHTER: "scum_protectoratestarfighter",
          SCUM_QUADJUMPER: "scum_quadjumper",
-         SCUM_SCURRG_H_6_BOMBER: "scum_scurrgH6Bomber",
-         SCUM_STAR_VIPER: "scum_starViper",
-         SCUM_STAR_VIPER_V2: "scum_starViperV2",
+         SCUM_SCURRG_H_6_BOMBER: "scum_scurrgh6bomber",
+         SCUM_STAR_VIPER: "scum_starviper",
+         SCUM_STAR_VIPER_V2: "scum_starviperv2",
          SCUM_YV_666: "scum_yv666",
-         SCUM_Y_WING: "scum_yWing",
-         SCUM_Z_95_HEADHUNTER: "scum_z95Headhunter",
+         SCUM_Y_WING: "scum_ywing",
+         SCUM_Z_95_HEADHUNTER: "scum_z95headhunter",
 
          // Huge ships.
          IMPERIAL_GOZANTI_CLASS_CRUISER: "imperial_gozantiClassCruiser",
@@ -89,52 +89,52 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
          properties:
          {
             // First Order.
-            "firstOrder_tieFoFighter":
+            "firstOrder_tiefofighter":
             {
                name: "TIE/fo Fighter",
                shipKey: Ship.TIE_FO_FIGHTER,
                factionKey: Faction.FIRST_ORDER,
                image: "FirstOrder_TIE_fo_Fighter.png",
                wave: "8",
-               key: "firstOrder_tieFoFighter",
+               key: "firstOrder_tiefofighter",
             },
-            "firstOrder_tieSfFighter":
+            "firstOrder_tiesffighter":
             {
                name: "TIE/sf Fighter",
                shipKey: Ship.TIE_SF_FIGHTER,
                factionKey: Faction.FIRST_ORDER,
                image: "FirstOrder_TIE_sf_Fighter.png",
                wave: "9",
-               key: "firstOrder_tieSfFighter",
+               key: "firstOrder_tiesffighter",
             },
-            "firstOrder_tieSilencer":
+            "firstOrder_tiesilencer":
             {
                name: "TIE Silencer",
                shipKey: Ship.TIE_SILENCER,
                factionKey: Faction.FIRST_ORDER,
                image: "FirstOrder_TIE_Silencer.png",
                wave: "13",
-               key: "firstOrder_tieSilencer",
+               key: "firstOrder_tiesilencer",
             },
-            "firstOrder_upsilonClassShuttle":
+            "firstOrder_upsilonclassshuttle":
             {
                name: "Upsilon-class Shuttle",
                shipKey: Ship.UPSILON_CLASS_SHUTTLE,
                factionKey: Faction.FIRST_ORDER,
                image: "FirstOrder_Upsilon-class_Shuttle.png",
                wave: "10",
-               key: "firstOrder_upsilonClassShuttle",
+               key: "firstOrder_upsilonclassshuttle",
             },
 
             // Imperial.
-            "imperial_alphaClassStarWing":
+            "imperial_alphaclassstarwing":
             {
                name: "Alpha-class Star Wing",
                shipKey: Ship.ALPHA_CLASS_STAR_WING,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_Alpha-class_Star_Wing.png",
                wave: "12",
-               key: "imperial_alphaClassStarWing",
+               key: "imperial_alphaclassstarwing",
             },
             "imperial_firespray31":
             {
@@ -145,170 +145,152 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "2",
                key: "imperial_firespray31",
             },
-            "imperial_lambdaClassShuttle":
+            "imperial_lambdaclassshuttle":
             {
                name: "Lambda-class Shuttle",
                shipKey: Ship.LAMBDA_CLASS_SHUTTLE,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_Lambda-class_Shuttle.png",
                wave: "3",
-               key: "imperial_lambdaClassShuttle",
+               key: "imperial_lambdaclassshuttle",
             },
-            "imperial_tieAdvanced":
+            "imperial_tieadvanced":
             {
                name: "TIE Advanced",
                shipKey: Ship.TIE_ADVANCED,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Advanced.png",
                wave: "1",
-               key: "imperial_tieAdvanced",
+               key: "imperial_tieadvanced",
             },
-            "imperial_tieAdvancedPrototype":
+            "imperial_tieadvprototype":
             {
                name: "TIE Advanced Prototype",
                shipKey: Ship.TIE_ADVANCED_PROTOTYPE,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Advanced_Prototype.png",
                wave: "8",
-               key: "imperial_tieAdvancedPrototype",
+               key: "imperial_tieadvprototype",
             },
-            "imperial_tieAggressor":
+            "imperial_tieaggressor":
             {
                name: "TIE Aggressor",
                shipKey: Ship.TIE_AGGRESSOR,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Aggressor.png",
                wave: "11",
-               key: "imperial_tieAggressor",
+               key: "imperial_tieaggressor",
             },
-            "imperial_tieBomber":
+            "imperial_tiebomber":
             {
                name: "TIE Bomber",
                shipKey: Ship.TIE_BOMBER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Bomber.png",
                wave: "3",
-               key: "imperial_tieBomber",
+               key: "imperial_tiebomber",
             },
-            "imperial_tieBomberV2":
+            "imperial_tiebomberv2":
             {
                name: "TIE Bomber v2",
                shipKey: Ship.TIE_BOMBER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Bomber_v2.png",
                wave: "Aces",
-               key: "imperial_tieBomberV2",
+               key: "imperial_tiebomberv2",
             },
-            "imperial_tieDefender":
+            "imperial_tiedefender":
             {
                name: "TIE Defender",
                shipKey: Ship.TIE_DEFENDER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Defender.png",
                wave: "4",
-               key: "imperial_tieDefender",
+               key: "imperial_tiedefender",
             },
-            "imperial_tieDefenderV2":
+            "imperial_tiedefenderv2":
             {
                name: "TIE Defender v2",
                shipKey: Ship.TIE_DEFENDER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Defender_v2.png",
                wave: "Aces",
-               key: "imperial_tieDefenderV2",
+               key: "imperial_tiedefenderv2",
             },
-            "imperial_tieFighter":
+            "imperial_tiefighter":
             {
                name: "TIE Fighter (Imperial)",
                shipKey: Ship.TIE_FIGHTER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Fighter.png",
                wave: "1",
-               key: "imperial_tieFighter",
+               key: "imperial_tiefighter",
             },
-            "imperial_tieInterceptor":
+            "imperial_tieinterceptor":
             {
                name: "TIE Interceptor",
                shipKey: Ship.TIE_INTERCEPTOR,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Interceptor.png",
                wave: "2",
-               key: "imperial_tieInterceptor",
+               key: "imperial_tieinterceptor",
             },
-            "imperial_tieInterceptorV2":
+            "imperial_tieinterceptorv2":
             {
                name: "TIE Interceptor v2",
                shipKey: Ship.TIE_INTERCEPTOR,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Interceptor_v2.png",
                wave: "Aces",
-               key: "imperial_tieInterceptorV2",
+               key: "imperial_tieinterceptorv2",
             },
-            "imperial_tieInterceptorV3":
+            "imperial_tieinterceptorv3":
             {
                name: "TIE Interceptor v3",
                shipKey: Ship.TIE_INTERCEPTOR,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Interceptor_v3.png",
                wave: "Aces",
-               key: "imperial_tieInterceptorV3",
+               key: "imperial_tieinterceptorv3",
             },
-            "imperial_tiePhantom":
+            "imperial_tiephantom":
             {
                name: "TIE Phantom",
                shipKey: Ship.TIE_PHANTOM,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Phantom.png",
                wave: "4",
-               key: "imperial_tiePhantom",
+               key: "imperial_tiephantom",
             },
-            "imperial_tiePunisher":
+            "imperial_tiepunisher":
             {
                name: "TIE Punisher",
                shipKey: Ship.TIE_PUNISHER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Punisher.png",
                wave: "7",
-               key: "imperial_tiePunisher",
+               key: "imperial_tiepunisher",
             },
-            "imperial_tieStriker":
+            "imperial_tiestriker":
             {
                name: "TIE Striker",
                shipKey: Ship.TIE_STRIKER,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_TIE_Striker.png",
                wave: "10",
-               key: "imperial_tieStriker",
+               key: "imperial_tiestriker",
             },
-            "imperial_vt49Decimator":
+            "imperial_vt49decimator":
             {
                name: "VT-49 Decimator",
                shipKey: Ship.VT_49_DECIMATOR,
                factionKey: Faction.IMPERIAL,
                image: "Imperial_VT-49_Decimator.png",
                wave: "5",
-               key: "imperial_vt49Decimator",
+               key: "imperial_vt49decimator",
             },
 
             // Rebel.
-            "rebel_aWing":
-            {
-               name: "A-Wing",
-               shipKey: Ship.A_WING,
-               factionKey: Faction.REBEL,
-               image: "Rebel_A-Wing.png",
-               wave: "2",
-               key: "rebel_aWing",
-            },
-            "rebel_aWingV2":
-            {
-               name: "A-Wing v2",
-               shipKey: Ship.A_WING,
-               factionKey: Faction.REBEL,
-               image: "Rebel_A-Wing_v2.png",
-               wave: "Aces",
-               key: "rebel_aWingV2",
-            },
             "rebel_arc170":
             {
                name: "ARC-170",
@@ -318,50 +300,68 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "9",
                key: "rebel_arc170",
             },
-            "rebel_attackShuttle":
+            "rebel_attackshuttle":
             {
                name: "Attack Shuttle",
                shipKey: Ship.ATTACK_SHUTTLE,
                factionKey: Faction.REBEL,
                image: "Rebel_Attack_Shuttle.png",
                wave: "8",
-               key: "rebel_attackShuttle",
+               key: "rebel_attackshuttle",
             },
-            "rebel_auzituckGunship":
+            "rebel_auzituckgunship":
             {
                name: "Auzituck Gunship",
                shipKey: Ship.AUZITUCK_GUNSHIP,
                factionKey: Faction.REBEL,
                image: "Rebel_Auzituck_Gunship.png",
                wave: "11",
-               key: "rebel_auzituckGunship",
+               key: "rebel_auzituckgunship",
             },
-            "rebel_bWing":
+            "rebel_awing":
+            {
+               name: "A-Wing",
+               shipKey: Ship.A_WING,
+               factionKey: Faction.REBEL,
+               image: "Rebel_A-Wing.png",
+               wave: "2",
+               key: "rebel_awing",
+            },
+            "rebel_awingv2":
+            {
+               name: "A-Wing v2",
+               shipKey: Ship.A_WING,
+               factionKey: Faction.REBEL,
+               image: "Rebel_A-Wing_v2.png",
+               wave: "Aces",
+               key: "rebel_awingv2",
+            },
+            "rebel_bwing":
             {
                name: "B-Wing",
                shipKey: Ship.B_WING,
                factionKey: Faction.REBEL,
                image: "Rebel_B-Wing.png",
                wave: "3",
-               key: "rebel_bWing",
+               key: "rebel_bwing",
             },
-            "rebel_bWingV2":
+            "rebel_bwingv2":
             {
                name: "B-Wing v2",
                shipKey: Ship.B_WING,
                factionKey: Faction.REBEL,
                image: "Rebel_B-Wing_v2.png",
                wave: "Aces",
-               key: "rebel_bWingV2",
+               key: "rebel_bwingv2",
             },
-            "rebel_eWing":
+            "rebel_ewing":
             {
                name: "E-Wing",
                shipKey: Ship.E_WING,
                factionKey: Faction.REBEL,
                image: "Rebel_E-Wing.png",
                wave: "4",
-               key: "rebel_eWing",
+               key: "rebel_ewing",
             },
             "rebel_hwk290":
             {
@@ -372,50 +372,50 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "3",
                key: "rebel_hwk290",
             },
-            "rebel_kWing":
+            "rebel_kwing":
             {
                name: "K-Wing",
                shipKey: Ship.K_WING,
                factionKey: Faction.REBEL,
                image: "Rebel_K-Wing.png",
                wave: "7",
-               key: "rebel_kWing",
+               key: "rebel_kwing",
             },
-            "rebel_scurrgH6Bomber":
+            "rebel_scurrgh6bomber":
             {
                name: "Scurrg H-6 Bomber (Rebel)",
                shipKey: Ship.SCURRG_H_6_BOMBER,
                factionKey: Faction.REBEL,
                image: "Scurrg_H-6_Bomber.png",
                wave: "11",
-               key: "rebel_scurrgH6Bomber",
+               key: "rebel_scurrgh6bomber",
             },
-            "rebel_sheathipedeClassShuttle":
+            "rebel_sheathipedeclassshuttle":
             {
                name: "Sheathipede-class Shuttle",
                shipKey: Ship.SHEATHIPEDE_CLASS_SHUTTLE,
                factionKey: Faction.REBEL,
                image: "Rebel_Sheathipede-class_Shuttle.png",
                wave: "12",
-               key: "rebel_sheathipedeClassShuttle",
+               key: "rebel_sheathipedeclassshuttle",
             },
-            "rebel_tieFighter":
+            "rebel_tiefighter":
             {
                name: "TIE Fighter (Rebel)",
                shipKey: Ship.TIE_FIGHTER,
                factionKey: Faction.REBEL,
                image: "Rebel_TIE_Fighter.png",
                wave: "10",
-               key: "rebel_tieFighter",
+               key: "rebel_tiefighter",
             },
-            "rebel_uWing":
+            "rebel_uwing":
             {
                name: "U-Wing",
                shipKey: Ship.U_WING,
                factionKey: Faction.REBEL,
                image: "Rebel_U-Wing.png",
                wave: "10",
-               key: "rebel_uWing",
+               key: "rebel_uwing",
             },
             "rebel_vcx100":
             {
@@ -426,23 +426,14 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "8",
                key: "rebel_vcx100",
             },
-            "rebel_xWing":
+            "rebel_xwing":
             {
                name: "X-Wing",
                shipKey: Ship.X_WING,
                factionKey: Faction.REBEL,
                image: "Rebel_X-Wing.png",
                wave: "1",
-               key: "rebel_xWing",
-            },
-            "rebel_yWing":
-            {
-               name: "Y-Wing (Rebel)",
-               shipKey: Ship.Y_WING,
-               factionKey: Faction.REBEL,
-               image: "Rebel_Y-Wing.png",
-               wave: "1",
-               key: "rebel_yWing",
+               key: "rebel_xwing",
             },
             "rebel_yt1300":
             {
@@ -462,43 +453,52 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "5",
                key: "rebel_yt2400",
             },
-            "rebel_z95Headhunter":
+            "rebel_ywing":
+            {
+               name: "Y-Wing (Rebel)",
+               shipKey: Ship.Y_WING,
+               factionKey: Faction.REBEL,
+               image: "Rebel_Y-Wing.png",
+               wave: "1",
+               key: "rebel_ywing",
+            },
+            "rebel_z95headhunter":
             {
                name: "Z-95 Headhunter (Rebel)",
                shipKey: Ship.Z_95_HEADHUNTER,
                factionKey: Faction.REBEL,
                image: "Rebel_Z-95_Headhunter.png",
                wave: "4",
-               key: "rebel_z95Headhunter",
+               key: "rebel_z95headhunter",
             },
 
             // Resistance.
-            "resistance_bSf17Bomber":
+            "resistance_bsf17bomber":
             {
                name: "B/SF-17 Bomber",
                shipKey: Ship.B_SF_17_BOMBER,
                factionKey: Faction.RESISTANCE,
                image: "Resistance_B_SF-17_Bomber.png",
                wave: "13",
-               key: "resistance_bSf17Bomber",
+               key: "resistance_bsf17bomber",
             },
-            "resistance_t70XWing":
+            "resistance_t70xwing":
             {
                name: "T-70 X-Wing",
                shipKey: Ship.T_70_X_WING,
                factionKey: Faction.RESISTANCE,
                image: "Resistance_T-70_X-Wing.png",
                wave: "8",
-               key: "resistance_t70XWing",
+               key: "resistance_t70xwing",
             },
-            "resistance_t70XWingV2":
+            "resistance_t70xwingv2":
             {
                name: "T-70 X-Wing v2",
                shipKey: Ship.T_70_X_WING,
                factionKey: Faction.RESISTANCE,
                image: "Resistance_T-70_X-Wing_v2.png",
                wave: "Aces",
-               key: "resistance_t70XWingV2",
+               key: "resistance_t70xwingv2",
             },
             "resistance_yt1300":
             {
@@ -529,14 +529,14 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "6",
                key: "scum_firespray31",
             },
-            "scum_g1aStarfighter":
+            "scum_g1astarfighter":
             {
                name: "G-1A Starfighter",
                shipKey: Ship.G_1A_STARFIGHTER,
                factionKey: Faction.SCUM,
                image: "Scum_G-1A_Starfighter.png",
                wave: "8",
-               key: "scum_g1aStarfighter",
+               key: "scum_g1astarfighter",
             },
             "scum_hwk290":
             {
@@ -547,77 +547,77 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "6",
                key: "scum_hwk290",
             },
-            "scum_jumpMaster5000":
+            "scum_jumpmaster5000":
             {
                name: "JumpMaster 5000",
                shipKey: Ship.JUMP_MASTER_5000,
                factionKey: Faction.SCUM,
                image: "Scum_JumpMaster_5000.png",
                wave: "8",
-               key: "scum_jumpMaster5000",
+               key: "scum_jumpmaster5000",
             },
-            "scum_kihraxzFighter":
+            "scum_kihraxzfighter":
             {
                name: "Kihraxz Fighter",
                shipKey: Ship.KIHRAXZ_FIGHTER,
                factionKey: Faction.SCUM,
                image: "Scum_KihraxzFighter.png",
                wave: "7",
-               key: "scum_kihraxzFighter",
+               key: "scum_kihraxzfighter",
             },
-            "scum_kihraxzFighterV2":
+            "scum_kihraxzfighterv2":
             {
                name: "Kihraxz Fighter v2",
                shipKey: Ship.KIHRAXZ_FIGHTER,
                factionKey: Faction.SCUM,
                image: "Scum_Kihraxz_Fighter_v2.png",
                wave: "Aces",
-               key: "scum_kihraxzFighterV2",
+               key: "scum_kihraxzfighterv2",
             },
-            "scum_lancerClassPursuitCraft":
+            "scum_lancerclasspursuitcraft":
             {
                name: "Lancer-class Pursuit Craft",
                shipKey: Ship.LANCER_CLASS_PURSUIT_CRAFT,
                factionKey: Faction.SCUM,
                image: "Scum_Lancer-class_Pursuit_Craft.png",
                wave: "9",
-               key: "scum_lancerClassPursuitCraft",
+               key: "scum_lancerclasspursuitcraft",
             },
-            "scum_m12LKimogilaFighter":
+            "scum_m12lkimogilafighter":
             {
                name: "M12-L Kimogila Fighter",
                shipKey: Ship.M12_L_KIMOGILA_FIGHTER,
                factionKey: Faction.SCUM,
                image: "Scum_M12-L_Kimogila_Fighter.png",
                wave: "12",
-               key: "scum_m12LKimogilaFighter",
+               key: "scum_m12lkimogilafighter",
             },
-            "scum_m3AInterceptor":
+            "scum_m3ainterceptor":
             {
                name: "M3-A Interceptor",
                shipKey: Ship.M3_A_INTERCEPTOR,
                factionKey: Faction.SCUM,
                image: "Scum_M3-A_Interceptor.png",
                wave: "6",
-               key: "scum_m3AInterceptor",
+               key: "scum_m3ainterceptor",
             },
-            "scum_m3AInterceptorV2":
+            "scum_m3ainterceptorv2":
             {
                name: "M3-A Interceptor v2",
                shipKey: Ship.M3_A_INTERCEPTOR,
                factionKey: Faction.SCUM,
                image: "Scum_M3-A_Interceptor_v2.png",
                wave: "Aces",
-               key: "scum_m3AInterceptorV2",
+               key: "scum_m3ainterceptorv2",
             },
-            "scum_protectorateStarfighter":
+            "scum_protectoratestarfighter":
             {
                name: "Protectorate Starfighter",
                shipKey: Ship.PROTECTORATE_STARFIGHTER,
                factionKey: Faction.SCUM,
                image: "Scum_Protectorate_Starfighter.png",
                wave: "9",
-               key: "scum_protectorateStarfighter",
+               key: "scum_protectoratestarfighter",
             },
             "scum_quadjumper":
             {
@@ -628,41 +628,32 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "10",
                key: "scum_quadjumper",
             },
-            "scum_scurrgH6Bomber":
+            "scum_scurrgh6bomber":
             {
                name: "Scurrg H-6 Bomber (Scum)",
                shipKey: Ship.SCURRG_H_6_BOMBER,
                factionKey: Faction.SCUM,
                image: "Scurrg_H-6_Bomber.png",
                wave: "11",
-               key: "scum_scurrgH6Bomber",
+               key: "scum_scurrgh6bomber",
             },
-            "scum_starViper":
+            "scum_starviper":
             {
                name: "StarViper",
                shipKey: Ship.STAR_VIPER,
                factionKey: Faction.SCUM,
                image: "Scum_StarViper.png",
                wave: "6",
-               key: "scum_starViper",
+               key: "scum_starviper",
             },
-            "scum_starViperV2":
+            "scum_starviperv2":
             {
                name: "StarViper v2",
                shipKey: Ship.STAR_VIPER,
                factionKey: Faction.SCUM,
                image: "Scum_StarViper_v2.png",
                wave: "Aces",
-               key: "scum_starViperV2",
-            },
-            "scum_yWing":
-            {
-               name: "Y-Wing (Scum)",
-               shipKey: Ship.Y_WING,
-               factionKey: Faction.SCUM,
-               image: "Scum_Y-Wing.png",
-               wave: "6",
-               key: "scum_yWing",
+               key: "scum_starviperv2",
             },
             "scum_yv666":
             {
@@ -673,14 +664,23 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                wave: "7",
                key: "scum_yv666",
             },
-            "scum_z95Headhunter":
+            "scum_ywing":
+            {
+               name: "Y-Wing (Scum)",
+               shipKey: Ship.Y_WING,
+               factionKey: Faction.SCUM,
+               image: "Scum_Y-Wing.png",
+               wave: "6",
+               key: "scum_ywing",
+            },
+            "scum_z95headhunter":
             {
                name: "Z-95 Headhunter (Scum)",
                shipKey: Ship.Z_95_HEADHUNTER,
                factionKey: Faction.SCUM,
                image: "Scum_Z-95_Headhunter.png",
                wave: "6",
-               key: "scum_z95Headhunter",
+               key: "scum_z95headhunter",
             },
 
             ////////////////////////////////////////////////////////////////////

@@ -84,7 +84,7 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.ok(result);
          var length = 70;
          assert.equal(result.length, length);
-         assert.equal(result[0], "firstOrder_tieFoFighter");
+         assert.equal(result[0], "firstOrder_tiefofighter");
          assert.equal(result[length - 1], "scum_cRocCruiser");
 
          var properties = Object.getOwnPropertyNames(ShipFaction);
@@ -260,11 +260,11 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          var length = 26;
          assert.equal(result.length, length);
          var i = 0;
-         assert.equal(result[i++], ShipFaction.REBEL_A_WING);
-         assert.equal(result[i++], ShipFaction.REBEL_A_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_ARC_170);
          assert.equal(result[i++], ShipFaction.REBEL_ATTACK_SHUTTLE);
          assert.equal(result[i++], ShipFaction.REBEL_AUZITUCK_GUNSHIP);
+         assert.equal(result[i++], ShipFaction.REBEL_A_WING);
+         assert.equal(result[i++], ShipFaction.REBEL_A_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_B_WING);
          assert.equal(result[i++], ShipFaction.REBEL_B_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_E_WING);
@@ -276,9 +276,9 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], ShipFaction.REBEL_U_WING);
          assert.equal(result[i++], ShipFaction.REBEL_VCX_100);
          assert.equal(result[i++], ShipFaction.REBEL_X_WING);
-         assert.equal(result[i++], ShipFaction.REBEL_Y_WING);
          assert.equal(result[i++], ShipFaction.REBEL_YT_1300);
          assert.equal(result[i++], ShipFaction.REBEL_YT_2400);
+         assert.equal(result[i++], ShipFaction.REBEL_Y_WING);
          assert.equal(result[i++], ShipFaction.REBEL_Z_95_HEADHUNTER);
          assert.equal(result[i++], ShipFaction.REBEL_CR90_CORVETTE);
          assert.equal(result[i++], ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT);
@@ -301,11 +301,11 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          var length = 22;
          assert.equal(result.length, length);
          var i = 0;
-         assert.equal(result[i++], ShipFaction.REBEL_A_WING);
-         assert.equal(result[i++], ShipFaction.REBEL_A_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_ARC_170);
          assert.equal(result[i++], ShipFaction.REBEL_ATTACK_SHUTTLE);
          assert.equal(result[i++], ShipFaction.REBEL_AUZITUCK_GUNSHIP);
+         assert.equal(result[i++], ShipFaction.REBEL_A_WING);
+         assert.equal(result[i++], ShipFaction.REBEL_A_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_B_WING);
          assert.equal(result[i++], ShipFaction.REBEL_B_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_E_WING);
@@ -317,9 +317,9 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], ShipFaction.REBEL_U_WING);
          assert.equal(result[i++], ShipFaction.REBEL_VCX_100);
          assert.equal(result[i++], ShipFaction.REBEL_X_WING);
-         assert.equal(result[i++], ShipFaction.REBEL_Y_WING);
          assert.equal(result[i++], ShipFaction.REBEL_YT_1300);
          assert.equal(result[i++], ShipFaction.REBEL_YT_2400);
+         assert.equal(result[i++], ShipFaction.REBEL_Y_WING);
          assert.equal(result[i++], ShipFaction.REBEL_Z_95_HEADHUNTER);
          assert.equal(result[i++], ShipFaction.REBEL_CR90_CORVETTE);
          assert.equal(result[i++], ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT);
@@ -339,11 +339,11 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], ShipFaction.RESISTANCE_T_70_X_WING);
          assert.equal(result[i++], ShipFaction.RESISTANCE_T_70_X_WING_V2);
          assert.equal(result[i++], ShipFaction.RESISTANCE_YT_1300);
-         assert.equal(result[i++], ShipFaction.REBEL_A_WING);
-         assert.equal(result[i++], ShipFaction.REBEL_A_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_ARC_170);
          assert.equal(result[i++], ShipFaction.REBEL_ATTACK_SHUTTLE);
          assert.equal(result[i++], ShipFaction.REBEL_AUZITUCK_GUNSHIP);
+         assert.equal(result[i++], ShipFaction.REBEL_A_WING);
+         assert.equal(result[i++], ShipFaction.REBEL_A_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_B_WING);
          assert.equal(result[i++], ShipFaction.REBEL_B_WING_V2);
          assert.equal(result[i++], ShipFaction.REBEL_E_WING);
@@ -355,9 +355,9 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], ShipFaction.REBEL_U_WING);
          assert.equal(result[i++], ShipFaction.REBEL_VCX_100);
          assert.equal(result[i++], ShipFaction.REBEL_X_WING);
-         assert.equal(result[i++], ShipFaction.REBEL_Y_WING);
          assert.equal(result[i++], ShipFaction.REBEL_YT_1300);
          assert.equal(result[i++], ShipFaction.REBEL_YT_2400);
+         assert.equal(result[i++], ShipFaction.REBEL_Y_WING);
          assert.equal(result[i++], ShipFaction.REBEL_Z_95_HEADHUNTER);
          assert.equal(result[i++], ShipFaction.REBEL_CR90_CORVETTE);
          assert.equal(result[i++], ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT);
@@ -407,8 +407,8 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], ShipFaction.SCUM_SCURRG_H_6_BOMBER);
          assert.equal(result[i++], ShipFaction.SCUM_STAR_VIPER);
          assert.equal(result[i++], ShipFaction.SCUM_STAR_VIPER_V2);
-         assert.equal(result[i++], ShipFaction.SCUM_Y_WING);
          assert.equal(result[i++], ShipFaction.SCUM_YV_666);
+         assert.equal(result[i++], ShipFaction.SCUM_Y_WING);
          assert.equal(result[i++], ShipFaction.SCUM_Z_95_HEADHUNTER);
          assert.equal(result[i++], ShipFaction.SCUM_C_ROC_CRUISER);
       });
@@ -486,10 +486,10 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          var length = 22;
          assert.equal(result.length, length);
          var i = 0;
-         assert.equal(result[i++], Ship.A_WING);
          assert.equal(result[i++], Ship.ARC_170);
          assert.equal(result[i++], Ship.ATTACK_SHUTTLE);
          assert.equal(result[i++], Ship.AUZITUCK_GUNSHIP);
+         assert.equal(result[i++], Ship.A_WING);
          assert.equal(result[i++], Ship.B_WING);
          assert.equal(result[i++], Ship.E_WING);
          assert.equal(result[i++], Ship.HWK_290);
@@ -500,9 +500,9 @@ define(["qunit", "artifact/js/Faction", "artifact/js/Ship", "artifact/js/ShipFac
          assert.equal(result[i++], Ship.U_WING);
          assert.equal(result[i++], Ship.VCX_100);
          assert.equal(result[i++], Ship.X_WING);
-         assert.equal(result[i++], Ship.Y_WING);
          assert.equal(result[i++], Ship.YT_1300);
          assert.equal(result[i++], Ship.YT_2400);
+         assert.equal(result[i++], Ship.Y_WING);
          assert.equal(result[i++], Ship.Z_95_HEADHUNTER);
          assert.equal(result[i++], Ship.CR90_CORVETTE);
          assert.equal(result[i++], Ship.GR_75_MEDIUM_TRANSPORT);

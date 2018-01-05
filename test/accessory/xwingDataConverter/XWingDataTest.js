@@ -166,6 +166,35 @@ define(["qunit", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataC
          xwingData.load(callback);
       });
 
+      QUnit.test("findSources() TIE/fo Fighter", function(assert)
+      {
+         // Setup.
+         var callback = function()
+         {
+            // Run.
+            var result = xwingData.findSources(XWingType.SHIPS, 31);
+
+            // Verify.
+            assert.ok(result);
+            assert.ok(Array.isArray(result));
+            assert.equal(result.length, 2);
+            var result0 = result[0];
+            assert.ok(result0);
+            assert.equal(result0.id, 32);
+            assert.equal(result0.name, "The Force Awakens Core Set");
+            var result1 = result[1];
+            assert.ok(result1);
+            assert.equal(result1.id, 34);
+            assert.equal(result1.name, "TIE/fo Fighter Expansion Pack");
+            done();
+         };
+
+         // Run.
+         var done = assert.async();
+         var xwingData = new XWingData();
+         xwingData.load(callback);
+      });
+
       QUnit.test("findSources() X-Wing", function(assert)
       {
          // Setup.
@@ -211,6 +240,27 @@ define(["qunit", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataC
             assert.ok(result);
             assert.equal(result.id, 24);
             assert.equal(result.name, "StarViper Expansion Pack");
+            done();
+         };
+
+         // Run.
+         var done = assert.async();
+         var xwingData = new XWingData();
+         xwingData.load(callback);
+      });
+
+      QUnit.test("firstSource() TIE/fo Fighter", function(assert)
+      {
+         // Setup.
+         var callback = function()
+         {
+            // Run.
+            var result = xwingData.firstSource(XWingType.SHIPS, 31);
+
+            // Verify.
+            assert.ok(result);
+            assert.equal(result.id, 34);
+            assert.equal(result.name, "TIE/fo Fighter Expansion Pack");
             done();
          };
 
