@@ -561,7 +561,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
                name: "Kihraxz Fighter",
                shipKey: Ship.KIHRAXZ_FIGHTER,
                factionKey: Faction.SCUM,
-               image: "Scum_KihraxzFighter.png",
+               image: "Scum_Kihraxz_Fighter.png",
                wave: "7",
                key: "scum_kihraxzfighter",
             },
