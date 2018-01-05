@@ -59,21 +59,25 @@ define(["qunit", "accessory/xwingDataConverter/EnumGenerator"], function(QUnit, 
    var JUMP_MASTER_5000 = {
       "name": "JumpMaster 5000",
       "faction": ["Scum and Villainy"],
+      "xws": "jumpmaster5000",
    };
 
    var STAR_VIPER = {
       "name": "StarViper",
       "faction": ["Scum and Villainy"],
+      "xws": "starviper",
    };
 
    var X_WING = {
       "name": "X-wing",
       "faction": ["Rebel Alliance"],
+      "xws": "xwing",
    };
 
    var Y_WING = {
       "name": "Y-wing",
       "faction": ["Rebel Alliance", "Scum and Villainy"],
+      "xws": "ywing",
    };
 
    /////////////////////////////////////////////////////////////////////////////
@@ -200,9 +204,9 @@ define(["qunit", "accessory/xwingDataConverter/EnumGenerator"], function(QUnit, 
    QUnit.test("createShipEnumValue", function(assert)
    {
       // Run / Verify.
-      assert.equal(EnumGenerator.createShipEnumValue(JUMP_MASTER_5000), "\"jumpMaster5000\"");
-      assert.equal(EnumGenerator.createShipEnumValue(STAR_VIPER), "\"starViper\"");
-      assert.equal(EnumGenerator.createShipEnumValue(X_WING), "\"xWing\"");
+      assert.equal(EnumGenerator.createShipEnumValue(JUMP_MASTER_5000), "\"jumpmaster5000\"");
+      assert.equal(EnumGenerator.createShipEnumValue(STAR_VIPER), "\"starviper\"");
+      assert.equal(EnumGenerator.createShipEnumValue(X_WING), "\"xwing\"");
    });
 
    QUnit.test("createShipFactionEnumName", function(assert)
@@ -217,10 +221,10 @@ define(["qunit", "accessory/xwingDataConverter/EnumGenerator"], function(QUnit, 
    QUnit.test("createShipFactionEnumValue", function(assert)
    {
       // Run / Verify.
-      assert.equal(EnumGenerator.createShipFactionEnumValue(JUMP_MASTER_5000, 0), "\"scum_jumpMaster5000\"");
-      assert.equal(EnumGenerator.createShipFactionEnumValue(STAR_VIPER, 0), "\"scum_starViper\"");
-      assert.equal(EnumGenerator.createShipFactionEnumValue(X_WING, 0), "\"rebel_xWing\"");
-      assert.equal(EnumGenerator.createShipFactionEnumValue(Y_WING, 0), "\"rebel_yWing\"");
+      assert.equal(EnumGenerator.createShipFactionEnumValue(JUMP_MASTER_5000, 0), "\"scum_jumpmaster5000\"");
+      assert.equal(EnumGenerator.createShipFactionEnumValue(STAR_VIPER, 0), "\"scum_starviper\"");
+      assert.equal(EnumGenerator.createShipFactionEnumValue(X_WING, 0), "\"rebel_xwing\"");
+      assert.equal(EnumGenerator.createShipFactionEnumValue(Y_WING, 0), "\"rebel_ywing\"");
    });
 
    QUnit.test("createUpgradeEnumName", function(assert)

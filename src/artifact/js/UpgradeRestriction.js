@@ -89,12 +89,12 @@ define(["common/js/InputValidator", "artifact/js/Faction", "artifact/js/PilotCar
          var myShipKey = shipKey;
          var props = Ship.properties[myShipKey];
 
-         if (shipKey.endsWith("fore"))
+         if (shipKey.endsWith(".fore"))
          {
             myShipKey = shipKey.split(".")[0];
             props = Ship.properties[myShipKey].fore;
          }
-         else if (shipKey.endsWith("aft") && !shipKey.endsWith("Craft"))
+         else if (shipKey.endsWith(".aft"))
          {
             myShipKey = shipKey.split(".")[0];
             props = Ship.properties[myShipKey].aft;

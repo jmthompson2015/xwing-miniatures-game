@@ -5,53 +5,53 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
    {
       var Ship = {
          AGGRESSOR: "aggressor",
-         ALPHA_CLASS_STAR_WING: "alphaClassStarWing",
+         ALPHA_CLASS_STAR_WING: "alphaclassstarwing",
          ARC_170: "arc170",
-         ATTACK_SHUTTLE: "attackShuttle",
-         AUZITUCK_GUNSHIP: "auzituckGunship",
-         A_WING: "aWing",
-         B_SF_17_BOMBER: "bSf17Bomber",
-         B_WING: "bWing",
-         E_WING: "eWing",
+         ATTACK_SHUTTLE: "attackshuttle",
+         AUZITUCK_GUNSHIP: "auzituckgunship",
+         A_WING: "awing",
+         B_SF_17_BOMBER: "bsf17bomber",
+         B_WING: "bwing",
+         E_WING: "ewing",
          FIRESPRAY_31: "firespray31",
-         G_1A_STARFIGHTER: "g1aStarfighter",
+         G_1A_STARFIGHTER: "g1astarfighter",
          HWK_290: "hwk290",
-         JUMP_MASTER_5000: "jumpMaster5000",
-         KIHRAXZ_FIGHTER: "kihraxzFighter",
-         K_WING: "kWing",
-         LAMBDA_CLASS_SHUTTLE: "lambdaClassShuttle",
-         LANCER_CLASS_PURSUIT_CRAFT: "lancerClassPursuitCraft",
-         M12_L_KIMOGILA_FIGHTER: "m12LKimogilaFighter",
-         M3_A_INTERCEPTOR: "m3AInterceptor",
-         PROTECTORATE_STARFIGHTER: "protectorateStarfighter",
+         JUMP_MASTER_5000: "jumpmaster5000",
+         KIHRAXZ_FIGHTER: "kihraxzfighter",
+         K_WING: "kwing",
+         LAMBDA_CLASS_SHUTTLE: "lambdaclassshuttle",
+         LANCER_CLASS_PURSUIT_CRAFT: "lancerclasspursuitcraft",
+         M12_L_KIMOGILA_FIGHTER: "m12lkimogilafighter",
+         M3_A_INTERCEPTOR: "m3ainterceptor",
+         PROTECTORATE_STARFIGHTER: "protectoratestarfighter",
          QUADJUMPER: "quadjumper",
-         SCURRG_H_6_BOMBER: "scurrgH6Bomber",
-         SHEATHIPEDE_CLASS_SHUTTLE: "sheathipedeClassShuttle",
-         STAR_VIPER: "starViper",
-         TIE_ADVANCED: "tieAdvanced",
-         TIE_ADVANCED_PROTOTYPE: "tieAdvancedPrototype",
-         TIE_AGGRESSOR: "tieAggressor",
-         TIE_BOMBER: "tieBomber",
-         TIE_DEFENDER: "tieDefender",
-         TIE_FIGHTER: "tieFighter",
-         TIE_FO_FIGHTER: "tieFoFighter",
-         TIE_INTERCEPTOR: "tieInterceptor",
-         TIE_PHANTOM: "tiePhantom",
-         TIE_PUNISHER: "tiePunisher",
-         TIE_SF_FIGHTER: "tieSfFighter",
-         TIE_SILENCER: "tieSilencer",
-         TIE_STRIKER: "tieStriker",
-         T_70_X_WING: "t70XWing",
-         UPSILON_CLASS_SHUTTLE: "upsilonClassShuttle",
-         U_WING: "uWing",
+         SCURRG_H_6_BOMBER: "scurrgh6bomber",
+         SHEATHIPEDE_CLASS_SHUTTLE: "sheathipedeclassshuttle",
+         STAR_VIPER: "starviper",
+         TIE_ADVANCED: "tieadvanced",
+         TIE_ADVANCED_PROTOTYPE: "tieadvprototype",
+         TIE_AGGRESSOR: "tieaggressor",
+         TIE_BOMBER: "tiebomber",
+         TIE_DEFENDER: "tiedefender",
+         TIE_FIGHTER: "tiefighter",
+         TIE_FO_FIGHTER: "tiefofighter",
+         TIE_INTERCEPTOR: "tieinterceptor",
+         TIE_PHANTOM: "tiephantom",
+         TIE_PUNISHER: "tiepunisher",
+         TIE_SF_FIGHTER: "tiesffighter",
+         TIE_SILENCER: "tiesilencer",
+         TIE_STRIKER: "tiestriker",
+         T_70_X_WING: "t70xwing",
+         UPSILON_CLASS_SHUTTLE: "upsilonclassshuttle",
+         U_WING: "uwing",
          VCX_100: "vcx100",
-         VT_49_DECIMATOR: "vt49Decimator",
-         X_WING: "xWing",
+         VT_49_DECIMATOR: "vt49decimator",
+         X_WING: "xwing",
          YT_1300: "yt1300",
          YT_2400: "yt2400",
          YV_666: "yv666",
-         Y_WING: "yWing",
-         Z_95_HEADHUNTER: "z95Headhunter",
+         Y_WING: "ywing",
+         Z_95_HEADHUNTER: "z95headhunter",
 
          // Huge ships.
          C_ROC_CRUISER: "cRocCruiser",
@@ -62,24 +62,6 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
 
          properties:
          {
-            "aWing":
-            {
-               name: "A-Wing",
-               description: "An A-Wing.",
-               primaryWeaponValue: 2,
-               agilityValue: 3,
-               hullValue: 2,
-               shieldValue: 2,
-               shipBaseKey: ShipBase.SMALL,
-               primaryFiringArcKey: FiringArc.FORWARD,
-               maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.TURN_RIGHT_1_STANDARD,
-        Maneuver.TURN_LEFT_2_EASY, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_EASY,
-        Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD, Maneuver.KOIOGRAN_TURN_3_HARD,
-        Maneuver.STRAIGHT_4_EASY,
-        Maneuver.STRAIGHT_5_EASY, Maneuver.KOIOGRAN_TURN_5_HARD],
-               shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BOOST, ShipAction.EVADE],
-               key: "aWing",
-            },
             "aggressor":
             {
                name: "Aggressor",
@@ -93,13 +75,13 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.BANK_LEFT_3_EASY, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_EASY, Maneuver.SEGNORS_LOOP_LEFT_3_HARD, Maneuver.SEGNORS_LOOP_RIGHT_3_HARD,
-        Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BOOST, ShipAction.EVADE],
+               wave: "6",
                wikiUrl: "http://xwing-miniatures.wikia.com/wiki/IG-2000_Expansion_Pack",
                key: "aggressor",
             },
-            "alphaClassStarWing":
+            "alphaclassstarwing":
             {
                name: "Alpha-class Star Wing",
                primaryWeaponValue: 2,
@@ -111,10 +93,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.RELOAD, ShipAction.SLAM, ShipAction.TARGET_LOCK],
-               key: "alphaClassStarWing",
+               wave: "12",
+               key: "alphaclassstarwing",
             },
             "arc170":
             {
@@ -130,15 +112,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_HARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_HARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
+               wave: "9",
                key: "arc170",
             },
-            "attackShuttle":
+            "attackshuttle":
             {
                name: "Attack Shuttle",
-               description: "An Attack Shuttle.",
                primaryWeaponValue: 3,
                agilityValue: 2,
                hullValue: 2,
@@ -148,13 +129,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_HARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.EVADE, ShipAction.FOCUS],
-               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Ghost_Expansion_Pack",
-               key: "attackShuttle",
+               wave: "8",
+               key: "attackshuttle",
             },
-            "auzituckGunship":
+            "auzituckgunship":
             {
                name: "Auzituck Gunship",
                primaryWeaponValue: 3,
@@ -170,9 +150,28 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD,
         Maneuver.STRAIGHT_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.REINFORCE],
-               key: "auzituckGunship",
+               wave: "11",
+               key: "auzituckgunship",
             },
-            "bSf17Bomber":
+            "awing":
+            {
+               name: "A-Wing",
+               primaryWeaponValue: 2,
+               agilityValue: 3,
+               hullValue: 2,
+               shieldValue: 2,
+               shipBaseKey: ShipBase.SMALL,
+               primaryFiringArcKey: FiringArc.FORWARD,
+               maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.TURN_RIGHT_1_STANDARD,
+        Maneuver.TURN_LEFT_2_EASY, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_EASY,
+        Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD, Maneuver.KOIOGRAN_TURN_3_HARD,
+        Maneuver.STRAIGHT_4_EASY,
+        Maneuver.STRAIGHT_5_EASY, Maneuver.KOIOGRAN_TURN_5_HARD],
+               shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BOOST, ShipAction.EVADE],
+               wave: "2",
+               key: "awing",
+            },
+            "bsf17bomber":
             {
                name: "B/SF-17 Bomber",
                primaryWeaponValue: 2,
@@ -185,16 +184,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.STATIONARY_0_HARD,
         Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_HARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
-        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD
-
-        ],
+        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "bSf17Bomber",
+               wave: "13",
+               key: "bsf17bomber",
             },
-            "bWing":
+            "bwing":
             {
                name: "B-Wing",
-               description: "A B-Wing.",
                primaryWeaponValue: 3,
                agilityValue: 1,
                hullValue: 3,
@@ -204,15 +201,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_HARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD, Maneuver.KOIOGRAN_TURN_2_HARD,
         Maneuver.BANK_LEFT_3_HARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL],
-               key: "bWing",
+               wave: "3",
+               key: "bwing",
             },
-            "eWing":
+            "ewing":
             {
                name: "E-Wing",
-               description: "An E-Wing.",
                primaryWeaponValue: 3,
                agilityValue: 3,
                hullValue: 2,
@@ -225,7 +221,8 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD,
         Maneuver.STRAIGHT_5_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL, ShipAction.EVADE],
-               key: "eWing",
+               wave: "4",
+               key: "ewing",
             },
             "firespray31":
             {
@@ -241,13 +238,13 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD, Maneuver.KOIOGRAN_TURN_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.EVADE],
+               wave: "2",
                wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Slave_1_Expansion_Pack",
                key: "firespray31",
             },
-            "g1aStarfighter":
+            "g1astarfighter":
             {
                name: "G-1A Starfighter",
                primaryWeaponValue: 3,
@@ -259,10 +256,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_HARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.BANK_LEFT_3_HARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_HARD, Maneuver.KOIOGRAN_TURN_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.EVADE, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "g1aStarfighter",
+               wave: "8",
+               key: "g1astarfighter",
             },
             "hwk290":
             {
@@ -277,15 +274,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.BANK_LEFT_3_HARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
+               wave: "3",
                key: "hwk290",
             },
-            "jumpMaster5000":
+            "jumpmaster5000":
             {
                name: "JumpMaster 5000",
-               description: "A JumpMaster 5000.",
                primaryWeaponValue: 2,
                agilityValue: 2,
                hullValue: 5,
@@ -296,16 +292,32 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_EASY, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_EASY, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD, Maneuver.SEGNORS_LOOP_LEFT_2_STANDARD, Maneuver.SEGNORS_LOOP_RIGHT_2_HARD,
         Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Punishing_One_Expansion_Pack",
-               key: "jumpMaster5000",
+               wave: "8",
+               key: "jumpmaster5000",
             },
-            "kWing":
+            "kihraxzfighter":
+            {
+               name: "Kihraxz Fighter",
+               primaryWeaponValue: 3,
+               agilityValue: 2,
+               hullValue: 4,
+               shieldValue: 1,
+               shipBaseKey: ShipBase.SMALL,
+               primaryFiringArcKey: FiringArc.FORWARD,
+               maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_STANDARD,
+        Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
+        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD,
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD,
+        Maneuver.KOIOGRAN_TURN_5_HARD],
+               shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
+               wave: "7",
+               key: "kihraxzfighter",
+            },
+            "kwing":
             {
                name: "K-Wing",
-               description: "A K-Wing.",
                primaryWeaponValue: 2,
                agilityValue: 1,
                hullValue: 5,
@@ -319,30 +331,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
 
         ],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.SLAM],
-               key: "kWing",
+               wave: "7",
+               key: "kwing",
             },
-            "kihraxzFighter":
-            {
-               name: "Kihraxz Fighter",
-               description: "A Kihraxz fighter.",
-               primaryWeaponValue: 3,
-               agilityValue: 2,
-               hullValue: 4,
-               shieldValue: 1,
-               shipBaseKey: ShipBase.SMALL,
-               primaryFiringArcKey: FiringArc.FORWARD,
-               maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_STANDARD,
-        Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
-        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD,
-        Maneuver.KOIOGRAN_TURN_5_HARD],
-               shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "kihraxzFighter",
-            },
-            "lambdaClassShuttle":
+            "lambdaclassshuttle":
             {
                name: "Lambda-class Shuttle",
-               description: "A Lambda-class shuttle.",
                primaryWeaponValue: 3,
                agilityValue: 1,
                hullValue: 5,
@@ -354,12 +348,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.TURN_LEFT_2_HARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_HARD,
         Maneuver.BANK_LEFT_3_HARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "lambdaClassShuttle",
+               wave: "3",
+               key: "lambdaclassshuttle",
             },
-            "lancerClassPursuitCraft":
+            "lancerclasspursuitcraft":
             {
                name: "Lancer-class Pursuit Craft",
-               description: "A Lancer-class pursuit craft.",
                primaryWeaponValue: 3,
                agilityValue: 2,
                hullValue: 7,
@@ -372,9 +366,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_EASY,
         Maneuver.STRAIGHT_5_STANDARD, Maneuver.KOIOGRAN_TURN_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.EVADE, ShipAction.ROTATE_ARC, ShipAction.TARGET_LOCK],
-               key: "lancerClassPursuitCraft",
+               wave: "9",
+               key: "lancerclasspursuitcraft",
             },
-            "m12LKimogilaFighter":
+            "m12lkimogilafighter":
             {
                name: "M12-L Kimogila Fighter",
                primaryWeaponValue: 3,
@@ -386,15 +381,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD, Maneuver.TURN_RIGHT_1_HARD,
         Maneuver.TURN_LEFT_2_HARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_HARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.FOCUS, ShipAction.RELOAD, ShipAction.TARGET_LOCK],
-               key: "m12LKimogilaFighter",
+               wave: "12",
+               key: "m12lkimogilafighter",
             },
-            "m3AInterceptor":
+            "m3ainterceptor":
             {
                name: "M3-A Interceptor",
-               description: "An M3-A Interceptor.",
                primaryWeaponValue: 2,
                agilityValue: 3,
                hullValue: 2,
@@ -407,13 +401,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD,
         Maneuver.KOIOGRAN_TURN_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL, ShipAction.EVADE],
-               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/M3-A_Scyk_Interceptor_Expansion_Pack",
-               key: "m3AInterceptor",
+               wave: "6",
+               key: "m3ainterceptor",
             },
-            "protectorateStarfighter":
+            "protectoratestarfighter":
             {
                name: "Protectorate Starfighter",
-               description: "A Protectorate starfighter.",
                primaryWeaponValue: 3,
                agilityValue: 3,
                hullValue: 4,
@@ -426,7 +419,8 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD,
         Maneuver.STRAIGHT_5_STANDARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.BOOST, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "protectorateStarfighter",
+               wave: "9",
+               key: "protectoratestarfighter",
             },
             "quadjumper":
             {
@@ -439,13 +433,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                primaryFiringArcKey: FiringArc.FORWARD,
                maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_STANDARD, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD, Maneuver.SEGNORS_LOOP_LEFT_2_HARD, Maneuver.SEGNORS_LOOP_RIGHT_2_HARD,
-        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD
-
-        ],
+        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.FOCUS],
+               wave: "10",
                key: "quadjumper",
             },
-            "scurrgH6Bomber":
+            "scurrgh6bomber":
             {
                name: "Scurrg H-6 Bomber",
                primaryWeaponValue: 3,
@@ -460,9 +453,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD,
         Maneuver.STRAIGHT_5_HARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "scurrgH6Bomber",
+               wave: "11",
+               key: "scurrgh6bomber",
             },
-            "sheathipedeClassShuttle":
+            "sheathipedeclassshuttle":
             {
                name: "Sheathipede-class Shuttle",
                primaryWeaponValue: 2,
@@ -475,15 +469,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD, Maneuver.KOIOGRAN_TURN_3_HARD,
-        Maneuver.STRAIGHT_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_HARD],
                shipActionKeys: [ShipAction.COORDINATE, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "sheathipedeClassShuttle",
+               wave: "12",
+               key: "sheathipedeclassshuttle",
             },
-            "starViper":
+            "starviper":
             {
                name: "StarViper",
-               description: "A StarViper.",
                primaryWeaponValue: 3,
                agilityValue: 3,
                hullValue: 4,
@@ -493,15 +486,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.SEGNORS_LOOP_LEFT_3_HARD, Maneuver.SEGNORS_LOOP_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL, ShipAction.BOOST],
-               key: "starViper",
+               wave: "6",
+               key: "starviper",
             },
-            "t70XWing":
+            "t70xwing":
             {
                name: "T-70 X-Wing",
-               description: "A T-70 X-Wing.",
                primaryWeaponValue: 3,
                agilityValue: 2,
                hullValue: 3,
@@ -511,15 +503,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD, Maneuver.TALLON_ROLL_LEFT_3_HARD, Maneuver.TALLON_ROLL_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BOOST],
-               key: "t70XWing",
+               wave: "0",
+               key: "t70xwing",
             },
-            "tieAdvanced":
+            "tieadvanced":
             {
                name: "TIE Advanced",
-               description: "A TIE Advanced.",
                primaryWeaponValue: 2,
                agilityValue: 3,
                hullValue: 3,
@@ -532,12 +523,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD,
         Maneuver.STRAIGHT_5_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL, ShipAction.EVADE],
-               key: "tieAdvanced",
+               wave: "1",
+               key: "tieadvanced",
             },
-            "tieAdvancedPrototype":
+            "tieadvprototype":
             {
                name: "TIE Adv. Prototype",
-               description: "A TIE Advanced Prototype.",
                primaryWeaponValue: 2,
                agilityValue: 3,
                hullValue: 2,
@@ -550,10 +541,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_EASY, Maneuver.KOIOGRAN_TURN_4_HARD,
         Maneuver.STRAIGHT_5_STANDARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.BOOST, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Inquisitor%27s_TIE_Expansion_Pack",
-               key: "tieAdvancedPrototype",
+               wave: "8",
+               key: "tieadvprototype",
             },
-            "tieAggressor":
+            "tieaggressor":
             {
                name: "TIE Aggressor",
                primaryWeaponValue: 2,
@@ -565,15 +556,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "tieAggressor",
+               wave: "11",
+               key: "tieaggressor",
             },
-            "tieBomber":
+            "tiebomber":
             {
                name: "TIE Bomber",
-               description: "A TIE bomber.",
                primaryWeaponValue: 2,
                agilityValue: 2,
                hullValue: 6,
@@ -586,12 +576,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD,
         Maneuver.KOIOGRAN_TURN_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL],
-               key: "tieBomber",
+               wave: "3",
+               key: "tiebomber",
             },
-            "tieDefender":
+            "tiedefender":
             {
                name: "TIE Defender",
-               description: "A TIE defender.",
                primaryWeaponValue: 3,
                agilityValue: 3,
                hullValue: 3,
@@ -604,12 +594,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_EASY, Maneuver.KOIOGRAN_TURN_4_STANDARD,
         Maneuver.STRAIGHT_5_EASY],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL],
-               key: "tieDefender",
+               wave: "4",
+               key: "tiedefender",
             },
-            "tieFighter":
+            "tiefighter":
             {
                name: "TIE Fighter",
-               description: "A TIE fighter.",
                primaryWeaponValue: 2,
                agilityValue: 3,
                hullValue: 3,
@@ -622,12 +612,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD,
         Maneuver.STRAIGHT_5_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.BARREL_ROLL, ShipAction.EVADE],
-               key: "tieFighter",
+               wave: "0",
+               key: "tiefighter",
             },
-            "tieFoFighter":
+            "tiefofighter":
             {
                name: "TIE/fo Fighter",
-               description: "A TIE/fo fighter.",
                primaryWeaponValue: 2,
                agilityValue: 3,
                hullValue: 3,
@@ -640,12 +630,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD,
         Maneuver.STRAIGHT_5_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL, ShipAction.EVADE],
-               key: "tieFoFighter",
+               wave: "0",
+               key: "tiefofighter",
             },
-            "tieInterceptor":
+            "tieinterceptor":
             {
                name: "TIE Interceptor",
-               description: "A TIE interceptor.",
                primaryWeaponValue: 3,
                agilityValue: 3,
                hullValue: 3,
@@ -658,12 +648,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_EASY,
         Maneuver.STRAIGHT_5_STANDARD, Maneuver.KOIOGRAN_TURN_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.BARREL_ROLL, ShipAction.BOOST, ShipAction.EVADE],
-               key: "tieInterceptor",
+               wave: "2",
+               key: "tieinterceptor",
             },
-            "tiePhantom":
+            "tiephantom":
             {
                name: "TIE Phantom",
-               description: "A TIE phantom.",
                primaryWeaponValue: 4,
                agilityValue: 2,
                hullValue: 2,
@@ -673,15 +663,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD, Maneuver.KOIOGRAN_TURN_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.BARREL_ROLL, ShipAction.EVADE, ShipAction.CLOAK],
-               key: "tiePhantom",
+               wave: "4",
+               key: "tiephantom",
             },
-            "tiePunisher":
+            "tiepunisher":
             {
                name: "TIE Punisher",
-               description: "A TIE punisher.",
                primaryWeaponValue: 2,
                agilityValue: 1,
                hullValue: 6,
@@ -691,15 +680,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_HARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_HARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BOOST],
-               key: "tiePunisher",
+               wave: "7",
+               key: "tiepunisher",
             },
-            "tieSfFighter":
+            "tiesffighter":
             {
                name: "TIE/sf Fighter",
-               description: "A TIE/sf fighter.",
                primaryWeaponValue: 2,
                agilityValue: 2,
                hullValue: 3,
@@ -710,12 +698,12 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_HARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD, Maneuver.SEGNORS_LOOP_LEFT_3_HARD, Maneuver.SEGNORS_LOOP_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "tieSfFighter",
+               wave: "9",
+               key: "tiesffighter",
             },
-            "tieSilencer":
+            "tiesilencer":
             {
                name: "TIE Silencer",
                primaryWeaponValue: 3,
@@ -730,9 +718,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_EASY, Maneuver.KOIOGRAN_TURN_4_HARD,
         Maneuver.STRAIGHT_5_EASY],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.BOOST, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "tieSilencer",
+               wave: "13",
+               key: "tiesilencer",
             },
-            "tieStriker":
+            "tiestriker":
             {
                name: "TIE Striker",
                primaryWeaponValue: 3,
@@ -743,16 +732,31 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                primaryFiringArcKey: FiringArc.FORWARD,
                maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD, Maneuver.KOIOGRAN_TURN_2_HARD, Maneuver.SEGNORS_LOOP_LEFT_2_HARD, Maneuver.SEGNORS_LOOP_RIGHT_2_HARD,
-        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD
-
-        ],
+        Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD],
                shipActionKeys: [ShipAction.BARREL_ROLL, ShipAction.EVADE, ShipAction.FOCUS],
-               key: "tieStriker",
+               wave: "10",
+               key: "tiestriker",
             },
-            "uWing":
+            "upsilonclassshuttle":
+            {
+               name: "Upsilon-class Shuttle",
+               primaryWeaponValue: 4,
+               agilityValue: 1,
+               hullValue: 6,
+               shieldValue: 6,
+               shipBaseKey: ShipBase.LARGE,
+               primaryFiringArcKey: FiringArc.FORWARD,
+               maneuverKeys: [Maneuver.STATIONARY_0_HARD,
+        Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD, Maneuver.TURN_RIGHT_1_HARD,
+        Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
+        Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD],
+               shipActionKeys: [ShipAction.COORDINATE, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
+               wave: "10",
+               key: "upsilonclassshuttle",
+            },
+            "uwing":
             {
                name: "U-Wing",
-               description: "A U-Wing.",
                primaryWeaponValue: 3,
                agilityValue: 1,
                hullValue: 4,
@@ -763,29 +767,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD],
                shipActionKeys: [ShipAction.TARGET_LOCK, ShipAction.FOCUS],
-               key: "uWing",
-            },
-            "upsilonClassShuttle":
-            {
-               name: "Upsilon-class Shuttle",
-               description: "An Upsilon-class shuttle.",
-               primaryWeaponValue: 4,
-               agilityValue: 1,
-               hullValue: 6,
-               shieldValue: 6,
-               shipBaseKey: ShipBase.LARGE,
-               primaryFiringArcKey: FiringArc.FORWARD,
-               maneuverKeys: [Maneuver.STATIONARY_0_HARD,
-        Maneuver.TURN_LEFT_1_HARD, Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD, Maneuver.TURN_RIGHT_1_HARD,
-        Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
-        Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD
-
-        ],
-               shipActionKeys: [ShipAction.COORDINATE, ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "upsilonClassShuttle",
+               wave: "10",
+               key: "uwing",
             },
             "vcx100":
             {
@@ -803,13 +788,13 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.STRAIGHT_4_STANDARD,
         Maneuver.KOIOGRAN_TURN_5_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.EVADE, ShipAction.TARGET_LOCK],
+               wave: "8",
                wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Ghost_Expansion_Pack",
                key: "vcx100",
             },
-            "vt49Decimator":
+            "vt49decimator":
             {
                name: "VT-49 Decimator",
-               description: "A VT-49 Decimator.",
                primaryWeaponValue: 3,
                agilityValue: 0,
                hullValue: 12,
@@ -820,15 +805,14 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_STANDARD, Maneuver.BANK_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "vt49Decimator",
+               wave: "5",
+               key: "vt49decimator",
             },
-            "xWing":
+            "xwing":
             {
                name: "X-Wing",
-               description: "An X-Wing.",
                primaryWeaponValue: 3,
                agilityValue: 2,
                hullValue: 3,
@@ -838,28 +822,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "xWing",
-            },
-            "yWing":
-            {
-               name: "Y-Wing",
-               description: "A Y-Wing.",
-               primaryWeaponValue: 2,
-               agilityValue: 1,
-               hullValue: 5,
-               shieldValue: 3,
-               shipBaseKey: ShipBase.SMALL,
-               primaryFiringArcKey: FiringArc.FORWARD,
-               maneuverKeys: [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD,
-        Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
-        Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD,
-        Maneuver.STRAIGHT_4_HARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
-               shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "yWing",
+               wave: "0",
+               key: "xwing",
             },
             "yt1300":
             {
@@ -875,9 +841,9 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.KOIOGRAN_TURN_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
+               wave: "2",
                wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Millennium_Falcon_Expansion_Pack",
                key: "yt1300",
             },
@@ -895,9 +861,9 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.TURN_LEFT_1_STANDARD, Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY, Maneuver.TURN_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD, Maneuver.KOIOGRAN_TURN_4_HARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK, ShipAction.BARREL_ROLL],
+               wave: "5",
                wikiUrl: "http://xwing-miniatures.wikia.com/wiki/YT-2400_Freighter_Expansion_Pack",
                key: "yt2400",
             },
@@ -916,16 +882,32 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
         Maneuver.BANK_LEFT_1_EASY, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_EASY,
         Maneuver.TURN_LEFT_2_HARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_HARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_EASY, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD,
-        Maneuver.STRAIGHT_4_STANDARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
+               wave: "7",
                wikiUrl: "http://xwing-miniatures.wikia.com/wiki/Hound%27s_Tooth_Expansion_Pack",
                key: "yv666",
             },
-            "z95Headhunter":
+            "ywing":
+            {
+               name: "Y-Wing",
+               primaryWeaponValue: 2,
+               agilityValue: 1,
+               hullValue: 5,
+               shieldValue: 3,
+               shipBaseKey: ShipBase.SMALL,
+               primaryFiringArcKey: FiringArc.FORWARD,
+               maneuverKeys: [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD,
+        Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_STANDARD, Maneuver.TURN_RIGHT_2_STANDARD,
+        Maneuver.TURN_LEFT_3_HARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_HARD,
+        Maneuver.STRAIGHT_4_HARD, Maneuver.KOIOGRAN_TURN_4_HARD],
+               shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
+               wave: "1",
+               key: "ywing",
+            },
+            "z95headhunter":
             {
                name: "Z-95 Headhunter",
-               description: "A Z-95 headhunter.",
                primaryWeaponValue: 2,
                agilityValue: 2,
                hullValue: 2,
@@ -935,10 +917,10 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                maneuverKeys: [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_EASY, Maneuver.BANK_RIGHT_1_STANDARD,
         Maneuver.TURN_LEFT_2_STANDARD, Maneuver.BANK_LEFT_2_EASY, Maneuver.STRAIGHT_2_EASY, Maneuver.BANK_RIGHT_2_EASY, Maneuver.TURN_RIGHT_2_STANDARD,
         Maneuver.TURN_LEFT_3_STANDARD, Maneuver.BANK_LEFT_3_STANDARD, Maneuver.STRAIGHT_3_STANDARD, Maneuver.BANK_RIGHT_3_STANDARD, Maneuver.TURN_RIGHT_3_STANDARD, Maneuver.KOIOGRAN_TURN_3_HARD,
-        Maneuver.STRAIGHT_4_STANDARD
-        ],
+        Maneuver.STRAIGHT_4_STANDARD],
                shipActionKeys: [ShipAction.FOCUS, ShipAction.TARGET_LOCK],
-               key: "z95Headhunter",
+               wave: "4",
+               key: "z95headhunter",
             },
 
             ////////////////////////////////////////////////////////////////////

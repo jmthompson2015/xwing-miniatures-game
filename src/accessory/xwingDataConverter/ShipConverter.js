@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Ship", "artifact/js/ShipAction", "accessory/xwingDataConverter/EnumGenerator"],
-   function(FileLoader, Bearing, Difficulty, Ship, ShipAction, EnumGenerator)
+define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Ship", "artifact/js/ShipAction", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(FileLoader, Bearing, Difficulty, Ship, ShipAction, EnumGenerator, XWingData, XWingType)
    {
       var ShipConverter = {};
 
@@ -13,16 +13,16 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
             finishConvert(response, callback);
          };
 
-         FileLoader.loadFile("../../../lib/xwing-data/data/ships.js", finishCallback);
+         var xwingData = new XWingData();
+         xwingData.load(finishCallback);
       };
 
-      ShipConverter.finishConvert = function(response, callback)
+      ShipConverter.finishConvert = function(xwingData, callback)
       {
-         var shipArray = JSON.parse(response);
-         var enums = generateEnums(shipArray);
-         var properties = generateProperties(shipArray);
+         var enums = generateEnums(xwingData);
+         var properties = generateProperties(xwingData);
 
-         callback(shipArray, enums, properties);
+         callback(xwingData, enums, properties);
       };
 
       ShipConverter.determineAuxiliaryFiringArc = function(ship)
@@ -75,13 +75,17 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
                   if (bearingKey && difficultyKey)
                   {
                      var bearingName = BEARING_NAMES[i];
+                     if (speed === 0 && bearingName === "STRAIGHT")
+                     {
+                        bearingName = "STATIONARY";
+                     }
                      var difficultyName = DIFFICULTY_NAMES[maneuvers[i]];
                      answer.push("Maneuver." + bearingName + "_" + speed + "_" + difficultyName + ",");
                   }
                }
-            }
 
-            answer[answer.length - 1] += "<br/>";
+               answer[answer.length - 1] += "<br/>";
+            }
          }
 
          answer[answer.length - 1] = answer[answer.length - 1].replace(",<br/>", "");
@@ -111,6 +115,23 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
          }
 
          return EnumGenerator.quoteValue(answer);
+      }
+
+      function determinePrimaryWeaponTurret(ship, shipCard)
+      {
+         var answer;
+
+         if (ship && ship.firing_arcs.includes("Turret"))
+         {
+            answer = true;
+         }
+
+         if (answer === undefined && shipCard)
+         {
+            answer = shipCard.isPrimaryWeaponTurret;
+         }
+
+         return answer;
       }
 
       function determineShipActionKeys(ship)
@@ -169,8 +190,9 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
 
       var EXCLUDE_NAMES = ["C-ROC Cruiser", "CR90 Corvette (Fore)", "CR90 Corvette (Aft)", "Gozanti-class Cruiser", "GR-75 Medium Transport", "Raider-class Corvette (Fore)", "Raider-class Corvette (Aft)"];
 
-      function generateEnums(shipArray)
+      function generateEnums(xwingData)
       {
+         var shipArray = xwingData.dataByType(XWingType.SHIPS);
          var enumNames = [];
          var enumValues = [];
 
@@ -213,12 +235,15 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
          return enums.join("");
       }
 
-      function generateProperties(shipArray)
+      function generateProperties(xwingData)
       {
+         var shipArray = xwingData.dataByType(XWingType.SHIPS);
          var properties = shipArray.reduce(function(accumulator, ship)
          {
             if (!EXCLUDE_NAMES.includes(ship.name))
             {
+               var source = xwingData.firstSource(XWingType.SHIPS, ship.id);
+               ship.wave = "" + source.wave;
                var enumValue = EnumGenerator.createShipEnumValue(ship);
                accumulator.push(enumValue + ":<br/>{<br/>" + generatePropertiesSingle(ship) + "},<br/>");
             }
@@ -240,6 +265,8 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
 
          var shipCard = findShipCard(ship);
          var description = determineDescription(shipCard);
+         var isPrimaryWeaponTurret = determinePrimaryWeaponTurret(ship, shipCard);
+         var wave = EnumGenerator.quoteValue(ship.wave);
          var wikiUrl = determineWikiUrl(shipCard);
 
          var answer = "";
@@ -252,9 +279,11 @@ define(["common/js/FileLoader", "artifact/js/Bearing", "artifact/js/Difficulty",
          answer += EnumGenerator.createProperty("shieldValue", ship.shields);
          answer += EnumGenerator.createProperty("shipBaseKey", determineShipBaseKey(ship));
          answer += EnumGenerator.createProperty("primaryFiringArcKey", primaryFiringArc);
+         answer += EnumGenerator.createProperty("isPrimaryWeaponTurret", isPrimaryWeaponTurret);
          answer += EnumGenerator.createProperty("auxiliaryFiringArcKey", auxiliaryFiringArc);
          answer += "maneuverKeys: [" + ShipConverter.determineManeuverKeys(ship) + "],<br/>";
          answer += "shipActionKeys: [" + determineShipActionKeys(ship) + "],<br/>";
+         answer += EnumGenerator.createProperty("wave", wave);
          answer += EnumGenerator.createProperty("wikiUrl", wikiUrl);
          answer += EnumGenerator.createProperty("key", EnumGenerator.createShipEnumValue(ship));
 

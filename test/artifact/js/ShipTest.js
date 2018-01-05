@@ -128,7 +128,7 @@ define(["qunit", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipB
          assert.ok(result);
          var length = 53;
          assert.equal(result.length, length);
-         assert.equal(result[0], "aWing");
+         assert.equal(result[0], "aggressor");
          assert.equal(result[length - 1], "raiderClassCorvette");
 
          var properties = Object.getOwnPropertyNames(Ship);
