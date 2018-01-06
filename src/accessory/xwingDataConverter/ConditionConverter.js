@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDataConverter/EnumGenerator"],
-   function(FileLoader, ConditionCard, EnumGenerator)
+define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(FileLoader, ConditionCard, EnumGenerator, XWingData, XWingType)
    {
       var ConditionConverter = {};
 
@@ -13,17 +13,16 @@ define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDat
             finishConvert(response, callback);
          };
 
-         FileLoader.loadFile("../../../lib/xwing-data/data/conditions.js", finishCallback);
+         var xwingData = new XWingData();
+         xwingData.load(finishCallback);
       };
 
-      ConditionConverter.finishConvert = function(response, callback)
+      ConditionConverter.finishConvert = function(xwingData, callback)
       {
-         var conditionArray = JSON.parse(response);
+         var enums = generateEnums(xwingData);
+         var properties = generateProperties(xwingData);
 
-         var enums = generateEnums(conditionArray);
-         var properties = generateProperties(conditionArray);
-
-         callback(conditionArray, enums, properties);
+         callback(xwingData, enums, properties);
       };
 
       function determineDescription(condition, conditionCard)
@@ -86,8 +85,9 @@ define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDat
          return conditionCard;
       }
 
-      function generateEnums(conditionArray)
+      function generateEnums(xwingData)
       {
+         var conditionArray = xwingData.dataByType(XWingType.CONDITIONS);
          var enumNames = [];
          var enumValues = [];
 
@@ -116,10 +116,17 @@ define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDat
          return enums.join("");
       }
 
-      function generateProperties(conditionArray)
+      function generateProperties(xwingData)
       {
+         var conditionArray = xwingData.dataByType(XWingType.CONDITIONS);
          var properties = conditionArray.reduce(function(accumulator, condition)
          {
+            var source = xwingData.firstSource(XWingType.CONDITIONS, condition.id);
+            condition.wave = "" + source.wave;
+            if (condition.wave === "Iconic Starships")
+            {
+               condition.wave = "Aces";
+            }
             var enumValue = EnumGenerator.createConditionEnumValue(condition);
             accumulator.push(enumValue + ":<br/>{<br/>" + generatePropertiesSingle(condition) + "},<br/>");
             return accumulator;
@@ -144,6 +151,7 @@ define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDat
          var description = determineDescription(condition, conditionCard);
          var image = determineImage(condition, conditionCard);
          var isUnique = determineIsUnique(condition, conditionCard);
+         var wave = EnumGenerator.quoteValue(condition.wave);
          var key = EnumGenerator.createConditionEnumValue(condition);
 
          var answer = "";
@@ -152,6 +160,7 @@ define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDat
          answer += EnumGenerator.createProperty("isUnique", isUnique);
          answer += EnumGenerator.createProperty("description", description);
          answer += EnumGenerator.createProperty("image", image);
+         answer += EnumGenerator.createProperty("wave", wave);
          answer += EnumGenerator.createProperty("key", key);
 
          return answer;

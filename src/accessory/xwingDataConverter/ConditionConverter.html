@@ -26,8 +26,10 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "accessory/xwingDataConverter/ConditionConverter"],
-			function(React, ReactDOM, DOM, Logger, ConditionConverter)
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "accessory/xwingDataConverter/ConditionConverter",
+				"accessory/xwingDataConverter/XWingType"
+			],
+			function(React, ReactDOM, DOM, Logger, ConditionConverter, XWingType)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -38,8 +40,9 @@
 				ConditionConverter.convert(myCallback);
 				document.getElementById("panel").innerHTML = "Working...";
 
-				function myCallback(conditionArray, enums, properties)
+				function myCallback(xwingData, enums, properties)
 				{
+					var conditionArray = xwingData.dataByType(XWingType.CONDITIONS);
 					LOGGER.info("myCallback() conditionArray.length = " + conditionArray.length);
 					document.getElementById("panel").innerHTML = enums + "<br/>" + properties;
 				}
