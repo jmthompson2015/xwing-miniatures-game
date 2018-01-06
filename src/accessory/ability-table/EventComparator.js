@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/StringAugments", "artifact/js/Event", "artifact/js/Phase"],
-   function(StringAugments, Event, Phase)
+define(["common/js/StringUtilities", "artifact/js/Event", "artifact/js/Phase"],
+   function(StringUtilities, Event, Phase)
    {
       var EventComparator = function(eventA, eventB)
       {
@@ -28,11 +28,11 @@ define(["common/js/StringAugments", "artifact/js/Event", "artifact/js/Phase"],
 
          if (event.startsWith("Event"))
          {
-            answer = "Event" + String.pad(Event.keys().indexOf(key), 2);
+            answer = "Event" + StringUtilities.pad(Event.keys().indexOf(key), 2);
          }
          else if (event.startsWith("Phase"))
          {
-            answer = "Phase" + String.pad(Phase.keys().indexOf(key), 2);
+            answer = "Phase" + StringUtilities.pad(Phase.keys().indexOf(key), 2);
          }
 
          return answer;

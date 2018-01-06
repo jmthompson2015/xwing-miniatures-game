@@ -1,11 +1,11 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/StringUtilities",
   "artifact/js/DamageCardTrait", "artifact/js/Event", "artifact/js/Faction", "artifact/js/Phase", "artifact/js/UpgradeType",
   "view/js/Button", "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/UpgradeTypeUI",
   "accessory/ability-table/Action", "accessory/ability-table/FilterContainer", "accessory/ability-table/TableColumns"
 ],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux,
+   function(createReactClass, PropTypes, React, DOM, ReactRedux, StringUtilities,
       DamageCardTrait, Event, Faction, Phase, UpgradeType,
       Button, DataTable, FactionUI, ImplementedImage, UpgradeTypeUI,
       Action, FilterContainer, TableColumns)
@@ -57,7 +57,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                   {
                      LOGGER.warn("Missing event for key = " + key);
                   }
-                  return "Event" + String.pad(Event.keys().indexOf(event.key), 2);
+                  return "Event" + StringUtilities.pad(Event.keys().indexOf(event.key), 2);
                }
                else if (data.event.startsWith("Phase"))
                {
@@ -66,7 +66,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                   {
                      LOGGER.warn("Missing phase for key = " + key);
                   }
-                  return "Phase" + String.pad(Phase.keys().indexOf(phase.key), 2);
+                  return "Phase" + StringUtilities.pad(Phase.keys().indexOf(phase.key), 2);
                }
             }
             else
