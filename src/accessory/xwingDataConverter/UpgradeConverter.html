@@ -26,8 +26,10 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "accessory/xwingDataConverter/UpgradeConverter"],
-			function(React, ReactDOM, DOM, Logger, UpgradeConverter)
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "accessory/xwingDataConverter/UpgradeConverter",
+				"accessory/xwingDataConverter/XWingType"
+			],
+			function(React, ReactDOM, DOM, Logger, UpgradeConverter, XWingType)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -38,8 +40,9 @@
 				UpgradeConverter.convert(myCallback);
 				document.getElementById("panel").innerHTML = "Working...";
 
-				function myCallback(upgradeArray, enums, properties)
+				function myCallback(xwingData, enums, properties)
 				{
+					var upgradeArray = xwingData.dataByType(XWingType.UPGRADES);
 					LOGGER.info("myCallback() upgradeArray.length = " + upgradeArray.length);
 					document.getElementById("panel").innerHTML = enums + "<br/>" + properties;
 				}

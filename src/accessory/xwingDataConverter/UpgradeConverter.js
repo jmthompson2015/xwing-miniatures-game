@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader", "artifact/js/UpgradeType", "accessory/xwingDataConverter/EnumGenerator"],
-   function(FileLoader, UpgradeCard, UpgradeHeader, UpgradeType, EnumGenerator)
+define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader", "artifact/js/UpgradeType", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(FileLoader, UpgradeCard, UpgradeHeader, UpgradeType, EnumGenerator, XWingData, XWingType)
    {
       var UpgradeConverter = {};
 
@@ -13,17 +13,16 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
             finishConvert(response, callback);
          };
 
-         FileLoader.loadFile("../../../lib/xwing-data/data/upgrades.js", finishCallback);
+         var xwingData = new XWingData();
+         xwingData.load(finishCallback);
       };
 
-      UpgradeConverter.finishConvert = function(response, callback)
+      UpgradeConverter.finishConvert = function(xwingData, callback)
       {
-         var upgradeArray = JSON.parse(response);
+         var enums = generateEnums(xwingData);
+         var properties = generateProperties(xwingData);
 
-         var enums = generateEnums(upgradeArray);
-         var properties = generateProperties(upgradeArray);
-
-         callback(upgradeArray, enums, properties);
+         callback(xwingData, enums, properties);
       };
 
       function determineCancelAllDiceResults(upgrade, upgradeCard)
@@ -166,7 +165,7 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
          return answer;
       }
 
-      function determineRestrictionKeys(upgrade)
+      UpgradeConverter.determineRestrictionKeys = function(upgrade)
       {
          var answer;
          var restrictionKeys = [];
@@ -219,12 +218,70 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
 
          if (restrictionKeys.length > 0)
          {
+            var index;
+
+            if (restrictionKeys.includes("UpgradeRestriction.C_ROC_CRUISER_ONLY") && restrictionKeys.includes("UpgradeRestriction.GR_75_MEDIUM_TRANSPORT_ONLY"))
+            {
+               index = restrictionKeys.indexOf("UpgradeRestriction.C_ROC_CRUISER_ONLY");
+               restrictionKeys.splice(index, 1);
+               index = restrictionKeys.indexOf("UpgradeRestriction.GR_75_MEDIUM_TRANSPORT_ONLY");
+               restrictionKeys.splice(index, 1);
+               restrictionKeys.push("UpgradeRestriction.C_ROC_CRUISER_AND_GR_75_ONLY");
+            }
+
+            if (restrictionKeys.includes("UpgradeRestriction.SMALL_SHIP_ONLY") && restrictionKeys.includes("UpgradeRestriction.LARGE_SHIP_ONLY"))
+            {
+               index = restrictionKeys.indexOf("UpgradeRestriction.SMALL_SHIP_ONLY");
+               restrictionKeys.splice(index, 1);
+               index = restrictionKeys.indexOf("UpgradeRestriction.LARGE_SHIP_ONLY");
+               restrictionKeys.splice(index, 1);
+               restrictionKeys.push("UpgradeRestriction.SMALL_AND_LARGE_SHIP_ONLY");
+            }
+
+            if (restrictionKeys.includes("UpgradeRestriction.YT_1300_ONLY") && restrictionKeys.includes("UpgradeRestriction.YT_2400_ONLY"))
+            {
+               index = restrictionKeys.indexOf("UpgradeRestriction.YT_1300_ONLY");
+               restrictionKeys.splice(index, 1);
+               index = restrictionKeys.indexOf("UpgradeRestriction.YT_2400_ONLY");
+               restrictionKeys.splice(index, 1);
+               restrictionKeys.push("UpgradeRestriction.YT_1300_AND_YT_2400_ONLY");
+            }
+
+            if (restrictionKeys.includes("UpgradeRestriction.T_70_X_WING_ONLY") && restrictionKeys.includes("UpgradeRestriction.X_WING_ONLY"))
+            {
+               index = restrictionKeys.indexOf("UpgradeRestriction.T_70_X_WING_ONLY");
+               restrictionKeys.splice(index, 1);
+            }
+
+            var tieCount = restrictionKeys.reduce(function(accumulator, restrictionKey)
+            {
+               if (restrictionKey.indexOf(".TIE") >= 0)
+               {
+                  accumulator++;
+               }
+               return accumulator;
+            }, 0);
+
+            if ([12, 13].includes(tieCount))
+            {
+               restrictionKeys = restrictionKeys.reduce(function(accumulator, restrictionKey)
+               {
+                  if (restrictionKey.indexOf(".TIE") < 0)
+                  {
+                     accumulator.push(restrictionKey);
+                  }
+                  return accumulator;
+               }, []);
+               restrictionKeys.push("UpgradeRestriction.TIE_ONLY");
+            }
+
             restrictionKeys.sort();
+
             answer = "[" + restrictionKeys.join(", ") + "]";
          }
 
          return answer;
-      }
+      };
 
       function determineSpendFocus(upgrade, upgradeCard)
       {
@@ -280,8 +337,9 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
          return upgradeCard;
       }
 
-      function generateEnums(upgradeArray)
+      function generateEnums(xwingData)
       {
+         var upgradeArray = xwingData.dataByType(XWingType.UPGRADES);
          var enumNames = [];
          var enumValues = [];
 
@@ -310,10 +368,17 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
          return enums.join("");
       }
 
-      function generateProperties(upgradeArray)
+      function generateProperties(xwingData)
       {
+         var upgradeArray = xwingData.dataByType(XWingType.UPGRADES);
          var properties = upgradeArray.reduce(function(accumulator, upgrade)
          {
+            var source = xwingData.firstSource(XWingType.UPGRADES, upgrade.id);
+            upgrade.wave = "" + source.wave;
+            if (upgrade.wave === "Iconic Starships")
+            {
+               upgrade.wave = "Aces";
+            }
             var enumValue = EnumGenerator.createUpgradeEnumValue(upgrade);
             accumulator.push(enumValue + ":<br/>{<br/>" + generatePropertiesSingle(upgrade) + "},<br/>");
             return accumulator;
@@ -335,7 +400,7 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
          name = EnumGenerator.quoteValue(name);
 
          var upgradeCard = findUpgradeCard(upgrade);
-         var typeKey = "UpgradeType." + UpgradeType.findByName(upgrade.slot).key.toUpperCase();
+         var typeKey = "UpgradeType." + upgrade.slot.toUpperCase();
          typeKey = typeKey.replace(/ /g, "_");
 
          var cancelAllDiceResults = determineCancelAllDiceResults(upgrade, upgradeCard);
@@ -347,10 +412,11 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
          var isImplemented = determineIsImplemented(upgrade, upgradeCard);
          var isWeaponTurret = determineIsWeaponTurret(upgrade, upgradeCard);
          var rangeKeys = determineRangeKeys(upgrade, upgradeCard);
-         var restrictionKeys = determineRestrictionKeys(upgrade, upgradeCard);
+         var restrictionKeys = UpgradeConverter.determineRestrictionKeys(upgrade, upgradeCard);
          var spendFocus = determineSpendFocus(upgrade, upgradeCard);
          var spendTargetLock = determineSpendTargetLock(upgrade, upgradeCard);
          var weaponValue = determineWeaponValue(upgrade, upgradeCard);
+         var wave = EnumGenerator.quoteValue(upgrade.wave);
 
          var answer = "";
 
@@ -383,6 +449,7 @@ define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeH
 
          answer += EnumGenerator.createProperty("image", image);
          answer += EnumGenerator.createProperty("squadPointCost", upgrade.points);
+         answer += EnumGenerator.createProperty("wave", wave);
          answer += EnumGenerator.createProperty("isImplemented", isImplemented);
          answer += EnumGenerator.createProperty("key", EnumGenerator.createUpgradeEnumValue(upgrade));
 

@@ -369,6 +369,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During setup, before the \"Place Forces\" step, choose 1 enemy ship and assign the \"A Debt to Pay\" Condition card to it.<br /><br />When attacking a ship that has the \"A Debt to Pay\" Condition card, you may change 1 [Focus] result to a [Critical Hit] result.",
                image: "upgrades/Elite/a-score-to-settle.png",
                squadPointCost: 0,
+               wave: "10",
                key: "aScoreToSettle",
             },
             "aWingTestPilot":
@@ -379,6 +380,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains 1 [Elite] upgrade icon.<br /><br />You cannot equip 2 of the same [Elite] Upgrade cards. You cannot equip this if your pilot skill value is \"1\" or lower.",
                image: "upgrades/Title/a-wing-test-pilot.png",
                squadPointCost: 0,
+               wave: "Aces",
                isImplemented: true,
                key: "aWingTestPilot",
             },
@@ -389,6 +391,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, during the “Modify Attack Dice” step, you may cancel all of your dice results. Then, you may add 2 [Hit] results to your roll.<br /><br />Your dice cannot be modified again during this attack.",
                image: "upgrades/System/accuracy-corrector.png",
                squadPointCost: 3,
+               wave: "6",
                key: "accuracyCorrector",
             },
             "adaptabilityDecrease":
@@ -399,6 +402,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                pilotSkillValue: -1,
                image: "upgrades/Elite/adaptability-decrease.png",
                squadPointCost: 0,
+               wave: "8",
                key: "adaptabilityDecrease",
             },
             "adaptabilityIncrease":
@@ -409,6 +413,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                pilotSkillValue: 1,
                image: "upgrades/Elite/adaptability-increase.png",
                squadPointCost: 0,
+               wave: "8",
                key: "adaptabilityIncrease",
             },
             "adaptiveAilerons":
@@ -419,6 +424,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Immediately before you reveal your dial, if you are not stressed, you <strong>must</strong> execute a white ([Bank Left] 1), ([Straight] 1), or ([Bank Right] 1) maneuver.",
                image: "upgrades/Title/adaptive-ailerons.png",
                squadPointCost: 0,
+               wave: "10",
                key: "adaptiveAilerons",
             },
             "admiralOzzel":
@@ -431,6 +437,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Energy:</strong> You may remove up to 3 shields from your ship. For each shield removed, gain 1 energy.",
                image: "upgrades/Crew/admiral-ozzel.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "admiralOzzel",
             },
             "adrenalineRush":
@@ -440,6 +447,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal a red maneuver, you may discard this card to treat that maneuver as a white maneuver until the end of the Activation phase.",
                image: "upgrades/Elite/adrenaline-rush.png",
                squadPointCost: 1,
+               wave: "3",
                isImplemented: true,
                key: "adrenalineRush",
             },
@@ -451,6 +459,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack, you may perform a free cloak action.",
                image: "upgrades/Modification/advanced-cloaking-device.png",
                squadPointCost: 4,
+               wave: "4",
                isImplemented: true,
                key: "advancedCloakingDevice",
             },
@@ -467,6 +476,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                discardThisCard: true,
                image: "upgrades/Missile/advanced-homing-missiles.png",
                squadPointCost: 3,
+               wave: "7",
                isImplemented: true,
                key: "advancedHomingMissiles",
             },
@@ -477,6 +487,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You cannot have more than 1 focus token.<br /><br />During the End phase, do not remove an unused focus token from your ship.",
                image: "upgrades/Tech/advanced-optics.png",
                squadPointCost: 2,
+               wave: "13",
                key: "advancedOptics",
             },
             "advancedProtonTorpedoes":
@@ -492,6 +503,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Torpedo/advanced-proton-torpedoes.png",
                squadPointCost: 6,
+               wave: "3",
                isImplemented: true,
                key: "advancedProtonTorpedoes",
             },
@@ -502,6 +514,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Immediately before you reveal your maneuver, you may perform 1 free action.<br /><br />If you use this ability, you must skip your \"Perform Action\" step during this round.",
                image: "upgrades/System/advanced-sensors.png",
                squadPointCost: 3,
+               wave: "3",
                key: "advancedSensors",
             },
             "advancedSlam":
@@ -511,6 +524,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After performing a SLAM action, if you did not overlap an obstacle or another ship, you may perform a free action on your action bar.",
                image: "upgrades/Modification/advanced-slam.png",
                squadPointCost: 2,
+               wave: "7",
                key: "advancedSlam",
             },
             "advancedTargetingComputer":
@@ -521,6 +535,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking with your primary weapon, if you have a target lock on the defender, you may add 1 [Critical Hit] result to your roll. If you do, you cannot spend target locks during this attack.",
                image: "upgrades/System/advanced-targeting-computer.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "advancedTargetingComputer",
             },
             "agentKallus":
@@ -532,6 +547,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the first round, choose 1 enemy small or large ship. When attacking or defending against that ship, you may change 1 of your [Focus] results to a [Hit] or [Evade] result.",
                image: "upgrades/Crew/agent-kallus.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "agentKallus",
             },
             "allianceOverhaul":
@@ -542,6 +558,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking with a primary weapon from your primary firing arc, you may roll 1 additional attack die. When attacking from your auxiliary firing arc, you may change 1 of your [Focus] results to a [Critical Hit] result.",
                image: "upgrades/Title/alliance-overhaul.png",
                squadPointCost: 0,
+               wave: "9",
                key: "allianceOverhaul",
             },
             "andrasta":
@@ -553,6 +570,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains two additional [Bomb] upgrade icons.",
                image: "upgrades/Title/andrasta.png",
                squadPointCost: 0,
+               wave: "6",
                isImplemented: true,
                key: "andrasta",
             },
@@ -564,6 +582,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After an enemy ship executes a maneuver that causes it to overlap your ship, roll 1 attack die. On a [Hit] or [Critical Hit] result, the enemy ship suffers 1 damage.",
                image: "upgrades/Modification/anti-pursuit-lasers.png",
                squadPointCost: 2,
+               wave: "3",
                key: "antiPursuitLasers",
             },
             "arcCaster":
@@ -578,6 +597,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack:</strong> Attack 1 ship. If this attack hits, you must choose 1 other ship at Range 1 of the defender to suffer 1 damage.<br /><br />Then flip this card.",
                image: "upgrades/Cannon/arc-caster.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "arcCaster",
             },
             "arcCasterRecharging":
@@ -588,6 +608,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, you may receive a weapons disabled token to flip this card.",
                image: "upgrades/Cannon/arc-caster-recharging.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "arcCasterRecharging",
             },
             "assailer":
@@ -599,6 +620,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, if the targeted section has a reinforce token, you may change 1 [Focus] result to a [Evade] result.",
                image: "upgrades/Title/assailer.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "assailer",
             },
             "assaultMissiles":
@@ -614,6 +636,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Missile/assault-missiles.png",
                squadPointCost: 5,
+               wave: "2",
                isImplemented: true,
                key: "assaultMissiles",
             },
@@ -625,6 +648,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Each time you are assigned a focus or stress token, each other friendly ship with Attanni Mindlink must also be assigned the same type of token if it does not already have one.",
                image: "upgrades/Elite/attanni-mindlink.png",
                squadPointCost: 1,
+               wave: "8",
                key: "attanniMindlink",
             },
             "autoblaster":
@@ -638,6 +662,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack:</strong> Attack 1 ship.<br /><br />Your [Hit] results cannot be canceled by defense dice.<br /><br />The defender may cancel [Critical Hit] results before [Hit] results.",
                image: "upgrades/Cannon/autoblaster.png",
                squadPointCost: 5,
+               wave: "3",
                key: "autoblaster",
             },
             "autoblasterTurret":
@@ -652,6 +677,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack:</strong> Attack 1 ship (even a ship outside your firing arc).<br /><br />Your [Hit] results cannot be canceled by defense dice. The defender may cancel [Critical Hit] results before [Hit] results.",
                image: "upgrades/Turret/autoblaster-turret.png",
                squadPointCost: 2,
+               wave: "6",
                key: "autoblasterTurret",
             },
             "automatedProtocols":
@@ -662,6 +688,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, after you perform an action that is not a recover or reinforce action, you may spend 1 energy to perform a free recover or reinforce action.",
                image: "upgrades/Modification/automated-protocols.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "automatedProtocols",
             },
             "autothrusters":
@@ -671,6 +698,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, if you are inside the attacker’s firing arc beyond Range 2 or outside the attacker’s firing arc, you may change 1 of your blank results to a [Evade] result. You can equip this card only if you have the [Boost] action icon.",
                image: "upgrades/Modification/autothrusters.png",
                squadPointCost: 2,
+               wave: "6",
                isImplemented: true,
                key: "autothrusters",
             },
@@ -683,6 +711,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the End phase, you may spend 1 energy to replace a faceup [Crew] or [Team] Upgrade card you have equipped with another Upgrade card of the same type of equal or fewer squad points.",
                image: "upgrades/Crew/azmorigan.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "azmorigan",
             },
             "bWingE2":
@@ -693,6 +722,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Crew] upgrade icon.",
                image: "upgrades/Modification/b-wing-e2.png",
                squadPointCost: 1,
+               wave: "Aces",
                isImplemented: true,
                key: "bWingE2",
             },
@@ -704,6 +734,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of each round, you may spend 1 energy to recover 1 shield (up to your shield value).",
                image: "upgrades/Cargo/backup-shield-generator.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "backupShieldGenerator",
             },
             "bazeMalbus":
@@ -715,6 +746,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that does not hit, you may immediately perform a primary weapon attack against a different ship. You cannot perform another attack this round.",
                image: "upgrades/Crew/baze-malbus.png",
                squadPointCost: 3,
+               wave: "10",
                key: "bazeMalbus",
             },
             "bb8":
@@ -725,6 +757,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal a green maneuver, you may perform a free barrel roll action.",
                image: "upgrades/Astromech/bb-8.png",
                squadPointCost: 2,
+               wave: "0",
                isImplemented: true,
                key: "bb8",
             },
@@ -737,6 +770,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking at Range 1-2, you may change 1 of your [Hit] results to a [Critical Hit] result.",
                image: "upgrades/Crew/bistan.png",
                squadPointCost: 2,
+               wave: "10",
                key: "bistan",
             },
             "blackMarketSlicerTools":
@@ -747,6 +781,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose a stressed enemy ship at Range 1-2 and roll 1 attack die. On a [Hit] or [Critical Hit] result, remove 1 stress token and deal it 1 facedown Damage card.",
                image: "upgrades/Illicit/black-market-slicer-tools.png",
                squadPointCost: 1,
+               wave: "9",
                key: "blackMarketSlicerTools",
             },
             "blackOne":
@@ -758,6 +793,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform a boost or barrel roll action, you may remove 1 enemy target lock from a friendly ship at Range 1. You cannot equip this card if your pilot skill is \"6\" or lower.",
                image: "upgrades/Title/black-one.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "blackOne",
             },
             "blasterTurret":
@@ -773,6 +809,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendFocus: true,
                image: "upgrades/Turret/blaster-turret.png",
                squadPointCost: 4,
+               wave: "3",
                isImplemented: true,
                key: "blasterTurret",
             },
@@ -785,6 +822,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After performing an attack, if the defender was dealt a faceup Damage card, you may discard this card to choose and discard 1 of the defender's Upgrade cards.",
                image: "upgrades/Crew/boba-fett.png",
                squadPointCost: 1,
+               wave: "8",
                key: "bobaFett",
             },
             "bodhiRook":
@@ -796,6 +834,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you acquire a target lock, you can lock onto an enemy ship at Range 1-3 of any friendly ship.",
                image: "upgrades/Crew/bodhi-rook.png",
                squadPointCost: 1,
+               wave: "10",
                key: "bodhiRook",
             },
             "bodyguard":
@@ -807,6 +846,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, you may spend a focus token to choose a friendly ship at Range 1 with higher pilot skill than you. Increase its agility value by 1 until the end of the round.",
                image: "upgrades/Elite/bodyguard.png",
                squadPointCost: 2,
+               wave: "6",
                key: "bodyguard",
             },
             "bombLoadout":
@@ -817,6 +857,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Bomb] icon.",
                image: "upgrades/Torpedo/bomb-loadout.png",
                squadPointCost: 0,
+               wave: "6",
                isImplemented: true,
                key: "bombLoadout",
             },
@@ -827,6 +868,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When dropping a bomb, you may use the ([Straight] 2) template instead of the ([Straight] 1) template.",
                image: "upgrades/Crew/bombardier.png",
                squadPointCost: 1,
+               wave: "7",
                key: "bombardier",
             },
             "bombletGenerator":
@@ -837,6 +879,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal your maneuver, you may <strong>drop</strong> 1 bomblet token.<br /><br />This token <strong>detonates</strong> at the end of the Activation phase.",
                image: "upgrades/Bomb/bomblet-generator.png",
                squadPointCost: 3,
+               wave: "11",
                key: "bombletGenerator",
             },
             "boshek":
@@ -847,6 +890,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When a ship you are touching activates, you may look at its chosen maneuver. If you do, its owner <strong>must</strong> rotate the dial to an adjacent maneuver. The ship can reveal and execute that maneuver even while stressed.",
                image: "upgrades/Crew/boshek.png",
                squadPointCost: 2,
+               wave: "10",
                key: "boshek",
             },
             "bossk":
@@ -858,6 +902,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that does not hit, if you are not stressed, you <strong>must</strong> receive 1 stress token. Then assign 1 focus token to your ship and acquire a target lock on the defender.",
                image: "upgrades/Crew/bossk-crew.png",
                squadPointCost: 2,
+               wave: "7",
                isImplemented: true,
                key: "bossk",
             },
@@ -868,6 +913,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are dealt a faceup Damage card, you may spend 1 reinforce token to flip it facedown (without resolving its effect). If you do, until the end of the round, when you are dealt a faceup Damage card, flip it facedown (without resolving its effect).",
                image: "upgrades/Crew/breach-specialist.png",
                squadPointCost: 1,
+               wave: "11",
                key: "breachSpecialist",
             },
             "brightHope":
@@ -880,6 +926,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 2,
                image: "upgrades/Title/bright-hope.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "brightHope",
             },
             "broadcastArray":
@@ -890,6 +937,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your action bar gains the [Jam] action icon.",
                image: "upgrades/Cargo/broadcast-array.png",
                squadPointCost: 2,
+               wave: "Aces",
                isImplemented: true,
                key: "broadcastArray",
             },
@@ -903,6 +951,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 2,
                image: "upgrades/Title/broken-horn.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "brokenHorn",
             },
             "btlA4YWing":
@@ -913,6 +962,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You cannot attack ships outside your firing arc. After you perform a primary weapon attack, you may immediately perform an attack with a [Turret] secondary weapon.",
                image: "upgrades/Title/btl-a4-y-wing.png",
                squadPointCost: 0,
+               wave: "6",
                key: "btlA4YWing",
             },
             "burnoutSlam":
@@ -923,6 +973,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your action bar gains the [SLAM] action icon.<br /><br />After you perform a SLAM action, discard this card.",
                image: "upgrades/Illicit/burnout-slam.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "burnoutSlam",
             },
             "c3po":
@@ -934,6 +985,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, before you roll 1 or more defense dice, you may guess aloud a number of [Evade] results. If you roll that many [Evade] results (before modifying dice), add 1 [Evade] result.",
                image: "upgrades/Crew/c-3po.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "c3po",
             },
             "cadBane":
@@ -945,6 +997,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Bomb] upgrade icon. Once per round, when an enemy ship rolls attack dice due to a friendly bomb detonating, you may choose any number of [Focus] and blank results. It must reroll those results.",
                image: "upgrades/Crew/cad-bane.png",
                squadPointCost: 2,
+               wave: "11",
                key: "cadBane",
             },
             "calculation":
@@ -954,6 +1007,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, you may spend a focus token to change 1 of your [Focus] results to a [Critical Hit] result.",
                image: "upgrades/Elite/calculation.png",
                squadPointCost: 1,
+               wave: "6",
                isImplemented: true,
                key: "calculation",
             },
@@ -966,6 +1020,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "If you overlap an obstacle during the Activation phase, do not suffer 1 faceup damage card. Instead, roll 1 attack die. On a [Hit] or [Critical Hit] result, suffer 1 damage.",
                image: "upgrades/Crew/captain-needa.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "captainNeeda",
             },
             "captainRex":
@@ -977,6 +1032,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that does not hit, you may assign 1 focus token to your ship.",
                image: "upgrades/Crew/captain-rex.png",
                squadPointCost: 2,
+               wave: "10",
                key: "captainRex",
             },
             "capturedTie":
@@ -988,6 +1044,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Enemy ships with a pilot skill value lower than yours cannot declare you as the target of an attack. After you perform an attack or when you are the only remaining friendly ship in play, discard this card.",
                image: "upgrades/Modification/captured-tie.png",
                squadPointCost: 1,
+               wave: "10",
                key: "capturedTie",
             },
             "carlistRieekan":
@@ -999,6 +1056,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Activation phase, you may discard this card to treat each friendly ship's pilot skill value as \"12\" until the end of the phase.",
                image: "upgrades/Crew/carlist-rieekan.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "carlistRieekan",
             },
             "cassianAndor":
@@ -1010,6 +1068,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the Planning phase, you may choose an enemy ship at Range 1-2. Guess aloud that ship's bearing and speed, then look at its dial. If you are correct, you may rotate your dial to another maneuver.",
                image: "upgrades/Crew/cassian-andor.png",
                squadPointCost: 2,
+               wave: "10",
                key: "cassianAndor",
             },
             "chardaanRefit":
@@ -1020,6 +1079,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "This card has a negative squad point cost.",
                image: "upgrades/Missile/chardaan-refit.png",
                squadPointCost: -2,
+               wave: "Aces",
                isImplemented: true,
                key: "chardaanRefit",
             },
@@ -1032,6 +1092,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are dealt a Damage card, you may immediately discard that card and recover 1 shield.<br /><br />Then, discard this Upgrade card.",
                image: "upgrades/Crew/chewbacca.png",
                squadPointCost: 4,
+               wave: "2",
                key: "chewbacca",
             },
             "chopper_astromech":
@@ -1042,6 +1103,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Discard 1 other equipped Upgrade card to recover 1 shield.",
                image: "upgrades/Astromech/chopper.png",
                squadPointCost: 1,
+               wave: "12",
                key: "chopper_astromech",
             },
             "chopper_crew":
@@ -1053,6 +1115,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may perform actions even while you are stressed.<br /><br />After you perform an action while you are stressed, suffer 1 damage.",
                image: "upgrades/Crew/chopper.png",
                squadPointCost: 0,
+               wave: "8",
                key: "chopper_crew",
             },
             "cikatroVizago":
@@ -1064,6 +1127,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the End phase, you may discard this card to replace a faceup [Illicit] or [Cargo] Upgrade card you have equipped with another Upgrade card of the same type of equal or fewer squad points.",
                image: "upgrades/Crew/cikatro-vizago.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "cikatroVizago",
             },
             "cloakingDevice":
@@ -1076,6 +1140,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Perform a free cloak action.<br /><br />At the end of each round, roll 1 attack die. On a [Focus] result, discard this card, then decloak or discard your cloak token.",
                image: "upgrades/Illicit/cloaking-device.png",
                squadPointCost: 2,
+               wave: "8",
                isImplemented: true,
                key: "cloakingDevice",
             },
@@ -1086,6 +1151,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After defending, you may discard this card. If you do, each other ship at Range 1 of the defending section rolls 2 attack dice, suffering all damage ([Hit]) and critical damage ([Critical Hit]) rolled.",
                image: "upgrades/Cargo/cluster-bombs.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "clusterBombs",
             },
             "clusterMines":
@@ -1096,6 +1162,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Discard this card to <strong>drop</strong> 1 cluster mine token set.<br /><br />When a ship's base or maneuver template overlaps a cluster mine token, that token <strong>detonates</strong>.",
                image: "upgrades/Bomb/cluster-mines.png",
                squadPointCost: 4,
+               wave: "7",
                key: "clusterMines",
             },
             "clusterMissiles":
@@ -1111,6 +1178,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Missile/cluster-missiles.png",
                squadPointCost: 4,
+               wave: "1",
                isImplemented: true,
                key: "clusterMissiles",
             },
@@ -1121,6 +1189,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When performing a boost, barrel roll, or decloak, your ship and maneuver template can overlap obstacles.<br /><br />When rolling for obstacle damage, ignore all [Critical Hit] results.",
                image: "upgrades/System/collision-detector.png",
                squadPointCost: 0,
+               wave: "9",
                key: "collisionDetector",
             },
             "combatRetrofit":
@@ -1133,6 +1202,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                shieldValue: 1,
                image: "upgrades/Modification/combat-retrofit.png",
                squadPointCost: 10,
+               wave: "Aces",
                isImplemented: true,
                key: "combatRetrofit",
             },
@@ -1143,6 +1213,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You cannot have more than 1 evade token.<br /><br />During the End phase, do not remove an unused evade token from your ship.",
                image: "upgrades/Tech/comm-relay.png",
                squadPointCost: 3,
+               wave: "8",
                key: "commRelay",
             },
             "commsBooster":
@@ -1153,6 +1224,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Energy:</strong> Spend 1 energy to remove all stress tokens from a friendly ship at Range 1-3. Then assign 1 focus token to that ship.",
                image: "upgrades/Cargo/comms-booster.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "commsBooster",
             },
             "concordDawnProtector":
@@ -1163,6 +1235,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, if you are inside the attacker's firing arc and at Range 1 and the attacker is inside your firing arc, add 1 [Evade] result.",
                image: "upgrades/Title/concord-dawn-protector.png",
                squadPointCost: 1,
+               wave: "9",
                key: "concordDawnProtector",
             },
             "concussionMissiles":
@@ -1178,6 +1251,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Missile/concussion-missiles.png",
                squadPointCost: 4,
+               wave: "1",
                isImplemented: true,
                key: "concussionMissiles",
             },
@@ -1189,6 +1263,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Discard this card to <strong>drop</strong> 1 Conner net token.<br /><br />When a ship's base or maneuver template overlaps this token, this token <strong>detonates</strong>.",
                image: "upgrades/Bomb/conner-net.png",
                squadPointCost: 4,
+               wave: "7",
                key: "connerNet",
             },
             "constructionDroid":
@@ -1199,6 +1274,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you perform a recover action, you may spend 1 energy to discard 1 facedown Damage card.",
                image: "upgrades/Crew/construction-droid.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "constructionDroid",
             },
             "contrabandCybernetics":
@@ -1208,6 +1284,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you become the active ship during the Activation phase, you may discard this card and receive 1 stress token. If you do, until the end of the round, you may perform actions and red maneuvers even while you are stressed.",
                image: "upgrades/Illicit/contraband-cybernetics.png",
                squadPointCost: 1,
+               wave: "12",
                key: "contrabandCybernetics",
             },
             "coolHand":
@@ -1217,6 +1294,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you receive a stress token, you may discard this card to assign 1 focus or evade token to your ship.",
                image: "upgrades/Elite/cool-hand.png",
                squadPointCost: 1,
+               wave: "8",
                key: "coolHand",
             },
             "countermeasures":
@@ -1227,6 +1305,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, you may discard this card to increase your agility value by 1 until the end of the round. Then you may remove 1 enemy target lock from your ship.",
                image: "upgrades/Modification/countermeasures.png",
                squadPointCost: 3,
+               wave: "5",
                key: "countermeasures",
             },
             "courierDroid":
@@ -1237,6 +1316,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the \"Place Forces\" step, you may choose to treat your pilot skill value as \"0\" or \"8\" until the end of the step.",
                image: "upgrades/Crew/courier-droid.png",
                squadPointCost: 0,
+               wave: "12",
                key: "courierDroid",
             },
             "crackShot":
@@ -1246,6 +1326,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking a ship inside your firing arc, at the start of the 'Compare Results' step, you may discard this card to cancel 1 of the defender's [Evade] results.",
                image: "upgrades/Elite/crack-shot.png",
                squadPointCost: 1,
+               wave: "7",
                key: "crackShot",
             },
             "crossfireFormation":
@@ -1256,6 +1337,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, if there is at least 1 other friendly Resistance ship at Range 1-2 of the attacker, you may add one [Focus] result to your roll.",
                image: "upgrades/Title/crossfire-formation.png",
                squadPointCost: 2,
+               wave: "13",
                key: "crossfireFormation",
             },
             "cruiseMissiles":
@@ -1269,6 +1351,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack (Target Lock):</strong> Discard this card to perform this attack.<br /><br />You may roll additional attack dice equal to the speed of the maneuver you executed this round, to a maximum of 4 additional dice.",
                image: "upgrades/Missile/cruise-missiles.png",
                squadPointCost: 3,
+               wave: "11",
                key: "cruiseMissiles",
             },
             "daredevil":
@@ -1279,6 +1362,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Execute a white ([Turn Left] 1) or ([Turn Right] 1) maneuver. Then, receive 1 stress token. Then, if you do not have the [Boost] action icon, roll 2 attack dice. Suffer any damage ([Hit]) and any critical damage ([Critical Hit]) rolled.",
                image: "upgrades/Elite/daredevil.png",
                squadPointCost: 3,
+               wave: "2",
                key: "daredevil",
             },
             "darthVader":
@@ -1290,6 +1374,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack against an enemy ship, you may suffer 2 damage to cause that ship to suffer 1 critical damage.",
                image: "upgrades/Crew/darth-vader.png",
                squadPointCost: 3,
+               wave: "3",
                key: "darthVader",
             },
             "dashRendar":
@@ -1301,6 +1386,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may perform attacks while overlapping an obstacle.<br /><br />Your attacks cannot be obstructed.",
                image: "upgrades/Crew/dash-rendar.png",
                squadPointCost: 2,
+               wave: "5",
                key: "dashRendar",
             },
             "dauntless":
@@ -1312,6 +1398,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you execute a maneuver that causes you to overlap another ship, you may perform 1 free action. Then receive 1 stress token.",
                image: "upgrades/Title/dauntless.png",
                squadPointCost: 2,
+               wave: "5",
                key: "dauntless",
             },
             "deadMansSwitch":
@@ -1321,6 +1408,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are destroyed, each ship at Range 1 suffers 1 damage.",
                image: "upgrades/Illicit/dead-man-s-switch.png",
                squadPointCost: 2,
+               wave: "6",
                isImplemented: true,
                key: "deadMansSwitch",
             },
@@ -1332,6 +1420,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may treat the <strong>Attack (target lock):</strong> header as <strong>Attack (focus):</strong>.<br /><br />When an attack instructs you to spend a target lock, you may spend a focus token instead.",
                image: "upgrades/Elite/deadeye.png",
                squadPointCost: 1,
+               wave: "2",
                key: "deadeye",
             },
             "debrisGambit":
@@ -1342,6 +1431,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Assign 1 evade token to your ship for each obstacle at Range 1, to a maximum of 2 evade tokens.",
                image: "upgrades/Elite/debris-gambit.png",
                squadPointCost: 2,
+               wave: "13",
                key: "debrisGambit",
             },
             "decoy":
@@ -1351,6 +1441,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, you may choose 1 friendly ship at Range 1-2. Exchange your pilot skill with that ship's pilot skill until the end of the phase.",
                image: "upgrades/Elite/decoy.png",
                squadPointCost: 2,
+               wave: "4",
                key: "decoy",
             },
             "deflectivePlating":
@@ -1361,6 +1452,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When a friendly bomb token detonates, you may choose not to suffer its effects. If you do, roll an attack die. on a [Hit] result, discard this card.",
                image: "upgrades/Modification/deflective-plating.png",
                squadPointCost: 1,
+               wave: "13",
                key: "deflectivePlating",
             },
             "dengar":
@@ -1372,6 +1464,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, you may reroll 1 attack die. If the defender is a unique pilot, you may instead reroll up to 2 attack dice.",
                image: "upgrades/Crew/dengar.png",
                squadPointCost: 3,
+               wave: "8",
                isImplemented: true,
                key: "dengar",
             },
@@ -1382,6 +1475,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are dealt a faceup Damage card with the <strong>Pilot</strong> trait, discard it immediately without resolving its effect.",
                image: "upgrades/Elite/determination.png",
                squadPointCost: 1,
+               wave: "1",
                isImplemented: true,
                key: "determination",
             },
@@ -1393,6 +1487,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may dock up to 4 TIE fighters, TIE Interceptors, TIE bombers, or TIE Advanced to this ship. All of these ships must have the same ship type.",
                image: "upgrades/Cargo/docking-clamps.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "dockingClamps",
             },
             "dodonnasPride":
@@ -1404,6 +1499,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you perform a coordinate action, you may choose 2 friendly ships (instead of 1). Those ships may each perform 1 free action.",
                image: "upgrades/Title/dodonna-s-pride.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "dodonnasPride",
             },
             "dorsalTurret":
@@ -1418,6 +1514,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack:</strong> Attack 1 ship (even a ship outside your firing arc).<br /><br />If the target of this attack is at Range 1, roll 1 additional attack die.",
                image: "upgrades/Turret/dorsal-turret.png",
                squadPointCost: 3,
+               wave: "8",
                isImplemented: true,
                key: "dorsalTurret",
             },
@@ -1428,6 +1525,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When a friendly ship at Range 1 is hit by an attack, you may suffer 1 of the uncanceled [Critical Hit] results instead of the target ship.",
                image: "upgrades/Elite/draw-their-fire.png",
                squadPointCost: 1,
+               wave: "2",
                key: "drawTheirFire",
             },
             "dualLaserTurret":
@@ -1444,6 +1542,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyLimit: 1,
                image: "upgrades/Hardpoint/dual-laser-turret.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "dualLaserTurret",
             },
             "dutyfree":
@@ -1456,6 +1555,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 0,
                image: "upgrades/Title/dutyfree.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "dutyfree",
             },
             "electronicBaffle":
@@ -1465,6 +1565,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you receive a stress token or an ion token, you may suffer 1 damage to discard that token.",
                image: "upgrades/System/electronic-baffle.png",
                squadPointCost: 1,
+               wave: "8",
                key: "electronicBaffle",
             },
             "elusiveness":
@@ -1474,6 +1575,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, you may receive 1 stress token to choose 1 attack die. The attacker must reroll that die.<br /><br />If you have at least 1 stress token, you cannot use this ability.",
                image: "upgrades/Elite/elusiveness.png",
                squadPointCost: 2,
+               wave: "2",
                key: "elusiveness",
             },
             "emEmitter":
@@ -1484,6 +1586,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you obstruct an attack, the defender rolls 3 additional defense dice (instead of 1).",
                image: "upgrades/Cargo/em-emitter.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "emEmitter",
             },
             "empDevice":
@@ -1494,6 +1597,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the Combat phase, instead of performing any attacks, you may discard this card to assign 2 ion tokens to each ship at Range 1.",
                image: "upgrades/Illicit/emp-device.png",
                squadPointCost: 2,
+               wave: "10",
                key: "empDevice",
             },
             "emperorPalpatine":
@@ -1505,6 +1609,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, before a friendly ship rolls dice, you may name a die result. After rolling, you must change 1 of your dice results to the named result. That die result cannot be modified again.",
                image: "upgrades/Crew/emperor-palpatine.png",
                squadPointCost: 8,
+               wave: "Aces",
                key: "emperorPalpatine",
             },
             "enforcer":
@@ -1516,6 +1621,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After defending, if the attacker is inside your bullseye firing arc, it receives 1 stress token.",
                image: "upgrades/Title/enforcer.png",
                squadPointCost: 1,
+               wave: "12",
                key: "enforcer",
             },
             "engineBooster":
@@ -1526,6 +1632,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Immediately before you reveal your maneuver dial, you may spend 1 energy to execute a white ([Straight] 1) maneuver. You cannot use this ability if you would overlap another ship.",
                image: "upgrades/Cargo/engine-booster.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "engineBooster",
             },
             "engineUpgrade":
@@ -1535,6 +1642,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your action bar gains the [Boost] action icon.",
                image: "upgrades/Modification/engine-upgrade.png",
                squadPointCost: 4,
+               wave: "2",
                isImplemented: true,
                key: "engineUpgrade",
             },
@@ -1546,6 +1654,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the Activation phase, when you reveal a [Straight] maneuver, gain 1 additional energy during the \"Gain Energy\" step.",
                image: "upgrades/Team/engineering-team.png",
                squadPointCost: 4,
+               wave: "Aces",
                isImplemented: true,
                key: "engineeringTeam",
             },
@@ -1556,6 +1665,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the Activation phase, treat your pilot skill value as \"0\".",
                image: "upgrades/System/enhanced-scopes.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "enhancedScopes",
             },
             "expandedCargoHold":
@@ -1566,6 +1676,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when you would be dealt a faceup Damage card, you may draw that card from either the fore or aft Damage deck.",
                image: "upgrades/Cargo/expanded-cargo-hold.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "expandedCargoHold",
             },
             "experimentalInterface":
@@ -1577,6 +1688,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, after you perform an action, you may perform 1 free action from an equipped Upgrade card with the \"<strong>Action:</strong>\" header. Then receive 1 stress token.",
                image: "upgrades/Modification/experimental-interface.png",
                squadPointCost: 3,
+               wave: "5",
                key: "experimentalInterface",
             },
             "expertHandling":
@@ -1587,6 +1699,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Perform a free barrel roll action. If you do not have the [Barrel Roll] action icon, receive 1 stress token. You may then remove 1 enemy target lock from your ship",
                image: "upgrades/Elite/expert-handling.png",
                squadPointCost: 2,
+               wave: "1",
                isImplemented: true,
                key: "expertHandling",
             },
@@ -1597,6 +1710,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you are not stressed, you may change all of your [Focus] results to [Hit] results.",
                image: "upgrades/Elite/expertise.png",
                squadPointCost: 4,
+               wave: "10",
                isImplemented: true,
                key: "expertise",
             },
@@ -1608,6 +1722,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Until the end of the round, increase your primary weapon value by 1 and decrease your agility value by 1.",
                image: "upgrades/Elite/expose.png",
                squadPointCost: 4,
+               wave: "2",
                isImplemented: true,
                key: "expose",
             },
@@ -1619,6 +1734,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you equip this card, place 1 ordnance token on each equipped [Torpedo], [Missile], and [Bomb] Upgrade card. When you are instructed to discard an Upgrade card, you may discard 1 ordnance token on that card instead.",
                image: "upgrades/Torpedo/extra-munitions.png",
                squadPointCost: 2,
+               wave: "7",
                key: "extraMunitions",
             },
             "ezraBridger":
@@ -1630,6 +1746,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you are stressed, you may change 1 of your [Focus] results to a [Critical Hit] result.",
                image: "upgrades/Crew/ezra-bridger.png",
                squadPointCost: 3,
+               wave: "8",
                isImplemented: true,
                key: "ezraBridger",
             },
@@ -1641,6 +1758,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you are inside the defender's firing arc at Range 1 and the defender is inside your firing arc, you may add 1 [Hit] result to your roll.",
                image: "upgrades/Elite/fearlessness.png",
                squadPointCost: 1,
+               wave: "9",
                key: "fearlessness",
             },
             "feedbackArray":
@@ -1650,6 +1768,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the Combat phase, instead of performing any attacks, you may receive 1 ion token and suffer 1 damage to choose 1 enemy ship at Range 1. That ship suffers 1 damage.",
                image: "upgrades/Illicit/feedback-array.png",
                squadPointCost: 2,
+               wave: "6",
                key: "feedbackArray",
             },
             "finn":
@@ -1661,6 +1780,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking with a primary weapon or defending, if the enemy ship is inside your firing arc, you may add 1 blank result to your roll.",
                image: "upgrades/Crew/finn.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "finn",
             },
             "fireControlSystem":
@@ -1670,6 +1790,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack, you may acquire a target lock on the defender.",
                image: "upgrades/System/fire-control-system.png",
                squadPointCost: 2,
+               wave: "3",
                isImplemented: true,
                key: "fireControlSystem",
             },
@@ -1682,6 +1803,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if the defender is the only ship in your firing arc at Range 1-3, you may reroll 1 attack die.<br /><br />When defending, you may discard this card to reroll all of your defense dice.",
                image: "upgrades/Title/first-order-vanguard.png",
                squadPointCost: 2,
+               wave: "13",
                key: "firstOrderVanguard",
             },
             "flechetteCannon":
@@ -1696,6 +1818,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                cancelAllDiceResults: true,
                image: "upgrades/Cannon/flechette-cannon.png",
                squadPointCost: 2,
+               wave: "6",
                isImplemented: true,
                key: "flechetteCannon",
             },
@@ -1712,6 +1835,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Torpedo/flechette-torpedoes.png",
                squadPointCost: 2,
+               wave: "4",
                isImplemented: true,
                key: "flechetteTorpedoes",
             },
@@ -1724,6 +1848,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose up to 2 friendly ships within Range 1-2 and assign 1 focus token to each of those ships. Then receive 1 stress token.",
                image: "upgrades/Crew/fleet-officer.png",
                squadPointCost: 3,
+               wave: "5",
                key: "fleetOfficer",
             },
             "flightAssistAstromech":
@@ -1733,6 +1858,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You cannot attack ships outside your firing arc.<br /><br />After you execute a maneuver, if you did not overlap a ship or obstacle and there are no enemy ships inside your firing arc at Range 1-3, you may perform a free boost or barrel roll action.",
                image: "upgrades/Astromech/flight-assist-astromech.png",
                squadPointCost: 1,
+               wave: "12",
                key: "flightAssistAstromech",
             },
             "flightInstructor":
@@ -1742,6 +1868,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, you may reroll 1 of your [Focus] results. If the attacker's pilot skill value is \"2\" or lower, you may reroll 1 of your blank results instead.",
                image: "upgrades/Crew/flight-instructor.png",
                squadPointCost: 4,
+               wave: "3",
                isImplemented: true,
                key: "flightInstructor",
             },
@@ -1754,6 +1881,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, during the \"Modify Attack Dice\" step, you may receive 1 ion token to choose 1 of the defender's focus or evade tokens. That token cannot be spent during this attack.",
                image: "upgrades/Crew/4-lom.png",
                squadPointCost: 1,
+               wave: "8",
                key: "fourLom",
             },
             "frequencyJammer":
@@ -1764,6 +1892,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you perform a jam action, choose 1 enemy ship that does not have a stress token and is at Range 1 of the jammed ship. The chosen ship receives 1 stress token.",
                image: "upgrades/Cargo/frequency-jammer.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "frequencyJammer",
             },
             "generalHux":
@@ -1776,6 +1905,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose up to 3 friendly ships at Range 1-2. Assign 1 focus token to each of those ships and assign the \"Fanatical Devotion\" Condition card to 1 of them. Then receive 1 stress token.",
                image: "upgrades/Crew/general-hux.png",
                squadPointCost: 5,
+               wave: "10",
                key: "generalHux",
             },
             "genius":
@@ -1786,6 +1916,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you reveal and execute a maneuver, if you did not overlap a ship, you may discard 1 of your equipped [Bomb] Upgrade cards without the \"<strong>Action:</strong>\" header to drop the corresponding bomb token.",
                image: "upgrades/Salvaged Astromech/genius.png",
                squadPointCost: 0,
+               wave: "6",
                key: "genius",
             },
             "ghost":
@@ -1797,6 +1928,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Equip the Phantom title card to a friendly Attack Shuttle and dock it to this ship.<br /><br />After you execute a maneuver, you may deploy it from your rear guides.",
                image: "upgrades/Title/ghost.png",
                squadPointCost: 0,
+               wave: "8",
                key: "ghost",
             },
             "ghost_phantomII":
@@ -1808,6 +1940,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Equip the Phantom II title card to a friendly Sheathipede-class shuttle and dock it to this ship.<br /><br />After you execute a maneuver, you may deploy it from your rear guides.",
                image: "upgrades/Title/ghost-swx72.png",
                squadPointCost: 0,
+               wave: "12",
                key: "ghost_phantomII",
             },
             "glitterstim":
@@ -1817,6 +1950,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, you may discard this card and receive 1 stress token. If you do, until the end of the round, when attacking or defending, you may change all of your [Focus] results to [Hit] or [Evade] results.",
                image: "upgrades/Illicit/glitterstim.png",
                squadPointCost: 2,
+               wave: "7",
                key: "glitterstim",
             },
             "gonk":
@@ -1829,6 +1963,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Place 1 shield token on this card.<br /><br /><strong>Action:</strong> Remove 1 shield token from this card to recover 1 shield (up to your shield value).",
                image: "upgrades/Crew/gonk.png",
                squadPointCost: 2,
+               wave: "8",
                key: "gonk",
             },
             "grandMoffTarkin":
@@ -1840,6 +1975,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, you may choose another ship at Range 1-4. Either remove 1 focus token from the chosen ship or assign 1 focus token to that ship.",
                image: "upgrades/Crew/grand-moff-tarkin.png",
                squadPointCost: 6,
+               wave: "Aces",
                key: "grandMoffTarkin",
             },
             "greedo":
@@ -1851,6 +1987,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "The first time you attack each round and the first time you defend each round, the first Damage card dealt is dealt faceup.",
                image: "upgrades/Crew/greedo.png",
                squadPointCost: 1,
+               wave: "6",
                key: "greedo",
             },
             "guidanceChips":
@@ -1860,6 +1997,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when attacking with a [Torpedo] or [Missile] secondary weapon, you may change 1 die result to a [Hit] result (or a [Critical Hit] result if your primary weapon value is \"3\" or higher).",
                image: "upgrades/Modification/guidance-chips.png",
                squadPointCost: 0,
+               wave: "8",
                isImplemented: true,
                key: "guidanceChips",
             },
@@ -1870,6 +2008,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that does not hit, you may immediately perform a primary weapon attack. You cannot perform another attack this round.",
                image: "upgrades/Crew/gunner.png",
                squadPointCost: 5,
+               wave: "2",
                isImplemented: true,
                key: "gunner",
             },
@@ -1881,6 +2020,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when attacking with a secondary weapon, you may spend 1 energy to change 1 of your blank results to a [Hit] result.",
                image: "upgrades/Team/gunnery-team.png",
                squadPointCost: 4,
+               wave: "Aces",
                isImplemented: true,
                key: "gunneryTeam",
             },
@@ -1892,6 +2032,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the Combat phase, if you executed a 3-, 4-, or 5-speed maneuver that round, you may rotate your mobile firing arc.",
                image: "upgrades/Modification/gyroscopic-targeting.png",
                squadPointCost: 2,
+               wave: "9",
                key: "gyroscopicTargeting",
             },
             "hanSolo":
@@ -1903,6 +2044,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you have a target lock on the defender, you may spend that target lock to change all of your [Focus] results to [Hit] results.",
                image: "upgrades/Crew/han-solo.png",
                squadPointCost: 2,
+               wave: "Aces",
                isImplemented: true,
                key: "hanSolo",
             },
@@ -1917,6 +2059,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack (target lock):</strong> Discard this card to perform this attack.<br /><br />If this attack hits, after the attack resolves, assign the \"Harpooned\" Condition to the defender.",
                image: "upgrades/Missile/harpoon-missiles.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "harpoonMissiles",
             },
             "havoc":
@@ -1928,6 +2071,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [System] and [Salvaged Astromech] upgrade icons and loses the [Crew] upgrade icon.<br /><br />You cannot equip non-unique [Salvaged Astromech] Upgrade cards.",
                image: "upgrades/Title/havoc.png",
                squadPointCost: 0,
+               wave: "11",
                key: "havoc",
             },
             "heavyLaserCannon":
@@ -1941,6 +2085,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack:</strong> Attack 1 ship.<br /><br />Immediately after rolling your attack dice, you must change all of your [Critical Hit] results to [Hit] results.",
                image: "upgrades/Cannon/heavy-laser-cannon.png",
                squadPointCost: 7,
+               wave: "2",
                isImplemented: true,
                key: "heavyLaserCannon",
             },
@@ -1957,6 +2102,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyLimit: 2,
                image: "upgrades/Hardpoint/heavy-laser-turret.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "heavyLaserTurret",
             },
             "heavyScykInterceptor":
@@ -1967,6 +2113,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Cannon], [Torpedo] or [Missile] upgrade icon.<br /><br />Increase your hull value by 1.",
                image: "upgrades/Title/heavy-scyk-interceptor.png",
                squadPointCost: 2,
+               wave: "6",
                key: "heavyScykInterceptor",
             },
             "heraSyndulla":
@@ -1978,6 +2125,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You can reveal and execute red maneuvers even while you are stressed.",
                image: "upgrades/Crew/hera-syndulla.png",
                squadPointCost: 1,
+               wave: "8",
                isImplemented: true,
                key: "heraSyndulla",
             },
@@ -1992,6 +2140,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack (target lock):</strong> Discard this card to perform this attack.<br /><br />The defender cannot spend evade tokens during this attack.",
                image: "upgrades/Missile/homing-missiles.png",
                squadPointCost: 5,
+               wave: "2",
                key: "homingMissiles",
             },
             "hotShotBlaster":
@@ -2007,6 +2156,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                discardThisCard: true,
                image: "upgrades/Illicit/hot-shot-blaster.png",
                squadPointCost: 3,
+               wave: "6",
                isImplemented: true,
                key: "hotShotBlaster",
             },
@@ -2017,6 +2167,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking with a primary weapon, the defender must spend 1 focus token if able.<br /><br />When defending, the attacker must spend 1 focus token if able.",
                image: "upgrades/Crew/hotshot-co-pilot.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "hotshotCoPilot",
             },
             "houndsTooth":
@@ -2028,6 +2179,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you are destroyed, before you are removed from the play area, you may <strong>deploy</strong> the Nastah Pup Pilot.<br /><br />It cannot attack this round.",
                image: "upgrades/Title/hounds-tooth.png",
                squadPointCost: 6,
+               wave: "7",
                key: "houndsTooth",
             },
             "hullUpgrade":
@@ -2038,6 +2190,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                hullValue: 1,
                image: "upgrades/Modification/hull-upgrade.png",
                squadPointCost: 3,
+               wave: "Aces",
                isImplemented: true,
                key: "hullUpgrade",
             },
@@ -2048,6 +2201,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the \"Place Forces\" step, you may choose to treat your pilot skill value as \"0\", \"6\", or \"12\" until the end of the step.<br /><br />During setup, after another friendly ship is placed at Range 1-2, you may assign 1 focus or evade token to it.",
                image: "upgrades/Tech/hyperwave-comm-scanner.png",
                squadPointCost: 1,
+               wave: "10",
                key: "hyperwaveCommScanner",
             },
             "ig2000":
@@ -2058,6 +2212,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You have the pilot ability of each other friendly ship with the IG-2000 Upgrade card (in addition to your own pilot ability).",
                image: "upgrades/Title/ig-2000.png",
                squadPointCost: 0,
+               wave: "6",
                key: "ig2000",
             },
             "ig88d":
@@ -2069,6 +2224,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You have the pilot ability of each friendly ship with the IG-2000 Upgrade card (in addition to your own pilot ability).",
                image: "upgrades/Crew/ig-88d.png",
                squadPointCost: 1,
+               wave: "9",
                key: "ig88d",
             },
             "igRmThugDroids":
@@ -2078,6 +2234,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, you may change 1 of your [Hit] results to a [Critical Hit] result.",
                image: "upgrades/Team/ig-rm-thug-droids.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "igRmThugDroids",
             },
             "impetuous":
@@ -2089,6 +2246,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that destroys an enemy ship, you may acquire a target lock.",
                image: "upgrades/Title/impetuous.png",
                squadPointCost: 3,
+               wave: "Aces",
                isImplemented: true,
                key: "impetuous",
             },
@@ -2099,6 +2257,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal your maneuver, you may discard this card to instead perform a white ([Stop] 0) maneuver. Then receive 1 stress token.",
                image: "upgrades/Illicit/inertial-dampeners.png",
                squadPointCost: 1,
+               wave: "6",
                isImplemented: true,
                key: "inertialDampeners",
             },
@@ -2112,6 +2271,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: -1,
                image: "upgrades/Title/insatiable-worrt.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "insatiableWorrt",
             },
             "inspiringRecruit":
@@ -2121,6 +2281,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when a friendly ship at Range 1-2 removes a stress token, it may remove 1 additional stress token.",
                image: "upgrades/Crew/inspiring-recruit.png",
                squadPointCost: 1,
+               wave: "10",
                key: "inspiringRecruit",
             },
             "instigator":
@@ -2132,6 +2293,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform a recover action, recover 1 additional shield.",
                image: "upgrades/Title/instigator.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "instigator",
             },
             "integratedAstromech":
@@ -2142,6 +2304,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are dealt a Damage card, you may discard 1 of your [Astromech] Upgrade cards to discard that Damage card (without resolving its effect).",
                image: "upgrades/Modification/integrated-astromech.png",
                squadPointCost: 0,
+               wave: "8",
                key: "integratedAstromech",
             },
             "intelligenceAgent":
@@ -2151,6 +2314,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Activation phase, choose 1 enemy ship at Range 1-2. You may look at that ship's chosen maneuver.",
                image: "upgrades/Crew/intelligence-agent.png",
                squadPointCost: 1,
+               wave: "3",
                key: "intelligenceAgent",
             },
             "intensity":
@@ -2161,6 +2325,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform a boost or barrel roll action, you may assign 1 focus or evade token to your ship. If you do, flip this card.",
                image: "upgrades/Elite/intensity.png",
                squadPointCost: 2,
+               wave: "11",
                key: "intensity",
             },
             "intensityExhausted":
@@ -2171,6 +2336,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the Combat phase, you may spend 1 focus or evade token to flip this card.",
                image: "upgrades/Elite/intensity-exhausted.png",
                squadPointCost: 2,
+               wave: "11",
                key: "intensityExhausted",
             },
             "intimidation":
@@ -2180,6 +2346,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "While you are touching an enemy ship, reduce that ship's agility value by 1.",
                image: "upgrades/Elite/intimidation.png",
                squadPointCost: 2,
+               wave: "5",
                key: "intimidation",
             },
             "ionBombs":
@@ -2189,6 +2356,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal your maneuver dial, you may discard this card to <strong>drop</strong> 1 ion bomb token.<br /><br />This token <strong>detonates</strong> at the end of the Activation phase.",
                image: "upgrades/Bomb/ion-bombs.png",
                squadPointCost: 2,
+               wave: "7",
                key: "ionBombs",
             },
             "ionCannon":
@@ -2203,6 +2371,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                cancelAllDiceResults: true,
                image: "upgrades/Cannon/ion-cannon.png",
                squadPointCost: 3,
+               wave: "2",
                isImplemented: true,
                key: "ionCannon",
             },
@@ -2218,6 +2387,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyLimit: 2,
                image: "upgrades/Hardpoint/ion-cannon-battery.png",
                squadPointCost: 6,
+               wave: "Aces",
                key: "ionCannonBattery",
             },
             "ionCannonTurret":
@@ -2233,6 +2403,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                cancelAllDiceResults: true,
                image: "upgrades/Turret/ion-cannon-turret.png",
                squadPointCost: 5,
+               wave: "1",
                isImplemented: true,
                key: "ionCannonTurret",
             },
@@ -2243,6 +2414,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you receive an ion token, you may choose an enemy ship at Range 1. If you do, remove that ion token. Then that ship may choose to receive 1 ion token. If it does, discard this card.",
                image: "upgrades/Illicit/ion-dischargers.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "ionDischargers",
             },
             "ionProjector":
@@ -2253,6 +2425,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After an enemy ship executes a maneuver that causes it to overlap your ship, roll 1 attack die. On a [Hit] or [Critical Hit] result, the enemy ship receives 1 ion token.",
                image: "upgrades/Modification/ion-projector.png",
                squadPointCost: 2,
+               wave: "7",
                key: "ionProjector",
             },
             "ionPulseMissiles":
@@ -2269,6 +2442,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Missile/ion-pulse-missiles.png",
                squadPointCost: 3,
+               wave: "4",
                isImplemented: true,
                key: "ionPulseMissiles",
             },
@@ -2285,6 +2459,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Torpedo/ion-torpedoes.png",
                squadPointCost: 5,
+               wave: "5",
                isImplemented: true,
                key: "ionTorpedoes",
             },
@@ -2298,6 +2473,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyLimit: 5,
                image: "upgrades/Cargo/ionization-reactor.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "ionizationReactor",
             },
             "jabbaTheHutt":
@@ -2309,6 +2485,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you equip this card, place 1 illicit token on each [Illicit] Upgrade card in your squad. When you are instructed to discard an Upgrade card, you may discard 1 illicit token on that card instead.",
                image: "upgrades/Crew/jabba-the-hutt.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "jabbaTheHutt",
             },
             "jainasLight":
@@ -2320,6 +2497,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, once per attack, if you are dealt a faceup Damage card, you may discard it and draw another faceup Damage card.",
                image: "upgrades/Title/jaina-s-light.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "jainasLight",
             },
             "jammingBeam":
@@ -2332,6 +2510,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack:</strong> Attack 1 ship.<br /><br />If this attack hits, assign the defender 1 jam token. Then cancel <strong>all</strong> dice results.",
                image: "upgrades/Cannon/jamming-beam.png",
                squadPointCost: 1,
+               wave: "12",
                key: "jammingBeam",
             },
             "janDodonna":
@@ -2343,6 +2522,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When another friendly ship at Range 1 is attacking, it may change 1 of its [Hit] results to a [Critical Hit].",
                image: "upgrades/Crew/jan-dodonna.png",
                squadPointCost: 6,
+               wave: "Aces",
                key: "janDodonna",
             },
             "janOrs":
@@ -2354,6 +2534,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when a friendly ship at Range 1-3 performs a focus action or would be assigned a focus token, you may assign that ship an evade token instead.",
                image: "upgrades/Crew/jan-ors.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "janOrs",
             },
             "juke":
@@ -2364,6 +2545,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you have an evade token, you may change 1 of the defender's [Evade] results to a [Focus] result.",
                image: "upgrades/Elite/juke.png",
                squadPointCost: 2,
+               wave: "8",
                isImplemented: true,
                key: "juke",
             },
@@ -2377,6 +2559,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose 1 friendly ship at Range 1-2. Assign 1 focus token to that ship for each enemy ship inside your firing arc at Range 1-3. You cannot assign more than 3 tokens in this way.",
                image: "upgrades/Crew/jyn-erso.png",
                squadPointCost: 2,
+               wave: "10",
                key: "jynErso",
             },
             "k4SecurityDroid":
@@ -2387,6 +2570,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After executing a green maneuver, you may acquire a target lock.",
                image: "upgrades/Crew/k4-security-droid.png",
                squadPointCost: 3,
+               wave: "6",
                isImplemented: true,
                key: "k4SecurityDroid",
             },
@@ -2399,6 +2583,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, after a friendly ship at Range 1-2 executes a white maneuver, you may remove 1 stress token from that ship.",
                image: "upgrades/Crew/kanan-jarrus.png",
                squadPointCost: 3,
+               wave: "8",
                key: "kananJarrus",
             },
             "ketsuOnyo":
@@ -2410,6 +2595,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the End phase, you may choose 1 enemy ship inside your firing arc at Range 1-2. That ship does not remove its tractor beam tokens.",
                image: "upgrades/Crew/ketsu-onyo.png",
                squadPointCost: 1,
+               wave: "9",
                key: "ketsuOnyo",
             },
             "kyleKatarn":
@@ -2421,6 +2607,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you remove a stress token from your ship, you may assign a focus token to your ship.",
                image: "upgrades/Crew/kyle-katarn.png",
                squadPointCost: 3,
+               wave: "Aces",
                isImplemented: true,
                key: "kyleKatarn",
             },
@@ -2434,6 +2621,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Assign the \"I'll Show You the Dark Side\" Condition card to an enemy ship at Range 1-3.",
                image: "upgrades/Crew/kylo-ren.png",
                squadPointCost: 3,
+               wave: "10",
                key: "kyloRen",
             },
             "kyloRensShuttle":
@@ -2445,6 +2633,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the Combat phase, choose an unstressed enemy ship at Range 1-2. The owner must assign a stress token to it or assign a stress token to another ship at Range 1-2 of you that that player controls.",
                image: "upgrades/Title/kylo-rens-shuttle.png",
                squadPointCost: 2,
+               wave: "10",
                key: "kyloRensShuttle",
             },
             "landoCalrissian":
@@ -2457,6 +2646,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Roll 2 defense dice. For each [Focus] result, assign 1 focus token to your ship. For each [Evade] result, assign 1 evade token to your ship.",
                image: "upgrades/Crew/lando-calrissian.png",
                squadPointCost: 3,
+               wave: "5",
                isImplemented: true,
                key: "landoCalrissian",
             },
@@ -2469,6 +2659,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, you may remove 1 stress token from the attacker to add 1 [Evade] result to your roll.",
                image: "upgrades/Crew/latts-razzi.png",
                squadPointCost: 2,
+               wave: "9",
                key: "lattsRazzi",
             },
             "leebo":
@@ -2481,6 +2672,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Perform a free boost action. Then receive 1 ion token.",
                image: "upgrades/Crew/leebo.png",
                squadPointCost: 2,
+               wave: "5",
                isImplemented: true,
                key: "leebo",
             },
@@ -2493,6 +2685,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Activation phase, you may discard this card to allow all friendly ships that reveal a red maneuver to treat that maneuver as a white maneuver until the end of the phase.",
                image: "upgrades/Crew/leia-organa.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "leiaOrgana",
             },
             "lightScykInterceptor":
@@ -2503,6 +2696,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "All Damage cards dealt to you are dealt faceup. You may treat all bank maneuvers ([Bank Left] or [Bank Right]) as green maneuvers. You cannot equip Modification upgrades.",
                image: "upgrades/Title/light-scyk-interceptor.png",
                squadPointCost: -2,
+               wave: "Aces",
                key: "lightScykInterceptor",
             },
             "lightningReflexes":
@@ -2513,6 +2707,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you execute a white or green maneuver on your dial, you may discard this card to rotate your ship 180°. Then receive 1 stress token <strong>after</strong> the \"Check Pilot Stress\" step.",
                image: "upgrades/Elite/lightning-reflexes.png",
                squadPointCost: 1,
+               wave: "7",
                isImplemented: true,
                key: "lightningReflexes",
             },
@@ -2524,6 +2719,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, after rolling defense dice, if there are more attack dice than defense dice, roll 1 additional defense die.<br /><br />You cannot equip this card if your agility value is \"3\" or higher.",
                image: "upgrades/Modification/lightweight-frame.png",
                squadPointCost: 2,
+               wave: "10",
                key: "lightweightFrame",
             },
             "linkedBattery":
@@ -2534,6 +2730,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking with a primary weapon or [Cannon] seconday weapon, you may reroll 1 attack die.",
                image: "upgrades/Cannon/linked-battery.png",
                squadPointCost: 2,
+               wave: "12",
                key: "linkedBattery",
             },
             "loneWolf":
@@ -2544,6 +2741,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking or defending, if there are no other friendly ships at Range 1–2, you may reroll 1 of your blank results.",
                image: "upgrades/Elite/lone-wolf.png",
                squadPointCost: 2,
+               wave: "5",
                isImplemented: true,
                key: "loneWolf",
             },
@@ -2554,6 +2752,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may acquire target locks on ships at Range 3 and beyond. You cannot acquire target locks on ships at Range 1-2. You can equip this card only if you have [Torpedo] and [Missile] in your upgrade bar.",
                image: "upgrades/Modification/long-range-scanners.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "longRangeScanners",
             },
             "lukeSkywalker":
@@ -2565,6 +2764,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that does not hit, you may immediately perform a primary weapon attack. You may change 1 [Focus] result to a [Hit] result. You cannot perform another attack this round.",
                image: "upgrades/Crew/luke-skywalker.png",
                squadPointCost: 7,
+               wave: "2",
                key: "lukeSkywalker",
             },
             "m9G8":
@@ -2575,6 +2775,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When a ship you have locked is attacking, you may choose 1 attack die. The attacker must reroll that die.<br /><br />You can acquire target locks on other friendly ships.",
                image: "upgrades/Astromech/m9-g8.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "m9G8",
             },
             "maneuveringFins":
@@ -2585,6 +2786,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal a turn maneuver ([Turn Left] or [Turn Right]), you may rotate your dial to the corresponding bank maneuver ([Bank Left] or [Bank Right]) of the same speed.",
                image: "upgrades/Modification/maneuvering-fins.png",
                squadPointCost: 1,
+               wave: "7",
                isImplemented: true,
                key: "maneuveringFins",
             },
@@ -2599,6 +2801,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack:</strong> Attack 1 ship.<br /><br />When attacking, you may change 1 of your [Hit] results to a [Critical Hit] result.",
                image: "upgrades/Cannon/mangler-cannon.png",
                squadPointCost: 4,
+               wave: "6",
                isImplemented: true,
                key: "manglerCannon",
             },
@@ -2611,6 +2814,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the Combat phase, each enemy ship at Range 1 that does not have a stress token receives 1 stress token.",
                image: "upgrades/Crew/mara-jade.png",
                squadPointCost: 3,
+               wave: "5",
                isImplemented: true,
                key: "maraJade",
             },
@@ -2622,6 +2826,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> When attacking this round, you may change 1 of your [Focus] results to a [Critical Hit] result and all of your other [Focus] results to [Hit] results.",
                image: "upgrades/Elite/marksmanship.png",
                squadPointCost: 3,
+               wave: "1",
                isImplemented: true,
                key: "marksmanship",
             },
@@ -2634,6 +2839,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you are not stressed, you may receive any number of stress tokens to reroll that many attack dice.<br /><br />After performing an attack that hits, you may remove 1 of your stress tokens.",
                image: "upgrades/Crew/maul.png",
                squadPointCost: 3,
+               wave: "12",
                key: "maul",
             },
             "mercenaryCopilot":
@@ -2643,6 +2849,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking at Range 3, you may change 1 of your [Hit] results to a [Critical Hit] result.",
                image: "upgrades/Crew/mercenary-copilot.png",
                squadPointCost: 2,
+               wave: "2",
                isImplemented: true,
                key: "mercenaryCopilot",
             },
@@ -2656,6 +2863,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 1,
                image: "upgrades/Title/merchant-one.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "merchantOne",
             },
             "millenniumFalcon":
@@ -2667,6 +2875,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your action bar gains the [Evade] action icon.",
                image: "upgrades/Title/millennium-falcon.png",
                squadPointCost: 1,
+               wave: "2",
                isImplemented: true,
                key: "millenniumFalcon",
             },
@@ -2679,6 +2888,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you execute a 3-speed bank maneuver ([Bank Left] or [Bank Right]), if you are not touching another ship and you are not stressed, you may receive 1 stress token to rotate your ship 180°.",
                image: "upgrades/Title/millennium-falcon-hotr.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "millenniumFalcon_hotr",
             },
             "minefieldMapper":
@@ -2688,6 +2898,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During setup, after the \"Place Forces\" step, you may discard any number of your equipped [Bomb] Upgrade cards. Place all corresponding bomb tokens in the play area beyond Range 3 of enemy ships.",
                image: "upgrades/System/minefield-mapper.png",
                squadPointCost: 0,
+               wave: "11",
                key: "minefieldMapper",
             },
             "mistHunter":
@@ -2699,6 +2910,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your action bar gains the [Barrel Roll] action icon.<br /><br />You <strong>must</strong> equip 1 \"Tractor Beam\" Upgrade card (paying its squad point cost as normal).",
                image: "upgrades/Title/mist-hunter.png",
                squadPointCost: 0,
+               wave: "8",
                isImplemented: true,
                key: "mistHunter",
             },
@@ -2711,6 +2923,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are dealt a faceup Damage card, you may discard this Upgrade card or another [Crew] Upgrade card to flip that Damage card facedown (without resolving its effect.)",
                image: "upgrades/Crew/moff-jerjerrod.png",
                squadPointCost: 2,
+               wave: "5",
                key: "moffJerjerrod",
             },
             "moldyCrow":
@@ -2722,6 +2935,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the End phase, do not remove unused focus tokens from your ship.",
                image: "upgrades/Title/moldy-crow.png",
                squadPointCost: 3,
+               wave: "3",
                isImplemented: true,
                key: "moldyCrow",
             },
@@ -2732,6 +2946,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking with a secondary weapon that instructs you to discard it to perform the attack, do not discard it unless the attack hits.",
                image: "upgrades/Modification/munitions-failsafe.png",
                squadPointCost: 1,
+               wave: "4",
                key: "munitionsFailsafe",
             },
             "navigator":
@@ -2742,6 +2957,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal a maneuver, you may rotate your dial to another maneuver with the same bearing.<br /><br />You cannot rotate to a red maneuver if you have any stress tokens.",
                image: "upgrades/Crew/navigator.png",
                squadPointCost: 3,
+               wave: "3",
                key: "navigator",
             },
             "nienNunb":
@@ -2753,6 +2969,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may treat all [Straight] maneuvers as green maneuvers.",
                image: "upgrades/Crew/nien-nunb.png",
                squadPointCost: 1,
+               wave: "2",
                isImplemented: true,
                key: "nienNunb",
             },
@@ -2764,6 +2981,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After a friendly ship at Range 1-2 performs an attack that does not hit, you may assign 1 focus token to a friendly ship at Range 1-3 of the attacker.",
                image: "upgrades/Crew/operations-specialist.png",
                squadPointCost: 3,
+               wave: "10",
                key: "operationsSpecialist",
             },
             "opportunist":
@@ -2773,6 +2991,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if the defender does not have any focus or evade tokens, you may receive 1 stress token to roll 1 additional attack die.<br /><br />You cannot use this ability if you have any stress tokens.",
                image: "upgrades/Elite/opportunist.png",
                squadPointCost: 4,
+               wave: "Aces",
                isImplemented: true,
                key: "opportunist",
             },
@@ -2784,6 +3003,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when you assign energy to an equipped Upgrade card, gain 2 energy.",
                image: "upgrades/Modification/optimized-generators.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "optimizedGenerators",
             },
             "ordnanceExperts":
@@ -2794,6 +3014,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when a friendly ship at Range 1-3 performs an attack with a [Torpedo] or [Missile] secondary weapon, it may change 1 of its blank results to a [Hit] result.",
                image: "upgrades/Team/ordnance-experts.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "ordnanceExperts",
             },
             "ordnanceSilos":
@@ -2804,6 +3025,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you equip this card, place 3 ordnance tokens on each other equipped [Bomb] Upgrade card. When you are instructed to discard an Upgrade card, you may discard 1 ordnance token on that card instead.",
                image: "upgrades/Bomb/ordnance-silos.png",
                squadPointCost: 2,
+               wave: "13",
                key: "ordnanceSilos",
             },
             "ordnanceTubes":
@@ -2814,6 +3036,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may treat each of your [Hardpoint] upgrade icons as a [Torpedo] or [Missile] upgrade icon.<br /><br />When you are instructed to discard a [Torpedo] or [Missile] Upgrade card, do not discard it.",
                image: "upgrades/Modification/ordnance-tubes.png",
                squadPointCost: 5,
+               wave: "Aces",
                key: "ordnanceTubes",
             },
             "os1ArsenalLoadout":
@@ -2824,6 +3047,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Torpedo] and [Missile] upgrade icons.<br /><br />You may perform attacks with [Torpedo] and [Missile] secondary weapons against ships you have locked even while you have a weapons disabled token.",
                image: "upgrades/Title/os-1-arsenal-loadout.png",
                squadPointCost: 2,
+               wave: "12",
                key: "os1ArsenalLoadout",
             },
             "outlawTech":
@@ -2834,6 +3058,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you execute a red maneuver, you may assign 1 focus token to your ship.",
                image: "upgrades/Crew/outlaw-tech.png",
                squadPointCost: 2,
+               wave: "6",
                isImplemented: true,
                key: "outlawTech",
             },
@@ -2844,6 +3069,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking a ship inside your firing arc, if you are not inside that ship's firing arc, reduce its agility value by 1 (to a minimum of 0).",
                image: "upgrades/Elite/outmaneuver.png",
                squadPointCost: 3,
+               wave: "4",
                key: "outmaneuver",
             },
             "outrider":
@@ -2855,6 +3081,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "While you have a [Cannon] Upgrade card equipped, you <strong>cannot</strong> perform primary weapon attacks and you may perform [Cannon] secondary weapon attacks against ships outside your firing arc.",
                image: "upgrades/Title/outrider.png",
                squadPointCost: 5,
+               wave: "5",
                key: "outrider",
             },
             "overclockedR4":
@@ -2864,6 +3091,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the Combat phase, when you spend a focus token, you may receive 1 stress token to assign 1 focus token to your ship.",
                image: "upgrades/Salvaged Astromech/overclocked-r4.png",
                squadPointCost: 1,
+               wave: "8",
                key: "overclockedR4",
             },
             "patternAnalyzer":
@@ -2873,6 +3101,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When executing a maneuver, you may resolve the \"Check Pilot Stress\" step after the \"Perform Action\" step (instead of before that step).",
                image: "upgrades/Tech/pattern-analyzer.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "patternAnalyzer",
             },
             "phantom":
@@ -2884,6 +3113,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "While you are docked, the Ghost can perform primary weapon attacks from its special firing arc and, at the end of the Combat phase, it may perform an additional attack with an equipped [Turret]. If it performs this attack, it cannot attack again this round.",
                image: "upgrades/Title/phantom.png",
                squadPointCost: 0,
+               wave: "8",
                key: "phantom",
             },
             "phantomIi":
@@ -2895,6 +3125,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "While you are docked, the Ghost can perform primary weapon attacks from its special firing arc.<br /><br />While you are docked, at the end of the Activation phase, the Ghost may perform a free coordinate action.",
                image: "upgrades/Title/phantom-ii.png",
                squadPointCost: 0,
+               wave: "12",
                key: "phantomIi",
             },
             "pivotWingAttack":
@@ -2906,6 +3137,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                agilityValue: 1,
                image: "upgrades/Title/pivot-wing-attack.png",
                squadPointCost: 0,
+               wave: "10",
                key: "pivotWingAttack",
             },
             "pivotWingLanding":
@@ -2916,6 +3148,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal a (0 [Stop]) maneuver, you may rotate your ship 180°.<br /><br />After you execute a maneuver, you may flip this card.",
                image: "upgrades/Title/pivot-wing-landing.png",
                squadPointCost: 0,
+               wave: "10",
                key: "pivotWingLanding",
             },
             "plasmaTorpedoes":
@@ -2931,6 +3164,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Torpedo/plasma-torpedoes.png",
                squadPointCost: 3,
+               wave: "7",
                isImplemented: true,
                key: "plasmaTorpedoes",
             },
@@ -2941,6 +3175,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, you may reroll 1 attack die. If the defender's pilot skill value is \"2\" or lower, you may instead reroll up to 2 attack dice.",
                image: "upgrades/Elite/predator.png",
                squadPointCost: 3,
+               wave: "4",
                isImplemented: true,
                key: "predator",
             },
@@ -2952,6 +3187,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Stress tokens do not prevent you from performing boost or barrel roll actions unless you have 3 or more stress tokens.",
                image: "upgrades/Tech/primed-thrusters.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "primedThrusters",
             },
             "protonBombs":
@@ -2961,6 +3197,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal your maneuver dial, you may discard this card to <strong>drop</strong> 1 proton bomb token.<br /><br />This token <strong>detonates</strong> at the end of the Activation phase.",
                image: "upgrades/Bomb/proton-bombs.png",
                squadPointCost: 5,
+               wave: "3",
                key: "protonBombs",
             },
             "protonRockets":
@@ -2975,6 +3212,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                discardThisCard: true,
                image: "upgrades/Missile/proton-rockets.png",
                squadPointCost: 3,
+               wave: "Aces",
                isImplemented: true,
                key: "protonRockets",
             },
@@ -2991,6 +3229,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                spendTargetLock: true,
                image: "upgrades/Torpedo/proton-torpedoes.png",
                squadPointCost: 4,
+               wave: "1",
                isImplemented: true,
                key: "protonTorpedoes",
             },
@@ -3002,6 +3241,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Discard this card to drop 1 proximity mine token. When a ship's base or maneuver template overlaps this token, this token <strong>detonates</strong>.",
                image: "upgrades/Bomb/proximity-mines.png",
                squadPointCost: 3,
+               wave: "2",
                key: "proximityMines",
             },
             "pulsedRayShield":
@@ -3012,6 +3252,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the End phase, you may receive 1 ion token to recover 1 shield (up to your shield value). You can equip this card only if your shield value is \"1\".",
                image: "upgrades/Modification/pulsed-ray-shield.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "pulsedRayShield",
             },
             "punishingOne":
@@ -3024,6 +3265,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                primaryWeaponValue: 1,
                image: "upgrades/Title/punishing-one.png",
                squadPointCost: 12,
+               wave: "8",
                isImplemented: true,
                key: "punishingOne",
             },
@@ -3034,6 +3276,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, after you perform an action, you may perform 1 free action shown in your action bar.<br /><br />Then receive 1 stress token.",
                image: "upgrades/Elite/push-the-limit.png",
                squadPointCost: 3,
+               wave: "2",
                isImplemented: true,
                key: "pushTheLimit",
             },
@@ -3049,6 +3292,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyLimit: 2,
                image: "upgrades/Hardpoint/quad-laser-cannons.png",
                squadPointCost: 6,
+               wave: "Aces",
                key: "quadLaserCannons",
             },
             "quantumStorm":
@@ -3061,6 +3305,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 1,
                image: "upgrades/Title/quantum-storm.png",
                squadPointCost: 4,
+               wave: "Aces",
                isImplemented: true,
                key: "quantumStorm",
             },
@@ -3072,6 +3317,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the Activation phase, you may discard this card to <strong>place</strong> 1 container token.",
                image: "upgrades/Cargo/quick-release-cargo-locks.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "quickReleaseCargoLocks",
             },
             "r2Astromech":
@@ -3081,6 +3327,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may treat all 1- and 2-speed maneuvers as green maneuvers.",
                image: "upgrades/Astromech/r2-astromech.png",
                squadPointCost: 1,
+               wave: "1",
                isImplemented: true,
                key: "r2Astromech",
             },
@@ -3092,6 +3339,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After executing a green maneuver, you may recover 1 shield (up to your shield value).",
                image: "upgrades/Astromech/r2-d2.png",
                squadPointCost: 4,
+               wave: "0",
                key: "r2D2_astromech",
             },
             "r2D2_crew":
@@ -3103,6 +3351,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the End phase, if you have no shields, you may recover 1 shield and roll 1 attack die. On a [Hit] result, randomly flip 1 of your facedown Damage cards faceup and resolve it.",
                image: "upgrades/Crew/r2-d2.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "r2D2_crew",
             },
             "r2D6":
@@ -3113,6 +3362,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Elite] upgrade icon.<br /><br />You cannot equip this upgrade if you already have a [Elite] upgrade icon or if your pilot skill value is \"2\" or lower.",
                image: "upgrades/Astromech/r2-d6.png",
                squadPointCost: 1,
+               wave: "Aces",
                isImplemented: true,
                key: "r2D6",
             },
@@ -3125,6 +3375,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Increase your agility value by 1 until the end of this game round.",
                image: "upgrades/Astromech/r2-f2.png",
                squadPointCost: 3,
+               wave: "0",
                isImplemented: true,
                key: "r2F2",
             },
@@ -3136,6 +3387,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you declare the target of your attack, if the defender is inside your firing arc, you may receive 1 stress token to cause the defender to receive 1 stress token.",
                image: "upgrades/Astromech/r3-a2.png",
                squadPointCost: 2,
+               wave: "Aces",
                isImplemented: true,
                key: "r3A2",
             },
@@ -3146,6 +3398,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, when attacking with a primary weapon, you may cancel 1 of your [Focus] results during the \"Modify Attack Dice\" step to assign 1 evade token to your ship.",
                image: "upgrades/Astromech/r3-astromech.png",
                squadPointCost: 2,
+               wave: "9",
                key: "r3Astromech",
             },
             "r4Agromech":
@@ -3155,6 +3408,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, after you spend a focus token, you may acquire a target lock on the defender.",
                image: "upgrades/Salvaged Astromech/r4-agromech.png",
                squadPointCost: 2,
+               wave: "6",
                key: "r4Agromech",
             },
             "r4B11":
@@ -3165,6 +3419,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you have a target lock on the defender, you may spend the target lock to choose any or all defense dice. The defender must reroll the chosen dice.",
                image: "upgrades/Salvaged Astromech/r4-b11.png",
                squadPointCost: 3,
+               wave: "6",
                key: "r4B11",
             },
             "r4D6":
@@ -3175,6 +3430,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are hit by an attack and there are at least 3 uncanceled [Hit] results, you may choose to cancel those results until there are 2 remaining. For each result canceled this way, receive 1 stress token.",
                image: "upgrades/Astromech/r4-d6.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "r4D6",
             },
             "r4E1":
@@ -3184,6 +3440,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You can perform actions on your [Torpedo] and [Bomb] Upgrade cards even if you are stressed. After you perform an action in this way, you may discard this card to remove 1 stress token from your ship.",
                image: "upgrades/Salvaged Astromech/r4-e1.png",
                squadPointCost: 1,
+               wave: "11",
                key: "r4E1",
             },
             "r5Astromech":
@@ -3193,6 +3450,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "During the End phase, you may choose 1 of your faceup Damage cards with the <strong>Ship</strong> trait and flip it facedown.",
                image: "upgrades/Astromech/r5-astromech.png",
                squadPointCost: 1,
+               wave: "1",
                key: "r5Astromech",
             },
             "r5D8":
@@ -3204,6 +3462,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Roll 1 defense die.<br /><br />On a [Evade] or [Focus] result, discard 1 of your facedown Damage cards.",
                image: "upgrades/Astromech/r5-d8.png",
                squadPointCost: 3,
+               wave: "1",
                isImplemented: true,
                key: "r5D8",
             },
@@ -3215,6 +3474,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After spending your target lock, roll 1 defense die.<br /><br />On a [Evade] result, immediately acquire a target lock on that same ship. You cannot spend this target lock during this attack.",
                image: "upgrades/Astromech/r5-k6.png",
                squadPointCost: 2,
+               wave: "1",
                key: "r5K6",
             },
             "r5P8":
@@ -3225,6 +3485,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, after defending, you may roll 1 attack die. On a [Hit] result, the attacker suffers 1 damage. On a [Critical Hit] result, you and the attacker each suffer 1 damage.",
                image: "upgrades/Salvaged Astromech/r5-p8.png",
                squadPointCost: 3,
+               wave: "8",
                key: "r5P8",
             },
             "r5P9":
@@ -3235,6 +3496,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the end of the Combat phase, you may spend 1 of your focus tokens to recover 1 shield (up to your shield value).",
                image: "upgrades/Astromech/r5-p9.png",
                squadPointCost: 3,
+               wave: "Aces",
                isImplemented: true,
                key: "r5P9",
             },
@@ -3246,6 +3508,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You can acquire target locks on friendly ships.<br /><br />You can attack friendly ships.",
                image: "upgrades/Salvaged Astromech/r5-tk.png",
                squadPointCost: 0,
+               wave: "12",
                key: "r5Tk",
             },
             "r5X3":
@@ -3256,6 +3519,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Before you reveal your maneuver, you may discard this card to ignore obstacles until the end of the round.",
                image: "upgrades/Astromech/r5-x3.png",
                squadPointCost: 1,
+               wave: "0",
                key: "r5X3",
             },
             "r7Astromech":
@@ -3265,6 +3529,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round when defending, if you have a target lock on the attacker, you may spend the target lock to choose any or all attack dice. The attacker must reroll the chosen dice.",
                image: "upgrades/Astromech/r7-astromech.png",
                squadPointCost: 2,
+               wave: "4",
                key: "r7Astromech",
             },
             "r7T1":
@@ -3276,6 +3541,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose an enemy ship at Range 1-2. If you are inside that ship's firing arc, you may acquire a target lock on that ship. Then, you may perform a free boost action.",
                image: "upgrades/Astromech/r7-t1.png",
                squadPointCost: 3,
+               wave: "4",
                key: "r7T1",
             },
             "rage":
@@ -3286,6 +3552,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Assign 1 focus token to your ship and receive 2 stress tokens. Until the end of the round, when attacking, you may reroll up to 3 attack dice.",
                image: "upgrades/Elite/rage.png",
                squadPointCost: 1,
+               wave: "8",
                isImplemented: true,
                key: "rage",
             },
@@ -3298,6 +3565,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Activation phase, choose 1 enemy ship at Range 1-3. You may look at that ship's chosen maneuver. If the maneuver is white, assign that ship 1 stress token.",
                image: "upgrades/Crew/raymus-antilles.png",
                squadPointCost: 6,
+               wave: "Aces",
                key: "raymusAntilles",
             },
             "rearAdmiralChiraneau":
@@ -3310,6 +3578,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Execute a white ([Straight] 1) maneuver.",
                image: "upgrades/Crew/rear-admiral-chiraneau.png",
                squadPointCost: 3,
+               wave: "Aces",
                isImplemented: true,
                key: "rearAdmiralChiraneau",
             },
@@ -3322,6 +3591,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, the first ship that declares you as the target of an attack immediately receives 1 stress token.",
                image: "upgrades/Crew/rebel-captive.png",
                squadPointCost: 3,
+               wave: "3",
                isImplemented: true,
                key: "rebelCaptive",
             },
@@ -3332,6 +3602,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you perform a focus action, assign 1 additional focus token to your ship.",
                image: "upgrades/Crew/recon-specialist.png",
                squadPointCost: 3,
+               wave: "3",
                isImplemented: true,
                key: "reconSpecialist",
             },
@@ -3343,6 +3614,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After defending, if you suffered a combination of 3 or more damage and critical damage during the attack, recover 1 shield (up to your shield value).",
                image: "upgrades/System/reinforced-deflectors.png",
                squadPointCost: 3,
+               wave: "8",
                isImplemented: true,
                key: "reinforcedDeflectors",
             },
@@ -3356,6 +3628,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 0,
                image: "upgrades/Title/requiem.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "requiem",
             },
             "rey":
@@ -3367,6 +3640,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the End phase, you may place 1 of your ship's focus tokens on this card. At the start of the Combat phase, you may assign 1 of those tokens to your ship.",
                image: "upgrades/Crew/rey.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "rey",
             },
             "riggedCargoChute":
@@ -3378,6 +3652,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Discard this card to <strong>drop</strong> one cargo token.",
                image: "upgrades/Illicit/rigged-cargo-chute.png",
                squadPointCost: 1,
+               wave: "9",
                key: "riggedCargoChute",
             },
             "royalGuardTie":
@@ -3388,6 +3663,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may equip up to 2 different Modification upgrades (instead of 1).<br /><br />You cannot equip this card if your pilot skill value is \"4\" or lower.",
                image: "upgrades/Title/royal-guard-tie.png",
                squadPointCost: 0,
+               wave: "Aces",
                isImplemented: true,
                key: "royalGuardTie",
             },
@@ -3399,6 +3675,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that hits, you <strong>must</strong> choose 1 other ship at Range 1 of the defender (other than yourself). That ship suffers 1 damage.",
                image: "upgrades/Elite/ruthlessness.png",
                squadPointCost: 3,
+               wave: "5",
                key: "ruthlessness",
             },
             "sabineWren":
@@ -3410,6 +3687,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Bomb] upgrade icon. Once per round, before a friendly bomb token is removed, choose 1 enemy ship at Range 1 of that token. That ship suffers 1 damage.",
                image: "upgrades/Crew/sabine-wren.png",
                squadPointCost: 2,
+               wave: "8",
                key: "sabineWren",
             },
             "sabinesMasterpiece":
@@ -3421,6 +3699,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Crew] and [Illicit] upgrade icons.",
                image: "upgrades/Title/sabines-masterpiece.png",
                squadPointCost: 1,
+               wave: "10",
                key: "sabinesMasterpiece",
             },
             "saboteur":
@@ -3431,6 +3710,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose 1 enemy ship at Range 1 and roll 1 attack die. On a [Hit] or [Critical Hit] result, choose 1 random facedown Damage card assigned to that ship, flip it faceup, and resolve it.",
                image: "upgrades/Crew/saboteur.png",
                squadPointCost: 2,
+               wave: "3",
                key: "saboteur",
             },
             "salvagedAstromech":
@@ -3440,6 +3720,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you are dealt a faceup Damage card with the <strong>Ship</strong> trait, you may immediately discard that card (before resolving its effect).<br /><br />Then, discard this Upgrade card.",
                image: "upgrades/Salvaged Astromech/salvaged-astromech.png",
                squadPointCost: 2,
+               wave: "6",
                key: "salvagedAstromech",
             },
             "saturationSalvo":
@@ -3449,6 +3730,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack with a [Torpedo] or [Missile] secondary weapon that does not hit, each ship at Range 1 of the defender with an agility value lower than the squad point cost of the [Torpedo] or [Missile] Upgrade card must roll 1 attack die and suffer any damage ([Hit]) or critical damage ([Critical Hit]) rolled.",
                image: "upgrades/Elite/saturation-salvo.png",
                squadPointCost: 1,
+               wave: "12",
                key: "saturationSalvo",
             },
             "scavengerCrane":
@@ -3458,6 +3740,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After a ship at Range 1-2 is destroyed, you may choose a discarded [Torpedo], [Missile], [Bomb], [Cannon], [Turret], or Modification Upgrade card that was equipped to your ship and flip it faceup. Then roll 1 attack die. On a blank result, discard Scavenger Crane.",
                image: "upgrades/Illicit/scavenger-crane.png",
                squadPointCost: 2,
+               wave: "10",
                key: "scavengerCrane",
             },
             "scramblerMissiles":
@@ -3470,6 +3753,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack (target lock):</strong> Discard this card to perform this attack.<br /><br />If this attack hits, the defender and each other ship at Range 1 receive 1 jam token. Then cancel <strong>all</strong> results.",
                image: "upgrades/Missile/scrambler-missiles.png",
                squadPointCost: 2,
+               wave: "12",
                key: "scramblerMissiles",
             },
             "seismicCharges":
@@ -3479,6 +3763,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal your maneuver dial, you may discard this card to drop 1 seismic charge token.<br /><br />This token detonates at the end of the Activation phase.",
                image: "upgrades/Bomb/seismic-charges.png",
                squadPointCost: 2,
+               wave: "2",
                key: "seismicCharges",
             },
             "seismicTorpedo":
@@ -3489,6 +3774,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Discard this card to choose an obstacle at Range 1-2 and inside your primary firing arc. Each ship at Range 1 of the obstacle rolls 1 attack die and suffers any damage ([Hit]) and critical damage ([Critical Hit]) rolled. Then remove the obstacle.",
                image: "upgrades/Torpedo/seismic-torpedo.png",
                squadPointCost: 2,
+               wave: "9",
                key: "seismicTorpedo",
             },
             "selflessness":
@@ -3500,6 +3786,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When a friendly ship at Range 1 is hit by an attack, you may discard this card to suffer all uncanceled [Hit] results instead of the target ship.",
                image: "upgrades/Elite/selflessness.png",
                squadPointCost: 1,
+               wave: "11",
                key: "selflessness",
             },
             "sensorCluster":
@@ -3509,6 +3796,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, you may spend a focus token to change 1 of your blank results to an [Evade] result.",
                image: "upgrades/Tech/sensor-cluster.png",
                squadPointCost: 2,
+               wave: "9",
                key: "sensorCluster",
             },
             "sensorJammer":
@@ -3518,6 +3806,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When defending, you may change 1 of the attacker's [Hit] results into a [Focus] result.<br /><br />The attacker cannot reroll the die with the changed result.",
                image: "upgrades/System/sensor-jammer.png",
                squadPointCost: 4,
+               wave: "3",
                isImplemented: true,
                key: "sensorJammer",
             },
@@ -3528,6 +3817,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When acquiring a target lock, you may lock onto an enemy ship at Range 1-5 (instead of Range 1-3).",
                image: "upgrades/Team/sensor-team.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "sensorTeam",
             },
             "shadowCaster":
@@ -3539,6 +3829,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack that hits, if the defender is inside your mobile firing arc and at Range 1-2, you may assign the defender 1 tractor beam token.",
                image: "upgrades/Title/shadow-caster.png",
                squadPointCost: 3,
+               wave: "9",
                key: "shadowCaster",
             },
             "shieldProjector":
@@ -3548,6 +3839,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When an enemy ship is declaring either a small or large ship as the target of its attack, you may spend 3 energy to force that ship to target you if possible.",
                image: "upgrades/Cargo/shield-projector.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "shieldProjector",
             },
             "shieldTechnician":
@@ -3558,6 +3850,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you perform a recover action, instead of spending all of your energy, you can choose any amount of energy to spend.",
                image: "upgrades/Crew/shield-technician.png",
                squadPointCost: 1,
+               wave: "Aces",
                key: "shieldTechnician",
             },
             "shieldUpgrade":
@@ -3568,6 +3861,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                shieldValue: 1,
                image: "upgrades/Modification/shield-upgrade.png",
                squadPointCost: 4,
+               wave: "2",
                isImplemented: true,
                key: "shieldUpgrade",
             },
@@ -3583,6 +3877,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyLimit: 2,
                image: "upgrades/Hardpoint/single-turbolasers.png",
                squadPointCost: 8,
+               wave: "Aces",
                key: "singleTurbolasers",
             },
             "slaveI":
@@ -3594,6 +3889,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Torpedo] upgrade icon.",
                image: "upgrades/Title/slave-i.png",
                squadPointCost: 0,
+               wave: "2",
                isImplemented: true,
                key: "slaveI",
             },
@@ -3605,6 +3901,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose 1 or more ships at Range 1-3 that have a stress token. For each ship chosen, you may spend 1 energy to cause that ship to suffer 1 damage.",
                image: "upgrades/Cargo/slicer-tools.png",
                squadPointCost: 7,
+               wave: "Aces",
                key: "slicerTools",
             },
             "smugglingCompartment":
@@ -3615,6 +3912,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [Illicit] upgrade icon.<br /><br />You may equip 1 additional Modification upgrade that costs 3 or fewer squad points.",
                image: "upgrades/Modification/smuggling-compartment.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "smugglingCompartment",
             },
             "snapShot":
@@ -3628,6 +3926,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After an enemy ship executes a maneuver, you may perform this attack against that ship.<br /><br /><strong>Attack:</strong> Attack 1 ship. You cannot modify your attack dice and cannot attack again this phase.",
                image: "upgrades/Elite/snap-shot.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "snapShot",
             },
             "spacetugTractorArray":
@@ -3638,6 +3937,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose a ship inside your firing arc at Range 1 and assign a tractor beam token to it. If it is a friendly ship, resolve the effect of the tractor beam token a though it were an enemy ship.",
                image: "upgrades/Modification/spacetug-tractor-array.png",
                squadPointCost: 2,
+               wave: "10",
                key: "spacetugTractorArray",
             },
             "specialOpsTraining":
@@ -3648,6 +3948,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking with a primary weapon from your primary firing arc, you may roll 1 additional attack die. If you do not, you may perform an additional attack from your auxiliary firing arc.",
                image: "upgrades/Title/special-ops-training.png",
                squadPointCost: 0,
+               wave: "9",
                key: "specialOpsTraining",
             },
             "squadLeader":
@@ -3659,6 +3960,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Choose 1 ship at Range 1-2 that has a lower pilot skill than you.<br /><br />The chosen ship may immediately perform 1 free action.",
                image: "upgrades/Elite/squad-leader.png",
                squadPointCost: 2,
+               wave: "1",
                key: "squadLeader",
             },
             "st321":
@@ -3670,6 +3972,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When acquiring a target lock, you may lock onto any enemy ship in the play area.",
                image: "upgrades/Title/st-321.png",
                squadPointCost: 3,
+               wave: "3",
                key: "st321",
             },
             "starViperMkii":
@@ -3680,6 +3983,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may equip up to 2 different Title upgrades.<br /><br />When performing a barrel roll action, you <strong>must</strong> use the ([Bank Left] 1) or ([Bank Right] 1) template instead of the ([Straight] 1) template.",
                image: "upgrades/Title/starviper-mk-ii.png",
                squadPointCost: -3,
+               wave: "Aces",
                key: "starViperMkii",
             },
             "stayOnTarget":
@@ -3689,6 +3993,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal a maneuver, you may rotate your dial to another maneuver with the same speed. Treat your maneuver as a red maneuver.",
                image: "upgrades/Elite/stay-on-target.png",
                squadPointCost: 2,
+               wave: "5",
                key: "stayOnTarget",
             },
             "stealthDevice":
@@ -3699,6 +4004,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                agilityValue: 1,
                image: "upgrades/Modification/stealth-device.png",
                squadPointCost: 3,
+               wave: "2",
                isImplemented: true,
                key: "stealthDevice",
             },
@@ -3709,6 +4015,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you either decloak or perform a cloak action, you may perform a free evade action.",
                image: "upgrades/Modification/stygium-particle-accelerator.png",
                squadPointCost: 2,
+               wave: "4",
                key: "stygiumParticleAccelerator",
             },
             "superchargedPowerCells":
@@ -3719,6 +4026,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, you may discard this card to roll 2 additional attack dice.",
                image: "upgrades/Cargo/supercharged-power-cells.png",
                squadPointCost: 3,
+               wave: "Aces",
                key: "superchargedPowerCells",
             },
             "suppressor":
@@ -3731,6 +4039,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 2,
                image: "upgrades/Title/suppressor.png",
                squadPointCost: 6,
+               wave: "Aces",
                key: "suppressor",
             },
             "swarmLeader":
@@ -3741,6 +4050,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When performing a primary weapon attack, choose up to 2 other friendly ships that have the defender inside their firing arcs at Range 1-3. Remove 1 evade token from each chosen ship to roll 1 additional attack die for each token removed.",
                image: "upgrades/Elite/swarm-leader.png",
                squadPointCost: 3,
+               wave: "10",
                key: "swarmLeader",
             },
             "swarmTactics":
@@ -3750,6 +4060,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, you may choose 1 friendly ship at Range 1.<br /><br />Until the end of this phase, treat the chosen ship as if its pilot skill were equal to your pilot skill.",
                image: "upgrades/Elite/swarm-tactics.png",
                squadPointCost: 2,
+               wave: "1",
                key: "swarmTactics",
             },
             "syncedTurret":
@@ -3764,6 +4075,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack (target lock):</strong> Attack 1 ship (even a ship outside your firing arc).<br /><br />If the defender is inside your primary firing arc, you may reroll a number of attack dice up to your primary weapon value.",
                image: "upgrades/Turret/synced-turret.png",
                squadPointCost: 4,
+               wave: "11",
                key: "syncedTurret",
             },
             "systemsOfficer":
@@ -3774,6 +4086,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you execute a green maneuver, choose another friendly ship at Range 1. That ship may acquire a target lock.",
                image: "upgrades/Crew/systems-officer.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "systemsOfficer",
             },
             "tacticalJammer":
@@ -3784,6 +4097,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your ship can obstruct enemy attacks.",
                image: "upgrades/Modification/tactical-jammer.png",
                squadPointCost: 1,
+               wave: "5",
                key: "tacticalJammer",
             },
             "tactician":
@@ -3794,6 +4108,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you perform an attack against a ship inside your firing arc at Range 2, that ship receives 1 stress token.",
                image: "upgrades/Crew/tactician.png",
                squadPointCost: 2,
+               wave: "4",
                isImplemented: true,
                key: "tactician",
             },
@@ -3805,6 +4120,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking from your rear-facing auxiliary firing arc, reduce the defender's agility by 1 (to a minimum of \"0\").",
                image: "upgrades/Crew/tail-gunner.png",
                squadPointCost: 2,
+               wave: "9",
                key: "tailGunner",
             },
             "tantiveIv":
@@ -3816,6 +4132,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your fore section upgrade bar gains 1 additional [Crew] and 1 additional [Team] upgrade icon.",
                image: "upgrades/Title/tantive-iv.png",
                squadPointCost: 4,
+               wave: "Aces",
                isImplemented: true,
                key: "tantiveIv",
             },
@@ -3826,6 +4143,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you execute a red maneuver, you may acquire a target lock.",
                image: "upgrades/Astromech/targeting-astromech.png",
                squadPointCost: 2,
+               wave: "8",
                isImplemented: true,
                key: "targetingAstromech",
             },
@@ -3836,6 +4154,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your action bar gains the [Target Lock] action icon.",
                image: "upgrades/Modification/targeting-computer.png",
                squadPointCost: 2,
+               wave: "Aces",
                isImplemented: true,
                key: "targetingComputer",
             },
@@ -3847,6 +4166,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Energy:</strong> You may spend 1 energy to choose 1 friendly ship at Range 1-2. Acquire a target lock, then assign the blue target lock token to the chosen ship.",
                image: "upgrades/Crew/targeting-coordinator.png",
                squadPointCost: 4,
+               wave: "Aces",
                key: "targetingCoordinator",
             },
             "targetingSynchronizer":
@@ -3856,6 +4176,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When a friendly ship at Range 1-2 is attacking a ship you have locked, the friendly ship treats the \"<strong>Attack (target lock):</strong>\" header as \"<strong>Attack:</strong>.\" If a game effect instructs that ship to spend a target lock, it may spend your target lock instead.",
                image: "upgrades/Tech/targeting-synchronizer.png",
                squadPointCost: 3,
+               wave: "10",
                key: "targetingSynchronizer",
             },
             "thermalDetonators":
@@ -3865,6 +4186,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When you reveal your maneuver dial, you may discard this card to <strong>drop</strong> 1 thermal detonator token.<br /><br />This token <strong>detonates</strong> at the end of the Activation phase.",
                image: "upgrades/Bomb/thermal-detonators.png",
                squadPointCost: 3,
+               wave: "8",
                key: "thermalDetonators",
             },
             "threatTracker":
@@ -3875,6 +4197,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When an enemy ship inside your firing arc at Range 1-2 becomes the active ship during the Combat phase, you may spend your target lock on that ship to perform a free boost or barrel roll action if that action is on your action bar.",
                image: "upgrades/Tech/threat-tracker.png",
                squadPointCost: 3,
+               wave: "13",
                key: "threatTracker",
             },
             "tibannaGasSupplies":
@@ -3886,6 +4209,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Energy:</strong> You may discard this card to gain 3 energy.",
                image: "upgrades/Cargo/tibanna-gas-supplies.png",
                squadPointCost: 4,
+               wave: "Aces",
                isImplemented: true,
                key: "tibannaGasSupplies",
             },
@@ -3897,6 +4221,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Once per round, after you perform an attack with a [Cannon] secondary weapon that costs 3 or fewer squad points, you may perform a primary weapon attack.",
                image: "upgrades/Title/tie-d.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "tieD",
             },
             "tieShuttle":
@@ -3907,6 +4232,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar loses all [Torpedo], [Missile] and [Bomb] upgrade icons and gains 2 [Crew] upgrade icons. You cannot equip a [Crew] Upgrade card that costs more than 4 squad points.",
                image: "upgrades/Title/tie-shuttle.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "tieShuttle",
             },
             "tieV1":
@@ -3917,6 +4243,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After you acquire a target lock, you may perform a free evade action.",
                image: "upgrades/Title/tie-v1.png",
                squadPointCost: 1,
+               wave: "8",
                isImplemented: true,
                key: "tieV1",
             },
@@ -3928,6 +4255,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [System] upgrade icon.<br /><br />If you equip a [System] upgrade, its squad point cost is reduced by 4 (to a minimum of 0).",
                image: "upgrades/Title/tie-x1.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "tieX1",
             },
             "tieX7":
@@ -3939,6 +4267,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar loses the [Cannon] and [Missile] upgrade icons.<br /><br />After executing a 3-, 4-, or 5-speed maneuver, if you did not overlap an obstacle or ship, you may perform a free evade action.",
                image: "upgrades/Title/tie-x7.png",
                squadPointCost: -2,
+               wave: "Aces",
                isImplemented: true,
                key: "tieX7",
             },
@@ -3952,6 +4281,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Spend any amount of energy to choose that many enemy ships at Range 1-2. Remove all focus, evade, and blue target lock tokens from those ships.",
                image: "upgrades/Crew/toryn-farr.png",
                squadPointCost: 6,
+               wave: "Aces",
                key: "torynFarr",
             },
             "tractorBeam":
@@ -3966,6 +4296,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                cancelAllDiceResults: true,
                image: "upgrades/Cannon/tractor-beam.png",
                squadPointCost: 1,
+               wave: "8",
                key: "tractorBeam",
             },
             "trajectorySimulator":
@@ -3975,6 +4306,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may launch bombs using the ([Straight] 5) template instead of dropping them. You cannot launch bombs with the \"<strong>Action:</strong>\" header in this way.",
                image: "upgrades/System/trajectory-simulator.png",
                squadPointCost: 1,
+               wave: "13",
                key: "trajectorySimulator",
             },
             "trickShot":
@@ -3984,6 +4316,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if the attack is obstructed, you may roll 1 additional attack die.",
                image: "upgrades/Elite/trick-shot.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "trickShot",
             },
             "twinIonEngineMkii":
@@ -3994,6 +4327,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may treat all bank maneuvers ([Bank Left] or [Bank Right]) as green maneuvers.",
                image: "upgrades/Modification/twin-ion-engine-mkii.png",
                squadPointCost: 1,
+               wave: "7",
                key: "twinIonEngineMkii",
             },
             "twinLaserTurret":
@@ -4009,6 +4343,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                cancelAllDiceResults: true,
                image: "upgrades/Turret/twin-laser-turret.png",
                squadPointCost: 6,
+               wave: "7",
                isImplemented: true,
                key: "twinLaserTurret",
             },
@@ -4023,6 +4358,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Attack (focus):</strong> Attack 1 ship.<br /><br />Your attack dice can be modified only by spending a focus token for its standard effect.",
                image: "upgrades/Missile/unguided-rockets.png",
                squadPointCost: 2,
+               wave: "11",
                key: "unguidedRockets",
             },
             "unhingedAstromech":
@@ -4032,6 +4368,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may treat all 3-speed maneuvers as green maneuvers.",
                image: "upgrades/Salvaged Astromech/unhinged-astromech.png",
                squadPointCost: 1,
+               wave: "6",
                isImplemented: true,
                key: "unhingedAstromech",
             },
@@ -4044,6 +4381,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "After executing a maneuver that causes you to overlap an enemy ship, you may suffer 1 damage to perform 1 free action.",
                image: "upgrades/Crew/unkar-plutt.png",
                squadPointCost: 1,
+               wave: "10",
                key: "unkarPlutt",
             },
             "vaksai":
@@ -4054,6 +4392,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "The squad point cost of each of your equipped upgrades is reduced by 1 (to a minimum of 0).<br /><br />You may equip up to 3 different Modification upgrades.",
                image: "upgrades/Title/vaksai.png",
                squadPointCost: 0,
+               wave: "Aces",
                key: "vaksai",
             },
             "vector":
@@ -4066,6 +4405,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                energyValue: 1,
                image: "upgrades/Title/vector.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "vector",
             },
             "vectoredThrusters":
@@ -4076,6 +4416,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your action bar gains the [Barrel Roll] action icon.",
                image: "upgrades/Modification/vectored-thrusters.png",
                squadPointCost: 2,
+               wave: "9",
                key: "vectoredThrusters",
             },
             "veteranInstincts":
@@ -4086,6 +4427,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                pilotSkillValue: 2,
                image: "upgrades/Elite/veteran-instincts.png",
                squadPointCost: 1,
+               wave: "2",
                isImplemented: true,
                key: "veteranInstincts",
             },
@@ -4098,6 +4440,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains the [System] and [Illicit] upgrade icons.<br /><br />You cannot equip this card if your pilot skill value is \"3\" or lower.",
                image: "upgrades/Title/virago.png",
                squadPointCost: 1,
+               wave: "6",
                isImplemented: true,
                key: "virago",
             },
@@ -4108,6 +4451,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "You may maintain 2 target locks (only 1 per enemy ship).<br /><br />When you acquire a target lock, you may lock onto 2 different ships.",
                image: "upgrades/Crew/weapons-engineer.png",
                squadPointCost: 3,
+               wave: "2",
                key: "weaponsEngineer",
             },
             "weaponsGuidance":
@@ -4117,6 +4461,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, you may spend a focus token to change 1 of your blank results to a [Hit] result.",
                image: "upgrades/Tech/weapons-guidance.png",
                squadPointCost: 2,
+               wave: "8",
                isImplemented: true,
                key: "weaponsGuidance",
             },
@@ -4129,6 +4474,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "<strong>Action:</strong> Spend 1 energy to discard 1 of your facedown Damage cards, or spend 3 energy to discard 1 of your faceup Damage cards.",
                image: "upgrades/Crew/wed-15-repair-droid.png",
                squadPointCost: 2,
+               wave: "Aces",
                key: "wed15RepairDroid",
             },
             "wingman":
@@ -4138,6 +4484,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, remove 1 stress token from another friendly ship at Range 1.",
                image: "upgrades/Elite/wingman.png",
                squadPointCost: 2,
+               wave: "4",
                key: "wingman",
             },
             "wired":
@@ -4147,6 +4494,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking or defending, if you are stressed, you may reroll 1 or more of your [Focus] results.",
                image: "upgrades/Elite/wired.png",
                squadPointCost: 1,
+               wave: "9",
                isImplemented: true,
                key: "wired",
             },
@@ -4158,6 +4506,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, you may reroll your [Focus] results.",
                image: "upgrades/Crew/wookiee-commandos.png",
                squadPointCost: 1,
+               wave: "11",
                key: "wookieeCommandos",
             },
             "xg1AssaultConfiguration":
@@ -4169,6 +4518,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Your upgrade bar gains 2 [Cannon] upgrade icons.<br /><br />You may perform attacks with [Cannon] secondary weapons that cost 2 or fewer squad points even while you have a weapons disabled token.",
                image: "upgrades/Title/xg-1-assault-configuration.png",
                squadPointCost: 1,
+               wave: "12",
                key: "xg1AssaultConfiguration",
             },
             "xx23SThreadTracers":
@@ -4184,6 +4534,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                discardThisCard: true,
                image: "upgrades/Missile/xx-23-s-thread-tracers.png",
                squadPointCost: 1,
+               wave: "8",
                isImplemented: true,
                key: "xx23SThreadTracers",
             },
@@ -4196,6 +4547,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "At the start of the Combat phase, if you have no shields and at least 1 Damage card assigned to your ship, you may perform a free evade action.",
                image: "upgrades/Crew/ysanne-isard.png",
                squadPointCost: 4,
+               wave: "5",
                isImplemented: true,
                key: "ysanneIsard",
             },
@@ -4208,6 +4560,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "Enemy ships inside your firing arc that you are touching are not considered to be touching you when either you or they activate during the Combat phase.",
                image: "upgrades/Crew/zeb-orrelios.png",
                squadPointCost: 1,
+               wave: "8",
                key: "zebOrrelios",
             },
             "zuckuss":
@@ -4219,6 +4572,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                description: "When attacking, if you are not stressed, you may receive any number of stress tokens to choose an equal number of defense dice. The defender must reroll those dice.",
                image: "upgrades/Crew/zuckuss.png",
                squadPointCost: 1,
+               wave: "8",
                key: "zuckuss",
             },
          },
