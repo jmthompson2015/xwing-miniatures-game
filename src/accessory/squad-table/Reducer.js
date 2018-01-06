@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "accessory/squad-table/Action", "accessory/squad-table/DefaultFilters", "accessory/squad-table/InitialState"],
-   function(InputValidator, Action, DefaultFilters, InitialState)
+define(["common/js/InputValidator", "common/js/ObjectUtilities", "accessory/squad-table/Action", "accessory/squad-table/DefaultFilters", "accessory/squad-table/InitialState"],
+   function(InputValidator, ObjectUtilities, Action, DefaultFilters, InitialState)
    {
       var Reducer = {};
 
@@ -41,7 +41,7 @@ define(["common/js/InputValidator", "accessory/squad-table/Action", "accessory/s
                });
                newFilters = Object.assign(
                {}, state.filters);
-               Object.xwingMerge(newFilters, action.filters);
+               ObjectUtilities.xwingMerge(newFilters, action.filters);
                newFilteredTableRow = Reducer.filterTableRow(state.tableRows, newFilters);
                Reducer.saveToLocalStorage(newFilters);
                return Object.assign(

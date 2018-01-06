@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayAugments", "common/js/InputValidator", "common/js/ObjectAugments"],
-   function(createReactClass, PropTypes, React, DOM, ArrayAugments, InputValidator, ObjectAugments)
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayAugments", "common/js/InputValidator", "common/js/ObjectUtilities"],
+   function(createReactClass, PropTypes, React, DOM, ArrayAugments, InputValidator, ObjectUtilities)
    {
       var InputPanel = createReactClass(
       {
@@ -30,7 +30,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                      selected = this.props.initialValues;
                      break;
                   case InputPanel.Type.TEXT:
-                     Object.xwingMerge(selected, this.props.initialValues);
+                     ObjectUtilities.xwingMerge(selected, this.props.initialValues);
                      break;
                   default:
                      throw "Unknown input type: " + this.props.type;
@@ -74,7 +74,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
             if (clientProps)
             {
-               Object.xwingMerge(answer, clientProps);
+               ObjectUtilities.xwingMerge(answer, clientProps);
             }
 
             return answer;
