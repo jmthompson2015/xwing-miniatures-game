@@ -26,8 +26,10 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "accessory/xwingDataConverter/PilotConverter"],
-			function(React, ReactDOM, DOM, Logger, PilotConverter)
+		require(["react", "react-dom", "react-dom-factories", "common/js/Logger", "accessory/xwingDataConverter/PilotConverter",
+				"accessory/xwingDataConverter/XWingType"
+			],
+			function(React, ReactDOM, DOM, Logger, PilotConverter, XWingType)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -38,8 +40,9 @@
 				PilotConverter.convert(myCallback);
 				document.getElementById("panel").innerHTML = "Working...";
 
-				function myCallback(pilotArray, enums, properties)
+				function myCallback(xwingData, enums, properties)
 				{
+					var pilotArray = xwingData.dataByType(XWingType.PILOTS);
 					LOGGER.info("myCallback() pilotArray.length = " + pilotArray.length);
 					document.getElementById("panel").innerHTML = enums + "<br/>" + properties;
 				}

@@ -83,7 +83,7 @@ define(["qunit", "artifact/js/PilotCard", "accessory/xwingDataConverter/PilotCon
          assert.equal(result, "ShipFaction.REBEL_B_WING_V2");
       });
 
-      QUnit.test("generateEnums", function(assert)
+      QUnit.skip("generateEnums", function(assert)
       {
          // Run.
          var result = PilotConverter.generateEnums(PILOT_ARRAY);

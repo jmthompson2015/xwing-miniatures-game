@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/UpgradeTypeComparator", "accessory/xwingDataConverter/EnumGenerator"],
-   function(FileLoader, PilotCard, UpgradeType, UpgradeTypeComparator, EnumGenerator)
+define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/UpgradeTypeComparator", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(FileLoader, PilotCard, UpgradeType, UpgradeTypeComparator, EnumGenerator, XWingData, XWingType)
    {
       var PilotConverter = {};
 
@@ -13,16 +13,24 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
             finishConvert(response, callback);
          };
 
-         FileLoader.loadFile("../../../lib/xwing-data/data/pilots.js", finishCallback);
+         var xwingData = new XWingData();
+         xwingData.load(finishCallback);
       };
 
-      PilotConverter.finishConvert = function(response, callback)
+      PilotConverter.finishConvert = function(xwingData, callback)
       {
-         var pilotArray = JSON.parse(response);
-         var enums = PilotConverter.generateEnums(pilotArray);
-         var properties = generateProperties(pilotArray);
+         var pilotArray = xwingData.dataByType(XWingType.PILOTS);
 
-         callback(pilotArray, enums, properties);
+         // Add v2 pilots.
+         pilotArray.push(createPilot("Contracted Scout v2", 3, 25));
+         pilotArray.push(createPilot("Dengar v2", 9, 33));
+         pilotArray.push(createPilot("Manaroo v2", 4, 27));
+         pilotArray.push(createPilot("Tel Trevura v2", 7, 30));
+
+         var enums = PilotConverter.generateEnums(xwingData);
+         var properties = generateProperties(xwingData);
+
+         callback(xwingData, enums, properties);
       };
 
       PilotConverter.determineShipFactionKey = function(pilot, pilotCard)
@@ -55,11 +63,11 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
 
             if (shipFactionKey)
             {
-               if (shipFactionKey.endsWith("V2"))
+               if (shipFactionKey.endsWith("v2"))
                {
                   answer += "_V2";
                }
-               else if (shipFactionKey.endsWith("V3"))
+               else if (shipFactionKey.endsWith("v3"))
                {
                   answer += "_V3";
                }
@@ -71,8 +79,9 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
 
       var EXCLUDE_NAMES = ["C-ROC Cruiser", "CR90 Corvette (Fore)", "CR90 Corvette (Aft)", "Gozanti-class Cruiser", "GR-75 Medium Transport", "Raider-class Corvette (Fore)", "Raider-class Corvette (Aft)"];
 
-      PilotConverter.generateEnums = function(pilotArray)
+      PilotConverter.generateEnums = function(xwingData)
       {
+         var pilotArray = xwingData.dataByType(XWingType.PILOTS);
          var enumNames = [];
          var enumValues = [];
 
@@ -112,6 +121,26 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
          return enums.join("");
       };
 
+      function createPilot(name, pilotSkillValue, squadPointCost)
+      {
+         var xws = name;
+         xws = xws.replace(/ /g, "");
+         xws = xws.replace(/-/g, "");
+         xws = xws.toLowerCase();
+
+         return (
+         {
+            name: name,
+            faction: "Scum and Villainy",
+            points: squadPointCost,
+            ship: "JumpMaster 5000",
+            skill: pilotSkillValue,
+            slots: ["Crew", "Elite", "Illicit"],
+            wave: "Aces",
+            xws: xws,
+         });
+      }
+
       function determineDescription(pilot, pilotCard)
       {
          var answer = pilot.text;
@@ -138,13 +167,19 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
          return answer;
       }
 
-      function determineImage(pilot)
+      function determineImage(pilot, pilotCard)
       {
          var answer;
 
          if (pilot.image !== undefined)
          {
             answer = EnumGenerator.quoteValue(pilot.image);
+         }
+
+         if (pilotCard !== undefined)
+         {
+            answer = pilotCard.image;
+            answer = EnumGenerator.quoteValue(answer);
          }
 
          return answer;
@@ -201,6 +236,30 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
          return "[" + answer.join(", ") + "]";
       }
 
+      function determineWave(xwingData, pilot)
+      {
+         var answer;
+
+         if (pilot.id !== undefined)
+         {
+            var source = xwingData.firstSource(XWingType.PILOTS, pilot.id);
+
+            if (source)
+            {
+               var wave = source.wave;
+
+               if (wave === "Iconic Starships")
+               {
+                  wave = "Aces";
+               }
+
+               answer = "" + wave;
+            }
+         }
+
+         return answer;
+      }
+
       function findPilotCard(pilot)
       {
          var enumValue = EnumGenerator.createPilotEnumValue(pilot);
@@ -215,12 +274,14 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
          return pilotCard;
       }
 
-      function generateProperties(pilotArray)
+      function generateProperties(xwingData)
       {
+         var pilotArray = xwingData.dataByType(XWingType.PILOTS);
          var properties = pilotArray.reduce(function(accumulator, pilot)
          {
             if (!EXCLUDE_NAMES.includes(pilot.name))
             {
+               pilot.wave = determineWave(xwingData, pilot);
                var enumValue = EnumGenerator.createPilotEnumValue(pilot);
                accumulator.push(enumValue + ":<br/>{<br/>" + generatePropertiesSingle(pilot) + "},<br/>");
             }
@@ -244,14 +305,15 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
          var shipFactionKey = PilotConverter.determineShipFactionKey(pilot, pilotCard);
          var isFlavorText = determineIsFlavorText(pilotCard);
          var isImplemented = (isFlavorText ? true : determineIsImplemented(pilotCard));
-         var image = determineImage(pilot);
+         var wave = EnumGenerator.quoteValue(pilot.wave);
+         var image = determineImage(pilot, pilotCard);
 
          var answer = "";
 
          answer += EnumGenerator.createProperty("name", name);
          answer += EnumGenerator.createProperty("description", determineDescription(pilot, pilotCard));
          answer += EnumGenerator.createProperty("isFlavorText", isFlavorText);
-         answer += EnumGenerator.createProperty("isUnique", pilot.unique);
+         answer += EnumGenerator.createProperty("isUnique", (pilot.unique ? "true" : undefined));
          answer += EnumGenerator.createProperty("shipFactionKey", shipFactionKey);
          answer += EnumGenerator.createProperty("pilotSkillValue", (pilot.skill !== "?" ? pilot.skill : undefined));
          answer += EnumGenerator.createProperty("primaryWeaponValue", (pilot.ship_override !== undefined ? pilot.ship_override.attack : undefined));
@@ -262,6 +324,7 @@ define(["common/js/FileLoader", "artifact/js/PilotCard", "artifact/js/UpgradeTyp
          answer += EnumGenerator.createProperty("image", image);
          answer += EnumGenerator.createProperty("squadPointCost", (pilot.points !== "?" ? pilot.points : undefined));
          answer += EnumGenerator.createProperty("upgradeTypeKeys", determineUpgradeTypeKeys(pilot));
+         answer += EnumGenerator.createProperty("wave", wave);
          answer += EnumGenerator.createProperty("isImplemented", isImplemented);
          answer += EnumGenerator.createProperty("key", EnumGenerator.createPilotEnumValue(pilot));
 
