@@ -209,6 +209,6 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
       {
          var result = SquadBuilder.findByFaction(Faction.SCUM);
          assert.ok(result);
-         assert.equal(result.length, 13);
+         assert.equal(result.length, 16);
       });
    });

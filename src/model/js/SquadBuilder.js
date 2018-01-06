@@ -9,12 +9,40 @@ define(["redux", "common/js/InputValidator",
    {
       var SquadBuilders = [];
 
-      // Paul Heaver (97 points, wave 11 content)
-      SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #1", 2017, "Scurrg; K-Wing", function(store, agent)
+      SquadBuilders.push(new SquadBuilder(Faction.SCUM, "FFG When Crime Pays #1", 2017, "JumpMaster; Kihraxz; StarViper", function(store, agent)
       {
          var answer = [];
-         answer.push(new CardInstance(store, PilotCard.CAPTAIN_NYM_REBEL, agent, [UpgradeCard.HAVOC, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.ADVANCED_SENSORS, UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.BOMBLET_GENERATOR, UpgradeCard.GENIUS, UpgradeCard.ENGINE_UPGRADE]));
+         answer.push(new CardInstance(store, PilotCard.MANAROO_V2, agent, [UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.DENGAR, UpgradeCard.PUNISHING_ONE]));
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_JOSTERO, agent, [UpgradeCard.VAKSAI, UpgradeCard.ATTANNI_MINDLINK, UpgradeCard.HARPOON_MISSILES, UpgradeCard.ION_DISCHARGERS, UpgradeCard.PULSED_RAY_SHIELD, UpgradeCard.VECTORED_THRUSTERS, UpgradeCard.GUIDANCE_CHIPS]));
+         answer.push(new CardInstance(store, PilotCard.THWEEK, agent, [UpgradeCard.STAR_VIPER_MKII, UpgradeCard.PULSED_RAY_SHIELD]));
+         return answer;
+      }));
+
+      SquadBuilders.push(new SquadBuilder(Faction.SCUM, "FFG When Crime Pays #2", 2017, "Kihraxz x2; M3-A; StarViper", function(store, agent)
+      {
+         var answer = [];
+         answer.push(new CardInstance(store, PilotCard.CARTEL_MARAUDER, agent, [UpgradeCard.VAKSAI, UpgradeCard.ION_DISCHARGERS, UpgradeCard.PULSED_RAY_SHIELD]));
+         answer.push(new CardInstance(store, PilotCard.TALONBANE_COBRA, agent, [UpgradeCard.VAKSAI, UpgradeCard.PREDATOR, UpgradeCard.ION_DISCHARGERS, UpgradeCard.PULSED_RAY_SHIELD, UpgradeCard.STEALTH_DEVICE]));
+         answer.push(new CardInstance(store, PilotCard.CARTEL_SPACER, agent, [UpgradeCard.HEAVY_SCYK_INTERCEPTOR, UpgradeCard.FLECHETTE_CANNON]));
+         answer.push(new CardInstance(store, PilotCard.THWEEK, agent, [UpgradeCard.STAR_VIPER_MKII]));
+         return answer;
+      }));
+
+      SquadBuilders.push(new SquadBuilder(Faction.SCUM, "FFG When Crime Pays #3", 2017, "Kihraxz; StarVipers x2", function(store, agent)
+      {
+         var answer = [];
+         answer.push(new CardInstance(store, PilotCard.VIKTOR_HEL, agent, [UpgradeCard.VAKSAI, UpgradeCard.WIRED, UpgradeCard.ION_DISCHARGERS, UpgradeCard.PULSED_RAY_SHIELD, UpgradeCard.STEALTH_DEVICE, UpgradeCard.VECTORED_THRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.GURI, agent, [UpgradeCard.STAR_VIPER_MKII, UpgradeCard.VIRAGO, UpgradeCard.BODYGUARD, UpgradeCard.ACCURACY_CORRECTOR, UpgradeCard.INERTIAL_DAMPENERS, UpgradeCard.AUTOTHRUSTERS]));
+         answer.push(new CardInstance(store, PilotCard.THWEEK, agent, [UpgradeCard.STAR_VIPER_MKII, UpgradeCard.PROTON_TORPEDOES, UpgradeCard.AUTOTHRUSTERS]));
+         return answer;
+      }));
+
+      // Paul Heaver (97 points, wave 11 content)
+      SquadBuilders.push(new SquadBuilder(Faction.REBEL, "US Nationals #1", 2017, "K-Wing; Scurrg", function(store, agent)
+      {
+         var answer = [];
          answer.push(new CardInstance(store, PilotCard.MIRANDA_DONI, agent, [UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.EXTRA_MUNITIONS, UpgradeCard.SABINE_WREN, UpgradeCard.CLUSTER_MINES, UpgradeCard.ION_BOMBS, UpgradeCard.THERMAL_DETONATORS, UpgradeCard.ADVANCED_SLAM]));
+         answer.push(new CardInstance(store, PilotCard.CAPTAIN_NYM_REBEL, agent, [UpgradeCard.HAVOC, UpgradeCard.VETERAN_INSTINCTS, UpgradeCard.ADVANCED_SENSORS, UpgradeCard.TWIN_LASER_TURRET, UpgradeCard.BOMBLET_GENERATOR, UpgradeCard.GENIUS, UpgradeCard.ENGINE_UPGRADE]));
          return answer;
       }));
 
