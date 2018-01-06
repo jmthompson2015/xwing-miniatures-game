@@ -1,41 +1,28 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/DamageCard", "artifact/js/DamageCardTrait", "accessory/xwingDataConverter/EnumGenerator"],
-   function(FileLoader, DamageCard, DamageCardTrait, EnumGenerator)
+define(["common/js/FileLoader", "artifact/js/DamageCard", "artifact/js/DamageCardTrait", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(FileLoader, DamageCard, DamageCardTrait, EnumGenerator, XWingData, XWingType)
    {
       var DamageConverter = {};
 
       DamageConverter.convert = function(callback)
       {
-         var finishConvert = this.finishConvert1.bind(this);
+         var finishConvert = this.finishConvert.bind(this);
          var finishCallback = function(response)
          {
             finishConvert(response, callback);
          };
 
-         FileLoader.loadFile("../../../lib/xwing-data/data/damage-deck-core.js", finishCallback);
+         var xwingData = new XWingData();
+         xwingData.load(finishCallback);
       };
 
-      DamageConverter.finishConvert1 = function(response1, callback)
+      DamageConverter.finishConvert = function(xwingData, callback)
       {
-         var finishConvert = this.finishConvert2.bind(this);
-         var finishCallback = function(response)
-         {
-            finishConvert(response1, response, callback);
-         };
+         var enums = generateEnums(xwingData);
+         var properties = generateProperties(xwingData);
 
-         FileLoader.loadFile("../../../lib/xwing-data/data/damage-deck-core-tfa.js", finishCallback);
-      };
-
-      DamageConverter.finishConvert2 = function(response1, response2, callback)
-      {
-         var damageArray = JSON.parse(response1);
-         var damageV2Array = JSON.parse(response2);
-
-         var enums = generateEnums(damageArray, damageV2Array);
-         var properties = generateProperties(damageArray, damageV2Array);
-
-         callback(damageArray, damageV2Array, enums, properties);
+         callback(xwingData, enums, properties);
       };
 
       function determineActionDescription(damage)
@@ -160,9 +147,11 @@ define(["common/js/FileLoader", "artifact/js/DamageCard", "artifact/js/DamageCar
          return damageCard;
       }
 
-      function generateEnums(damageArray, damageV2Array)
+      function generateEnums(xwingData)
       {
+         var damageArray = xwingData.dataByType(XWingType.DAMAGES);
          var enums0 = generateEnumsSubset(damageArray, "", "");
+         var damageV2Array = xwingData.dataByType(XWingType.DAMAGES_TFA);
          var enums1 = generateEnumsSubset(damageV2Array, "_V2", "V2");
          var enums = enums0.concat(enums1);
 
@@ -203,9 +192,11 @@ define(["common/js/FileLoader", "artifact/js/DamageCard", "artifact/js/DamageCar
          return enums;
       }
 
-      function generateProperties(damageArray, damageV2Array)
+      function generateProperties(xwingData)
       {
+         var damageArray = xwingData.dataByType(XWingType.DAMAGES);
          var properties0 = generatePropertiesSubset(damageArray, "");
+         var damageV2Array = xwingData.dataByType(XWingType.DAMAGES_TFA);
          var properties1 = generatePropertiesSubset(damageV2Array, "V2");
          var properties = properties0.concat(properties1);
 
