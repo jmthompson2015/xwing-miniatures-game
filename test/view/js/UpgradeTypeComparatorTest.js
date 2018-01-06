@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/UpgradeTypeComparator"],
-   function(QUnit, PilotCard, UpgradeType, UpgradeTypeComparator)
+define(["qunit", "common/js/ArrayUtilities", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/UpgradeTypeComparator"],
+   function(QUnit, ArrayUtilities, PilotCard, UpgradeType, UpgradeTypeComparator)
    {
       QUnit.module("UpgradeTypeComparator");
 
@@ -29,7 +29,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          {
             var upgradeTypeKeys = pilot.upgradeTypeKeys;
             var result = upgradeTypeKeys.slice();
-            result.xwingShuffle();
+            ArrayUtilities.xwingShuffle(result);
             result.sort(UpgradeTypeComparator);
             verifyResult(assert, upgradeTypeKeys, result, pilot);
          });
@@ -40,7 +40,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.ILLICIT];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -54,7 +54,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.ASTROMECH];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -68,7 +68,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CANNON, UpgradeType.TORPEDO, UpgradeType.TORPEDO];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -82,7 +82,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.CREW, UpgradeType.HARDPOINT, UpgradeType.HARDPOINT, UpgradeType.TEAM, UpgradeType.TEAM, UpgradeType.CARGO];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -96,7 +96,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.ASTROMECH];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -112,7 +112,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.BOMB, UpgradeType.CREW, UpgradeType.MISSILE, UpgradeType.ILLICIT];
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.ILLICIT];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -128,7 +128,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.CREW, UpgradeType.SYSTEM, UpgradeType.ILLICIT];
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.CREW, UpgradeType.ILLICIT];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -142,7 +142,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.CREW];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -156,7 +156,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TURRET, UpgradeType.CREW, UpgradeType.ILLICIT];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -170,7 +170,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.SALVAGED_ASTROMECH, UpgradeType.ILLICIT];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -184,7 +184,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.BOMB, UpgradeType.BOMB];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -198,7 +198,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.ASTROMECH, UpgradeType.TECH];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -212,7 +212,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -226,7 +226,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.MISSILE, UpgradeType.MISSILE, UpgradeType.BOMB, UpgradeType.BOMB];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -240,7 +240,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.SYSTEM, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -254,7 +254,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.SYSTEM, UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -268,7 +268,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.BOMB];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -282,7 +282,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.ASTROMECH];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -296,7 +296,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.TURRET, UpgradeType.TORPEDO, UpgradeType.TORPEDO, UpgradeType.SALVAGED_ASTROMECH];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -310,7 +310,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -324,7 +324,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);
@@ -338,7 +338,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeType", "view/js/Up
          // Setup.
          var upgradeTypeKeys = [UpgradeType.ELITE, UpgradeType.CANNON, UpgradeType.MISSILE, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.ILLICIT];
          var result = upgradeTypeKeys.slice();
-         result.xwingShuffle();
+         ArrayUtilities.xwingShuffle(result);
 
          // Run.
          result.sort(UpgradeTypeComparator);

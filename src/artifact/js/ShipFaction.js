@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Faction", "artifact/js/Ship"],
-   function(ArrayAugments, InputValidator, Faction, Ship)
+define(["common/js/ArrayUtilities", "common/js/InputValidator", "artifact/js/Faction", "artifact/js/Ship"],
+   function(ArrayUtilities, InputValidator, Faction, Ship)
    {
       var ShipFaction = {
          // First Order.
@@ -768,7 +768,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Fact
 
             if (friend)
             {
-               answer.xwingAddAll(this.keysByFaction(friend, true));
+               ArrayUtilities.xwingAddAll(answer, this.keysByFaction(friend, true));
             }
          }
 

@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/CardType", "artifact/js/Faction", "artifact/js/ShipFaction", "artifact/js/UpgradeType"],
-   function(ArrayAugments, InputValidator, CardType, Faction, ShipFaction, UpgradeType)
+define(["common/js/ArrayUtilities", "common/js/InputValidator", "artifact/js/CardType", "artifact/js/Faction", "artifact/js/ShipFaction", "artifact/js/UpgradeType"],
+   function(ArrayUtilities, InputValidator, CardType, Faction, ShipFaction, UpgradeType)
    {
       var PilotCard = {
          ACADEMY_PILOT: "academyPilot",
@@ -4334,7 +4334,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Card
 
             if (friend)
             {
-               answer.xwingAddAll(this.keysByFaction(friend, true));
+               ArrayUtilities.xwingAddAll(answer, this.keysByFaction(friend, true));
             }
          }
 

@@ -1,9 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Faction",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities", "artifact/js/Faction",
   "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
   "accessory/squad-table/Action", "accessory/squad-table/DefaultFilters"],
-   function(createReactClass, PropTypes, React, DOM, Faction, EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters)
+   function(createReactClass, PropTypes, React, DOM, ArrayUtilities, Faction, EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters)
    {
       var FilterUI = createReactClass(
       {
@@ -128,7 +128,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
                if (oldFilter)
                {
-                  initialValues.xwingAddAll(oldFilter.values());
+                  ArrayUtilities.xwingAddAll(initialValues, oldFilter.values());
                }
 
                var label = DOM.span(
@@ -248,7 +248,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                switch (column.key)
                {
                   case "factionKey":
-                     values.xwingAddAll(this.state.factionValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.factionValues);
                      break;
                   default:
                      throw "Unknown entity column: " + column.key;
@@ -281,7 +281,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
             var entityType = event.target.dataset.entitytype;
             LOGGER.debug("entityType = " + entityType);
             var values = [];
-            values.xwingAddAll(selected);
+            ArrayUtilities.xwingAddAll(values, selected);
 
             switch (entityType)
             {

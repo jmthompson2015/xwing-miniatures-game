@@ -1,9 +1,9 @@
 "use strict";
 
-define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
+define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
   "artifact/js/Difficulty", "artifact/js/Maneuver", "artifact/js/Range", "artifact/js/ShipAction",
   "model/js/Ability", "model/js/Action", "model/js/AttackDice", "model/js/CardAction", "model/js/CombatAction", "model/js/DefenseDice", "model/js/Environment", "model/js/ManeuverComputer", "model/js/RangeRuler", "model/js/Reducer", "model/js/Selector", "model/js/Squad", "model/js/TargetLock"],
-   function(Redux, ArrayAugments, InputValidator,
+   function(Redux, ArrayUtilities, InputValidator,
       Difficulty, Maneuver, Range, ShipAction,
       Ability, Action, AttackDice, CardAction, CombatAction, DefenseDice, Environment, ManeuverComputer, RangeRuler, Reducer, Selector, Squad, TargetLock)
    {
@@ -17,15 +17,15 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
          InputValidator.validateIsFunction("callback", callback);
 
-         var ability = (damageAbilities.length > 0 ? damageAbilities.xwingRandomElement() : undefined);
+         var ability = (damageAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(damageAbilities) : undefined);
 
          if (ability === undefined)
          {
-            ability = (upgradeAbilities.length > 0 ? upgradeAbilities.xwingRandomElement() : undefined);
+            ability = (upgradeAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(upgradeAbilities) : undefined);
 
             if (ability === undefined)
             {
-               ability = (pilotAbilities.length > 0 ? pilotAbilities.xwingRandomElement() : undefined);
+               ability = (pilotAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(pilotAbilities) : undefined);
             }
          }
 
@@ -41,7 +41,7 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
          InputValidator.validateNotNull("decloakActions", decloakActions);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = decloakActions.xwingRandomElement();
+         var answer = ArrayUtilities.xwingRandomElement(decloakActions);
 
          callback(token, answer);
       };
@@ -244,22 +244,22 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
                   return Maneuver.properties[maneuverKey].difficultyKey === Difficulty.EASY;
                });
 
-               var intersection = easyManeuvers.xwingIntersect(validManeuversR1);
-               myManeuver = intersection.xwingRandomElement();
+               var intersection = ArrayUtilities.xwingIntersect(easyManeuvers, validManeuversR1);
+               myManeuver = ArrayUtilities.xwingRandomElement(intersection);
 
                if (myManeuver === undefined)
                {
-                  intersection = easyManeuvers.xwingIntersect(validManeuversR2);
-                  myManeuver = intersection.xwingRandomElement();
+                  intersection = ArrayUtilities.xwingIntersect(easyManeuvers, validManeuversR2);
+                  myManeuver = ArrayUtilities.xwingRandomElement(intersection);
 
                   if (myManeuver === undefined)
                   {
-                     intersection = easyManeuvers.xwingIntersect(validManeuversR3);
-                     myManeuver = intersection.xwingRandomElement();
+                     intersection = ArrayUtilities.xwingIntersect(easyManeuvers, validManeuversR3);
+                     myManeuver = ArrayUtilities.xwingRandomElement(intersection);
 
                      if (myManeuver === undefined)
                      {
-                        myManeuver = easyManeuvers.xwingRandomElement();
+                        myManeuver = ArrayUtilities.xwingRandomElement(easyManeuvers);
                      }
                   }
                }
@@ -267,15 +267,15 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
 
             if (myManeuver === undefined)
             {
-               myManeuver = validManeuversR1.xwingRandomElement();
+               myManeuver = ArrayUtilities.xwingRandomElement(validManeuversR1);
 
                if (myManeuver === undefined)
                {
-                  myManeuver = validManeuversR2.xwingRandomElement();
+                  myManeuver = ArrayUtilities.xwingRandomElement(validManeuversR2);
 
                   if (myManeuver === undefined)
                   {
-                     myManeuver = validManeuversR3.xwingRandomElement();
+                     myManeuver = ArrayUtilities.xwingRandomElement(validManeuversR3);
 
                      if (myManeuver === undefined)
                      {
@@ -283,13 +283,13 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
 
                         if (myManeuver === undefined)
                         {
-                           myManeuver = validManeuvers.xwingRandomElement();
+                           myManeuver = ArrayUtilities.xwingRandomElement(validManeuvers);
 
                            if (myManeuver === undefined)
                            {
                               // The ship fled the battlefield.
                               var maneuverKeys = token.maneuverKeys();
-                              myManeuver = maneuverKeys.xwingRandomElement();
+                              myManeuver = ArrayUtilities.xwingRandomElement(maneuverKeys);
                            }
                         }
                      }
@@ -320,7 +320,7 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
 
          if (TargetLock.getByAttacker(store, token).length === 0 && targetLocks.length > 0)
          {
-            answer = targetLocks.xwingRandomElement();
+            answer = ArrayUtilities.xwingRandomElement(targetLocks);
          }
          else if (token.focusCount() === 0 && shipActions.includes(ShipAction.FOCUS))
          {
@@ -332,7 +332,7 @@ define(["redux", "common/js/ArrayAugments", "common/js/InputValidator",
          }
          else
          {
-            answer = shipActions.xwingRandomElement();
+            answer = ArrayUtilities.xwingRandomElement(shipActions);
          }
 
          LOGGER.debug("shipAction for " + token.name() + ": " + answer);

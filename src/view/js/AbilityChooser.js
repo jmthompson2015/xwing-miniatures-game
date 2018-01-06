@@ -1,8 +1,8 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayAugments",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities",
   "view/js/Button", "view/js/EntityUI", "view/js/InputPanel", "view/js/OptionPane"],
-   function(createReactClass, PropTypes, React, DOM, ArrayAugments,
+   function(createReactClass, PropTypes, React, DOM, ArrayUtilities,
       Button, EntityUI, InputPanel, OptionPane)
    {
       var AbilityChooser = createReactClass(
@@ -50,9 +50,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             };
 
             var values = shipActions.slice();
-            values.xwingAddAll(pilots);
-            values.xwingAddAll(upgrades);
-            values.xwingAddAll(damages);
+            ArrayUtilities.xwingAddAll(values, pilots);
+            ArrayUtilities.xwingAddAll(values, upgrades);
+            ArrayUtilities.xwingAddAll(values, damages);
 
             var initialInput = React.createElement(InputPanel,
             {

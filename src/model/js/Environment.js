@@ -19,10 +19,10 @@
  */
 "use strict";
 
-define(["common/js/ArrayAugments", "common/js/InputValidator",
+define(["common/js/ArrayUtilities", "common/js/InputValidator",
   "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
   "model/js/Action", "model/js/AgentAction", "model/js/CardComparator", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
-   function(ArrayAugments, InputValidator,
+   function(ArrayUtilities, InputValidator,
       CardType, DamageCard, Faction, PlayFormat, Range,
       Action, AgentAction, CardComparator, CardInstance, CardInstanceFactory, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
    {
@@ -634,8 +634,8 @@ define(["common/js/ArrayAugments", "common/js/InputValidator",
 
          // Determine the play format.
          var tokens = [];
-         tokens.xwingAddAll(squad1.tokens());
-         tokens.xwingAddAll(squad2.tokens());
+         ArrayUtilities.xwingAddAll(tokens, squad1.tokens());
+         ArrayUtilities.xwingAddAll(tokens, squad2.tokens());
          var playFormatKey = this._determinePlayFormat(tokens);
          store.dispatch(EnvironmentAction.setPlayFormat(playFormatKey));
 

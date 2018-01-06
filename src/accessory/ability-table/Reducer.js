@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "common/js/ObjectUtilities", "accessory/ability-table/Action", "accessory/ability-table/DefaultFilters", "accessory/ability-table/InitialState"],
-   function(InputValidator, ObjectUtilities, Action, DefaultFilters, InitialState)
+define(["common/js/ArrayUtilities", "common/js/InputValidator", "common/js/ObjectUtilities", "accessory/ability-table/Action", "accessory/ability-table/DefaultFilters", "accessory/ability-table/InitialState"],
+   function(ArrayUtilities, InputValidator, ObjectUtilities, Action, DefaultFilters, InitialState)
    {
       var Reducer = {};
 
@@ -20,7 +20,7 @@ define(["common/js/InputValidator", "common/js/ObjectUtilities", "accessory/abil
          {
             case Action.REMOVE_FILTERS:
                newFilteredTableRow = [];
-               newFilteredTableRow.xwingAddAll(state.tableRows);
+               ArrayUtilities.xwingAddAll(newFilteredTableRow, state.tableRows);
                return Object.assign(
                {}, state,
                {

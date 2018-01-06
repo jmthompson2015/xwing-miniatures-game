@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayAugments", "common/js/InputValidator", "common/js/ObjectUtilities"],
-   function(createReactClass, PropTypes, React, DOM, ArrayAugments, InputValidator, ObjectUtilities)
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities", "common/js/InputValidator", "common/js/ObjectUtilities"],
+   function(createReactClass, PropTypes, React, DOM, ArrayUtilities, InputValidator, ObjectUtilities)
    {
       var InputPanel = createReactClass(
       {
@@ -24,7 +24,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                switch (this.props.type)
                {
                   case InputPanel.Type.CHECKBOX:
-                     selected.xwingAddAll(this.props.initialValues);
+                     ArrayUtilities.xwingAddAll(selected, this.props.initialValues);
                      break;
                   case InputPanel.Type.RADIO:
                      selected = this.props.initialValues;
@@ -155,7 +155,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                   }
                   else
                   {
-                     selected.xwingRemove(mySelected);
+                     ArrayUtilities.xwingRemove(selected, mySelected);
                   }
                   break;
                case InputPanel.Type.RADIO:

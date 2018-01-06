@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/ArrayAugments", "artifact/js/CardType", "artifact/js/DamageCardTrait"],
-   function(ArrayAugments, CardType, DamageCardTrait)
+define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageCardTrait"],
+   function(ArrayUtilities, CardType, DamageCardTrait)
    {
       var DamageCard = {
          BLINDED_PILOT: "blindedPilot",
@@ -348,7 +348,7 @@ define(["common/js/ArrayAugments", "artifact/js/CardType", "artifact/js/DamageCa
             answer.push(DamageCard.DIRECT_HIT);
          }
 
-         answer.xwingShuffle();
+         ArrayUtilities.xwingShuffle(answer);
 
          return answer;
       };
@@ -370,7 +370,7 @@ define(["common/js/ArrayAugments", "artifact/js/CardType", "artifact/js/DamageCa
             answer.push(DamageCard.DIRECT_HIT_V2);
          }
 
-         answer.xwingShuffle();
+         ArrayUtilities.xwingShuffle(answer);
 
          return answer;
       };

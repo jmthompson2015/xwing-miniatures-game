@@ -1,9 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities",
   "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
   "accessory/ability-table/Action", "accessory/ability-table/DefaultFilters", "accessory/ability-table/EventComparator"],
-   function(createReactClass, PropTypes, React, DOM, EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters, EventComparator)
+   function(createReactClass, PropTypes, React, DOM, ArrayUtilities, EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters, EventComparator)
    {
       var FilterUI = createReactClass(
       {
@@ -156,7 +156,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
                if (oldFilter)
                {
-                  initialValues.xwingAddAll(oldFilter.values());
+                  ArrayUtilities.xwingAddAll(initialValues, oldFilter.values());
                }
 
                var label = DOM.span(
@@ -276,16 +276,16 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                switch (column.key)
                {
                   case "deck":
-                     values.xwingAddAll(this.state.deckValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.deckValues);
                      break;
                   case "type":
-                     values.xwingAddAll(this.state.typeValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.typeValues);
                      break;
                   case "isImplemented":
-                     values.xwingAddAll(this.state.isImplementedValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.isImplementedValues);
                      break;
                   case "event":
-                     values.xwingAddAll(this.state.eventValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.eventValues);
                      break;
                   default:
                      throw "Unknown entity column: " + column.key;
@@ -318,7 +318,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             var entityType = event.target.dataset.entitytype;
             LOGGER.debug("entityType = " + entityType);
             var values = [];
-            values.xwingAddAll(selected);
+            ArrayUtilities.xwingAddAll(values, selected);
 
             switch (entityType)
             {

@@ -1,10 +1,10 @@
 "use strict";
 
-define(["qunit", "common/js/ArrayAugments"],
+define(["qunit", "common/js/ArrayUtilities"],
    /*jshint -W098 */
-   function(QUnit, ArrayAugments)
+   function(QUnit, ArrayUtilities)
    {
-      QUnit.module("ArrayAugments");
+      QUnit.module("ArrayUtilities");
 
       QUnit.test("xwingAddAll()", function(assert)
       {
@@ -13,7 +13,7 @@ define(["qunit", "common/js/ArrayAugments"],
          var array2 = [2, 3, 4];
 
          // Run.
-         array1.xwingAddAll(array2);
+         ArrayUtilities.xwingAddAll(array1, array2);
 
          // Verify.
          assert.equal(array1.length, 4);
@@ -30,7 +30,7 @@ define(["qunit", "common/js/ArrayAugments"],
          var array2 = [2, 3, 4, 5];
 
          // Run.
-         var result = array1.xwingIntersect(array2);
+         var result = ArrayUtilities.xwingIntersect(array1, array2);
 
          // Verify.
          assert.ok(result);
@@ -48,7 +48,7 @@ define(["qunit", "common/js/ArrayAugments"],
 
          for (var i = 0; i < 10; i++)
          {
-            assert.ok(array.includes(array.xwingRandomElement()));
+            assert.ok(array.includes(ArrayUtilities.xwingRandomElement(array)));
          }
       });
 
@@ -58,7 +58,7 @@ define(["qunit", "common/js/ArrayAugments"],
          var array = [1, 2, 3, 4];
 
          // Run.
-         array.xwingRemove(2);
+         ArrayUtilities.xwingRemove(array, 2);
 
          // Verify.
          assert.equal(array.length, 3);
@@ -73,7 +73,7 @@ define(["qunit", "common/js/ArrayAugments"],
 
          for (var i = 0; i < 10; i++)
          {
-            array.xwingShuffle();
+            ArrayUtilities.xwingShuffle(array);
             assert.equal(array.length, 4);
             assert.ok(0 < array[0] && array[0] < 5);
          }

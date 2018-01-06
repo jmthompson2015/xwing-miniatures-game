@@ -1,7 +1,7 @@
 "use strict";
 
-define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
-   function(Immutable, ArrayAugments, EnvironmentAction)
+define(["immutable", "common/js/ArrayUtilities", "model/js/EnvironmentAction"],
+   function(Immutable, ArrayUtilities, EnvironmentAction)
    {
       var EnvironmentReducer = {};
 
@@ -101,7 +101,7 @@ define(["immutable", "common/js/ArrayAugments", "model/js/EnvironmentAction"],
                return state;
             case EnvironmentAction.REPLENISH_DAMAGE_DECK:
                var newDamageDeck = state.damageDiscardPile.toJS();
-               newDamageDeck.xwingShuffle();
+               ArrayUtilities.xwingShuffle(newDamageDeck);
                return Object.assign(
                {}, state,
                {

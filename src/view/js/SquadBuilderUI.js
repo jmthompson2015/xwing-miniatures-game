@@ -1,9 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "redux", "common/js/InputValidator",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "redux", "common/js/ArrayUtilities", "common/js/InputValidator",
   "artifact/js/PilotCard", "artifact/js/Ship", "artifact/js/ShipState", "artifact/js/ShipFaction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
   "view/js/CardImage", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/PilotChooser", "view/js/ShipCardUI", "view/js/ShipChooser", "view/js/SquadColumns", "view/js/ShipStateUI", "view/js/UpgradeChooser", "view/js/UpgradeTypeComparator"],
-   function(createReactClass, PropTypes, React, DOM, Redux, InputValidator,
+   function(createReactClass, PropTypes, React, DOM, Redux, ArrayUtilities, InputValidator,
       PilotCard, Ship, ShipState, ShipFaction, UpgradeCard, UpgradeType,
       CardImage, FactionUI, ImplementedImage, PilotChooser, ShipCardUI, ShipChooser, SquadColumns, ShipStateUI, UpgradeChooser, UpgradeTypeComparator)
    {
@@ -575,7 +575,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             {
                answer.push(UpgradeType.SYSTEM);
                answer.push(UpgradeType.SALVAGED_ASTROMECH);
-               answer.xwingRemove(UpgradeType.CREW);
+               ArrayUtilities.xwingRemove(answer, UpgradeType.CREW);
             }
 
             if (upgradeKeys.includes(UpgradeCard.HEAVY_SCYK_INTERCEPTOR))
@@ -590,7 +590,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             {
                answer.push(UpgradeType.CREW);
                answer.push(UpgradeType.TEAM);
-               answer.xwingRemove(UpgradeType.CARGO);
+               ArrayUtilities.xwingRemove(answer, UpgradeType.CARGO);
             }
 
             if (upgradeKeys.includes(UpgradeCard.R2_D6))
@@ -647,8 +647,8 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
 
             if (upgradeKeys.includes(UpgradeCard.TIE_X7))
             {
-               answer.xwingRemove(UpgradeType.CANNON);
-               answer.xwingRemove(UpgradeType.MISSILE);
+               ArrayUtilities.xwingRemove(answer, UpgradeType.CANNON);
+               ArrayUtilities.xwingRemove(answer, UpgradeType.MISSILE);
             }
 
             if (upgradeKeys.includes(UpgradeCard.VAKSAI))

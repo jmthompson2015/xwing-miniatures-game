@@ -1,9 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/DamageCardTrait",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities", "artifact/js/DamageCardTrait",
   "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
   "accessory/damage-table/Action", "accessory/damage-table/DefaultFilters"],
-   function(createReactClass, PropTypes, React, DOM, DamageCardTrait,
+   function(createReactClass, PropTypes, React, DOM, ArrayUtilities, DamageCardTrait,
       EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters)
    {
       var FilterUI = createReactClass(
@@ -143,7 +143,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
 
                if (oldFilter)
                {
-                  initialValues.xwingAddAll(oldFilter.values());
+                  ArrayUtilities.xwingAddAll(initialValues, oldFilter.values());
                }
 
                var label = DOM.span(
@@ -263,13 +263,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                switch (column.key)
                {
                   case "version":
-                     values.xwingAddAll(this.state.versionValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.versionValues);
                      break;
                   case "trait":
-                     values.xwingAddAll(this.state.traitValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.traitValues);
                      break;
                   case "isImplemented":
-                     values.xwingAddAll(this.state.isImplementedValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.isImplementedValues);
                      break;
                   default:
                      throw "Unknown entity column: " + column.key;
@@ -302,7 +302,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
             var entityType = event.target.dataset.entitytype;
             LOGGER.debug("entityType = " + entityType);
             var values = [];
-            values.xwingAddAll(selected);
+            ArrayUtilities.xwingAddAll(values, selected);
 
             switch (entityType)
             {

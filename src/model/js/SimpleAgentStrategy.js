@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/ArrayAugments", "common/js/InputValidator"],
-   function(ArrayAugments, InputValidator)
+define(["common/js/ArrayUtilities", "common/js/InputValidator"],
+   function(ArrayUtilities, InputValidator)
    {
       var SimpleAgentStrategy = {};
 
@@ -13,15 +13,15 @@ define(["common/js/ArrayAugments", "common/js/InputValidator"],
          InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
          InputValidator.validateIsFunction("callback", callback);
 
-         var ability = (damageAbilities.length > 0 ? damageAbilities.xwingRandomElement() : undefined);
+         var ability = (damageAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(damageAbilities) : undefined);
 
          if (ability === undefined)
          {
-            ability = (upgradeAbilities.length > 0 ? upgradeAbilities.xwingRandomElement() : undefined);
+            ability = (upgradeAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(upgradeAbilities) : undefined);
 
             if (ability === undefined)
             {
-               ability = (pilotAbilities.length > 0 ? pilotAbilities.xwingRandomElement() : undefined);
+               ability = (pilotAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(pilotAbilities) : undefined);
             }
          }
 
@@ -37,7 +37,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator"],
          InputValidator.validateNotNull("decloakActions", decloakActions);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = decloakActions.xwingRandomElement();
+         var answer = ArrayUtilities.xwingRandomElement(decloakActions);
 
          callback(token, answer);
       };
@@ -50,7 +50,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator"],
          InputValidator.validateNotNull("modifications", modifications);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = modifications.xwingRandomElement();
+         var answer = ArrayUtilities.xwingRandomElement(modifications);
          var isAccepted = (answer !== undefined);
 
          callback(answer, isAccepted);
@@ -64,7 +64,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator"],
          InputValidator.validateNotNull("modifications", modifications);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = modifications.xwingRandomElement();
+         var answer = ArrayUtilities.xwingRandomElement(modifications);
          var isAccepted = (answer !== undefined);
 
          callback(answer, isAccepted);
@@ -82,7 +82,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator"],
          tokens.forEach(function(token)
          {
             var validManeuvers = tokenToValidManeuvers[token];
-            tokenToManeuver[token] = validManeuvers.xwingRandomElement();
+            tokenToManeuver[token] = ArrayUtilities.xwingRandomElement(validManeuvers);
          });
 
          callback(tokenToManeuver);
@@ -95,7 +95,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator"],
          InputValidator.validateNotNull("shipActions", shipActions);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = shipActions.xwingRandomElement();
+         var answer = ArrayUtilities.xwingRandomElement(shipActions);
          var isAccepted = (answer !== undefined);
 
          callback(answer, isAccepted);
@@ -108,7 +108,7 @@ define(["common/js/ArrayAugments", "common/js/InputValidator"],
          InputValidator.validateNotNull("choices", choices);
          InputValidator.validateIsFunction("callback", callback);
 
-         var weaponData = choices.xwingRandomElement();
+         var weaponData = ArrayUtilities.xwingRandomElement(choices);
          var myWeapon = weaponData.weapon;
 
          // The first entry should be the closest.

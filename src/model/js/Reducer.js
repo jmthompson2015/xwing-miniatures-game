@@ -1,8 +1,8 @@
 "use strict";
 
-define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "artifact/js/Event", "artifact/js/Phase",
+define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator", "artifact/js/Event", "artifact/js/Phase",
   "model/js/Action", "model/js/AgentAction", "model/js/AgentReducer", "model/js/CardAction", "model/js/CardReducer", "model/js/EnvironmentAction", "model/js/EnvironmentReducer", "model/js/InitialState"],
-   function(Immutable, ArrayAugments, InputValidator, Event, Phase,
+   function(Immutable, ArrayUtilities, InputValidator, Event, Phase,
       Action, AgentAction, AgentReducer, CardAction, CardReducer, EnvironmentAction, EnvironmentReducer, InitialState)
    {
       var Reducer = {};
@@ -60,7 +60,7 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator", "art
          {
             oldArray = state[actionTokenId];
             newArray = oldArray.slice();
-            newArray.xwingRemove(actionData);
+            ArrayUtilities.xwingRemove(newArray, actionData);
             newTokenIdToArray = Object.assign(
             {}, state);
             newTokenIdToArray[actionTokenId] = newArray;

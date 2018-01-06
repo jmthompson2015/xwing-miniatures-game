@@ -1,10 +1,10 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities",
   "artifact/js/FiringArc", "artifact/js/Range", "artifact/js/UpgradeHeader", "artifact/js/UpgradeRestriction", "artifact/js/UpgradeType",
   "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
   "accessory/upgrade-table/Action", "accessory/upgrade-table/DefaultFilters"],
-   function(createReactClass, PropTypes, React, DOM,
+   function(createReactClass, PropTypes, React, DOM, ArrayUtilities,
       FiringArc, Range, UpgradeHeader, UpgradeRestriction, UpgradeType,
       EntityFilter, RangeFilter, Button, InputPanel,
       Action, DefaultFilters)
@@ -177,7 +177,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
                if (oldFilter)
                {
-                  initialValues.xwingAddAll(oldFilter.values());
+                  ArrayUtilities.xwingAddAll(initialValues, oldFilter.values());
                }
 
                var label = DOM.span(
@@ -297,22 +297,22 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                switch (column.key)
                {
                   case "typeKey":
-                     values.xwingAddAll(this.state.typeValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.typeValues);
                      break;
                   case "restrictionKeys":
-                     values.xwingAddAll(this.state.restrictionValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.restrictionValues);
                      break;
                   case "headerKey":
-                     values.xwingAddAll(this.state.headerValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.headerValues);
                      break;
                   case "isImplemented":
-                     values.xwingAddAll(this.state.isImplementedValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.isImplementedValues);
                      break;
                   case "rangeKeys":
-                     values.xwingAddAll(this.state.rangeValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.rangeValues);
                      break;
                   case "firingArcKey":
-                     values.xwingAddAll(this.state.firingArcValues);
+                     ArrayUtilities.xwingAddAll(values, this.state.firingArcValues);
                      break;
                   default:
                      throw "Unknown entity column: " + column.key;
@@ -345,7 +345,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             var entityType = event.target.dataset.entitytype;
             LOGGER.debug("entityType = " + entityType);
             var values = [];
-            values.xwingAddAll(selected);
+            ArrayUtilities.xwingAddAll(values, selected);
 
             switch (entityType)
             {

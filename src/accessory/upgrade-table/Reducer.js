@@ -20,7 +20,7 @@ define(["common/js/InputValidator", "common/js/ObjectUtilities", "accessory/upgr
          {
             case Action.REMOVE_FILTERS:
                newFilteredTableRow = [];
-               newFilteredTableRow.xwingAddAll(state.tableRows);
+               ArrayUtilities.xwingAddAll(newFilteredTableRow, state.tableRows);
                return Object.assign(
                {}, state,
                {

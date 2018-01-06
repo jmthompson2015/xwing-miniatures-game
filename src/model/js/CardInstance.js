@@ -1,9 +1,9 @@
 "use strict";
 
-define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
+define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
   "artifact/js/Bearing", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
   "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
-   function(Immutable, ArrayAugments, InputValidator,
+   function(Immutable, ArrayUtilities, InputValidator,
       Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
       Ability, Action, AgentAction, CardAction, RangeRuler, TargetLock, Weapon)
    {
@@ -811,12 +811,12 @@ define(["immutable", "common/js/ArrayAugments", "common/js/InputValidator",
          {
             if (!this.isCriticallyDamagedWith(DamageCard.DAMAGED_SENSOR_ARRAY))
             {
-               answer.xwingAddAll(this.ship().shipActionKeys);
+               ArrayUtilities.xwingAddAll(answer, this.ship().shipActionKeys);
             }
 
             if (answer.includes(ShipAction.CLOAK) && this.isCloaked())
             {
-               answer.xwingRemove(ShipAction.CLOAK);
+               ArrayUtilities.xwingRemove(answer, ShipAction.CLOAK);
             }
 
             if (this.isUpgradedWith(UpgradeCard.MIST_HUNTER))
