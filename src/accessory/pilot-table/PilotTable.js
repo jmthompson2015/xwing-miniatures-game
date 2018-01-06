@@ -1,10 +1,10 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathAugments",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathUtilities",
   "artifact/js/Faction", "artifact/js/Ship",
   "view/js/Button", "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/ShipSilhouetteUI",
   "accessory/pilot-table/Action", "accessory/pilot-table/FilterContainer", "accessory/pilot-table/TableColumns"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux, MathAugments,
+   function(createReactClass, PropTypes, React, DOM, ReactRedux, MathUtilities,
       Faction, Ship, Button, DataTable, FactionUI, ImplementedImage, ShipSilhouetteUI,
       Action, FilterContainer, TableColumns)
    {
@@ -114,12 +114,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                "ratioPrimaryWeaponAgility": function(data)
                {
                   var value = data.ratioPrimaryWeaponAgility;
-                  return Math.xwingFormat(value, 2);
+                  return MathUtilities.xwingFormat(value, 2);
                },
                "ratioSumStatsSquadPointCost": function(data)
                {
                   var value = data.ratioSumStatsSquadPointCost;
-                  return Math.xwingFormat(value, 4);
+                  return MathUtilities.xwingFormat(value, 4);
                },
             };
 

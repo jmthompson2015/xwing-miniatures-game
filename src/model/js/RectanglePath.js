@@ -5,8 +5,8 @@
  */
 "use strict";
 
-define(["common/js/InputValidator", "common/js/MathAugments", "model/js/Path"],
-   function(InputValidator, MathAugments, Path)
+define(["common/js/InputValidator", "common/js/MathUtilities", "model/js/Path"],
+   function(InputValidator, MathUtilities, Path)
    {
       function RectanglePath(width, height)
       {
@@ -114,10 +114,10 @@ define(["common/js/InputValidator", "common/js/MathAugments", "model/js/Path"],
             var bb = (b0.area < b1.area ? b0 : b1);
 
             // Check if any point in bb is in both polygon0 and polygon1.
-            var startX = Math.xwingRound(bb.minX, 0);
-            var startY = Math.xwingRound(bb.minY, 0);
-            var endX = Math.xwingRound(bb.maxX, 0);
-            var endY = Math.xwingRound(bb.maxY, 0);
+            var startX = MathUtilities.xwingRound(bb.minX, 0);
+            var startY = MathUtilities.xwingRound(bb.minY, 0);
+            var endX = MathUtilities.xwingRound(bb.maxX, 0);
+            var endY = MathUtilities.xwingRound(bb.maxY, 0);
             LOGGER.trace("start = " + startX + ", " + startY + " end = " + endX + ", " + endY);
 
             for (var y = startY; !answer && y <= endY; y++)

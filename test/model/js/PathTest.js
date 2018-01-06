@@ -1,6 +1,6 @@
 "use strict";
 
-define(["qunit", "model/js/Path"], function(QUnit, Path)
+define(["qunit", "common/js/MathUtilities", "model/js/Path"], function(QUnit, MathUtilities, Path)
 {
    QUnit.module("Path");
 
@@ -82,16 +82,16 @@ define(["qunit", "model/js/Path"], function(QUnit, Path)
       // Verify.
       var i = 0;
       var points = path.points();
-      assert.equal(Math.xwingRound(points[i++], 2), 18.66);
-      assert.equal(Math.xwingRound(points[i++], 2), -12.32);
-      assert.equal(Math.xwingRound(points[i++], 2), -1.34);
-      assert.equal(Math.xwingRound(points[i++], 2), 22.32);
-      assert.equal(Math.xwingRound(points[i++], 2), -18.66);
-      assert.equal(Math.xwingRound(points[i++], 2), 12.32);
-      assert.equal(Math.xwingRound(points[i++], 2), 1.34);
-      assert.equal(Math.xwingRound(points[i++], 2), -22.32);
-      assert.equal(Math.xwingRound(points[i++], 2), 18.66);
-      assert.equal(Math.xwingRound(points[i++], 2), -12.32);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), 18.66);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), -12.32);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), -1.34);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), 22.32);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), -18.66);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), 12.32);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), 1.34);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), -22.32);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), 18.66);
+      assert.equal(MathUtilities.xwingRound(points[i++], 2), -12.32);
    });
 
    QUnit.test("toString()", function(assert)

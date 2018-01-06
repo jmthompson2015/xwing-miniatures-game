@@ -1,9 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "artifact/js/Faction",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathUtilities", "artifact/js/Faction",
   "view/js/Button", "view/js/DataTable", "view/js/FactionUI",
   "accessory/squad-table/Action", "accessory/squad-table/FilterContainer", "accessory/squad-table/TableColumns"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux, Faction, Button, DataTable, FactionUI,
+   function(createReactClass, PropTypes, React, DOM, ReactRedux, MathUtilities, Faction, Button, DataTable, FactionUI,
       Action, FilterContainer, TableColumns)
    {
       var SquadTable = createReactClass(
@@ -44,12 +44,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                "ratioPrimaryWeaponAgility": function(data)
                {
                   var value = data.ratioPrimaryWeaponAgility;
-                  return Math.xwingFormat(value, 2);
+                  return MathUtilities.xwingFormat(value, 2);
                },
                "ratioSumStatsSquadPointCost": function(data)
                {
                   var value = data.ratioSumStatsSquadPointCost;
-                  return Math.xwingFormat(value, 4);
+                  return MathUtilities.xwingFormat(value, 4);
                },
             };
 

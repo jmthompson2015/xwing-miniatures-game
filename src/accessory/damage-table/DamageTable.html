@@ -29,10 +29,10 @@
   <script>
     "use strict";
 
-    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "artifact/js/DamageCard",
+    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathUtilities", "artifact/js/DamageCard",
         "accessory/damage-table/DamageTableContainer", "accessory/damage-table/Reducer"
       ],
-      function(React, ReactDOM, ReactRedux, Redux, Logger, DamageCard, DamageTableContainer, Reducer)
+      function(React, ReactDOM, ReactRedux, Redux, Logger, MathUtilities, DamageCard, DamageTableContainer, Reducer)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -45,7 +45,7 @@
           return previousValue + (DamageCard.properties[damage].isImplemented ? 1 : 0);
         }, 0);
         var damageCount = DamageCard.keys().length;
-        var ratio = Math.xwingRound(100.0 * implementedCount / damageCount, 0);
+        var ratio = MathUtilities.xwingRound(100.0 * implementedCount / damageCount, 0);
         document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
           damageCount + " = " + ratio + "%";
 

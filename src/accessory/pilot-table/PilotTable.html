@@ -29,10 +29,10 @@
   <script>
     "use strict";
 
-    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "artifact/js/PilotCard",
+    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathUtilities", "artifact/js/PilotCard",
         "accessory/pilot-table/PilotTableContainer", "accessory/pilot-table/Reducer"
       ],
-      function(React, ReactDOM, ReactRedux, Redux, Logger, PilotCard, PilotTableContainer, Reducer)
+      function(React, ReactDOM, ReactRedux, Redux, Logger, MathUtilities, PilotCard, PilotTableContainer, Reducer)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -45,7 +45,7 @@
           return previousValue + (PilotCard.properties[pilotKey].isImplemented ? 1 : 0);
         }, 0);
         var upgradeCount = PilotCard.keys().length;
-        var ratio = Math.xwingRound(100.0 * implementedCount / upgradeCount, 0);
+        var ratio = MathUtilities.xwingRound(100.0 * implementedCount / upgradeCount, 0);
         document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
           upgradeCount + " = " + ratio + "%";
 

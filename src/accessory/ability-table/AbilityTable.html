@@ -29,11 +29,11 @@
   <script>
     "use strict";
 
-    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathAugments",
+    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathUtilities",
         "artifact/js/ConditionCard", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
         "accessory/ability-table/AbilityTableContainer", "accessory/ability-table/Reducer"
       ],
-      function(React, ReactDOM, ReactRedux, Redux, Logger, MathAugments,
+      function(React, ReactDOM, ReactRedux, Redux, Logger, MathUtilities,
         ConditionCard, DamageCard, PilotCard, UpgradeCard, AbilityTableContainer, Reducer)
       {
         window.LOGGER = new Logger();
@@ -73,7 +73,7 @@
 
         abilityCount += UpgradeCard.keys().length;
 
-        var ratio = Math.xwingRound(100.0 * implementedCount / abilityCount, 0);
+        var ratio = MathUtilities.xwingRound(100.0 * implementedCount / abilityCount, 0);
         document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
           abilityCount + " = " + ratio + "%";
 

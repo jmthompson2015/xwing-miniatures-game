@@ -1,7 +1,7 @@
 "use strict";
 
-define(["redux", "common/js/InputValidator", "model/js/Agent", "model/js/Reducer"],
-   function(Redux, InputValidator, Agent, Reducer)
+define(["redux", "common/js/InputValidator", "common/js/MathUtilities", "model/js/Agent", "model/js/Reducer"],
+   function(Redux, InputValidator, MathUtilities, Agent, Reducer)
    {
       var TableRow = {};
 
@@ -12,7 +12,7 @@ define(["redux", "common/js/InputValidator", "model/js/Agent", "model/js/Reducer
          var primaryWeapon = squad.primaryWeaponValue();
          var agility = squad.agilityValue();
 
-         return (agility !== 0 ? Math.xwingRound(primaryWeapon / agility, 2) : "");
+         return (agility !== 0 ? MathUtilities.xwingRound(primaryWeapon / agility, 2) : "");
       };
 
       TableRow.computeRatioSumStatsSquadPointCost = function(squad)
@@ -22,7 +22,7 @@ define(["redux", "common/js/InputValidator", "model/js/Agent", "model/js/Reducer
          var sumStats = TableRow.computeSumStats(squad);
          var squadPointCost = squad.squadPointCost();
 
-         return (squadPointCost !== 0 ? Math.xwingRound(sumStats / squadPointCost, 4) : "");
+         return (squadPointCost !== 0 ? MathUtilities.xwingRound(sumStats / squadPointCost, 4) : "");
       };
 
       TableRow.computeSumStats = function(squad)

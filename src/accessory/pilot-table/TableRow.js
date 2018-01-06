@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "common/js/MathAugments"],
-   function(InputValidator, MathAugments)
+define(["common/js/InputValidator", "common/js/MathUtilities"],
+   function(InputValidator, MathUtilities)
    {
       var TableRow = {};
 
@@ -22,7 +22,7 @@ define(["common/js/InputValidator", "common/js/MathAugments"],
          var primaryWeapon = (ship.primaryWeaponValue !== undefined ? ship.primaryWeaponValue : 0);
          var agility = (ship.agilityValue !== undefined ? ship.agilityValue : 0);
 
-         return (agility !== 0 ? Math.xwingRound(primaryWeapon / agility, 2) : "");
+         return (agility !== 0 ? MathUtilities.xwingRound(primaryWeapon / agility, 2) : "");
       };
 
       TableRow.computeRatioSumStatsSquadPointCost = function(pilot, ship)
@@ -33,7 +33,7 @@ define(["common/js/InputValidator", "common/js/MathAugments"],
          var sumStats = TableRow.computeSumStats(pilot, ship);
          var squadPointCost = (pilot.squadPointCost !== undefined ? pilot.squadPointCost : 0);
 
-         return (squadPointCost !== 0 ? Math.xwingRound(sumStats / squadPointCost, 4) : "");
+         return (squadPointCost !== 0 ? MathUtilities.xwingRound(sumStats / squadPointCost, 4) : "");
       };
 
       TableRow.computeSumStats = function(pilot, ship)
