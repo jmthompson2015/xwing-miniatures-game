@@ -12,7 +12,7 @@ define(["redux", "common/js/InputValidator", "common/js/MathUtilities", "model/j
          var primaryWeapon = squad.primaryWeaponValue();
          var agility = squad.agilityValue();
 
-         return (agility !== 0 ? MathUtilities.xwingRound(primaryWeapon / agility, 2) : "");
+         return (agility !== 0 ? MathUtilities.round(primaryWeapon / agility, 2) : "");
       };
 
       TableRow.computeRatioSumStatsSquadPointCost = function(squad)
@@ -22,7 +22,7 @@ define(["redux", "common/js/InputValidator", "common/js/MathUtilities", "model/j
          var sumStats = TableRow.computeSumStats(squad);
          var squadPointCost = squad.squadPointCost();
 
-         return (squadPointCost !== 0 ? MathUtilities.xwingRound(sumStats / squadPointCost, 4) : "");
+         return (squadPointCost !== 0 ? MathUtilities.round(sumStats / squadPointCost, 4) : "");
       };
 
       TableRow.computeSumStats = function(squad)

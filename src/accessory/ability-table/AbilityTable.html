@@ -73,7 +73,7 @@
 
         abilityCount += UpgradeCard.keys().length;
 
-        var ratio = MathUtilities.xwingRound(100.0 * implementedCount / abilityCount, 0);
+        var ratio = MathUtilities.round(100.0 * implementedCount / abilityCount, 0);
         document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
           abilityCount + " = " + ratio + "%";
 

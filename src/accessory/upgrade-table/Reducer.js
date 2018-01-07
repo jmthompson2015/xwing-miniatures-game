@@ -20,7 +20,7 @@ define(["common/js/InputValidator", "common/js/ObjectUtilities", "accessory/upgr
          {
             case Action.REMOVE_FILTERS:
                newFilteredTableRow = [];
-               ArrayUtilities.xwingAddAll(newFilteredTableRow, state.tableRows);
+               ArrayUtilities.addAll(newFilteredTableRow, state.tableRows);
                return Object.assign(
                {}, state,
                {
@@ -41,7 +41,7 @@ define(["common/js/InputValidator", "common/js/ObjectUtilities", "accessory/upgr
                });
                newFilters = Object.assign(
                {}, state.filters);
-               ObjectUtilities.xwingMerge(newFilters, action.filters);
+               ObjectUtilities.merge(newFilters, action.filters);
                newFilteredTableRow = Reducer.filterTableRow(state.tableRows, newFilters);
                Reducer.saveToLocalStorage(newFilters);
                return Object.assign(

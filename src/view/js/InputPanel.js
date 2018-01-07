@@ -24,13 +24,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                switch (this.props.type)
                {
                   case InputPanel.Type.CHECKBOX:
-                     ArrayUtilities.xwingAddAll(selected, this.props.initialValues);
+                     ArrayUtilities.addAll(selected, this.props.initialValues);
                      break;
                   case InputPanel.Type.RADIO:
                      selected = this.props.initialValues;
                      break;
                   case InputPanel.Type.TEXT:
-                     ObjectUtilities.xwingMerge(selected, this.props.initialValues);
+                     ObjectUtilities.merge(selected, this.props.initialValues);
                      break;
                   default:
                      throw "Unknown input type: " + this.props.type;
@@ -74,7 +74,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
             if (clientProps)
             {
-               ObjectUtilities.xwingMerge(answer, clientProps);
+               ObjectUtilities.merge(answer, clientProps);
             }
 
             return answer;
@@ -155,7 +155,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                   }
                   else
                   {
-                     ArrayUtilities.xwingRemove(selected, mySelected);
+                     ArrayUtilities.remove(selected, mySelected);
                   }
                   break;
                case InputPanel.Type.RADIO:

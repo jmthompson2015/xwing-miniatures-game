@@ -56,7 +56,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
             x0 = point1.x;
             y0 = point1.y;
             var heading = Position.computeHeading(x0, y0, x1, y1);
-            var polygon0 = ManeuverComputer.computePolygon(shipBase, MathUtilities.xwingRound(x0, 0), MathUtilities.xwingRound(y0, 0), heading);
+            var polygon0 = ManeuverComputer.computePolygon(shipBase, MathUtilities.round(x0, 0), MathUtilities.round(y0, 0), heading);
 
             if (!RectanglePath.doPolygonsCollide(polygon0, polygon1))
             {
@@ -570,16 +570,16 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
          var y01 = y0 + (t * (y1 - y0));
          var heading;
 
-         if (((MathUtilities.xwingRound(x0 - x01, 0) === 0) && (MathUtilities.xwingRound(y0 - y01, 0) === 0)) ||
-            ((MathUtilities.xwingRound(x01 - x1, 0) === 0) && (MathUtilities.xwingRound(y01 - y1, 0) === 0)))
+         if (((MathUtilities.round(x0 - x01, 0) === 0) && (MathUtilities.round(y0 - y01, 0) === 0)) ||
+            ((MathUtilities.round(x01 - x1, 0) === 0) && (MathUtilities.round(y01 - y1, 0) === 0)))
          {
             heading = Position.computeHeading(x0, y0, x1, y1);
-            answer = new Position(MathUtilities.xwingRound(x0, 0), MathUtilities.xwingRound(y0, 0), heading);
+            answer = new Position(MathUtilities.round(x0, 0), MathUtilities.round(y0, 0), heading);
          }
          else
          {
             var heading01 = Position.computeHeading(x0, y0, x01, y01);
-            var polygon01 = ManeuverComputer.computePolygon(shipBase, MathUtilities.xwingRound(x01, 0), MathUtilities.xwingRound(y01, 0), heading01);
+            var polygon01 = ManeuverComputer.computePolygon(shipBase, MathUtilities.round(x01, 0), MathUtilities.round(y01, 0), heading01);
 
             if (RectanglePath.doPolygonsCollide(polygon01, polygon1))
             {

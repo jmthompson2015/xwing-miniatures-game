@@ -44,12 +44,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                "ratioPrimaryWeaponAgility": function(data)
                {
                   var value = data.ratioPrimaryWeaponAgility;
-                  return MathUtilities.xwingFormat(value, 2);
+                  return MathUtilities.format(value, 2);
                },
                "ratioSumStatsSquadPointCost": function(data)
                {
                   var value = data.ratioSumStatsSquadPointCost;
-                  return MathUtilities.xwingFormat(value, 4);
+                  return MathUtilities.format(value, 4);
                },
             };
 

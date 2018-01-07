@@ -811,12 +811,12 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          {
             if (!this.isCriticallyDamagedWith(DamageCard.DAMAGED_SENSOR_ARRAY))
             {
-               ArrayUtilities.xwingAddAll(answer, this.ship().shipActionKeys);
+               ArrayUtilities.addAll(answer, this.ship().shipActionKeys);
             }
 
             if (answer.includes(ShipAction.CLOAK) && this.isCloaked())
             {
-               ArrayUtilities.xwingRemove(answer, ShipAction.CLOAK);
+               ArrayUtilities.remove(answer, ShipAction.CLOAK);
             }
 
             if (this.isUpgradedWith(UpgradeCard.MIST_HUNTER))

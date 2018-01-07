@@ -11,7 +11,7 @@ define(function()
     * @param number The number to format.
     * @param digits The number of digits to appear after the decimal point. (optional)
     */
-   MathUtilities.xwingFormat = function(number, digits)
+   MathUtilities.format = function(number, digits)
    {
       var answer = number;
 
@@ -27,7 +27,7 @@ define(function()
     * @param number The number to round.
     * @param digits The number of digits to appear after the decimal point.
     */
-   MathUtilities.xwingRound = function(number, digits)
+   MathUtilities.round = function(number, digits)
    {
       var factor = Math.pow(10.0, digits);
 

@@ -348,7 +348,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             answer.push(DamageCard.DIRECT_HIT);
          }
 
-         ArrayUtilities.xwingShuffle(answer);
+         ArrayUtilities.shuffle(answer);
 
          return answer;
       };
@@ -370,7 +370,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             answer.push(DamageCard.DIRECT_HIT_V2);
          }
 
-         ArrayUtilities.xwingShuffle(answer);
+         ArrayUtilities.shuffle(answer);
 
          return answer;
       };

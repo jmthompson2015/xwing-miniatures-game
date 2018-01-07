@@ -22,7 +22,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities"],
          var primaryWeapon = (ship.primaryWeaponValue !== undefined ? ship.primaryWeaponValue : 0);
          var agility = (ship.agilityValue !== undefined ? ship.agilityValue : 0);
 
-         return (agility !== 0 ? MathUtilities.xwingRound(primaryWeapon / agility, 2) : "");
+         return (agility !== 0 ? MathUtilities.round(primaryWeapon / agility, 2) : "");
       };
 
       TableRow.computeRatioSumStatsSquadPointCost = function(pilot, ship)
@@ -33,7 +33,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities"],
          var sumStats = TableRow.computeSumStats(pilot, ship);
          var squadPointCost = (pilot.squadPointCost !== undefined ? pilot.squadPointCost : 0);
 
-         return (squadPointCost !== 0 ? MathUtilities.xwingRound(sumStats / squadPointCost, 4) : "");
+         return (squadPointCost !== 0 ? MathUtilities.round(sumStats / squadPointCost, 4) : "");
       };
 
       TableRow.computeSumStats = function(pilot, ship)

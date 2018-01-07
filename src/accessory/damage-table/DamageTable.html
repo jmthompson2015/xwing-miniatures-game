@@ -45,7 +45,7 @@
           return previousValue + (DamageCard.properties[damage].isImplemented ? 1 : 0);
         }, 0);
         var damageCount = DamageCard.keys().length;
-        var ratio = MathUtilities.xwingRound(100.0 * implementedCount / damageCount, 0);
+        var ratio = MathUtilities.round(100.0 * implementedCount / damageCount, 0);
         document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
           damageCount + " = " + ratio + "%";
 

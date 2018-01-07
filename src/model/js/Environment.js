@@ -634,8 +634,8 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
 
          // Determine the play format.
          var tokens = [];
-         ArrayUtilities.xwingAddAll(tokens, squad1.tokens());
-         ArrayUtilities.xwingAddAll(tokens, squad2.tokens());
+         ArrayUtilities.addAll(tokens, squad1.tokens());
+         ArrayUtilities.addAll(tokens, squad2.tokens());
          var playFormatKey = this._determinePlayFormat(tokens);
          store.dispatch(EnvironmentAction.setPlayFormat(playFormatKey));
 

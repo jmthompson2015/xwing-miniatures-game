@@ -114,10 +114,10 @@ define(["common/js/InputValidator", "common/js/MathUtilities", "model/js/Path"],
             var bb = (b0.area < b1.area ? b0 : b1);
 
             // Check if any point in bb is in both polygon0 and polygon1.
-            var startX = MathUtilities.xwingRound(bb.minX, 0);
-            var startY = MathUtilities.xwingRound(bb.minY, 0);
-            var endX = MathUtilities.xwingRound(bb.maxX, 0);
-            var endY = MathUtilities.xwingRound(bb.maxY, 0);
+            var startX = MathUtilities.round(bb.minX, 0);
+            var startY = MathUtilities.round(bb.minY, 0);
+            var endX = MathUtilities.round(bb.maxX, 0);
+            var endY = MathUtilities.round(bb.maxY, 0);
             LOGGER.trace("start = " + startX + ", " + startY + " end = " + endX + ", " + endY);
 
             for (var y = startY; !answer && y <= endY; y++)

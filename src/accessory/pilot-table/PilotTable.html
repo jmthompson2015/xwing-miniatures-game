@@ -45,7 +45,7 @@
           return previousValue + (PilotCard.properties[pilotKey].isImplemented ? 1 : 0);
         }, 0);
         var upgradeCount = PilotCard.keys().length;
-        var ratio = MathUtilities.xwingRound(100.0 * implementedCount / upgradeCount, 0);
+        var ratio = MathUtilities.round(100.0 * implementedCount / upgradeCount, 0);
         document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
           upgradeCount + " = " + ratio + "%";
 

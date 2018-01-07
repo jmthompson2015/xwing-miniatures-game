@@ -575,7 +575,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             {
                answer.push(UpgradeType.SYSTEM);
                answer.push(UpgradeType.SALVAGED_ASTROMECH);
-               ArrayUtilities.xwingRemove(answer, UpgradeType.CREW);
+               ArrayUtilities.remove(answer, UpgradeType.CREW);
             }
 
             if (upgradeKeys.includes(UpgradeCard.HEAVY_SCYK_INTERCEPTOR))
@@ -590,7 +590,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             {
                answer.push(UpgradeType.CREW);
                answer.push(UpgradeType.TEAM);
-               ArrayUtilities.xwingRemove(answer, UpgradeType.CARGO);
+               ArrayUtilities.remove(answer, UpgradeType.CARGO);
             }
 
             if (upgradeKeys.includes(UpgradeCard.R2_D6))
@@ -633,9 +633,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
 
             if (upgradeKeys.includes(UpgradeCard.TIE_SHUTTLE))
             {
-               answer = this.xwingRemoveAll(answer, UpgradeType.TORPEDO);
-               answer = this.xwingRemoveAll(answer, UpgradeType.MISSILE);
-               answer = this.xwingRemoveAll(answer, UpgradeType.BOMB);
+               answer = this.removeAll(answer, UpgradeType.TORPEDO);
+               answer = this.removeAll(answer, UpgradeType.MISSILE);
+               answer = this.removeAll(answer, UpgradeType.BOMB);
                answer.push(UpgradeType.CREW);
                answer.push(UpgradeType.CREW);
             }
@@ -647,8 +647,8 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
 
             if (upgradeKeys.includes(UpgradeCard.TIE_X7))
             {
-               ArrayUtilities.xwingRemove(answer, UpgradeType.CANNON);
-               ArrayUtilities.xwingRemove(answer, UpgradeType.MISSILE);
+               ArrayUtilities.remove(answer, UpgradeType.CANNON);
+               ArrayUtilities.remove(answer, UpgradeType.MISSILE);
             }
 
             if (upgradeKeys.includes(UpgradeCard.VAKSAI))

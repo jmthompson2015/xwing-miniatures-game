@@ -143,7 +143,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
                if (oldFilter)
                {
-                  ArrayUtilities.xwingAddAll(initialValues, oldFilter.values());
+                  ArrayUtilities.addAll(initialValues, oldFilter.values());
                }
 
                var label = DOM.span(
@@ -263,13 +263,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                switch (column.key)
                {
                   case "version":
-                     ArrayUtilities.xwingAddAll(values, this.state.versionValues);
+                     ArrayUtilities.addAll(values, this.state.versionValues);
                      break;
                   case "trait":
-                     ArrayUtilities.xwingAddAll(values, this.state.traitValues);
+                     ArrayUtilities.addAll(values, this.state.traitValues);
                      break;
                   case "isImplemented":
-                     ArrayUtilities.xwingAddAll(values, this.state.isImplementedValues);
+                     ArrayUtilities.addAll(values, this.state.isImplementedValues);
                      break;
                   default:
                      throw "Unknown entity column: " + column.key;
@@ -302,7 +302,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             var entityType = event.target.dataset.entitytype;
             LOGGER.debug("entityType = " + entityType);
             var values = [];
-            ArrayUtilities.xwingAddAll(values, selected);
+            ArrayUtilities.addAll(values, selected);
 
             switch (entityType)
             {

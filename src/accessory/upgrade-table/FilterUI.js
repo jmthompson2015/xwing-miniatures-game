@@ -177,7 +177,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
                if (oldFilter)
                {
-                  ArrayUtilities.xwingAddAll(initialValues, oldFilter.values());
+                  ArrayUtilities.addAll(initialValues, oldFilter.values());
                }
 
                var label = DOM.span(
@@ -297,22 +297,22 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                switch (column.key)
                {
                   case "typeKey":
-                     ArrayUtilities.xwingAddAll(values, this.state.typeValues);
+                     ArrayUtilities.addAll(values, this.state.typeValues);
                      break;
                   case "restrictionKeys":
-                     ArrayUtilities.xwingAddAll(values, this.state.restrictionValues);
+                     ArrayUtilities.addAll(values, this.state.restrictionValues);
                      break;
                   case "headerKey":
-                     ArrayUtilities.xwingAddAll(values, this.state.headerValues);
+                     ArrayUtilities.addAll(values, this.state.headerValues);
                      break;
                   case "isImplemented":
-                     ArrayUtilities.xwingAddAll(values, this.state.isImplementedValues);
+                     ArrayUtilities.addAll(values, this.state.isImplementedValues);
                      break;
                   case "rangeKeys":
-                     ArrayUtilities.xwingAddAll(values, this.state.rangeValues);
+                     ArrayUtilities.addAll(values, this.state.rangeValues);
                      break;
                   case "firingArcKey":
-                     ArrayUtilities.xwingAddAll(values, this.state.firingArcValues);
+                     ArrayUtilities.addAll(values, this.state.firingArcValues);
                      break;
                   default:
                      throw "Unknown entity column: " + column.key;
@@ -345,7 +345,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             var entityType = event.target.dataset.entitytype;
             LOGGER.debug("entityType = " + entityType);
             var values = [];
-            ArrayUtilities.xwingAddAll(values, selected);
+            ArrayUtilities.addAll(values, selected);
 
             switch (entityType)
             {

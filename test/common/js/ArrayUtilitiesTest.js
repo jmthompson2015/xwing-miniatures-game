@@ -6,14 +6,14 @@ define(["qunit", "common/js/ArrayUtilities"],
    {
       QUnit.module("ArrayUtilities");
 
-      QUnit.test("xwingAddAll()", function(assert)
+      QUnit.test("addAll()", function(assert)
       {
          // Setup.
          var array1 = [1];
          var array2 = [2, 3, 4];
 
          // Run.
-         ArrayUtilities.xwingAddAll(array1, array2);
+         ArrayUtilities.addAll(array1, array2);
 
          // Verify.
          assert.equal(array1.length, 4);
@@ -23,14 +23,14 @@ define(["qunit", "common/js/ArrayUtilities"],
          assert.equal(array1[3], 4);
       });
 
-      QUnit.test("xwingIntersect()", function(assert)
+      QUnit.test("intersect()", function(assert)
       {
          // Setup.
          var array1 = [1, 2, 3];
          var array2 = [2, 3, 4, 5];
 
          // Run.
-         var result = ArrayUtilities.xwingIntersect(array1, array2);
+         var result = ArrayUtilities.intersect(array1, array2);
 
          // Verify.
          assert.ok(result);
@@ -42,23 +42,23 @@ define(["qunit", "common/js/ArrayUtilities"],
          assert.equal(array2.join(","), "2,3,4,5");
       });
 
-      QUnit.test("xwingRandomElement()", function(assert)
+      QUnit.test("randomElement()", function(assert)
       {
          var array = [1, 2, 3, 4];
 
          for (var i = 0; i < 10; i++)
          {
-            assert.ok(array.includes(ArrayUtilities.xwingRandomElement(array)));
+            assert.ok(array.includes(ArrayUtilities.randomElement(array)));
          }
       });
 
-      QUnit.test("xwingRemove()", function(assert)
+      QUnit.test("remove()", function(assert)
       {
          // Setup.
          var array = [1, 2, 3, 4];
 
          // Run.
-         ArrayUtilities.xwingRemove(array, 2);
+         ArrayUtilities.remove(array, 2);
 
          // Verify.
          assert.equal(array.length, 3);
@@ -67,13 +67,13 @@ define(["qunit", "common/js/ArrayUtilities"],
          assert.equal(array[2], 4);
       });
 
-      QUnit.test("xwingShuffle()", function(assert)
+      QUnit.test("shuffle()", function(assert)
       {
          var array = [1, 2, 3, 4];
 
          for (var i = 0; i < 10; i++)
          {
-            ArrayUtilities.xwingShuffle(array);
+            ArrayUtilities.shuffle(array);
             assert.equal(array.length, 4);
             assert.ok(0 < array[0] && array[0] < 5);
          }

@@ -156,7 +156,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
 
                if (oldFilter)
                {
-                  ArrayUtilities.xwingAddAll(initialValues, oldFilter.values());
+                  ArrayUtilities.addAll(initialValues, oldFilter.values());
                }
 
                var label = DOM.span(
@@ -276,16 +276,16 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                switch (column.key)
                {
                   case "deck":
-                     ArrayUtilities.xwingAddAll(values, this.state.deckValues);
+                     ArrayUtilities.addAll(values, this.state.deckValues);
                      break;
                   case "type":
-                     ArrayUtilities.xwingAddAll(values, this.state.typeValues);
+                     ArrayUtilities.addAll(values, this.state.typeValues);
                      break;
                   case "isImplemented":
-                     ArrayUtilities.xwingAddAll(values, this.state.isImplementedValues);
+                     ArrayUtilities.addAll(values, this.state.isImplementedValues);
                      break;
                   case "event":
-                     ArrayUtilities.xwingAddAll(values, this.state.eventValues);
+                     ArrayUtilities.addAll(values, this.state.eventValues);
                      break;
                   default:
                      throw "Unknown entity column: " + column.key;
@@ -318,7 +318,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             var entityType = event.target.dataset.entitytype;
             LOGGER.debug("entityType = " + entityType);
             var values = [];
-            ArrayUtilities.xwingAddAll(values, selected);
+            ArrayUtilities.addAll(values, selected);
 
             switch (entityType)
             {

@@ -13,15 +13,15 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
          InputValidator.validateIsFunction("callback", callback);
 
-         var ability = (damageAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(damageAbilities) : undefined);
+         var ability = (damageAbilities.length > 0 ? ArrayUtilities.randomElement(damageAbilities) : undefined);
 
          if (ability === undefined)
          {
-            ability = (upgradeAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(upgradeAbilities) : undefined);
+            ability = (upgradeAbilities.length > 0 ? ArrayUtilities.randomElement(upgradeAbilities) : undefined);
 
             if (ability === undefined)
             {
-               ability = (pilotAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(pilotAbilities) : undefined);
+               ability = (pilotAbilities.length > 0 ? ArrayUtilities.randomElement(pilotAbilities) : undefined);
             }
          }
 
@@ -37,7 +37,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          InputValidator.validateNotNull("decloakActions", decloakActions);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = ArrayUtilities.xwingRandomElement(decloakActions);
+         var answer = ArrayUtilities.randomElement(decloakActions);
 
          callback(token, answer);
       };
@@ -50,7 +50,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          InputValidator.validateNotNull("modifications", modifications);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = ArrayUtilities.xwingRandomElement(modifications);
+         var answer = ArrayUtilities.randomElement(modifications);
          var isAccepted = (answer !== undefined);
 
          callback(answer, isAccepted);
@@ -64,7 +64,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          InputValidator.validateNotNull("modifications", modifications);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = ArrayUtilities.xwingRandomElement(modifications);
+         var answer = ArrayUtilities.randomElement(modifications);
          var isAccepted = (answer !== undefined);
 
          callback(answer, isAccepted);
@@ -82,7 +82,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          tokens.forEach(function(token)
          {
             var validManeuvers = tokenToValidManeuvers[token];
-            tokenToManeuver[token] = ArrayUtilities.xwingRandomElement(validManeuvers);
+            tokenToManeuver[token] = ArrayUtilities.randomElement(validManeuvers);
          });
 
          callback(tokenToManeuver);
@@ -95,7 +95,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          InputValidator.validateNotNull("shipActions", shipActions);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = ArrayUtilities.xwingRandomElement(shipActions);
+         var answer = ArrayUtilities.randomElement(shipActions);
          var isAccepted = (answer !== undefined);
 
          callback(answer, isAccepted);
@@ -108,7 +108,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          InputValidator.validateNotNull("choices", choices);
          InputValidator.validateIsFunction("callback", callback);
 
-         var weaponData = ArrayUtilities.xwingRandomElement(choices);
+         var weaponData = ArrayUtilities.randomElement(choices);
          var myWeapon = weaponData.weapon;
 
          // The first entry should be the closest.

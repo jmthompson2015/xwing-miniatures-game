@@ -17,15 +17,15 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
          InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
          InputValidator.validateIsFunction("callback", callback);
 
-         var ability = (damageAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(damageAbilities) : undefined);
+         var ability = (damageAbilities.length > 0 ? ArrayUtilities.randomElement(damageAbilities) : undefined);
 
          if (ability === undefined)
          {
-            ability = (upgradeAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(upgradeAbilities) : undefined);
+            ability = (upgradeAbilities.length > 0 ? ArrayUtilities.randomElement(upgradeAbilities) : undefined);
 
             if (ability === undefined)
             {
-               ability = (pilotAbilities.length > 0 ? ArrayUtilities.xwingRandomElement(pilotAbilities) : undefined);
+               ability = (pilotAbilities.length > 0 ? ArrayUtilities.randomElement(pilotAbilities) : undefined);
             }
          }
 
@@ -41,7 +41,7 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
          InputValidator.validateNotNull("decloakActions", decloakActions);
          InputValidator.validateIsFunction("callback", callback);
 
-         var answer = ArrayUtilities.xwingRandomElement(decloakActions);
+         var answer = ArrayUtilities.randomElement(decloakActions);
 
          callback(token, answer);
       };
@@ -244,22 +244,22 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
                   return Maneuver.properties[maneuverKey].difficultyKey === Difficulty.EASY;
                });
 
-               var intersection = ArrayUtilities.xwingIntersect(easyManeuvers, validManeuversR1);
-               myManeuver = ArrayUtilities.xwingRandomElement(intersection);
+               var intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR1);
+               myManeuver = ArrayUtilities.randomElement(intersection);
 
                if (myManeuver === undefined)
                {
-                  intersection = ArrayUtilities.xwingIntersect(easyManeuvers, validManeuversR2);
-                  myManeuver = ArrayUtilities.xwingRandomElement(intersection);
+                  intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR2);
+                  myManeuver = ArrayUtilities.randomElement(intersection);
 
                   if (myManeuver === undefined)
                   {
-                     intersection = ArrayUtilities.xwingIntersect(easyManeuvers, validManeuversR3);
-                     myManeuver = ArrayUtilities.xwingRandomElement(intersection);
+                     intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR3);
+                     myManeuver = ArrayUtilities.randomElement(intersection);
 
                      if (myManeuver === undefined)
                      {
-                        myManeuver = ArrayUtilities.xwingRandomElement(easyManeuvers);
+                        myManeuver = ArrayUtilities.randomElement(easyManeuvers);
                      }
                   }
                }
@@ -267,15 +267,15 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
 
             if (myManeuver === undefined)
             {
-               myManeuver = ArrayUtilities.xwingRandomElement(validManeuversR1);
+               myManeuver = ArrayUtilities.randomElement(validManeuversR1);
 
                if (myManeuver === undefined)
                {
-                  myManeuver = ArrayUtilities.xwingRandomElement(validManeuversR2);
+                  myManeuver = ArrayUtilities.randomElement(validManeuversR2);
 
                   if (myManeuver === undefined)
                   {
-                     myManeuver = ArrayUtilities.xwingRandomElement(validManeuversR3);
+                     myManeuver = ArrayUtilities.randomElement(validManeuversR3);
 
                      if (myManeuver === undefined)
                      {
@@ -283,13 +283,13 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
 
                         if (myManeuver === undefined)
                         {
-                           myManeuver = ArrayUtilities.xwingRandomElement(validManeuvers);
+                           myManeuver = ArrayUtilities.randomElement(validManeuvers);
 
                            if (myManeuver === undefined)
                            {
                               // The ship fled the battlefield.
                               var maneuverKeys = token.maneuverKeys();
-                              myManeuver = ArrayUtilities.xwingRandomElement(maneuverKeys);
+                              myManeuver = ArrayUtilities.randomElement(maneuverKeys);
                            }
                         }
                      }
@@ -320,7 +320,7 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
 
          if (TargetLock.getByAttacker(store, token).length === 0 && targetLocks.length > 0)
          {
-            answer = ArrayUtilities.xwingRandomElement(targetLocks);
+            answer = ArrayUtilities.randomElement(targetLocks);
          }
          else if (token.focusCount() === 0 && shipActions.includes(ShipAction.FOCUS))
          {
@@ -332,7 +332,7 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
          }
          else
          {
-            answer = ArrayUtilities.xwingRandomElement(shipActions);
+            answer = ArrayUtilities.randomElement(shipActions);
          }
 
          LOGGER.debug("shipAction for " + token.name() + ": " + answer);

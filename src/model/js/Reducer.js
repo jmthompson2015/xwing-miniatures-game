@@ -60,7 +60,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator", "ar
          {
             oldArray = state[actionTokenId];
             newArray = oldArray.slice();
-            ArrayUtilities.xwingRemove(newArray, actionData);
+            ArrayUtilities.remove(newArray, actionData);
             newTokenIdToArray = Object.assign(
             {}, state);
             newTokenIdToArray[actionTokenId] = newArray;

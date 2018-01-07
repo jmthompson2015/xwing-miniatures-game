@@ -12,12 +12,12 @@ define(function()
    // Note: This function modifies array.
    // array now contains array2 also.
    // @see http://stackoverflow.com/questions/351409/appending-to-array
-   ArrayUtilities.xwingAddAll = function(array, array2)
+   ArrayUtilities.addAll = function(array, array2)
    {
       Array.prototype.push.apply(array, array2);
    };
 
-   ArrayUtilities.xwingIntersect = function(array, array2)
+   ArrayUtilities.intersect = function(array, array2)
    {
       // Assumptions:
       // - input is not necessarily sorted
@@ -37,7 +37,7 @@ define(function()
       return answer;
    };
 
-   ArrayUtilities.xwingRandomElement = function(array)
+   ArrayUtilities.randomElement = function(array)
    {
       var index = Math.floor(Math.random() * array.length);
 
@@ -45,7 +45,7 @@ define(function()
    };
 
    // Note: This function modifies array.
-   ArrayUtilities.xwingRemove = function(array, element)
+   ArrayUtilities.remove = function(array, element)
    {
       var index = array.indexOf(element);
 
@@ -56,7 +56,7 @@ define(function()
    };
 
    // Note: This function modifies array.
-   ArrayUtilities.xwingShuffle = function(array)
+   ArrayUtilities.shuffle = function(array)
    {
       array.sort(function()
       {

@@ -50,9 +50,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             };
 
             var values = shipActions.slice();
-            ArrayUtilities.xwingAddAll(values, pilots);
-            ArrayUtilities.xwingAddAll(values, upgrades);
-            ArrayUtilities.xwingAddAll(values, damages);
+            ArrayUtilities.addAll(values, pilots);
+            ArrayUtilities.addAll(values, upgrades);
+            ArrayUtilities.addAll(values, damages);
 
             var initialInput = React.createElement(InputPanel,
             {

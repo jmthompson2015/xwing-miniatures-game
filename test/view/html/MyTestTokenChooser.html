@@ -63,7 +63,7 @@
 				attacker = tokens[6];
 
 				var choices = environment.getUnfriendlyTokensAtRange(attacker, Range.ONE);
-				choices.xwingAddAll(environment.getUnfriendlyTokensAtRange(attacker, Range.TWO));
+				choices.addAll(environment.getUnfriendlyTokensAtRange(attacker, Range.TWO));
 
 				var element0 = React.createElement(TokenChooser,
 				{

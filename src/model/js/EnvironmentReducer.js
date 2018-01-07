@@ -101,7 +101,7 @@ define(["immutable", "common/js/ArrayUtilities", "model/js/EnvironmentAction"],
                return state;
             case EnvironmentAction.REPLENISH_DAMAGE_DECK:
                var newDamageDeck = state.damageDiscardPile.toJS();
-               ArrayUtilities.xwingShuffle(newDamageDeck);
+               ArrayUtilities.shuffle(newDamageDeck);
                return Object.assign(
                {}, state,
                {

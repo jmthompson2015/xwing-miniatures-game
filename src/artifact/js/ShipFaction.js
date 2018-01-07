@@ -768,7 +768,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator", "artifact/js/Fac
 
             if (friend)
             {
-               ArrayUtilities.xwingAddAll(answer, this.keysByFaction(friend, true));
+               ArrayUtilities.addAll(answer, this.keysByFaction(friend, true));
             }
          }
 

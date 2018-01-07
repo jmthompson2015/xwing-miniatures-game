@@ -28,7 +28,7 @@
 				LOGGER.setDebugEnabled(false);
 
 				var resourceBase = "../../../src/view/resource/";
-				var faction = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM].xwingRandomElement();
+				var faction = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM].randomElement();
 				var agent = new Agent(store, "Placeholder");
 				var squadBuilders = SquadBuilder.findByFaction(faction);
 
