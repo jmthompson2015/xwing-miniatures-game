@@ -1,9 +1,9 @@
 "use strict";
 
-define(["react", "react-dom", "common/js/ArrayUtilities", "common/js/InputValidator", "artifact/js/Phase",
+define(["react", "react-dom", "common/js/InputValidator", "artifact/js/Phase",
   "model/js/AttackDice", "model/js/DefenseDice", "model/js/Selector",
   "view/js/AbilityChooser", "view/js/CombatUI", "view/js/PlanningPanel", "view/js/WeaponAndDefenderChooser"],
-   function(React, ReactDOM, ArrayUtilities, InputValidator, Phase, AttackDice, DefenseDice, Selector, AbilityChooser, CombatUI, PlanningPanel, WeaponAndDefenderChooser)
+   function(React, ReactDOM, InputValidator, Phase, AttackDice, DefenseDice, Selector, AbilityChooser, CombatUI, PlanningPanel, WeaponAndDefenderChooser)
    {
       var HumanAgentStrategy = {};
 

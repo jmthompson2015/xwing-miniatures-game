@@ -1,9 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathUtilities",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux",
   "artifact/js/DamageCardTrait", "view/js/Button", "view/js/DataTable", "view/js/ImplementedImage",
   "accessory/damage-table/Action", "accessory/damage-table/FilterContainer", "accessory/damage-table/TableColumns"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux, MathUtilities,
+   function(createReactClass, PropTypes, React, DOM, ReactRedux,
       DamageCardTrait, Button, DataTable, ImplementedImage, Action, FilterContainer, TableColumns)
    {
       function createImageLink(src, href)

@@ -1,10 +1,10 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathUtilities",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux",
   "artifact/js/FiringArc", "artifact/js/Range", "artifact/js/UpgradeHeader", "artifact/js/UpgradeRestriction", "artifact/js/UpgradeType",
   "view/js/Button", "view/js/DataTable", "view/js/ImplementedImage", "view/js/UpgradeTypeUI",
   "accessory/upgrade-table/Action", "accessory/upgrade-table/FilterContainer", "accessory/upgrade-table/TableColumns"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux, MathUtilities,
+   function(createReactClass, PropTypes, React, DOM, ReactRedux,
       FiringArc, Range, UpgradeHeader, UpgradeRestriction, UpgradeType,
       Button, DataTable, ImplementedImage, UpgradeTypeUI,
       Action, FilterContainer, TableColumns)

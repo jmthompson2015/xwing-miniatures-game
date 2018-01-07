@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/ConditionCard", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
-   function(FileLoader, ConditionCard, EnumGenerator, XWingData, XWingType)
+define(["artifact/js/ConditionCard", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(ConditionCard, EnumGenerator, XWingData, XWingType)
    {
       var ConditionConverter = {};
 

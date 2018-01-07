@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader", "artifact/js/UpgradeType", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
-   function(FileLoader, UpgradeCard, UpgradeHeader, UpgradeType, EnumGenerator, XWingData, XWingType)
+define(["artifact/js/UpgradeCard", "artifact/js/UpgradeHeader", "artifact/js/UpgradeType", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(UpgradeCard, UpgradeHeader, UpgradeType, EnumGenerator, XWingData, XWingType)
    {
       var UpgradeConverter = {};
 

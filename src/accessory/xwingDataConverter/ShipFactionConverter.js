@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "common/js/InputValidator", "artifact/js/Ship", "artifact/js/ShipFaction", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/FactionConverter", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
-   function(FileLoader, InputValidator, Ship, ShipFaction, EnumGenerator, FactionConverter, XWingData, XWingType)
+define(["common/js/InputValidator", "artifact/js/Ship", "artifact/js/ShipFaction", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/FactionConverter", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(InputValidator, Ship, ShipFaction, EnumGenerator, FactionConverter, XWingData, XWingType)
    {
       var ShipFactionConverter = {};
 

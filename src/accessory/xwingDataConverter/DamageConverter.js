@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/FileLoader", "artifact/js/DamageCard", "artifact/js/DamageCardTrait", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
-   function(FileLoader, DamageCard, DamageCardTrait, EnumGenerator, XWingData, XWingType)
+define(["artifact/js/DamageCard", "artifact/js/DamageCardTrait", "accessory/xwingDataConverter/EnumGenerator", "accessory/xwingDataConverter/XWingData", "accessory/xwingDataConverter/XWingType"],
+   function(DamageCard, DamageCardTrait, EnumGenerator, XWingData, XWingType)
    {
       var DamageConverter = {};
 
