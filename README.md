@@ -3,6 +3,8 @@ Play the game: [X-Wing Miniatures Game](https://rawgit.com/jmthompson2015/xwing-
 
 #### Accessories
 * [Ability Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/ability-table/AbilityTable.html)
+* [Condition Card Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/condition-card-gallery/ConditionCardGallery.html)
+* [Damage Card Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/damage-card-gallery/DamageCardGallery.html)
 * [Damage Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/damage-table/DamageTable.html)
 * [Game Data Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/game-data-table/GameDataTable.html)
 * [Pilot Card Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/pilot-card-gallery/PilotCardGallery.html)
@@ -23,6 +25,7 @@ Play the game: [X-Wing Miniatures Game](https://rawgit.com/jmthompson2015/xwing-
 * [Require.js](http://requirejs.org/) - A JavaScript file and module loader.
 * [Tachyons](http://tachyons.io) - An atomic CSS library.
 * [xwing-data](https://github.com/guidokessels/xwing-data/) - An easy-to-use collection of data and images from X-Wing: The Miniatures Game by Fantasy Flight Games.
+* [xwing-miniatures-font](https://github.com/geordanr/xwing-miniatures-font) - Vector font for X-Wing: The Miniatures Game by Fantasy Flight Games.
 
 ## Architecture
 ![Web Application Diagram](doc/WebApplicationDiagram.png)
