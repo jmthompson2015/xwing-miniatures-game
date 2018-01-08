@@ -264,7 +264,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
 
          var x1, x2, x3;
          var y1, y2, y3;
-         var factor, angle;
+         var factor, angle, speedFactor;
 
          if ([Bearing.STRAIGHT, Bearing.KOIOGRAN_TURN].includes(bearingKey))
          {
@@ -273,7 +273,8 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
                baseSize = 0;
             }
 
-            dx = (2 * baseSize) + (40 * speed);
+            speedFactor = (speed > 0 ? 1 : -1);
+            dx = (2 * speedFactor * baseSize) + (40 * speed);
             dy = 0;
          }
          else if (bearingKey && maneuver.bearing.isBank)
@@ -317,18 +318,19 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
             else
             {
                // Half base.
-               x1 = baseSize;
+               speedFactor = (speed > 0 ? 1 : -1);
+               x1 = speedFactor * baseSize;
                y1 = 0.0;
 
                // Curve.
                factor = (bearingKey === Bearing.BANK_RIGHT ? 1.0 : -1.0);
                angle = headingChange * Math.PI / 180.0;
-               x2 = radius * Math.cos(angle);
-               y2 = factor * radius * (1.0 - (Math.sin(angle) * factor));
+               x2 = speedFactor * radius * Math.cos(angle);
+               y2 = speedFactor * factor * radius * (1.0 - (Math.sin(angle) * factor));
 
                // Half base.
-               x3 = baseSize * Math.cos(angle);
-               y3 = baseSize * Math.sin(angle);
+               x3 = speedFactor * baseSize * Math.cos(angle);
+               y3 = speedFactor * baseSize * Math.sin(angle);
 
                dx = x1 + x2 + x3;
                dy = y1 + y2 + y3;

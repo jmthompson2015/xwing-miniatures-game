@@ -789,6 +789,57 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/PlayFormat", "artifact/js/
          assert.equal(result.heading(), fromPosition.heading() + 180);
       });
 
+      QUnit.test("ManeuverComputer.computeToPosition() ReverseBankLeft1Hard Standard", function(assert)
+      {
+         // Setup.
+         var fromPosition = new Position(100, 200, 0);
+         var maneuver = Maneuver.properties[Maneuver.REVERSE_BANK_LEFT_1_HARD];
+         var shipBase = ShipBase.properties[ShipBase.SMALL];
+
+         // Run.
+         var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.x(), fromPosition.x() - 93);
+         assert.equal(result.y(), fromPosition.y() + 38);
+         assert.equal(result.heading(), fromPosition.heading() + 315);
+      });
+
+      QUnit.test("ManeuverComputer.computeToPosition() ReverseBankRight1Hard Standard", function(assert)
+      {
+         // Setup.
+         var fromPosition = new Position(100, 200, 0);
+         var maneuver = Maneuver.properties[Maneuver.REVERSE_BANK_RIGHT_1_HARD];
+         var shipBase = ShipBase.properties[ShipBase.SMALL];
+
+         // Run.
+         var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.x(), fromPosition.x() - 93);
+         assert.equal(result.y(), fromPosition.y() - 38);
+         assert.equal(result.heading(), fromPosition.heading() + 45);
+      });
+
+      QUnit.test("ManeuverComputer.computeToPosition() ReverseStraight1Hard Standard", function(assert)
+      {
+         // Setup.
+         var fromPosition = new Position(100, 20, 0);
+         var maneuver = Maneuver.properties[Maneuver.REVERSE_STRAIGHT_1_HARD];
+         var shipBase = ShipBase.properties[ShipBase.SMALL];
+
+         // Run.
+         var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.x(), fromPosition.x() - 80);
+         assert.equal(result.y(), fromPosition.y());
+         assert.equal(result.heading(), fromPosition.heading());
+      });
+
       QUnit.test("ManeuverComputer.computeToPosition() SegnorsLoopLeft3Hard Standard", function(assert)
       {
          // Setup.

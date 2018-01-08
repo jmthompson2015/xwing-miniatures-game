@@ -58,6 +58,11 @@ define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Difficul
          KOIOGRAN_TURN_5_HARD: "koiogranTurn5Hard",
          KOIOGRAN_TURN_5_STANDARD: "koiogranTurn5Standard",
 
+         // Reverse.
+         REVERSE_BANK_LEFT_1_HARD: "reverseBankLeft1Hard",
+         REVERSE_STRAIGHT_1_HARD: "reverseStraight1Hard",
+         REVERSE_BANK_RIGHT_1_HARD: "reverseBankRight1Hard",
+
          // Segnor's loop.
          SEGNORS_LOOP_LEFT_2_HARD: "segnorsLoopLeft2Hard",
          SEGNORS_LOOP_LEFT_2_STANDARD: "segnorsLoopLeft2Standard",
@@ -440,6 +445,29 @@ define(["common/js/InputValidator", "artifact/js/Bearing", "artifact/js/Difficul
                speed: 5,
                difficultyKey: Difficulty.STANDARD,
                key: "koiogranTurn5Standard",
+            },
+            "reverseBankLeft1Hard":
+            {
+               bearingKey: Bearing.BANK_LEFT,
+               speed: -1,
+               difficultyKey: Difficulty.HARD,
+               radius: 82.6,
+               key: "reverseBankLeft1Hard",
+            },
+            "reverseStraight1Hard":
+            {
+               bearingKey: Bearing.STRAIGHT,
+               speed: -1,
+               difficultyKey: Difficulty.HARD,
+               key: "reverseStraight1Hard",
+            },
+            "reverseBankRight1Hard":
+            {
+               bearingKey: Bearing.BANK_RIGHT,
+               speed: -1,
+               difficultyKey: Difficulty.HARD,
+               radius: 82.6,
+               key: "reverseBankRight1Hard",
             },
             "segnorsLoopLeft2Hard":
             {

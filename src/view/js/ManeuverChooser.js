@@ -84,11 +84,11 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                   className: "maneuverCell b--xw-medium",
                }, speed));
 
-               if (speed === 0)
+               if (speed === 0 && maneuvers.includes(Maneuver.properties[Maneuver.STATIONARY_0_HARD]))
                {
                   maneuver = Maneuver.properties[Maneuver.STATIONARY_0_HARD];
                   difficulty = maneuver.difficultyKey;
-                  iconSrc = this.createManeuverIconSource(undefined, difficulty);
+                  iconSrc = this.createManeuverIconSource(undefined, speed, difficulty);
                   cells.push(DOM.td(
                   {
                      key: cells.length,
@@ -141,7 +141,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                            else
                            {
                               difficulty = maneuver.difficultyKey;
-                              iconSrc = this.createManeuverIconSource(bearing, difficulty);
+                              iconSrc = this.createManeuverIconSource(bearing, speed, difficulty);
                            }
 
                            image = DOM.img(
@@ -228,7 +228,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
             return answer;
          },
 
-         createManeuverIconSource: function(bearing, difficulty)
+         createManeuverIconSource: function(bearing, speed, difficulty)
          {
             var answer;
 
@@ -237,6 +237,10 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                var bearingName = bearing.replace(/L/g, "_l");
                bearingName = bearingName.replace(/R/g, "_r");
                bearingName = bearingName.replace("kTurn", "koiogran_turn");
+               if (speed < 0)
+               {
+                  bearingName = "reverse_" + bearingName;
+               }
                answer = this.props.resourceBase + "maneuver/" + bearingName + "_" + difficulty + "16.png";
             }
             else
