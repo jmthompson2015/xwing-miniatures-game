@@ -1,8 +1,8 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
-  "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseAction", "model/js/PlanningAction"],
-   function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseAction, PlanningAction)
+  "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseTask", "model/js/PlanningAction"],
+   function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseTask, PlanningAction)
    {
       function Engine(store, callback)
       {
@@ -24,13 +24,11 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
          var activationQueue = [];
          var combatQueue = [];
-         var endQueue = [];
          var decloakCount = 0;
 
          var planningPhaseCallback = this.performActivationPhase.bind(this);
          var activationPhaseCallback = this.performCombatPhase.bind(this);
          var combatPhaseCallback = this.performEndPhase.bind(this);
-         var endPhaseCallback = this.performPlanningPhase.bind(this);
 
          //////////////////////////////////////////////////////////////////////////
          // Mutator methods.
@@ -93,26 +91,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             }
 
             return decloakCount;
-         };
-
-         this.endPhaseCallback = function(callback)
-         {
-            if (callback !== undefined)
-            {
-               endPhaseCallback = callback;
-            }
-
-            return endPhaseCallback;
-         };
-
-         this.endQueue = function(queue)
-         {
-            if (queue !== undefined)
-            {
-               endQueue = queue;
-            }
-
-            return endQueue;
          };
 
          this.firstTokenToManeuver = function(tokenToManeuver)
@@ -475,11 +453,7 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
       Engine.prototype.performEndPhase = function(callback)
       {
-         // callback optional.
-         if (callback !== undefined)
-         {
-            this.endPhaseCallback(callback);
-         }
+         InputValidator.validateIsFunction("callback", callback);
 
          if (this.isGameOver())
          {
@@ -491,48 +465,21 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             var store = this.store();
             store.dispatch(Action.enqueuePhase(Phase.END_START));
 
-            var environment = this.environment();
-            this.endQueue(environment.getTokensForCombat());
-            this.processEndQueue();
+            var endTask = new EndPhaseTask(store);
+            var finishEndPhase = this.finishEndPhase.bind(this);
+            var phaseCallback = function()
+            {
+               finishEndPhase(callback);
+            };
+            endTask.doIt(phaseCallback);
          }
       };
 
-      Engine.prototype.processEndQueue = function()
+      Engine.prototype.finishEndPhase = function(callback)
       {
-         LOGGER.trace("Engine.processEndQueue() start");
+         InputValidator.validateIsFunction("callback", callback);
 
-         var store = this.store();
-         var environment = this.environment();
-
-         if (this.endQueue().length === 0)
-         {
-            environment.setActiveToken(undefined);
-            store.dispatch(Action.setUserMessage(""));
-            LOGGER.trace("Engine.processEndQueue() done");
-            store.dispatch(Action.enqueuePhase(Phase.END_END));
-            var endPhaseCallback = this.endPhaseCallback();
-            setTimeout(function()
-            {
-               endPhaseCallback();
-            }, this.delay());
-            return;
-         }
-
-         var token = this.endQueue().shift();
-
-         if (token)
-         {
-            environment.setActiveToken(token);
-
-            var action = new EndPhaseAction(environment, token, this.processEndQueue.bind(this));
-            action.doIt();
-         }
-         else
-         {
-            this.processEndQueue();
-         }
-
-         LOGGER.trace("Engine.processEndQueue() end");
+         callback();
       };
 
       //////////////////////////////////////////////////////////////////////////
