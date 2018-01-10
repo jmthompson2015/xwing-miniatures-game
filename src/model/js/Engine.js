@@ -1,8 +1,8 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
-  "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseTask", "model/js/PlanningPhaseTask"],
-   function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseTask, PlanningPhaseTask)
+  "model/js/Action", "model/js/ActivationPhaseTask", "model/js/CombatAction", "model/js/EndPhaseTask", "model/js/PlanningPhaseTask"],
+   function(InputValidator, Maneuver, Phase, Action, ActivationPhaseTask, CombatAction, EndPhaseTask, PlanningPhaseTask)
    {
       function Engine(store, callback)
       {
@@ -19,35 +19,11 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             return callback;
          };
 
-         var activationQueue = [];
          var combatQueue = [];
-         var decloakCount = 0;
-
-         var activationPhaseCallback = this.performCombatPhase.bind(this);
          var combatPhaseCallback = this.performEndPhase.bind(this);
 
          //////////////////////////////////////////////////////////////////////////
          // Mutator methods.
-
-         this.activationPhaseCallback = function(callback)
-         {
-            if (callback !== undefined)
-            {
-               activationPhaseCallback = callback;
-            }
-
-            return activationPhaseCallback;
-         };
-
-         this.activationQueue = function(queue)
-         {
-            if (queue !== undefined)
-            {
-               activationQueue = queue;
-            }
-
-            return activationQueue;
-         };
 
          this.combatPhaseCallback = function(callback)
          {
@@ -67,16 +43,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             }
 
             return combatQueue;
-         };
-
-         this.decloakCount = function(count)
-         {
-            if (count !== undefined)
-            {
-               decloakCount = count;
-            }
-
-            return decloakCount;
          };
       }
 
@@ -115,8 +81,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
          }
          else
          {
-            LOGGER.trace("Engine.performPlanningPhase() start");
-
             var store = this.store();
             store.dispatch(Action.enqueuePhase(Phase.PLANNING_START));
 
@@ -143,136 +107,38 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
          callback();
       };
 
-      Engine.prototype.performActivationPhase = function(activationCallback)
+      Engine.prototype.performActivationPhase = function(callback)
       {
-         if (activationCallback !== undefined)
-         {
-            this.activationPhaseCallback(activationCallback);
-         }
-
          if (this.isGameOver())
          {
             this.processGameOver();
          }
          else
          {
-            LOGGER.trace("Engine.performActivationPhase() start");
             var store = this.store();
             store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_START));
 
-            // FIXME: Perform start of activation phase actions.
-
-            // Perform decloak action for all ships.
-            this.decloakCount(0);
-            var environment = this.environment();
-            var tokens = environment.getTokensForActivation(true);
-
-            tokens.forEach(function(token)
+            var activationTask = new ActivationPhaseTask(store);
+            var finishActivationPhase = this.finishActivationPhase.bind(this);
+            var phaseCallback = function()
             {
-               if (token.isCloaked && token.isCloaked())
-               {
-                  LOGGER.debug("checking decloak for " + token);
-                  var agent = token.agent();
-                  agent.getDecloakAction(token, this.setDecloakAction.bind(this));
-
-                  // Wait for agent to respond.
-               }
-               else
-               {
-                  this.setDecloakAction(token);
-               }
-            }, this);
+               finishActivationPhase(callback);
+            };
+            activationTask.doIt(phaseCallback);
          }
       };
 
-      Engine.prototype.setDecloakAction = function(token, decloakAbility)
+      Engine.prototype.finishActivationPhase = function(callback)
       {
-         LOGGER.trace("Engine.setDecloakAction() start");
-
-         InputValidator.validateNotNull("token", token);
-
-         LOGGER.debug("token = " + token + " decloakAbility = " + decloakAbility);
-
-         if (decloakAbility !== undefined)
-         {
-            var consequent = decloakAbility.consequent();
-            var store = this.store();
-            consequent(store, token, this.finishDecloakAction.bind(this), decloakAbility.context());
-            LOGGER.debug("token.isCloaked() ? " + token.isCloaked());
-            LOGGER.debug("token.cloakCount() = " + token.cloakCount());
-         }
-         else
-         {
-            this.finishDecloakAction();
-         }
-
-         LOGGER.trace("Engine.setDecloakAction() end");
-      };
-
-      Engine.prototype.finishDecloakAction = function()
-      {
-         LOGGER.trace("Engine.finishDecloakAction() start");
-
-         this.decloakCount(this.decloakCount() + 1);
-         var environment = this.environment();
-
-         LOGGER.debug("this.decloakCount() = " + this.decloakCount());
-
-         if (this.decloakCount() === environment.pilotInstances().length)
-         {
-            this.activationQueue(environment.getTokensForActivation(true));
-            var function0 = this.processActivationQueue.bind(this);
-            setTimeout(function0, this.delay());
-         }
-
-         LOGGER.trace("Engine.finishDecloakAction() end");
-      };
-
-      Engine.prototype.processActivationQueue = function()
-      {
-         LOGGER.trace("Engine.processActivationQueue() start");
-
          var store = this.store();
-         var environment = this.environment();
+         store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_END));
 
-         LOGGER.debug("this.activationQueue().length = " + this.activationQueue().length);
-
-         if (this.activationQueue().length === 0)
+         if (callback === undefined)
          {
-            store.dispatch(Action.clearPilotToManeuver());
-
-            environment.setActiveToken(undefined);
-            store.dispatch(Action.setUserMessage(""));
-            LOGGER.trace("Engine.processActivationQueue() done");
-            store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_END));
-            var activationPhaseCallback = this.activationPhaseCallback();
-            setTimeout(function()
-            {
-               activationPhaseCallback();
-            }, this.delay());
-            return;
+            callback = this.performCombatPhase.bind(this);
          }
 
-         var token = this.activationQueue().shift();
-         environment.setActiveToken(token);
-         var myToken = token;
-
-         if (token.parent && token.card().key.endsWith("fore"))
-         {
-            myToken = token.parent;
-         }
-
-         var maneuverKey = store.getState().pilotToManeuver.get("" + myToken.id());
-         var activationAction = ActivationAction.create(store, token.id(), this.processActivationQueue.bind(this));
-         var maneuver = Maneuver.properties[maneuverKey];
-         store.dispatch(Action.setTokenManeuver(token, maneuver));
-
-         setTimeout(function()
-         {
-            activationAction.doIt();
-         }, this.delay());
-
-         LOGGER.trace("Engine.processActivationQueue() end");
+         callback();
       };
 
       Engine.prototype.performCombatPhase = function(callback)
@@ -377,7 +243,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
          }
          else
          {
-            LOGGER.trace("Engine.performEndPhase() start");
             var store = this.store();
             store.dispatch(Action.enqueuePhase(Phase.END_START));
 
