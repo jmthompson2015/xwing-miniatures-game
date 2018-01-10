@@ -90,7 +90,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
             var store = (tokens.length > 0 ? tokens[0].store() : undefined);
             var token = store.getState().environment.getTokenById(parseInt(tokenId));
             var tokenToManeuver = this.state.tokenToManeuver;
-            tokenToManeuver[token] = maneuverKey;
+            tokenToManeuver[token.id()] = maneuverKey;
 
             this.setState(
             {

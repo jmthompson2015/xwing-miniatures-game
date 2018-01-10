@@ -5,9 +5,11 @@ define(["common/js/InputValidator"], function(InputValidator)
    var Action = {};
 
    Action.ADD_AGENT = "addAgent";
+   Action.ADD_PILOT_TO_MANEUVER = "addPilotToManeuver";
    Action.ADD_TARGET_LOCK = "addTargetLock";
    Action.CLEAR_EVENT = "clearEvent";
    Action.CLEAR_PHASE = "clearPhase";
+   Action.CLEAR_PILOT_TO_MANEUVER = "clearPilotToManeuver";
    Action.DEQUEUE_EVENT = "dequeueEvent";
    Action.DEQUEUE_PHASE = "dequeuePhase";
    Action.ENQUEUE_EVENT = "enqueueEvent";
@@ -44,6 +46,17 @@ define(["common/js/InputValidator"], function(InputValidator)
       });
    };
 
+   Action.addPilotToManeuver = function(pilotToManeuver)
+   {
+      InputValidator.validateNotNull("pilotToManeuver", pilotToManeuver);
+
+      return (
+      {
+         type: Action.ADD_PILOT_TO_MANEUVER,
+         pilotToManeuver: pilotToManeuver,
+      });
+   };
+
    Action.addTargetLock = function(targetLock)
    {
       InputValidator.validateNotNull("targetLock", targetLock);
@@ -68,6 +81,14 @@ define(["common/js/InputValidator"], function(InputValidator)
       return (
       {
          type: Action.CLEAR_PHASE,
+      });
+   };
+
+   Action.clearPilotToManeuver = function()
+   {
+      return (
+      {
+         type: Action.CLEAR_PILOT_TO_MANEUVER,
       });
    };
 

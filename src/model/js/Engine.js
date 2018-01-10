@@ -1,8 +1,8 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
-  "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseTask", "model/js/PlanningAction"],
-   function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseTask, PlanningAction)
+  "model/js/Action", "model/js/ActivationAction", "model/js/CombatAction", "model/js/EndPhaseTask", "model/js/PlanningPhaseTask"],
+   function(InputValidator, Maneuver, Phase, Action, ActivationAction, CombatAction, EndPhaseTask, PlanningPhaseTask)
    {
       function Engine(store, callback)
       {
@@ -19,14 +19,10 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             return callback;
          };
 
-         var firstTokenToManeuver;
-         var secondTokenToManeuver;
-
          var activationQueue = [];
          var combatQueue = [];
          var decloakCount = 0;
 
-         var planningPhaseCallback = this.performActivationPhase.bind(this);
          var activationPhaseCallback = this.performCombatPhase.bind(this);
          var combatPhaseCallback = this.performEndPhase.bind(this);
 
@@ -51,16 +47,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             }
 
             return activationQueue;
-         };
-
-         this.clearFirstTokenToManeuver = function()
-         {
-            firstTokenToManeuver = undefined;
-         };
-
-         this.clearSecondTokenToManeuver = function()
-         {
-            secondTokenToManeuver = undefined;
          };
 
          this.combatPhaseCallback = function(callback)
@@ -92,36 +78,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
             return decloakCount;
          };
-
-         this.firstTokenToManeuver = function(tokenToManeuver)
-         {
-            if (tokenToManeuver !== undefined)
-            {
-               firstTokenToManeuver = tokenToManeuver;
-            }
-
-            return firstTokenToManeuver;
-         };
-
-         this.planningPhaseCallback = function(callback)
-         {
-            if (callback !== undefined)
-            {
-               planningPhaseCallback = callback;
-            }
-
-            return planningPhaseCallback;
-         };
-
-         this.secondTokenToManeuver = function(tokenToManeuver)
-         {
-            if (tokenToManeuver !== undefined)
-            {
-               secondTokenToManeuver = tokenToManeuver;
-            }
-
-            return secondTokenToManeuver;
-         };
       }
 
       //////////////////////////////////////////////////////////////////////////
@@ -151,21 +107,8 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
       //////////////////////////////////////////////////////////////////////////
       // Behavior methods.
 
-      Engine.prototype.performPlanningPhase = function(planningCallback, activationCallback)
+      Engine.prototype.performPlanningPhase = function(callback)
       {
-         // planningCallback optional.
-         // activationCallback optional.
-
-         if (planningCallback !== undefined)
-         {
-            this.planningPhaseCallback(planningCallback);
-         }
-
-         if (activationCallback !== undefined)
-         {
-            this.activationPhaseCallback(activationCallback);
-         }
-
          if (this.isGameOver())
          {
             this.processGameOver();
@@ -176,54 +119,37 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
             var store = this.store();
             store.dispatch(Action.enqueuePhase(Phase.PLANNING_START));
-            var environment = this.environment();
-            environment.incrementRound();
-            var adjudicator = this.adjudicator();
 
-            var firstAgent = environment.firstAgent();
-            var firstPlanningAction = new PlanningAction(environment, adjudicator, firstAgent, this.setTokenToManeuver.bind(this));
-            firstPlanningAction.doIt();
-
-            var secondAgent = environment.secondAgent();
-            var secondPlanningAction = new PlanningAction(environment, adjudicator, secondAgent, this.setTokenToManeuver.bind(this));
-            secondPlanningAction.doIt();
-
-            // Wait for agents to respond.
-         }
-      };
-
-      Engine.prototype.setTokenToManeuver = function(agent, tokenToManeuver)
-      {
-         var environment = this.environment();
-
-         if (agent === environment.firstAgent())
-         {
-            this.firstTokenToManeuver(tokenToManeuver);
-         }
-         else if (agent === environment.secondAgent())
-         {
-            this.secondTokenToManeuver(tokenToManeuver);
-         }
-         else
-         {
-            LOGGER.error("planningAction agent = " + agent);
-         }
-
-         if (this.firstTokenToManeuver() && this.secondTokenToManeuver())
-         {
-            LOGGER.trace("Engine.performPlanningPhase() end");
-            var store = this.store();
-            store.dispatch(Action.enqueuePhase(Phase.PLANNING_END));
-            var planningPhaseCallback = this.planningPhaseCallback();
-            setTimeout(function()
+            var planningTask = new PlanningPhaseTask(store);
+            var finishPlanningPhase = this.finishPlanningPhase.bind(this);
+            var phaseCallback = function()
             {
-               planningPhaseCallback();
-            }, this.delay());
+               finishPlanningPhase(callback);
+            };
+            planningTask.doIt(phaseCallback);
          }
       };
 
-      Engine.prototype.performActivationPhase = function()
+      Engine.prototype.finishPlanningPhase = function(callback)
       {
+         var store = this.store();
+         store.dispatch(Action.enqueuePhase(Phase.PLANNING_END));
+
+         if (callback === undefined)
+         {
+            callback = this.performActivationPhase.bind(this);
+         }
+
+         callback();
+      };
+
+      Engine.prototype.performActivationPhase = function(activationCallback)
+      {
+         if (activationCallback !== undefined)
+         {
+            this.activationPhaseCallback(activationCallback);
+         }
+
          if (this.isGameOver())
          {
             this.processGameOver();
@@ -297,7 +223,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             this.activationQueue(environment.getTokensForActivation(true));
             var function0 = this.processActivationQueue.bind(this);
             setTimeout(function0, this.delay());
-            // setTimeout(this.processActivationQueue.bind(this), this.delay());
          }
 
          LOGGER.trace("Engine.finishDecloakAction() end");
@@ -314,8 +239,7 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
          if (this.activationQueue().length === 0)
          {
-            this.clearFirstTokenToManeuver();
-            this.clearSecondTokenToManeuver();
+            store.dispatch(Action.clearPilotToManeuver());
 
             environment.setActiveToken(undefined);
             store.dispatch(Action.setUserMessage(""));
@@ -338,13 +262,7 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
             myToken = token.parent;
          }
 
-         var maneuverKey = this.firstTokenToManeuver()[myToken];
-
-         if (maneuverKey === undefined)
-         {
-            maneuverKey = this.secondTokenToManeuver()[myToken];
-         }
-
+         var maneuverKey = store.getState().pilotToManeuver.get("" + myToken.id());
          var activationAction = ActivationAction.create(store, token.id(), this.processActivationQueue.bind(this));
          var maneuver = Maneuver.properties[maneuverKey];
          store.dispatch(Action.setTokenManeuver(token, maneuver));
@@ -453,8 +371,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
       Engine.prototype.performEndPhase = function(callback)
       {
-         InputValidator.validateIsFunction("callback", callback);
-
          if (this.isGameOver())
          {
             this.processGameOver();
@@ -477,7 +393,13 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
       Engine.prototype.finishEndPhase = function(callback)
       {
-         InputValidator.validateIsFunction("callback", callback);
+         var store = this.store();
+         store.dispatch(Action.enqueuePhase(Phase.END_END));
+
+         if (callback === undefined)
+         {
+            callback = this.performPlanningPhase.bind(this);
+         }
 
          callback();
       };

@@ -82,7 +82,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator"],
          tokens.forEach(function(token)
          {
             var validManeuvers = tokenToValidManeuvers[token];
-            tokenToManeuver[token] = ArrayUtilities.randomElement(validManeuvers);
+            tokenToManeuver[token.id()] = ArrayUtilities.randomElement(validManeuvers);
          });
 
          callback(tokenToManeuver);

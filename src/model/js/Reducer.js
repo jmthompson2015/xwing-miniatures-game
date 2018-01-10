@@ -120,6 +120,12 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator", "ar
                   {
                      agents: state.agents.set(action.id, action.values),
                   });
+               case Action.ADD_PILOT_TO_MANEUVER:
+                  return Object.assign(
+                  {}, state,
+                  {
+                     pilotToManeuver: state.pilotToManeuver.merge(action.pilotToManeuver),
+                  });
                case Action.ADD_TARGET_LOCK:
                case Action.REMOVE_TARGET_LOCK:
                   return Object.assign(
@@ -140,6 +146,12 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator", "ar
                   {}, state,
                   {
                      phaseData: undefined,
+                  });
+               case Action.CLEAR_PILOT_TO_MANEUVER:
+                  return Object.assign(
+                  {}, state,
+                  {
+                     pilotToManeuver: Immutable.Map(),
                   });
                case Action.DEQUEUE_EVENT:
                   // LOGGER.info("EventQueue: (dequeue)");

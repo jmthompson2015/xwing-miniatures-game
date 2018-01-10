@@ -297,7 +297,7 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
                }
             }
 
-            tokenToManeuver[token] = myManeuver;
+            tokenToManeuver[token.id()] = myManeuver;
          }, this);
 
          callback(tokenToManeuver);

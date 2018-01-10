@@ -443,9 +443,9 @@ define(["qunit", "redux",
 
             // Verify.
             assert.ok(result);
-            assert.ok(result[token0]);
-            assert.ok(result[token1]);
-            assert.ok(!result[token2]);
+            assert.ok(result[token0.id()]);
+            assert.ok(result[token1.id()]);
+            assert.ok(!result[token2.id()]);
          }
 
          // Run.
@@ -479,9 +479,9 @@ define(["qunit", "redux",
 
             // Verify.
             assert.ok(result);
-            assert.ok(!result[token0]);
-            assert.ok(!result[token1]);
-            assert.ok(result[token2], maneuver2);
+            assert.ok(!result[token0.id()]);
+            assert.ok(!result[token1.id()]);
+            assert.ok(result[token2.id()], maneuver2);
          }
 
          // Run.
@@ -505,8 +505,8 @@ define(["qunit", "redux",
          {
             // Verify.
             assert.ok(planningAction);
-            assert.ok(planningAction[token]);
-            var maneuver = planningAction[token];
+            assert.ok(planningAction[token.id()]);
+            var maneuver = planningAction[token.id()];
             assert.ok(maneuver === Maneuver.STRAIGHT_1_EASY || maneuver === Maneuver.TURN_RIGHT_2_STANDARD);
          }
 
@@ -562,12 +562,12 @@ define(["qunit", "redux",
          secondAgent = environment.secondAgent();
          var token = environment.pilotInstances()[1];
          Adjudicator.create(store);
-         var callback = function(tokenToManeuver)
+         var callback = function(pilotToManeuver)
          {
             // Verify.
-            assert.ok(tokenToManeuver);
-            assert.ok(tokenToManeuver[token]);
-            assert.equal(tokenToManeuver[token], Maneuver.STRAIGHT_3_EASY);
+            assert.ok(pilotToManeuver);
+            assert.ok(pilotToManeuver[token.id()]);
+            assert.equal(pilotToManeuver[token.id()], Maneuver.STRAIGHT_3_EASY);
          };
 
          // Run.

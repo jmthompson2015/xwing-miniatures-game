@@ -13,6 +13,7 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.phaseData = undefined;
       this.phaseKey = Phase.SETUP;
       this.phaseQueue = Immutable.List();
+      this.pilotToManeuver = Immutable.Map();
       this.resourceBase = "view/resource/";
       this.userMessage = "";
       this.winner = undefined;

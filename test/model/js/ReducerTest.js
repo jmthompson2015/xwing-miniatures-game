@@ -9,6 +9,24 @@ define(["immutable", "qunit", "redux",
    {
       QUnit.module("Reducer");
 
+      QUnit.test("addPilotToManeuver()", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var pilotToManeuver = {};
+         pilotToManeuver[1] = Maneuver.STRAIGHT_1_STANDARD;
+         pilotToManeuver[2] = Maneuver.BANK_RIGHT_2_STANDARD;
+
+         // Run.
+         store.dispatch(Action.addPilotToManeuver(pilotToManeuver));
+
+         // Verify.
+         var result = store.getState().pilotToManeuver;
+         assert.ok(result);
+         assert.equal(result.get("1"), Maneuver.STRAIGHT_1_STANDARD);
+         assert.equal(result.get("2"), Maneuver.BANK_RIGHT_2_STANDARD);
+      });
+
       QUnit.test("addTargetLock()", function(assert)
       {
          // Setup.

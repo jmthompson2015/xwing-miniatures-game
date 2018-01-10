@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CardInstance", "model/js/Engine", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardAction",
+  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CardInstance", "model/js/Engine", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, DamageCard, PilotCard, UpgradeCard,
-      Action, Adjudicator, Agent, CardInstance, Engine, Environment, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, CardAction,
+      Action, Adjudicator, Agent, CardInstance, Engine, Environment, EnvironmentAction, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, CardAction,
       EnvironmentFactory)
    {
       QUnit.module("Engine");
@@ -28,7 +28,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
 
          // Run.
          var done = assert.async();
-         engine.performPlanningPhase(undefined, callback);
+         engine.performPlanningPhase(callback);
       });
 
       QUnit.test("performActivationPhase() Huge", function(assert)
@@ -48,7 +48,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
 
          // Run.
          var done = assert.async();
-         engine.performPlanningPhase(undefined, callback);
+         engine.performPlanningPhase(callback);
       });
 
       QUnit.test("performActivationPhase() decloak", function(assert)
@@ -108,7 +108,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
 
          // Run.
          var done = assert.async();
-         engine.performPlanningPhase(undefined, callback);
+         engine.performPlanningPhase(callback);
       });
 
       QUnit.test("performCombatPhase()", function(assert)
@@ -340,12 +340,23 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
          {
             LOGGER.info("performActivationPhase() dummy");
          };
+         var store = engine.store();
+         var environment = store.getState().environment;
          var callback = function()
          {
             // Verify.
             assert.ok(true, "test resumed from async operation");
-            assert.ok(engine.firstTokenToManeuver());
-            assert.ok(engine.secondTokenToManeuver());
+            var pilotInstances = environment.pilotInstances();
+            var pilotToManeuver = store.getState().pilotToManeuver;
+            assert.ok(pilotToManeuver);
+            var keys = pilotToManeuver.keySeq().toArray();
+            assert.ok(keys);
+            assert.equal(keys.length, pilotInstances.length);
+            keys.forEach(function(key)
+            {
+               assert.ok(pilotToManeuver.get(key));
+            });
+
             done();
          };
 
