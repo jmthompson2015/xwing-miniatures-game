@@ -21,7 +21,7 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHea
                type = ability.trait;
                if (ability.hasAction)
                {
-                  action = "Action: " + ability.actionDescription;
+                  action = ability.actionDescription;
                }
                break;
             case "PilotCard":
@@ -31,9 +31,8 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHea
                type = ability.typeKey;
                if (ability.header !== undefined)
                {
-                  var header = UpgradeHeader.properties[ability.headerKey];
                   description = undefined;
-                  action = header.name + ": " + ability.description;
+                  action = ability.description;
                }
                break;
          }

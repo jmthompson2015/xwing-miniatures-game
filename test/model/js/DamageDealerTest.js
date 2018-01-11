@@ -61,7 +61,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
          damageDealer.dealDamage();
 
          // Verify.
-         assert.equal(defender.damageCount() + defender.criticalDamageCount(), 2);
+         assert.ok([2, 3].includes(defender.damageCount() + defender.criticalDamageCount()));
       });
 
       QUnit.test("dealDamage() Determination", function(assert)

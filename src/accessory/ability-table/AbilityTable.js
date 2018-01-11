@@ -32,18 +32,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
             answer = answer.replace(/\"/, "");
             return answer;
          },
-         "description": function(data)
-         {
-            var answer = data.description;
-            if (data.isFlavorText)
-            {
-               answer = DOM.span(
-               {
-                  className: "flavorText",
-               }, data.description);
-            }
-            return answer;
-         },
          "event": function(data)
          {
             if (data.event)
@@ -137,6 +125,40 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                   {
                      className: "textImageLink",
                   }, data.name, link);
+               },
+               "description": function(data)
+               {
+                  var answer;
+                  if (data.isFlavorText)
+                  {
+                     answer = DOM.span(
+                     {
+                        className: "flavorText i",
+                     }, data.description);
+                  }
+                  else
+                  {
+                     answer = DOM.span(
+                     {
+                        dangerouslySetInnerHTML:
+                        {
+                           __html: data.description,
+                        },
+                        // value: data.description,
+                     });
+                  }
+                  return answer;
+               },
+               "action": function(data)
+               {
+                  return DOM.span(
+                  {
+                     dangerouslySetInnerHTML:
+                     {
+                        __html: data.action,
+                     },
+                     //  value: data.description,
+                  });
                },
                "event": function(data)
                {
