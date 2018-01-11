@@ -1,8 +1,8 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
-  "model/js/Action", "model/js/ActivationPhaseTask", "model/js/CombatAction", "model/js/EndPhaseTask", "model/js/PlanningPhaseTask"],
-   function(InputValidator, Maneuver, Phase, Action, ActivationPhaseTask, CombatAction, EndPhaseTask, PlanningPhaseTask)
+define(["common/js/InputValidator", "artifact/js/Phase",
+  "model/js/Action", "model/js/ActivationPhaseTask", "model/js/CombatPhaseTask", "model/js/EndPhaseTask", "model/js/PlanningPhaseTask"],
+   function(InputValidator, Phase, Action, ActivationPhaseTask, CombatPhaseTask, EndPhaseTask, PlanningPhaseTask)
    {
       function Engine(store, callback)
       {
@@ -17,32 +17,6 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
          this.callback = function()
          {
             return callback;
-         };
-
-         var combatQueue = [];
-         var combatPhaseCallback = this.performEndPhase.bind(this);
-
-         //////////////////////////////////////////////////////////////////////////
-         // Mutator methods.
-
-         this.combatPhaseCallback = function(callback)
-         {
-            if (callback !== undefined)
-            {
-               combatPhaseCallback = callback;
-            }
-
-            return combatPhaseCallback;
-         };
-
-         this.combatQueue = function(queue)
-         {
-            if (queue !== undefined)
-            {
-               combatQueue = queue;
-            }
-
-            return combatQueue;
          };
       }
 
@@ -143,96 +117,36 @@ define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase",
 
       Engine.prototype.performCombatPhase = function(callback)
       {
-         // callback optional.
-         if (callback !== undefined)
-         {
-            this.combatPhaseCallback(callback);
-         }
-
-         var environment = this.environment();
-
          if (this.isGameOver())
          {
             this.processGameOver();
          }
          else
          {
-            LOGGER.trace("Engine.performCombatPhase() start");
-            this.combatQueue(environment.getTokensForCombat());
-            var processCombatQueue = this.processCombatQueue.bind(this);
-            this.startOrEndPhase(Phase.COMBAT_START, processCombatQueue);
-         }
-      };
-
-      Engine.prototype.processCombatQueue = function()
-      {
-         LOGGER.trace("Engine.processCombatQueue() start");
-
-         var store = this.store();
-         var environment = this.environment();
-         var adjudicator = this.adjudicator();
-
-         if (this.combatQueue().length === 0)
-         {
-            environment.setActiveToken(undefined);
-            store.dispatch(Action.setUserMessage(""));
-            LOGGER.trace("Engine.processCombatQueue() done");
-            var combatPhaseCallback = this.combatPhaseCallback();
-            this.startOrEndPhase(Phase.COMBAT_END, combatPhaseCallback);
-            return;
-         }
-
-         var attacker = this.combatQueue().shift();
-
-         if (attacker)
-         {
-            environment.setActiveToken(attacker);
-
-            if (adjudicator.canAttack(attacker))
+            var store = this.store();
+            var finishCombatPhase = this.finishCombatPhase.bind(this);
+            var startOrEndPhaseCallback = function()
             {
-               // Perform combat steps.
-               LOGGER.debug("attacker = " + attacker.name());
-
-               // Declare target.
-               var agent = attacker.agent();
-               agent.chooseWeaponAndDefender(attacker, this.setWeaponAndDefender.bind(this));
-
-               // Wait for agent to respond.
-            }
-            else
-            {
-               // Proceed.
-               setTimeout(this.processCombatQueue.bind(this), this.delay());
-            }
-         }
-
-         LOGGER.trace("Engine.processCombatQueue() end");
-      };
-
-      Engine.prototype.setWeaponAndDefender = function(weapon, defender)
-      {
-         if (weapon && defender)
-         {
-            var environment = this.environment();
-            var attacker = environment.activeCardInstance();
-
-            if (defender)
-            {
-               var store = this.store();
-               store.dispatch(Action.setUserMessage(attacker + " fires upon " + defender));
-
-               var combatAction = new CombatAction(store, attacker, weapon, defender, this.processCombatQueue.bind(this));
-
-               setTimeout(function()
+               var combatTask = new CombatPhaseTask(store);
+               var phaseCallback = function()
                {
-                  combatAction.doIt();
-               }, this.delay());
-            }
+                  finishCombatPhase(callback);
+               };
+               combatTask.doIt(phaseCallback);
+            };
+
+            this.startOrEndPhase(Phase.COMBAT_START, startOrEndPhaseCallback);
          }
-         else
+      };
+
+      Engine.prototype.finishCombatPhase = function(callback)
+      {
+         if (callback === undefined)
          {
-            this.processCombatQueue();
+            callback = this.performEndPhase.bind(this);
          }
+
+         this.startOrEndPhase(Phase.COMBAT_END, callback);
       };
 
       Engine.prototype.performEndPhase = function(callback)
