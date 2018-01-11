@@ -36,8 +36,10 @@ define(["model/js/EntityFilter", "model/js/RangeFilter", "accessory/ability-tabl
          {
             this.entityColumns.push(TableColumns[0]); // deck
             this.entityColumns.push(TableColumns[1]); // type
-            this.entityColumns.push(TableColumns[5]); // isImplemented
-            this.entityColumns.push(TableColumns[6]); // event
+            this.entityColumns.push(TableColumns[6]); // isImplemented
+            this.entityColumns.push(TableColumns[7]); // event
+
+            this.rangeColumns.push(TableColumns[3]); // count
          },
       };
 

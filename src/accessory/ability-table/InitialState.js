@@ -1,14 +1,40 @@
 "use strict";
 
-define(["common/js/InputValidator",
-  "artifact/js/ConditionCard", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard", "model/js/EntityFilter", "model/js/RangeFilter",
+define(["redux", "common/js/InputValidator",
+  "artifact/js/ConditionCard", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
+  "model/js/Agent", "model/js/EntityFilter", "model/js/RangeFilter", "model/js/Reducer", "model/js/SquadBuilder",
   "accessory/ability-table/DefaultFilters", "accessory/ability-table/TableRow"],
-   function(InputValidator, ConditionCard, DamageCard, PilotCard, UpgradeCard, EntityFilter, RangeFilter, DefaultFilters, TableRow)
+   function(Redux, InputValidator, ConditionCard, DamageCard, PilotCard, UpgradeCard, Agent, EntityFilter, RangeFilter, Reducer, SquadBuilder, DefaultFilters, TableRow)
    {
       function InitialState()
       {
          this.tableRows = [];
          this.filteredTableRows = [];
+
+         var damageKeysV2 = DamageCard.keysV2();
+         var pilots = {};
+         var upgrades = {};
+         var store = Redux.createStore(Reducer.root);
+         var agent = new Agent(store, "dummy");
+         var count;
+
+         SquadBuilder.SquadBuilders.forEach(function(squadBuilder)
+         {
+            var squad = squadBuilder.buildSquad(agent);
+            squad.tokens().forEach(function(pilotInstance)
+            {
+               var pilotKey = pilotInstance.card().key;
+               count = (pilots[pilotKey] !== undefined ? pilots[pilotKey] : 0);
+               pilots[pilotKey] = count + 1;
+
+               pilotInstance.upgrades().forEach(function(upgradeInstance)
+               {
+                  var upgradeKey = upgradeInstance.card().key;
+                  count = (upgrades[upgradeKey] !== undefined ? upgrades[upgradeKey] : 0);
+                  upgrades[upgradeKey] = count + 1;
+               });
+            });
+         });
 
          ConditionCard.keys().forEach(function(conditionKey)
          {
@@ -21,7 +47,8 @@ define(["common/js/InputValidator",
          DamageCard.keys().forEach(function(damageKey)
          {
             var damage = DamageCard.properties[damageKey];
-            var tableRows = TableRow.createTableRow(damage, "DamageCard");
+            var count = (damageKeysV2.includes(damageKey) ? 1 : undefined);
+            var tableRows = TableRow.createTableRow(damage, "DamageCard", count);
             this.tableRows.push(tableRows);
             this.filteredTableRows.push(tableRows);
          }, this);
@@ -29,7 +56,8 @@ define(["common/js/InputValidator",
          PilotCard.keys().forEach(function(pilotKey)
          {
             var pilot = PilotCard.properties[pilotKey];
-            var tableRows = TableRow.createTableRow(pilot, "PilotCard");
+            var count = pilots[pilotKey];
+            var tableRows = TableRow.createTableRow(pilot, "PilotCard", count);
             this.tableRows.push(tableRows);
             this.filteredTableRows.push(tableRows);
          }, this);
@@ -37,7 +65,8 @@ define(["common/js/InputValidator",
          UpgradeCard.keys().forEach(function(upgradeKey)
          {
             var upgrade = UpgradeCard.properties[upgradeKey];
-            var tableRows = TableRow.createTableRow(upgrade, "UpgradeCard");
+            var count = upgrades[upgradeKey];
+            var tableRows = TableRow.createTableRow(upgrade, "UpgradeCard", count);
             this.tableRows.push(tableRows);
             this.filteredTableRows.push(tableRows);
          }, this);

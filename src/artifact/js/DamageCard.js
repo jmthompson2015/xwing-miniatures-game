@@ -170,7 +170,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "blindedPilotV2":
             {
-               name: "Blinded Pilot",
+               name: "Blinded Pilot v2",
                trait: DamageCardTrait.PILOT,
                description: "You cannot perform attacks.<br /><br />After your next opportunity to attack (even if there was no target for an attack), flip this card facedown.",
                image: "damage-decks/core-tfa/blinded-pilot.png",
@@ -178,7 +178,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "consoleFireV2":
             {
-               name: "Console Fire",
+               name: "Console Fire v2",
                trait: DamageCardTrait.SHIP,
                description: "At the start of each Combat phase, roll 1 attack die. On a [Hit] result, suffer 1 damage.<br /><br />",
                hasAction: true,
@@ -189,7 +189,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "damagedCockpitV2":
             {
-               name: "Damaged Cockpit",
+               name: "Damaged Cockpit v2",
                trait: DamageCardTrait.PILOT,
                description: "Starting the round after your receive this card, your pilot skill value is treated as \"0.\"",
                image: "damage-decks/core-tfa/damaged-cockpit.png",
@@ -197,7 +197,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "damagedEngineV2":
             {
-               name: "Damaged Engine",
+               name: "Damaged Engine v2",
                trait: DamageCardTrait.SHIP,
                description: "Treat all turn maneuvers ([Turn Left] or [Turn Right]) as red maneuvers.",
                image: "damage-decks/core-tfa/damaged-engine.png",
@@ -206,7 +206,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "damagedSensorArrayV2":
             {
-               name: "Damaged Sensor Array",
+               name: "Damaged Sensor Array v2",
                trait: DamageCardTrait.SHIP,
                description: "You cannot perform any actions except actions listed on Damage cards.<br /><br />",
                hasAction: true,
@@ -217,7 +217,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "directHitV2":
             {
-               name: "Direct Hit!",
+               name: "Direct Hit! v2",
                trait: DamageCardTrait.SHIP,
                description: "This card counts as <strong>2 damage</strong> against your hull.",
                image: "damage-decks/core-tfa/direct-hit.png",
@@ -226,7 +226,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "looseStabilizerV2":
             {
-               name: "Loose Stabilizer",
+               name: "Loose Stabilizer v2",
                trait: DamageCardTrait.SHIP,
                description: "After you execute a white maneuver, receive 1 stress token.<br /><br />",
                hasAction: true,
@@ -237,7 +237,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "majorExplosionV2":
             {
-               name: "Major Explosion",
+               name: "Major Explosion v2",
                trait: DamageCardTrait.SHIP,
                description: "Roll 1 attack die. On a [Hit] result, suffer 1 critical damage.<br /><br />Then flip this card facedown.",
                image: "damage-decks/core-tfa/major-explosion.png",
@@ -246,7 +246,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "majorHullBreachV2":
             {
-               name: "Major Hull Breach",
+               name: "Major Hull Breach v2",
                trait: DamageCardTrait.SHIP,
                description: "Starting the round after you receive this card, all Damage cards dealt to you are dealt faceup.<br /><br />",
                hasAction: true,
@@ -256,7 +256,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "shakenPilotV2":
             {
-               name: "Shaken Pilot",
+               name: "Shaken Pilot v2",
                trait: DamageCardTrait.PILOT,
                description: "During the Planning phase, you cannot be assigned straight ([Straight]) maneuvers.<br /><br />When you reveal your dial, flip this card facedown.",
                image: "damage-decks/core-tfa/shaken-pilot.png",
@@ -265,7 +265,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "structuralDamageV2":
             {
-               name: "Structural Damage",
+               name: "Structural Damage v2",
                trait: DamageCardTrait.SHIP,
                description: "Reduce your agility value by 1 (to a minimum of \"0\").<br /><br />",
                agilityValue: -1,
@@ -277,7 +277,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "stunnedPilotV2":
             {
-               name: "Stunned Pilot",
+               name: "Stunned Pilot v2",
                trait: DamageCardTrait.PILOT,
                description: "After you execute a maneuver, if you are touching another ship or overlapping an obstacle token, suffer 1 damage.",
                image: "damage-decks/core-tfa/stunned-pilot.png",
@@ -285,7 +285,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "thrustControlFireV2":
             {
-               name: "Thrust Control Fire",
+               name: "Thrust Control Fire v2",
                trait: DamageCardTrait.SHIP,
                description: "Receive 1 stress token.<br /><br />Then flip this card facedown.",
                image: "damage-decks/core-tfa/thrust-control-fire.png",
@@ -294,7 +294,7 @@ define(["common/js/ArrayUtilities", "artifact/js/CardType", "artifact/js/DamageC
             },
             "weaponsFailureV2":
             {
-               name: "Weapons Failure",
+               name: "Weapons Failure v2",
                trait: DamageCardTrait.SHIP,
                description: "When attacking, roll 1 fewer attack die.<br /><br />",
                hasAction: true,

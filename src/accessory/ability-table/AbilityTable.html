@@ -43,35 +43,11 @@
         var resourceBase = "../../../src/view/resource/";
         var store = Redux.createStore(Reducer.root);
 
-        var implementedCount = ConditionCard.keys().reduce(function(accumulator, conditionKey)
+        var implementedCount = store.getState().filteredTableRows.reduce(function(accumulator, tableRow)
         {
-          var condition = ConditionCard.properties[conditionKey];
-          return accumulator + (condition.isImplemented ? 1 : 0);
+          return accumulator + (tableRow.isImplemented ? 1 : 0);
         }, 0);
-
-        implementedCount += DamageCard.keys().reduce(function(accumulator, damageKey)
-        {
-          var damage = DamageCard.properties[damageKey];
-          return accumulator + (damage.isImplemented ? 1 : 0);
-        }, 0);
-
-        var abilityCount = DamageCard.keys().length;
-
-        implementedCount += PilotCard.keys().reduce(function(accumulator, pilotKey)
-        {
-          var pilot = PilotCard.properties[pilotKey];
-          return accumulator + (pilot.isImplemented ? 1 : 0);
-        }, 0);
-
-        abilityCount += PilotCard.keys().length;
-
-        implementedCount += UpgradeCard.keys().reduce(function(accumulator, upgradeKey)
-        {
-          var upgrade = UpgradeCard.properties[upgradeKey];
-          return accumulator + (upgrade.isImplemented ? 1 : 0);
-        }, 0);
-
-        abilityCount += UpgradeCard.keys().length;
+        var abilityCount = store.getState().filteredTableRows.length;
 
         var ratio = MathUtilities.round(100.0 * implementedCount / abilityCount, 0);
         document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +

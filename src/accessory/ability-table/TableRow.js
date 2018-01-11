@@ -5,10 +5,11 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHea
    {
       var TableRow = {};
 
-      TableRow.createTableRow = function(ability, deck)
+      TableRow.createTableRow = function(ability, deck, count)
       {
          InputValidator.validateNotNull("ability", ability);
          InputValidator.validateNotNull("deck", deck);
+         // count optional
 
          var type;
          var description = ability.description;
@@ -45,6 +46,7 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHea
             deck: deck,
             type: type,
             name: ability.name,
+            count: count,
             description: description,
             isFlavorText: isFlavorText,
             action: action,
