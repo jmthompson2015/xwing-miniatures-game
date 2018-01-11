@@ -56,29 +56,29 @@ define(["common/js/InputValidator", "artifact/js/Phase",
          else
          {
             var store = this.store();
-            store.dispatch(Action.enqueuePhase(Phase.PLANNING_START));
-
-            var planningTask = new PlanningPhaseTask(store);
             var finishPlanningPhase = this.finishPlanningPhase.bind(this);
-            var phaseCallback = function()
+            var startOrEndPhaseCallback = function()
             {
-               finishPlanningPhase(callback);
+               var planningTask = new PlanningPhaseTask(store);
+               var phaseCallback = function()
+               {
+                  finishPlanningPhase(callback);
+               };
+               planningTask.doIt(phaseCallback);
             };
-            planningTask.doIt(phaseCallback);
+
+            this.startOrEndPhase(Phase.PLANNING_START, startOrEndPhaseCallback);
          }
       };
 
       Engine.prototype.finishPlanningPhase = function(callback)
       {
-         var store = this.store();
-         store.dispatch(Action.enqueuePhase(Phase.PLANNING_END));
-
          if (callback === undefined)
          {
             callback = this.performActivationPhase.bind(this);
          }
 
-         callback();
+         this.startOrEndPhase(Phase.PLANNING_END, callback);
       };
 
       Engine.prototype.performActivationPhase = function(callback)
@@ -90,29 +90,29 @@ define(["common/js/InputValidator", "artifact/js/Phase",
          else
          {
             var store = this.store();
-            store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_START));
-
-            var activationTask = new ActivationPhaseTask(store);
             var finishActivationPhase = this.finishActivationPhase.bind(this);
-            var phaseCallback = function()
+            var startOrEndPhaseCallback = function()
             {
-               finishActivationPhase(callback);
+               var activationTask = new ActivationPhaseTask(store);
+               var phaseCallback = function()
+               {
+                  finishActivationPhase(callback);
+               };
+               activationTask.doIt(phaseCallback);
             };
-            activationTask.doIt(phaseCallback);
+
+            this.startOrEndPhase(Phase.ACTIVATION_START, startOrEndPhaseCallback);
          }
       };
 
       Engine.prototype.finishActivationPhase = function(callback)
       {
-         var store = this.store();
-         store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_END));
-
          if (callback === undefined)
          {
             callback = this.performCombatPhase.bind(this);
          }
 
-         callback();
+         this.startOrEndPhase(Phase.ACTIVATION_END, callback);
       };
 
       Engine.prototype.performCombatPhase = function(callback)
@@ -158,29 +158,29 @@ define(["common/js/InputValidator", "artifact/js/Phase",
          else
          {
             var store = this.store();
-            store.dispatch(Action.enqueuePhase(Phase.END_START));
-
-            var endTask = new EndPhaseTask(store);
             var finishEndPhase = this.finishEndPhase.bind(this);
-            var phaseCallback = function()
+            var startOrEndPhaseCallback = function()
             {
-               finishEndPhase(callback);
+               var endTask = new EndPhaseTask(store);
+               var phaseCallback = function()
+               {
+                  finishEndPhase(callback);
+               };
+               endTask.doIt(phaseCallback);
             };
-            endTask.doIt(phaseCallback);
+
+            this.startOrEndPhase(Phase.END_START, startOrEndPhaseCallback);
          }
       };
 
       Engine.prototype.finishEndPhase = function(callback)
       {
-         var store = this.store();
-         store.dispatch(Action.enqueuePhase(Phase.END_END));
-
          if (callback === undefined)
          {
             callback = this.performPlanningPhase.bind(this);
          }
 
-         callback();
+         this.startOrEndPhase(Phase.END_END, callback);
       };
 
       //////////////////////////////////////////////////////////////////////////
