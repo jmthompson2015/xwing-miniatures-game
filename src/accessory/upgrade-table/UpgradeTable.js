@@ -97,6 +97,16 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                      className: "textImageLink dib w-100",
                   }, data.name, link);
                },
+               "description": function(data)
+               {
+                  return DOM.span(
+                  {
+                     dangerouslySetInnerHTML:
+                     {
+                        __html: data.description,
+                     },
+                  });
+               },
                "isImplemented": function(data)
                {
                   return React.createElement(ImplementedImage,

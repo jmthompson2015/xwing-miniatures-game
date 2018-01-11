@@ -93,13 +93,23 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                },
                "description": function(data)
                {
-                  var answer = data.description;
+                  var answer;
                   if (data.isFlavorText)
                   {
                      answer = DOM.span(
                      {
                         className: "flavorText i",
                      }, data.description);
+                  }
+                  else
+                  {
+                     answer = DOM.span(
+                     {
+                        dangerouslySetInnerHTML:
+                        {
+                           __html: data.description,
+                        },
+                     });
                   }
                   return answer;
                },

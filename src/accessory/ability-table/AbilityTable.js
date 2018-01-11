@@ -144,7 +144,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                         {
                            __html: data.description,
                         },
-                        // value: data.description,
                      });
                   }
                   return answer;
@@ -157,7 +156,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "rea
                      {
                         __html: data.action,
                      },
-                     //  value: data.description,
                   });
                },
                "event": function(data)
