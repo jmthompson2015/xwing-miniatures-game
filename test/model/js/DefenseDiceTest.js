@@ -51,6 +51,22 @@ define(["qunit", "redux", "artifact/js/DefenseDiceValue", "model/js/Action", "mo
          assert.ok(dice.value(2));
       });
 
+      QUnit.test("addDie()", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var attackerId = 1;
+         var dice = new DefenseDice(store, attackerId, 1);
+         assert.equal(dice.size(), 1);
+
+         // Run.
+         dice.addDie();
+
+         // Verify.
+         assert.equal(dice.size(), 2);
+         assert.ok(DefenseDiceValue.keys().includes(dice.value(1)));
+      });
+
       QUnit.test("blankCount()", function(assert)
       {
          // Setup.

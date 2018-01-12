@@ -107,6 +107,15 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
       //////////////////////////////////////////////////////////////////////////
       // Mutator methods.
 
+      DefenseDice.prototype.addDie = function(value)
+      {
+         // value optional.
+
+         var myValue = (value !== undefined ? value : DefenseDice.rollRandomValue());
+         var newValues = this.values().push(myValue);
+         this.save(newValues);
+      };
+
       DefenseDice.prototype.changeAllToValue = function(oldValue, newValue)
       {
          var oldValues = this.values();

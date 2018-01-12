@@ -4,9 +4,9 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Phase", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
+  "artifact/js/AttackDiceValue", "artifact/js/DefenseDiceValue", "artifact/js/Faction", "artifact/js/Phase", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeType",
   "model/js/Ability", "model/js/Action", "model/js/AttackDice", "model/js/CardAction", "model/js/CombatAction", "model/js/DefenseDice", "model/js/RangeRuler", "model/js/Selector", "model/js/ShipActionAbility", "model/js/TargetLock"],
-   function(InputValidator, AttackDiceValue, DefenseDiceValue, Phase, Range, ShipAction, UpgradeCard, UpgradeType,
+   function(InputValidator, AttackDiceValue, DefenseDiceValue, Faction, Phase, Range, ShipAction, UpgradeCard, UpgradeType,
       Ability, Action, AttackDice, CardAction, CombatAction, DefenseDice, RangeRuler, Selector, ShipActionAbility, TargetLock)
    {
       var UpgradeAbility3 = {};
@@ -547,6 +547,38 @@ define(["common/js/InputValidator",
             var attacker = getActiveCardInstance(store);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.changeOneToValue(DefenseDiceValue.BLANK, DefenseDiceValue.EVADE);
+            callback();
+         },
+      };
+
+      UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.CROSSFIRE_FORMATION] = {
+         // When defending, if there is at least 1 other friendly Resistance ship at Range 1-2 of the attacker, you may add 1 Focus result to your roll.
+         condition: function(store, token)
+         {
+            var attacker = getActiveCardInstance(store);
+            var defender = getDefender(attacker);
+            var defenders = [];
+
+            if (token.equals(defender))
+            {
+               var environment = store.getState().environment;
+               var attackerPosition = environment.getPositionFor(attacker);
+               var ranges = [Range.ONE, Range.TWO];
+               defenders = environment.getDefenders(attacker).filter(function(myDefender)
+               {
+                  var isResistance = myDefender.card().shipFaction.factionKey === Faction.RESISTANCE;
+                  var myDefenderPosition = environment.getPositionFor(myDefender);
+                  var range = RangeRuler.getRange(attacker, attackerPosition, myDefender, myDefenderPosition);
+                  return myDefender !== defender && isResistance && ranges.includes(range);
+               });
+            }
+            return token.equals(defender) && defenders.length > 0;
+         },
+         consequent: function(store, token, callback)
+         {
+            var attacker = getActiveCardInstance(store);
+            var defenseDice = getDefenseDice(attacker);
+            defenseDice.addDie(DefenseDiceValue.FOCUS);
             callback();
          },
       };

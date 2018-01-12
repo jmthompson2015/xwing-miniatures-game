@@ -1339,6 +1339,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/crossfire-formation.png",
                squadPointCost: 2,
                wave: "13",
+               isImplemented: true,
                key: "crossfireFormation",
             },
             "cruiseMissiles":
