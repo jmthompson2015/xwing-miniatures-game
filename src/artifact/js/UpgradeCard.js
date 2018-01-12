@@ -4246,6 +4246,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/tie-shuttle.png",
                squadPointCost: 0,
                wave: "Aces",
+               isImplemented: true,
                key: "tieShuttle",
             },
             "tieV1":

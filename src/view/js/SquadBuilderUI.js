@@ -643,6 +643,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                answer = this.removeAll(answer, UpgradeType.TORPEDO);
                answer = this.removeAll(answer, UpgradeType.MISSILE);
                answer = this.removeAll(answer, UpgradeType.BOMB);
+               // FIXME: You cannot equip a [Crew] Upgrade card that costs more than 4 squad points.
                answer.push(UpgradeType.CREW);
                answer.push(UpgradeType.CREW);
             }
