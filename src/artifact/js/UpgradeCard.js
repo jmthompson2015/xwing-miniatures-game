@@ -3982,6 +3982,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/st-321.png",
                squadPointCost: 3,
                wave: "3",
+               isImplemented: true,
                key: "st321",
             },
             "starViperMkii":

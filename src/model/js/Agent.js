@@ -339,7 +339,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
                   // FIXME: implement ship action rotate arc.
                   break;
                case ShipAction.TARGET_LOCK:
-                  var defenders = environment.getDefendersInRange(token);
+                  var defenders = (token.isUpgradedWith(UpgradeCard.ST_321) ? environment.getDefenders(token) : environment.getDefendersInRange(token));
                   defenders.forEach(function(defender)
                   {
                      // Only put choices without a current target lock.
