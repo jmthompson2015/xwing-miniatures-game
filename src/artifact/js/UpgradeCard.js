@@ -1237,6 +1237,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/concord-dawn-protector.png",
                squadPointCost: 1,
                wave: "9",
+               isImplemented: true,
                key: "concordDawnProtector",
             },
             "concussionMissiles":

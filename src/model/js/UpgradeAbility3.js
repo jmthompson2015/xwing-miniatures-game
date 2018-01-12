@@ -551,6 +551,30 @@ define(["common/js/InputValidator",
          },
       };
 
+      UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.CONCORD_DAWN_PROTECTOR] = {
+         // When defending, if you are inside the attacker's firing arc and at Range 1, and the attacker is inside your firing arc, add 1 Evade result.
+         condition: function(store, token)
+         {
+            var attacker = getActiveCardInstance(store);
+            var defender = getDefender(attacker);
+            var isInFiringArcAttacker = isInFiringArc(attacker);
+            var isRange1 = (getRangeKey(attacker) === Range.ONE);
+            var weapon = defender.primaryWeapon();
+            var environment = store.getState().environment;
+            var attackerPosition = environment.getPositionFor(attacker);
+            var defenderPosition = environment.getPositionFor(defender);
+            var isInFiringArcDefender = weapon.isDefenderInFiringArc(defenderPosition, weapon.primaryFiringArc(), attacker, attackerPosition);
+            return token.equals(defender) && isInFiringArcAttacker && isRange1 && isInFiringArcDefender;
+         },
+         consequent: function(store, token, callback)
+         {
+            var attacker = getActiveCardInstance(store);
+            var defenseDice = getDefenseDice(attacker);
+            defenseDice.addDie(DefenseDiceValue.EVADE);
+            callback();
+         },
+      };
+
       UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.CROSSFIRE_FORMATION] = {
          // When defending, if there is at least 1 other friendly Resistance ship at Range 1-2 of the attacker, you may add 1 Focus result to your roll.
          condition: function(store, token)
