@@ -178,6 +178,16 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       {
          var answer = this._bonusValue(Value.PILOT_SKILL);
 
+         if (this.isUpgradedWith(UpgradeCard.ADAPTABILITY_DECREASE))
+         {
+            answer--;
+         }
+
+         if (this.isUpgradedWith(UpgradeCard.ADAPTABILITY_INCREASE))
+         {
+            answer++;
+         }
+
          if (this.card().key === PilotCard.EPSILON_ACE)
          {
             var damageCount = this.damageCount();

@@ -403,6 +403,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Elite/adaptability-decrease.png",
                squadPointCost: 0,
                wave: "8",
+               isImplemented: true,
                key: "adaptabilityDecrease",
             },
             "adaptabilityIncrease":
@@ -414,6 +415,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Elite/adaptability-increase.png",
                squadPointCost: 0,
                wave: "8",
+               isImplemented: true,
                key: "adaptabilityIncrease",
             },
             "adaptiveAilerons":
@@ -3347,6 +3349,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Astromech/r2-d2.png",
                squadPointCost: 4,
                wave: "0",
+               isImplemented: true,
                key: "r2D2_astromech",
             },
             "r2D2_crew":
