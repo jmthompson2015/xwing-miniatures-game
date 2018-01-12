@@ -571,9 +571,15 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
                answer.push(UpgradeType.CREW);
             }
 
+            if (upgradeKeys.includes(UpgradeCard.CAD_BANE))
+            {
+               answer.push(UpgradeType.BOMB);
+            }
+
             if (upgradeKeys.includes(UpgradeCard.HAVOC))
             {
                answer.push(UpgradeType.SYSTEM);
+               // FIXME: You cannot equip non-unique [Salvaged Astromech] Upgrade cards.
                answer.push(UpgradeType.SALVAGED_ASTROMECH);
                ArrayUtilities.remove(answer, UpgradeType.CREW);
             }
@@ -617,6 +623,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             if (upgradeKeys.includes(UpgradeCard.SMUGGLING_COMPARTMENT))
             {
                answer.push(UpgradeType.ILLICIT);
+               // FIXME: You may equip 1 additional Modification upgrade that costs 3 or fewer squad points.
                answer.push(UpgradeType.MODIFICATION);
             }
 
@@ -642,6 +649,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
 
             if (upgradeKeys.includes(UpgradeCard.TIE_X1))
             {
+               // FIXME: If you equip a [System] upgrade, its squad point cost is reduced by 4 (to a minimum of 0).
                answer.push(UpgradeType.SYSTEM);
             }
 
@@ -661,6 +669,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "red
             {
                answer.push(UpgradeType.SYSTEM);
                answer.push(UpgradeType.ILLICIT);
+            }
+
+            if (upgradeKeys.includes(UpgradeCard.XG_1_ASSAULT_CONFIGURATION))
+            {
+               answer.push(UpgradeType.CANNON);
+               answer.push(UpgradeType.CANNON);
             }
 
             answer.sort(UpgradeTypeComparator);

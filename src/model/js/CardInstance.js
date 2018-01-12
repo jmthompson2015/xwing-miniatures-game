@@ -164,7 +164,14 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
 
       CardInstance.prototype.bonusHullValue = function()
       {
-         return this._bonusValue(Value.HULL);
+         var answer = this._bonusValue(Value.HULL);
+
+         if (this.isUpgradedWith(UpgradeCard.HEAVY_SCYK_INTERCEPTOR))
+         {
+            answer++;
+         }
+
+         return answer;
       };
 
       CardInstance.prototype.bonusPilotSkillValue = function()
@@ -819,9 +826,14 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
                ArrayUtilities.remove(answer, ShipAction.CLOAK);
             }
 
-            if (this.isUpgradedWith(UpgradeCard.MIST_HUNTER))
+            if (this.isUpgradedWith(UpgradeCard.BROADCAST_ARRAY))
             {
-               answer.push(ShipAction.BARREL_ROLL);
+               answer.push(ShipAction.JAM);
+            }
+
+            if (this.isUpgradedWith(UpgradeCard.BURNOUT_SLAM))
+            {
+               answer.push(ShipAction.SLAM);
             }
 
             if (this.isUpgradedWith(UpgradeCard.ENGINE_UPGRADE))
@@ -834,14 +846,19 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
                answer.push(ShipAction.EVADE);
             }
 
-            if (this.isUpgradedWith(UpgradeCard.BROADCAST_ARRAY))
+            if (this.isUpgradedWith(UpgradeCard.MIST_HUNTER))
             {
-               answer.push(ShipAction.JAM);
+               answer.push(ShipAction.BARREL_ROLL);
             }
 
             if (this.isUpgradedWith(UpgradeCard.TARGETING_COMPUTER))
             {
                answer.push(ShipAction.TARGET_LOCK);
+            }
+
+            if (this.isUpgradedWith(UpgradeCard.VECTORED_THRUSTERS))
+            {
+               answer.push(ShipAction.BARREL_ROLL);
             }
          }
 

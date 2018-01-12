@@ -490,7 +490,7 @@ define(["qunit", "redux",
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
             assert.ok(defender.damageCount() + defender.criticalDamageCount() > 0);
-            assert.equal(defender.stressCount(), 1, "defender.stressCount() === 1");
+            assert.ok([1, 2].includes(defender.stressCount()), "defender.stressCount() === 1 | 2 actual " + defender.stressCount());
             done();
          };
          var combatAction = createCombatActionRange2(upgradeKey, callback);

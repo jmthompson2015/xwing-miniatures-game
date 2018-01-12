@@ -2073,6 +2073,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/havoc.png",
                squadPointCost: 0,
                wave: "11",
+               isImplemented: true,
                key: "havoc",
             },
             "heavyLaserCannon":
@@ -2115,6 +2116,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/heavy-scyk-interceptor.png",
                squadPointCost: 2,
                wave: "6",
+               isImplemented: true,
                key: "heavyScykInterceptor",
             },
             "heraSyndulla":
@@ -2866,6 +2868,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/merchant-one.png",
                squadPointCost: 2,
                wave: "Aces",
+               isImplemented: true,
                key: "merchantOne",
             },
             "millenniumFalcon":
@@ -3702,6 +3705,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/sabines-masterpiece.png",
                squadPointCost: 1,
                wave: "10",
+               isImplemented: true,
                key: "sabinesMasterpiece",
             },
             "saboteur":
@@ -3916,6 +3920,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Modification/smuggling-compartment.png",
                squadPointCost: 0,
                wave: "Aces",
+               isImplemented: true,
                key: "smugglingCompartment",
             },
             "snapShot":
@@ -4261,6 +4266,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/tie-x1.png",
                squadPointCost: 0,
                wave: "Aces",
+               isImplemented: true,
                key: "tieX1",
             },
             "tieX7":
@@ -4398,6 +4404,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Title/vaksai.png",
                squadPointCost: 0,
                wave: "Aces",
+               isImplemented: true,
                key: "vaksai",
             },
             "vector":
@@ -4422,6 +4429,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Modification/vectored-thrusters.png",
                squadPointCost: 2,
                wave: "9",
+               isImplemented: true,
                key: "vectoredThrusters",
             },
             "veteranInstincts":
