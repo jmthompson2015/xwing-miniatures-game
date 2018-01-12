@@ -29,12 +29,10 @@
   <script>
     "use strict";
 
-    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathUtilities",
-        "artifact/js/ConditionCard", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
+    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "controller/js/AbilityCountContainer",
         "accessory/ability-table/AbilityTableContainer", "accessory/ability-table/Reducer"
       ],
-      function(React, ReactDOM, ReactRedux, Redux, Logger, MathUtilities,
-        ConditionCard, DamageCard, PilotCard, UpgradeCard, AbilityTableContainer, Reducer)
+      function(React, ReactDOM, ReactRedux, Redux, Logger, AbilityCountContainer, AbilityTableContainer, Reducer)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -43,17 +41,14 @@
         var resourceBase = "../../../src/view/resource/";
         var store = Redux.createStore(Reducer.root);
 
-        var implementedCount = store.getState().filteredTableRows.reduce(function(accumulator, tableRow)
+        var element0 = React.createElement(ReactRedux.Provider,
         {
-          return accumulator + (tableRow.isImplemented ? 1 : 0);
-        }, 0);
-        var abilityCount = store.getState().filteredTableRows.length;
+          store: store,
+        }, React.createElement(AbilityCountContainer));
 
-        var ratio = MathUtilities.round(100.0 * implementedCount / abilityCount, 0);
-        document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
-          abilityCount + " = " + ratio + "%";
+        ReactDOM.render(element0, document.getElementById("implementedStatistics"));
 
-        var element = React.createElement(ReactRedux.Provider,
+        var element1 = React.createElement(ReactRedux.Provider,
         {
           store: store,
         }, React.createElement(AbilityTableContainer,
@@ -61,7 +56,7 @@
           resourceBase: resourceBase,
         }));
 
-        ReactDOM.render(element, document.getElementById("tableContainer"));
+        ReactDOM.render(element1, document.getElementById("tableContainer"));
       });
   </script>
 </body>
