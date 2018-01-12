@@ -13,6 +13,23 @@ define(["common/js/InputValidator",
       var UpgradeAbility4 = {};
 
       ////////////////////////////////////////////////////////////////////////
+      UpgradeAbility4[Phase.END_START] = {};
+
+      UpgradeAbility4[Phase.END_START][UpgradeCard.PULSED_RAY_SHIELD] = {
+         // During the End phase, you may receive 1 ion token to recover 1 shield (up to your shield value). You can equip this upgrade only if your shield value is "1".
+         condition: function(store, token)
+         {
+            return isActiveCardInstance(store, token) && token.shieldCount() < token.shieldValue();
+         },
+         consequent: function(store, token, callback)
+         {
+            store.dispatch(CardAction.addIonCount(token));
+            token.recoverShield();
+            callback();
+         },
+      };
+
+      ////////////////////////////////////////////////////////////////////////
       UpgradeAbility4[Phase.END_CLEAN_UP] = {};
 
       UpgradeAbility4[Phase.END_CLEAN_UP][UpgradeCard.QUANTUM_STORM] = {

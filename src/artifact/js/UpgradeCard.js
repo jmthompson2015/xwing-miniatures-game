@@ -3262,6 +3262,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Modification/pulsed-ray-shield.png",
                squadPointCost: 2,
                wave: "Aces",
+               isImplemented: true,
                key: "pulsedRayShield",
             },
             "punishingOne":

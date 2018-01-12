@@ -59,83 +59,91 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHea
          {
             patterns: ["squad point cost", "you may equip", "your action bar gains", /your.*upgrade bar gains/],
             event: "SquadBuilder",
-            },
+         },
+         {
+            patterns: ["during setup"],
+            event: "Phase.setup",
+         },
          {
             patterns: ["after acquiring a target lock", /after you acquire.*target lock/],
             event: "Event.targetLockAcquired",
-            },
+         },
          {
             patterns: [/when performing.*(boost|barrel roll|decloak)/, /when you.*(boost|barrel roll|decloak)/],
             event: "Event.afterExecuteManeuver",
-            },
+         },
          {
             patterns: [/when you are dealt.*damage card/],
             event: "Event.receiveDamage",
-            },
+         },
          {
             patterns: ["when you receive a stress token", /each time you are assigned.*stress/],
             event: "Event.receiveStress",
-            },
+         },
          {
             patterns: ["after you remove a stress token"],
             event: "Event.removeStress",
-            },
+         },
          {
-            patterns: ["at the start of the activation phase"],
+            patterns: ["at the start of the planning phase", "during the planning phase"],
+            event: "Phase.planningStart",
+         },
+         {
+            patterns: ["at the start of the activation phase", "during the activation phase"],
             event: "Phase.activationStart",
-            },
+         },
          {
             patterns: [/when you reveal.*maneuver/],
             event: "Phase.activationRevealDial",
-            },
+         },
          {
             patterns: [/you may execute.*maneuver/],
             event: "Phase.activationSetTemplate",
-            },
+         },
          {
             patterns: [/treat.*maneuvers.*as (green|white|red) maneuvers/],
             event: "Phase.activationCheckPilotStress",
-            },
+         },
          {
             patterns: [/after executing.*maneuver/, /after you execute.*maneuver/],
             event: "Phase.activationCleanUp",
-            },
+         },
          {
             patterns: ["during your \"perform action\" step"],
             event: "Phase.activationPerformAction",
-            },
+         },
          {
             patterns: ["at the end of the activation phase"],
             event: "Phase.activationEnd",
-            },
+         },
          {
-            patterns: [/at the start of (each|the) combat phase/],
+            patterns: [/at the start of (each|the) combat phase/, "during the combat phase"],
             event: "Phase.combatStart",
-            },
+         },
          {
             patterns: ["when attacking"],
             event: "Phase.combatModifyAttackDice",
-            },
+         },
          {
             patterns: ["when defending"],
             event: "Phase.combatModifyDefenseDice",
-            },
+         },
          {
             patterns: ["after performing an attack", /(after|when) you perform an attack/, "after defending"],
             event: "Phase.combatAfterDealDamage",
-            },
+         },
          {
             patterns: ["at the end of the combat phase"],
             event: "Phase.combatEnd",
-            },
+         },
          {
-            patterns: ["at the start of the end phase"],
+            patterns: ["at the start of the end phase", "during the end phase"],
             event: "Phase.endStart",
-            },
+         },
          {
             patterns: ["at the end of the end phase"],
             event: "Phase.endEnd",
-            },
+         },
         ];
 
       function determineEvent(ability, description)
