@@ -30,9 +30,9 @@
     "use strict";
 
     require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathUtilities", "artifact/js/DamageCard",
-        "accessory/damage-table/DamageTableContainer", "accessory/damage-table/Reducer"
+        "controller/js/AbilityCountContainer", "accessory/damage-table/DamageTableContainer", "accessory/damage-table/Reducer"
       ],
-      function(React, ReactDOM, ReactRedux, Redux, Logger, MathUtilities, DamageCard, DamageTableContainer, Reducer)
+      function(React, ReactDOM, ReactRedux, Redux, Logger, MathUtilities, DamageCard, AbilityCountContainer, DamageTableContainer, Reducer)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -40,16 +40,15 @@
 
         var resourceBase = "../../../src/view/resource/";
         var store = Redux.createStore(Reducer.root);
-        var implementedCount = DamageCard.keys().reduce(function(previousValue, damage)
-        {
-          return previousValue + (DamageCard.properties[damage].isImplemented ? 1 : 0);
-        }, 0);
-        var damageCount = DamageCard.keys().length;
-        var ratio = MathUtilities.round(100.0 * implementedCount / damageCount, 0);
-        document.getElementById("implementedStatistics").innerHTML = "Implemented " + implementedCount + " / " +
-          damageCount + " = " + ratio + "%";
 
-        var element = React.createElement(ReactRedux.Provider,
+        var element0 = React.createElement(ReactRedux.Provider,
+        {
+          store: store,
+        }, React.createElement(AbilityCountContainer));
+
+        ReactDOM.render(element0, document.getElementById("implementedStatistics"));
+
+        var element1 = React.createElement(ReactRedux.Provider,
         {
           store: store,
         }, React.createElement(DamageTableContainer,
@@ -57,7 +56,7 @@
           resourceBase: resourceBase,
         }));
 
-        ReactDOM.render(element, document.getElementById("tableContainer"));
+        ReactDOM.render(element1, document.getElementById("tableContainer"));
       });
   </script>
 </body>
