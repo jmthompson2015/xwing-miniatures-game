@@ -272,7 +272,7 @@ define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "ar
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.equal(token0.shieldCount(), 0, "token0.shieldCount() === 0");
-            assert.ok([1, 2, 4].includes(token0.damageCount()), "token0.damageCount() === 1 | 2 actual " + token0.damageCount());
+            assert.ok([1, 2, 3, 4].includes(token0.damageCount()), "token0.damageCount() === 1 | 2 | 3 | 4 actual " + token0.damageCount());
             assert.equal(token0.evadeCount(), 0, "token0.evadeCount() === 0");
             done();
          };
