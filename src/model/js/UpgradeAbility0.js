@@ -5,10 +5,10 @@
 
 define(["common/js/InputValidator",
   "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/ActivationAction", "model/js/CardAction", "model/js/ShipActionAbility"],
+  "model/js/Ability", "model/js/ActivationAction", "model/js/CardAction", "model/js/EnvironmentAction", "model/js/ShipActionAbility"],
    function(InputValidator,
       Difficulty, Event, Maneuver, ShipAction, UpgradeCard,
-      Ability, ActivationAction, CardAction, ShipActionAbility)
+      Ability, ActivationAction, CardAction, EnvironmentAction, ShipActionAbility)
    {
       var UpgradeAbility0 = {};
 
@@ -75,6 +75,48 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             token.recoverShield();
+            callback();
+         },
+      };
+
+      ////////////////////////////////////////////////////////////////////////
+      UpgradeAbility0[Event.RECEIVE_CRITICAL_DAMAGE] = {};
+
+      UpgradeAbility0[Event.RECEIVE_CRITICAL_DAMAGE][UpgradeCard.CHEWBACCA] = {
+         // When you are dealt a Damage card, you may immediately discard that card and recover 1 shield. Then, discard this Upgrade card.
+         condition: function(store, token)
+         {
+            return isEventToken(store, token);
+         },
+         consequent: function(store, token, callback)
+         {
+            var criticalDamages = token.criticalDamages();
+            var damageInstance = criticalDamages[criticalDamages.length - 1];
+            store.dispatch(EnvironmentAction.discardDamage(damageInstance));
+            token.recoverShield();
+            var upgradeInstance = token.upgrade(UpgradeCard.CHEWBACCA);
+            token.discardUpgrade(upgradeInstance);
+            callback();
+         },
+      };
+
+      ////////////////////////////////////////////////////////////////////////
+      UpgradeAbility0[Event.RECEIVE_DAMAGE] = {};
+
+      UpgradeAbility0[Event.RECEIVE_DAMAGE][UpgradeCard.CHEWBACCA] = {
+         // When you are dealt a Damage card, you may immediately discard that card and recover 1 shield. Then, discard this Upgrade card.
+         condition: function(store, token)
+         {
+            return isEventToken(store, token);
+         },
+         consequent: function(store, token, callback)
+         {
+            var criticalDamages = token.criticalDamages();
+            var damageInstance = criticalDamages[criticalDamages.length - 1];
+            store.dispatch(EnvironmentAction.discardDamage(damageInstance));
+            token.recoverShield();
+            var upgradeInstance = token.upgrade(UpgradeCard.CHEWBACCA);
+            token.discardUpgrade(upgradeInstance);
             callback();
          },
       };

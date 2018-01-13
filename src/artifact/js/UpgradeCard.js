@@ -1095,6 +1095,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Crew/chewbacca.png",
                squadPointCost: 4,
                wave: "2",
+               isImplemented: true,
                key: "chewbacca",
             },
             "chopper_astromech":
@@ -4347,6 +4348,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Modification/twin-ion-engine-mkii.png",
                squadPointCost: 1,
                wave: "7",
+               isImplemented: true,
                key: "twinIonEngineMkii",
             },
             "twinLaserTurret":
