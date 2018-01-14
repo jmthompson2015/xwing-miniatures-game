@@ -7,9 +7,7 @@
 define(["common/js/InputValidator", "common/js/MathUtilities",
   "artifact/js/Bearing", "artifact/js/Maneuver", "artifact/js/PlayFormat", "artifact/js/ShipBase",
   "model/js/Path", "model/js/Position", "model/js/RectanglePath"],
-   function(InputValidator, MathUtilities,
-      Bearing, Maneuver, PlayFormat, ShipBase,
-      Path, Position, RectanglePath)
+   function(InputValidator, MathUtilities, Bearing, Maneuver, PlayFormat, ShipBase, Path, Position, RectanglePath)
    {
       var ManeuverComputer = {};
 
@@ -139,7 +137,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
          var lastY;
          var x, y, factor;
 
-         if (bearingKey === Bearing.BARREL_ROLL_LEFT || bearingKey === Bearing.BARREL_ROLL_RIGHT)
+         if ([Bearing.BARREL_ROLL_LEFT, Bearing.BARREL_ROLL_RIGHT].includes(bearingKey))
          {
             factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
             y = factor * baseSize;
@@ -155,79 +153,82 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
             lastY = 0.0;
          }
 
-         // Middle segments: follow the arc.
-         switch (bearingKey)
+         if (speed !== 0)
          {
-            case Bearing.STRAIGHT:
-            case Bearing.KOIOGRAN_TURN:
-               x = lastX;
-               for (var i = 0; i < speed; i++)
-               {
-                  x += 40;
-                  answer.add(x, 0.0);
-               }
-               lastX = x;
-               break;
-            case Bearing.BANK_LEFT:
-            case Bearing.BANK_RIGHT:
-            case Bearing.SEGNORS_LOOP_LEFT:
-            case Bearing.SEGNORS_LOOP_RIGHT:
-               var last = ManeuverComputer._addSegments(maneuver, answer, lastX, 45, 3 + speed);
-               lastX = last.x;
-               lastY = last.y;
-               break;
-            case Bearing.TURN_LEFT:
-            case Bearing.TURN_RIGHT:
-            case Bearing.TALLON_ROLL_LEFT:
-            case Bearing.TALLON_ROLL_RIGHT:
-               last = ManeuverComputer._addSegments(maneuver, answer, lastX, 90, 5 + speed);
-               lastX = last.x;
-               lastY = last.y;
-               break;
-            case Bearing.BARREL_ROLL_LEFT:
-            case Bearing.BARREL_ROLL_RIGHT:
-               factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
-               y = lastY;
-               for (var j = 0; j < speed; j++)
-               {
-                  y += factor * 40;
-                  answer.add(0.0, y);
-               }
-               lastY = y;
-               break;
-         }
+            // Middle segments: follow the arc.
+            switch (bearingKey)
+            {
+               case Bearing.STRAIGHT:
+               case Bearing.KOIOGRAN_TURN:
+                  x = lastX;
+                  for (var i = 0; i < speed; i++)
+                  {
+                     x += 40;
+                     answer.add(x, 0.0);
+                  }
+                  lastX = x;
+                  break;
+               case Bearing.BANK_LEFT:
+               case Bearing.BANK_RIGHT:
+               case Bearing.SEGNORS_LOOP_LEFT:
+               case Bearing.SEGNORS_LOOP_RIGHT:
+                  var last = ManeuverComputer._addSegments(maneuver, answer, lastX, 45, 3 + speed);
+                  lastX = last.x;
+                  lastY = last.y;
+                  break;
+               case Bearing.TURN_LEFT:
+               case Bearing.TURN_RIGHT:
+               case Bearing.TALLON_ROLL_LEFT:
+               case Bearing.TALLON_ROLL_RIGHT:
+                  last = ManeuverComputer._addSegments(maneuver, answer, lastX, 90, 5 + speed);
+                  lastX = last.x;
+                  lastY = last.y;
+                  break;
+               case Bearing.BARREL_ROLL_LEFT:
+               case Bearing.BARREL_ROLL_RIGHT:
+                  factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
+                  y = lastY;
+                  for (var j = 0; j < speed; j++)
+                  {
+                     y += factor * 40;
+                     answer.add(0.0, y);
+                  }
+                  lastY = y;
+                  break;
+            }
 
-         // Last segment: move base center.
-         switch (bearingKey)
-         {
-            case Bearing.STRAIGHT:
-            case Bearing.KOIOGRAN_TURN:
-               x = baseSize + lastX;
-               answer.add(x, 0.0);
-               break;
-            case Bearing.BANK_LEFT:
-            case Bearing.BANK_RIGHT:
-            case Bearing.SEGNORS_LOOP_LEFT:
-            case Bearing.SEGNORS_LOOP_RIGHT:
-               factor = (bearingKey === Bearing.BANK_RIGHT || bearingKey === Bearing.SEGNORS_LOOP_RIGHT ? 1.0 : -1.0);
-               x = (baseSize * Math.cos(Math.PI / 4.0)) + lastX;
-               y = (factor * baseSize * Math.cos(Math.PI / 4.0)) + lastY;
-               answer.add(x, y);
-               break;
-            case Bearing.TURN_LEFT:
-            case Bearing.TURN_RIGHT:
-            case Bearing.TALLON_ROLL_LEFT:
-            case Bearing.TALLON_ROLL_RIGHT:
-               factor = (bearingKey === Bearing.TURN_RIGHT ? 1.0 : -1.0);
-               y = (factor * baseSize) + lastY;
-               answer.add(lastX, y);
-               break;
-            case Bearing.BARREL_ROLL_LEFT:
-            case Bearing.BARREL_ROLL_RIGHT:
-               factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
-               y = factor * baseSize + lastY;
-               answer.add(0.0, y);
-               break;
+            // Last segment: move base center.
+            switch (bearingKey)
+            {
+               case Bearing.STRAIGHT:
+               case Bearing.KOIOGRAN_TURN:
+                  x = baseSize + lastX;
+                  answer.add(x, 0.0);
+                  break;
+               case Bearing.BANK_LEFT:
+               case Bearing.BANK_RIGHT:
+               case Bearing.SEGNORS_LOOP_LEFT:
+               case Bearing.SEGNORS_LOOP_RIGHT:
+                  factor = ([Bearing.BANK_RIGHT, Bearing.SEGNORS_LOOP_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
+                  x = (baseSize * Math.cos(Math.PI / 4.0)) + lastX;
+                  y = (factor * baseSize * Math.cos(Math.PI / 4.0)) + lastY;
+                  answer.add(x, y);
+                  break;
+               case Bearing.TURN_LEFT:
+               case Bearing.TURN_RIGHT:
+               case Bearing.TALLON_ROLL_LEFT:
+               case Bearing.TALLON_ROLL_RIGHT:
+                  factor = ([Bearing.TURN_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
+                  y = (factor * baseSize) + lastY;
+                  answer.add(lastX, y);
+                  break;
+               case Bearing.BARREL_ROLL_LEFT:
+               case Bearing.BARREL_ROLL_RIGHT:
+                  factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
+                  y = factor * baseSize + lastY;
+                  answer.add(0.0, y);
+                  break;
+            }
          }
 
          // Rotate and translate to fromPosition.
@@ -323,8 +324,8 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
                y1 = 0.0;
 
                // Curve.
-               factor = (bearingKey === Bearing.BANK_RIGHT ? 1.0 : -1.0);
-               angle = headingChange * Math.PI / 180.0;
+               factor = ([Bearing.BANK_RIGHT, Bearing.SEGNORS_LOOP_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
+               angle = factor * 45.0 * Math.PI / 180.0;
                x2 = speedFactor * radius * Math.cos(angle);
                y2 = speedFactor * factor * radius * (1.0 - (Math.sin(angle) * factor));
 
@@ -336,25 +337,6 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
                dy = y1 + y2 + y3;
             }
          }
-         else if ([Bearing.SEGNORS_LOOP_LEFT, Bearing.SEGNORS_LOOP_RIGHT].includes(bearingKey))
-         {
-            // Half base.
-            x1 = baseSize;
-            y1 = 0.0;
-
-            // Curve.
-            factor = (bearingKey === Bearing.SEGNORS_LOOP_RIGHT ? 1.0 : -1.0);
-            angle = factor * 45.0 * Math.PI / 180.0;
-            x2 = radius * Math.cos(angle);
-            y2 = factor * radius * (1.0 - (Math.sin(angle) * factor));
-
-            // Half base.
-            x3 = baseSize * Math.cos(angle);
-            y3 = baseSize * Math.sin(angle);
-
-            dx = x1 + x2 + x3;
-            dy = y1 + y2 + y3;
-         }
          else if (bearingKey && maneuver.bearing.isTurn)
          {
             // Half base.
@@ -362,26 +344,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
             y1 = 0.0;
 
             // Curve.
-            factor = (bearingKey === Bearing.TURN_RIGHT ? 1.0 : -1.0);
-            angle = headingChange * Math.PI / 180.0;
-            x2 = radius;
-            y2 = factor * radius;
-
-            // Half base.
-            x3 = baseSize * Math.cos(angle);
-            y3 = baseSize * Math.sin(angle);
-
-            dx = x1 + x2 + x3;
-            dy = y1 + y2 + y3;
-         }
-         else if ([Bearing.TALLON_ROLL_LEFT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey))
-         {
-            // Half base.
-            x1 = baseSize;
-            y1 = 0.0;
-
-            // Curve.
-            factor = (bearingKey === Bearing.TALLON_ROLL_RIGHT ? 1.0 : -1.0);
+            factor = ([Bearing.TURN_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
             angle = factor * 90.0 * Math.PI / 180.0;
             x2 = radius;
             y2 = factor * radius;
@@ -493,8 +456,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
          var bearingKey = maneuver.bearingKey;
          var radius = maneuver.radius;
 
-         var factor = ((bearingKey === Bearing.BANK_RIGHT) ||
-            (bearingKey === Bearing.TURN_RIGHT || bearingKey === Bearing.SEGNORS_LOOP_RIGHT || bearingKey === Bearing.TALLON_ROLL_RIGHT) ? 1.0 : -1.0);
+         var factor = ([Bearing.BANK_RIGHT, Bearing.TURN_RIGHT, Bearing.SEGNORS_LOOP_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
          var deltaAngle = (heading * Math.PI / 180) / segmentCount;
 
          var myLastX = lastX;

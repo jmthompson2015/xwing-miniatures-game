@@ -79,12 +79,14 @@ define(function()
          {
             name: "Segnor's Loop Left",
             headingChange: 135,
+            isBank: true,
             key: "segnorsLoopLeft",
          },
          "tallonRollLeft":
          {
             name: "Tallon Roll Left",
             headingChange: 180,
+            isTurn: true,
             key: "tallonRollLeft",
          },
          "kTurn":
@@ -103,12 +105,14 @@ define(function()
          {
             name: "Segnor's Loop Right",
             headingChange: 225,
+            isBank: true,
             key: "segnorsLoopRight",
          },
          "tallonRollRight":
          {
             name: "Tallon Roll Right",
             headingChange: 180,
+            isTurn: true,
             key: "tallonRollRight",
          },
       },

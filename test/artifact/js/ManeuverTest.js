@@ -1,7 +1,7 @@
 "use strict";
 
-define(["qunit", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Maneuver"],
-   function(QUnit, Bearing, Difficulty, Maneuver)
+define(["qunit", "artifact/js/BasicManeuver", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Maneuver"],
+   function(QUnit, BasicManeuver, Bearing, Difficulty, Maneuver)
    {
       QUnit.module("Maneuver");
 
@@ -9,6 +9,7 @@ define(["qunit", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/M
       {
          var maneuver = Maneuver.STRAIGHT_1_STANDARD;
          var properties = Maneuver.properties[maneuver];
+         assert.equal(properties.basicManeuverKey, BasicManeuver.STRAIGHT_1);
          assert.equal(properties.bearingKey, Bearing.STRAIGHT);
          assert.equal(properties.speed, 1);
          assert.equal(properties.energy, undefined);
@@ -20,6 +21,7 @@ define(["qunit", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/M
       {
          var maneuver = Maneuver.STRAIGHT_1_3;
          var properties = Maneuver.properties[maneuver];
+         assert.equal(properties.basicManeuverKey, BasicManeuver.STRAIGHT_1_3);
          assert.equal(properties.bearingKey, Bearing.STRAIGHT);
          assert.equal(properties.speed, 1);
          assert.equal(properties.energy, 3);
@@ -29,12 +31,22 @@ define(["qunit", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/M
 
       QUnit.test("Maneuver.find()", function(assert)
       {
+         assert.equal(Maneuver.find(Bearing.STRAIGHT, 0, Difficulty.HARD), Maneuver.STATIONARY_0_HARD);
+
+         assert.equal(Maneuver.find(Bearing.TURN_LEFT, 1, Difficulty.HARD), Maneuver.TURN_LEFT_1_HARD);
+         assert.equal(Maneuver.find(Bearing.BANK_LEFT, 1, Difficulty.STANDARD), Maneuver.BANK_LEFT_1_STANDARD);
          assert.equal(Maneuver.find(Bearing.STRAIGHT, 1, Difficulty.EASY), Maneuver.STRAIGHT_1_EASY);
+         assert.equal(Maneuver.find(Bearing.BANK_RIGHT, 1, Difficulty.STANDARD), Maneuver.BANK_RIGHT_1_STANDARD);
+         assert.equal(Maneuver.find(Bearing.TURN_RIGHT, 1, Difficulty.HARD), Maneuver.TURN_RIGHT_1_HARD);
+         assert.equal(Maneuver.find(Bearing.BARREL_ROLL_LEFT, 1, Difficulty.STANDARD), Maneuver.BARREL_ROLL_LEFT_1_STANDARD);
+
+         assert.equal(Maneuver.find(Bearing.TURN_LEFT, 2, Difficulty.HARD), Maneuver.TURN_LEFT_2_HARD);
+         assert.equal(Maneuver.find(Bearing.BANK_LEFT, 2, Difficulty.STANDARD), Maneuver.BANK_LEFT_2_STANDARD);
+         assert.equal(Maneuver.find(Bearing.STRAIGHT, 2, Difficulty.EASY), Maneuver.STRAIGHT_2_EASY);
          assert.equal(Maneuver.find(Bearing.BANK_RIGHT, 2, Difficulty.STANDARD), Maneuver.BANK_RIGHT_2_STANDARD);
-         assert.equal(Maneuver.find(Bearing.BARREL_ROLL_LEFT, 1, Difficulty.STANDARD),
-            Maneuver.BARREL_ROLL_LEFT_1_STANDARD);
+         assert.equal(Maneuver.find(Bearing.TURN_RIGHT, 2, Difficulty.HARD), Maneuver.TURN_RIGHT_2_HARD);
+
          assert.equal(Maneuver.find(Bearing.TURN_LEFT, 3, Difficulty.HARD), Maneuver.TURN_LEFT_3_HARD);
-         assert.equal(Maneuver.find(undefined, 0, Difficulty.HARD), Maneuver.STATIONARY_0_HARD);
       });
 
       QUnit.test("keys and values", function(assert)
@@ -67,6 +79,20 @@ define(["qunit", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/M
          });
       });
 
+      QUnit.test("required properties", function(assert)
+      {
+         Maneuver.values().forEach(function(maneuver)
+         {
+            assert.ok(maneuver.basicManeuverKey !== undefined, "Missing basicManeuverKey for " + maneuver.key);
+            assert.ok(maneuver.basicManeuver !== undefined, "Missing basicManeuver for " + maneuver.key);
+            assert.ok(maneuver.difficultyKey !== undefined, "Missing difficultyKey for " + maneuver.key);
+            assert.ok(maneuver.difficulty !== undefined, "Missing difficulty for " + maneuver.key);
+            assert.ok(maneuver.bearingKey !== undefined, "Missing bearingKey for " + maneuver.key);
+            assert.ok(maneuver.speed !== undefined, "Missing speed for " + maneuver.key);
+            assert.ok(maneuver.key !== undefined, "Missing key for " + maneuver.key);
+         });
+      });
+
       QUnit.test("Maneuver.toString()", function(assert)
       {
          assert.equal(Maneuver.toString(Maneuver.TURN_LEFT_1_STANDARD), "Turn Left 1 Standard");
@@ -92,7 +118,7 @@ define(["qunit", "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/M
          var length = 97;
          assert.equal(result.length, length);
          assert.equal(result[0], "bankLeft1Easy");
-         assert.equal(result[length - 1], "turnRight3Standard");
+         assert.equal(result[length - 1], "straight4_2");
 
          var properties = Object.getOwnPropertyNames(Maneuver);
          var count = properties.length - 1 - // properties

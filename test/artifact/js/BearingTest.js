@@ -28,30 +28,38 @@ define(["qunit", "artifact/js/Bearing"], function(QUnit, Bearing)
 
    QUnit.test("isBank()", function(assert)
    {
+      assert.ok(Bearing.properties[Bearing.HUGE_BANK_LEFT].isBank);
       assert.ok(!Bearing.properties[Bearing.TURN_LEFT].isBank);
       assert.ok(Bearing.properties[Bearing.BANK_LEFT].isBank);
       assert.ok(!Bearing.properties[Bearing.STRAIGHT].isBank);
       assert.ok(Bearing.properties[Bearing.BANK_RIGHT].isBank);
       assert.ok(!Bearing.properties[Bearing.TURN_RIGHT].isBank);
+      assert.ok(Bearing.properties[Bearing.HUGE_BANK_RIGHT].isBank);
       assert.ok(!Bearing.properties[Bearing.KOIOGRAN_TURN].isBank);
       assert.ok(!Bearing.properties[Bearing.BARREL_ROLL_LEFT].isBank);
       assert.ok(!Bearing.properties[Bearing.BARREL_ROLL_RIGHT].isBank);
-      assert.ok(!Bearing.properties[Bearing.SEGNORS_LOOP_LEFT].isBank);
-      assert.ok(!Bearing.properties[Bearing.SEGNORS_LOOP_RIGHT].isBank);
+      assert.ok(Bearing.properties[Bearing.SEGNORS_LOOP_LEFT].isBank);
+      assert.ok(Bearing.properties[Bearing.SEGNORS_LOOP_RIGHT].isBank);
+      assert.ok(!Bearing.properties[Bearing.TALLON_ROLL_LEFT].isBank);
+      assert.ok(!Bearing.properties[Bearing.TALLON_ROLL_RIGHT].isBank);
    });
 
    QUnit.test("isTurn()", function(assert)
    {
+      assert.ok(!Bearing.properties[Bearing.HUGE_BANK_LEFT].isTurn);
       assert.ok(Bearing.properties[Bearing.TURN_LEFT].isTurn);
       assert.ok(!Bearing.properties[Bearing.BANK_LEFT].isTurn);
       assert.ok(!Bearing.properties[Bearing.STRAIGHT].isTurn);
       assert.ok(!Bearing.properties[Bearing.BANK_RIGHT].isTurn);
       assert.ok(Bearing.properties[Bearing.TURN_RIGHT].isTurn);
+      assert.ok(!Bearing.properties[Bearing.HUGE_BANK_RIGHT].isTurn);
       assert.ok(!Bearing.properties[Bearing.KOIOGRAN_TURN].isTurn);
       assert.ok(!Bearing.properties[Bearing.BARREL_ROLL_LEFT].isTurn);
       assert.ok(!Bearing.properties[Bearing.BARREL_ROLL_RIGHT].isTurn);
       assert.ok(!Bearing.properties[Bearing.SEGNORS_LOOP_LEFT].isTurn);
       assert.ok(!Bearing.properties[Bearing.SEGNORS_LOOP_RIGHT].isTurn);
+      assert.ok(Bearing.properties[Bearing.TALLON_ROLL_LEFT].isTurn);
+      assert.ok(Bearing.properties[Bearing.TALLON_ROLL_RIGHT].isTurn);
    });
 
    QUnit.test("keys and values", function(assert)
@@ -81,6 +89,16 @@ define(["qunit", "artifact/js/Bearing"], function(QUnit, Bearing)
          });
 
          assert.equal(p.length, 1, "Missing key for value = " + value);
+      });
+   });
+
+   QUnit.test("required properties", function(assert)
+   {
+      Bearing.values().forEach(function(bearing)
+      {
+         assert.ok(bearing.name !== undefined, "Missing name for " + bearing.name);
+         assert.ok(bearing.headingChange !== undefined, "Missing headingChange for " + bearing.name);
+         assert.ok(bearing.key !== undefined, "Missing key for " + bearing.name);
       });
    });
 
