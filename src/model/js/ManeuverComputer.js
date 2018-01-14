@@ -246,129 +246,39 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
          InputValidator.validateNotNull("fromPosition", fromPosition);
          InputValidator.validateNotNull("shipBase", shipBase);
 
+         var answer;
+
          if ([Maneuver.STATIONARY_0_HARD, Maneuver.STATIONARY_0_STANDARD].includes(maneuver.key))
          {
-            return fromPosition;
-         }
-
-         var dx = -10000; // Integer.MIN_VALUE
-         var dy = 10000; // Integer.MAX_VALUE
-         var baseSize = shipBase.height / 2;
-         var bearingKey = maneuver.bearingKey;
-         var speed = maneuver.speed;
-         var headingChange;
-         if (bearingKey)
-         {
-            headingChange = maneuver.bearing.headingChange;
-         }
-         var radius = maneuver.radius;
-
-         var x1, x2, x3;
-         var y1, y2, y3;
-         var factor, angle, speedFactor;
-
-         if ([Bearing.STRAIGHT, Bearing.KOIOGRAN_TURN].includes(bearingKey))
-         {
-            if (ShipBase.isHuge(shipBase.key))
-            {
-               baseSize = 0;
-            }
-
-            speedFactor = (speed > 0 ? 1 : -1);
-            dx = (2 * speedFactor * baseSize) + (40 * speed);
-            dy = 0;
-         }
-         else if (bearingKey && maneuver.bearing.isBank)
-         {
-            if (shipBase.key === ShipBase.HUGE1)
-            {
-               factor = (bearingKey === Bearing.HUGE_BANK_RIGHT ? 1.0 : -1.0);
-               angle = headingChange * Math.PI / 180.0;
-               switch (speed)
-               {
-                  case 1:
-                     dx = 66;
-                     dy = factor * 18;
-                     break;
-                  case 2:
-                     dx = 107;
-                     dy = factor * 23;
-                     break;
-                  default:
-                     throw "Unknown huge bank speed: " + bearingKey + " " + speed;
-               }
-            }
-            else if (shipBase.key === ShipBase.HUGE2)
-            {
-               factor = (bearingKey === Bearing.HUGE_BANK_RIGHT ? 1.0 : -1.0);
-               angle = headingChange * Math.PI / 180.0;
-               switch (speed)
-               {
-                  case 1:
-                     dx = 69;
-                     dy = factor * 11;
-                     break;
-                  case 2:
-                     dx = 112;
-                     dy = factor * 18;
-                     break;
-                  default:
-                     throw "Unknown huge bank speed: " + bearingKey + " " + speed;
-               }
-            }
-            else
-            {
-               // Half base.
-               speedFactor = (speed > 0 ? 1 : -1);
-               x1 = speedFactor * baseSize;
-               y1 = 0.0;
-
-               // Curve.
-               factor = ([Bearing.BANK_RIGHT, Bearing.SEGNORS_LOOP_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
-               angle = factor * 45.0 * Math.PI / 180.0;
-               x2 = speedFactor * radius * Math.cos(angle);
-               y2 = speedFactor * factor * radius * (1.0 - (Math.sin(angle) * factor));
-
-               // Half base.
-               x3 = speedFactor * baseSize * Math.cos(angle);
-               y3 = speedFactor * baseSize * Math.sin(angle);
-
-               dx = x1 + x2 + x3;
-               dy = y1 + y2 + y3;
-            }
-         }
-         else if (bearingKey && maneuver.bearing.isTurn)
-         {
-            // Half base.
-            x1 = baseSize;
-            y1 = 0.0;
-
-            // Curve.
-            factor = ([Bearing.TURN_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
-            angle = factor * 90.0 * Math.PI / 180.0;
-            x2 = radius;
-            y2 = factor * radius;
-
-            // Half base.
-            x3 = baseSize * Math.cos(angle);
-            y3 = baseSize * Math.sin(angle);
-
-            dx = x1 + x2 + x3;
-            dy = y1 + y2 + y3;
-         }
-         else if ([Bearing.BARREL_ROLL_LEFT, Bearing.BARREL_ROLL_RIGHT].includes(bearingKey))
-         {
-            factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
-            dx = 0;
-            dy = factor * ((2 * baseSize) + (40 * speed));
-            headingChange = 0;
+            answer = fromPosition;
          }
          else
          {
-            throw "Unknown maneuver: " + maneuver.key;
+            var bearingKey = maneuver.bearingKey;
+
+            if ([Bearing.STRAIGHT, Bearing.KOIOGRAN_TURN].includes(bearingKey))
+            {
+               answer = ManeuverComputer._computeToPositionStraight(playFormatKey, maneuver, fromPosition, shipBase);
+            }
+            else if (bearingKey && maneuver.bearing.isBank)
+            {
+               answer = ManeuverComputer._computeToPositionBank(playFormatKey, maneuver, fromPosition, shipBase);
+            }
+            else if (bearingKey && maneuver.bearing.isTurn)
+            {
+               answer = ManeuverComputer._computeToPositionTurn(playFormatKey, maneuver, fromPosition, shipBase);
+            }
+            else if ([Bearing.BARREL_ROLL_LEFT, Bearing.BARREL_ROLL_RIGHT].includes(bearingKey))
+            {
+               answer = ManeuverComputer._computeToPositionBarrelRoll(playFormatKey, maneuver, fromPosition, shipBase);
+            }
+            else
+            {
+               throw "Unknown maneuver: " + maneuver.key;
+            }
          }
 
-         return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
+         return answer;
       };
 
       ManeuverComputer.createShipDataMap = function(environment, token, maneuver, fromPosition)
@@ -476,6 +386,136 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
          answer.x = Math.round(myLastX);
          answer.y = Math.round(myLastY);
          return answer;
+      };
+
+      ManeuverComputer._computeToPositionBank = function(playFormatKey, maneuver, fromPosition, shipBase)
+      {
+         var bearingKey = maneuver.bearingKey;
+         var speed = maneuver.speed;
+         var headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
+
+         var dx, dy, factor, angle;
+
+         if (shipBase.key === ShipBase.HUGE1)
+         {
+            factor = (bearingKey === Bearing.HUGE_BANK_RIGHT ? 1.0 : -1.0);
+            angle = headingChange * Math.PI / 180.0;
+            switch (speed)
+            {
+               case 1:
+                  dx = 66;
+                  dy = factor * 18;
+                  break;
+               case 2:
+                  dx = 107;
+                  dy = factor * 23;
+                  break;
+               default:
+                  throw "Unknown huge bank speed: " + bearingKey + " " + speed;
+            }
+         }
+         else if (shipBase.key === ShipBase.HUGE2)
+         {
+            factor = (bearingKey === Bearing.HUGE_BANK_RIGHT ? 1.0 : -1.0);
+            angle = headingChange * Math.PI / 180.0;
+            switch (speed)
+            {
+               case 1:
+                  dx = 69;
+                  dy = factor * 11;
+                  break;
+               case 2:
+                  dx = 112;
+                  dy = factor * 18;
+                  break;
+               default:
+                  throw "Unknown huge bank speed: " + bearingKey + " " + speed;
+            }
+         }
+         else
+         {
+            var baseSize = shipBase.height / 2;
+            var radius = maneuver.radius;
+
+            // Half base.
+            var speedFactor = (speed > 0 ? 1 : -1);
+            var x1 = speedFactor * baseSize;
+            var y1 = 0.0;
+
+            // Curve.
+            factor = ([Bearing.BANK_RIGHT, Bearing.SEGNORS_LOOP_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
+            angle = factor * 45.0 * Math.PI / 180.0;
+            var x2 = speedFactor * radius * Math.cos(angle);
+            var y2 = speedFactor * factor * radius * (1.0 - (Math.sin(angle) * factor));
+
+            // Half base.
+            var x3 = speedFactor * baseSize * Math.cos(angle);
+            var y3 = speedFactor * baseSize * Math.sin(angle);
+
+            dx = x1 + x2 + x3;
+            dy = y1 + y2 + y3;
+         }
+
+         return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
+      };
+
+      ManeuverComputer._computeToPositionBarrelRoll = function(playFormatKey, maneuver, fromPosition, shipBase)
+      {
+         var baseSize = shipBase.height / 2;
+         var bearingKey = maneuver.bearingKey;
+         var speed = maneuver.speed;
+
+         var factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
+         var dx = 0;
+         var dy = factor * ((2 * baseSize) + (40 * speed));
+         var headingChange = 0;
+
+         return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
+      };
+
+      ManeuverComputer._computeToPositionStraight = function(playFormatKey, maneuver, fromPosition, shipBase)
+      {
+         var baseSize = shipBase.height / 2;
+
+         if (ShipBase.isHuge(shipBase.key))
+         {
+            baseSize = 0;
+         }
+
+         var speed = maneuver.speed;
+         var speedFactor = (speed > 0 ? 1 : -1);
+         var dx = (2 * speedFactor * baseSize) + (40 * speed);
+         var dy = 0;
+         var headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
+
+         return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
+      };
+
+      ManeuverComputer._computeToPositionTurn = function(playFormatKey, maneuver, fromPosition, shipBase)
+      {
+         var baseSize = shipBase.height / 2;
+         var radius = maneuver.radius;
+         var bearingKey = maneuver.bearingKey;
+         var headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
+
+         // Half base.
+         var x1 = baseSize;
+         var y1 = 0.0;
+
+         // Curve.
+         var factor = ([Bearing.TURN_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
+         var angle = factor * 90.0 * Math.PI / 180.0;
+         var x2 = radius;
+         var y2 = factor * radius;
+
+         // Half base.
+         var x3 = baseSize * Math.cos(angle);
+         var y3 = baseSize * Math.sin(angle);
+
+         var dx = x1 + x2 + x3;
+         var dy = y1 + y2 + y3;
+
+         return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
       };
 
       ManeuverComputer._createPosition = function(playFormatKey, fromPosition, dx, dy, headingChange)
