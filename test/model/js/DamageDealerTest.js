@@ -84,7 +84,7 @@ define(["qunit", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
 
          // Verify.
          var sum = defender.damageCount() + defender.criticalDamageCount();
-         assert.ok(0 <= sum && sum <= 1);
+         assert.ok([0, 1].includes(sum), "sum = " + sum);
       });
 
       QUnit.test("dealDamage() Chewbacca", function(assert)

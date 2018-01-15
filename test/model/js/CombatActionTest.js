@@ -91,7 +91,6 @@ define(["qunit", "redux",
             assert.equal(attacker.secondaryWeapons().length, 0);
             verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
 
-            assert.ok(!defender.isDestroyed());
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
             assert.ok([1, 2].includes(defender.damageCount() + defender.criticalDamageCount()));
             assert.equal(defender.hullValue(), 3);

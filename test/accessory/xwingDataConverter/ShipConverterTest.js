@@ -40,7 +40,7 @@ define(["qunit", "accessory/xwingDataConverter/ShipConverter"],
          // Run / Verify.
          assert.equal(ShipConverter.determineAuxiliaryFiringArc(X_WING), undefined);
          assert.equal(ShipConverter.determineAuxiliaryFiringArc(FIRESPRAY_31), "FiringArc.AFT");
-         assert.equal(ShipConverter.determineAuxiliaryFiringArc(YV_666), "FiringArc.FULL_AFT");
+         assert.equal(ShipConverter.determineAuxiliaryFiringArc(YV_666), "FiringArc.FORWARD_180");
       });
 
       QUnit.test("determineManeuverKeys() Firespray-31", function(assert)

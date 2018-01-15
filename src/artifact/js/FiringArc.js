@@ -3,38 +3,50 @@
 define(function()
 {
    var FiringArc = {
-      FORWARD: "forward",
       AFT: "aft",
-      FULL_AFT: "fullAft",
+      AFT_180: "aft180",
+      BULLSEYE: "bullseye",
+      FORWARD: "forward",
+      FORWARD_180: "forward180",
+      PORT: "port",
+      STARBOARD: "starboard",
 
       properties:
       {
-         "forward":
-         {
-            name: "Forward",
-            isInFiringArc: function(bearing)
-            {
-               return (315 <= bearing) || (bearing <= 45);
-            },
-            key: "forward",
-         },
          "aft":
          {
             name: "Aft",
-            isInFiringArc: function(bearing)
-            {
-               return (135 <= bearing) && (bearing <= 225);
-            },
             key: "aft",
          },
-         "fullAft":
+         "aft180":
          {
-            name: "Full Aft",
-            isInFiringArc: function(bearing)
-            {
-               return (90 <= bearing) && (bearing <= 270);
-            },
-            key: "fullAft",
+            name: "Aft 180",
+            key: "aft180",
+         },
+         "bullseye":
+         {
+            name: "Bullseye",
+            key: "bullseye",
+         },
+         "forward":
+         {
+            name: "Forward",
+            key: "forward",
+         },
+         "forward180":
+         {
+            name: "Forward 180",
+            key: "forward180",
+         },
+         "port":
+         {
+            name: "Port",
+            key: "port",
+         },
+         "starboard":
+         {
+            name: "Starboard",
+            key: "starboard",
          },
       },
    };
@@ -44,14 +56,14 @@ define(function()
       return Object.keys(FiringArc.properties);
    };
 
-   FiringArc.toString = function()
-   {
-      return "FiringArc";
-   };
-
    FiringArc.values = function()
    {
       return Object.values(FiringArc.properties);
+   };
+
+   FiringArc.toString = function()
+   {
+      return "FiringArc";
    };
 
    if (Object.freeze)

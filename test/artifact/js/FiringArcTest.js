@@ -4,49 +4,13 @@ define(["qunit", "artifact/js/FiringArc"], function(QUnit, FiringArc)
 {
    QUnit.module("FiringArc");
 
-   QUnit.test("FiringArc.isInFiringArc() Forward", function(assert)
+   QUnit.test("required properties", function(assert)
    {
-      var arc = FiringArc.FORWARD;
-      var isInFiringArc = FiringArc.properties[arc].isInFiringArc;
-      assert.ok(isInFiringArc(0));
-      assert.ok(isInFiringArc(45));
-      assert.ok(!isInFiringArc(46));
-      assert.ok(!isInFiringArc(134));
-      assert.ok(!isInFiringArc(135));
-      assert.ok(!isInFiringArc(225));
-      assert.ok(!isInFiringArc(226));
-      assert.ok(!isInFiringArc(314));
-      assert.ok(isInFiringArc(315));
-   });
-
-   QUnit.test("FiringArc.isInFiringArc() Aft", function(assert)
-   {
-      var arc = FiringArc.AFT;
-      var isInFiringArc = FiringArc.properties[arc].isInFiringArc;
-      assert.ok(!isInFiringArc(0));
-      assert.ok(!isInFiringArc(45));
-      assert.ok(!isInFiringArc(46));
-      assert.ok(!isInFiringArc(134));
-      assert.ok(isInFiringArc(135));
-      assert.ok(isInFiringArc(225));
-      assert.ok(!isInFiringArc(226));
-      assert.ok(!isInFiringArc(314));
-      assert.ok(!isInFiringArc(315));
-   });
-
-   QUnit.test("FiringArc.isInFiringArc() FullAft", function(assert)
-   {
-      var arc = FiringArc.FULL_AFT;
-      var isInFiringArc = FiringArc.properties[arc].isInFiringArc;
-      assert.ok(!isInFiringArc(0), "0 deg");
-      assert.ok(!isInFiringArc(45), "45 deg");
-      assert.ok(!isInFiringArc(46), "46 deg");
-      assert.ok(!isInFiringArc(89), "89 deg");
-      assert.ok(isInFiringArc(90), "90 deg");
-      assert.ok(isInFiringArc(270), "270 deg");
-      assert.ok(!isInFiringArc(271), "271 deg");
-      assert.ok(!isInFiringArc(314), "314 deg");
-      assert.ok(!isInFiringArc(315), "315 deg");
+      FiringArc.values().forEach(function(firingArc)
+      {
+         assert.ok(firingArc.name !== undefined, "Missing name for " + firingArc.name);
+         assert.ok(firingArc.key !== undefined, "Missing key for " + firingArc.name);
+      });
    });
 
    QUnit.test("keys and values", function(assert)
@@ -86,10 +50,15 @@ define(["qunit", "artifact/js/FiringArc"], function(QUnit, FiringArc)
 
       // Verify.
       assert.ok(result);
-      assert.equal(result.length, 3);
-      assert.equal(result[0], "forward");
-      assert.equal(result[1], "aft");
-      assert.equal(result[2], "fullAft");
+      assert.equal(result.length, 7);
+      var i = 0;
+      assert.equal(result[i++], "aft");
+      assert.equal(result[i++], "aft180");
+      assert.equal(result[i++], "bullseye");
+      assert.equal(result[i++], "forward");
+      assert.equal(result[i++], "forward180");
+      assert.equal(result[i++], "port");
+      assert.equal(result[i++], "starboard");
 
       var properties = Object.getOwnPropertyNames(FiringArc);
       var count = properties.length - 1 - // properties

@@ -1,9 +1,9 @@
 "use strict";
 
 define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/UpgradeHeader",
-  "model/js/ManeuverComputer", "model/js/RangeRuler", "model/js/TargetLock"],
+  "model/js/FiringComputer", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/TargetLock"],
    function(InputValidator, FiringArc, UpgradeHeader,
-      ManeuverComputer, RangeRuler, TargetLock)
+      FiringComputer, ManeuverComputer, Position, RangeRuler, TargetLock)
    {
       function Weapon(name, weaponValue, rangeKeys, primaryFiringArcKey, auxiliaryFiringArcKey, isTurret, upgradeCard)
       {
@@ -134,34 +134,9 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
          InputValidator.validateNotNull("defender", defender);
          InputValidator.validateNotNull("defenderPosition", defenderPosition);
 
-         var bearing = attackerPosition.computeBearing(defenderPosition.x(), defenderPosition.y());
-         var answer = firingArc.isInFiringArc(bearing);
-         LOGGER.debug("weapon = " + this.name());
-         LOGGER.debug("0 firingArc = " + firingArc.key + " bearing = " + bearing + " answer ? " + answer);
+         var shipBase = defender.card().shipFaction.ship.shipBase;
 
-         if (!answer)
-         {
-            var shipBase = defender.card().shipFaction.ship.shipBase;
-            var polygon = ManeuverComputer.computePolygon(shipBase, defenderPosition.x(), defenderPosition.y(),
-               defenderPosition.heading());
-            var points = polygon.points();
-
-            for (var i = 0; i < points.length; i += 2)
-            {
-               bearing = attackerPosition.computeBearing(points[i], points[i + 1]);
-               LOGGER.debug(i + " firingArc.isInFiringArc(" + bearing + ") ? " + firingArc.isInFiringArc(bearing));
-
-               if (firingArc.isInFiringArc(bearing))
-               {
-                  answer = true;
-                  LOGGER.debug(i + " firingArc = " + firingArc.key + " bearing = " + bearing + " answer ? " +
-                     answer);
-                  break;
-               }
-            }
-         }
-
-         return answer;
+         return FiringComputer.isInFiringArc(attackerPosition, firingArc, defenderPosition, shipBase);
       };
 
       Weapon.prototype.isDefenderInRange = function(attacker, attackerPosition, defender, defenderPosition)
@@ -171,9 +146,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
          InputValidator.validateNotNull("defender", defender);
          InputValidator.validateNotNull("defenderPosition", defenderPosition);
 
-         var range = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
-
-         return this.rangeKeys().includes(range);
+         return FiringComputer.isInRange(this.rangeKeys(), attacker, attackerPosition, defender, defenderPosition);
       };
 
       Weapon.prototype.isDefenderTargetable = function(attacker, attackerPosition, defender, defenderPosition)
@@ -186,9 +159,8 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Upgrad
          return this.isUsable(attacker, defender) &&
             this.isDefenderInRange(attacker, attackerPosition, defender, defenderPosition) &&
             (this.isTurret() ||
-               this.isDefenderInFiringArc(attackerPosition, this.primaryFiringArc(), defender,
-                  defenderPosition) || (this.auxiliaryFiringArc() && this.isDefenderInFiringArc(
-                  attackerPosition, this.auxiliaryFiringArc(), defender, defenderPosition)));
+               this.isDefenderInFiringArc(attackerPosition, this.primaryFiringArc(), defender, defenderPosition) ||
+               (this.auxiliaryFiringArc() && this.isDefenderInFiringArc(attackerPosition, this.auxiliaryFiringArc(), defender, defenderPosition)));
       };
 
       Weapon.prototype.isPrimary = function()

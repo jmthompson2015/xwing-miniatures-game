@@ -35,52 +35,20 @@ define(["artifact/js/FiringArc", "common/js/InputValidator"],
          // Draw background square.
          context.fillStyle = "rgba(255,255,255,0.4)";
          context.fillRect(-width / 2, -height / 2, width, height);
+         context.strokeStyle = factionColor;
 
          // Draw the auxiliary firing arc.
          if (auxiliaryFiringArc)
          {
-            context.strokeStyle = factionColor;
             context.setLineDash([5, 4]);
-
-            switch (auxiliaryFiringArc.key)
-            {
-               case FiringArc.AFT:
-                  context.beginPath();
-                  context.moveTo(-width / 2, -height / 2);
-                  context.lineTo(0, 0);
-                  context.lineTo(-width / 2, height / 2);
-                  context.stroke();
-                  break;
-               case FiringArc.FULL_AFT:
-                  context.beginPath();
-                  context.moveTo(0, -height / 2);
-                  context.lineTo(0, 0);
-                  context.lineTo(0, height / 2);
-                  context.stroke();
-                  break;
-               default:
-                  throw "Unknown auxiliaryFiringArc: " + auxiliaryFiringArc;
-            }
+            ShipImage.drawFiringArc(context, auxiliaryFiringArc, width, height);
             context.setLineDash([]);
          }
 
          // Draw the primary firing arc.
          if (primaryFiringArc)
          {
-            context.strokeStyle = factionColor;
-
-            switch (primaryFiringArc.key)
-            {
-               case FiringArc.FORWARD:
-                  context.beginPath();
-                  context.moveTo(width / 2, -height / 2);
-                  context.lineTo(0, 0);
-                  context.lineTo(width / 2, height / 2);
-                  context.stroke();
-                  break;
-               default:
-                  throw "Unknown primaryFiringArc: " + primaryFiringArc;
-            }
+            ShipImage.drawFiringArc(context, primaryFiringArc, width, height);
          }
 
          // Draw ship image.
@@ -98,6 +66,65 @@ define(["artifact/js/FiringArc", "common/js/InputValidator"],
 
          // Cleanup.
          context.restore();
+      };
+
+      ShipImage.drawFiringArc = function(context, firingArc, width, height)
+      {
+         InputValidator.validateNotNull("context", context);
+
+         // Draw the firing arc.
+         if (firingArc)
+         {
+            switch (firingArc.key)
+            {
+               case FiringArc.AFT:
+                  context.beginPath();
+                  context.moveTo(-width / 2, -height / 2);
+                  context.lineTo(0, 0);
+                  context.lineTo(-width / 2, height / 2);
+                  context.stroke();
+                  break;
+               case FiringArc.AFT_180:
+               case FiringArc.FORWARD_180:
+                  context.beginPath();
+                  context.moveTo(0, -height / 2);
+                  context.lineTo(0, 0);
+                  context.lineTo(0, height / 2);
+                  context.stroke();
+                  break;
+               case FiringArc.BULLSEYE:
+                  context.beginPath();
+                  context.moveTo(8, -8);
+                  context.lineTo(width / 2, -8);
+                  context.moveTo(8, 8);
+                  context.lineTo(width / 2, 8);
+                  context.stroke();
+                  break;
+               case FiringArc.FORWARD:
+                  context.beginPath();
+                  context.moveTo(width / 2, -height / 2);
+                  context.lineTo(0, 0);
+                  context.lineTo(width / 2, height / 2);
+                  context.stroke();
+                  break;
+               case FiringArc.PORT:
+                  context.beginPath();
+                  context.moveTo(-width / 2, height / 2);
+                  context.lineTo(0, 0);
+                  context.lineTo(width / 2, height / 2);
+                  context.stroke();
+                  break;
+               case FiringArc.STARBOARD:
+                  context.beginPath();
+                  context.moveTo(-width / 2, -height / 2);
+                  context.lineTo(0, 0);
+                  context.lineTo(width / 2, -height / 2);
+                  context.stroke();
+                  break;
+               default:
+                  throw "Unknown firingArc: " + firingArc.key;
+            }
+         }
       };
 
       return ShipImage;

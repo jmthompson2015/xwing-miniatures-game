@@ -37,7 +37,7 @@ define(["artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Ship", "ar
             }
             else if (ship.firing_arcs.includes("Auxiliary 180"))
             {
-               answer = "FiringArc.FULL_AFT";
+               answer = "FiringArc.FORWARD_180";
             }
             else if (ship.firing_arcs.includes("Mobile"))
             {
