@@ -1,12 +1,7 @@
 "use strict";
 
-define(["qunit", "redux",
-  "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipBase", "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/Environment", "model/js/Position", "model/js/Reducer", "model/js/Squad", "model/js/TargetLock", "model/js/CardInstance", "model/js/CardAction", "model/js/FiringComputer",
-  "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Redux, Faction, FiringArc, PilotCard, Range, ShipBase, UpgradeCard,
-      Agent, Environment, Position, Reducer, Squad, TargetLock, CardInstance, CardAction, FiringComputer,
-      EnvironmentFactory)
+define(["qunit", "redux", "artifact/js/FiringArc", "artifact/js/ShipBase", "model/js/Position", "model/js/FiringComputer", "../../../test/model/js/EnvironmentFactory"],
+   function(QUnit, Redux, FiringArc, ShipBase, Position, FiringComputer, EnvironmentFactory)
    {
       QUnit.module("FiringComputer");
 

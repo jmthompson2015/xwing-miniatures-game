@@ -1,8 +1,8 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/ActivationAction", "model/js/CardAction", "model/js/QueueProcessor"],
-   function(InputValidator, Maneuver, Phase, UpgradeCard, Action, ActivationAction, CardAction, QueueProcessor)
+define(["common/js/InputValidator", "artifact/js/Maneuver",
+  "model/js/Action", "model/js/ActivationAction", "model/js/QueueProcessor"],
+   function(InputValidator, Maneuver, Action, ActivationAction, QueueProcessor)
    {
       function ActivationPhaseTask(store)
       {

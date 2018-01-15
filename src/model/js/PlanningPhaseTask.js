@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCard", "model/js/Action", "model/js/CardAction", "model/js/QueueProcessor"],
-   function(InputValidator, Phase, UpgradeCard, Action, CardAction, QueueProcessor)
+define(["common/js/InputValidator", "model/js/Action", "model/js/QueueProcessor"],
+   function(InputValidator, Action, QueueProcessor)
    {
       function PlanningPhaseTask(store)
       {
@@ -64,11 +64,11 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCar
       {
          InputValidator.validateNotNull("callback", callback);
 
-         LOGGER.trace("EndPhaseTask.finishPlanningPhase() start");
+         LOGGER.trace("PlanningPhaseTask.finishPlanningPhase() start");
 
          callback();
 
-         LOGGER.trace("EndPhaseTask.finishPlanningPhase() end");
+         LOGGER.trace("PlanningPhaseTask.finishPlanningPhase() end");
       };
 
       return PlanningPhaseTask;

@@ -1,10 +1,10 @@
 "use strict";
 
 define(["qunit", "redux", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CardInstance", "model/js/Engine", "model/js/Environment", "model/js/EnvironmentAction", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardAction",
+  "model/js/Action", "model/js/Adjudicator", "model/js/Agent", "model/js/CardInstance", "model/js/Engine", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Position", "model/js/Reducer", "model/js/SquadBuilder", "model/js/CardAction",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux, DamageCard, PilotCard, UpgradeCard,
-      Action, Adjudicator, Agent, CardInstance, Engine, Environment, EnvironmentAction, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, CardAction,
+      Action, Adjudicator, Agent, CardInstance, Engine, Environment, EventObserver, PhaseObserver, Position, Reducer, SquadBuilder, CardAction,
       EnvironmentFactory)
    {
       QUnit.module("Engine");
