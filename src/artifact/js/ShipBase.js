@@ -25,7 +25,7 @@ define(["common/js/InputValidator"], function(InputValidator)
          },
          "huge1":
          {
-            // Gozanti-class Cruiser, GR-75 Medium Transport
+            // C-ROC Cruiser, Gozanti-class Cruiser, GR-75 Medium Transport
             name: "Huge ship",
             width: 192,
             height: 80,

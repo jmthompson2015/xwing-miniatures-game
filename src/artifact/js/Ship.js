@@ -898,6 +898,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                name: "C-ROC Cruiser",
                description: "A C-ROC Cruiser.",
                shipBaseKey: ShipBase.HUGE1,
+               primaryFiringArcKey: FiringArc.FORWARD_136,
                maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
                                 Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
                                 Maneuver.STRAIGHT_3_2, Maneuver.STRAIGHT_4_1],
@@ -916,7 +917,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   hullValue: 8,
                   shieldValue: 5,
                   shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
+                  primaryFiringArcKey: FiringArc.PORT_AND_STARBOARD_FORE,
                   isPrimaryWeaponTurret: true,
                   primaryWeaponRanges: [Range.THREE, Range.FOUR, Range.FIVE],
                   shipActionKeys: [ShipAction.COORDINATE, ShipAction.TARGET_LOCK],
@@ -932,6 +933,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   hullValue: 8,
                   shieldValue: 3,
                   shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.PORT_AND_STARBOARD_AFT,
                   shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE],
                   key: "cr90Corvette.aft",
                },
@@ -942,7 +944,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   pilotSkillValue: 4,
                   primaryWeaponValue: 2,
                   shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
+                  primaryFiringArcKey: FiringArc.PORT_AND_STARBOARD_FORE,
                   isPrimaryWeaponTurret: true,
                   primaryWeaponRanges: [Range.THREE, Range.FOUR, Range.FIVE],
                   shipActionKeys: [],
@@ -955,6 +957,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   pilotSkillValue: 4,
                   energyValue: 1,
                   shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.PORT_AND_STARBOARD_AFT,
                   shipActionKeys: [],
                   key: "cr90Corvette.crippledAft",
                },
@@ -988,6 +991,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                name: "Gozanti-class Cruiser",
                description: "A Gozanti-class Cruiser.",
                shipBaseKey: ShipBase.HUGE1,
+               primaryFiringArcKey: FiringArc.FORWARD_136,
                maneuverKeys: [Maneuver.BANK_LEFT_1_2, Maneuver.STRAIGHT_1_3, Maneuver.BANK_RIGHT_1_2,
                                 Maneuver.BANK_LEFT_2_1, Maneuver.STRAIGHT_2_2, Maneuver.BANK_RIGHT_2_1,
                                 Maneuver.STRAIGHT_3_1, Maneuver.STRAIGHT_4_1],
@@ -1036,7 +1040,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   hullValue: 8,
                   shieldValue: 6,
                   shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
+                  primaryFiringArcKey: FiringArc.FORWARD_106,
                   primaryWeaponRanges: [Range.TWO, Range.THREE, Range.FOUR],
                   shipActionKeys: [ShipAction.RECOVER, ShipAction.REINFORCE],
                   key: "raiderClassCorvette.fore",
@@ -1051,6 +1055,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   hullValue: 8,
                   shieldValue: 4,
                   shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.PORT_AND_STARBOARD_AFT_SKEWED,
                   shipActionKeys: [ShipAction.COORDINATE, ShipAction.TARGET_LOCK],
                   key: "raiderClassCorvette.aft",
                },
@@ -1061,7 +1066,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   pilotSkillValue: 4,
                   primaryWeaponValue: 2,
                   shipBaseKey: ShipBase.LARGE,
-                  primaryFiringArcKey: FiringArc.FORWARD,
+                  primaryFiringArcKey: FiringArc.FORWARD_106,
                   primaryWeaponRanges: [Range.TWO, Range.THREE, Range.FOUR],
                   shipActionKeys: [],
                   key: "raiderClassCorvette.crippledFore",
@@ -1073,6 +1078,7 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
                   pilotSkillValue: 4,
                   energyValue: 1,
                   shipBaseKey: ShipBase.LARGE,
+                  primaryFiringArcKey: FiringArc.PORT_AND_STARBOARD_AFT_SKEWED,
                   shipActionKeys: [],
                   key: "raiderClassCorvette.crippledAft",
                },
@@ -1119,11 +1125,15 @@ define(["artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Range", "a
          if (ship.fore)
          {
             ship.fore.xwingType = Ship;
+            ship.fore.primaryFiringArc = FiringArc.properties[ship.fore.primaryFiringArcKey];
+            ship.fore.auxiliaryFiringArc = FiringArc.properties[ship.fore.auxiliaryFiringArcKey];
          }
 
          if (ship.aft)
          {
             ship.aft.xwingType = Ship;
+            ship.aft.primaryFiringArc = FiringArc.properties[ship.aft.primaryFiringArcKey];
+            ship.aft.auxiliaryFiringArc = FiringArc.properties[ship.aft.auxiliaryFiringArcKey];
          }
       });
 

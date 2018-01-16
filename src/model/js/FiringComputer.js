@@ -1,7 +1,7 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/FiringArc", "model/js/ManeuverComputer", "model/js/RangeRuler", "model/js/RectanglePath"],
-   function(InputValidator, FiringArc, ManeuverComputer, RangeRuler, RectanglePath)
+define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/ShipBase", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath"],
+   function(InputValidator, FiringArc, ShipBase, ManeuverComputer, Position, RangeRuler, RectanglePath)
    {
       var FiringComputer = {};
 
@@ -12,7 +12,10 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "model/js/ManeuverC
          InputValidator.validateNotNull("defenderPosition", defenderPosition);
          InputValidator.validateNotNull("defenderShipBase", defenderShipBase);
 
-         var answer = FiringComputer._isInFiringArc(attackerPosition, attackerFiringArc, defenderPosition.x(), defenderPosition.y());
+         var offsetKeys = FiringArc.offsetKeys();
+         var myAttackerPosition = (offsetKeys.includes(attackerFiringArc.key) ? FiringComputer._computeOffsetAttackerPosition(attackerPosition, attackerFiringArc) : attackerPosition);
+
+         var answer = FiringComputer._isInFiringArc(myAttackerPosition, attackerFiringArc, defenderPosition.x(), defenderPosition.y());
 
          if (!answer)
          {
@@ -21,7 +24,7 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "model/js/ManeuverC
 
             for (var i = 0; i < points.length; i += 2)
             {
-               if (FiringComputer._isInFiringArc(attackerPosition, attackerFiringArc, points[i], points[i + 1]))
+               if (FiringComputer._isInFiringArc(myAttackerPosition, attackerFiringArc, points[i], points[i + 1]))
                {
                   answer = true;
                   break;
@@ -43,6 +46,37 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "model/js/ManeuverC
          var range = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
 
          return rangeKeys.includes(range);
+      };
+
+      FiringComputer._computeOffsetAttackerPosition = function(attackerPosition, attackerFiringArc)
+      {
+         var answer = attackerPosition;
+         var heading = attackerPosition.heading();
+         var angle = heading * Math.PI / 180.0;
+         var x, y;
+
+         // Assume HUGE2
+         var shipBase = ShipBase.properties[ShipBase.HUGE2];
+         var width = shipBase.width;
+
+         switch (attackerFiringArc.key)
+         {
+            case FiringArc.PORT_AND_STARBOARD_AFT:
+            case FiringArc.PORT_AND_STARBOARD_AFT_SKEWED:
+               x = attackerPosition.x() - (width / 2 - 40) * Math.cos(angle);
+               y = attackerPosition.y() - (width / 2 - 40) * Math.sin(angle);
+               answer = new Position(x, y, heading);
+               break;
+            case FiringArc.PORT_AND_STARBOARD_FORE:
+               x = attackerPosition.x() + (width / 2 - 40) * Math.cos(angle);
+               y = attackerPosition.y() + (width / 2 - 40) * Math.sin(angle);
+               answer = new Position(x, y, heading);
+               break;
+            default:
+               LOGGER.error("Unknown firing arc: " + attackerFiringArc.key);
+         }
+
+         return answer;
       };
 
       FiringComputer._createBullseyePolygon = function(attackerPosition)
@@ -78,17 +112,30 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "model/js/ManeuverC
             case FiringArc.FORWARD:
                answer = (315 <= bearing) || (bearing <= 45);
                break;
+            case FiringArc.FORWARD_106:
+               answer = (307 <= bearing) || (bearing <= 53);
+               break;
+            case FiringArc.FORWARD_136:
+               answer = (292 <= bearing) || (bearing <= 68);
+               break;
             case FiringArc.FORWARD_180:
                answer = (270 <= bearing) || (bearing <= 90);
                break;
             case FiringArc.PORT:
                answer = (225 <= bearing) && (bearing <= 315);
                break;
+            case FiringArc.PORT_AND_STARBOARD_AFT:
+            case FiringArc.PORT_AND_STARBOARD_FORE:
+               answer = (225 <= bearing) && (bearing <= 315) || (45 <= bearing) && (bearing <= 135);
+               break;
+            case FiringArc.PORT_AND_STARBOARD_AFT_SKEWED:
+               answer = (225 <= bearing) && (bearing <= 331) || (29 <= bearing) && (bearing <= 135);
+               break;
             case FiringArc.STARBOARD:
                answer = (45 <= bearing) && (bearing <= 135);
                break;
             default:
-               throw "Unknown firing arc: " + firingArc.key;
+               LOGGER.error("Unknown firing arc: " + firingArc.key);
          }
 
          return answer;
