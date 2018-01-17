@@ -193,6 +193,16 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
       //////////////////////////////////////////////////////////////////////////
       // Accessor methods.
 
+      DualCardInstance.prototype.energyCount = function()
+      {
+         return this.tokenAft().energyCount();
+      };
+
+      DualCardInstance.prototype.energyValue = function()
+      {
+         return this.tokenAft().energyValue();
+      };
+
       DualCardInstance.prototype.equals = function(other)
       {
          return this.id() == other.id() && this.card().key == other.card().key;

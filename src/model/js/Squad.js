@@ -96,18 +96,8 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          var myAnswer = accumulator;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
-         {
-            value = token.tokenFore().energyValue();
-            myAnswer += (value !== undefined ? value : 0);
-            value = token.tokenAft().energyValue();
-            myAnswer += (value !== undefined ? value : 0);
-         }
-         else
-         {
-            value = token.energyValue();
-            myAnswer += (value !== undefined ? value : 0);
-         }
+         value = token.energyValue();
+         myAnswer += (value !== undefined ? value : 0);
 
          return myAnswer;
       }, 0);

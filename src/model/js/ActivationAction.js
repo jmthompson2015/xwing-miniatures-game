@@ -277,7 +277,8 @@ define(["immutable", "common/js/InputValidator",
                {
                   // Gain energy up to the energy limit.
                   var energyLimit = token.energyValue();
-                  var diff = energyLimit - token.energyCount();
+                  var energyCount = token.energyCount();
+                  var diff = energyLimit - energyCount;
 
                   if (diff > 0)
                   {
