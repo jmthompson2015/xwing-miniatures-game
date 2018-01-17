@@ -233,6 +233,16 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          });
       };
 
+      Environment.prototype.getPilotInstancesForAgent = function(agent)
+      {
+         InputValidator.validateNotNull("agent", agent);
+
+         return this.pilotInstances().filter(function(pilotInstance)
+         {
+            return pilotInstance.agent().id() === agent.id();
+         });
+      };
+
       Environment.prototype.getPositionFor = function(token)
       {
          InputValidator.validateNotNull("token", token);
@@ -392,14 +402,6 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          pilotInstances.sort(CardComparator.Combat);
 
          return pilotInstances;
-      };
-
-      Environment.prototype.getTokensForFaction = function(factionKey, isPure)
-      {
-         return this.pilotInstances(isPure).filter(function(token)
-         {
-            return Faction.isFriendly(token.card().shipFaction.factionKey, factionKey);
-         });
       };
 
       Environment.prototype.getTokensTouching = function(token)

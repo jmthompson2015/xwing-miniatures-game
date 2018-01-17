@@ -431,6 +431,90 @@ define(["qunit", "redux",
          assert.equal(result[0].card().key, PilotCard.DARK_CURSE);
       });
 
+      QUnit.test("getPilotInstancesForAgent() First Order", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createTFACoreSetEnvironment();
+         var agent = environment.firstAgent();
+
+         // Run.
+         var result = environment.getPilotInstancesForAgent(agent);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 2);
+         assert.equal(result[0].card().key, PilotCard.EPSILON_LEADER);
+         assert.equal(result[1].card().key, PilotCard.ZETA_ACE);
+      });
+
+      QUnit.test("getPilotInstancesForAgent() Imperial", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var agent = environment.firstAgent();
+
+         // Run.
+         var result = environment.getPilotInstancesForAgent(agent);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 2);
+         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
+         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
+      });
+
+      QUnit.test("getPilotInstancesForAgent() Imperial mixed teams", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var foAgent = new Agent(store, "First Order Agent");
+         var resistanceAgent = new Agent(store, "Resistance Agent");
+         var squad1 = SquadBuilder.findByNameAndYear("Worlds #3", 2016).buildSquad(foAgent);
+         var squad2 = SquadBuilder.CoreSetResistanceSquadBuilder.buildSquad(resistanceAgent);
+         var environment = new Environment(store, foAgent, squad1, resistanceAgent, squad2);
+         var agent = environment.firstAgent();
+
+         // Run.
+         var result = environment.getPilotInstancesForAgent(agent);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 3);
+         assert.equal(result[0].card().key, PilotCard.OMEGA_LEADER);
+         assert.equal(result[1].card().key, PilotCard.COLONEL_VESSERY);
+         assert.equal(result[2].card().key, PilotCard.OMICRON_GROUP_PILOT);
+      });
+
+      QUnit.test("getPilotInstancesForAgent() Rebel", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var agent = environment.secondAgent();
+
+         // Run.
+         var result = environment.getPilotInstancesForAgent(agent);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 1);
+         assert.equal(result[0].card().key, PilotCard.LUKE_SKYWALKER);
+      });
+
+      QUnit.test("getPilotInstancesForAgent() Resistance", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createTFACoreSetEnvironment();
+         var agent = environment.secondAgent();
+
+         // Run.
+         var result = environment.getPilotInstancesForAgent(agent);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 1);
+         assert.equal(result[0].card().key, PilotCard.POE_DAMERON);
+      });
+
       QUnit.test("getPositionFor()", function(assert)
       {
          // Setup.
@@ -802,101 +886,6 @@ define(["qunit", "redux",
          token = result[i++];
          assert.equal(token.pilotSkillValue(), 2);
          assert.equal(token.card().key, PilotCard.GOZANTI_CLASS_CRUISER);
-      });
-
-      QUnit.test("getTokensForFaction() First Order", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createTFACoreSetEnvironment();
-
-         // Run.
-         var result = environment.getTokensForFaction(Faction.FIRST_ORDER);
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 2);
-         assert.equal(result[0].card().key, PilotCard.EPSILON_LEADER);
-         assert.equal(result[1].card().key, PilotCard.ZETA_ACE);
-      });
-
-      QUnit.test("getTokensForFaction() Imperial", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createCoreSetEnvironment();
-
-         // Run.
-         var result = environment.getTokensForFaction(Faction.IMPERIAL);
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 2);
-         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
-         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
-      });
-
-      QUnit.test("getTokensForFaction() Imperial mixed teams", function(assert)
-      {
-         // Setup.
-         var store = Redux.createStore(Reducer.root);
-         var foAgent = new Agent(store, "First Order Agent");
-         var resistanceAgent = new Agent(store, "Resistance Agent");
-         var squad1 = SquadBuilder.findByNameAndYear("Worlds #3", 2016).buildSquad(foAgent);
-         var squad2 = SquadBuilder.CoreSetResistanceSquadBuilder.buildSquad(resistanceAgent);
-         var environment = new Environment(store, foAgent, squad1, resistanceAgent, squad2);
-
-         // Run.
-         var result = environment.getTokensForFaction(Faction.IMPERIAL);
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 3);
-         assert.equal(result[0].card().key, PilotCard.OMEGA_LEADER);
-         assert.equal(result[1].card().key, PilotCard.COLONEL_VESSERY);
-         assert.equal(result[2].card().key, PilotCard.OMICRON_GROUP_PILOT);
-      });
-
-      QUnit.test("getTokensForFaction() Imperial pure", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var isPure = true;
-
-         // Run.
-         var result = environment.getTokensForFaction(Faction.IMPERIAL, isPure);
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 2);
-         assert.equal(result[0].card().key, PilotCard.MAULER_MITHEL);
-         assert.equal(result[1].card().key, PilotCard.DARK_CURSE);
-      });
-
-      QUnit.test("getTokensForFaction() Rebel", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createCoreSetEnvironment();
-
-         // Run.
-         var result = environment.getTokensForFaction(Faction.REBEL);
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 1);
-         assert.equal(result[0].card().key, PilotCard.LUKE_SKYWALKER);
-      });
-
-      QUnit.test("getTokensForFaction() Resistance", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createTFACoreSetEnvironment();
-
-         // Run.
-         var result = environment.getTokensForFaction(Faction.RESISTANCE);
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 1);
-         assert.equal(result[0].card().key, PilotCard.POE_DAMERON);
       });
 
       QUnit.test("getTokensTouching()", function(assert)

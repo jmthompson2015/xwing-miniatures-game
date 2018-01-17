@@ -198,10 +198,8 @@ define(["redux", "common/js/InputValidator",
 
          var store = this.store();
          var environment = Selector.environment(store.getState());
-         var firstSquad = environment.firstSquad();
-         var firstCount = environment.getTokensForFaction(firstSquad.factionKey()).length;
-         var secondSquad = environment.secondSquad();
-         var secondCount = environment.getTokensForFaction(secondSquad.factionKey()).length;
+         var firstCount = environment.getPilotInstancesForAgent(environment.firstAgent()).length;
+         var secondCount = environment.getPilotInstancesForAgent(environment.secondAgent()).length;
 
          if (firstCount === 0)
          {
@@ -221,15 +219,13 @@ define(["redux", "common/js/InputValidator",
 
          var store = this.store();
          var environment = Selector.environment(store.getState());
-         var firstSquad = environment.firstSquad();
-         var firstCount = environment.getTokensForFaction(firstSquad.factionKey()).length;
+         var firstCount = environment.getPilotInstancesForAgent(environment.firstAgent()).length;
 
          answer = (firstCount === 0);
 
          if (!answer)
          {
-            var secondSquad = environment.secondSquad();
-            var secondCount = environment.getTokensForFaction(secondSquad.factionKey()).length;
+            var secondCount = environment.getPilotInstancesForAgent(environment.secondAgent()).length;
             answer = (secondCount === 0);
          }
 

@@ -178,7 +178,15 @@ define(["immutable", "common/js/InputValidator",
 
          var store = this.store();
          var token = this.token();
-         store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_CHECK_PILOT_STRESS, token, this.finishCheckPilotStress.bind(this)));
+
+         if (token)
+         {
+            store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_CHECK_PILOT_STRESS, token, this.finishCheckPilotStress.bind(this)));
+         }
+         else
+         {
+            setTimeout(this.callback(), this.delay());
+         }
 
          LOGGER.trace("ActivationAction.checkPilotStress() end");
       };
