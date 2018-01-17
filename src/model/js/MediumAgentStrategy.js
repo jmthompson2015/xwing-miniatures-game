@@ -131,7 +131,7 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
                var mockAttacker = mockEnvironment.getTokenById(1);
                var mockDefender = mockEnvironment.getTokenById(2);
                var mockDefenseDice = DefenseDice.get(mockStore, mockAttacker.id());
-               var mod = new Ability(modification.source(), modification.sourceKey(), modification.type(), modification.abilityKey());
+               var mod = new Ability(modification.source(), modification.sourceKey(), modification.abilityType(), modification.abilityKey());
                var consequent = mod.consequent();
                var callback = function() {};
                consequent(mockStore, mockAttacker, callback);
@@ -167,138 +167,142 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
 
          var store = agent.store();
          var environment = store.getState().environment;
-         var defenders = environment.getDefenders(tokens[0]);
          var tokenToManeuver = {};
-         var playFormatKey = environment.playFormatKey();
 
-         tokens.forEach(function(token)
+         if (tokens.length > 0)
          {
-            var fromPosition = environment.getPositionFor(token);
-            var shipBase = token.card().shipFaction.ship.shipBase;
+            var defenders = environment.getDefenders(tokens[0]);
+            var playFormatKey = environment.playFormatKey();
 
-            // Find the maneuvers which keep the ship on the battlefield.
-            var validManeuvers = tokenToValidManeuvers[token];
-            var closestManeuver;
-            var minDistance;
-
-            // Find the maneuvers which take the ship within range of a defender.
-            var validManeuversR1 = [];
-            var validManeuversR2 = [];
-            var validManeuversR3 = [];
-
-            validManeuvers.forEach(function(maneuverKey)
+            tokens.forEach(function(token)
             {
-               var maneuver = Maneuver.properties[maneuverKey];
-               var toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
-               var weapon = token.primaryWeapon();
+               var fromPosition = environment.getPositionFor(token);
+               var shipBase = token.card().shipFaction.ship.shipBase;
 
-               if (weapon)
+               // Find the maneuvers which keep the ship on the battlefield.
+               var validManeuvers = tokenToValidManeuvers[token];
+               var closestManeuver;
+               var minDistance;
+
+               // Find the maneuvers which take the ship within range of a defender.
+               var validManeuversR1 = [];
+               var validManeuversR2 = [];
+               var validManeuversR3 = [];
+
+               validManeuvers.forEach(function(maneuverKey)
                {
-                  var firingArc = weapon.primaryFiringArc();
+                  var maneuver = Maneuver.properties[maneuverKey];
+                  var toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+                  var weapon = token.primaryWeapon();
 
-                  for (var i = 0; i < defenders.length; i++)
+                  if (weapon)
                   {
-                     var defender = defenders[i];
-                     var defenderPosition = environment.getPositionFor(defender);
+                     var firingArc = weapon.primaryFiringArc();
 
-                     if (weapon.isDefenderInFiringArc(toPosition, firingArc, defender, defenderPosition))
+                     for (var i = 0; i < defenders.length; i++)
                      {
-                        // Save the maneuver which has the minimum distance.
-                        var distance = toPosition.computeDistance(defenderPosition);
+                        var defender = defenders[i];
+                        var defenderPosition = environment.getPositionFor(defender);
 
-                        if (!minDistance || distance < minDistance)
+                        if (weapon.isDefenderInFiringArc(toPosition, firingArc, defender, defenderPosition))
                         {
-                           closestManeuver = maneuverKey;
-                           minDistance = distance;
+                           // Save the maneuver which has the minimum distance.
+                           var distance = toPosition.computeDistance(defenderPosition);
+
+                           if (!minDistance || distance < minDistance)
+                           {
+                              closestManeuver = maneuverKey;
+                              minDistance = distance;
+                           }
                         }
-                     }
 
-                     if (weapon.isDefenderTargetable(token, toPosition, defender, defenderPosition))
-                     {
-                        var range = RangeRuler.getRange(token, toPosition, defender, defenderPosition);
-
-                        switch (range)
+                        if (weapon.isDefenderTargetable(token, toPosition, defender, defenderPosition))
                         {
-                           case Range.ONE:
-                              validManeuversR1.push(maneuverKey);
-                              break;
-                           case Range.TWO:
-                              validManeuversR2.push(maneuverKey);
-                              break;
-                           case Range.THREE:
-                              validManeuversR3.push(maneuverKey);
-                              break;
+                           var range = RangeRuler.getRange(token, toPosition, defender, defenderPosition);
+
+                           switch (range)
+                           {
+                              case Range.ONE:
+                                 validManeuversR1.push(maneuverKey);
+                                 break;
+                              case Range.TWO:
+                                 validManeuversR2.push(maneuverKey);
+                                 break;
+                              case Range.THREE:
+                                 validManeuversR3.push(maneuverKey);
+                                 break;
+                           }
                         }
                      }
                   }
-               }
-            }, this);
+               }, this);
 
-            var myManeuver;
+               var myManeuver;
 
-            if (token.isStressed())
-            {
-               // Choose an easy maneuver.
-               var easyManeuvers = validManeuvers.filter(function(maneuverKey)
+               if (token.isStressed())
                {
-                  return Maneuver.properties[maneuverKey].difficultyKey === Difficulty.EASY;
-               });
+                  // Choose an easy maneuver.
+                  var easyManeuvers = validManeuvers.filter(function(maneuverKey)
+                  {
+                     return Maneuver.properties[maneuverKey].difficultyKey === Difficulty.EASY;
+                  });
 
-               var intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR1);
-               myManeuver = ArrayUtilities.randomElement(intersection);
-
-               if (myManeuver === undefined)
-               {
-                  intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR2);
+                  var intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR1);
                   myManeuver = ArrayUtilities.randomElement(intersection);
 
                   if (myManeuver === undefined)
                   {
-                     intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR3);
+                     intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR2);
                      myManeuver = ArrayUtilities.randomElement(intersection);
 
                      if (myManeuver === undefined)
                      {
-                        myManeuver = ArrayUtilities.randomElement(easyManeuvers);
-                     }
-                  }
-               }
-            }
-
-            if (myManeuver === undefined)
-            {
-               myManeuver = ArrayUtilities.randomElement(validManeuversR1);
-
-               if (myManeuver === undefined)
-               {
-                  myManeuver = ArrayUtilities.randomElement(validManeuversR2);
-
-                  if (myManeuver === undefined)
-                  {
-                     myManeuver = ArrayUtilities.randomElement(validManeuversR3);
-
-                     if (myManeuver === undefined)
-                     {
-                        myManeuver = closestManeuver;
+                        intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR3);
+                        myManeuver = ArrayUtilities.randomElement(intersection);
 
                         if (myManeuver === undefined)
                         {
-                           myManeuver = ArrayUtilities.randomElement(validManeuvers);
+                           myManeuver = ArrayUtilities.randomElement(easyManeuvers);
+                        }
+                     }
+                  }
+               }
+
+               if (myManeuver === undefined)
+               {
+                  myManeuver = ArrayUtilities.randomElement(validManeuversR1);
+
+                  if (myManeuver === undefined)
+                  {
+                     myManeuver = ArrayUtilities.randomElement(validManeuversR2);
+
+                     if (myManeuver === undefined)
+                     {
+                        myManeuver = ArrayUtilities.randomElement(validManeuversR3);
+
+                        if (myManeuver === undefined)
+                        {
+                           myManeuver = closestManeuver;
 
                            if (myManeuver === undefined)
                            {
-                              // The ship fled the battlefield.
-                              var maneuverKeys = token.maneuverKeys();
-                              myManeuver = ArrayUtilities.randomElement(maneuverKeys);
+                              myManeuver = ArrayUtilities.randomElement(validManeuvers);
+
+                              if (myManeuver === undefined)
+                              {
+                                 // The ship fled the battlefield.
+                                 var maneuverKeys = token.maneuverKeys();
+                                 myManeuver = ArrayUtilities.randomElement(maneuverKeys);
+                              }
                            }
                         }
                      }
                   }
                }
-            }
 
-            tokenToManeuver[token.id()] = myManeuver;
-         }, this);
+               tokenToManeuver[token.id()] = myManeuver;
+            }, this);
+         }
 
          callback(tokenToManeuver);
       };
