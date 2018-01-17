@@ -73,7 +73,7 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
             {
                var mockStore = this.cloneStore(store, attacker, attackerPosition, defender, defenderPosition);
                var mockEnvironment = mockStore.getState().environment;
-               var mockAttacker = mockEnvironment.getTokenById(1);
+               var mockAttacker = mockEnvironment.pilotInstances()[0];
                var mockAttackDice = AttackDice.get(mockStore, mockAttacker.id());
                var mod = new Ability(modification.source(), modification.sourceKey(), modification.abilityType(), modification.abilityKey());
                var consequent = mod.consequent();
