@@ -290,8 +290,13 @@ define(["immutable", "qunit", "redux",
          // Verify.
          var result = store.getState().cardAttackDice.get(token.id());
          assert.ok(result);
-         assert.equal(result.size, attackDice.values().size);
-         assert.equal(result, attackDice.values());
+         var results = result.toJS();
+         var values = attackDice.values();
+         assert.equal(results.length, values.length);
+         for (var i = 0; i < values.length; i++)
+         {
+            assert.equal(results[i], values[i]);
+         }
       });
 
       QUnit.test("setTokenCombatAction()", function(assert)
@@ -360,8 +365,13 @@ define(["immutable", "qunit", "redux",
          // Verify.
          var result = store.getState().cardDefenseDice.get(token.id());
          assert.ok(result);
-         assert.equal(result.size, defenseDice.values().size);
-         assert.equal(result, defenseDice.values());
+         var results = result.toJS();
+         var values = defenseDice.values();
+         assert.equal(results.length, values.length);
+         for (var i = 0; i < values.length; i++)
+         {
+            assert.equal(results[i], values[i]);
+         }
       });
 
       QUnit.test("setTokenInFiringArc()", function(assert)

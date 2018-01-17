@@ -400,7 +400,7 @@ define(["qunit", "redux", "artifact/js/AttackDiceValue", "model/js/Action", "mod
          var result = dice.toString();
 
          // Verify.
-         assert.equal(result, "attackerId=1, size=2, values=List [ \"focus\", \"focus\" ]");
+         assert.equal(result, "attackerId=1, size=2, values=focus,focus");
       });
 
       function createBlankDice(count)

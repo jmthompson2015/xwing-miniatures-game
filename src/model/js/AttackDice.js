@@ -61,7 +61,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
 
       AttackDice.prototype.size = function()
       {
-         return this.values().size;
+         return this.values().length;
       };
 
       AttackDice.prototype.sortedValues = function()
@@ -79,7 +79,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
       {
          var values = this.values();
 
-         return "attackerId=" + this.attackerId() + ", size=" + (values ? values.size : undefined) + ", values=" + values;
+         return "attackerId=" + this.attackerId() + ", size=" + values.length + ", values=" + values;
       };
 
       AttackDice.prototype.value = function(index)
@@ -88,7 +88,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
 
          var values = this.values();
 
-         return values.get(index);
+         return values[index];
       };
 
       AttackDice.prototype.valueCount = function(target)
@@ -107,7 +107,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
          var attackerId = this.attackerId();
          var answer = store.getState().cardAttackDice.get(attackerId);
 
-         return (answer !== undefined ? answer : []);
+         return (answer !== undefined ? answer.toJS() : []);
       };
 
       //////////////////////////////////////////////////////////////////////////
@@ -118,20 +118,21 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
          // value optional.
 
          var myValue = (value !== undefined ? value : AttackDice.rollRandomValue());
-         var newValues = this.values().push(myValue);
-         this.save(newValues);
+         var values = this.values();
+         values.push(myValue);
+         this.save(values);
       };
 
       AttackDice.prototype.changeAllToValue = function(oldValue, newValue)
       {
          var oldValues = this.values();
-         var newValues = oldValues;
+         var newValues = oldValues.slice();
 
-         for (var i = 0; i < oldValues.size; i++)
+         for (var i = 0; i < oldValues.length; i++)
          {
-            if (oldValues.get(i) === oldValue)
+            if (oldValues[i] === oldValue)
             {
-               newValues = newValues.set(i, newValue);
+               newValues[i] = newValue;
             }
          }
 
@@ -141,13 +142,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
       AttackDice.prototype.changeOneToValue = function(oldValue, newValue)
       {
          var oldValues = this.values();
-         var newValues = oldValues;
+         var newValues = oldValues.slice();
 
-         for (var i = 0; i < oldValues.size; i++)
+         for (var i = 0; i < oldValues.length; i++)
          {
-            if (oldValues.get(i) === oldValue)
+            if (oldValues[i] === oldValue)
             {
-               newValues = newValues.set(i, newValue);
+               newValues[i] = newValue;
                break;
             }
          }
@@ -290,13 +291,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/AttackDiceValue", 
       {
          // Reroll any blank or focus values.
          var oldValues = this.values();
-         var newValues = oldValues;
+         var newValues = oldValues.slice();
 
          oldValues.forEach(function(oldValue, i)
          {
             if ([AttackDiceValue.BLANK, AttackDiceValue.FOCUS].includes(oldValue))
             {
-               newValues = newValues.set(i, AttackDice.rollRandomValue());
+               newValues[i] = AttackDice.rollRandomValue();
             }
          });
 

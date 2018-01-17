@@ -56,7 +56,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
 
       DefenseDice.prototype.size = function()
       {
-         return this.values().size;
+         return this.values().length;
       };
 
       DefenseDice.prototype.sortedValues = function()
@@ -74,7 +74,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
       {
          var values = this.values();
 
-         return "attackerId=" + this.attackerId() + ", size=" + (values ? values.size : undefined) + ", values=" + values;
+         return "attackerId=" + this.attackerId() + ", size=" + values.length + ", values=" + values;
       };
 
       DefenseDice.prototype.value = function(index)
@@ -83,7 +83,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
 
          var values = this.values();
 
-         return values.get(index);
+         return values[index];
       };
 
       DefenseDice.prototype.valueCount = function(target)
@@ -103,7 +103,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
 
          var answer = store.getState().cardDefenseDice.get(attackerId);
 
-         return (answer !== undefined ? answer : Immutable.List());
+         return (answer !== undefined ? answer.toJS() : []);
       };
 
       //////////////////////////////////////////////////////////////////////////
@@ -114,20 +114,21 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
          // value optional.
 
          var myValue = (value !== undefined ? value : DefenseDice.rollRandomValue());
-         var newValues = this.values().push(myValue);
-         this.save(newValues);
+         var values = this.values();
+         values.push(myValue);
+         this.save(values);
       };
 
       DefenseDice.prototype.changeAllToValue = function(oldValue, newValue)
       {
          var oldValues = this.values();
-         var newValues = oldValues;
+         var newValues = oldValues.slice();
 
-         for (var i = 0; i < oldValues.size; i++)
+         for (var i = 0; i < oldValues.length; i++)
          {
-            if (oldValues.get(i) === oldValue)
+            if (oldValues[i] === oldValue)
             {
-               newValues = newValues.set(i, newValue);
+               newValues[i] = newValue;
             }
          }
 
@@ -137,13 +138,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
       DefenseDice.prototype.changeOneToValue = function(oldValue, newValue)
       {
          var oldValues = this.values();
-         var newValues = oldValues;
+         var newValues = oldValues.slice();
 
-         for (var i = 0; i < oldValues.size; i++)
+         for (var i = 0; i < oldValues.length; i++)
          {
-            if (oldValues.get(i) === oldValue)
+            if (oldValues[i] === oldValue)
             {
-               newValues = newValues.set(i, newValue);
+               newValues[i] = newValue;
                break;
             }
          }
@@ -252,10 +253,10 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DefenseDiceValue",
       DefenseDice.prototype.spendEvadeToken = function()
       {
          var oldValues = this.values();
-         var newValues = oldValues;
+         var newValues = oldValues.slice();
 
          // Add an evade result.
-         newValues = newValues.push(DefenseDiceValue.EVADE);
+         newValues.push(DefenseDiceValue.EVADE);
          this.save(newValues);
       };
 

@@ -241,6 +241,19 @@ define(["qunit", "redux", "artifact/js/DefenseDiceValue", "model/js/Action", "mo
          assert.equal(dice.focusCount(), 0);
       });
 
+      QUnit.test("toString()", function(assert)
+      {
+         // Setup.
+         var dice = createFocusDice(2);
+         assert.equal(dice.focusCount(), 2);
+
+         // Run.
+         var result = dice.toString();
+
+         // Verify.
+         assert.equal(result, "attackerId=1, size=2, values=focus,focus");
+      });
+
       function createBlankDice(count)
       {
          var store = Redux.createStore(Reducer.root);

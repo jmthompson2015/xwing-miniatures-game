@@ -228,13 +228,6 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator", "ar
                      isGameOver: true,
                      winner: action.winner,
                   });
-                  //  case Action.SET_PHASE:
-                  //     LOGGER.info("Phase: " + Phase.properties[action.phaseKey].name);
-                  //     return Object.assign(
-                  //     {}, state,
-                  //     {
-                  //        phaseKey: action.phaseKey,
-                  //     });
                case Action.SET_RESOURCE_BASE:
                   return Object.assign(
                   {}, state,
@@ -250,7 +243,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator", "ar
                   });
                case Action.SET_TOKEN_ATTACK_DICE:
                   // LOGGER.info("Reducer.root() SET_TOKEN_ATTACK_DICE action.tokenId = " + action.tokenId + " action.attackDiceValues = " + action.attackDiceValues);
-                  newTokenIdToData = Reducer.tokenIdToData(state.cardAttackDice, Action.SET_TOKEN_ATTACK_DICE, action.type, action.tokenId, action.attackDiceValues);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardAttackDice, Action.SET_TOKEN_ATTACK_DICE, action.type, action.tokenId, Immutable.List(action.attackDiceValues));
                   return Object.assign(
                   {}, state,
                   {
@@ -278,7 +271,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator", "ar
                      cardIsDefenderHit: newTokenIdToData,
                   });
                case Action.SET_TOKEN_DEFENSE_DICE:
-                  newTokenIdToData = Reducer.tokenIdToData(state.cardDefenseDice, Action.SET_TOKEN_DEFENSE_DICE, action.type, action.tokenId, action.defenseDiceValues);
+                  newTokenIdToData = Reducer.tokenIdToData(state.cardDefenseDice, Action.SET_TOKEN_DEFENSE_DICE, action.type, action.tokenId, Immutable.List(action.defenseDiceValues));
                   return Object.assign(
                   {}, state,
                   {
