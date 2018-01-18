@@ -72,8 +72,8 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
          {
             var upgradeKeysFore = (upgradeKeysForeIn ? upgradeKeysForeIn : Immutable.List());
             var upgradeKeysAft = (upgradeKeysAftIn ? upgradeKeysAftIn : Immutable.List());
-            tokenFore = new CardInstance(store, pilotFore, agent, upgradeKeysFore);
-            tokenAft = new CardInstance(store, pilotAft, agent, upgradeKeysAft);
+            tokenFore = new CardInstance(store, pilotFore, agent, upgradeKeysFore, undefined, true, id);
+            tokenAft = new CardInstance(store, pilotAft, agent, upgradeKeysAft, undefined, true, id);
             this._save(upgradeKeysFore, upgradeKeysAft, tokenFore, tokenAft);
          }
          else
@@ -81,9 +81,6 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
             tokenFore = CardInstance.get(store, idFore);
             tokenAft = CardInstance.get(store, idAft);
          }
-
-         tokenFore.parent = this;
-         tokenAft.parent = this;
 
          var myCrippledPilotFore, myCrippledPilotAft;
          var myCrippledTokenFore, myCrippledTokenAft;
@@ -146,8 +143,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
             if (tokenAft.isDestroyed() && myCrippledTokenAft === undefined)
             {
                var upgradeKeys = [];
-               myCrippledTokenAft = new CardInstance(store, crippledPilotAft(), agent, upgradeKeys);
-               myCrippledTokenAft.parent = this;
+               myCrippledTokenAft = new CardInstance(store, crippledPilotAft(), agent, upgradeKeys, undefined, true, id);
             }
 
             return myCrippledTokenAft;
@@ -158,8 +154,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
             if (tokenFore.isDestroyed() && myCrippledTokenFore === undefined)
             {
                var upgradeKeys = [];
-               myCrippledTokenFore = new CardInstance(store, crippledPilotFore(), agent, upgradeKeys);
-               myCrippledTokenFore.parent = this;
+               myCrippledTokenFore = new CardInstance(store, crippledPilotFore(), agent, upgradeKeys, undefined, true, id);
             }
 
             return myCrippledTokenFore;
@@ -206,6 +201,11 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
       DualCardInstance.prototype.equals = function(other)
       {
          return this.id() == other.id() && this.card().key == other.card().key;
+      };
+
+      DualCardInstance.prototype.idParent = function()
+      {
+         return undefined;
       };
 
       DualCardInstance.prototype.isChild = function()
@@ -326,7 +326,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/CardResolver", "ar
          var cardKey = this.card().key;
          var agent = this.agent();
 
-         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, tokenFore.id(), tokenAft.id()));
+         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, undefined, tokenFore.id(), tokenAft.id()));
 
          if (this.card().cardTypeKey === CardType.PILOT)
          {

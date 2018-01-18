@@ -165,7 +165,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
       {
          InputValidator.validateNotNull("attacker", attacker0);
 
-         var attacker = (attacker0.parent !== undefined ? attacker0.parent : attacker0);
+         var attacker = (attacker0.idParent() !== undefined ? this.parentOf(attacker0) : attacker0);
          var answer = [];
          var firstTokens = this.firstSquad().tokens();
          var firstTokenIds = firstTokens.map(function(token)
@@ -251,9 +251,10 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          var store = this.store();
          var answer;
 
-         if (token.parent)
+         if (token.idParent() !== undefined)
          {
-            var parentPosition = this.getPositionFor(token.parent);
+            var tokenParent = this.parentOf(token);
+            var parentPosition = this.getPositionFor(tokenParent);
 
             if (parentPosition)
             {
@@ -449,6 +450,22 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          var answer = store.getState().cardIsTouching.get(token.id());
 
          return (answer !== undefined ? answer : false);
+      };
+
+      Environment.prototype.parentOf = function(pilotInstance)
+      {
+         InputValidator.validateNotNull("pilotInstance", pilotInstance);
+
+         var answer;
+         var idParent = pilotInstance.idParent();
+
+         if (idParent !== undefined)
+         {
+            var store = this.store();
+            answer = CardInstanceFactory.get(store, idParent);
+         }
+
+         return answer;
       };
 
       Environment.prototype.pilotInstances = function(isPure)

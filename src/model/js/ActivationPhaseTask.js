@@ -114,9 +114,9 @@ define(["common/js/InputValidator", "artifact/js/Maneuver",
          environment.setActiveToken(cardInstance);
          var myToken = cardInstance;
 
-         if (cardInstance.parent && cardInstance.card().key.endsWith("fore"))
+         if (cardInstance.idParent() !== undefined && cardInstance.card().key.endsWith("fore"))
          {
-            myToken = cardInstance.parent;
+            myToken = environment.parentOf(cardInstance);
          }
 
          var maneuverKey = store.getState().pilotToManeuver.get("" + myToken.id());

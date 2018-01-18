@@ -7,7 +7,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
       Ability, Action, AgentAction, CardAction, RangeRuler, TargetLock, Weapon)
    {
-      function CardInstance(store, cardOrKey, agent, upgradeKeysIn, idIn, isNewIn)
+      function CardInstance(store, cardOrKey, agent, upgradeKeysIn, idIn, isNewIn, idParent)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("cardOrKey", cardOrKey);
@@ -15,6 +15,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          // upgradeKeys optional.
          // idIn optional. default: determined from store
          // isNewIn optional. default: true
+         // idParent optional.
 
          var card;
 
@@ -69,6 +70,11 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          this.agent = function()
          {
             return agent;
+         };
+
+         this.idParent = function()
+         {
+            return idParent;
          };
 
          var isNew = (isNewIn !== undefined ? isNewIn : true);
@@ -570,7 +576,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
 
       CardInstance.prototype.isHuge = function()
       {
-         return ShipBase.isHuge(this.ship().shipBaseKey) || (this.parent !== undefined);
+         return ShipBase.isHuge(this.ship().shipBaseKey) || (this.idParent() !== undefined);
       };
 
       CardInstance.prototype.isIonized = function()
@@ -1305,8 +1311,9 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          var cardTypeKey = this.card().cardTypeKey;
          var cardKey = this.card().key;
          var agent = this.agent();
+         var idParent = this.idParent();
 
-         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent));
+         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, idParent));
 
          upgradeKeys.forEach(function(upgradeKey)
          {
@@ -1355,7 +1362,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          // agent optional.
 
          var card = this.card();
-         var answer = new CardInstance(store, card, agent);
+         var answer = new CardInstance(store, card, agent, undefined, undefined, undefined, this.idParent());
 
          this.upgrades().forEach(function(upgrade)
          {
@@ -1482,8 +1489,9 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
             var agent = values.get("agent");
             var upgradeKeys = store.getState().cardUpgrades.get(id);
             var isNew = false;
+            var idParent = values.get("idParent");
 
-            answer = new CardInstance(store, card, agent, upgradeKeys, id, isNew);
+            answer = new CardInstance(store, card, agent, upgradeKeys, id, isNew, idParent);
          }
 
          return answer;

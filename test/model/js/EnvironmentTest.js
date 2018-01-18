@@ -957,6 +957,46 @@ define(["qunit", "redux",
          assert.ok(environment.getTokenAt(toPosition).equals(token));
       });
 
+      QUnit.test("parentOf() CR90", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createHugeShipEnvironment();
+         var parentInstance = environment.pilotInstances()[3]; // CR90
+         var tokenFore = parentInstance.tokenFore();
+         assert.ok(tokenFore);
+         assert.equal(tokenFore.idParent(), 39);
+         var tokenAft = parentInstance.tokenAft();
+         assert.ok(tokenAft);
+         assert.equal(tokenAft.idParent(), 39);
+
+         // Run.
+         var result = environment.parentOf(tokenFore);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.card().key, PilotCard.CR90_CORVETTE);
+      });
+
+      QUnit.test("parentOf() Raider-class", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createHugeShipEnvironment();
+         var parentInstance = environment.pilotInstances()[2]; // Raider-class
+         var tokenFore = parentInstance.tokenFore();
+         assert.ok(tokenFore);
+         assert.equal(tokenFore.idParent(), 36);
+         var tokenAft = parentInstance.tokenAft();
+         assert.ok(tokenAft);
+         assert.equal(tokenAft.idParent(), 36);
+
+         // Run.
+         var result = environment.parentOf(tokenFore);
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.card().key, PilotCard.RAIDER_CLASS_CORVETTE);
+      });
+
       QUnit.test("pilotInstances()", function(assert)
       {
          // Setup.

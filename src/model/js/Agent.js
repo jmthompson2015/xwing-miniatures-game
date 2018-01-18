@@ -283,7 +283,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
                   tokens = tokens.concat(environment.getFriendlyTokensAtRange(token, Range.TWO));
                   tokens.forEach(function(myToken)
                   {
-                     if (myToken !== token && (token.parent === undefined || token.parent !== myToken))
+                     if (myToken.id() !== token.id() && (token.idParent() === undefined || token.idParent() !== myToken.id()))
                      {
                         context = {
                            token: myToken,
@@ -310,19 +310,21 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
                   break;
                case ShipAction.RECOVER:
                case ShipAction.REINFORCE:
-                  if (token.parent !== undefined)
+                  if (token.idParent() !== undefined)
                   {
-                     if (!token.parent.tokenFore().isDestroyed())
+                     var tokenParent = environment.parentOf(token);
+
+                     if (!tokenParent.tokenFore().isDestroyed())
                      {
                         context = {
-                           token: token.parent.tokenFore(),
+                           token: tokenParent.tokenFore(),
                         };
                         answer.push(new Ability(ShipAction, shipActionKey, ShipActionAbility, ShipActionAbility.ABILITY_KEY, context));
                      }
-                     if (!token.parent.tokenAft().isDestroyed())
+                     if (!tokenParent.tokenAft().isDestroyed())
                      {
                         context = {
-                           token: token.parent.tokenAft(),
+                           token: tokenParent.tokenAft(),
                         };
                         answer.push(new Ability(ShipAction, shipActionKey, ShipActionAbility, ShipActionAbility.ABILITY_KEY, context));
                      }

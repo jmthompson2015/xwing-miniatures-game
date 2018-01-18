@@ -378,9 +378,9 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/PilotCard"
          var callback = this.callback();
          var myDefender, myDefenderPosition;
 
-         if (defender.parent !== undefined)
+         if (defender.idParent() !== undefined)
          {
-            myDefender = defender.parent;
+            myDefender = environment.parentOf(defender);
             myDefenderPosition = environment.getPositionFor(myDefender);
          }
          else

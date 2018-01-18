@@ -221,12 +221,13 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          });
       };
 
-      CardAction.setCardInstance = function(id, cardTypeKey, cardKey, agent, idFore, idAft)
+      CardAction.setCardInstance = function(id, cardTypeKey, cardKey, agent, idParent, idFore, idAft)
       {
          InputValidator.validateIsNumber("id", id);
          InputValidator.validateIsString("cardTypeKey", cardTypeKey);
          InputValidator.validateIsString("cardKey", cardKey);
          // agent optional.
+         // idParent optional.
          // idFore optional.
          // idAft optional.
 
@@ -236,6 +237,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
             cardTypeKey: cardTypeKey,
             cardKey: cardKey,
             agent: agent,
+            idParent: idParent,
             idFore: idFore,
             idAft: idAft,
          });

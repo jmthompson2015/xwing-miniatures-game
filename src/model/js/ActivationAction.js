@@ -144,9 +144,9 @@ define(["immutable", "common/js/InputValidator",
          var maneuverKey = this.maneuverKey();
          var parentToken = token;
 
-         if (token.parent && token.card().key.endsWith("fore"))
+         if (token.idParent() !== undefined && token.card().key.endsWith("fore"))
          {
-            parentToken = token.parent;
+            parentToken = environment.parentOf(token);
          }
 
          if (maneuverKey)
@@ -265,7 +265,7 @@ define(["immutable", "common/js/InputValidator",
 
          var token = this.token();
 
-         if (token.isHuge() || (token.parent && token.parent.isHuge()))
+         if (token.isHuge())
          {
             var maneuverKey = this.maneuverKey();
 
@@ -311,7 +311,7 @@ define(["immutable", "common/js/InputValidator",
 
          var token = this.token();
 
-         if (token.isHuge() || (token.parent && token.parent.isHuge()))
+         if (token.isHuge())
          {
             // FIXME: implement finishAllocateEnergy()
          }
@@ -337,7 +337,7 @@ define(["immutable", "common/js/InputValidator",
 
          var token = this.token();
 
-         if (token.isHuge() || (token.parent && token.parent.isHuge()))
+         if (token.isHuge())
          {
             // FIXME: implement finishUseEnergy()
          }
