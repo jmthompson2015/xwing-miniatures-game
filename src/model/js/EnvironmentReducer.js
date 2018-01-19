@@ -182,8 +182,11 @@ define(["immutable", "common/js/ArrayUtilities", "model/js/EnvironmentAction"],
                   cardTypeKey: action.token.card().cardTypeKey,
                   cardKey: action.token.card().key,
                   agent: action.token.agent(),
-                  idFore: (action.token.tokenFore ? action.token.tokenFore().id() : undefined),
-                  idAft: (action.token.tokenAft ? action.token.tokenAft().id() : undefined),
+                  idParent: action.token.idParent(),
+                  idFore: action.token.idFore(),
+                  idAft: action.token.idAft(),
+                  idCrippledFore: action.token.idCrippledFore(),
+                  idCrippledAft: action.token.idCrippledAft(),
                }));
             case EnvironmentAction.REMOVE_TOKEN:
                return state.delete(action.token.id());

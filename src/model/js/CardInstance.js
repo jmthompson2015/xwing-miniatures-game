@@ -7,15 +7,20 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
       Ability, Action, AgentAction, CardAction, RangeRuler, TargetLock, Weapon)
    {
-      function CardInstance(store, cardOrKey, agent, upgradeKeysIn, idIn, isNewIn, idParent)
+      function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, idIn, isNewIn, idParent, idFore, idAft, idCrippledFore, idCrippledAft)
       {
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("cardOrKey", cardOrKey);
          // agent optional.
-         // upgradeKeys optional.
+         // upgradeKeysIn optional.
+         // upgradeKeysAftIn optional.
          // idIn optional. default: determined from store
          // isNewIn optional. default: true
          // idParent optional.
+         // idFore optional.
+         // idAft optional.
+         // idCrippledFore optional.
+         // idCrippledAft optional.
 
          var card;
 
@@ -77,12 +82,63 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
             return idParent;
          };
 
+         this.idFore = function()
+         {
+            return idFore;
+         };
+
+         this.idAft = function()
+         {
+            return idAft;
+         };
+
+         this.idCrippledFore = function()
+         {
+            return idCrippledFore;
+         };
+
+         this.idCrippledAft = function()
+         {
+            return idCrippledAft;
+         };
+
          var isNew = (isNewIn !== undefined ? isNewIn : true);
 
          if (isNew)
          {
-            var upgradeKeys = (upgradeKeysIn ? upgradeKeysIn : Immutable.List());
-            this._save(upgradeKeys);
+            var upgradeKeys;
+
+            if (card.fore !== undefined && card.aft !== undefined)
+            {
+               upgradeKeys = Immutable.List();
+
+               var pilotFore = card.fore;
+               var upgradeKeysFore = (upgradeKeysIn ? upgradeKeysIn : Immutable.List());
+               var tokenFore = new CardInstance(store, pilotFore, agent, upgradeKeysFore, undefined, undefined, true, id);
+               idFore = tokenFore.id();
+
+               var pilotCrippledFore = card.crippledFore;
+               // FIXME: decide which upgrades to keep.
+               var crippledTokenFore = new CardInstance(store, pilotCrippledFore, agent, upgradeKeysFore, undefined, undefined, true, id);
+               idCrippledFore = crippledTokenFore.id();
+
+               var pilotAft = card.aft;
+               var upgradeKeysAft = (upgradeKeysAftIn ? upgradeKeysAftIn : Immutable.List());
+               var tokenAft = new CardInstance(store, pilotAft, agent, upgradeKeysAft, undefined, undefined, true, id);
+               idAft = tokenAft.id();
+
+               var pilotCrippledAft = card.crippledAft;
+               // FIXME: decide which upgrades to keep.
+               var crippledTokenAft = new CardInstance(store, pilotCrippledAft, agent, upgradeKeysAft, undefined, undefined, true, id);
+               idCrippledAft = crippledTokenAft.id();
+
+               this._save(upgradeKeys, tokenFore, tokenAft, crippledTokenFore, crippledTokenAft);
+            }
+            else
+            {
+               upgradeKeys = (upgradeKeysIn ? upgradeKeysIn : Immutable.List());
+               this._save(upgradeKeys);
+            }
          }
       }
 
@@ -546,7 +602,8 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       {
          var key = this.card().key;
 
-         return key.endsWith(".fore") || key.endsWith(".aft");
+         return key.endsWith(".fore") || key.endsWith(".aft") ||
+            key.endsWith(".crippledFore") || key.endsWith(".crippledAft");
       };
 
       CardInstance.prototype.isCloaked = function()
@@ -563,7 +620,20 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
 
       CardInstance.prototype.isDestroyed = function()
       {
-         return this.totalDamage() >= this.hullValue();
+         var answer = false;
+
+         if (this.isParent())
+         {
+            var tokenFore = this._tokenFore();
+            var tokenAft = this._tokenAft();
+            answer = tokenFore && tokenFore.isDestroyed() && tokenAft && tokenAft.isDestroyed();
+         }
+         else
+         {
+            answer = this.totalDamage() >= this.hullValue();
+         }
+
+         return answer;
       };
 
       CardInstance.prototype.isFaceUp = function()
@@ -582,6 +652,11 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       CardInstance.prototype.isIonized = function()
       {
          return this.ionCount() > 0;
+      };
+
+      CardInstance.prototype.isParent = function()
+      {
+         return this.idFore() !== undefined && this.idAft() !== undefined;
       };
 
       CardInstance.prototype.isPerRoundAbilityUsed = function(source, sourceKey)
@@ -742,14 +817,9 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          var answer;
          var ship = this.ship();
 
-         if (ship)
+         if (ship && this.primaryWeaponValue() !== undefined && ship.primaryWeaponRanges !== undefined)
          {
-            var primaryWeaponValue = this.primaryWeaponValue();
-
-            if (primaryWeaponValue !== undefined)
-            {
-               answer = new Weapon("Primary Weapon", primaryWeaponValue, ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
-            }
+            answer = new Weapon("Primary Weapon", this.primaryWeaponValue(), ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
          }
 
          return answer;
@@ -942,6 +1012,30 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       CardInstance.prototype.toString = function()
       {
          return this.name() + " " + this.card().cardTypeKey;
+      };
+
+      CardInstance.prototype.tokenAft = function()
+      {
+         var answer = this._tokenAft();
+
+         if (answer !== undefined && answer.isDestroyed())
+         {
+            answer = this._crippledTokenAft();
+         }
+
+         return answer;
+      };
+
+      CardInstance.prototype.tokenFore = function()
+      {
+         var answer = this._tokenFore();
+
+         if (answer !== undefined && answer.isDestroyed())
+         {
+            answer = this._crippledTokenFore();
+         }
+
+         return answer;
       };
 
       CardInstance.prototype.totalDamage = function()
@@ -1156,12 +1250,17 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
 
             if (ship)
             {
-               if (ship.fore)
+               answer = ship[propertyName];
+
+               if (answer === undefined && ship.fore !== undefined)
                {
-                  ship = ship.fore;
+                  answer = ship.fore[propertyName];
                }
 
-               answer = ship[propertyName];
+               if (answer === undefined && ship.aft !== undefined)
+               {
+                  answer = ship.aft[propertyName];
+               }
             }
          }
 
@@ -1302,9 +1401,13 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          }
       };
 
-      CardInstance.prototype._save = function(upgradeKeys)
+      CardInstance.prototype._save = function(upgradeKeys, tokenFore, tokenAft, crippledTokenFore, crippledTokenAft)
       {
          InputValidator.validateNotNull("upgradeKeys", upgradeKeys);
+         // tokenFore optional.
+         // tokenAft optional.
+         // crippledTokenFore optional.
+         // crippledTokenAft optional.
 
          var store = this.store();
          var id = this.id();
@@ -1312,8 +1415,12 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          var cardKey = this.card().key;
          var agent = this.agent();
          var idParent = this.idParent();
+         var idFore = (tokenFore ? tokenFore.id() : undefined);
+         var idAft = (tokenAft ? tokenAft.id() : undefined);
+         var idCrippledFore = (crippledTokenFore ? crippledTokenFore.id() : undefined);
+         var idCrippledAft = (crippledTokenAft ? crippledTokenAft.id() : undefined);
 
-         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, idParent));
+         store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, idParent, idFore, idAft, idCrippledFore, idCrippledAft));
 
          upgradeKeys.forEach(function(upgradeKey)
          {
@@ -1435,6 +1542,62 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
             upgrade.isWeaponTurret, upgrade.key);
       };
 
+      CardInstance.prototype._crippledTokenAft = function()
+      {
+         var answer;
+         var idCrippledAft = this.idCrippledAft();
+
+         if (idCrippledAft !== undefined)
+         {
+            var store = this.store();
+            answer = CardInstance.get(store, idCrippledAft);
+         }
+
+         return answer;
+      };
+
+      CardInstance.prototype._crippledTokenFore = function()
+      {
+         var answer;
+         var idCrippledFore = this.idCrippledFore();
+
+         if (idCrippledFore !== undefined)
+         {
+            var store = this.store();
+            answer = CardInstance.get(store, idCrippledFore);
+         }
+
+         return answer;
+      };
+
+      CardInstance.prototype._tokenAft = function()
+      {
+         var answer;
+         var idAft = this.idAft();
+
+         if (idAft !== undefined)
+         {
+            var store = this.store();
+            answer = CardInstance.get(store, idAft);
+         }
+
+         return answer;
+      };
+
+      CardInstance.prototype._tokenFore = function()
+      {
+         var answer;
+         var idFore = this.idFore();
+
+         if (idFore !== undefined)
+         {
+            var store = this.store();
+            answer = CardInstance.get(store, idFore);
+         }
+
+         return answer;
+      };
+
       CardInstance.cardInstancesToIds = function(cardInstances)
       {
          InputValidator.validateNotNull("cardInstances", cardInstances);
@@ -1481,17 +1644,42 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
                cardKey = cardKey.substring(0, cardKey.length - ".aft".length);
                card = PilotCard.properties[cardKey].aft;
             }
+            else if (cardKey.endsWith(".crippledFore"))
+            {
+               cardKey = cardKey.substring(0, cardKey.length - ".crippledFore".length);
+               card = PilotCard.properties[cardKey].crippledFore;
+            }
+            else if (cardKey.endsWith(".crippledAft"))
+            {
+               cardKey = cardKey.substring(0, cardKey.length - ".crippledAft".length);
+               card = PilotCard.properties[cardKey].crippledAft;
+            }
             else
             {
                card = CardResolver.resolve(cardTypeKey, cardKey);
             }
 
             var agent = values.get("agent");
-            var upgradeKeys = store.getState().cardUpgrades.get(id);
             var isNew = false;
             var idParent = values.get("idParent");
+            var idFore = values.get("idFore");
+            var idAft = values.get("idAft");
+            var idCrippledFore = values.get("idCrippledFore");
+            var idCrippledAft = values.get("idCrippledAft");
 
-            answer = new CardInstance(store, card, agent, upgradeKeys, id, isNew, idParent);
+            var upgradeKeys, upgradeKeysAft;
+
+            if (idFore !== undefined && idAft !== undefined)
+            {
+               upgradeKeys = store.getState().cardUpgrades.get(id);
+               upgradeKeysAft = store.getState().cardUpgrades.get(id);
+            }
+            else
+            {
+               upgradeKeys = store.getState().cardUpgrades.get(id);
+            }
+
+            answer = new CardInstance(store, card, agent, upgradeKeys, upgradeKeysAft, id, isNew, idParent, idFore, idAft, idCrippledFore, idCrippledAft);
          }
 
          return answer;

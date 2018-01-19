@@ -58,13 +58,13 @@ define(["qunit", "redux",
          {
             return b.id() - a.id();
          });
-         assert.equal(result.length, 60);
+         assert.equal(result.length, 52);
          assert.equal(result[4].card().key, PilotCard.GR_75_MEDIUM_TRANSPORT);
          assert.equal(result[6].card().key, PilotCard.WES_JANSON);
-         assert.equal(result[21].card().key, PilotCard.CR90_CORVETTE);
-         assert.equal(result[24].card().key, PilotCard.RAIDER_CLASS_CORVETTE);
-         assert.equal(result[25].card().key, PilotCard.JUNO_ECLIPSE);
-         assert.equal(result[26].card().key, PilotCard.GOZANTI_CLASS_CRUISER);
+         assert.equal(result[11].card().key, PilotCard.CR90_CORVETTE);
+         assert.equal(result[16].card().key, PilotCard.RAIDER_CLASS_CORVETTE);
+         assert.equal(result[17].card().key, PilotCard.JUNO_ECLIPSE);
+         assert.equal(result[18].card().key, PilotCard.GOZANTI_CLASS_CRUISER);
       });
 
       QUnit.test("createWeaponToRangeToDefenders() one", function(assert)
@@ -964,10 +964,10 @@ define(["qunit", "redux",
          var parentInstance = environment.pilotInstances()[3]; // CR90
          var tokenFore = parentInstance.tokenFore();
          assert.ok(tokenFore);
-         assert.equal(tokenFore.idParent(), 39);
+         assert.equal(tokenFore.idParent(), 41);
          var tokenAft = parentInstance.tokenAft();
          assert.ok(tokenAft);
-         assert.equal(tokenAft.idParent(), 39);
+         assert.equal(tokenAft.idParent(), 41);
 
          // Run.
          var result = environment.parentOf(tokenFore);

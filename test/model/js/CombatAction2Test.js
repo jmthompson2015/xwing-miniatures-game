@@ -440,7 +440,7 @@ define(["qunit", "redux",
             assert.equal(attackDice.hitCount(), 1); // mock dice don't change
 
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
-            assert.equal(defender.damageCount() + defender.criticalDamageCount(), 1);
+            assert.equal([1, 2].includes(defender.damageCount() + defender.criticalDamageCount()), true);
             done();
          };
          var combatAction = createCombatAction(upgradeKey, callback);

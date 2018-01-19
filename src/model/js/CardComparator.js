@@ -12,8 +12,8 @@ define(["artifact/js/Faction"], function(Faction)
 
       if (answer === 0)
       {
-         var skill0 = (a.pilotSkillValue ? a.pilotSkillValue() : a.tokenFore().pilotSkillValue());
-         var skill1 = (b.pilotSkillValue ? b.pilotSkillValue() : b.tokenFore().pilotSkillValue());
+         var skill0 = a.pilotSkillValue();
+         var skill1 = b.pilotSkillValue();
          answer = skill0 - skill1;
       }
 

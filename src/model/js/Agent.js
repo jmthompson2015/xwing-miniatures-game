@@ -1,9 +1,9 @@
 "use strict";
 
 define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "artifact/js/DiceModification", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader",
-  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardInstanceFactory", "model/js/DamageAbility2", "model/js/ManeuverComputer", "model/js/MediumAgentStrategy", "model/js/ModifyDiceAbility", "model/js/PilotAbility3", "model/js/Selector", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/TargetLock", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3"],
+  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardInstance", "model/js/DamageAbility2", "model/js/ManeuverComputer", "model/js/MediumAgentStrategy", "model/js/ModifyDiceAbility", "model/js/PilotAbility3", "model/js/Selector", "model/js/ShipActionAbility", "model/js/SimpleAgentStrategy", "model/js/TargetLock", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3"],
    function(Immutable, InputValidator, DamageCard, DiceModification, Maneuver, Phase, PilotCard, PlayFormat, Range, ShipAction, UpgradeCard, UpgradeHeader,
-      Ability, Action, AgentAction, CardInstanceFactory, DamageAbility2, ManeuverComputer, MediumAgentStrategy, ModifyDiceAbility, PilotAbility3, Selector, ShipActionAbility, SimpleAgentStrategy, TargetLock, UpgradeAbility2, UpgradeAbility3)
+      Ability, Action, AgentAction, CardInstance, DamageAbility2, ManeuverComputer, MediumAgentStrategy, ModifyDiceAbility, PilotAbility3, Selector, ShipActionAbility, SimpleAgentStrategy, TargetLock, UpgradeAbility2, UpgradeAbility3)
    {
       function Agent(store, name, idIn, strategyIn, isNewIn)
       {
@@ -527,7 +527,7 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
          {
             answer = answer.reduce(function(accumulator, cardInstance)
             {
-               if (cardInstance.tokenFore !== undefined && cardInstance.tokenAft !== undefined)
+               if (cardInstance.isParent())
                {
                   accumulator.push(cardInstance.tokenFore());
                   accumulator.push(cardInstance.tokenAft());
@@ -599,12 +599,15 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
 
          if (ids !== undefined)
          {
-            answer = ids.map(function(id)
+            answer = ids.reduce(function(accumulator, id)
             {
-               var cardInstance = CardInstanceFactory.get(store, id);
-               InputValidator.validateNotNull("cardInstance", cardInstance);
-               return cardInstance;
-            });
+               var cardInstance = CardInstance.get(store, id);
+               if (cardInstance !== undefined)
+               {
+                  accumulator = accumulator.push(cardInstance);
+               }
+               return accumulator;
+            }, Immutable.List());
          }
          else
          {

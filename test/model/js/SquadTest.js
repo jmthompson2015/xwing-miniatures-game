@@ -49,6 +49,18 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          assert.equal(result, 22);
       });
 
+      QUnit.test("pilotSkillValue() Huge", function(assert)
+      {
+         // Setup.
+         var squad = createSquad1();
+
+         // Run.
+         var result = squad.pilotSkillValue();
+
+         // Verify.
+         assert.equal(result, 19);
+      });
+
       QUnit.test("primaryWeaponValue()", function(assert)
       {
          // Setup.
@@ -85,6 +97,18 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          assert.equal(result, 0);
       });
 
+      QUnit.test("energyValue() Huge", function(assert)
+      {
+         // Setup.
+         var squad = createSquad1();
+
+         // Run.
+         var result = squad.energyValue();
+
+         // Verify.
+         assert.equal(result, 9);
+      });
+
       QUnit.test("agilityValue()", function(assert)
       {
          // Setup.
@@ -95,6 +119,18 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
 
          // Verify.
          assert.equal(result, 6);
+      });
+
+      QUnit.test("agilityValue() Huge", function(assert)
+      {
+         // Setup.
+         var squad = createSquad1();
+
+         // Run.
+         var result = squad.agilityValue();
+
+         // Verify.
+         assert.equal(result, 2);
       });
 
       QUnit.test("hullValue()", function(assert)
@@ -109,6 +145,18 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
          assert.equal(result, 10);
       });
 
+      QUnit.test("hullValue() Huge", function(assert)
+      {
+         // Setup.
+         var squad = createSquad1();
+
+         // Run.
+         var result = squad.hullValue();
+
+         // Verify.
+         assert.equal(result, 27);
+      });
+
       QUnit.test("shieldValue()", function(assert)
       {
          // Setup.
@@ -119,6 +167,18 @@ define(["qunit", "redux", "artifact/js/Faction", "artifact/js/PilotCard", "artif
 
          // Verify.
          assert.equal(result, 7);
+      });
+
+      QUnit.test("shieldValue() Huge", function(assert)
+      {
+         // Setup.
+         var squad = createSquad1();
+
+         // Run.
+         var result = squad.shieldValue();
+
+         // Verify.
+         assert.equal(result, 14);
       });
 
       QUnit.test("squadPointCost()", function(assert)

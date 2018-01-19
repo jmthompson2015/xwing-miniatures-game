@@ -12,8 +12,8 @@ define(["react-redux", "common/js/InputValidator", "view/js/PilotsUI"],
          var tokens = agent.pilotInstances();
          tokens.sort(function(token0, token1)
          {
-            var pilotSkill0 = (token0.pilotSkillValue ? token0.pilotSkillValue() : token0.tokenFore().pilotSkillValue());
-            var pilotSkill1 = (token1.pilotSkillValue ? token1.pilotSkillValue() : token1.tokenFore().pilotSkillValue());
+            var pilotSkill0 = token0.pilotSkillValue();
+            var pilotSkill1 = token1.pilotSkillValue();
             var answer = pilotSkill0 - pilotSkill1;
 
             if (answer === 0)
@@ -26,7 +26,7 @@ define(["react-redux", "common/js/InputValidator", "view/js/PilotsUI"],
 
          tokens = tokens.reduce(function(accumulator, cardInstance)
          {
-            if (cardInstance.tokenFore !== undefined && cardInstance.tokenAft !== undefined)
+            if (cardInstance.isParent())
             {
                accumulator.push(cardInstance.tokenFore());
                accumulator.push(cardInstance.tokenAft());

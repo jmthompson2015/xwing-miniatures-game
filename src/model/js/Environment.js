@@ -21,10 +21,10 @@
 
 define(["common/js/ArrayUtilities", "common/js/InputValidator",
   "artifact/js/CardType", "artifact/js/DamageCard", "artifact/js/Faction", "artifact/js/PlayFormat", "artifact/js/Range",
-  "model/js/Action", "model/js/AgentAction", "model/js/CardComparator", "model/js/CardInstance", "model/js/CardInstanceFactory", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
+  "model/js/Action", "model/js/AgentAction", "model/js/CardComparator", "model/js/CardInstance", "model/js/EnvironmentAction", "model/js/ManeuverComputer", "model/js/Position", "model/js/RangeRuler", "model/js/RectanglePath", "model/js/Squad"],
    function(ArrayUtilities, InputValidator,
       CardType, DamageCard, Faction, PlayFormat, Range,
-      Action, AgentAction, CardComparator, CardInstance, CardInstanceFactory, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
+      Action, AgentAction, CardComparator, CardInstance, EnvironmentAction, ManeuverComputer, Position, RangeRuler, RectanglePath, Squad)
    {
       function Environment(store, agent1, squad1, agent2, squad2, positions1, positions2)
       {
@@ -59,7 +59,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          var store = this.store();
          var activeCardId = store.getState().activeCardId;
 
-         return (activeCardId !== undefined ? CardInstanceFactory.get(store, activeCardId) : undefined);
+         return (activeCardId !== undefined ? CardInstance.get(store, activeCardId) : undefined);
       };
 
       Environment.prototype.cardInstances = function(cardTypeKey)
@@ -72,7 +72,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
 
          var answer = keys.map(function(id)
          {
-            return CardInstanceFactory.get(store, id);
+            return CardInstance.get(store, id);
          });
 
          if (cardTypeKey !== undefined)
@@ -348,7 +348,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          if (tokenId !== undefined)
          {
             var store = this.store();
-            answer = CardInstanceFactory.get(store, tokenId);
+            answer = CardInstance.get(store, tokenId);
          }
 
          return answer;
@@ -462,7 +462,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          if (idParent !== undefined)
          {
             var store = this.store();
-            answer = CardInstanceFactory.get(store, idParent);
+            answer = CardInstance.get(store, idParent);
          }
 
          return answer;
@@ -478,7 +478,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
             {
                // Skip it.
             }
-            else if (isPure && cardInstance.isDual)
+            else if (isPure && cardInstance.isParent())
             {
                accumulator.push(cardInstance.tokenFore());
                accumulator.push(cardInstance.tokenAft());

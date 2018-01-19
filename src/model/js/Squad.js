@@ -44,7 +44,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          var myAnswer = accumulator;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
+         if (token.isParent())
          {
             myAnswer += token.tokenFore().pilotSkillValue();
             myAnswer += token.tokenAft().pilotSkillValue();
@@ -68,7 +68,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          var primaryWeaponValue;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
+         if (token.isParent())
          {
             primaryWeaponValue = token.tokenFore().primaryWeaponValue();
             accumulator += (isNaN(primaryWeaponValue) ? 0 : primaryWeaponValue);
@@ -96,8 +96,18 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          var myAnswer = accumulator;
 
-         value = token.energyValue();
-         myAnswer += (value !== undefined ? value : 0);
+         if (token.isParent())
+         {
+            value = token.tokenFore().energyValue();
+            myAnswer += (value !== undefined ? value : 0);
+            value = token.tokenAft().energyValue();
+            myAnswer += (value !== undefined ? value : 0);
+         }
+         else
+         {
+            value = token.energyValue();
+            myAnswer += (value !== undefined ? value : 0);
+         }
 
          return myAnswer;
       }, 0);
@@ -108,19 +118,23 @@ define(["common/js/InputValidator"], function(InputValidator)
    Squad.prototype.agilityValue = function()
    {
       var tokens = this.tokens();
+      var value;
 
       var answer = tokens.reduce(function(accumulator, token)
       {
          var myAnswer = accumulator;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
+         if (token.isParent())
          {
-            myAnswer += token.tokenFore().agilityValue();
-            myAnswer += token.tokenAft().agilityValue();
+            value = token.tokenFore().agilityValue();
+            myAnswer += (value !== undefined ? value : 0);
+            value = token.tokenAft().agilityValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
          else
          {
-            myAnswer += token.agilityValue();
+            value = token.agilityValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
 
          return myAnswer;
@@ -132,19 +146,23 @@ define(["common/js/InputValidator"], function(InputValidator)
    Squad.prototype.hullValue = function()
    {
       var tokens = this.tokens();
+      var value;
 
       var answer = tokens.reduce(function(accumulator, token)
       {
          var myAnswer = accumulator;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
+         if (token.isParent())
          {
-            myAnswer += token.tokenFore().hullValue();
-            myAnswer += token.tokenAft().hullValue();
+            value = token.tokenFore().hullValue();
+            myAnswer += (value !== undefined ? value : 0);
+            value = token.tokenAft().hullValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
          else
          {
-            myAnswer += token.hullValue();
+            value = token.hullValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
 
          return myAnswer;
@@ -156,19 +174,23 @@ define(["common/js/InputValidator"], function(InputValidator)
    Squad.prototype.shieldValue = function()
    {
       var tokens = this.tokens();
+      var value;
 
       var answer = tokens.reduce(function(accumulator, token)
       {
          var myAnswer = accumulator;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
+         if (token.isParent())
          {
-            myAnswer += token.tokenFore().shieldValue();
-            myAnswer += token.tokenAft().shieldValue();
+            value = token.tokenFore().shieldValue();
+            myAnswer += (value !== undefined ? value : 0);
+            value = token.tokenAft().shieldValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
          else
          {
-            myAnswer += token.shieldValue();
+            value = token.shieldValue();
+            myAnswer += (value !== undefined ? value : 0);
          }
 
          return myAnswer;
@@ -185,7 +207,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          var myAnswer = accumulator;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
+         if (token.isParent())
          {
             myAnswer += token.tokenFore().squadPointCost();
             myAnswer += token.tokenAft().squadPointCost();
@@ -219,7 +241,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          var myAnswer = accumulator;
 
-         if (token.tokenFore !== undefined && token.tokenAft !== undefined)
+         if (token.isParent())
          {
             myAnswer += token.tokenFore().upgradeKeys().size;
             myAnswer += token.tokenAft().upgradeKeys().size;

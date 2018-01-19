@@ -2,10 +2,8 @@
 
 define(["redux", "common/js/InputValidator",
   "artifact/js/PilotCard", "artifact/js/Faction", "artifact/js/UpgradeCard",
-  "model/js/CardInstance", "model/js/DualCardInstance", "model/js/Reducer", "model/js/Squad"],
-   function(Redux, InputValidator,
-      PilotCard, Faction, UpgradeCard,
-      CardInstance, DualCardInstance, Reducer, Squad)
+  "model/js/CardInstance", "model/js/Reducer", "model/js/Squad"],
+   function(Redux, InputValidator, PilotCard, Faction, UpgradeCard, CardInstance, Reducer, Squad)
    {
       var SquadBuilders = [];
 
@@ -281,7 +279,7 @@ define(["redux", "common/js/InputValidator",
          var answer = [];
          answer.push(new CardInstance(store, PilotCard.GOZANTI_CLASS_CRUISER, agent));
          answer.push(new CardInstance(store, PilotCard.JUNO_ECLIPSE, agent));
-         answer.push(new DualCardInstance(store, PilotCard.RAIDER_CLASS_CORVETTE, agent));
+         answer.push(new CardInstance(store, PilotCard.RAIDER_CLASS_CORVETTE, agent));
          return answer;
       });
       SquadBuilders.push(HugeShipImperialSquadBuilder);
@@ -290,11 +288,7 @@ define(["redux", "common/js/InputValidator",
       var HugeShipRebelSquadBuilder = new SquadBuilder(Faction.REBEL, "Huge Ships: 219 Points", 2016, "CR90; G-75; X-Wing", function(store, agent)
       {
          var answer = [];
-         answer.push(new DualCardInstance(store, PilotCard.CR90_CORVETTE, agent, [UpgradeCard.HAN_SOLO,
-              UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.GUNNERY_TEAM,
-              UpgradeCard.SENSOR_TEAM, UpgradeCard.TIBANNA_GAS_SUPPLIES, UpgradeCard.CHEWBACCA,
-              UpgradeCard.TANTIVE_IV], [UpgradeCard.WEAPONS_ENGINEER, UpgradeCard.QUAD_LASER_CANNONS,
-              UpgradeCard.ENGINEERING_TEAM, UpgradeCard.IONIZATION_REACTOR]));
+         answer.push(new CardInstance(store, PilotCard.CR90_CORVETTE, agent, [UpgradeCard.HAN_SOLO, UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.GUNNERY_TEAM, UpgradeCard.SENSOR_TEAM, UpgradeCard.TIBANNA_GAS_SUPPLIES, UpgradeCard.CHEWBACCA, UpgradeCard.TANTIVE_IV], [UpgradeCard.WEAPONS_ENGINEER, UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.ENGINEERING_TEAM, UpgradeCard.IONIZATION_REACTOR]));
          answer.push(new CardInstance(store, PilotCard.WES_JANSON, agent, [UpgradeCard.R2_D2_ASTROMECH]));
          answer.push(new CardInstance(store, PilotCard.GR_75_MEDIUM_TRANSPORT, agent, [UpgradeCard.DUTYFREE, UpgradeCard.RAYMUS_ANTILLES, UpgradeCard.FREQUENCY_JAMMER, UpgradeCard.EM_EMITTER]));
          return answer;

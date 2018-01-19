@@ -2,12 +2,12 @@
 
 define(["qunit", "redux",
   "artifact/js/Bearing", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/Ship", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/Value",
-  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/Agent", "model/js/CardAction", "model/js/CardInstance", "model/js/DamageAbility2", "model/js/DamageAbility3", "model/js/DualCardInstance", "model/js/Environment", "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/PilotAbility2", "model/js/PilotAbility3",
+  "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/Agent", "model/js/CardAction", "model/js/CardInstance", "model/js/DamageAbility2", "model/js/DamageAbility3", "model/js/Environment", "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/PilotAbility2", "model/js/PilotAbility3",
   "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/Squad", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
       Bearing, Count, DamageCard, Difficulty, Faction, Maneuver, Phase, PilotCard, Range, Ship, ShipAction, UpgradeCard, Value,
-      Ability, Action, ActivationAction, Agent, CardAction, CardInstance, DamageAbility2, DamageAbility3, DualCardInstance, Environment, EnvironmentAction, ManeuverAction, PilotAbility2, PilotAbility3,
+      Ability, Action, ActivationAction, Agent, CardAction, CardInstance, DamageAbility2, DamageAbility3, Environment, EnvironmentAction, ManeuverAction, PilotAbility2, PilotAbility3,
       Position, RangeRuler, Reducer, ShipActionAbility, Squad, UpgradeAbility2, UpgradeAbility3,
       EnvironmentFactory)
    {
@@ -64,6 +64,32 @@ define(["qunit", "redux",
          var weapon0 = token.secondaryWeapons()[0];
          assert.equal(weapon0.weaponValue(), 3, "weapon0.weaponValue() === 3");
          assert.equal(weapon0.upgradeKey(), UpgradeCard.CLUSTER_MISSILES);
+      });
+
+      QUnit.test("CardInstance properties CR90 Corvette", function(assert)
+      {
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var token = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+         assert.equal(token.id(), 1);
+         assert.equal(token.card().key, PilotCard.CR90_CORVETTE);
+         assert.equal(token.card().shipFaction.shipKey, Ship.CR90_CORVETTE);
+         assert.equal(token.name(), "1 CR90 Corvette");
+
+         var tokenFore = token.tokenFore();
+         assert.ok(tokenFore);
+         assert.equal(tokenFore.name(), "2 CR90 Corvette (fore)");
+         assert.equal(tokenFore.upgradeKeys().size, 3);
+         assert.equal(tokenFore.secondaryWeapons().length, 1);
+         var weapon = tokenFore.secondaryWeapons()[0];
+         assert.ok(weapon);
+         assert.equal(weapon.upgradeKey(), UpgradeCard.QUAD_LASER_CANNONS);
+
+         var tokenAft = token.tokenAft();
+         assert.ok(tokenAft);
+         assert.equal(tokenAft.name(), "10 CR90 Corvette (aft)");
+         assert.equal(tokenAft.upgradeKeys().size, 1);
+         assert.equal(tokenAft.secondaryWeapons().length, 0);
       });
 
       QUnit.test("CardInstance.get()", function(assert)
@@ -615,6 +641,32 @@ define(["qunit", "redux",
          assert.ok(token.isDestroyed());
       });
 
+      QUnit.test("isDestroyed() CR90", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var token = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+         var tokenFore = token.tokenFore();
+         var i;
+         for (i = 0; i < tokenFore.hullValue() - 1; i++)
+         {
+            tokenFore.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
+         }
+         var tokenAft = token.tokenAft();
+         for (i = 0; i < tokenAft.hullValue() - 1; i++)
+         {
+            tokenAft.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
+         }
+         assert.equal(token.isDestroyed(), false);
+
+         // Run / Verify.
+         tokenFore.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
+         assert.equal(token.isDestroyed(), false);
+         tokenAft.receiveDamage(new CardInstance(store, DamageCard.DAMAGED_COCKPIT));
+         assert.equal(token.isDestroyed(), true);
+      });
+
       QUnit.test("isHuge()", function(assert)
       {
          var store = Redux.createStore(Reducer.root);
@@ -622,7 +674,7 @@ define(["qunit", "redux",
          assert.ok(!(new CardInstance(store, PilotCard.ACADEMY_PILOT, agent).isHuge())); // small
          assert.ok(!(new CardInstance(store, PilotCard.CAPTAIN_OICUNN, agent).isHuge())); // large
          assert.ok(new CardInstance(store, PilotCard.GR_75_MEDIUM_TRANSPORT, agent).isHuge()); // huge1
-         // assert.ok(new DualCardInstance(store, PilotCard.CR90_CORVETTE, agent).isHuge()); // huge2
+         assert.ok(new CardInstance(store, PilotCard.CR90_CORVETTE, agent).isHuge()); // huge2
       });
 
       QUnit.test("isStressed()", function(assert)
@@ -1213,6 +1265,93 @@ define(["qunit", "redux",
 
          // Run / Verify.
          assert.equal(token.toString(), "1 Academy Pilot (TIE Fighter) pilot");
+      });
+
+      QUnit.test("tokenAft()", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var token = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+
+         // Run.
+         var result = token.tokenAft();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.card().key, "cr90Corvette.aft");
+      });
+
+      QUnit.test("tokenAft() crippled", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var token = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+         var tokenAft = token.tokenAft();
+         for (var i = 0; i < tokenAft.hullValue(); i++)
+         {
+            token.tokenAft().receiveDamage(new CardInstance(store, DamageCard.BLINDED_PILOT));
+         }
+         assert.equal(tokenAft.isDestroyed(), true);
+
+         // Run.
+         var result = token.tokenAft();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.card().key, "cr90Corvette.crippledAft");
+      });
+
+      QUnit.test("tokenFore()", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var token = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+
+         // Run.
+         var result = token.tokenFore();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.card().key, "cr90Corvette.fore");
+      });
+
+      QUnit.test("tokenFore() crippled", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var token = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+         var tokenFore = token.tokenFore();
+         for (var i = 0; i < tokenFore.hullValue(); i++)
+         {
+            token.tokenFore().receiveDamage(new CardInstance(store, DamageCard.BLINDED_PILOT));
+         }
+         assert.ok(tokenFore.isDestroyed());
+
+         // Run.
+         var result = token.tokenFore();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.card().key, "cr90Corvette.crippledFore");
+      });
+
+      QUnit.test("tokenFore().ship()", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var token = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent, [UpgradeCard.QUAD_LASER_CANNONS, UpgradeCard.SENSOR_TEAM, UpgradeCard.EM_EMITTER], [UpgradeCard.FREQUENCY_JAMMER]);
+
+         // Run.
+         var result = token.tokenFore().ship();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.key, "cr90Corvette.fore");
       });
 
       QUnit.test("totalDamage()", function(assert)

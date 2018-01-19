@@ -30,7 +30,7 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/TargetLock"],
 
             var tokens = [];
 
-            if (token.tokenFore && token.tokenAft)
+            if (token.isParent())
             {
                tokens.push(token.tokenFore());
                tokens.push(token.tokenAft());
@@ -46,7 +46,7 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/TargetLock"],
                TargetLock.removeAllTargetLocks(store, token);
 
                // Return the damage cards.
-               if (token.tokenFore && token.tokenAft)
+               if (token.isParent())
                {
                   environment.discardAllDamage(token.tokenFore().damages());
                   environment.discardAllDamage(token.tokenFore().criticalDamages());
