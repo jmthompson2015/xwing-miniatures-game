@@ -198,8 +198,8 @@ define(["redux", "common/js/InputValidator",
 
          var store = this.store();
          var environment = Selector.environment(store.getState());
-         var firstCount = environment.getPilotInstancesForAgent(environment.firstAgent()).length;
-         var secondCount = environment.getPilotInstancesForAgent(environment.secondAgent()).length;
+         var firstCount = environment.firstAgent().pilotInstances().length;
+         var secondCount = environment.secondAgent().pilotInstances().length;
 
          if (firstCount === 0)
          {
@@ -219,13 +219,13 @@ define(["redux", "common/js/InputValidator",
 
          var store = this.store();
          var environment = Selector.environment(store.getState());
-         var firstCount = environment.getPilotInstancesForAgent(environment.firstAgent()).length;
+         var firstCount = environment.firstAgent().pilotInstances().length;
 
          answer = (firstCount === 0);
 
          if (!answer)
          {
-            var secondCount = environment.getPilotInstancesForAgent(environment.secondAgent()).length;
+            var secondCount = environment.secondAgent().pilotInstances().length;
             answer = (secondCount === 0);
          }
 

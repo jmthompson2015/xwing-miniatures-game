@@ -233,16 +233,6 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          });
       };
 
-      Environment.prototype.getPilotInstancesForAgent = function(agent)
-      {
-         InputValidator.validateNotNull("agent", agent);
-
-         return this.pilotInstances().filter(function(pilotInstance)
-         {
-            return pilotInstance.agent().id() === agent.id();
-         });
-      };
-
       Environment.prototype.getPositionFor = function(token)
       {
          InputValidator.validateNotNull("token", token);

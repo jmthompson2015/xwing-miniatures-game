@@ -25,14 +25,12 @@ define(["qunit", "redux", "model/js/Agent", "model/js/Reducer", "../../../test/m
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var agent = environment.firstAgent();
-         //  LOGGER.info("agent = " + agent);
 
          // Run.
          var result = agent.pilotInstances();
 
          // Verify.
          assert.ok(result);
-         //  LOGGER.info("result = " + result);
          assert.equal(result.length, 2);
          var i = 0;
          assert.equal(result[i++].card().name, "\"Mauler Mithel\"");
@@ -44,7 +42,6 @@ define(["qunit", "redux", "model/js/Agent", "model/js/Reducer", "../../../test/m
          // Setup.
          var environment = EnvironmentFactory.createHugeShipEnvironment();
          var agent = environment.firstAgent();
-         //  LOGGER.info("agent = " + agent);
          var isPure = true;
 
          // Run.
@@ -52,7 +49,6 @@ define(["qunit", "redux", "model/js/Agent", "model/js/Reducer", "../../../test/m
 
          // Verify.
          assert.ok(result);
-         //  LOGGER.info("result = " + result);
          assert.equal(result.length, 4);
          var i = 0;
          assert.equal(result[i++].card().name, "Gozanti-class Cruiser");
@@ -66,7 +62,6 @@ define(["qunit", "redux", "model/js/Agent", "model/js/Reducer", "../../../test/m
          // Setup.
          var environment = EnvironmentFactory.createHugeShipEnvironment();
          var agent = environment.firstAgent();
-         //  LOGGER.info("agent = " + agent);
          var isPure = false;
 
          // Run.
@@ -74,7 +69,6 @@ define(["qunit", "redux", "model/js/Agent", "model/js/Reducer", "../../../test/m
 
          // Verify.
          assert.ok(result);
-         //  LOGGER.info("result = " + result);
          assert.equal(result.length, 3);
          var i = 0;
          assert.equal(result[i++].card().name, "Gozanti-class Cruiser");
