@@ -2,10 +2,10 @@
 
 define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
   "artifact/js/Bearing", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
-  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
+  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/PilotInstanceUtilities", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
    function(Immutable, ArrayUtilities, InputValidator,
       Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
-      Ability, Action, AgentAction, CardAction, RangeRuler, TargetLock, Weapon)
+      Ability, Action, AgentAction, CardAction, PilotInstanceUtilities, RangeRuler, TargetLock, Weapon)
    {
       function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, idIn, isNewIn, idParent, idFore, idAft, idCrippledFore, idCrippledAft)
       {
@@ -285,145 +285,20 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          return this._bonusValue(Value.SHIELD);
       };
 
+      CardInstance.prototype.children = function()
+      {
+         var agent = this.agent();
+         var pilotInstances = agent.pilotInstances(true);
+
+         return pilotInstances.filter(function(pilotInstance)
+         {
+            return pilotInstance.isChild() && pilotInstance.idParent() === this.id();
+         }, this);
+      };
+
       CardInstance.prototype.cloakCount = function()
       {
          return this.count(Count.CLOAK);
-      };
-
-      CardInstance.prototype.computeAttackDiceCount = function(environment, weapon, defender, rangeKey)
-      {
-         InputValidator.validateNotNull("environment", environment);
-         InputValidator.validateNotNull("weapon", weapon);
-         InputValidator.validateNotNull("defender", defender);
-         InputValidator.validateNotNull("rangeKey", rangeKey);
-
-         var answer;
-
-         if (this.isCriticallyDamagedWith(DamageCard.BLINDED_PILOT))
-         {
-            answer = 0;
-            var damageInstance = this.criticalDamage(DamageCard.BLINDED_PILOT);
-            this.flipDamageCardFacedown(damageInstance);
-         }
-         else
-         {
-            answer = weapon.weaponValue();
-
-            if (rangeKey === Range.ONE && weapon.isPrimary() && defender.card().key !== PilotCard.ZERTIK_STROM)
-            {
-               // Bonus attack die at range one.
-               answer++;
-
-               if (this.card().key === PilotCard.TALONBANE_COBRA)
-               {
-                  answer++;
-               }
-            }
-
-            var attackerPosition = environment.getPositionFor(this);
-            var defenderPosition = environment.getPositionFor(defender);
-            var firingArc, isInFiringArc;
-
-            if (this.card().key === PilotCard.BACKSTABBER)
-            {
-               firingArc = FiringArc.FORWARD;
-               isInFiringArc = weapon.isDefenderInFiringArc(defenderPosition, firingArc, this, attackerPosition);
-
-               if (!isInFiringArc)
-               {
-                  answer++;
-               }
-            }
-
-            if (this.card().key === PilotCard.EADEN_VRILL && weapon.isPrimary() && defender.isStressed())
-            {
-               answer++;
-            }
-
-            if (this.card().key === PilotCard.FENN_RAU && rangeKey === Range.ONE)
-            {
-               answer++;
-            }
-
-            if (this.card().key === PilotCard.KAVIL)
-            {
-               firingArc = weapon.primaryFiringArc();
-               isInFiringArc = weapon.isDefenderInFiringArc(attackerPosition, firingArc, defender, defenderPosition);
-
-               if (!isInFiringArc)
-               {
-                  answer++;
-               }
-            }
-
-            if (this.card().key === PilotCard.MAULER_MITHEL && rangeKey === Range.ONE)
-            {
-               answer++;
-            }
-
-            if (this.card().key === PilotCard.NDRU_SUHLAK && environment.getFriendlyTokensAtRange(this, Range.ONE).length === 0 && environment.getFriendlyTokensAtRange(this, Range.TWO).length === 0)
-            {
-               answer++;
-            }
-
-            if (this.card().key === PilotCard.SCOURGE && (defender.damageCount() > 0 || defender.criticalDamageCount() > 0))
-            {
-               answer++;
-            }
-
-            if (weapon.upgradeKey() === UpgradeCard.DORSAL_TURRET && rangeKey === Range.ONE)
-            {
-               answer++;
-            }
-
-            if (weapon.upgradeKey() === UpgradeCard.PROTON_ROCKETS)
-            {
-               answer += Math.min(this.agilityValue(), 3);
-            }
-
-            if (this.isCriticallyDamagedWith(DamageCard.WEAPONS_FAILURE_V2))
-            {
-               answer -= 1;
-            }
-         }
-
-         return answer;
-      };
-
-      CardInstance.prototype.computeDefenseDiceCount = function(environment, attacker, weapon, rangeKey)
-      {
-         var answer = this.agilityValue();
-
-         if ([Range.THREE, RangeRuler.FOUR, RangeRuler.FIVE].includes(rangeKey) && weapon.isPrimary())
-         {
-            // Bonus defense die at range three, four, and five.
-            answer++;
-
-            if (this.card().key === PilotCard.TALONBANE_COBRA)
-            {
-               answer++;
-            }
-         }
-
-         if (this.card().key === PilotCard.FENN_RAU && rangeKey === Range.ONE)
-         {
-            answer++;
-         }
-
-         if (this.card().key === PilotCard.GRAZ_THE_HUNTER)
-         {
-            var attackerPosition = environment.getPositionFor(attacker);
-            var defenderPosition = environment.getPositionFor(this);
-            var firingArc = FiringArc.FORWARD;
-            var isInFiringArc = weapon.isDefenderInFiringArc(defenderPosition, firingArc, attacker, attackerPosition);
-
-            if (!isInFiringArc)
-            {
-               answer++;
-            }
-         }
-
-         return answer;
       };
 
       CardInstance.prototype.count = function(property)
@@ -687,119 +562,28 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          return this.upgradeKeys().includes(upgradeKey);
       };
 
-      CardInstance.prototype.maneuverKeys = function()
+      CardInstance.prototype.name = function(isShort)
       {
          var answer;
+         var cardTypeKey = this.card().cardTypeKey;
 
-         if (this.isIonized())
-         {
-            answer = [Maneuver.STRAIGHT_1_STANDARD];
-         }
-         else
-         {
-            var ship = this.ship();
-            answer = ship.maneuverKeys.slice();
-
-            if (this.isCriticallyDamagedWith(DamageCard.SHAKEN_PILOT_V2))
-            {
-               // During the Planning phase, you cannot be assigned straight maneuvers. When you reveal a maneuver, flip this card facedown.
-               answer = answer.filter(function(maneuverKey)
-               {
-                  var maneuver = Maneuver.properties[maneuverKey];
-                  return maneuver.bearing !== Bearing.STRAIGHT;
-               });
-            }
-
-            if (this.isCriticallyDamagedWith(DamageCard.DAMAGED_ENGINE) ||
-               this.isCriticallyDamagedWith(DamageCard.DAMAGED_ENGINE_V2))
-            {
-               answer = this._changeBearingManeuversToDifficulty(answer, Bearing.TURN_LEFT, Difficulty.HARD);
-               answer = this._changeBearingManeuversToDifficulty(answer, Bearing.TURN_RIGHT, Difficulty.HARD);
-            }
-
-            if (this.card().key === PilotCard.ELLO_ASTY && !this.isStressed())
-            {
-               answer = this._changeBearingManeuversToDifficulty(answer, Bearing.TALLON_ROLL_LEFT, Difficulty.STANDARD);
-               answer = this._changeBearingManeuversToDifficulty(answer, Bearing.TALLON_ROLL_RIGHT, Difficulty.STANDARD);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.NIEN_NUNB))
-            {
-               answer = this._changeBearingManeuversToDifficulty(answer, Bearing.STRAIGHT, Difficulty.EASY);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.R2_ASTROMECH))
-            {
-               answer = this._changeSpeedManeuversToDifficulty(answer, 1, Difficulty.EASY);
-               answer = this._changeSpeedManeuversToDifficulty(answer, 2, Difficulty.EASY);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.TWIN_ION_ENGINE_MKII))
-            {
-               answer = this._changeBearingManeuversToDifficulty(answer, Bearing.BANK_LEFT, Difficulty.EASY);
-               answer = this._changeBearingManeuversToDifficulty(answer, Bearing.BANK_RIGHT, Difficulty.EASY);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.UNHINGED_ASTROMECH))
-            {
-               answer = this._changeSpeedManeuversToDifficulty(answer, 3, Difficulty.EASY);
-            }
-
-            if (this.isStressed() && !this.isUpgradedWith(UpgradeCard.HERA_SYNDULLA))
-            {
-               answer = answer.filter(function(maneuverKey)
-               {
-                  return Maneuver.properties[maneuverKey].difficultyKey !== Difficulty.HARD;
-               });
-            }
-         }
-
-         return answer;
-      };
-
-      CardInstance.prototype.name = function()
-      {
-         var answer;
-
-         switch (this.card().cardTypeKey)
+         switch (cardTypeKey)
          {
             case CardType.CONDITION:
-               var conditionName = this.card().name;
-               answer = this.id() + " " + conditionName;
+               answer = this.id() + " " + ConditionCard.getName(this.card().key);
                break;
             case CardType.DAMAGE:
-               var damageName = this.card().name;
-               answer = this.id() + " " + damageName;
+               answer = this.id() + " " + this.card().name;
                break;
             case CardType.PILOT:
-               var pilotName = this.card().name;
-               var shipName = this.card().shipFaction.ship.name;
-               answer = this.id() + " " + pilotName;
-
-               if (!pilotName.startsWith(shipName))
-               {
-                  answer += " (" + shipName + ")";
-               }
+               answer = PilotInstanceUtilities.pilotName(this, isShort);
                break;
             case CardType.UPGRADE:
-               var upgradeName = this.card().name;
-               answer = this.id() + " " + upgradeName;
+               answer = this.id() + " " + UpgradeCard.getName(this.card().key);
                break;
+            default:
+               throw "Unknown card type: " + cardTypeKey;
          }
-
-         return answer;
-      };
-
-      CardInstance.prototype.pilotName = function()
-      {
-         var answer = this.id() + " ";
-
-         if (this.card().isUnique)
-         {
-            answer += "\u2022 ";
-         }
-
-         answer += this.card().name;
 
          return answer;
       };
@@ -810,19 +594,6 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          var bonus = this.bonusPilotSkillValue();
 
          return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
-      };
-
-      CardInstance.prototype.primaryWeapon = function()
-      {
-         var answer;
-         var ship = this.ship();
-
-         if (ship && this.primaryWeaponValue() !== undefined && ship.primaryWeaponRanges !== undefined)
-         {
-            answer = new Weapon("Primary Weapon", this.primaryWeaponValue(), ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
-         }
-
-         return answer;
       };
 
       CardInstance.prototype.primaryWeaponValue = function()
@@ -838,21 +609,6 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          return this.count(Count.REINFORCE);
       };
 
-      CardInstance.prototype.secondaryWeapons = function()
-      {
-         return this.upgrades().reduce(function(accumulator, cardInstance)
-         {
-            var card = cardInstance.card();
-
-            if (card.weaponValue !== undefined)
-            {
-               accumulator.push(new Weapon(card.name, card.weaponValue, card.rangeKeys, card.firingArcKey, undefined, card.isWeaponTurret, card));
-            }
-
-            return accumulator;
-         }, []);
-      };
-
       CardInstance.prototype.shieldCount = function()
       {
          return this.count(Count.SHIELD);
@@ -864,96 +620,6 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          var bonus = this.bonusShieldValue();
 
          return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
-      };
-
-      CardInstance.prototype.ship = function()
-      {
-         var ship;
-         var pilot = this.card();
-
-         if (pilot && pilot.shipFaction)
-         {
-            ship = pilot.shipFaction.ship;
-
-            if (pilot.key.endsWith(".fore"))
-            {
-               ship = ship.fore;
-            }
-            else if (pilot.key.endsWith(".aft"))
-            {
-               ship = ship.aft;
-            }
-            else if (pilot.key.endsWith(".crippledFore"))
-            {
-               ship = ship.crippledFore;
-            }
-            else if (pilot.key.endsWith(".crippledAft"))
-            {
-               ship = ship.crippledAft;
-            }
-         }
-
-         return ship;
-      };
-
-      CardInstance.prototype.shipActions = function()
-      {
-         var answer = [];
-
-         if (!this.isCriticallyDamagedWith(DamageCard.DAMAGED_SENSOR_ARRAY_V2))
-         {
-            if (!this.isCriticallyDamagedWith(DamageCard.DAMAGED_SENSOR_ARRAY))
-            {
-               ArrayUtilities.addAll(answer, this.ship().shipActionKeys);
-            }
-
-            if (answer.includes(ShipAction.CLOAK) && this.isCloaked())
-            {
-               ArrayUtilities.remove(answer, ShipAction.CLOAK);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.BROADCAST_ARRAY))
-            {
-               answer.push(ShipAction.JAM);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.BURNOUT_SLAM))
-            {
-               answer.push(ShipAction.SLAM);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.ENGINE_UPGRADE))
-            {
-               answer.push(ShipAction.BOOST);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.MILLENNIUM_FALCON))
-            {
-               answer.push(ShipAction.EVADE);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.MIST_HUNTER))
-            {
-               answer.push(ShipAction.BARREL_ROLL);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.TARGETING_COMPUTER))
-            {
-               answer.push(ShipAction.TARGET_LOCK);
-            }
-
-            if (this.isUpgradedWith(UpgradeCard.VECTORED_THRUSTERS))
-            {
-               answer.push(ShipAction.BARREL_ROLL);
-            }
-         }
-
-         return answer;
-      };
-
-      CardInstance.prototype.shipName = function()
-      {
-         return this.card().shipFaction.ship.name;
       };
 
       CardInstance.prototype.shipState = function(property)
@@ -1053,25 +719,6 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       CardInstance.prototype.tractorBeamCount = function()
       {
          return this.count(Count.TRACTOR_BEAM);
-      };
-
-      CardInstance.prototype.upgrade = function(upgradeKey)
-      {
-         InputValidator.validateIsString("upgradeKey", upgradeKey);
-
-         var upgradeInstances = this.upgrades().filter(function(cardInstance)
-         {
-            return cardInstance.card().key === upgradeKey;
-         });
-
-         var answer;
-
-         if (upgradeInstances.size > 0)
-         {
-            answer = upgradeInstances.get(0);
-         }
-
-         return answer;
       };
 
       CardInstance.prototype.upgradeKeys = function()
@@ -1293,6 +940,63 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
 
          return answer;
       };
+
+      //////////////////////////////////////////////////////////////////////////
+      // Condition instance accessors.
+
+      //////////////////////////////////////////////////////////////////////////
+      // Damage instance accessors.
+
+      //////////////////////////////////////////////////////////////////////////
+      // Pilot instance accessors.
+
+      CardInstance.prototype.computeAttackDiceCount = function(environment, weapon, defender, rangeKey)
+      {
+         return PilotInstanceUtilities.computeAttackDiceCount(this, environment, weapon, defender, rangeKey);
+      };
+
+      CardInstance.prototype.computeDefenseDiceCount = function(environment, attacker, weapon, rangeKey)
+      {
+         return PilotInstanceUtilities.computeDefenseDiceCount(this, environment, attacker, weapon, rangeKey);
+      };
+
+      CardInstance.prototype.maneuverKeys = function()
+      {
+         return PilotInstanceUtilities.maneuverKeys(this);
+      };
+
+      CardInstance.prototype.primaryWeapon = function()
+      {
+         return PilotInstanceUtilities.primaryWeapon(this);
+      };
+
+      CardInstance.prototype.secondaryWeapons = function()
+      {
+         return PilotInstanceUtilities.secondaryWeapons(this);
+      };
+
+      CardInstance.prototype.ship = function()
+      {
+         return PilotInstanceUtilities.ship(this);
+      };
+
+      CardInstance.prototype.shipActions = function()
+      {
+         return PilotInstanceUtilities.shipActions(this);
+      };
+
+      CardInstance.prototype.shipName = function()
+      {
+         return PilotInstanceUtilities.shipName(this);
+      };
+
+      CardInstance.prototype.upgrade = function(upgradeKey)
+      {
+         return PilotInstanceUtilities.upgrade(this, upgradeKey);
+      };
+
+      //////////////////////////////////////////////////////////////////////////
+      // Upgrade instance accessors.
 
       //////////////////////////////////////////////////////////////////////////
       // Mutator methods.

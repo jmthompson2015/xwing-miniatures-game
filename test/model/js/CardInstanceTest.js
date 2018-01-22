@@ -1,14 +1,14 @@
 "use strict";
 
 define(["qunit", "redux",
-  "artifact/js/Bearing", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/Ship", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/Value",
+  "artifact/js/Bearing", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/Phase", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/Ship", "artifact/js/ShipAction", "artifact/js/UpgradeCard", "artifact/js/Value",
   "model/js/Ability", "model/js/Action", "model/js/ActivationAction", "model/js/Agent", "model/js/CardAction", "model/js/CardInstance", "model/js/DamageAbility2", "model/js/DamageAbility3", "model/js/Environment", "model/js/EnvironmentAction", "model/js/ManeuverAction", "model/js/PilotAbility2", "model/js/PilotAbility3",
-  "model/js/Position", "model/js/RangeRuler", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/Squad", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3",
+  "model/js/Position", "model/js/Reducer", "model/js/ShipActionAbility", "model/js/Squad", "model/js/UpgradeAbility2", "model/js/UpgradeAbility3",
   "../../../test/model/js/EnvironmentFactory"],
    function(QUnit, Redux,
-      Bearing, Count, DamageCard, Difficulty, Faction, Maneuver, Phase, PilotCard, Range, Ship, ShipAction, UpgradeCard, Value,
+      Bearing, ConditionCard, Count, DamageCard, Difficulty, Faction, Maneuver, Phase, PilotCard, Range, Ship, ShipAction, UpgradeCard, Value,
       Ability, Action, ActivationAction, Agent, CardAction, CardInstance, DamageAbility2, DamageAbility3, Environment, EnvironmentAction, ManeuverAction, PilotAbility2, PilotAbility3,
-      Position, RangeRuler, Reducer, ShipActionAbility, Squad, UpgradeAbility2, UpgradeAbility3,
+      Position, Reducer, ShipActionAbility, Squad, UpgradeAbility2, UpgradeAbility3,
       EnvironmentFactory)
    {
       QUnit.module("CardInstance");
@@ -154,7 +154,7 @@ define(["qunit", "redux",
          assert.equal(token.id(), 1);
          assert.equal(token.card().key, PilotCard.DASH_RENDAR);
          assert.equal(token.card().shipFaction.shipKey, Ship.YT_2400);
-         assert.equal(token.name(), "1 Dash Rendar (YT-2400)");
+         assert.equal(token.name(), "1 \u2022 Dash Rendar (YT-2400)");
          assert.equal(token.secondaryWeapons().length, 1);
          var weapon1 = token.secondaryWeapons()[0];
          assert.equal(weapon1.upgradeKey(), UpgradeCard.MANGLER_CANNON);
@@ -202,6 +202,38 @@ define(["qunit", "redux",
          assert.equal(token.agilityValue(), 4, "token.agilityValue() === 4");
          assert.equal(token.hullValue(), 3);
          assert.equal(token.shieldValue(), 0);
+      });
+
+      QUnit.test("children() Academy Pilot", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var imperialAgent = new Agent(store, "Imperial Agent");
+         var pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent, [UpgradeCard.STEALTH_DEVICE]);
+
+         // Run.
+         var result = pilotInstance.children();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 0);
+      });
+
+      QUnit.test("children() CR90 Corvette", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var rebelAgent = new Agent(store, "Rebel Agent");
+         var pilotInstance = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent);
+
+         // Run.
+         var result = pilotInstance.children();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 2);
+         assert.equal(result[0].card().key, PilotCard.CR90_CORVETTE + ".fore");
+         assert.equal(result[1].card().key, PilotCard.CR90_CORVETTE + ".aft");
       });
 
       QUnit.test("cloakCount()", function(assert)
@@ -260,7 +292,7 @@ define(["qunit", "redux",
          var upgrade = new CardInstance(store, UpgradeCard.DORSAL_TURRET);
          store.dispatch(CardAction.addUpgrade(attacker, upgrade));
          var defender = environment.pilotInstances()[2]; // X-Wing
-         assert.equal(attacker.name(), "36 \"Dark Curse\" (TIE Fighter)");
+         assert.equal(attacker.name(), "36 \u2022 \"Dark Curse\" (TIE Fighter)");
          var weapon = attacker.primaryWeapon();
 
          // Run / Verify.
@@ -275,7 +307,7 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
          var attacker = environment.pilotInstances()[0]; // Mauler Mithel
          var defender = environment.pilotInstances()[2]; // X-Wing
-         assert.equal(attacker.name(), "34 \"Mauler Mithel\" (TIE Fighter)");
+         assert.equal(attacker.name(), "34 \u2022 \"Mauler Mithel\" (TIE Fighter)");
          var weapon = attacker.primaryWeapon();
 
          // Run / Verify.
@@ -343,12 +375,12 @@ define(["qunit", "redux",
          assert.equal(token0.card().key, PilotCard.ACADEMY_PILOT);
          assert.equal(token0.card().shipFaction.shipKey, Ship.TIE_FIGHTER);
          assert.equal(token0.name(), "1 Academy Pilot (TIE Fighter)");
-         var environment;
+         var environment = {};
          assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.ONE), 3);
          assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.TWO), 3);
          assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.THREE), 4);
-         assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), RangeRuler.FOUR), 4);
-         assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), RangeRuler.FIVE), 4);
+         assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.FOUR), 4);
+         assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.FIVE), 4);
 
          var rebelAgent = new Agent(store, "Rebel Agent");
          var token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
@@ -359,8 +391,8 @@ define(["qunit", "redux",
          assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), Range.ONE), 2);
          assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), Range.TWO), 2);
          assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), Range.THREE), 3);
-         assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), RangeRuler.FOUR), 3);
-         assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), RangeRuler.FIVE), 3);
+         assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), Range.FOUR), 3);
+         assert.equal(token1.computeDefenseDiceCount(environment, token1, token1.primaryWeapon(), Range.FIVE), 3);
       });
 
       QUnit.test("computeDefenseDiceCount() Talonbane Cobra", function(assert)
@@ -375,8 +407,8 @@ define(["qunit", "redux",
          assert.equal(token.computeDefenseDiceCount(environment, token, weapon, Range.ONE), 2);
          assert.equal(token.computeDefenseDiceCount(environment, token, weapon, Range.TWO), 2);
          assert.equal(token.computeDefenseDiceCount(environment, token, weapon, Range.THREE), 4);
-         assert.equal(token.computeDefenseDiceCount(environment, token, weapon, RangeRuler.FOUR), 4);
-         assert.equal(token.computeDefenseDiceCount(environment, token, weapon, RangeRuler.FIVE), 4);
+         assert.equal(token.computeDefenseDiceCount(environment, token, weapon, Range.FOUR), 4);
+         assert.equal(token.computeDefenseDiceCount(environment, token, weapon, Range.FIVE), 4);
       });
 
       QUnit.test("criticalDamage() Blinded Pilot", function(assert)
@@ -859,7 +891,27 @@ define(["qunit", "redux",
          });
       });
 
-      QUnit.test("name()", function(assert)
+      QUnit.test("name() condition instance", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var condition = new CardInstance(store, ConditionCard.FANATICAL_DEVOTION);
+
+         // Run / Verify.
+         assert.equal(condition.name(), "1 \u2022 Fanatical Devotion");
+      });
+
+      QUnit.test("name() damage instance", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var damage = new CardInstance(store, DamageCard.DAMAGED_ENGINE_V2);
+
+         // Run / Verify.
+         assert.equal(damage.name(), "1 Damaged Engine v2");
+      });
+
+      QUnit.test("name() pilot instance", function(assert)
       {
          // Setup.
          var environment = EnvironmentFactory.createCoreSetEnvironment();
@@ -867,9 +919,19 @@ define(["qunit", "redux",
          // Run / Verify.
          assert.equal(environment.pilotInstances().length, 3);
          var i = 0;
-         assert.equal(environment.pilotInstances()[i++].name(), "34 \"Mauler Mithel\" (TIE Fighter)");
-         assert.equal(environment.pilotInstances()[i++].name(), "36 \"Dark Curse\" (TIE Fighter)");
-         assert.equal(environment.pilotInstances()[i++].name(), "37 Luke Skywalker (X-Wing)");
+         assert.equal(environment.pilotInstances()[i++].name(), "34 \u2022 \"Mauler Mithel\" (TIE Fighter)");
+         assert.equal(environment.pilotInstances()[i++].name(), "36 \u2022 \"Dark Curse\" (TIE Fighter)");
+         assert.equal(environment.pilotInstances()[i++].name(), "37 \u2022 Luke Skywalker (X-Wing)");
+      });
+
+      QUnit.test("name() upgrade instance", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var upgrade = new CardInstance(store, UpgradeCard.ADRENALINE_RUSH);
+
+         // Run / Verify.
+         assert.equal(upgrade.name(), "1 Adrenaline Rush");
       });
 
       QUnit.test("pilotSkillValue()", function(assert)

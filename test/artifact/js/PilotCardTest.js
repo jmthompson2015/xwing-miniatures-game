@@ -53,6 +53,9 @@ define(["qunit", "artifact/js/Faction", "artifact/js/PilotCard", "artifact/js/Sh
       {
          assert.equal(PilotCard.getName(PilotCard.ACADEMY_PILOT), "Academy Pilot");
          assert.equal(PilotCard.getName(PilotCard.LUKE_SKYWALKER), "\u2022 Luke Skywalker");
+         assert.equal(PilotCard.getName(PilotCard.CR90_CORVETTE), "CR90 Corvette");
+         assert.equal(PilotCard.getName(PilotCard.CR90_CORVETTE + ".fore"), "CR90 Corvette (fore)");
+         assert.equal(PilotCard.getName(PilotCard.CR90_CORVETTE + ".aft"), "CR90 Corvette (aft)");
       });
 
       QUnit.test("keys and values", function(assert)

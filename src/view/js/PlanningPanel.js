@@ -44,7 +44,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                   callback: self.selectionChanged,
                   resourceBase: this.props.resourceBase,
                   maneuvers: maneuvers,
-                  pilotName: token.pilotName(),
+                  pilotName: token.name(true),
                   shipName: token.shipName(),
                   tokenId: token.id(),
                });

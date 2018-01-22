@@ -4310,10 +4310,25 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator", "artifact/js/Car
       {
          InputValidator.validateNotNull("pilotKey", pilotKey);
 
-         var pilot = PilotCard.properties[pilotKey];
+         var isFore = pilotKey.endsWith(".fore");
+         var isAft = pilotKey.endsWith(".aft");
+         var myPilotKey = (isFore ? pilotKey.substring(0, pilotKey.length - ".fore".length) : pilotKey);
+         myPilotKey = (isAft ? pilotKey.substring(0, pilotKey.length - ".aft".length) : myPilotKey);
+         var pilot = PilotCard.properties[myPilotKey];
+
          var answer = "";
          answer += (pilot.isUnique ? "\u2022 " : ""); // bullet
          answer += pilot.name;
+
+         if (isFore)
+         {
+            answer += " (fore)";
+         }
+
+         if (isAft)
+         {
+            answer += " (aft)";
+         }
 
          return answer;
       };

@@ -108,7 +108,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             return React.createElement(NamePanel,
             {
                pilotSkillValue: myToken.pilotSkillValue(),
-               pilotName: token.pilotName(),
+               pilotName: token.name(true),
                pilotDescription: (token.card().isFlavorText ? undefined : token.card().description),
                shipName: (myTokenAft ? myToken.ship().name : token.shipName()),
                faction: token.card().shipFaction.faction,

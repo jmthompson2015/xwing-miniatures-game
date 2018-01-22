@@ -13,6 +13,12 @@ define(["qunit", "artifact/js/ConditionCard"], function(QUnit, ConditionCard)
       assert.equal(properties.key, "fanaticalDevotion");
    });
 
+   QUnit.test("getName()", function(assert)
+   {
+      assert.equal(ConditionCard.getName(ConditionCard.A_DEBT_TO_PAY), "\u2022 A Debt to Pay");
+      assert.equal(ConditionCard.getName(ConditionCard.FANATICAL_DEVOTION), "\u2022 Fanatical Devotion");
+   });
+
    QUnit.test("keys and values", function(assert)
    {
       // Setup.
@@ -65,6 +71,7 @@ define(["qunit", "artifact/js/ConditionCard"], function(QUnit, ConditionCard)
       var properties = Object.getOwnPropertyNames(ConditionCard);
       var count = properties.length - 1 - // properties
          1 - // keys
+         1 - // getName
          1 - // toString
          1; // values
       assert.equal(result.length, count);

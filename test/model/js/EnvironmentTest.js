@@ -1051,6 +1051,6 @@ define(["qunit", "redux",
          var environment = EnvironmentFactory.createCoreSetEnvironment();
 
          // Run / Verify.
-         assert.equal(environment.toString(), "(305, 20, 90) 34 \"Mauler Mithel\" (TIE Fighter) pilot\n(610, 20, 90) 36 \"Dark Curse\" (TIE Fighter) pilot\n(458, 895, 270) 37 Luke Skywalker (X-Wing) pilot\n");
+         assert.equal(environment.toString(), "(305, 20, 90) 34 \u2022 \"Mauler Mithel\" (TIE Fighter) pilot\n(610, 20, 90) 36 \u2022 \"Dark Curse\" (TIE Fighter) pilot\n(458, 895, 270) 37 \u2022 Luke Skywalker (X-Wing) pilot\n");
       });
    });
