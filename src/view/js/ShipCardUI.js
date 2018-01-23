@@ -1,10 +1,10 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories",
+define(["create-react-class", "prop-types", "react",
   "artifact/js/Maneuver", "artifact/js/ShipFaction",
-  "view/js/ManeuverChooser", "view/js/ShipActionPanel", "view/js/ShipSilhouetteUI", "view/js/ShipUI"],
-   function(createReactClass, PropTypes, React, DOM, Maneuver, ShipFaction,
-      ManeuverChooser, ShipActionPanel, ShipSilhouetteUI, ShipUI)
+  "view/js/ManeuverChooser", "view/js/ReactUtilities", "view/js/ShipActionPanel", "view/js/ShipSilhouetteUI", "view/js/ShipUI"],
+   function(createReactClass, PropTypes, React, Maneuver, ShipFaction,
+      ManeuverChooser, ReactUtilities, ShipActionPanel, ShipSilhouetteUI, ShipUI)
    {
       var ShipCardUI = createReactClass(
       {
@@ -71,18 +71,13 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             }
             else
             {
-               imagePanel = DOM.table(
+               var imagePanelCells = images.map(function(image, i)
                {
-                  className: "center",
-               }, DOM.tbody(
-               {}, DOM.tr(
-               {}, images.map(function(image)
-               {
-                  return DOM.td(
-                  {
-                     className: "ph1",
-                  }, image);
-               }))));
+                  return ReactUtilities.createCell(image, "image" + i, "pa1");
+               });
+
+               var imagePanelRow = ReactUtilities.createRow(imagePanelCells);
+               imagePanel = ReactUtilities.createTable(imagePanelRow, "imagePanel", "center tc");
             }
 
             var silhouette = React.createElement(ShipSilhouetteUI,
@@ -94,8 +89,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
 
             var shipActionPanel0, shipActionPanel1;
 
-            if (shipFactionKey === ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE ||
-               shipFactionKey === ShipFaction.REBEL_CR90_CORVETTE)
+            if ([ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE, ShipFaction.REBEL_CR90_CORVETTE].includes(shipFactionKey))
             {
                shipActionPanel0 = React.createElement(ShipActionPanel,
                {
@@ -130,82 +124,35 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                maneuvers: maneuvers,
             });
 
-            cell0 = DOM.td(
-            {
-               key: "image" + shipFactionKey,
-               className: "galleryCell center tc",
-            }, imagePanel);
-            cell1 = DOM.td(
-            {
-               key: "name" + shipFactionKey,
-               className: "galleryCell center pa1"
-            }, silhouette);
+            cell0 = ReactUtilities.createCell(imagePanel, "image" + shipFactionKey, "center tc");
+            cell1 = ReactUtilities.createCell(silhouette, "name" + shipFactionKey, "center pa1 tc");
 
             if (shipActionPanel1 !== undefined)
             {
-               cell2 = DOM.td(
-               {
-                  key: "actions" + shipFactionKey,
-                  className: "galleryCell colorWhite center pa1 tc white"
-               }, DOM.table(
-                  {
-                     className: "alignCenter center",
-                  },
-                  DOM.tbody(
-                  {}, DOM.tr(
-                     {}, DOM.td(
-                     {}, "Aft"),
-                     DOM.td(
-                     {
-                        className: "pa1",
-                     }, shipActionPanel1), DOM
-                     .td(
-                     {
-                        className: "pa1",
-                     }, shipActionPanel0),
-                     DOM.td(
-                     {}, "Fore")))));
+               var cell2Cells = [];
+               cell2Cells.push(ReactUtilities.createCell("Aft"));
+               cell2Cells.push(ReactUtilities.createCell(shipActionPanel1, "aftPanel", "pa1"));
+               cell2Cells.push(ReactUtilities.createCell(shipActionPanel0, "forePanel", "pa1"));
+               cell2Cells.push(ReactUtilities.createCell("Fore"));
+
+               var cell2Row = ReactUtilities.createRow(cell2Cells);
+               var cell2Table = ReactUtilities.createTable(cell2Row, "cell2Table", "center tc");
+               cell2 = ReactUtilities.createCell(cell2Table, "actions" + shipFactionKey, "colorWhite center pa1 tc white");
             }
             else
             {
-               cell2 = DOM.td(
-               {
-                  key: "actions" + shipFactionKey,
-                  className: "galleryCell center pa1"
-               }, shipActionPanel0);
+               cell2 = ReactUtilities.createCell(shipActionPanel0, "actions" + shipFactionKey, "center pa1");
             }
 
-            cell3 = DOM.td(
-            {
-               key: "maneuvers" + shipFactionKey,
-               className: "galleryCell alignBottom center pa1"
-            }, chooser);
+            cell3 = ReactUtilities.createCell(chooser, "maneuvers" + shipFactionKey, "alignBottom center pa1");
 
             var rows = [];
-            rows.push(DOM.tr(
-            {
-               key: rows.length,
-            }, cell0));
-            rows.push(DOM.tr(
-            {
-               key: rows.length,
-               className: "galleryShipName white"
-            }, cell1));
-            rows.push(DOM.tr(
-            {
-               key: rows.length,
-            }, cell2));
-            rows.push(DOM.tr(
-            {
-               key: rows.length,
-            }, cell3));
+            rows.push(ReactUtilities.createRow(cell0, rows.length));
+            rows.push(ReactUtilities.createRow(cell1, rows.length, "white"));
+            rows.push(ReactUtilities.createRow(cell2, rows.length));
+            rows.push(ReactUtilities.createRow(cell3, rows.length));
 
-            return DOM.table(
-            {
-               key: this.props.myKey,
-               className: "galleryTable b--xw-medium ba bg-black dib v-top",
-            }, DOM.tbody(
-            {}, rows));
+            return ReactUtilities.createTable(rows, this.props.myKey, "b--xw-medium ba bg-black v-top");
          },
 
          createShipImage: function(shipFactionKey)

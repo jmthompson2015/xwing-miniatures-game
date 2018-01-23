@@ -24,9 +24,10 @@
     "use strict";
 
     require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "redux", "common/js/Logger",
-        "artifact/js/ShipFaction", "artifact/js/Faction", "model/js/Action", "model/js/Agent", "model/js/Reducer", "view/js/ShipCardUI"
+        "artifact/js/ShipFaction", "artifact/js/Faction", "model/js/Action", "model/js/Agent", "model/js/Reducer", "view/js/ReactUtilities",
+        "view/js/ShipCardUI"
       ],
-      function(createReactClass, PropTypes, React, ReactDOM, DOM, Redux, Logger, ShipFaction, Faction, Action, Agent, Reducer, ShipCardUI)
+      function(createReactClass, PropTypes, React, ReactDOM, DOM, Redux, Logger, ShipFaction, Faction, Action, Agent, Reducer, ReactUtilities, ShipCardUI)
       {
         window.LOGGER = new Logger();
         LOGGER.setTraceEnabled(false);
@@ -78,8 +79,7 @@
               }
             });
 
-            return DOM.div(
-            {}, cells);
+            return ReactUtilities.createFlexboxWrap(cells);
           },
         });
 
