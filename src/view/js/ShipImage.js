@@ -1,11 +1,11 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Ship"],
-   function(InputValidator, FiringArc, Ship)
+define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Ship", "artifact/js/ShipBase"],
+   function(InputValidator, FiringArc, Ship, ShipBase)
    {
       var ShipImage = {};
 
-      var DEG_TO_RADIANS = Math.PI / 180;
+      var DEG_TO_RADIANS = Math.PI / 180.0;
 
       ShipImage.draw = function(context, scale, id, image, position, shipFaction)
       {
@@ -58,7 +58,22 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Ship"]
          }
 
          // Draw ship image.
-         context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
+         var myWidth = width;
+         var myHeight = height;
+
+         if ([ShipBase.SMALL, ShipBase.LARGE].includes(shipBase.key))
+         {
+            if (image.width < image.height)
+            {
+               myWidth = width * image.width / image.height;
+            }
+            else if (image.width > image.height)
+            {
+               myHeight = height * image.height / image.width;
+            }
+         }
+
+         context.drawImage(image, -myWidth / 2, -myHeight / 2, myWidth, myHeight);
 
          if (id !== undefined)
          {
@@ -123,9 +138,9 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Ship"]
             case FiringArc.FORWARD_106:
                // +1 offset to avoid border lines
                context.beginPath();
-               context.moveTo(height / 2 * Math.tan(37 * Math.PI / 180.0), -height / 2);
+               context.moveTo(height / 2 * Math.tan(37 * DEG_TO_RADIANS), -height / 2);
                context.lineTo(0, 0);
-               context.lineTo(height / 2 * Math.tan(37 * Math.PI / 180.0), height / 2 + 1);
+               context.lineTo(height / 2 * Math.tan(37 * DEG_TO_RADIANS), height / 2 + 1);
                context.stroke();
                context.lineTo(width / 2 + 1, height / 2 + 1);
                context.lineTo(width / 2 + 1, -height / 2);
@@ -133,9 +148,9 @@ define(["common/js/InputValidator", "artifact/js/FiringArc", "artifact/js/Ship"]
                break;
             case FiringArc.FORWARD_136:
                context.beginPath();
-               context.moveTo(height / 2 * Math.tan(22 * Math.PI / 180.0), -height / 2);
+               context.moveTo(height / 2 * Math.tan(22 * DEG_TO_RADIANS), -height / 2);
                context.lineTo(0, 0);
-               context.lineTo(height / 2 * Math.tan(22 * Math.PI / 180.0), height / 2);
+               context.lineTo(height / 2 * Math.tan(22 * DEG_TO_RADIANS), height / 2);
                context.stroke();
                context.lineTo(width / 2, height / 2);
                context.lineTo(width / 2, -height / 2);
