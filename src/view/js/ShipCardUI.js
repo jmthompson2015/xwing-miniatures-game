@@ -1,9 +1,9 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react",
+define(["create-react-class", "prop-types", "react", "react-dom-factories",
   "artifact/js/Maneuver", "artifact/js/ShipFaction",
   "view/js/ManeuverChooser", "view/js/ReactUtilities", "view/js/ShipActionPanel", "view/js/ShipSilhouetteUI", "view/js/ShipUI"],
-   function(createReactClass, PropTypes, React, Maneuver, ShipFaction,
+   function(createReactClass, PropTypes, React, DOM, Maneuver, ShipFaction,
       ManeuverChooser, ReactUtilities, ShipActionPanel, ShipSilhouetteUI, ShipUI)
    {
       var ShipCardUI = createReactClass(
@@ -127,22 +127,39 @@ define(["create-react-class", "prop-types", "react",
             cell0 = ReactUtilities.createCell(imagePanel, "image" + shipFactionKey, "center tc");
             cell1 = ReactUtilities.createCell(silhouette, "name" + shipFactionKey, "center pa1 tc");
 
+            var cell2Cells = [];
+            var cell2Row, cell2Table;
+
             if (shipActionPanel1 !== undefined)
             {
-               var cell2Cells = [];
-               cell2Cells.push(ReactUtilities.createCell("Aft"));
+               if (shipFaction.ship.aft && shipFaction.ship.aft.isPrimaryWeaponTurret)
+               {
+                  cell2Cells.push(ReactUtilities.createCell(this.createTurretIcon(), "aftTurret", "pa1 v-mid"));
+               }
+
+               cell2Cells.push(ReactUtilities.createCell("Aft", "aftLabel", "v-mid white"));
                cell2Cells.push(ReactUtilities.createCell(shipActionPanel1, "aftPanel", "pa1"));
                cell2Cells.push(ReactUtilities.createCell(shipActionPanel0, "forePanel", "pa1"));
-               cell2Cells.push(ReactUtilities.createCell("Fore"));
+               cell2Cells.push(ReactUtilities.createCell("Fore", "foreLabel", "v-mid white"));
 
-               var cell2Row = ReactUtilities.createRow(cell2Cells);
-               var cell2Table = ReactUtilities.createTable(cell2Row, "cell2Table", "center tc");
-               cell2 = ReactUtilities.createCell(cell2Table, "actions" + shipFactionKey, "colorWhite center pa1 tc white");
+               if (shipFaction.ship.fore && shipFaction.ship.fore.isPrimaryWeaponTurret)
+               {
+                  cell2Cells.push(ReactUtilities.createCell(this.createTurretIcon(), "foreTurret", "pa1 v-mid"));
+               }
             }
             else
             {
-               cell2 = ReactUtilities.createCell(shipActionPanel0, "actions" + shipFactionKey, "center pa1");
+               cell2Cells.push(ReactUtilities.createCell(shipActionPanel0, "actions" + shipFactionKey, "center colorWhite pa1 tc"));
+
+               if (shipFaction.ship.isPrimaryWeaponTurret)
+               {
+                  cell2Cells.push(ReactUtilities.createCell(this.createTurretIcon(), "foreLabel", "pa1 v-mid"));
+               }
             }
+
+            cell2Row = ReactUtilities.createRow(cell2Cells);
+            cell2Table = ReactUtilities.createTable(cell2Row, "cell2Table", "center tc v-mid");
+            cell2 = ReactUtilities.createCell(cell2Table, "actions" + shipFactionKey, "center pa1 tc");
 
             cell3 = ReactUtilities.createCell(chooser, "maneuvers" + shipFactionKey, "alignBottom center pa1");
 
@@ -184,6 +201,18 @@ define(["create-react-class", "prop-types", "react",
                position: position,
                shipFaction: shipFaction,
             });
+         },
+
+         createTurretIcon: function()
+         {
+            return DOM.span(
+            {
+               key: "turretPrimaryWeapon",
+               className: "f7 white",
+            }, DOM.i(
+            {
+               className: "xwing-miniatures-font xwing-miniatures-font-attack-turret",
+            }));
          },
       });
 
