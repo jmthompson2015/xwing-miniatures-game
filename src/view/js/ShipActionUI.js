@@ -1,28 +1,32 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react-dom-factories"],
-   function(createReactClass, PropTypes, DOM)
+define(["create-react-class", "prop-types", "react-dom-factories", "artifact/js/ShipAction"],
+   function(createReactClass, PropTypes, DOM, ShipAction)
    {
       var ShipActionUI = createReactClass(
       {
          render: function()
          {
             var shipAction = this.props.shipAction;
-
-            var actionName = shipAction.name.replace(" (left)", "Left");
-            actionName = actionName.replace(" (straight)", "Straight");
-            actionName = actionName.replace(" (right)", "Right");
-            actionName = actionName.replace(/ /g, "");
-            var fileString = this.props.resourceBase + "action/" + actionName + "24.png";
             var myKey = (this.props.myKey !== undefined ? this.props.myKey : shipAction.key);
+            var className = "center tc v-mid";
+            var src = shipAction.key.toLowerCase();
 
-            var image = DOM.img(
+            if (shipAction.key === ShipAction.DECLOAK)
+            {
+               src = "cloak";
+               className += " silver";
+            }
+
+            var image = DOM.span(
             {
                key: myKey,
-               className: "shipActionUIImage v-mid",
-               src: fileString,
+               className: className,
                title: shipAction.name,
-            });
+            }, DOM.i(
+            {
+               className: "xwing-miniatures-font xwing-miniatures-font-" + src,
+            }));
 
             var answer = image;
             var showName = this.props.showName;
@@ -31,7 +35,7 @@ define(["create-react-class", "prop-types", "react-dom-factories"],
             {
                answer = DOM.span(
                {
-                  className: "shipActionUIImage v-mid",
+                  className: "v-mid",
                }, image, " ", shipAction.name);
             }
 
