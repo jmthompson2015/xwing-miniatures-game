@@ -29,7 +29,7 @@ define(function()
          },
          "pilotSkill":
          {
-            name: "PilotCard Skill",
+            name: "Pilot Skill",
             key: "pilotSkill",
          },
          "primaryWeapon":
