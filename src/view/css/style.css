@@ -41,13 +41,18 @@ table {
   color: rgb(127, 191, 255);
 }
 
+.xw-f8 {
+  /* Used by Maneuver Chooser */
+  font-size: .60rem;
+}
+
 .xw-green {
   /* 7FBF7F */
   color: rgb(127, 191, 127);
 }
 
 .xw-min-w1-5 {
-  /* Used by ManeuverChooser */
+  /* Used by Maneuver Chooser */
   min-width: 1.5rem;
 }
 

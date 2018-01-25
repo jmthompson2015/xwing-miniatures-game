@@ -1,8 +1,8 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react-dom-factories",
-  "artifact/js/Bearing", "artifact/js/Maneuver", "view/js/HtmlUtilities"],
-   function(createReactClass, PropTypes, DOM, Bearing, Maneuver, HtmlUtilities)
+  "artifact/js/Bearing", "artifact/js/Difficulty", "artifact/js/Maneuver", "view/js/HtmlUtilities"],
+   function(createReactClass, PropTypes, DOM, Bearing, Difficulty, Maneuver, HtmlUtilities)
    {
       var ManeuverChooser = createReactClass(
       {
@@ -73,7 +73,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                }, cell));
             }
 
-            var maneuver, difficulty, iconSrc, image;
+            var maneuver, difficultyKey, iconSrc, image;
 
             for (var speed = maxSpeed; speed >= minSpeed; speed--)
             {
@@ -81,32 +81,28 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                cells.push(DOM.td(
                {
                   key: cells.length,
-                  className: "maneuverCell b--xw-medium",
+                  className: "b--xw-medium",
                }, speed));
 
                if (speed === 0 && maneuvers.includes(Maneuver.properties[Maneuver.STATIONARY_0_HARD]))
                {
                   maneuver = Maneuver.properties[Maneuver.STATIONARY_0_HARD];
-                  difficulty = maneuver.difficultyKey;
-                  iconSrc = this.createManeuverIconSource(undefined, speed, difficulty);
+                  difficultyKey = maneuver.difficultyKey;
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell b--xw-medium",
+                     className: "b--xw-medium",
                   }, " "));
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell b--xw-medium",
+                     className: "b--xw-medium",
                   }, " "));
-                  image = DOM.img(
-                  {
-                     src: iconSrc,
-                  });
+                  image = this.createManeuverIcon(undefined, speed, difficultyKey);
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell b--xw-medium xw-min-w1-5",
+                     className: "b--xw-medium xw-min-w1-5",
                      onClick: (isEditable ? self.selectionChanged : undefined),
                      "data-tokenid": tokenId,
                      "data-maneuverkey": maneuver.key,
@@ -114,44 +110,44 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell b--xw-medium",
+                     className: "b--xw-medium",
                   }, " "));
                   cells.push(DOM.td(
                   {
                      key: cells.length,
-                     className: "maneuverCell b--xw-medium",
+                     className: "b--xw-medium",
                   }, " "));
                }
                else
                {
                   for (var i = 0; i < bearingValues.length; i++)
                   {
-                     var bearing = bearingValues[i];
+                     var bearingKey = bearingValues[i];
 
-                     if (bearingKeys.includes(bearing))
+                     if (bearingKeys.includes(bearingKey))
                      {
-                        maneuver = this.findManeuver(maneuvers, bearing, speed);
+                        maneuver = this.findManeuver(maneuvers, bearingKey, speed);
 
                         if (maneuver)
                         {
                            if (maneuver.energy !== undefined)
                            {
-                              iconSrc = this.createManeuverEnergyIconSource(bearing, maneuver.energy);
+                              iconSrc = this.createManeuverEnergyIconSource(bearingKey, maneuver.energy);
+                              image = DOM.img(
+                              {
+                                 src: iconSrc,
+                              });
                            }
                            else
                            {
-                              difficulty = maneuver.difficultyKey;
-                              iconSrc = this.createManeuverIconSource(bearing, speed, difficulty);
+                              difficultyKey = maneuver.difficultyKey;
+                              image = this.createManeuverIcon(bearingKey, speed, difficultyKey);
                            }
 
-                           image = DOM.img(
-                           {
-                              src: iconSrc,
-                           });
                            cells.push(DOM.td(
                            {
                               key: cells.length,
-                              className: "maneuverCell b--xw-medium xw-min-w1-5",
+                              className: "b--xw-medium xw-min-w1-5",
                               onClick: (isEditable ? self.selectionChanged : undefined),
                               "data-tokenid": tokenId,
                               "data-maneuverkey": maneuver.key,
@@ -162,7 +158,7 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                            cells.push(DOM.td(
                            {
                               key: cells.length,
-                              className: "maneuverCell b--xw-medium xw-min-w1-5",
+                              className: "b--xw-medium xw-min-w1-5",
                            }, " "));
                         }
                      }
@@ -177,9 +173,55 @@ define(["create-react-class", "prop-types", "react-dom-factories",
 
             return DOM.table(
             {
-               className: "maneuverTable b--xw-medium bg-black center white",
+               className: "b--xw-medium bg-black center white",
             }, DOM.tbody(
             {}, rows));
+         },
+
+         createManeuverIcon: function(bearingKey, speed, difficultyKey)
+         {
+            var src;
+
+            switch (bearingKey)
+            {
+               case Bearing.SEGNORS_LOOP_LEFT:
+                  src = "sloopleft";
+                  break;
+               case Bearing.SEGNORS_LOOP_RIGHT:
+                  src = "sloopright";
+                  break;
+               case Bearing.TALLON_ROLL_LEFT:
+                  src = "trollleft";
+                  break;
+               case Bearing.TALLON_ROLL_RIGHT:
+                  src = "trollright";
+                  break;
+               case undefined:
+                  src = "stop";
+                  break;
+               default:
+                  src = (speed === -1 ? "reverse" : "") + bearingKey.toLowerCase();
+            }
+
+            var className = "xw-f8";
+
+            switch (difficultyKey)
+            {
+               case Difficulty.EASY:
+                  className += " green";
+                  break;
+               case Difficulty.HARD:
+                  className += " red";
+                  break;
+            }
+
+            return DOM.span(
+            {
+               className: className,
+            }, DOM.i(
+            {
+               className: "xwing-miniatures-font xwing-miniatures-font-" + src,
+            }));
          },
 
          findManeuver: function(maneuvers, bearingKey, speed)
@@ -223,29 +265,6 @@ define(["create-react-class", "prop-types", "react-dom-factories",
                var maneuver = maneuvers[i];
                var speed = maneuver.speed;
                answer = Math.min(speed, answer);
-            }
-
-            return answer;
-         },
-
-         createManeuverIconSource: function(bearing, speed, difficulty)
-         {
-            var answer;
-
-            if (bearing)
-            {
-               var bearingName = bearing.replace(/L/g, "_l");
-               bearingName = bearingName.replace(/R/g, "_r");
-               bearingName = bearingName.replace("kTurn", "koiogran_turn");
-               if (speed < 0)
-               {
-                  bearingName = "reverse_" + bearingName;
-               }
-               answer = this.props.resourceBase + "maneuver/" + bearingName + "_" + difficulty + "16.png";
-            }
-            else
-            {
-               answer = this.props.resourceBase + "maneuver/stationary_" + difficulty + "16.png";
             }
 
             return answer;
