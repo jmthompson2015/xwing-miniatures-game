@@ -8,7 +8,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
          propTypes:
          {
             shipActionKeys: PropTypes.array.isRequired,
-            resourceBase: PropTypes.string.isRequired,
          },
 
          render: function()
@@ -21,7 +20,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "art
                var image = React.createElement(ShipActionUI,
                {
                   shipAction: ShipAction.properties[shipActionKey],
-                  resourceBase: this.props.resourceBase,
                });
 
                cells.push(DOM.td(

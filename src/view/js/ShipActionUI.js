@@ -45,7 +45,6 @@ define(["create-react-class", "prop-types", "react-dom-factories", "artifact/js/
 
       ShipActionUI.propTypes = {
          shipAction: PropTypes.object.isRequired,
-         resourceBase: PropTypes.string.isRequired,
 
          // default: ship action value
          myKey: PropTypes.string,

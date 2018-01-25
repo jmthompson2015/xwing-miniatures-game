@@ -4,6 +4,7 @@
 	<title>MyTestShipCardUI</title>
 
 	<link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../../../lib/xwing-miniatures-font/xwing-miniatures-font-1.0.29/xwing-miniatures.css">
 	<link rel="stylesheet" href="../../../src/view/css/style.css">
 
 	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
@@ -29,50 +30,39 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "common/js/Logger",
-				"artifact/js/Ship", "artifact/js/ShipFaction", "artifact/js/Faction", "model/js//SimpleAgent", "view/js/ShipCardUI"
-			],
-			function(React, ReactDOM, Logger, Ship, ShipFaction, Faction, ShipCardUI)
+		require(["react", "react-dom", "common/js/Logger", "artifact/js/ShipFaction", "view/js/ShipCardUI"],
+			function(React, ReactDOM, Logger, ShipFaction, ShipCardUI)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
 				LOGGER.setDebugEnabled(false);
 
 				var resourceBase = "../../../src/view/resource/";
-				var agent = new Agent(store, "Agent");
 
 				var element = React.createElement(ShipCardUI,
 				{
-					agent: agent,
 					resourceBase: resourceBase,
-					ship: Ship.properties[Ship.TIE_FIGHTER],
 					shipFaction: ShipFaction.properties[ShipFaction.IMPERIAL_TIE_FIGHTER],
 				});
 				ReactDOM.render(element, document.getElementById("imperialShip"));
 
 				element = React.createElement(ShipCardUI,
 				{
-					agent: agent,
 					resourceBase: resourceBase,
-					ship: Ship.properties[Ship.X_WING],
 					shipFaction: ShipFaction.properties[ShipFaction.REBEL_X_WING],
 				});
 				ReactDOM.render(element, document.getElementById("rebelShip"));
 
 				element = React.createElement(ShipCardUI,
 				{
-					agent: agent,
 					resourceBase: resourceBase,
-					ship: Ship.properties[Ship.GR_75_MEDIUM_TRANSPORT],
 					shipFaction: ShipFaction.properties[ShipFaction.REBEL_GR_75_MEDIUM_TRANSPORT],
 				});
 				ReactDOM.render(element, document.getElementById("gr75Ship"));
 
 				element = React.createElement(ShipCardUI,
 				{
-					agent: agent,
 					resourceBase: resourceBase,
-					ship: Ship.properties[Ship.CR90_CORVETTE],
 					shipFaction: ShipFaction.properties[ShipFaction.REBEL_CR90_CORVETTE],
 				});
 				ReactDOM.render(element, document.getElementById("cr90Ship"));

@@ -75,7 +75,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(ShipActionUI,
                   {
                      key: key,
-                     resourceBase: resourceBase,
                      shipAction: entity.shipAction,
                   });
                   break;
@@ -100,7 +99,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
                   answer = React.createElement(ShipActionUI,
                   {
                      key: key,
-                     resourceBase: resourceBase,
                      shipAction: entity,
                   });
                   break;

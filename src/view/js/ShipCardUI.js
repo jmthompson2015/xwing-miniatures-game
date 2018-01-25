@@ -93,12 +93,10 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             {
                shipActionPanel0 = React.createElement(ShipActionPanel,
                {
-                  resourceBase: resourceBase,
                   shipActionKeys: shipFaction.ship.fore.shipActionKeys,
                });
                shipActionPanel1 = React.createElement(ShipActionPanel,
                {
-                  resourceBase: resourceBase,
                   shipActionKeys: shipFaction.ship.aft.shipActionKeys,
                });
             }
@@ -106,7 +104,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories",
             {
                shipActionPanel0 = React.createElement(ShipActionPanel,
                {
-                  resourceBase: resourceBase,
                   shipActionKeys: shipFaction.ship.shipActionKeys,
                });
             }
