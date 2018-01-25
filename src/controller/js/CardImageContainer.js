@@ -3,6 +3,8 @@
 define(["immutable", "react-redux", "common/js/InputValidator", "view/js/CardImage"],
    function(Immutable, ReactRedux, InputValidator, CardImage)
    {
+      // CardImageContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("ownProps.cardInstance", ownProps.cardInstance);

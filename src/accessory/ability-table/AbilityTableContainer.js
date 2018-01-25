@@ -3,6 +3,8 @@
 define(["react-redux", "common/js/InputValidator", "accessory/ability-table/AbilityTable"],
    function(ReactRedux, InputValidator, AbilityTable)
    {
+      // AbilityTableContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);

@@ -3,6 +3,8 @@
 define(["react-redux", "common/js/InputValidator", "accessory/pilot-table/PilotTable"],
    function(ReactRedux, InputValidator, PilotTable)
    {
+      // PilotTableContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);

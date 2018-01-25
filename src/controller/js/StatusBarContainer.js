@@ -3,6 +3,8 @@
 define(["react-redux", "artifact/js/Phase", "view/js/StatusBarUI"],
    function(ReactRedux, Phase, StatusBarUI)
    {
+      // StatusBarContainer
+
       function mapStateToProps(state)
       {
          var environment = state.environment;

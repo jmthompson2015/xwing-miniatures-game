@@ -5,6 +5,8 @@ define(["react-redux", "common/js/InputValidator", "artifact/js/Phase", "artifac
    function(ReactRedux, InputValidator, Phase, PlayFormat, Ship, Faction,
       ManeuverAction, ManeuverComputer, Selector, PlayAreaUI)
    {
+      // PlayAreaContainer
+
       var EXPLOSION_PHASES = [Phase.COMBAT_AFTER_DEAL_DAMAGE];
       var LASER_AUDIO_PHASES = [Phase.COMBAT_ROLL_ATTACK_DICE, ];
       var LASER_BEAM_PHASES = [Phase.COMBAT_DECLARE_TARGET, Phase.COMBAT_ROLL_ATTACK_DICE, Phase.COMBAT_MODIFY_ATTACK_DICE, Phase.COMBAT_ROLL_DEFENSE_DICE, Phase.COMBAT_MODIFY_DEFENSE_DICE, Phase.COMBAT_COMPARE_RESULTS, Phase.COMBAT_NOTIFY_DAMAGE, Phase.COMBAT_DEAL_DAMAGE, Phase.COMBAT_AFTER_DEAL_DAMAGE];

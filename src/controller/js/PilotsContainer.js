@@ -3,6 +3,8 @@
 define(["react-redux", "common/js/InputValidator", "view/js/PilotsUI"],
    function(ReactRedux, InputValidator, PilotsUI)
    {
+      // PilotsContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("agent", ownProps.agent);

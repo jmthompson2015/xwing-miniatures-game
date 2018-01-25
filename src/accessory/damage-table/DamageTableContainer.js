@@ -3,6 +3,8 @@
 define(["react-redux", "common/js/InputValidator", "accessory/damage-table/DamageTable"],
    function(ReactRedux, InputValidator, DamageTable)
    {
+      // DamageTableContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);

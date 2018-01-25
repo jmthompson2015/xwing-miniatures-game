@@ -4,6 +4,8 @@ define(["react-redux", "model/js/AgentSquadAction", "model/js/MediumAgentStrateg
   "view/js/AgentSquadUI", "controller/js/HumanAgentStrategy", "controller/js/SquadBuilderContainer"],
    function(ReactRedux, AgentSquadAction, MediumAgentStrategy, SimpleAgentStrategy, SquadBuilder, AgentSquadUI, HumanAgentStrategy, SquadBuilderContainer)
    {
+      // AgentSquadContainer
+
       function mapStateToProps(state, ownProps)
       {
          var squadBuilders = SquadBuilder.findByFaction(state.faction.key);

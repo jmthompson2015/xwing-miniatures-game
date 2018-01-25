@@ -3,6 +3,8 @@
 define(["react-redux", "common/js/InputValidator", "accessory/squad-table/SquadTable"],
    function(ReactRedux, InputValidator, SquadTable)
    {
+      // SquadTableContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);

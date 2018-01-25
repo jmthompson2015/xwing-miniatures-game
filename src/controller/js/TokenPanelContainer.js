@@ -3,6 +3,8 @@
 define(["immutable", "react-redux", "common/js/InputValidator", "view/js/TokenPanel"],
    function(Immutable, ReactRedux, InputValidator, TokenPanel)
    {
+      // TokenPanelContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("ownProps.cardInstance", ownProps.cardInstance);

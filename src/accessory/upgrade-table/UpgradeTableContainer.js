@@ -3,6 +3,8 @@
 define(["react-redux", "common/js/InputValidator", "accessory/upgrade-table/UpgradeTable"],
    function(ReactRedux, InputValidator, UpgradeTable)
    {
+      // UpgradeTableContainer
+
       function mapStateToProps(state, ownProps)
       {
          InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
