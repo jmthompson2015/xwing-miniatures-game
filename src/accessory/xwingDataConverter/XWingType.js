@@ -7,6 +7,7 @@ define(function()
       DAMAGES: "damages",
       DAMAGES_TFA: "damagesTfa",
       PILOTS: "pilots",
+      REFERENCES: "references",
       SHIPS: "ships",
       SOURCES: "sources",
       UPGRADES: "upgrades",
@@ -36,6 +37,12 @@ define(function()
             name: "Pilots",
             filepath: "../../../lib/xwing-data/data/pilots.js",
             key: "pilots",
+         },
+         "references":
+         {
+            name: "References",
+            filepath: "../../../lib/xwing-data/data/reference-cards.js",
+            key: "references",
          },
          "ships":
          {

@@ -148,6 +148,31 @@ define(["common/js/InputValidator", "accessory/xwingDataConverter/FactionConvert
          return answer;
       };
 
+      EnumGenerator.createReferenceEnumName = function(reference)
+      {
+         var answer = reference.title + " " + reference.subtitle;
+
+         answer = answer.replace(" Reference Card", "");
+         answer = answer.replace(/#/g, "");
+         answer = answer.replace("’", "");
+         answer = EnumGenerator.createEnumName(answer);
+
+         return answer;
+      };
+
+      EnumGenerator.createReferenceEnumValue = function(reference, isQuotedIn)
+      {
+         var isQuoted = (isQuotedIn !== undefined ? isQuotedIn : true);
+
+         var answer = reference.title + " " + reference.subtitle;
+         answer = answer.replace(" Reference Card", "");
+         answer = answer.replace(/#/g, "");
+         answer = answer.replace("’", "");
+         answer = EnumGenerator.createEnumValue(answer);
+
+         return (isQuoted ? EnumGenerator.quoteValue(answer) : answer);
+      };
+
       EnumGenerator.createShipEnumName = function(ship)
       {
          var answer = (typeof ship === "string" ? ship : ship.name);

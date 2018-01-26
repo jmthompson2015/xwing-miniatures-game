@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Starfighter Squadrons Help</title>
+	<title>X-Wing Miniatures Help</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="../css/style.css">
-	<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
-</script>
-<![endif]-->
+
+
+	<link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../../view/css/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script>
+		require.config(
+		{
+			"baseUrl": "../../../src",
+		});
+	</script>
+	<script src="../../../src/main.js"></script>
+
 </head>
 <body>
 	<h1>Reference Links</h1>
@@ -19,66 +28,32 @@
 		<li><a href="https://xwing-miniatures.wikia.com/wiki/X-Wing_Miniatures_Wiki" target="_blank">X-Wing Miniatures Wiki</a></li>
 	</ul>
 	<h1>Reference Cards</h1>
-	<table>
-		<tr>
-			<td><img src="../resource/referenceCard/Acquire_A_Target_Lock_Action.png" /></td>
-			<td><img src="../resource/referenceCard/Alternate_Primary_Weapons.png" /></td>
-			<td><img src="../resource/referenceCard/Auxiliary_Firing_Arc.jpg" /></td>
-			<td><img src="../resource/referenceCard/Barrel_Roll_Action.png" /></td>
-		</tr>
-		<tr>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BombTokens.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BombTokens-02.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BombTokens-03.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BombTokens-04.png" /></td>
-		</tr>
-		<tr>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BombTokens-05.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BombTokens-06.png" /></td>
-			<td><img src="../resource/referenceCard/Bomb_Tokens_7.jpg" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BombTokens-08.png" /></td>
-		</tr>
-		<tr>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BoostAction.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/BullseyeFiringArc.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/CloakAction.png" /></td>
-			<td><img src="../resource/referenceCard/The_Combat_Phase.png" /></td>
-		</tr>
-		<tr>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/Conditions.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/DebrisCloudTokens.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/Decloak.png" /></td>
-			<td><img src="../resource/referenceCard/Dual_Upgrade_Cards.jpg" /></td>
-		</tr>
-		<tr>
-			<td><img src="../resource/referenceCard/Evade_Action.png" /></td>
-			<td><img src="../resource/referenceCard/Focus_Action.png" /></td>
-			<td><img src="../resource/referenceCard/The_Game_Round.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/IonToken.png" /></td>
-		</tr>
-		<tr>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/ModificationsAndTitles.png" /></td>
-			<td><img src="../resource/referenceCard/Modifications_and_Upgrades.jpg" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/ReinforceAction.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/ReloadActionAndJamTokens.png" /></td>
-		</tr>
-		<tr>
-			<td><img src="../resource/referenceCard/Reverse_Maneuver.jpg" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/SegnorsLoop.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/SlamAction.png" /></td>
-			<td><img src="../resource/referenceCard/Stress_Token.png" /></td>
-		</tr>
-		<tr>
-			<td><img src="../resource/referenceCard/Tallon_Roll.jpg" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/TractorBeanToken.png" /></td>
-			<td><img src="../resource/referenceCard/Turret_Primary_Weapon.jpg" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/UsingBombs.png" /></td>
-		</tr>
-		<tr>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/UsingCargo.png" /></td>
-			<td><img width="250" src="../../../lib/xwing-data/images/reference-cards/UsingClusterMines.png" /></td>
-		</tr>
-	</table>
+	<div id="mainPanel"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "artifact/js/ReferenceCard", "view/js/CardImage"],
+			function(React, ReactDOM, DOM, ReferenceCard, CardImage)
+			{
+				var resourceBase = "../../../src/view/resource/";
+				var referenceKeys = ReferenceCard.keys();
+
+				var rows = referenceKeys.map(function(referenceKey)
+				{
+					return React.createElement(CardImage,
+					{
+						key: "referenceCard" + referenceKey,
+						card: ReferenceCard.properties[referenceKey],
+						resourceBase: resourceBase,
+						width: 200,
+					});
+				});
+
+				var mainPanel = DOM.div(
+				{}, rows);
+				ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
+			});
+	</script>
 </body>
 
 </html>

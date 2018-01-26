@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Reference Card Gallery</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
+  <link rel="stylesheet" href="../../view/css/style.css">
+
+  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
+  <script>
+    require.config(
+    {
+      "baseUrl": "../../../src",
+    });
+  </script>
+  <script src="../../../src/main.js"></script>
+
+</head>
+<body>
+  <h1>Reference Card Gallery</h1>
+  <div id="mainPanel"></div>
+  <script>
+    "use strict";
+
+    require(["create-react-class", "react", "react-dom", "react-dom-factories", "common/js/Logger", "artifact/js/ReferenceCard", "view/js/CardImage"],
+      function(createReactClass, React, ReactDOM, DOM, Logger, ReferenceCard, CardImage)
+      {
+        window.LOGGER = new Logger();
+        LOGGER.setTraceEnabled(false);
+        LOGGER.setDebugEnabled(false);
+
+        var resourceBase = "../../../src/view/resource/";
+        var referenceKeys = ReferenceCard.keys();
+
+        var rows = referenceKeys.map(function(referenceKey)
+        {
+          return React.createElement(CardImage,
+          {
+            key: "referenceCard" + referenceKey,
+            card: ReferenceCard.properties[referenceKey],
+            resourceBase: resourceBase,
+            width: 200,
+          });
+        });
+
+        var mainPanel = DOM.div(
+        {}, rows);
+        ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
+      });
+  </script>
+</body>
+
+</html>
