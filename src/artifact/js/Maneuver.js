@@ -1,7 +1,7 @@
 /*
- * Provides an enumeration of maneuvers for Starfighter Squadrons. <p> Small
- * ship base is 40mm x 40mm. </p> <p> Bearing straight, speed one maneuver is
- * 40mm long. Other straight maneuvers are multiples of this. </p>
+ * Provides an enumeration of maneuvers. <p> Small ship base is 40mm x 40mm. </p>
+ * <p> Bearing straight, speed one maneuver is 40mm long. Other straight maneuvers
+ * are multiples of this. </p>
  */
 "use strict";
 

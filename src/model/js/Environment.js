@@ -1,5 +1,5 @@
 /*
- * Provides an environment for Starfighter Squadrons.
+ * Provides an environment.
  * <dl>
  * <dt>heading</dt>
  * <dd>Absolute angle in degrees from the +X axis measured clockwise. Angle is normalized to [0,360).

@@ -1,5 +1,5 @@
 /*
- * Provides an enumeration of factions for Starfighter Squadrons.
+ * Provides an enumeration of factions.
  *
  * @see <a href="http://stijndewitt.wordpress.com/2014/01/26/enums-in-javascript/">Enums in JavaScript</a>
  */
