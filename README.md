@@ -9,6 +9,7 @@ Play the game: [X-Wing Miniatures Game](https://rawgit.com/jmthompson2015/xwing-
 * [Game Data Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/game-data-table/GameDataTable.html)
 * [Pilot Card Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/pilot-card-gallery/PilotCardGallery.html)
 * [Pilot Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/pilot-table/PilotTable.html)
+* [Reference Card Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/reference-card-gallery/ReferenceCardGallery.html)
 * [Ship Gallery](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/ship-gallery/ShipGallery.html)
 * [Squad Builder](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/squad-builder/SquadBuilder.html)
 * [Squad Table](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/accessory/squad-table/SquadTable.html)
