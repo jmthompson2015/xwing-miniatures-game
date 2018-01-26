@@ -35,14 +35,15 @@ define(["model/js/EntityFilter", "model/js/RangeFilter", "accessory/upgrade-tabl
          initialize: function()
          {
             this.entityColumns.push(TableColumns[0]); // typeKey
-            this.entityColumns.push(TableColumns[2]); // restrictionKeys
-            this.entityColumns.push(TableColumns[3]); // headerKey
-            this.entityColumns.push(TableColumns[5]); // isImplemented
-            this.entityColumns.push(TableColumns[7]); // rangeKeys
-            this.entityColumns.push(TableColumns[8]); // firingArc
+            this.entityColumns.push(TableColumns[2]); // wave
+            this.entityColumns.push(TableColumns[3]); // restrictionKeys
+            this.entityColumns.push(TableColumns[4]); // headerKey
+            this.entityColumns.push(TableColumns[6]); // isImplemented
+            this.entityColumns.push(TableColumns[8]); // rangeKeys
+            this.entityColumns.push(TableColumns[9]); // firingArc
 
-            this.rangeColumns.push(TableColumns[6]); // weaponValue
-            this.rangeColumns.push(TableColumns[9]); // squadPointCost
+            this.rangeColumns.push(TableColumns[7]); // weaponValue
+            this.rangeColumns.push(TableColumns[10]); // squadPointCost
          },
       };
 

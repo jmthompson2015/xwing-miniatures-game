@@ -46,6 +46,7 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHea
             deck: deck,
             type: type,
             name: ability.name,
+            wave: ability.wave,
             count: count,
             description: description,
             isFlavorText: isFlavorText,

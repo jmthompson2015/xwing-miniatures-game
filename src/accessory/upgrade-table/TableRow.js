@@ -16,6 +16,7 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          typeKey: upgrade.typeKey,
          name: upgrade.name,
+         wave: upgrade.wave,
          restrictionKeys: restrictionKeys,
          headerKey: upgrade.headerKey,
          weaponValue: upgrade.weaponValue,

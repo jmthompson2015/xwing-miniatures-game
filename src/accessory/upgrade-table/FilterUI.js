@@ -26,6 +26,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             return (
             {
                typeValues: (this.props.filters.typeKey ? this.props.filters.typeKey.values() : []),
+               waveValues: (this.props.filters.wave ? this.props.filters.wave.values() : []),
                restrictionValues: (this.props.filters.restrictionKeys ? this.props.filters.restrictionKeys.values() : []),
                headerValues: (this.props.filters.headerKey ? this.props.filters.headerKey.values() : []),
                isImplementedValues: (this.props.filters.isImplemented ? this.props.filters.isImplemented.values() : []),
@@ -127,6 +128,10 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                         return UpgradeType.properties[value].name;
                      };
                      clientProps["data-entitytype"] = "typeKey";
+                     break;
+                  case "wave":
+                     values = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "Aces"];
+                     clientProps["data-entitytype"] = "wave";
                      break;
                   case "restrictionKeys":
                      values = UpgradeRestriction.keys();
@@ -299,6 +304,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                   case "typeKey":
                      ArrayUtilities.addAll(values, this.state.typeValues);
                      break;
+                  case "wave":
+                     ArrayUtilities.addAll(values, this.state.waveValues);
+                     break;
                   case "restrictionKeys":
                      ArrayUtilities.addAll(values, this.state.restrictionValues);
                      break;
@@ -353,6 +361,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                   this.setState(
                   {
                      typeValues: values,
+                  });
+                  break;
+               case "wave":
+                  this.setState(
+                  {
+                     waveValues: values,
                   });
                   break;
                case "restrictionKeys":

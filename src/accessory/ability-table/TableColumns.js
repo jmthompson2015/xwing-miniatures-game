@@ -19,6 +19,11 @@ define(function()
          className: "textCell tl",
       },
       {
+         key: "wave",
+         label: "Wave",
+         className: "tc",
+      },
+      {
          key: "count",
          label: "Used",
          className: "tr",

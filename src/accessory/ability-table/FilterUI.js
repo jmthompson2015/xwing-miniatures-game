@@ -23,6 +23,7 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
             {
                deckValues: (this.props.filters.deck ? this.props.filters.deck.values() : []),
                typeValues: (this.props.filters.type ? this.props.filters.type.values() : []),
+               waveValues: (this.props.filters.wave ? this.props.filters.wave.values() : []),
                isImplementedValues: (this.props.filters.isImplemented ? this.props.filters.isImplemented.values() : []),
                eventValues: (this.props.filters.event ? this.props.filters.event.values() : []),
             });
@@ -128,6 +129,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                         }
                      });
                      values.sort();
+                     break;
+                  case "wave":
+                     values = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "Aces"];
                      break;
                   case "isImplemented":
                      values = [true, false];
@@ -281,6 +285,9 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                   case "type":
                      ArrayUtilities.addAll(values, this.state.typeValues);
                      break;
+                  case "wave":
+                     ArrayUtilities.addAll(values, this.state.waveValues);
+                     break;
                   case "isImplemented":
                      ArrayUtilities.addAll(values, this.state.isImplementedValues);
                      break;
@@ -332,6 +339,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "com
                   this.setState(
                   {
                      typeValues: values,
+                  });
+                  break;
+               case "wave":
+                  this.setState(
+                  {
+                     waveValues: values,
                   });
                   break;
                case "isImplemented":
