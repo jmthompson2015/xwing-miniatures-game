@@ -24,8 +24,7 @@ define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/At
             var attacker = getActiveToken(store);
             var attackDice = getAttackDice(attacker);
             attackDice.spendFocusToken();
-            store.dispatch(CardAction.addFocusCount(attacker, -1));
-            callback();
+            attacker.removeFocus(callback);
          },
       };
 
@@ -87,8 +86,7 @@ define(["common/js/InputValidator", "artifact/js/DiceModification", "model/js/At
             var defender = getDefender(attacker);
             var defenseDice = getDefenseDice(attacker);
             defenseDice.spendFocusToken();
-            store.dispatch(CardAction.addFocusCount(defender, -1));
-            callback();
+            defender.removeFocus(callback);
          },
       };
 

@@ -62,10 +62,9 @@ define(["common/js/InputValidator",
             var friends = environment.getFriendlyTokensAtRange(token, Range.ONE);
             friends.forEach(function(friend)
             {
-               store.dispatch(CardAction.addStressCount(friend, -1));
+               friend.removeStress();
             });
-            store.dispatch(CardAction.addStressCount(token, -1));
-            callback();
+            token.removeStress(callback);
          },
       };
 
@@ -79,8 +78,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(CardAction.addFocusCount(token));
-            callback();
+            token.receiveFocus(1, callback);
          },
       };
 
@@ -422,8 +420,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(CardAction.addFocusCount(token));
-            callback();
+            token.receiveFocus(1, callback);
          },
       };
 
@@ -618,7 +615,7 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("attacker", attacker);
 
-         store.dispatch(CardAction.addFocusCount(attacker, -1));
+         attacker.removeFocus();
       }
 
       function spendTargetLock(store, attacker, defender)

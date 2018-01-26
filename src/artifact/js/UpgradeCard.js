@@ -651,6 +651,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Elite/attanni-mindlink.png",
                squadPointCost: 1,
                wave: "8",
+               isImplemented: true,
                key: "attanniMindlink",
             },
             "autoblaster":

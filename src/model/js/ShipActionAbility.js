@@ -107,7 +107,7 @@ define(["common/js/InputValidator", "artifact/js/Event", "artifact/js/ShipAction
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(CardAction.addFocusCount(token));
+            token.receiveFocus();
             notifyEvent(store, token, callback, ShipAction.FOCUS);
          },
       };

@@ -58,8 +58,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(CardAction.addFocusCount(token));
-            callback();
+            token.receiveFocus(1, callback);
          },
       };
 

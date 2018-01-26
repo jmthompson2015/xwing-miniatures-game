@@ -86,7 +86,7 @@ define(["common/js/InputValidator",
 
             var newManeuver = Maneuver.properties[Maneuver.STATIONARY_0_STANDARD];
             store.dispatch(Action.setTokenManeuver(token, newManeuver));
-            token.receiveStress(callback);
+            token.receiveStress(1, callback);
          },
       };
 
@@ -137,7 +137,7 @@ define(["common/js/InputValidator",
             var fromPosition = environment.getPositionFor(token);
             var toPosition = new Position(fromPosition.x(), fromPosition.y(), fromPosition.heading() + 180);
             environment.moveToken(fromPosition, toPosition);
-            token.receiveStress(callback);
+            token.receiveStress(1, callback);
          },
       };
 
@@ -308,7 +308,7 @@ define(["common/js/InputValidator",
             var defenseDice = new DefenseDice(store, token.id(), 2);
             if (defenseDice.focusCount() > 0)
             {
-               store.dispatch(CardAction.addFocusCount(token, defenseDice.focusCount()));
+               token.receiveFocus(defenseDice.focusCount(), callback);
             }
             if (defenseDice.evadeCount() > 0)
             {
@@ -402,9 +402,8 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(CardAction.addFocusCount(token));
-            token.receiveStress();
-            token.receiveStress(callback);
+            token.receiveFocus();
+            token.receiveStress(2, callback);
          },
       };
 

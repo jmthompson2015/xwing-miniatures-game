@@ -60,8 +60,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(CardAction.addFocusCount(token));
-            callback();
+            token.receiveFocus(1, callback);
          },
       };
 
@@ -122,6 +121,69 @@ define(["common/js/InputValidator",
       };
 
       ////////////////////////////////////////////////////////////////////////
+      UpgradeAbility0[Event.RECEIVE_FOCUS] = {};
+
+      UpgradeAbility0[Event.RECEIVE_FOCUS][UpgradeCard.ATTANNI_MINDLINK] = {
+         // Each time you are assigned a focus or stress token, each other friendly ship with Attanni Mindlink must also be assigned the same type of token if it does not already have one.
+         condition: function(store, token)
+         {
+            return isEventToken(store, token);
+         },
+         consequent: function(store, token, callback)
+         {
+            var agent = token.agent();
+            agent.pilotInstances().forEach(function(pilotInstance)
+            {
+               if (pilotInstance.id() !== token.id() && pilotInstance.focusCount() === 0)
+               {
+                  // Don't send another event.
+                  store.dispatch(CardAction.addFocusCount(pilotInstance));
+               }
+            });
+            callback();
+         },
+      };
+
+      ////////////////////////////////////////////////////////////////////////
+      UpgradeAbility0[Event.RECEIVE_STRESS] = {};
+
+      UpgradeAbility0[Event.RECEIVE_STRESS][UpgradeCard.ATTANNI_MINDLINK] = {
+         // Each time you are assigned a focus or stress token, each other friendly ship with Attanni Mindlink must also be assigned the same type of token if it does not already have one.
+         condition: function(store, token)
+         {
+            return isEventToken(store, token);
+         },
+         consequent: function(store, token, callback)
+         {
+            var agent = token.agent();
+            agent.pilotInstances().forEach(function(pilotInstance)
+            {
+               if (pilotInstance.id() !== token.id() && pilotInstance.stressCount() === 0)
+               {
+                  // Don't send another event.
+                  store.dispatch(CardAction.addStressCount(pilotInstance));
+               }
+            });
+            callback();
+         },
+      };
+
+      ////////////////////////////////////////////////////////////////////////
+      UpgradeAbility0[Event.REMOVE_STRESS] = {};
+
+      UpgradeAbility0[Event.REMOVE_STRESS][UpgradeCard.KYLE_KATARN] = {
+         // After you remove a stress token from your ship, you may assign a Focus token to your ship.
+         condition: function(store, token)
+         {
+            return isEventToken(store, token);
+         },
+         consequent: function(store, token, callback)
+         {
+            token.receiveFocus(1, callback);
+         },
+      };
+
+      ////////////////////////////////////////////////////////////////////////
       UpgradeAbility0[Event.SHIP_ACTION_PERFORMED] = {};
 
       UpgradeAbility0[Event.SHIP_ACTION_PERFORMED][UpgradeCard.PUSH_THE_LIMIT] = {
@@ -150,7 +212,7 @@ define(["common/js/InputValidator",
          {
             if (shipActionAbility)
             {
-               store.dispatch(CardAction.addStressCount(token));
+               token.receiveStress();
                var consequent = shipActionAbility.consequent();
                consequent(store, token, callback, shipActionAbility.context());
             }
@@ -170,24 +232,7 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            store.dispatch(CardAction.addFocusCount(token));
-            callback();
-         },
-      };
-
-      ////////////////////////////////////////////////////////////////////////
-      UpgradeAbility0[Event.REMOVE_STRESS] = {};
-
-      UpgradeAbility0[Event.REMOVE_STRESS][UpgradeCard.KYLE_KATARN] = {
-         // After you remove a stress token from your ship, you may assign a Focus token to your ship.
-         condition: function(store, token)
-         {
-            return isEventToken(store, token);
-         },
-         consequent: function(store, token, callback)
-         {
-            store.dispatch(CardAction.addFocusCount(token));
-            callback();
+            token.receiveFocus(1, callback);
          },
       };
 

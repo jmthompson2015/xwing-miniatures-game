@@ -6,8 +6,10 @@ define(function()
       AFTER_EXECUTE_MANEUVER: "afterExecuteManeuver",
       RECEIVE_CRITICAL_DAMAGE: "receiveCriticalDamage",
       RECEIVE_DAMAGE: "receiveDamage",
+      RECEIVE_FOCUS: "receiveFocus",
       RECEIVE_STRESS: "receiveStress",
       RECOVER_SHIELD: "recoverShield",
+      REMOVE_FOCUS: "removeFocus",
       REMOVE_SHIELD: "removeShield",
       REMOVE_STRESS: "removeStress",
       SHIP_ACTION_PERFORMED: "shipActionPerformed",
@@ -30,6 +32,11 @@ define(function()
             name: "Receive Damage",
             key: "receiveDamage",
          },
+         "receiveFocus":
+         {
+            name: "Receive Focus",
+            key: "receiveFocus",
+         },
          "receiveStress":
          {
             name: "Receive Stress",
@@ -39,6 +46,11 @@ define(function()
          {
             name: "Recover Shield",
             key: "recoverShield",
+         },
+         "removeFocus":
+         {
+            name: "Remove Focus",
+            key: "removeFocus",
          },
          "removeShield":
          {

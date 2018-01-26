@@ -83,7 +83,7 @@ define(["common/js/InputValidator",
             var attacker = getActiveCardInstance(store);
             var defender = getDefender(attacker);
             attacker.receiveStress();
-            defender.receiveStress(callback);
+            defender.receiveStress(1, callback);
          },
       };
 
@@ -99,7 +99,7 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var attacker = getActiveCardInstance(store);
-            attacker.receiveStress(callback);
+            attacker.receiveStress(1, callback);
          },
       };
 
@@ -416,7 +416,7 @@ define(["common/js/InputValidator",
          {
             var attackDice = getAttackDice(token);
             attackDice.addDie();
-            token.receiveStress(callback);
+            token.receiveStress(1, callback);
          },
       };
 
@@ -880,7 +880,7 @@ define(["common/js/InputValidator",
                token.receiveStress();
             }
 
-            store.dispatch(CardAction.addFocusCount(token));
+            token.receiveFocus();
             var defender = getDefender(token);
             TargetLock.newInstance(store, token, defender, callback);
          },
@@ -1189,7 +1189,7 @@ define(["common/js/InputValidator",
          consequent: function(store, token, callback)
          {
             var defender = getDefender(token);
-            defender.receiveStress(callback);
+            defender.receiveStress(1, callback);
          },
       };
 
@@ -1416,7 +1416,7 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("store", store);
          InputValidator.validateNotNull("attacker", attacker);
 
-         store.dispatch(CardAction.addFocusCount(attacker, -1));
+         attacker.removeFocus();
       }
 
       function spendTargetLock(store, attacker, defender)

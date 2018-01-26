@@ -1052,9 +1052,15 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_DAMAGE, this, callback, eventContext));
       };
 
-      CardInstance.prototype.receiveStress = function(callback)
+      CardInstance.prototype.receiveFocus = function(value, callback)
       {
-         this.store().dispatch(CardAction.addStressCount(this));
+         this.store().dispatch(CardAction.addFocusCount(this, value));
+         this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_FOCUS, this, callback));
+      };
+
+      CardInstance.prototype.receiveStress = function(value, callback)
+      {
+         this.store().dispatch(CardAction.addStressCount(this, value));
          this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_STRESS, this, callback));
       };
 
@@ -1085,6 +1091,19 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
             var myCount = (count !== undefined ? count : 1);
             this.store().dispatch(CardAction.addShieldCount(this, -myCount));
             this.store().dispatch(Action.enqueueEvent(Event.REMOVE_SHIELD, this, callback));
+         }
+         else if (callback)
+         {
+            callback();
+         }
+      };
+
+      CardInstance.prototype.removeFocus = function(callback)
+      {
+         if (this.focusCount() > 0)
+         {
+            this.store().dispatch(CardAction.addFocusCount(this, -1));
+            this.store().dispatch(Action.enqueueEvent(Event.REMOVE_FOCUS, this, callback));
          }
          else if (callback)
          {

@@ -49,7 +49,7 @@ define(["qunit", "artifact/js/Event"], function(QUnit, Event)
 
       // Verify.
       assert.ok(result);
-      var length = 9;
+      var length = 11;
       assert.equal(result.length, length);
       assert.equal(result[0], Event.AFTER_EXECUTE_MANEUVER);
       assert.equal(result[length - 1], Event.TARGET_LOCK_ACQUIRED);

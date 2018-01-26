@@ -217,7 +217,7 @@ define(["immutable", "common/js/InputValidator",
                }
                else if (difficultyKey === Difficulty.HARD)
                {
-                  token.receiveStress(nextFunction);
+                  token.receiveStress(1, nextFunction);
                }
                else
                {
