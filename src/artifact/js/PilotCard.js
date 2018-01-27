@@ -820,6 +820,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator", "artifact/js/Car
                squadPointCost: 42,
                upgradeTypeKeys: [UpgradeType.ELITE, UpgradeType.TORPEDO, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.CREW, UpgradeType.BOMB],
                wave: "5",
+               isImplemented: true,
                key: "captainOicunn",
             },
             "captainRex":

@@ -21,8 +21,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          {
             if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
             {
-               var environment = store.getState().environment;
-               token.receiveDamage(environment.drawDamage());
+               token.sufferDamage(1, 0);
             }
             callback();
          },
@@ -38,8 +37,7 @@ define(["common/js/InputValidator", "artifact/js/AttackDiceValue", "artifact/js/
          {
             if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
             {
-               var environment = store.getState().environment;
-               token.receiveDamage(environment.drawDamage());
+               token.sufferDamage(1, 0);
             }
             callback();
          },

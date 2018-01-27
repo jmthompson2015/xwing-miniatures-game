@@ -39,8 +39,7 @@ define(["common/js/InputValidator",
          {
             if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
             {
-               var environment = store.getState().environment;
-               token.receiveDamage(environment.drawDamage());
+               token.sufferDamage(1, 0);
             }
             callback();
          },
@@ -77,11 +76,7 @@ define(["common/js/InputValidator",
          {
             if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
             {
-               var environment = store.getState().environment;
-               if (environment)
-               {
-                  token.receiveDamage(environment.drawDamage());
-               }
+               token.sufferDamage(1, 0);
             }
             flipCardFacedown(store, token, DamageCard.MINOR_EXPLOSION);
             callback();

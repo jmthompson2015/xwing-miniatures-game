@@ -1,11 +1,11 @@
 "use strict";
 
 define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
-  "artifact/js/Bearing", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
-  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/PilotInstanceUtilities", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
+  "artifact/js/Bearing", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
+  "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/DamageDealer", "model/js/PilotInstanceUtilities", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
    function(Immutable, ArrayUtilities, InputValidator,
-      Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
-      Ability, Action, AgentAction, CardAction, PilotInstanceUtilities, RangeRuler, TargetLock, Weapon)
+      Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, Faction, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
+      Ability, Action, AgentAction, CardAction, DamageDealer, PilotInstanceUtilities, RangeRuler, TargetLock, Weapon)
    {
       function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, idIn, isNewIn, idParent, idFore, idAft, idCrippledFore, idCrippledAft)
       {
@@ -285,25 +285,6 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          return this._bonusValue(Value.SHIELD);
       };
 
-      CardInstance.prototype.cardInstancesTouching = function()
-      {
-         var store = this.store();
-         var touching = store.getState().touching;
-         var id = this.id();
-
-         touching = touching.filter(function(touchPair)
-         {
-            return touchPair.includes(id);
-         }, this);
-
-         var ids = touching.map(function(touchPair)
-         {
-            return (touchPair.get(0) === id ? touchPair.get(1) : touchPair.get(0));
-         }, this);
-
-         return CardInstance.idsToCardInstances(store, ids).toJS();
-      };
-
       CardInstance.prototype.children = function()
       {
          var agent = this.agent();
@@ -580,7 +561,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       {
          // pilotInstance2 optional.
 
-         var touching = this.cardInstancesTouching();
+         var touching = this.pilotInstancesTouching();
 
          if (pilotInstance2 !== undefined)
          {
@@ -624,6 +605,25 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          }
 
          return answer;
+      };
+
+      CardInstance.prototype.pilotInstancesTouching = function()
+      {
+         var store = this.store();
+         var touching = store.getState().touching;
+         var id = this.id();
+
+         touching = touching.filter(function(touchPair)
+         {
+            return touchPair.includes(id);
+         }, this);
+
+         var ids = touching.map(function(touchPair)
+         {
+            return (touchPair.get(0) === id ? touchPair.get(1) : touchPair.get(0));
+         }, this);
+
+         return CardInstance.idsToCardInstances(store, ids).toJS();
       };
 
       CardInstance.prototype.pilotSkillValue = function()
@@ -757,6 +757,14 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       CardInstance.prototype.tractorBeamCount = function()
       {
          return this.count(Count.TRACTOR_BEAM);
+      };
+
+      CardInstance.prototype.unfriendlyPilotInstancesTouching = function()
+      {
+         return this.pilotInstancesTouching().filter(function(pilotInstance)
+         {
+            return !Faction.isFriendly(this.card().factionKey, pilotInstance.card().factionKey);
+         });
       };
 
       CardInstance.prototype.upgradeKeys = function()
@@ -1160,6 +1168,18 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          {
             callback();
          }
+      };
+
+      CardInstance.prototype.sufferDamage = function(hitCount, criticalHitCount)
+      {
+         InputValidator.validateIsNumber("hitCount", hitCount);
+         InputValidator.validateIsNumber("criticalHitCount", criticalHitCount);
+
+         var store = this.store();
+         var environment = store.getState().environment;
+         var evadeCount = this.evadeCount();
+         var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, this, evadeCount);
+         damageDealer.dealDamage();
       };
 
       CardInstance.prototype._save = function(upgradeKeys, tokenFore, tokenAft, crippledTokenFore, crippledTokenAft)

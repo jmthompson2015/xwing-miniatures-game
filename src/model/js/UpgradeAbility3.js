@@ -775,8 +775,7 @@ define(["common/js/InputValidator",
             if (isDefenderHit(attacker))
             {
                var defender = getDefender(attacker);
-               var environment = store.getState().environment;
-               defender.receiveDamage(environment.drawDamage());
+               defender.sufferDamage(1, 0);
                store.dispatch(CardAction.addIonCount(defender, 2));
             }
             callback();
@@ -859,7 +858,7 @@ define(["common/js/InputValidator",
                var defender = getDefender(attacker);
                environment.getTokensAtRange(defender, Range.ONE).forEach(function(token)
                {
-                  token.receiveDamage(environment.drawDamage());
+                  token.sufferDamage(1, 0);
                });
             }
             callback();
@@ -899,7 +898,7 @@ define(["common/js/InputValidator",
 
             environment.getTokensAtRange(defender, Range.ONE).forEach(function(myToken)
             {
-               myToken.receiveDamage(environment.drawDamage());
+               myToken.sufferDamage(1, 0);
             });
             callback();
          },
@@ -934,9 +933,8 @@ define(["common/js/InputValidator",
             var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
-               var environment = store.getState().environment;
                var defender = getDefender(attacker);
-               defender.receiveDamage(environment.drawDamage());
+               defender.sufferDamage(1, 0);
 
                if (!defender.isStressed())
                {
@@ -1058,9 +1056,8 @@ define(["common/js/InputValidator",
             var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
-               var environment = store.getState().environment;
                var defender = getDefender(attacker);
-               defender.receiveDamage(environment.drawDamage());
+               defender.sufferDamage(1, 0);
                store.dispatch(CardAction.addIonCount(defender));
             }
             callback();
@@ -1081,9 +1078,8 @@ define(["common/js/InputValidator",
             var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
-               var environment = store.getState().environment;
                var defender = getDefender(attacker);
-               defender.receiveDamage(environment.drawDamage());
+               defender.sufferDamage(1, 0);
                store.dispatch(CardAction.addIonCount(defender));
             }
             callback();
@@ -1228,9 +1224,8 @@ define(["common/js/InputValidator",
             var attacker = getActiveCardInstance(store);
             if (isDefenderHit(attacker))
             {
-               var environment = store.getState().environment;
                var defender = getDefender(attacker);
-               defender.receiveDamage(environment.drawDamage());
+               defender.sufferDamage(1, 0);
             }
             callback();
          },

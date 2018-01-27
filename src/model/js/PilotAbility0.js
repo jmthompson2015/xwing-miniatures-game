@@ -4,16 +4,34 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "artifact/js/AttackDiceValue", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/ShipAction",
+  "artifact/js/AttackDiceValue", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/ShipAction",
   "model/js/Ability", "model/js/ActivationAction", "model/js/AttackDice", "model/js/CardAction", "model/js/Selector", "model/js/ShipActionAbility"],
    function(InputValidator,
-      AttackDiceValue, Difficulty, Event, Maneuver, PilotCard, ShipAction,
+      AttackDiceValue, Difficulty, Event, Faction, Maneuver, PilotCard, ShipAction,
       Ability, ActivationAction, AttackDice, CardAction, Selector, ShipActionAbility)
    {
       var PilotAbility0 = {};
 
       ////////////////////////////////////////////////////////////////////////
       PilotAbility0[Event.AFTER_EXECUTE_MANEUVER] = {};
+
+      PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.CAPTAIN_OICUNN] = {
+         // After executing a maneuver, each enemy ship you are touching suffers 1 damage.
+         condition: function(store, pilotInstance)
+         {
+            var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
+            return isEventToken(store, pilotInstance) && pilotInstances.length > 0;
+         },
+         consequent: function(store, pilotInstance, callback)
+         {
+            var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
+            pilotInstances.forEach(function(pilotInstance)
+            {
+               pilotInstance.sufferDamage(1, 0);
+            });
+            callback();
+         },
+      };
 
       PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.NIGHT_BEAST] = {
          // After executing a green maneuver, you may perform a free focus action.

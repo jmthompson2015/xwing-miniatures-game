@@ -204,32 +204,6 @@ define(["qunit", "redux",
          assert.equal(token.shieldValue(), 0);
       });
 
-      QUnit.test("cardInstancesTouching()", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var store = environment.store();
-         var pilotInstances = environment.pilotInstances();
-         assert.equal(pilotInstances.length, 3);
-         var pilotInstance1 = pilotInstances[0];
-         var pilotInstance2 = pilotInstances[1];
-         var pilotInstance3 = pilotInstances[2];
-         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
-         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
-         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
-
-         // Run.
-         var result = pilotInstance1.cardInstancesTouching();
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 2);
-         assert.equal(result[0].id(), 36);
-         assert.equal(result[0].card().key, "darkCurse");
-         assert.equal(result[1].id(), 37);
-         assert.equal(result[1].card().key, "lukeSkywalker");
-      });
-
       QUnit.test("children() Academy Pilot", function(assert)
       {
          // Setup.
@@ -1026,6 +1000,32 @@ define(["qunit", "redux",
 
          // Run / Verify.
          assert.equal(upgrade.name(), "1 Adrenaline Rush");
+      });
+
+      QUnit.test("pilotInstancesTouching()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var pilotInstances = environment.pilotInstances();
+         assert.equal(pilotInstances.length, 3);
+         var pilotInstance1 = pilotInstances[0];
+         var pilotInstance2 = pilotInstances[1];
+         var pilotInstance3 = pilotInstances[2];
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run.
+         var result = pilotInstance1.pilotInstancesTouching();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 2);
+         assert.equal(result[0].id(), 36);
+         assert.equal(result[0].card().key, "darkCurse");
+         assert.equal(result[1].id(), 37);
+         assert.equal(result[1].card().key, "lukeSkywalker");
       });
 
       QUnit.test("pilotSkillValue()", function(assert)
