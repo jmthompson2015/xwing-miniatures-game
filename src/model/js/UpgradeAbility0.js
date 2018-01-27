@@ -4,16 +4,34 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
-  "model/js/Ability", "model/js/ActivationAction", "model/js/CardAction", "model/js/EnvironmentAction", "model/js/ShipActionAbility"],
+  "artifact/js/AttackDiceValue", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
+  "model/js/Ability", "model/js/ActivationAction", "model/js/AttackDice", "model/js/CardAction", "model/js/EnvironmentAction", "model/js/ShipActionAbility"],
    function(InputValidator,
-      Difficulty, Event, Maneuver, ShipAction, UpgradeCard,
-      Ability, ActivationAction, CardAction, EnvironmentAction, ShipActionAbility)
+      AttackDiceValue, Difficulty, Event, Maneuver, ShipAction, UpgradeCard,
+      Ability, ActivationAction, AttackDice, CardAction, EnvironmentAction, ShipActionAbility)
    {
       var UpgradeAbility0 = {};
 
       ////////////////////////////////////////////////////////////////////////
       UpgradeAbility0[Event.AFTER_EXECUTE_MANEUVER] = {};
+
+      UpgradeAbility0[Event.AFTER_EXECUTE_MANEUVER][UpgradeCard.ION_PROJECTOR] = {
+         // After an enemy ship executes a maneuver that causes it to overlap your ship, roll 1 attack die. On a HIT or CRITICAL HIT result, the enemy ship receives 1 ion token.
+         condition: function(store, pilotInstance)
+         {
+            var enemy = getEventToken(store);
+            return enemy !== undefined && enemy.isTouching(pilotInstance);
+         },
+         consequent: function(store, pilotInstance, callback)
+         {
+            if ([AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT].includes(AttackDice.rollRandomValue()))
+            {
+               var enemy = getEventToken(store);
+               store.dispatch(CardAction.addIonCount(enemy));
+            }
+            callback();
+         },
+      };
 
       UpgradeAbility0[Event.AFTER_EXECUTE_MANEUVER][UpgradeCard.K4_SECURITY_DROID] = {
          // After executing a green maneuver, you may acquire a Target Lock.

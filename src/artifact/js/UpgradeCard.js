@@ -2435,6 +2435,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Modification/ion-projector.png",
                squadPointCost: 2,
                wave: "7",
+               isImplemented: true,
                key: "ionProjector",
             },
             "ionPulseMissiles":
