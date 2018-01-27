@@ -20,6 +20,14 @@ define(["immutable", "common/js/ArrayUtilities", "model/js/EnvironmentAction"],
                {
                   round: state.round + action.key,
                });
+            case EnvironmentAction.ADD_TOUCHING:
+               var id1 = action.pilotInstance1.id();
+               var id2 = action.pilotInstance2.id();
+               return Object.assign(
+               {}, state,
+               {
+                  touching: state.touching.push(Immutable.List([id1, id2])),
+               });
             case EnvironmentAction.DISCARD_DAMAGE:
                damageId = action.damageInstance.id();
                return Object.assign(
@@ -99,6 +107,29 @@ define(["immutable", "common/js/ArrayUtilities", "model/js/EnvironmentAction"],
                   });
                }
                return state;
+            case EnvironmentAction.REMOVE_TOUCHING:
+               var id = action.pilotInstance.id();
+               var touching = state.touching;
+               do {
+                  index = -1;
+                  for (var i = 0; i < touching.size; i++)
+                  {
+                     if (touching.get(i).includes(id))
+                     {
+                        index = i;
+                        break;
+                     }
+                  }
+                  if (index >= 0)
+                  {
+                     touching = touching.delete(index);
+                  }
+               } while (index >= 0);
+               return Object.assign(
+               {}, state,
+               {
+                  touching: touching,
+               });
             case EnvironmentAction.REPLENISH_DAMAGE_DECK:
                var newDamageDeck = state.damageDiscardPile.toJS();
                ArrayUtilities.shuffle(newDamageDeck);
@@ -156,12 +187,6 @@ define(["immutable", "common/js/ArrayUtilities", "model/js/EnvironmentAction"],
                {}, state,
                {
                   secondSquad: action.squad,
-               });
-            case EnvironmentAction.SET_TOKEN_TOUCHING:
-               return Object.assign(
-               {}, state,
-               {
-                  cardIsTouching: state.cardIsTouching.set(action.token.id(), action.isTouching),
                });
             default:
                LOGGER.warn("EnvironmentReducer.reduce: Unhandled action type: " + action.type);

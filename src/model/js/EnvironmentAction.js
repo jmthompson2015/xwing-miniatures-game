@@ -5,12 +5,14 @@ define(["common/js/InputValidator"], function(InputValidator)
    var EnvironmentAction = {};
 
    EnvironmentAction.ADD_ROUND = "addRound";
+   EnvironmentAction.ADD_TOUCHING = "addTouching";
    EnvironmentAction.DISCARD_DAMAGE = "discardDamage";
    EnvironmentAction.DRAW_DAMAGE = "drawDamage";
    EnvironmentAction.MOVE_TOKEN = "moveToken";
    EnvironmentAction.PLACE_TOKEN = "placeToken";
    EnvironmentAction.REMOVE_TOKEN = "removeToken";
    EnvironmentAction.REMOVE_TOKEN_AT = "removeTokenAt";
+   EnvironmentAction.REMOVE_TOUCHING = "removeTouching";
    EnvironmentAction.REPLENISH_DAMAGE_DECK = "replenishDamageDeck";
    EnvironmentAction.SET_ACTIVE_TOKEN = "setActiveToken";
    EnvironmentAction.SET_DAMAGE_DECK = "setDamageDeck";
@@ -20,7 +22,6 @@ define(["common/js/InputValidator"], function(InputValidator)
    EnvironmentAction.SET_PLAY_FORMAT = "setPlayFormat";
    EnvironmentAction.SET_SECOND_AGENT = "setSecondAgent";
    EnvironmentAction.SET_SECOND_SQUAD = "setSecondSquad";
-   EnvironmentAction.SET_TOKEN_TOUCHING = "setTokenTouching";
 
    EnvironmentAction.addRound = function(value)
    {
@@ -30,6 +31,19 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          type: EnvironmentAction.ADD_ROUND,
          key: myValue,
+      });
+   };
+
+   EnvironmentAction.addTouching = function(pilotInstance1, pilotInstance2)
+   {
+      InputValidator.validateNotNull("pilotInstance1", pilotInstance1);
+      InputValidator.validateNotNull("pilotInstance2", pilotInstance2);
+
+      return (
+      {
+         type: EnvironmentAction.ADD_TOUCHING,
+         pilotInstance1: pilotInstance1,
+         pilotInstance2: pilotInstance2,
       });
    };
 
@@ -103,6 +117,17 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          type: EnvironmentAction.REMOVE_TOKEN_AT,
          position: position,
+      });
+   };
+
+   EnvironmentAction.removeTouching = function(pilotInstance)
+   {
+      InputValidator.validateNotNull("pilotInstance", pilotInstance);
+
+      return (
+      {
+         type: EnvironmentAction.REMOVE_TOUCHING,
+         pilotInstance: pilotInstance,
       });
    };
 
@@ -197,19 +222,6 @@ define(["common/js/InputValidator"], function(InputValidator)
       {
          type: EnvironmentAction.SET_SECOND_SQUAD,
          squad: squad,
-      });
-   };
-
-   EnvironmentAction.setTokenTouching = function(token, isTouching)
-   {
-      InputValidator.validateNotNull("token", token);
-      InputValidator.validateIsBoolean("isTouching", isTouching);
-
-      return (
-      {
-         type: EnvironmentAction.SET_TOKEN_TOUCHING,
-         token: token,
-         isTouching: isTouching,
       });
    };
 

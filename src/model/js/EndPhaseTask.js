@@ -93,7 +93,6 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCar
          InputValidator.validateIsFunction("queueCallback", queueCallback);
 
          var store = this.store();
-         var environment = store.getState().environment;
 
          store.dispatch(Action.enqueuePhase(Phase.END_ROUND_END, cardInstance));
          store.dispatch(Action.setTokenActivationAction(cardInstance.id()));
@@ -105,7 +104,6 @@ define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeCar
          store.dispatch(Action.setTokenInFiringArc(cardInstance, false));
          store.dispatch(Action.setTokenManeuverAction(cardInstance.id()));
          store.dispatch(Action.setTokenRange(cardInstance));
-         environment.setTokenTouching(cardInstance, false);
          store.dispatch(CardAction.clearUsedAbilities(cardInstance));
          store.dispatch(CardAction.clearUsedPerRoundAbilities(cardInstance));
 

@@ -118,9 +118,7 @@ define(["redux", "common/js/InputValidator",
 
          // Cannot select a ship action if the ship is stressed (exception: pilot Tycho Celchu), or
          // if the ship is touching another ship.
-         var store = this.store();
-         var environment = Selector.environment(store.getState());
-         return (attacker.card().key === PilotCard.TYCHO_CELCHU || !attacker.isStressed()) && !environment.isTouching(attacker);
+         return (attacker.card().key === PilotCard.TYCHO_CELCHU || !attacker.isStressed()) && !attacker.isTouching();
       };
 
       Adjudicator.prototype.canSlam = function(token, maneuverKey)

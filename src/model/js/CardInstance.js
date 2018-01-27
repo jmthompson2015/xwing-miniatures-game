@@ -285,6 +285,25 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          return this._bonusValue(Value.SHIELD);
       };
 
+      CardInstance.prototype.cardInstancesTouching = function()
+      {
+         var store = this.store();
+         var touching = store.getState().touching;
+         var id = this.id();
+
+         touching = touching.filter(function(touchPair)
+         {
+            return touchPair.includes(id);
+         }, this);
+
+         var ids = touching.map(function(touchPair)
+         {
+            return (touchPair.get(0) === id ? touchPair.get(1) : touchPair.get(0));
+         }, this);
+
+         return CardInstance.idsToCardInstances(store, ids).toJS();
+      };
+
       CardInstance.prototype.children = function()
       {
          var agent = this.agent();
@@ -555,6 +574,25 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       CardInstance.prototype.isStressed = function()
       {
          return this.stressCount() > 0;
+      };
+
+      CardInstance.prototype.isTouching = function(pilotInstance2)
+      {
+         // pilotInstance2 optional.
+
+         var touching = this.cardInstancesTouching();
+
+         if (pilotInstance2 !== undefined)
+         {
+            var id2 = pilotInstance2.id();
+
+            touching = touching.filter(function(pilotInstance)
+            {
+               return (pilotInstance.id() === id2);
+            });
+         }
+
+         return touching.length > 0;
       };
 
       CardInstance.prototype.isUpgradedWith = function(upgradeKey)

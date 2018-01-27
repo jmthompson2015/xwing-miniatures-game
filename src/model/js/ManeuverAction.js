@@ -97,7 +97,7 @@ define(["immutable", "common/js/InputValidator",
             var maneuver = this.maneuver();
             var shipBase = this.shipBase();
             this._save();
-            environment.setTokenTouching(token, false);
+            environment.removeTouching(token);
             var bearingKey = maneuver.bearingKey;
             var isBarrelRoll = [Bearing.BARREL_ROLL_LEFT, Bearing.BARREL_ROLL_RIGHT].includes(bearingKey);
             var isBoost = this.isBoost();
@@ -199,7 +199,7 @@ define(["immutable", "common/js/InputValidator",
             else
             {
                // Collision with shipData, at least.
-               environment.setTokenTouching(token, true);
+               environment.addTouching(token, shipData.pilotInstance);
                index = ManeuverComputer.backOffFrom(environment, token, maneuver, fromPosition, shipData, index, shipDataMap);
             }
 

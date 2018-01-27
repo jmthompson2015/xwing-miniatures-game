@@ -29,6 +29,25 @@ define(["qunit", "redux",
          assert.equal(store.getState().round, 3);
       });
 
+      QUnit.test("addTouching()", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var pilotInstance1 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+         var pilotInstance2 = new CardInstance(store, PilotCard.LUKE_SKYWALKER, new Agent(store, "Rebel"));
+         assert.equal(store.getState().touching.size, 0);
+
+         // Run.
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+
+         // Verify.
+         var touching = store.getState().touching;
+         assert.equal(touching.size, 1);
+         var touching0 = touching.get(0);
+         assert.equal(touching0.get(0), pilotInstance1.id());
+         assert.equal(touching0.get(1), pilotInstance2.id());
+      });
+
       QUnit.test("discardDamage()", function(assert)
       {
          // Setup.
@@ -152,6 +171,30 @@ define(["qunit", "redux",
          assert.equal(store.getState().positionToCardId.keySeq().size, 2);
          assert.equal(store.getState().cardPosition.keySeq().size, 2);
          assert.equal(store.getState().cardInstances.keySeq().size, 38);
+      });
+
+      QUnit.test("removeTouching()", function(assert)
+      {
+         // Setup.
+         var store = Redux.createStore(Reducer.root);
+         var imperialAgent = new Agent(store, "Imperial");
+         var pilotInstance1 = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+         var pilotInstance2 = new CardInstance(store, PilotCard.LUKE_SKYWALKER, new Agent(store, "Rebel"));
+         var pilotInstance3 = new CardInstance(store, PilotCard.HOWLRUNNER, imperialAgent);
+         assert.equal(store.getState().touching.size, 0);
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run.
+         store.dispatch(EnvironmentAction.removeTouching(pilotInstance1));
+
+         // Verify.
+         var touching = store.getState().touching;
+         assert.equal(touching.size, 1);
+         var touching0 = touching.get(0);
+         assert.equal(touching0.get(0), pilotInstance2.id());
+         assert.equal(touching0.get(1), pilotInstance3.id());
       });
 
       QUnit.test("replenishDamageDeck()", function(assert)
@@ -302,25 +345,5 @@ define(["qunit", "redux",
 
          // Verify.
          assert.equal(store.getState().secondSquad, squad);
-      });
-
-      QUnit.test("setTokenTouching()", function(assert)
-      {
-         // Setup.
-         var store = Redux.createStore(Reducer.root);
-         var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-         assert.ok(!store.getState().cardIsTouching.get(token.id()));
-
-         // Run.
-         store.dispatch(EnvironmentAction.setTokenTouching(token, true));
-
-         // Verify.
-         assert.equal(store.getState().cardIsTouching.get(token.id()), true);
-
-         // Run.
-         store.dispatch(EnvironmentAction.setTokenTouching(token, false));
-
-         // Verify.
-         assert.equal(store.getState().cardIsTouching.get(token.id()), false);
       });
    });

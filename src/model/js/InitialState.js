@@ -35,6 +35,9 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.nextTargetLockId = 0;
       this.targetLocks = Immutable.List();
 
+      // Touching.
+      this.touching = Immutable.List();
+
       // id: agent
       this.agents = Immutable.Map();
 
@@ -57,7 +60,6 @@ define(["immutable", "artifact/js/Phase"], function(Immutable, Phase)
       this.cardIsDefenderHit = Immutable.Map();
       this.cardIsFaceUp = Immutable.Map();
       this.cardIsInFiringArc = Immutable.Map();
-      this.cardIsTouching = Immutable.Map();
       this.cardManeuver = Immutable.Map();
       this.cardManeuverAction = Immutable.Map();
       this.cardPosition = Immutable.Map();

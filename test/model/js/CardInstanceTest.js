@@ -204,6 +204,32 @@ define(["qunit", "redux",
          assert.equal(token.shieldValue(), 0);
       });
 
+      QUnit.test("cardInstancesTouching()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var pilotInstances = environment.pilotInstances();
+         assert.equal(pilotInstances.length, 3);
+         var pilotInstance1 = pilotInstances[0];
+         var pilotInstance2 = pilotInstances[1];
+         var pilotInstance3 = pilotInstances[2];
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run.
+         var result = pilotInstance1.cardInstancesTouching();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 2);
+         assert.equal(result[0].id(), 36);
+         assert.equal(result[0].card().key, "darkCurse");
+         assert.equal(result[1].id(), 37);
+         assert.equal(result[1].card().key, "lukeSkywalker");
+      });
+
       QUnit.test("children() Academy Pilot", function(assert)
       {
          // Setup.
@@ -720,6 +746,74 @@ define(["qunit", "redux",
          // Run / Verify.
          store.dispatch(CardAction.addStressCount(token));
          assert.ok(token.isStressed());
+      });
+
+      QUnit.test("isTouching() false", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         //  var store = environment.store();
+         var pilotInstances = environment.pilotInstances();
+         assert.equal(pilotInstances.length, 3);
+         var pilotInstance1 = pilotInstances[0];
+         var pilotInstance2 = pilotInstances[1];
+         var pilotInstance3 = pilotInstances[2];
+         //  store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         //  store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         //  store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run / Verify.
+         assert.equal(pilotInstance1.isTouching(), false);
+         assert.equal(pilotInstance2.isTouching(), false);
+         assert.equal(pilotInstance3.isTouching(), false);
+      });
+
+      QUnit.test("isTouching() true", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var pilotInstances = environment.pilotInstances();
+         assert.equal(pilotInstances.length, 3);
+         var pilotInstance1 = pilotInstances[0];
+         var pilotInstance2 = pilotInstances[1];
+         var pilotInstance3 = pilotInstances[2];
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run / Verify.
+         assert.equal(pilotInstance1.isTouching(), true);
+         assert.equal(pilotInstance2.isTouching(), true);
+         assert.equal(pilotInstance3.isTouching(), true);
+      });
+
+      QUnit.test("isTouching() another", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var pilotInstances = environment.pilotInstances();
+         assert.equal(pilotInstances.length, 3);
+         var pilotInstance1 = pilotInstances[0];
+         var pilotInstance2 = pilotInstances[1];
+         var pilotInstance3 = pilotInstances[2];
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run / Verify.
+         assert.equal(pilotInstance1.isTouching(pilotInstance1), false);
+         assert.equal(pilotInstance1.isTouching(pilotInstance2), true);
+         assert.equal(pilotInstance1.isTouching(pilotInstance3), true);
+
+         assert.equal(pilotInstance2.isTouching(pilotInstance1), true);
+         assert.equal(pilotInstance2.isTouching(pilotInstance2), false);
+         assert.equal(pilotInstance2.isTouching(pilotInstance3), true);
+
+         assert.equal(pilotInstance3.isTouching(pilotInstance1), true);
+         assert.equal(pilotInstance3.isTouching(pilotInstance2), true);
+         assert.equal(pilotInstance3.isTouching(pilotInstance3), false);
       });
 
       QUnit.test("isUpgradedWith() none", function(assert)

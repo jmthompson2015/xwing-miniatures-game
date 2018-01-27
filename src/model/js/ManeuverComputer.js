@@ -314,6 +314,7 @@ define(["common/js/InputValidator", "common/js/MathUtilities",
             }
 
             answer[token1] = {
+               pilotInstance: token1,
                position: position1,
                polygon: polygon1,
             };

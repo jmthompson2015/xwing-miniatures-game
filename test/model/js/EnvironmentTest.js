@@ -804,25 +804,6 @@ define(["qunit", "redux",
          assert.equal(token.card().key, PilotCard.GOZANTI_CLASS_CRUISER);
       });
 
-      QUnit.test("getTokensTouching()", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var fromPosition0 = new Position(305, 20, 90);
-         var token0 = environment.getTokenAt(fromPosition0); // TIE Fighter 1
-         var fromPosition20 = new Position(458, 895, -90);
-         var fromPosition2 = new Position(fromPosition0.x(), fromPosition0.y() + 39, -90);
-         environment.moveToken(fromPosition20, fromPosition2);
-
-         // Run.
-         var result = environment.getTokensTouching(token0);
-
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.length, 1);
-         assert.equal(result[0].card().shipFaction.shipKey, Ship.X_WING);
-      });
-
       QUnit.test("getUnfriendlyTokensAtRange() one", function(assert)
       {
          // Setup.
@@ -1029,20 +1010,6 @@ define(["qunit", "redux",
          // Verify.
          assert.strictEqual(environment.getPositionFor(token), undefined);
          assert.strictEqual(environment.getTokenAt(position), undefined);
-      });
-
-      QUnit.test("setTokenTouching()", function(assert)
-      {
-         // Setup.
-         var environment = EnvironmentFactory.createCoreSetEnvironment();
-         var token = environment.pilotInstances()[0];
-         assert.equal(environment.isTouching(token), false);
-
-         // Run.
-         environment.setTokenTouching(token, true);
-
-         // Verify.
-         assert.equal(environment.isTouching(token), true);
       });
 
       QUnit.test("toString()", function(assert)

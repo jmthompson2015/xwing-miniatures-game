@@ -395,51 +395,12 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          return pilotInstances;
       };
 
-      Environment.prototype.getTokensTouching = function(token)
-      {
-         InputValidator.validateNotNull("token", token);
-
-         var answer = [];
-
-         var shipBase = token.card().shipFaction.ship.shipBase;
-         var tokenPosition = this.getPositionFor(token);
-         var polygon = ManeuverComputer.computePolygon(shipBase, tokenPosition.x(), tokenPosition.y(), tokenPosition.heading());
-         var tokens = this.getTokensForActivation(false);
-
-         tokens.forEach(function(token2)
-         {
-            if (!token.equals(token2))
-            {
-               var shipBase2 = token2.card().shipFaction.ship.shipBase;
-               var tokenPosition2 = this.getPositionFor(token2);
-               var polygon2 = ManeuverComputer.computePolygon(shipBase2, tokenPosition2.x(), tokenPosition2.y(), tokenPosition2.heading());
-
-               if (RectanglePath.doPolygonsCollide(polygon, polygon2))
-               {
-                  answer.push(token2);
-               }
-            }
-         }, this);
-
-         return answer;
-      };
-
       Environment.prototype.getUnfriendlyTokensAtRange = function(token0, range)
       {
          return this.getTokensAtRange(token0, range).filter(function(token)
          {
             return !Faction.isFriendly(token.card().shipFaction.factionKey, token0.card().shipFaction.factionKey);
          });
-      };
-
-      Environment.prototype.isTouching = function(token)
-      {
-         InputValidator.validateNotNull("token", token);
-
-         var store = this.store();
-         var answer = store.getState().cardIsTouching.get(token.id());
-
-         return (answer !== undefined ? answer : false);
       };
 
       Environment.prototype.parentOf = function(pilotInstance)
@@ -528,6 +489,18 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
       //////////////////////////////////////////////////////////////////////////
       // Mutator methods.
 
+      Environment.prototype.addTouching = function(pilotInstance1, pilotInstance2)
+      {
+         InputValidator.validateNotNull("pilotInstance1", pilotInstance1);
+         InputValidator.validateNotNull("pilotInstance2", pilotInstance2);
+
+         var store = this.store();
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         var message = pilotInstance1.name() + " touching " + pilotInstance2.name();
+         store.dispatch(Action.setUserMessage(message));
+         LOGGER.warn(message);
+      };
+
       Environment.prototype.discardAllDamage = function(damages)
       {
          InputValidator.validateNotNull("damages", damages);
@@ -589,6 +562,14 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          store.dispatch(AgentAction.removePilot(token.agent(), token));
       };
 
+      Environment.prototype.removeTouching = function(pilotInstance)
+      {
+         InputValidator.validateNotNull("pilotInstance", pilotInstance);
+
+         var store = this.store();
+         store.dispatch(EnvironmentAction.removeTouching(pilotInstance));
+      };
+
       Environment.prototype.setActiveToken = function(newActiveToken)
       {
          var store = this.store();
@@ -601,15 +582,6 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
 
          var store = this.store();
          store.dispatch(EnvironmentAction.setPlayAreaScale(scale));
-      };
-
-      Environment.prototype.setTokenTouching = function(token, isTouching)
-      {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateIsBoolean("isTouching", isTouching);
-
-         var store = this.store();
-         store.dispatch(EnvironmentAction.setTokenTouching(token, isTouching));
       };
 
       Environment.prototype._placeInitialTokens = function(agent1, squad1, agent2, squad2, positions1, positions2)
@@ -780,17 +752,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          InputValidator.validateNotNull("defender", defender);
          InputValidator.validateNotNull("defenderPosition", defenderPosition);
 
-         return weapon.isDefenderTargetable(attacker, attackerPosition, defender, defenderPosition) && !this._isTouching(attacker, defender);
-      };
-
-      Environment.prototype._isTouching = function(attacker, defender)
-      {
-         InputValidator.validateNotNull("attacker", attacker);
-         InputValidator.validateNotNull("defender", defender);
-
-         var touches = this.getTokensTouching(attacker);
-
-         return touches.includes(defender);
+         return weapon.isDefenderTargetable(attacker, attackerPosition, defender, defenderPosition) && !attacker.isTouching(defender);
       };
 
       return Environment;
