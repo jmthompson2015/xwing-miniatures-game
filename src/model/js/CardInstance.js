@@ -761,9 +761,12 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
 
       CardInstance.prototype.unfriendlyPilotInstancesTouching = function()
       {
+         var factionKey0 = this.card().shipFaction.factionKey;
+
          return this.pilotInstancesTouching().filter(function(pilotInstance)
          {
-            return !Faction.isFriendly(this.card().factionKey, pilotInstance.card().factionKey);
+            var factionKey = pilotInstance.card().shipFaction.factionKey;
+            return !Faction.isFriendly(factionKey0, factionKey);
          });
       };
 

@@ -152,7 +152,7 @@ define(["qunit", "redux",
 
             assert.ok(!defender.isDestroyed());
             verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
-            assert.equal(defender.damageCount() + defender.criticalDamageCount(), 1);
+            assert.equal([1, 2].includes(defender.damageCount() + defender.criticalDamageCount()), true);
             assert.equal(defender.hullValue(), 3);
             done();
          };

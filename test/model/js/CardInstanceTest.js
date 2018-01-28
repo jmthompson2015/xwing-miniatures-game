@@ -1540,6 +1540,56 @@ define(["qunit", "redux",
          assert.ok(token.isDestroyed());
       });
 
+      QUnit.test("unfriendlyPilotInstancesTouching() Imperial", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var pilotInstances = environment.pilotInstances();
+         assert.equal(pilotInstances.length, 3);
+         var pilotInstance1 = pilotInstances[0];
+         var pilotInstance2 = pilotInstances[1];
+         var pilotInstance3 = pilotInstances[2];
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run.
+         var result = pilotInstance1.unfriendlyPilotInstancesTouching();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 1);
+         assert.equal(result[0].id(), 37);
+         assert.equal(result[0].card().key, "lukeSkywalker");
+      });
+
+      QUnit.test("unfriendlyPilotInstancesTouching() Rebel", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var pilotInstances = environment.pilotInstances();
+         assert.equal(pilotInstances.length, 3);
+         var pilotInstance1 = pilotInstances[0];
+         var pilotInstance2 = pilotInstances[1];
+         var pilotInstance3 = pilotInstances[2];
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
+         store.dispatch(EnvironmentAction.addTouching(pilotInstance3, pilotInstance1));
+
+         // Run.
+         var result = pilotInstance3.unfriendlyPilotInstancesTouching();
+
+         // Verify.
+         assert.ok(result);
+         assert.equal(result.length, 2);
+         assert.equal(result[0].id(), 36);
+         assert.equal(result[0].card().key, "darkCurse");
+         assert.equal(result[1].id(), 34);
+         assert.equal(result[1].card().key, "maulerMithel");
+      });
+
       QUnit.test("upgradeKeys()", function(assert)
       {
          // Setup.

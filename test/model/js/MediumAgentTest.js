@@ -549,10 +549,10 @@ define(["qunit", "redux",
          var store00 = Redux.createStore(Reducer.root);
          var iconBase = "../../../main/resources/icons/";
          var imageBase = "../../../main/resources/images/";
-         var firstAgent = EnvironmentFactory.createAgent(store00, MediumAgentStrategy, "First Agent", Faction.IMPERIAL, iconBase, imageBase);
+         var firstAgent = EnvironmentFactory.createAgent(store00, "First Agent", MediumAgentStrategy, Faction.IMPERIAL, iconBase, imageBase);
          var firstTokens = [new CardInstance(store00, PilotCard.MAULER_MITHEL, firstAgent)];
          var firstSquad = new Squad(Faction.IMPERIAL, "First Squad", 2017, "description", firstTokens);
-         var secondAgent = EnvironmentFactory.createAgent(store00, MediumAgentStrategy, "Second Agent", Faction.SCUM, iconBase, imageBase);
+         var secondAgent = EnvironmentFactory.createAgent(store00, "Second Agent", MediumAgentStrategy, Faction.SCUM, iconBase, imageBase);
          var secondTokens = [new CardInstance(store00, PilotCard.IG_88A, secondAgent)];
          var secondSquad = new Squad(Faction.SCUM, "Second Squad", 2017, "description", secondTokens);
 
