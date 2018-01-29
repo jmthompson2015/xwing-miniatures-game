@@ -15,19 +15,18 @@ define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agen
          var eventCallback = function(eventData)
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(store.getState().eventQueue.size, 0);
-            // store.getState().eventQueue.forEach(function(element, i)
-            // {
-            //    console.log(i + " " + JSON.stringify(element) + " token = " + element.get("eventToken"));
-            // });
             assert.ok(eventData);
             assert.equal(eventData.get("eventKey"), eventKey);
             assert.equal(eventData.get("eventToken"), token);
+            done();
          };
          store.dispatch(Action.enqueueEvent(eventKey, token, eventCallback));
          assert.equal(store.getState().eventQueue.size, 1);
 
          // Run.
+         var done = assert.async();
          EventObserver.observeStore(store);
       });
 

@@ -55,9 +55,12 @@ define(["qunit", "artifact/js/Event",
                   token.receiveCriticalDamage(damageInstance);
                   var eventCallback = function()
                   {
+                     assert.ok(true, "test resumed from async operation");
                      assert.ok(true, "eventKey = " + eventKey + " damageKey = " + damageKey);
+                     done();
                   };
                   store.dispatch(Action.enqueueEvent(eventKey, token, eventCallback));
+                  var done = assert.async();
                   store.dispatch(Action.dequeueEvent());
                });
             }

@@ -1,10 +1,10 @@
 "use strict";
 
-define(["qunit", "redux", "artifact/js/Event", "artifact/js/Maneuver",
-  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/Agent", "model/js/Environment", "model/js/EventObserver", "model/js/PhaseObserver", "model/js/Reducer", "model/js/SquadBuilder", "model/js/UpgradeAbility0",
+define(["qunit", "redux", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/Ship",
+  "model/js/Action", "model/js/ActivationAction", "model/js/Adjudicator", "model/js/ManeuverAction", "model/js/Position", "model/js/SquadBuilder", "model/js/UpgradeAbility0",
   "../../../test/model/js/EnvironmentFactory"],
-   function(QUnit, Redux, Event, Maneuver,
-      Action, ActivationAction, Adjudicator, Agent, Environment, EventObserver, PhaseObserver, Reducer, SquadBuilder, UpgradeAbility,
+   function(QUnit, Redux, Event, Maneuver, Ship,
+      Action, ActivationAction, Adjudicator, ManeuverAction, Position, SquadBuilder, UpgradeAbility,
       EnvironmentFactory)
    {
       QUnit.module("UpgradeAbility0");
@@ -14,7 +14,8 @@ define(["qunit", "redux", "artifact/js/Event", "artifact/js/Maneuver",
       QUnit.test("Attanni Mindlink receive focus", function(assert)
       {
          // Setup.
-         var environment = createEnvironment2();
+         var squadBuilder1 = SquadBuilder.findByNameAndYear("US Nationals #4", 2017);
+         var environment = EnvironmentFactory.createEnvironment(squadBuilder1, SquadBuilder.CoreSetRebelSquadBuilder);
          var firstAgent = environment.firstAgent();
          var pilotInstances1 = firstAgent.pilotInstances();
          assert.ok(pilotInstances1);
@@ -41,7 +42,8 @@ define(["qunit", "redux", "artifact/js/Event", "artifact/js/Maneuver",
       QUnit.test("Attanni Mindlink receive stress", function(assert)
       {
          // Setup.
-         var environment = createEnvironment2();
+         var squadBuilder1 = SquadBuilder.findByNameAndYear("US Nationals #4", 2017);
+         var environment = EnvironmentFactory.createEnvironment(squadBuilder1, SquadBuilder.CoreSetRebelSquadBuilder);
          var firstAgent = environment.firstAgent();
          var pilotInstances1 = firstAgent.pilotInstances();
          assert.ok(pilotInstances1);
@@ -63,6 +65,50 @@ define(["qunit", "redux", "artifact/js/Event", "artifact/js/Maneuver",
          assert.equal(pilotInstances1[1].stressCount(), 1);
          assert.equal(pilotInstances1[2].stressCount(), 1);
          assert.equal(pilotInstances2[0].stressCount(), 0);
+      });
+
+      QUnit.test("Ion Projector", function(assert)
+      {
+         // Setup.
+         var squadBuilder1 = SquadBuilder.findByNameAndYear("JMT", 2017);
+         var environment = EnvironmentFactory.createEnvironment(squadBuilder1, SquadBuilder.CoreSetRebelSquadBuilder);
+         var store = environment.store();
+         var firstAgent = environment.firstAgent();
+         var pilotInstances1 = firstAgent.pilotInstances();
+         assert.equal(pilotInstances1.length, 2);
+         var decimator = pilotInstances1[0];
+         var tieDefender = pilotInstances1[1];
+         assert.equal(decimator.card().shipFaction.ship.key, Ship.VT_49_DECIMATOR);
+         assert.equal(tieDefender.card().shipFaction.ship.key, Ship.TIE_DEFENDER);
+
+         var secondAgent = environment.secondAgent();
+         var pilotInstances2 = secondAgent.pilotInstances();
+         assert.equal(pilotInstances2.length, 1);
+         var xwing = pilotInstances2[0];
+         assert.equal(xwing.card().shipFaction.ship.key, Ship.X_WING);
+
+         var decimatorPosition0 = environment.getPositionFor(decimator);
+         var decimatorPosition1 = new Position(400, 400, 90);
+         environment.moveToken(decimatorPosition0, decimatorPosition1);
+         var xwingPosition0 = environment.getPositionFor(xwing);
+         var xwingPosition1 = new Position(400, 480, -90);
+         environment.moveToken(xwingPosition0, xwingPosition1);
+
+         var maneuverAction = new ManeuverAction(store, xwing.id(), Maneuver.STRAIGHT_1_EASY, false, xwingPosition1);
+         var callback = function()
+         {
+            // Verify.
+            assert.ok(true, "test resumed from async operation");
+            assert.equal(decimator.ionCount(), 0);
+            assert.equal(tieDefender.ionCount(), 0);
+            assert.equal([0, 1].includes(xwing.ionCount()), true, "xwing.ionCount() === 1");
+            done();
+         };
+
+         // Run.
+         maneuverAction.doIt();
+         var done = assert.async();
+         store.dispatch(Action.enqueueEvent(Event.AFTER_EXECUTE_MANEUVER, xwing, callback));
       });
 
       QUnit.test("condition()", function(assert)
@@ -141,21 +187,6 @@ define(["qunit", "redux", "artifact/js/Event", "artifact/js/Maneuver",
          ActivationAction.create(store, token.id(), callback);
          var maneuver = Maneuver.properties[maneuverKey];
          store.dispatch(Action.setTokenManeuver(token, maneuver));
-
-         return environment;
-      }
-
-      function createEnvironment2()
-      {
-         var store = Redux.createStore(Reducer.root);
-         var firstAgent = new Agent(store, "First Agent");
-         var squadBuilder1 = SquadBuilder.findByNameAndYear("US Nationals #4", 2017);
-         var firstSquad = squadBuilder1.buildSquad(firstAgent);
-         var secondAgent = new Agent(store, "Second Agent");
-         var secondSquad = SquadBuilder.CoreSetRebelSquadBuilder.buildSquad(secondAgent);
-         var environment = new Environment(store, firstAgent, firstSquad, secondAgent, secondSquad);
-         EventObserver.observeStore(store);
-         PhaseObserver.observeStore(store);
 
          return environment;
       }

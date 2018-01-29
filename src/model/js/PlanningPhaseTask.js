@@ -29,14 +29,9 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/QueueProcessor"
 
          var queue = [environment.firstAgent(), environment.secondAgent()];
          var elementFunction = this.planningElementFunction.bind(this);
-         var phaseCallback = this.finishPlanningPhase.bind(this);
-         var finishFunction = function(finishCallback)
-         {
-            phaseCallback(finishCallback);
-         };
          var delay = this.delay();
 
-         var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+         var queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
          queueProcessor.processQueue();
 
          LOGGER.trace("PlanningPhaseTask.doIt() end");
@@ -58,17 +53,6 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/QueueProcessor"
          agent.getPlanningAction(agentCallback);
 
          LOGGER.trace("PlanningPhaseTask.planningElementFunction() end");
-      };
-
-      PlanningPhaseTask.prototype.finishPlanningPhase = function(callback)
-      {
-         InputValidator.validateNotNull("callback", callback);
-
-         LOGGER.trace("PlanningPhaseTask.finishPlanningPhase() start");
-
-         callback();
-
-         LOGGER.trace("PlanningPhaseTask.finishPlanningPhase() end");
       };
 
       return PlanningPhaseTask;

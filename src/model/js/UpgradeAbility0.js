@@ -19,14 +19,14 @@ define(["common/js/InputValidator",
          // After an enemy ship executes a maneuver that causes it to overlap your ship, roll 1 attack die. On a HIT or CRITICAL HIT result, the enemy ship receives 1 ion token.
          condition: function(store, pilotInstance)
          {
-            var enemy = getEventToken(store);
-            return enemy !== undefined && enemy.isTouching(pilotInstance);
+            var enemy = getActiveCardInstance(store);
+            return enemy !== undefined && enemy.id() !== pilotInstance.id() && enemy.isTouching(pilotInstance);
          },
          consequent: function(store, pilotInstance, callback)
          {
             if ([AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT].includes(AttackDice.rollRandomValue()))
             {
-               var enemy = getEventToken(store);
+               var enemy = getActiveCardInstance(store);
                store.dispatch(CardAction.addIonCount(enemy));
             }
             callback();
@@ -276,6 +276,15 @@ define(["common/js/InputValidator",
          InputValidator.validateNotNull("token", token);
 
          return ActivationAction.get(token.store(), token.id());
+      }
+
+      function getActiveCardInstance(store)
+      {
+         InputValidator.validateNotNull("store", store);
+
+         var environment = store.getState().environment;
+
+         return environment.activeCardInstance();
       }
 
       function getEventContext(store)

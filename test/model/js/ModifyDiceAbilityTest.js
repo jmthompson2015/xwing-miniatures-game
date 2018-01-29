@@ -73,13 +73,16 @@ define(["qunit", "artifact/js/DiceModification",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             var attackDice = AttackDice.get(store, attacker.id());
             assert.equal(attacker.focusCount(), 0);
             assert.equal(attackDice.focusCount(), 0);
             assert.equal(attackDice.hitCount(), hitCount0 + focusCount0);
+            done();
          };
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, attacker, callback);
       });
 
@@ -155,15 +158,18 @@ define(["qunit", "artifact/js/DiceModification",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(defender.evadeCount(), 0);
             assert.equal(defender.focusCount(), 0);
             var defenseDice = DefenseDice.get(store, attacker.id());
             assert.ok(defenseDice);
             assert.equal(defenseDice.evadeCount(), evadeCount0 + focusCount0);
             assert.equal(defenseDice.focusCount(), 0);
+            done();
          };
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, attacker, callback);
       });
 

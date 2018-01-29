@@ -1,8 +1,8 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "model/js/Action", "model/js/CardAction", "model/js/DamageAbility0", "model/js/Observer", "model/js/PilotAbility0", "model/js/UpgradeAbility0"],
-   function(InputValidator, Action, CardAction, DamageAbility0, Observer, PilotAbility0, UpgradeAbility0)
+  "model/js/Action", "model/js/CardAction", "model/js/DamageAbility0", "model/js/Observer", "model/js/PilotAbility0", "model/js/QueueProcessor", "model/js/UpgradeAbility0"],
+   function(InputValidator, Action, CardAction, DamageAbility0, Observer, PilotAbility0, QueueProcessor, UpgradeAbility0)
    {
       function EventObserver(store)
       {
@@ -48,49 +48,66 @@ define(["common/js/InputValidator",
 
             if (eventData !== undefined)
             {
-               this.chooseAbility(eventData);
+               var environment = store.getState().environment;
+               var queue = environment.getTokensForActivation();
+               var pilotInstanceCallback = this.finishOnChange.bind(this);
+               var callback = function()
+               {
+                  pilotInstanceCallback(eventData);
+               };
+               var pilotInstanceFunction = this.chooseAbility.bind(this);
+               var elementFunction = function(pilotInstance, queueCallback)
+               {
+                  pilotInstanceFunction(eventData, pilotInstance, queueCallback);
+               };
+               var delay = 10;
+               var queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
+               queueProcessor.processQueue();
             }
          }
 
          LOGGER.trace("EventObserver.onChange() end");
       };
 
-      EventObserver.prototype.chooseAbility = function(eventData)
+      EventObserver.prototype.chooseAbility = function(eventData, pilotInstance, queueCallback)
       {
          LOGGER.trace("EventObserver.chooseAbility() start");
 
          InputValidator.validateNotNull("eventData", eventData);
+         InputValidator.validateNotNull("pilotInstance", pilotInstance);
+         InputValidator.validateNotNull("queueCallback", queueCallback);
 
          var eventKey = eventData.get("eventKey");
-         var token = eventData.get("eventToken");
 
-         var damageAbilities = (token.usableDamageAbilities !== undefined ? token.usableDamageAbilities(DamageAbility0, eventKey) : []);
-         var pilotAbilities = (token.usablePilotAbilities !== undefined ? token.usablePilotAbilities(PilotAbility0, eventKey) : []);
-         var upgradeAbilities = (token.usableUpgradeAbilities !== undefined ? token.usableUpgradeAbilities(UpgradeAbility0, eventKey) : []);
+         var damageAbilities = (pilotInstance.usableDamageAbilities !== undefined ? pilotInstance.usableDamageAbilities(DamageAbility0, eventKey) : []);
+         var pilotAbilities = (pilotInstance.usablePilotAbilities !== undefined ? pilotInstance.usablePilotAbilities(PilotAbility0, eventKey) : []);
+         var upgradeAbilities = (pilotInstance.usableUpgradeAbilities !== undefined ? pilotInstance.usableUpgradeAbilities(UpgradeAbility0, eventKey) : []);
 
          if (damageAbilities.length > 0 || pilotAbilities.length > 0 || upgradeAbilities.length > 0)
          {
             var that = this;
             var agentCallback = function(ability, isAccepted)
             {
-               that.finishChooseAbility(eventData, ability, isAccepted);
+               that.finishChooseAbility(eventData, pilotInstance, queueCallback, ability, isAccepted);
             };
-            var agent = token.agent();
+            var agent = pilotInstance.agent();
             agent.chooseAbility(damageAbilities, pilotAbilities, upgradeAbilities, agentCallback);
          }
          else
          {
-            this.finishOnChange(eventData);
+            queueCallback();
          }
 
          LOGGER.trace("EventObserver.chooseAbility() end");
       };
 
-      EventObserver.prototype.finishChooseAbility = function(eventData, ability, isAccepted)
+      EventObserver.prototype.finishChooseAbility = function(eventData, pilotInstance, queueCallback, ability, isAccepted)
       {
          LOGGER.trace("EventObserver.finishChooseAbility() start");
 
          InputValidator.validateNotNull("eventData", eventData);
+         InputValidator.validateNotNull("pilotInstance", pilotInstance);
+         InputValidator.validateNotNull("queueCallback", queueCallback);
          // ability optional.
          // isAccepted optional.
 
@@ -99,38 +116,40 @@ define(["common/js/InputValidator",
          var that = this;
          var backFunction = function()
          {
-            that.chooseAbility(eventData);
+            that.chooseAbility(eventData, pilotInstance, queueCallback);
          };
          var forwardFunction = function()
          {
-            that.finishOnChange(eventData);
+            queueCallback();
          };
 
-         this.finish(eventData, ability, isAccepted, backFunction, forwardFunction);
+         this.finish(eventData, pilotInstance, backFunction, forwardFunction, ability, isAccepted);
 
          LOGGER.trace("EventObserver.finishChooseAbility() end");
       };
 
-      EventObserver.prototype.finish = function(eventData, ability, isAccepted, backFunction, forwardFunction)
+      EventObserver.prototype.finish = function(eventData, pilotInstance, backFunction, forwardFunction, ability, isAccepted)
       {
+         LOGGER.trace("EventObserver.finish() start");
+
          InputValidator.validateNotNull("eventData", eventData);
-         // ability optional.
-         // isAccepted optional.
+         InputValidator.validateNotNull("pilotInstance", pilotInstance);
          InputValidator.validateNotNull("backFunction", backFunction);
          InputValidator.validateNotNull("forwardFunction", forwardFunction);
+         // ability optional.
+         // isAccepted optional.
 
          if (ability !== undefined && isAccepted === true)
          {
             var store = this.store();
-            var token = eventData.get("eventToken");
 
             if (ability.sourceObject().oncePerRound)
             {
-               store.dispatch(CardAction.addUsedPerRoundAbility(token, ability));
+               store.dispatch(CardAction.addUsedPerRoundAbility(pilotInstance, ability));
             }
             else
             {
-               store.dispatch(CardAction.addUsedAbility(token, ability));
+               store.dispatch(CardAction.addUsedAbility(pilotInstance, ability));
             }
 
             var message = ability.sourceObject().name + " ability used.";
@@ -138,12 +157,14 @@ define(["common/js/InputValidator",
             store.dispatch(Action.setUserMessage(message));
 
             var consequent = ability.consequent();
-            consequent(store, token, backFunction);
+            consequent(store, pilotInstance, backFunction);
          }
          else
          {
             forwardFunction();
          }
+
+         LOGGER.trace("EventObserver.finish() end");
       };
 
       EventObserver.prototype.finishOnChange = function(eventData)

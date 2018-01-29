@@ -71,10 +71,12 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             position = environment.getPositionFor(token);
             assert.equal(position.x(), 458 - 80);
             assert.equal(position.y(), 890);
             assert.equal(position.heading(), 270);
+            done();
          };
          var context = {
             maneuverKey: Maneuver.BARREL_ROLL_LEFT_1_STANDARD,
@@ -85,6 +87,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          assert.equal(position.x(), 458);
          assert.equal(position.y(), 890);
          assert.equal(position.heading(), 270);
+         var done = assert.async();
          ability.consequent(store, token, callback, context);
       });
 
@@ -100,10 +103,12 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             position = environment.getPositionFor(token);
             assert.equal(position.x(), 458 + 80);
             assert.equal(position.y(), 890);
             assert.equal(position.heading(), 270);
+            done();
          };
          var context = {
             maneuverKey: Maneuver.BARREL_ROLL_RIGHT_1_STANDARD,
@@ -114,6 +119,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          assert.equal(position.x(), 458);
          assert.equal(position.y(), 890);
          assert.equal(position.heading(), 270);
+         var done = assert.async();
          ability.consequent(store, token, callback, context);
       });
 
@@ -127,11 +133,14 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(token.cloakCount(), 1);
+            done();
          };
          assert.equal(token.cloakCount(), 0);
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, token, callback);
       });
 
@@ -148,11 +157,13 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(token.cloakCount(), 0);
             position = environment.getPositionFor(token);
             assert.equal(position.x(), 458 - 120);
             assert.equal(position.y(), 890);
             assert.equal(position.heading(), 270);
+            done();
          };
          var context = {
             maneuverKey: Maneuver.BARREL_ROLL_LEFT_2_STANDARD,
@@ -164,6 +175,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          assert.equal(position.heading(), 270);
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, token, callback, context);
       });
 
@@ -177,11 +189,14 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(token.evadeCount(), 1);
+            done();
          };
          assert.equal(token.evadeCount(), 0);
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, token, callback);
       });
 
@@ -195,11 +210,14 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(token.focusCount(), 1);
+            done();
          };
          assert.equal(token.focusCount(), 0);
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, token, callback);
       });
 
@@ -214,7 +232,9 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(defender.stressCount(), 2);
+            done();
          };
          var context = {
             defender: defender,
@@ -222,6 +242,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          assert.equal(defender.stressCount(), 0);
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, attacker, callback, context);
       });
 
@@ -235,11 +256,14 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(token.reinforceCount(), 1);
+            done();
          };
          assert.equal(token.reinforceCount(), 0);
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, token, callback);
       });
 
@@ -253,10 +277,12 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             position = environment.getPositionFor(token);
             assert.equal(position.x(), 458);
             assert.equal(position.y(), 895 - 120);
             assert.equal(position.heading(), 270);
+            done();
          };
          var context = {
             maneuverKey: Maneuver.STRAIGHT_2_STANDARD,
@@ -267,6 +293,7 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          assert.equal(position.x(), 458);
          assert.equal(position.y(), 895);
          assert.equal(position.heading(), 270);
+         var done = assert.async();
          ability.consequent(store, token, callback, context);
       });
 
@@ -283,14 +310,17 @@ define(["qunit", "artifact/js/Maneuver", "artifact/js/ShipAction",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(store.getState().targetLocks.size, 1);
             assert.ok(TargetLock.getFirst(store, attacker, defender) !== undefined);
+            done();
          };
          var context = {
             defender: defender,
          };
 
          // Run.
+         var done = assert.async();
          ability.consequent(store, attacker, callback, context);
       });
 

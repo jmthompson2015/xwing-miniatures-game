@@ -37,16 +37,19 @@ define(["qunit",
          var callback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(decimator.shieldCount(), 4);
             assert.equal(decimator.damageCount(), 0);
             assert.equal(tieDefender.shieldCount(), 3);
             assert.equal(tieDefender.damageCount(), 0);
             assert.equal(xwing.shieldCount(), 2 - 1, "X-Wing shield decrease");
             assert.equal(xwing.damageCount(), 0);
+            done();
          };
 
          // Run.
          maneuverAction.doIt();
+         var done = assert.async();
          store.dispatch(Action.enqueueEvent(Event.AFTER_EXECUTE_MANEUVER, decimator, callback));
       });
 
