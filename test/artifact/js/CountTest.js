@@ -59,7 +59,7 @@ define(["qunit", "artifact/js/Count"], function(QUnit, Count)
 
       // Verify.
       assert.ok(result);
-      var length = 10;
+      var length = 11;
       assert.equal(result.length, length);
       var i = 0;
       assert.equal(result[i++], Count.CLOAK);
@@ -67,6 +67,7 @@ define(["qunit", "artifact/js/Count"], function(QUnit, Count)
       assert.equal(result[i++], Count.EVADE);
       assert.equal(result[i++], Count.FOCUS);
       assert.equal(result[i++], Count.ION);
+      assert.equal(result[i++], Count.ORDNANCE);
       assert.equal(result[i++], Count.REINFORCE);
       assert.equal(result[i++], Count.SHIELD);
       assert.equal(result[i++], Count.STRESS);

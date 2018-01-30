@@ -1742,6 +1742,7 @@ define(["common/js/InputValidator", "artifact/js/CardType", "artifact/js/FiringA
                image: "upgrades/Torpedo/extra-munitions.png",
                squadPointCost: 2,
                wave: "7",
+               isImplemented: true,
                key: "extraMunitions",
             },
             "ezraBridger":

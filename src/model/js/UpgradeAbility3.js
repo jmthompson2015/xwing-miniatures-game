@@ -1279,7 +1279,16 @@ define(["common/js/InputValidator",
          // upgradeKey optional.
 
          var myUpgradeInstance = (upgradeInstance === undefined ? token.upgrade(getWeapon(token).upgradeKey()) : upgradeInstance);
-         token.discardUpgrade(myUpgradeInstance);
+
+         if (myUpgradeInstance.ordnanceCount() > 0)
+         {
+            var store = token.store();
+            store.dispatch(CardAction.addOrdnanceCount(myUpgradeInstance, -1));
+         }
+         else
+         {
+            token.discardUpgrade(myUpgradeInstance);
+         }
       }
 
       function getActiveCardInstance(store)

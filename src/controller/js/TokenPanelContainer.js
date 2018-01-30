@@ -27,6 +27,7 @@ define(["immutable", "react-redux", "common/js/InputValidator", "view/js/TokenPa
             evadeCount: cardInstance.evadeCount(),
             focusCount: cardInstance.focusCount(),
             ionCount: cardInstance.ionCount(),
+            ordnanceCount: cardInstance.ordnanceCount(),
             reinforceCount: cardInstance.reinforceCount(),
             resourceBase: state.resourceBase,
             shieldCount: cardInstance.shieldCount(),

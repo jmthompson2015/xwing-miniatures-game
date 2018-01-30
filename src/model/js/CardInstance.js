@@ -1,10 +1,10 @@
 "use strict";
 
 define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
-  "artifact/js/Bearing", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/Value",
+  "artifact/js/Bearing", "artifact/js/CardResolver", "artifact/js/CardType", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/PilotCard", "artifact/js/Range", "artifact/js/ShipAction", "artifact/js/ShipBase", "artifact/js/UpgradeCard", "artifact/js/UpgradeType", "artifact/js/Value",
   "model/js/Ability", "model/js/Action", "model/js/AgentAction", "model/js/CardAction", "model/js/DamageDealer", "model/js/PilotInstanceUtilities", "model/js/RangeRuler", "model/js/TargetLock", "model/js/Weapon"],
    function(Immutable, ArrayUtilities, InputValidator,
-      Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, Faction, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, Value,
+      Bearing, CardResolver, CardType, ConditionCard, Count, DamageCard, Difficulty, Event, Faction, FiringArc, Maneuver, PilotCard, Range, ShipAction, ShipBase, UpgradeCard, UpgradeType, Value,
       Ability, Action, AgentAction, CardAction, DamageDealer, PilotInstanceUtilities, RangeRuler, TargetLock, Weapon)
    {
       function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, idIn, isNewIn, idParent, idFore, idAft, idCrippledFore, idCrippledAft)
@@ -605,6 +605,11 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          }
 
          return answer;
+      };
+
+      CardInstance.prototype.ordnanceCount = function()
+      {
+         return this.count(Count.ORDNANCE);
       };
 
       CardInstance.prototype.pilotInstancesTouching = function()
@@ -1238,6 +1243,17 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          store.dispatch(CardAction.clearUsedAbilities(this));
          store.dispatch(CardAction.clearUsedPerRoundAbilities(this));
 
+         if (this.isUpgradedWith(UpgradeCard.EXTRA_MUNITIONS))
+         {
+            this.upgrades().forEach(function(upgradeInstance)
+            {
+               if ([UpgradeType.BOMB, UpgradeType.MISSILE, UpgradeType.BOMB].includes(upgradeInstance.card().typeKey))
+               {
+                  store.dispatch(CardAction.setOrdnanceCount(upgradeInstance, 1));
+               }
+            });
+         }
+
          if (this.card().cardTypeKey === CardType.PILOT && !this.isChild())
          {
             store.dispatch(AgentAction.addPilot(agent, this));
@@ -1259,6 +1275,7 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
          {
             var newUpgrade = upgrade.newInstance(store);
             store.dispatch(CardAction.addUpgrade(answer, newUpgrade));
+            store.dispatch(CardAction.setOrdnanceCount(newUpgrade, upgrade.ordnanceCount()));
          }, this);
 
          return answer;

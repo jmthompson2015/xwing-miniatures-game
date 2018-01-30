@@ -8,6 +8,7 @@ define(function()
       EVADE: "evade",
       FOCUS: "focus",
       ION: "ion",
+      ORDNANCE: "ordnance",
       REINFORCE: "reinforce",
       SHIELD: "shield",
       STRESS: "stress",
@@ -45,6 +46,12 @@ define(function()
             name: "Ion",
             image: "token/IonToken32.png",
             key: "ion",
+         },
+         "ordnance":
+         {
+            name: "Ordnance",
+            image: "token/OrdnanceToken32.png",
+            key: "ordnance",
          },
          "reinforce":
          {

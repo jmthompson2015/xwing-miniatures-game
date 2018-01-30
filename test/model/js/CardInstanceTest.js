@@ -43,7 +43,7 @@ define(["qunit", "redux",
             assert.equal(result, values[i], "token." + functionName + "() === " + values[i]);
          });
 
-         var counts = [0, 0, 0, 0, 0, 0, 2, // shield
+         var counts = [0, 0, 0, 0, 0, 0, 0, 2, // shield
             0, 0, 0];
          Count.keys().forEach(function(countName, i)
          {
@@ -123,7 +123,7 @@ define(["qunit", "redux",
             assert.equal(result, values[i], "token." + functionName + "() === " + values[i]);
          });
 
-         var counts = [0, 0, 0, 0, 0, 0, 2, // shield
+         var counts = [0, 0, 0, 0, 0, 0, 0, 2, // shield
            0, 0, 0];
          Count.keys().forEach(function(countName, i)
          {

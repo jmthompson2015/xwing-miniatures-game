@@ -46,33 +46,6 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "mod
          },
       });
 
-      CardInstanceUI.prototype.createAttachmentPanel00 = function(columns, cardInstance)
-      {
-         var upgrades = cardInstance.upgrades();
-
-         if (upgrades.size > 0)
-         {
-            for (var i = 0; i < upgrades.size; i++)
-            {
-               var upgradeInstance = upgrades.get(i);
-               var upgradeUI = this.createAttachmentUI(upgradeInstance);
-               columns.push(upgradeUI);
-            }
-         }
-
-         var damages = cardInstance.criticalDamages();
-
-         if (damages.size > 0)
-         {
-            for (var j = 0; j < damages.size; j++)
-            {
-               var damageInstance = damages.get(j);
-               var damageUI = this.createAttachmentUI(damageInstance);
-               columns.push(damageUI);
-            }
-         }
-      };
-
       CardInstanceUI.prototype.createAttachmentPanel = function(columns, cardInstance)
       {
          var upgrades = cardInstance.upgrades();

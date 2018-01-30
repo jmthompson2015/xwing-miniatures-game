@@ -75,6 +75,11 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
          return CardAction.addCount(cardInstance, Count.ION, value);
       };
 
+      CardAction.addOrdnanceCount = function(cardInstance, value)
+      {
+         return CardAction.addCount(cardInstance, Count.ORDNANCE, value);
+      };
+
       CardAction.addReinforceCount = function(cardInstance, value)
       {
          return CardAction.addCount(cardInstance, Count.REINFORCE, value);
@@ -300,6 +305,11 @@ define(["immutable", "common/js/InputValidator", "artifact/js/Count"],
             cardInstance: cardInstance,
             isFaceUp: isFaceUp,
          });
+      };
+
+      CardAction.setOrdnanceCount = function(cardInstance, value)
+      {
+         return CardAction.setCount(cardInstance, Count.ORDNANCE, value);
       };
 
       CardAction.setReinforceCount = function(cardInstance, value)

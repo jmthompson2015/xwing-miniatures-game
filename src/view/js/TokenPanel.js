@@ -21,11 +21,12 @@ define(["create-react-class", "prop-types", "react", "react-dom-factories", "vie
             this.maybeAddToken(rows, this.props.evadeCount, "token/EvadeToken32.png", "Evade");
             this.maybeAddToken(rows, this.props.focusCount, "token/FocusToken32.png", "Focus");
             this.maybeAddToken(rows, this.props.ionCount, "token/IonToken32.png", "Ion");
+            this.maybeAddToken(rows, this.props.ordnanceCount, "token/OrdnanceToken32.png", "Ordnance");
             this.maybeAddToken(rows, this.props.reinforceCount, "token/ReinforceToken32.png", "Reinforce");
             this.maybeAddToken(rows, this.props.shieldCount, "token/ShieldToken32.png", "Shield");
             this.maybeAddToken(rows, this.props.stressCount, "token/StressToken32.png", "Stress");
-            this.maybeAddToken(rows, this.props.tractorBeamCount, "token/TractorBeamToken32.png", "TractorBeam");
-            this.maybeAddToken(rows, this.props.weaponsDisabledCount, "token/WeaponsDisabledToken32.png", "WeaponsDisabled");
+            this.maybeAddToken(rows, this.props.tractorBeamCount, "token/TractorBeamToken32.png", "Tractor Beam");
+            this.maybeAddToken(rows, this.props.weaponsDisabledCount, "token/WeaponsDisabledToken32.png", "Weapons Disabled");
 
             var attackerTargetLocks = this.props.attackerTargetLocks;
             var defenderTargetLocks = this.props.defenderTargetLocks;

@@ -48,6 +48,7 @@
         store.dispatch(CardAction.setTractorBeamCount(pilotInstance0, i++));
         store.dispatch(CardAction.setWeaponsDisabledCount(pilotInstance0, i++));
         TargetLock.newInstance(store, pilotInstance0, pilotInstance2 /*, eventCallback*/ );
+        store.dispatch(CardAction.setOrdnanceCount(pilotInstance2.upgrades().get(0), 1));
         var damage0 = new CardInstance(store, DamageCard.BLINDED_PILOT);
         pilotInstance0.receiveDamage(damage0);
         var critical0 = new CardInstance(store, DamageCard.CONSOLE_FIRE);
