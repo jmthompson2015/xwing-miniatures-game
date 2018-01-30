@@ -510,10 +510,22 @@ define(["immutable", "common/js/InputValidator", "artifact/js/DamageCard", "arti
       Agent.prototype.getShipAction = function(token, callback, shipActionKeys0)
       {
          InputValidator.validateNotNull("token", token);
+         // callback optional.
          // shipActionKeys0 optional.
 
-         var shipActionKeys = this.determineValidShipActions(token, shipActionKeys0);
-         this._strategy().chooseShipAction(this, token, shipActionKeys, callback);
+         var store = token.store();
+         var environment = store.getState().environment;
+         var activeCardInstance = environment.activeCardInstance();
+
+         if (activeCardInstance && activeCardInstance.id() === token.id())
+         {
+            var shipActionKeys = this.determineValidShipActions(token, shipActionKeys0);
+            this._strategy().chooseShipAction(this, token, shipActionKeys, callback);
+         }
+         else
+         {
+            callback();
+         }
       };
 
       Agent.prototype.pilotInstances = function(isPureIn)

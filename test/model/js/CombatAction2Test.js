@@ -42,7 +42,15 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(attackerPosition, attacker));
          var callback = function()
          {
-            LOGGER.info("callback() start");
+            // Verify.
+            assert.ok(true, "test resumed from async operation");
+            assert.equal(Selector.rangeKey(store.getState(), attacker), Range.ONE);
+            assert.equal(store.getState().phaseKey, Phase.COMBAT_MODIFY_ATTACK_DICE);
+            verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
+            assert.ok(!defender.isDestroyed());
+            var defenseDice = DefenseDice.get(store, attacker.id());
+            assert.ok(defenseDice);
+            done();
          };
          environment.setActiveToken(attacker);
          store.dispatch(Action.setDelay(delay));
@@ -54,15 +62,8 @@ define(["qunit", "redux",
          };
 
          // Run.
+         var done = assert.async();
          combatAction.doIt();
-
-         // Verify.
-         assert.equal(Selector.rangeKey(store.getState(), attacker), Range.ONE);
-         assert.equal(store.getState().phaseKey, Phase.COMBAT_MODIFY_ATTACK_DICE);
-         verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
-         assert.ok(!defender.isDestroyed());
-         var defenseDice = DefenseDice.get(store, attacker.id());
-         assert.ok(defenseDice);
       });
 
       QUnit.test("CombatAction.doIt() range one through Modify Defense Dice", function(assert)
@@ -92,7 +93,17 @@ define(["qunit", "redux",
          store.dispatch(EnvironmentAction.placeToken(attackerPosition, attacker));
          var callback = function()
          {
-            LOGGER.info("callback() start");
+            // Verify.
+            assert.ok(true, "test resumed from async operation");
+            assert.equal(Selector.rangeKey(store.getState(), attacker), Range.ONE);
+            assert.equal(store.getState().phaseKey, Phase.COMBAT_MODIFY_DEFENSE_DICE);
+            verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
+            assert.ok(!defender.isDestroyed());
+            verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
+            assert.equal(defender.hullValue(), 3);
+            assert.equal(defender.damageCount(), 0);
+            assert.equal(defender.criticalDamageCount(), 0);
+            done();
          };
          environment.setActiveToken(attacker);
          store.dispatch(Action.setDelay(delay));
@@ -104,17 +115,8 @@ define(["qunit", "redux",
          };
 
          // Run.
+         var done = assert.async();
          combatAction.doIt();
-
-         // Verify.
-         assert.equal(Selector.rangeKey(store.getState(), attacker), Range.ONE);
-         assert.equal(store.getState().phaseKey, Phase.COMBAT_MODIFY_DEFENSE_DICE);
-         verifyAttackDice(assert, AttackDice.get(store, attacker.id()));
-         assert.ok(!defender.isDestroyed());
-         verifyDefenseDice(assert, DefenseDice.get(store, attacker.id()));
-         assert.equal(defender.hullValue(), 3);
-         assert.equal(defender.damageCount(), 0);
-         assert.equal(defender.criticalDamageCount(), 0);
       });
 
       QUnit.test("CombatAction.doIt() range one", function(assert)

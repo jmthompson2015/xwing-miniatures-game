@@ -475,6 +475,7 @@ define(["qunit", "redux",
          var tokens = environment.pilotInstances();
          var token2 = tokens[2];
          LOGGER.debug("token2 = " + token2);
+         environment.setActiveToken(token2);
 
          function callback(shipAction, isAccepted)
          {

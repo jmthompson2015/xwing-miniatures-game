@@ -12,14 +12,11 @@ define(["qunit", "redux", "artifact/js/Event", "model/js/Action", "model/js/Agen
          var store = environment.store();
          var token = environment.pilotInstances()[2]; // X-Wing Luke Skywalker
          var eventKey = Event.AFTER_EXECUTE_MANEUVER;
-         var eventCallback = function(eventData)
+         var eventCallback = function()
          {
             // Verify.
             assert.ok(true, "test resumed from async operation");
             assert.equal(store.getState().eventQueue.size, 0);
-            assert.ok(eventData);
-            assert.equal(eventData.get("eventKey"), eventKey);
-            assert.equal(eventData.get("eventToken"), token);
             done();
          };
          store.dispatch(Action.enqueueEvent(eventKey, token, eventCallback));

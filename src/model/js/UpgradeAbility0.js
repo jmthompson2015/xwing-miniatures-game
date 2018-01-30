@@ -4,10 +4,10 @@
 "use strict";
 
 define(["common/js/InputValidator",
-  "artifact/js/AttackDiceValue", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Maneuver", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
+  "artifact/js/AttackDiceValue", "artifact/js/Difficulty", "artifact/js/Event", "artifact/js/Faction", "artifact/js/Maneuver", "artifact/js/ShipAction", "artifact/js/UpgradeCard",
   "model/js/Ability", "model/js/ActivationAction", "model/js/AttackDice", "model/js/CardAction", "model/js/EnvironmentAction", "model/js/ShipActionAbility"],
    function(InputValidator,
-      AttackDiceValue, Difficulty, Event, Maneuver, ShipAction, UpgradeCard,
+      AttackDiceValue, Difficulty, Event, Faction, Maneuver, ShipAction, UpgradeCard,
       Ability, ActivationAction, AttackDice, CardAction, EnvironmentAction, ShipActionAbility)
    {
       var UpgradeAbility0 = {};
@@ -19,8 +19,10 @@ define(["common/js/InputValidator",
          // After an enemy ship executes a maneuver that causes it to overlap your ship, roll 1 attack die. On a HIT or CRITICAL HIT result, the enemy ship receives 1 ion token.
          condition: function(store, pilotInstance)
          {
-            var enemy = getActiveCardInstance(store);
-            return enemy !== undefined && enemy.id() !== pilotInstance.id() && enemy.isTouching(pilotInstance);
+            var toucher = getActiveCardInstance(store);
+            var isEnemy = (toucher !== undefined ? !Faction.isFriendly(toucher.card().shipFaction.factionKey, pilotInstance.card().shipFaction.factionKey) : false);
+            var isTouching = (toucher !== undefined ? toucher.isTouching(pilotInstance) : false);
+            return isEnemy && isTouching;
          },
          consequent: function(store, pilotInstance, callback)
          {

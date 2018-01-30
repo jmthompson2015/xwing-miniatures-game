@@ -180,7 +180,7 @@ define(["common/js/InputValidator",
 
          if (callback !== undefined)
          {
-            callback(eventData);
+            callback();
          }
 
          LOGGER.trace("EventObserver.finishOnChange() end");

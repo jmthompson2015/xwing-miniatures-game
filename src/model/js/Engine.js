@@ -67,7 +67,7 @@ define(["common/js/InputValidator", "artifact/js/Phase",
                planningTask.doIt(phaseCallback);
             };
 
-            this.startOrEndPhase(Phase.PLANNING_START, startOrEndPhaseCallback);
+            store.dispatch(Action.enqueuePhase(Phase.PLANNING_START, undefined, startOrEndPhaseCallback));
          }
       };
 
@@ -78,7 +78,8 @@ define(["common/js/InputValidator", "artifact/js/Phase",
             callback = this.performActivationPhase.bind(this);
          }
 
-         this.startOrEndPhase(Phase.PLANNING_END, callback);
+         var store = this.store();
+         store.dispatch(Action.enqueuePhase(Phase.PLANNING_END, undefined, callback));
       };
 
       Engine.prototype.performActivationPhase = function(callback)
@@ -101,7 +102,7 @@ define(["common/js/InputValidator", "artifact/js/Phase",
                activationTask.doIt(phaseCallback);
             };
 
-            this.startOrEndPhase(Phase.ACTIVATION_START, startOrEndPhaseCallback);
+            store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_START, undefined, startOrEndPhaseCallback));
          }
       };
 
@@ -112,7 +113,8 @@ define(["common/js/InputValidator", "artifact/js/Phase",
             callback = this.performCombatPhase.bind(this);
          }
 
-         this.startOrEndPhase(Phase.ACTIVATION_END, callback);
+         var store = this.store();
+         store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_END, undefined, callback));
       };
 
       Engine.prototype.performCombatPhase = function(callback)
@@ -135,7 +137,7 @@ define(["common/js/InputValidator", "artifact/js/Phase",
                combatTask.doIt(phaseCallback);
             };
 
-            this.startOrEndPhase(Phase.COMBAT_START, startOrEndPhaseCallback);
+            store.dispatch(Action.enqueuePhase(Phase.COMBAT_START, undefined, startOrEndPhaseCallback));
          }
       };
 
@@ -146,7 +148,8 @@ define(["common/js/InputValidator", "artifact/js/Phase",
             callback = this.performEndPhase.bind(this);
          }
 
-         this.startOrEndPhase(Phase.COMBAT_END, callback);
+         var store = this.store();
+         store.dispatch(Action.enqueuePhase(Phase.COMBAT_END, undefined, callback));
       };
 
       Engine.prototype.performEndPhase = function(callback)
@@ -169,7 +172,7 @@ define(["common/js/InputValidator", "artifact/js/Phase",
                endTask.doIt(phaseCallback);
             };
 
-            this.startOrEndPhase(Phase.END_START, startOrEndPhaseCallback);
+            store.dispatch(Action.enqueuePhase(Phase.END_START, undefined, startOrEndPhaseCallback));
          }
       };
 
@@ -180,42 +183,12 @@ define(["common/js/InputValidator", "artifact/js/Phase",
             callback = this.performPlanningPhase.bind(this);
          }
 
-         this.startOrEndPhase(Phase.END_END, callback);
+         var store = this.store();
+         store.dispatch(Action.enqueuePhase(Phase.END_END, undefined, callback));
       };
 
       //////////////////////////////////////////////////////////////////////////
       // Utility methods.
-
-      Engine.prototype.startOrEndPhase = function(phaseKey, phaseCallback)
-      {
-         InputValidator.validateNotNull("phaseKey", phaseKey);
-         InputValidator.validateNotNull("phaseCallback", phaseCallback);
-
-         LOGGER.trace("Engine.startOrEndPhase() phaseKey = " + phaseKey);
-
-         var environment = this.environment();
-         var tokens = environment.pilotInstances();
-         var tokenCount = tokens.length;
-         var delay = this.delay();
-         var count = 0;
-         var callback = function()
-         {
-            count++;
-            if (count === tokenCount)
-            {
-               setTimeout(function()
-               {
-                  phaseCallback();
-               }, delay);
-            }
-         };
-         var store = this.store();
-
-         tokens.forEach(function(token)
-         {
-            store.dispatch(Action.enqueuePhase(phaseKey, token, callback));
-         });
-      };
 
       Engine.prototype.isGameOver = function()
       {

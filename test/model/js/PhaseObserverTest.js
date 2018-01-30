@@ -14,18 +14,18 @@ define(["qunit", "redux", "artifact/js/Phase",
          var store = environment.store();
          var token = environment.pilotInstances()[2]; // X-Wing Luke Skywalker
          var phaseKey = Phase.ACTIVATION_REVEAL_DIAL;
-         var phaseCallback = function(phaseData)
+         var phaseCallback = function()
          {
             // Verify.
+            assert.ok(true, "test resumed from async operation");
             assert.equal(store.getState().phaseQueue.size, 0);
-            assert.ok(phaseData);
-            assert.equal(phaseData.get("phaseKey"), phaseKey);
-            assert.equal(phaseData.get("phaseToken"), token);
+            done();
          };
          store.dispatch(Action.enqueuePhase(phaseKey, token, phaseCallback));
          assert.equal(store.getState().phaseQueue.size, 1);
 
          // Run.
+         var done = assert.async();
          PhaseObserver.observeStore(store);
       });
 

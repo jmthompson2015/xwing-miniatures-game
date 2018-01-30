@@ -376,6 +376,7 @@ define(["qunit", "redux",
          Adjudicator.create(store);
          store.dispatch(Action.setDelay(delay));
          var token = environment.pilotInstances()[2]; // X-Wing
+         environment.setActiveToken(token);
          var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
          var callback = function()
          {

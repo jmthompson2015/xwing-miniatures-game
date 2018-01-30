@@ -123,26 +123,35 @@ define(["react", "react-dom", "common/js/InputValidator", "artifact/js/Phase",
 
          var store = agent.store();
          var resourceBase = store.getState().resourceBase;
-         var weapon = Selector.combatAction(store.getState(), attacker).weapon();
-         var attackDice = AttackDice.get(store, attacker.id());
+         var combatAction = Selector.combatAction(store.getState(), attacker);
 
-         if (modifications.length > 0)
+         if (combatAction)
          {
-            var element = React.createElement(CombatUI,
-            {
-               attacker: attacker,
-               attackDice: attackDice,
-               defender: defender,
-               resourceBase: resourceBase,
-               modifications: modifications,
-               okFunction: myCallback,
-               phase: Phase.properties[store.getState().phaseKey],
-               weapon: weapon,
-            });
-            ReactDOM.render(element, document.getElementById(inputAreaId(agent)));
-            window.dispatchEvent(new Event('resize'));
+            var weapon = combatAction.weapon();
+            var attackDice = AttackDice.get(store, attacker.id());
 
-            // Wait for the user to respond.
+            if (modifications.length > 0)
+            {
+               var element = React.createElement(CombatUI,
+               {
+                  attacker: attacker,
+                  attackDice: attackDice,
+                  defender: defender,
+                  resourceBase: resourceBase,
+                  modifications: modifications,
+                  okFunction: myCallback,
+                  phase: Phase.properties[store.getState().phaseKey],
+                  weapon: weapon,
+               });
+               ReactDOM.render(element, document.getElementById(inputAreaId(agent)));
+               window.dispatchEvent(new Event('resize'));
+
+               // Wait for the user to respond.
+            }
+            else
+            {
+               callback();
+            }
          }
          else
          {
@@ -180,28 +189,37 @@ define(["react", "react-dom", "common/js/InputValidator", "artifact/js/Phase",
 
          var store = agent.store();
          var resourceBase = store.getState().resourceBase;
-         var weapon = Selector.combatAction(store.getState(), attacker).weapon();
-         var attackDice = AttackDice.get(store, attacker.id());
-         var defenseDice = DefenseDice.get(store, attacker.id());
+         var combatAction = Selector.combatAction(store.getState(), attacker);
 
-         if (modifications.length > 0)
+         if (combatAction !== undefined)
          {
-            var element = React.createElement(CombatUI,
-            {
-               attacker: attacker,
-               attackDice: attackDice,
-               defender: defender,
-               defenseDice: defenseDice,
-               resourceBase: resourceBase,
-               modifications: modifications,
-               okFunction: myCallback,
-               phase: Phase.properties[store.getState().phaseKey],
-               weapon: weapon,
-            });
-            ReactDOM.render(element, document.getElementById(inputAreaId(agent)));
-            window.dispatchEvent(new Event('resize'));
+            var weapon = combatAction.weapon();
+            var attackDice = AttackDice.get(store, attacker.id());
+            var defenseDice = DefenseDice.get(store, attacker.id());
 
-            // Wait for the user to respond.
+            if (modifications.length > 0)
+            {
+               var element = React.createElement(CombatUI,
+               {
+                  attacker: attacker,
+                  attackDice: attackDice,
+                  defender: defender,
+                  defenseDice: defenseDice,
+                  resourceBase: resourceBase,
+                  modifications: modifications,
+                  okFunction: myCallback,
+                  phase: Phase.properties[store.getState().phaseKey],
+                  weapon: weapon,
+               });
+               ReactDOM.render(element, document.getElementById(inputAreaId(agent)));
+               window.dispatchEvent(new Event('resize'));
+
+               // Wait for the user to respond.
+            }
+            else
+            {
+               callback();
+            }
          }
          else
          {
