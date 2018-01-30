@@ -433,8 +433,12 @@ define(["redux", "common/js/ArrayUtilities", "common/js/InputValidator",
          }
 
          var oldCombatAction = Selector.combatAction(store.getState(), attacker);
-         var newCombatAction = new CombatAction(newStore, newAttacker, oldCombatAction.weapon(), newDefender, function() {});
-         newStore.dispatch(Action.setTokenCombatAction(newAttacker, newCombatAction));
+
+         if (oldCombatAction !== undefined)
+         {
+            var newCombatAction = new CombatAction(newStore, newAttacker, oldCombatAction.weapon(), newDefender, function() {});
+            newStore.dispatch(Action.setTokenCombatAction(newAttacker, newCombatAction));
+         }
 
          return newStore;
       };

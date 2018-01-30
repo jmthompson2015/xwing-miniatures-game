@@ -424,9 +424,9 @@ define(["immutable", "common/js/ArrayUtilities", "common/js/InputValidator",
       {
          var answer = false;
 
-         if (other)
+         if (other !== undefined)
          {
-            answer = this.id() == other.id() && this.card().key == other.card().key;
+            answer = this.id() === other.id() && this.card().key === other.card().key;
          }
 
          return answer;

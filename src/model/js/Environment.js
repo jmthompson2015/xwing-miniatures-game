@@ -498,7 +498,7 @@ define(["common/js/ArrayUtilities", "common/js/InputValidator",
          store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
          var message = pilotInstance1.name() + " touching " + pilotInstance2.name();
          store.dispatch(Action.setUserMessage(message));
-         LOGGER.warn(message);
+         LOGGER.info(message);
       };
 
       Environment.prototype.discardAllDamage = function(damages)

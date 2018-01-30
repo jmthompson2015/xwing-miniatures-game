@@ -61,6 +61,7 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/TargetLock"],
 
                if (token)
                {
+                  environment.removeTouching(token);
                   environment.removeToken(token);
                }
                store.dispatch(Action.setUserMessage("Ship fled the battlefield: " + token));

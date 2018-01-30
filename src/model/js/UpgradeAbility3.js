@@ -1167,8 +1167,8 @@ define(["common/js/InputValidator",
          },
          consequent: function(store, token, callback)
          {
-            var weapon = getWeapon(token);
-            discardUpgrade(token, weapon.upgradeInstance());
+            var upgradeInstance = token.upgrade(UpgradeCard.STEALTH_DEVICE);
+            discardUpgrade(token, upgradeInstance);
             callback();
          },
       };
