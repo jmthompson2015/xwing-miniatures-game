@@ -51,22 +51,30 @@ define(["common/js/InputValidator", "model/js/Action", "model/js/CombatAction", 
          var store = this.store();
          var environment = store.getState().environment;
          environment.setActiveToken(attacker);
+         var adjudicator = store.getState().adjudicator;
 
-         var agent = attacker.agent();
-         var agentCallback = function(weapon, defender)
+         if (adjudicator.canAttack(attacker))
          {
-            if (weapon && defender)
+            var agent = attacker.agent();
+            var agentCallback = function(weapon, defender)
             {
-               store.dispatch(Action.setUserMessage(attacker + " fires upon " + defender));
-               var combatAction = new CombatAction(store, attacker, weapon, defender, queueCallback);
-               combatAction.doIt();
-            }
-            else
-            {
-               queueCallback();
-            }
-         };
-         agent.chooseWeaponAndDefender(attacker, agentCallback);
+               if (weapon && defender)
+               {
+                  store.dispatch(Action.setUserMessage(attacker + " fires upon " + defender));
+                  var combatAction = new CombatAction(store, attacker, weapon, defender, queueCallback);
+                  combatAction.doIt();
+               }
+               else
+               {
+                  queueCallback();
+               }
+            };
+            agent.chooseWeaponAndDefender(attacker, agentCallback);
+         }
+         else
+         {
+            queueCallback();
+         }
 
          LOGGER.trace("CombatPhaseTask.combatElementFunction() end");
       };
