@@ -29,8 +29,8 @@
 	<script>
 		"use strict";
 
-		require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/TimePrinter",
-				"model/js/Adjudicator", "model/js/Agent", "model/js/Game", "model/js/MediumAgentStrategy", "model/js/Reducer",
+		require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "utility/TimePrinter",
+				"model/Adjudicator", "model/Agent", "model/Game", "model/MediumAgentStrategy", "model/Reducer",
 				"accessory/arena/Action", "accessory/arena/Reducer", "accessory/arena/ArenaTableContainer"
 			],
 			function(React, ReactDOM, ReactRedux, Redux, Logger, TimePrinter,
@@ -42,7 +42,7 @@
 				LOGGER.setDebugEnabled(false);
 				LOGGER.setInfoEnabled(false);
 
-				var resourceBase = "../../../src/view/resource/";
+				var resourceBase = "../../../src/resource/";
 				var arenaStore = Redux.createStore(Reducer.root);
 
 				var element = React.createElement(ReactRedux.Provider,

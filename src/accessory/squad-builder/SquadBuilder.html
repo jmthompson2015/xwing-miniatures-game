@@ -5,7 +5,7 @@
 
   <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
   <link rel="stylesheet" href="../../../lib/xwing-miniatures-font/xwing-miniatures.css">
-  <link rel="stylesheet" href="../../view/css/style.css">
+  <link rel="stylesheet" href="../../view/style.css">
 
   <script src="../../../lib/requirejs/require-2.3.5.js"></script>
   <script>
@@ -42,9 +42,9 @@
   <script>
     "use strict";
 
-    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "artifact/js/Faction",
-        "model/js/AgentSquadAction", "model/js/AgentSquadReducer", "model/js/Reducer", "view/js/Select",
-        "controller/js/SquadBuilderContainer"
+    require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "artifact/Faction",
+        "model/AgentSquadAction", "model/AgentSquadReducer", "model/Reducer", "view/Select",
+        "controller/SquadBuilderContainer"
       ],
       function(React, ReactDOM, ReactRedux, Redux, Logger, Faction,
         AgentSquadAction, AgentSquadReducer, Reducer, Select, SquadBuilderContainer)
@@ -53,7 +53,7 @@
         LOGGER.setTraceEnabled(false);
         LOGGER.setDebugEnabled(false);
 
-        var resourceBase = "../../../src/view/resource/";
+        var resourceBase = "../../../src/resource/";
         var faction = Faction.properties[Faction.IMPERIAL];
         var store = Redux.createStore(AgentSquadReducer.root);
         var delegateStore = Redux.createStore(Reducer.root);

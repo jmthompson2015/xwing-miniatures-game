@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/PilotCard", "model/js/EntityFilter", "model/js/RangeFilter",
+define(["utility/InputValidator", "artifact/PilotCard", "model/EntityFilter", "model/RangeFilter",
   "accessory/pilot-table/DefaultFilters", "accessory/pilot-table/TableRow"],
    function(InputValidator, PilotCard, EntityFilter, RangeFilter, DefaultFilters, TableRow)
    {

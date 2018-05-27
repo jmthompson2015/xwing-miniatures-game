@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
   <link rel="stylesheet" href="../../../lib/xwing-miniatures-font/xwing-miniatures.css">
-  <link rel="stylesheet" href="../../view/css/style.css">
+  <link rel="stylesheet" href="../../view/style.css">
 
   <script src="../../../lib/requirejs/require-2.3.5.js"></script>
   <script>
@@ -24,9 +24,9 @@
   <script>
     "use strict";
 
-    require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "redux", "common/js/Logger",
-        "artifact/js/ShipFaction", "artifact/js/Faction", "model/js/Action", "model/js/Agent", "model/js/Reducer", "view/js/ReactUtilities",
-        "view/js/ShipCardUI"
+    require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "redux", "utility/Logger",
+        "artifact/ShipFaction", "artifact/Faction", "model/Action", "model/Agent", "model/Reducer", "view/ReactUtilities",
+        "view/ShipCardUI"
       ],
       function(createReactClass, PropTypes, React, ReactDOM, DOM, Redux, Logger, ShipFaction, Faction, Action, Agent, Reducer, ReactUtilities, ShipCardUI)
       {
@@ -35,7 +35,7 @@
         LOGGER.setDebugEnabled(false);
 
         var store = Redux.createStore(Reducer.root);
-        var resourceBase = "../../../src/view/resource/";
+        var resourceBase = "../../../src/resource/";
         store.dispatch(Action.setResourceBase(resourceBase));
 
         var ShipGallery = createReactClass(

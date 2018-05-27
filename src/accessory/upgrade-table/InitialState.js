@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/UpgradeCard", "model/js/EntityFilter", "model/js/RangeFilter",
+define(["utility/InputValidator", "artifact/UpgradeCard", "model/EntityFilter", "model/RangeFilter",
   "accessory/upgrade-table/DefaultFilters", "accessory/upgrade-table/TableRow"],
    function(InputValidator, UpgradeCard, EntityFilter, RangeFilter, DefaultFilters, TableRow)
    {

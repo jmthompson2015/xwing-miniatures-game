@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HumanAgentStrategy</title>
+	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="require-config.js"></script>
+	<script src="../main.js"></script>
+</head>
+<body>
+	<div id="firstPilotInputArea"></div>
+	<script>
+		"use strict";
+
+		require(["redux", "utility/Logger", "model/Action", "model/Adjudicator", "model/EnvironmentFactory", "model/Reducer", "controller/HumanAgentStrategy"],
+			function(Redux, Logger, Action, Adjudicator, EnvironmentFactory, Reducer, HumanAgentStrategy)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../resource/";
+				var store = Redux.createStore(Reducer.root);
+				store.dispatch(Action.setResourceBase(resourceBase));
+				var environment = EnvironmentFactory.createCoreSetEnvironment(store, HumanAgentStrategy);
+				var adjudicator = new Adjudicator(store);
+				store.dispatch(Action.setAdjudicator(adjudicator));
+				var token = environment.pilotInstances()[0] // TIE Fighter.
+				environment.setActiveToken(token);
+				var agent = token.agent();
+
+				// Run.
+				agent.getShipAction(token, myCallback);
+
+				function myCallback(shipAction)
+				{
+					LOGGER.info("myCallback() shipAction = " + shipAction);
+				}
+			});
+	</script>
+</body>
+
+</html>

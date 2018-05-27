@@ -1,8 +1,8 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathUtilities",
-  "artifact/js/Faction", "artifact/js/Ship",
-  "view/js/Button", "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/ShipSilhouetteUI",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "utility/MathUtilities",
+  "artifact/Faction", "artifact/Ship",
+  "view/Button", "view/DataTable", "view/FactionUI", "view/ImplementedImage", "view/ShipSilhouetteUI",
   "accessory/pilot-table/Action", "accessory/pilot-table/FilterContainer", "accessory/pilot-table/TableColumns"],
    function(createReactClass, PropTypes, React, DOM, ReactRedux, MathUtilities,
       Faction, Ship, Button, DataTable, FactionUI, ImplementedImage, ShipSilhouetteUI,

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyTestTokenPanel</title>
+	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../../lib/xwing-miniatures-font/xwing-miniatures.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="require-config.js"></script>
+	<script src="../main.js"></script>
+</head>
+<body>
+	<div id="panel" />
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "redux", "utility/Logger", "artifact/PilotCard", "artifact/Faction", "artifact/UpgradeCard", "model/Agent",
+				"model/CardInstance", "model/Environment", "model/Reducer", "model/Squad", "model/TargetLock", "view/TokenPanel"
+			],
+			function(React, ReactDOM, Redux, Logger, PilotCard, Faction, UpgradeCard, Agent, CardInstance, Environment, Reducer, Squad, TargetLock, TokenPanel)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../resource/";
+				var store00 = Redux.createStore(Reducer.root);
+				var imperialAgent = new Agent(store00, "Imperial Agent");
+				var imperialToken = new CardInstance(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]);
+				var rebelAgent = new Agent(store00, "Rebel Agent");
+				var rebelToken = new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH]);
+
+				var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad #1", [imperialToken]);
+				var squad2 = new Squad(Faction.REBEL, "squad2", 2016, "squad #2", [rebelToken]);
+
+				var store = Redux.createStore(Reducer.root);
+				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2);
+				var pilotInstances = environment.pilotInstances();
+				imperialToken = pilotInstances[0];
+				rebelToken = pilotInstances[1];
+
+				TargetLock.newInstance(store, imperialToken, rebelToken);
+				TargetLock.newInstance(store, rebelToken, imperialToken);
+
+				var i = 1;
+				var j = 1;
+
+				var element = React.createElement(TokenPanel,
+				{
+					resourceBase: resourceBase,
+
+					attackerTargetLocks: imperialToken.attackerTargetLocks(),
+					bonusPilotSkill: j++,
+					bonusPrimaryWeapon: j++,
+					bonusEnergy: j++,
+					bonusAgility: j++,
+					bonusHull: j++,
+					bonusShield: j++,
+					cloakCount: i++,
+					damageCount: i++,
+					defenderTargetLocks: imperialToken.defenderTargetLocks(),
+					energyCount: i++,
+					evadeCount: i++,
+					focusCount: i++,
+					ionCount: i++,
+					ordnanceCount: i++,
+					reinforceCount: i++,
+					shieldCount: i++,
+					stressCount: i++,
+					tractorBeamCount: i++,
+					weaponsDisabledCount: i++,
+				});
+
+				ReactDOM.render(element, document.getElementById("panel"));
+			});
+	</script>
+</body>
+
+</html>

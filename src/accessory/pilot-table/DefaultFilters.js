@@ -1,6 +1,6 @@
 "use strict";
 
-define(["model/js/EntityFilter", "model/js/RangeFilter", "accessory/pilot-table/TableColumns"],
+define(["model/EntityFilter", "model/RangeFilter", "accessory/pilot-table/TableColumns"],
    function(EntityFilter, RangeFilter, TableColumns)
    {
       var DefaultFilters = {

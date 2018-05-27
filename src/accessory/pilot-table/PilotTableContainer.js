@@ -1,6 +1,6 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "accessory/pilot-table/PilotTable"],
+define(["react-redux", "utility/InputValidator", "accessory/pilot-table/PilotTable"],
    function(ReactRedux, InputValidator, PilotTable)
    {
       // PilotTableContainer

@@ -1,11 +1,11 @@
 "use strict";
 
-define(["create-react-class", "react", "artifact/js/AttackDiceValue", "artifact/js/Bearing", "artifact/js/ConditionCard", "artifact/js/Count", "artifact/js/DamageCard",
-  "artifact/js/DamageCardTrait", "artifact/js/DefenseDiceValue", "artifact/js/DiceModification", "artifact/js/Difficulty",
-  "artifact/js/Event", "artifact/js/Faction", "artifact/js/FiringArc", "artifact/js/Maneuver", "artifact/js/Phase",
-  "artifact/js/PilotCard", "artifact/js/PlayFormat", "artifact/js/Range", "artifact/js/Ship", "artifact/js/ShipAction",
-  "artifact/js/ShipBase", "artifact/js/ShipFaction", "artifact/js/ShipState", "artifact/js/UpgradeCard", "artifact/js/UpgradeHeader",
-  "artifact/js/UpgradeRestriction", "artifact/js/UpgradeType", "artifact/js/Value"],
+define(["create-react-class", "react", "artifact/AttackDiceValue", "artifact/Bearing", "artifact/ConditionCard", "artifact/Count", "artifact/DamageCard",
+  "artifact/DamageCardTrait", "artifact/DefenseDiceValue", "artifact/DiceModification", "artifact/Difficulty",
+  "artifact/Event", "artifact/Faction", "artifact/FiringArc", "artifact/Maneuver", "artifact/Phase",
+  "artifact/PilotCard", "artifact/PlayFormat", "artifact/Range", "artifact/Ship", "artifact/ShipAction",
+  "artifact/ShipBase", "artifact/ShipFaction", "artifact/ShipState", "artifact/UpgradeCard", "artifact/UpgradeHeader",
+  "artifact/UpgradeRestriction", "artifact/UpgradeType", "artifact/Value"],
    function(createReactClass, React, AttackDiceValue, Bearing, ConditionCard, Count, DamageCard,
       DamageCardTrait, DefenseDiceValue, DiceModification, Difficulty,
       Event, Faction, FiringArc, Maneuver, Phase,

@@ -1,8 +1,8 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/StringUtilities",
-  "artifact/js/DamageCardTrait", "artifact/js/Event", "artifact/js/Faction", "artifact/js/Phase", "artifact/js/UpgradeType",
-  "view/js/Button", "view/js/DataTable", "view/js/FactionUI", "view/js/ImplementedImage", "view/js/UpgradeTypeUI",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "utility/StringUtilities",
+  "artifact/DamageCardTrait", "artifact/Event", "artifact/Faction", "artifact/Phase", "artifact/UpgradeType",
+  "view/Button", "view/DataTable", "view/FactionUI", "view/ImplementedImage", "view/UpgradeTypeUI",
   "accessory/ability-table/Action", "accessory/ability-table/FilterContainer", "accessory/ability-table/TableColumns"
 ],
    function(createReactClass, PropTypes, React, DOM, ReactRedux, StringUtilities,

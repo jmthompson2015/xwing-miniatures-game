@@ -1,7 +1,7 @@
 "use strict";
 
 define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux",
-  "artifact/js/DamageCardTrait", "view/js/Button", "view/js/DataTable", "view/js/ImplementedImage",
+  "artifact/DamageCardTrait", "view/Button", "view/DataTable", "view/ImplementedImage",
   "accessory/damage-table/Action", "accessory/damage-table/FilterContainer", "accessory/damage-table/TableColumns"],
    function(createReactClass, PropTypes, React, DOM, ReactRedux,
       DamageCardTrait, Button, DataTable, ImplementedImage, Action, FilterContainer, TableColumns)

@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestPlanningPanel</title>
+	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../../lib/xwing-miniatures-font/xwing-miniatures.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="require-config.js"></script>
+	<script src="../main.js"></script>
+</head>
+<body>
+	<div id="inputArea" style="background-color: lightBlue; display: inline-block;"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "redux", "utility/Logger", "artifact/PilotCard", "artifact/Faction",
+				"model/Agent", "model/Environment", "model/Reducer", "model/Squad", "model/SquadBuilder", "model/CardInstance",
+				"view/PlanningPanel"
+			],
+			function(React, ReactDOM, DOM, Redux, Logger, PilotCardCard, Faction,
+				Agent, Environment, Reducer, Squad, SquadBuilder, CardInstance,
+				PlanningPanel)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../resource/";
+				var store = Redux.createStore(Reducer.root);
+				var teamKey1 = Faction.IMPERIAL;
+				var teamKey2 = Faction.REBEL;
+
+				var imperialAgent = new Agent(store, "Imperial Agent");
+				var token0 = new CardInstance(store, PilotCardCard.ACADEMY_PILOT, imperialAgent);
+				var token1 = new CardInstance(store, PilotCardCard.TEMPEST_SQUADRON_PILOT, imperialAgent);
+				var token2 = new CardInstance(store, PilotCardCard.ALPHA_SQUADRON_PILOT, imperialAgent);
+				var rebelAgent = new Agent(store, "Rebel Agent");
+				var tokens1 = [token0, token1, token2];
+				var squad1 = new Squad(teamKey1, "Squad #1", 2017, "squad1", tokens1);
+				var squad2 = new Squad(teamKey2, "Squad #2", 2016, "squad2", []);
+				var positions1, positions2;
+				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
+
+				token0 = environment.pilotInstances()[0];
+				token1 = environment.pilotInstances()[1];
+				token2 = environment.pilotInstances()[2];
+				tokens1 = [token0, token1, token2];
+
+				var myCallback = function(tokenToManeuver)
+				{
+					LOGGER.info("myCallback() start");
+
+					tokens1.forEach(function(token)
+					{
+						var maneuver = tokenToManeuver[token];
+						LOGGER.info(token + ": " + maneuver);
+					});
+
+					LOGGER.info("myCallback() end");
+				}
+
+				var element = React.createElement(PlanningPanel,
+				{
+					agent: imperialAgent,
+					callback: myCallback,
+					environment: environment,
+					resourceBase: resourceBase,
+					tokens: tokens1,
+				});
+				ReactDOM.render(element, document.getElementById("inputArea"));
+			});
+	</script>
+</body>
+
+</html>

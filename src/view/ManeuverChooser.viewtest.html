@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestManeuverChooser</title>
+	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../../lib/xwing-miniatures-font/xwing-miniatures.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="require-config.js"></script>
+	<script src="../main.js"></script>
+</head>
+<body>
+	<div id="inputArea0"></div>
+	<br />
+	<div id="inputArea1"></div>
+	<br />
+	<div id="inputArea2"></div>
+	<br />
+	<div id="inputArea3"></div>
+	<br />
+	<div id="inputArea4"></div>
+	<br />
+	<div id="inputArea5"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "redux", "utility/Logger", "artifact/Maneuver", "artifact/PilotCard", "artifact/Faction",
+				"model/Agent", "model/Reducer", "model/CardInstance", "view/ManeuverChooser"
+			],
+			function(React, ReactDOM, DOM, Redux, Logger, Maneuver, PilotCard, Faction, Agent, Reducer, CardInstance, ManeuverChooser)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../resource/";
+				var store = Redux.createStore(Reducer.root);
+
+				var imperialAgent = new Agent(store, "Imperial Agent");
+				var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				var element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					pilotName: token.name(true),
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea0"));
+
+				token = new CardInstance(store, PilotCard.CAPTAIN_KAGI, imperialAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				var element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					pilotName: token.name(true),
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea1"));
+
+				var rebelAgent = new Agent(store, "Rebel Agent");
+				token = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea2"));
+
+				token = new CardInstance(store, PilotCard.POE_DAMERON, rebelAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					pilotName: token.name(true),
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea3"));
+
+				token = new CardInstance(store, PilotCard.GR_75_MEDIUM_TRANSPORT, rebelAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea4"));
+
+				var scumAgent = new Agent(store, "Scum Agent");
+				token = new CardInstance(store, PilotCard.UNKAR_PLUTT, scumAgent);
+				var maneuverKeys = token.maneuverKeys();
+				var maneuvers = maneuverKeys.map(function(maneuverKey)
+				{
+					return Maneuver.properties[maneuverKey];
+				});
+				element = React.createElement(ManeuverChooser,
+				{
+					callback: myCallback,
+					resourceBase: resourceBase,
+					pilotName: token.name(true),
+					shipName: token.shipName(),
+					maneuvers: maneuvers,
+					tokenId: token.id(),
+				});
+				ReactDOM.render(element, document.getElementById("inputArea5"));
+
+				function myCallback(tokenId, maneuverKey)
+				{
+					LOGGER.info("myCallback() tokenId = " + tokenId + " maneuverKey = " + maneuverKey);
+				}
+			});
+	</script>
+</body>
+
+</html>

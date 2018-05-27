@@ -1,6 +1,6 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "accessory/arena/ArenaTable", "accessory/arena/TableRow"],
+define(["react-redux", "utility/InputValidator", "accessory/arena/ArenaTable", "accessory/arena/TableRow"],
    function(ReactRedux, InputValidator, ArenaTable, TableRow)
    {
       // ArenaTableContainer

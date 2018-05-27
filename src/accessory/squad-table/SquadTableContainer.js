@@ -1,6 +1,6 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "accessory/squad-table/SquadTable"],
+define(["react-redux", "utility/InputValidator", "accessory/squad-table/SquadTable"],
    function(ReactRedux, InputValidator, SquadTable)
    {
       // SquadTableContainer

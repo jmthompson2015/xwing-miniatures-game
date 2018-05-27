@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/ArrayUtilities", "common/js/InputValidator", "common/js/ObjectUtilities", "accessory/pilot-table/Action", "accessory/pilot-table/DefaultFilters", "accessory/pilot-table/InitialState"],
+define(["utility/ArrayUtilities", "utility/InputValidator", "utility/ObjectUtilities", "accessory/pilot-table/Action", "accessory/pilot-table/DefaultFilters", "accessory/pilot-table/InitialState"],
    function(ArrayUtilities, InputValidator, ObjectUtilities, Action, DefaultFilters, InitialState)
    {
       var Reducer = {};

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/Phase", "artifact/js/UpgradeHeader"],
+define(["utility/InputValidator", "artifact/Phase", "artifact/UpgradeHeader"],
    function(InputValidator, Phase, UpgradeHeader)
    {
       var TableRow = {};

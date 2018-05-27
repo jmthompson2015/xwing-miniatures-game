@@ -29,8 +29,8 @@
   <script>
     "use strict";
 
-    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger", "common/js/MathUtilities", "artifact/js/PilotCard",
-        "controller/js/AbilityCountContainer", "accessory/pilot-table/PilotTableContainer", "accessory/pilot-table/Reducer"
+    require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "utility/MathUtilities", "artifact/PilotCard",
+        "controller/AbilityCountContainer", "accessory/pilot-table/PilotTableContainer", "accessory/pilot-table/Reducer"
       ],
       function(React, ReactDOM, ReactRedux, Redux, Logger, MathUtilities, PilotCard, AbilityCountContainer, PilotTableContainer, Reducer)
       {
@@ -38,7 +38,7 @@
         LOGGER.setTraceEnabled(false);
         LOGGER.setDebugEnabled(false);
 
-        var resourceBase = "../../../src/view/resource/";
+        var resourceBase = "../../../src/resource/";
         var store = Redux.createStore(Reducer.root);
 
         var element0 = React.createElement(ReactRedux.Provider,

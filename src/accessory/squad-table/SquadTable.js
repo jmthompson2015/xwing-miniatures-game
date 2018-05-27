@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "common/js/MathUtilities", "artifact/js/Faction",
-  "view/js/Button", "view/js/DataTable", "view/js/FactionUI",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux", "utility/MathUtilities", "artifact/Faction",
+  "view/Button", "view/DataTable", "view/FactionUI",
   "accessory/squad-table/Action", "accessory/squad-table/FilterContainer", "accessory/squad-table/TableColumns"],
    function(createReactClass, PropTypes, React, DOM, ReactRedux, MathUtilities, Faction, Button, DataTable, FactionUI,
       Action, FilterContainer, TableColumns)

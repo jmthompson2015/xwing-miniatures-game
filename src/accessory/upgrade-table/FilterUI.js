@@ -1,8 +1,8 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities",
-  "artifact/js/FiringArc", "artifact/js/Range", "artifact/js/UpgradeHeader", "artifact/js/UpgradeRestriction", "artifact/js/UpgradeType",
-  "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "utility/ArrayUtilities",
+  "artifact/FiringArc", "artifact/Range", "artifact/UpgradeHeader", "artifact/UpgradeRestriction", "artifact/UpgradeType",
+  "model/EntityFilter", "model/RangeFilter", "view/Button", "view/InputPanel",
   "accessory/upgrade-table/Action", "accessory/upgrade-table/DefaultFilters"],
    function(createReactClass, PropTypes, React, DOM, ArrayUtilities,
       FiringArc, Range, UpgradeHeader, UpgradeRestriction, UpgradeType,

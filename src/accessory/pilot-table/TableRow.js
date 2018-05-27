@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/InputValidator", "common/js/MathUtilities"],
+define(["utility/InputValidator", "utility/MathUtilities"],
    function(InputValidator, MathUtilities)
    {
       var TableRow = {};

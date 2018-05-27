@@ -1,6 +1,6 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "accessory/upgrade-table/UpgradeTable"],
+define(["react-redux", "utility/InputValidator", "accessory/upgrade-table/UpgradeTable"],
    function(ReactRedux, InputValidator, UpgradeTable)
    {
       // UpgradeTableContainer

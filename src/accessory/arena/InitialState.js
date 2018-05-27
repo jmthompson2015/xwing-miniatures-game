@@ -1,6 +1,6 @@
 "use strict";
 
-define(["model/js/SquadBuilder"],
+define(["model/SquadBuilder"],
    function(SquadBuilder)
    {
       function InitialState()

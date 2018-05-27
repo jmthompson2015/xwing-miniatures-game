@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>X-Wing Miniatures Help</title>
+	<meta charset="utf-8">
+
+
+	<link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../../view/style.css">
+
+	<script src="../../../lib/requirejs/require-2.3.5.js"></script>
+	<script>
+		require.config(
+		{
+			"baseUrl": "../../../src",
+		});
+	</script>
+	<script src="../../../src/main.js"></script>
+
+</head>
+<body>
+	<h1>Reference Links</h1>
+	<ul>
+		<li><a href="https://www.fantasyflightgames.com/en/products/x-wing/" target="_blank">Fantasy Flight Games: X-Wing Miniatures</a></li>
+		<li><a href="https://images-cdn.fantasyflightgames.com/filer_public/40/b4/40b44d5f-7a06-406c-ae6e-183c5297e796/swx36_rulesreference.pdf" target="_blank">Fantasy Flight Games: X-Wing Rules Reference (2015.09.04)</a></li>
+		<li><a href="https://images-cdn.fantasyflightgames.com/filer_public/2d/47/2d47a35a-6ec7-4d4b-a262-efacde97dfa3/huge_ship_rules.pdf" target="_blank">Fantasy Flight Games: Huge Ship Rules (2015.04.24)</a></li>
+		<li><a href="https://images-cdn.fantasyflightgames.com/filer_public/95/aa/95aa1708-4b04-4aca-8397-02d9d4247bcb/x-wing_faq_v423.pdf" target="_blank">Fantasy Flight Games: FAQ (2016.10.21)</a></li>
+		<li><a href="https://xwing-miniatures.wikia.com/wiki/X-Wing_Miniatures_Wiki" target="_blank">X-Wing Miniatures Wiki</a></li>
+	</ul>
+	<h1>Reference Cards</h1>
+	<div id="mainPanel"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "artifact/ReferenceCard", "view/CardImage"],
+			function(React, ReactDOM, DOM, ReferenceCard, CardImage)
+			{
+				var resourceBase = "../resource/";
+				var referenceKeys = ReferenceCard.keys();
+
+				var rows = referenceKeys.map(function(referenceKey)
+				{
+					return React.createElement(CardImage,
+					{
+						key: "referenceCard" + referenceKey,
+						card: ReferenceCard.properties[referenceKey],
+						resourceBase: resourceBase,
+						width: 200,
+					});
+				});
+
+				var mainPanel = DOM.div(
+				{}, rows);
+				ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
+			});
+	</script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["model/js/EntityFilter", "model/js/RangeFilter", "accessory/squad-table/TableColumns"],
+define(["model/EntityFilter", "model/RangeFilter", "accessory/squad-table/TableColumns"],
    function(EntityFilter, RangeFilter, TableColumns)
    {
       var DefaultFilters = {

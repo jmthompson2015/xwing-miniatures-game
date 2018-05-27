@@ -28,7 +28,7 @@
   <script>
     "use strict";
 
-    require(["react", "react-dom", "react-redux", "redux", "common/js/Logger",
+    require(["react", "react-dom", "react-redux", "redux", "utility/Logger",
         "accessory/squad-table/Reducer", "accessory/squad-table/SquadTableContainer"
       ],
       function(React, ReactDOM, ReactRedux, Redux, Logger, Reducer, SquadTableContainer)
@@ -37,7 +37,7 @@
         LOGGER.setTraceEnabled(false);
         LOGGER.setDebugEnabled(false);
 
-        var resourceBase = "../../../src/view/resource/";
+        var resourceBase = "../../../src/resource/";
         var store = Redux.createStore(Reducer.root);
 
         var element = React.createElement(ReactRedux.Provider,

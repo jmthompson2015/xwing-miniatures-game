@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/js/Faction",
-  "view/js/FactionUI", "view/js/DataTable", "accessory/arena/TableColumns"],
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/Faction",
+  "view/FactionUI", "view/DataTable", "accessory/arena/TableColumns"],
    function(createReactClass, PropTypes, React, DOM, Faction,
       FactionUI, DataTable, TableColumns)
    {

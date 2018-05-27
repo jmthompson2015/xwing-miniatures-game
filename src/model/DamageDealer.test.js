@@ -1,0 +1,113 @@
+"use strict";
+
+define(["qunit", "artifact/PilotCard", "artifact/UpgradeCard",
+   "model/DamageDealer", "model/EnvironmentAction", "model/Position", "model/CardInstance", "model/CardAction",
+  "model/EnvironmentFactory"],
+   function(QUnit, PilotCard, UpgradeCard,
+      DamageDealer, EnvironmentAction, Position, CardInstance, CardAction, EnvironmentFactory)
+   {
+      QUnit.module("DamageDealer");
+
+      QUnit.test("DamageDealer()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var hitCount = 2;
+         var criticalHitCount = 3;
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
+         var evadeCount = 1;
+
+         // Run.
+         var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+
+         // Verify.
+         assert.equal(damageDealer.hits(), 1);
+         assert.equal(damageDealer.criticalHits(), 3);
+         assert.equal(damageDealer.remainingEvades(), 0);
+      });
+
+      QUnit.test("dealDamage()", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var hitCount = 2;
+         var criticalHitCount = 3;
+         var defender = environment.pilotInstances()[0]; // TIE Fighter
+         var evadeCount = 1;
+         var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+         assert.equal(defender.damageCount(), 0);
+         assert.equal(defender.criticalDamageCount(), 0);
+
+         // Run.
+         damageDealer.dealDamage();
+
+         // Verify.
+         assert.ok([4, 5].includes(defender.damageCount() + defender.criticalDamageCount()));
+      });
+
+      QUnit.test("dealDamage() shields", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var hitCount = 2;
+         var criticalHitCount = 3;
+         var defender = environment.pilotInstances()[2]; // X-Wing
+         var evadeCount = 1;
+         var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+         assert.equal(defender.damageCount(), 0);
+         assert.equal(defender.criticalDamageCount(), 0);
+
+         // Run.
+         damageDealer.dealDamage();
+
+         // Verify.
+         assert.ok([2, 3].includes(defender.damageCount() + defender.criticalDamageCount()));
+      });
+
+      QUnit.test("dealDamage() Determination", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var hitCount = 2;
+         var criticalHitCount = 1;
+         var defender = environment.pilotInstances()[2];
+         var upgrade = new CardInstance(store, UpgradeCard.DETERMINATION);
+         store.dispatch(CardAction.addUpgrade(defender, upgrade));
+         var evadeCount = 0;
+         var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+         assert.equal(defender.damageCount(), 0);
+         assert.equal(defender.criticalDamageCount(), 0);
+
+         // Run.
+         damageDealer.dealDamage();
+
+         // Verify.
+         var sum = defender.damageCount() + defender.criticalDamageCount();
+         assert.ok([0, 1, 2].includes(sum), "sum = " + sum);
+      });
+
+      QUnit.test("dealDamage() Chewbacca", function(assert)
+      {
+         // Setup.
+         var environment = EnvironmentFactory.createCoreSetEnvironment();
+         var store = environment.store();
+         var hitCount = 2;
+         var criticalHitCount = 3;
+         var rebelAgent = environment.pilotInstances()[2].agent();
+         var defender = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, rebelAgent);
+         store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), defender));
+         store.dispatch(CardAction.addShieldCount(defender, -3)); // two shields remaining
+         var evadeCount = 1;
+         var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+         assert.equal(defender.damageCount(), 0);
+         assert.equal(defender.criticalDamageCount(), 0);
+
+         // Run.
+         damageDealer.dealDamage();
+
+         // Verify.
+         assert.equal(defender.damageCount(), 2);
+         assert.equal(defender.criticalDamageCount(), 0);
+      });
+   });

@@ -1,8 +1,8 @@
 "use strict";
 
-define(["redux", "common/js/InputValidator",
-  "artifact/js/ConditionCard", "artifact/js/DamageCard", "artifact/js/PilotCard", "artifact/js/UpgradeCard",
-  "model/js/Agent", "model/js/EntityFilter", "model/js/RangeFilter", "model/js/Reducer", "model/js/SquadBuilder",
+define(["redux", "utility/InputValidator",
+  "artifact/ConditionCard", "artifact/DamageCard", "artifact/PilotCard", "artifact/UpgradeCard",
+  "model/Agent", "model/EntityFilter", "model/RangeFilter", "model/Reducer", "model/SquadBuilder",
   "accessory/ability-table/DefaultFilters", "accessory/ability-table/TableRow"],
    function(Redux, InputValidator, ConditionCard, DamageCard, PilotCard, UpgradeCard, Agent, EntityFilter, RangeFilter, Reducer, SquadBuilder, DefaultFilters, TableRow)
    {

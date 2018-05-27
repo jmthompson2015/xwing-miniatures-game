@@ -1,6 +1,6 @@
 "use strict";
 
-define(["redux", "common/js/InputValidator", "common/js/MathUtilities", "model/js/Agent", "model/js/Reducer"],
+define(["redux", "utility/InputValidator", "utility/MathUtilities", "model/Agent", "model/Reducer"],
    function(Redux, InputValidator, MathUtilities, Agent, Reducer)
    {
       var TableRow = {};

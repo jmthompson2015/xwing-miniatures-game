@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>AgentSquadContainer</title>
+	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="require-config.js"></script>
+	<script src="../main.js"></script>
+</head>
+<body>
+	<div id="inputArea"></div>
+
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-redux", "redux", "utility/Logger",
+				"model/Agent", "model/AgentSquadAction", "model/AgentSquadReducer", "model/Reducer", "model/SquadBuilder",
+				"controller/AgentSquadContainer"
+			],
+			function(React, ReactDOM, ReactRedux, Redux, Logger, Agent, AgentSquadAction, AgentSquadReducer, Reducer, SquadBuilder, AgentSquadContainer)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var resourceBase = "../resource/";
+				var store = Redux.createStore(AgentSquadReducer.root);
+				var delegateStore = Redux.createStore(Reducer.root);
+				store.dispatch(AgentSquadAction.setDelegateStore(delegateStore));
+				var agentNumber = 1;
+				setAgentAndSquad(store, delegateStore, agentNumber);
+
+				var element = React.createElement(ReactRedux.Provider,
+				{
+					store: store,
+				}, React.createElement(AgentSquadContainer,
+				{
+					agentNumber: agentNumber,
+					resourceBase: resourceBase,
+				}));
+				ReactDOM.render(element, document.getElementById("inputArea"));
+
+				function setAgentAndSquad(store, delegateStore, agentNumber)
+				{
+					var faction = store.getState().faction;
+					var agentName = "Agent " + agentNumber;
+					var agentType = store.getState().agentType;
+					var agent = new Agent(delegateStore, agentName, undefined, agentType);
+					var squadBuilders = SquadBuilder.findByFaction(faction.key);
+					var squad = squadBuilders[0].buildSquad(agent);
+					store.dispatch(AgentSquadAction.setAgentName(agentName));
+					store.dispatch(AgentSquadAction.setAgentType(agentType));
+					store.dispatch(AgentSquadAction.setSquad(squad));
+				}
+			});
+	</script>
+</body>
+
+</html>

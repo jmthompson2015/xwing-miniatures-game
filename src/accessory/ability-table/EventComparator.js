@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/StringUtilities", "artifact/js/Event", "artifact/js/Phase"],
+define(["utility/StringUtilities", "artifact/Event", "artifact/Phase"],
    function(StringUtilities, Event, Phase)
    {
       var EventComparator = function(eventA, eventB)

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "accessory/ability-table/AbilityTable"],
+define(["react-redux", "utility/InputValidator", "accessory/ability-table/AbilityTable"],
    function(ReactRedux, InputValidator, AbilityTable)
    {
       // AbilityTableContainer

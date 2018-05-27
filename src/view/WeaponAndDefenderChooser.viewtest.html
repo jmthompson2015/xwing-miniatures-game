@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestWeaponAndDefenderChooser</title>
+	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="require-config.js"></script>
+	<script src="../main.js"></script>
+</head>
+<body>
+	<div id="inputArea" style="background-color: lightBlue; display: inline-block;"></div>
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "redux", "utility/Logger", "artifact/PilotCard", "model/Position", "artifact/Faction",
+				"artifact/UpgradeCard",
+				"model/Agent", "model/Environment", "model/Reducer", "model/Squad", "model/CardInstance",
+				"view/WeaponAndDefenderChooser"
+			],
+			function(React, ReactDOM, DOM, Redux, Logger, PilotCard, Position, Faction, UpgradeCard,
+				Agent, Environment, Reducer, Squad, CardInstance, WeaponAndDefenderChooser)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var store00 = Redux.createStore(Reducer.root);
+				var imperialAgent = new Agent(store00, "Imperial Agent");
+				var rebelAgent = new Agent(store00, "Rebel Agent");
+				var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION,
+					UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE
+				]);
+				var defender0 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+				var defender1 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+				var defender2 = new CardInstance(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent);
+				var defender3 = new CardInstance(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent);
+				var defender4 = new CardInstance(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent);
+				var defender5 = new CardInstance(store00, PilotCard.BLACK_SQUADRON_PILOT, imperialAgent);
+
+				var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad #1", [defender0, defender1, defender2, defender3, defender4, defender5]);
+				var squad2 = new Squad(Faction.REBEL, "squad2", 2016, "squad #2", [attacker]);
+				var positions1 = [new Position(450, 845, 90), new Position(450, 795, 90), new Position(450, 745, 90), new Position(450, 695, 90), new Position(450, 645,
+					90), new Position(450, 595, 90)];
+				var positions2 = [new Position(458, 895, -90)];
+
+				var store = Redux.createStore(Reducer.root);
+				var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
+				var tokens = environment.pilotInstances();
+				attacker = tokens[6];
+				var choices = environment.createWeaponToRangeToDefenders(attacker);
+				var callback = function(weapon, defender)
+				{
+					LOGGER.info("callback() start");
+					LOGGER.info("weapon = " + weapon + " defender = " + defender);
+					LOGGER.info("callback() end");
+				}
+
+				var element = React.createElement(WeaponAndDefenderChooser,
+				{
+					attacker: attacker,
+					choices: choices,
+					callback: callback
+				});
+				ReactDOM.render(element, document.getElementById("inputArea"));
+			});
+	</script>
+</body>
+
+</html>

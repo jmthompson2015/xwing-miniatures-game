@@ -1,6 +1,6 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "accessory/squad-table/FilterUI"],
+define(["react-redux", "utility/InputValidator", "accessory/squad-table/FilterUI"],
    function(ReactRedux, InputValidator, FilterUI)
    {
       function mapStateToProps(state, ownProps)

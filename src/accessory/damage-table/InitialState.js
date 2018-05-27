@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/InputValidator", "artifact/js/DamageCard", "model/js/EntityFilter", "model/js/RangeFilter",
+define(["utility/InputValidator", "artifact/DamageCard", "model/EntityFilter", "model/RangeFilter",
   "accessory/damage-table/TableRow", "accessory/damage-table/DefaultFilters"],
    function(InputValidator, DamageCard, EntityFilter, RangeFilter, TableRow, DefaultFilters)
    {

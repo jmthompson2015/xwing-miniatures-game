@@ -1,6 +1,6 @@
 "use strict";
 
-define(["react-redux", "common/js/InputValidator", "accessory/damage-table/DamageTable"],
+define(["react-redux", "utility/InputValidator", "accessory/damage-table/DamageTable"],
    function(ReactRedux, InputValidator, DamageTable)
    {
       // DamageTableContainer

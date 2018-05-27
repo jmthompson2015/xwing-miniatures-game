@@ -1,6 +1,6 @@
 "use strict";
 
-define(["common/js/InputValidator", "model/js/EntityFilter", "model/js/RangeFilter", "model/js/SquadBuilder",
+define(["utility/InputValidator", "model/EntityFilter", "model/RangeFilter", "model/SquadBuilder",
   "accessory/squad-table/DefaultFilters", "accessory/squad-table/TableRow"],
    function(InputValidator, EntityFilter, RangeFilter, SquadBuilder, DefaultFilters, TableRow)
    {

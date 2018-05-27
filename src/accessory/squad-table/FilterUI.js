@@ -1,7 +1,7 @@
 "use strict";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "common/js/ArrayUtilities", "artifact/js/Faction",
-  "model/js/EntityFilter", "model/js/RangeFilter", "view/js/Button", "view/js/InputPanel",
+define(["create-react-class", "prop-types", "react", "react-dom-factories", "utility/ArrayUtilities", "artifact/Faction",
+  "model/EntityFilter", "model/RangeFilter", "view/Button", "view/InputPanel",
   "accessory/squad-table/Action", "accessory/squad-table/DefaultFilters"],
    function(createReactClass, PropTypes, React, DOM, ArrayUtilities, Faction, EntityFilter, RangeFilter, Button, InputPanel, Action, DefaultFilters)
    {

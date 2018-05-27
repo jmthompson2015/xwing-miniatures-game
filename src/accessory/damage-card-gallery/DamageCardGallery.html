@@ -5,7 +5,7 @@
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
-  <link rel="stylesheet" href="../../view/css/style.css">
+  <link rel="stylesheet" href="../../view/style.css">
 
   <script src="../../../lib/requirejs/require-2.3.5.js"></script>
   <script>
@@ -24,7 +24,7 @@
     "use strict";
 
     require(["create-react-class", "react", "react-dom", "react-dom-factories",
-        "common/js/Logger", "artifact/js/DamageCard", "view/js/CardImage"
+        "utility/Logger", "artifact/DamageCard", "view/CardImage"
       ],
       function(createReactClass, React, ReactDOM, DOM, Logger, DamageCard, CardImage)
       {
@@ -32,7 +32,7 @@
         LOGGER.setTraceEnabled(false);
         LOGGER.setDebugEnabled(false);
 
-        var resourceBase = "../../../src/view/resource/";
+        var resourceBase = "../../../src/resource/";
 
         var DamageGallery = createReactClass(
         {

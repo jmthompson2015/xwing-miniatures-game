@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MyTestSquadChooser</title>
+	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="../../lib/requirejs/require-2.3.5.js"></script>
+	<script src="require-config.js"></script>
+	<script src="../main.js"></script>
+</head>
+<body>
+	<div id="inputArea"></div>
+
+	<script>
+		"use strict";
+
+		require(["react", "react-dom", "react-dom-factories", "redux", "utility/ArrayUtilities", "utility/Logger",
+				"model/Agent", "model/Reducer", "model/SquadBuilder", "artifact/Faction",
+				"view/SquadChooser"
+			],
+			function(React, ReactDOM, DOM, Redux, ArrayUtilities, Logger, Agent, Reducer, SquadBuilder, Faction, SquadChooser)
+			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
+				var store = Redux.createStore(Reducer.root);
+				var resourceBase = "../resource/";
+				var faction = ArrayUtilities.randomElement([Faction.IMPERIAL, Faction.REBEL, Faction.SCUM]);
+				var agent = new Agent(store, "Placeholder");
+				var squadBuilders = SquadBuilder.findByFaction(faction);
+
+				var element = React.createElement(SquadChooser,
+				{
+					agent: agent,
+					resourceBase: resourceBase,
+					squadBuilders: squadBuilders,
+					onChange: myOnChange,
+				});
+				ReactDOM.render(element, document.getElementById("inputArea"));
+
+				function myOnChange(squadBuilder)
+				{
+					LOGGER.info("myOnChange() squadBuilder = " + squadBuilder);
+				}
+			});
+	</script>
+</body>
+
+</html>
