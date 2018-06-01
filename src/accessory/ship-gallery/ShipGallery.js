@@ -10,12 +10,6 @@ import Reducer from "../../model/Reducer.js";
 import ReactUtilities from "../../view/ReactUtilities.js";
 import ShipCardUI from "../../view/ShipCardUI.js";
 
-// require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "redux", "utility/Logger",
-//     "artifact/ShipFaction", "artifact/Faction", "model/Action", "model/Agent", "model/Reducer", "view/ReactUtilities",
-//     "view/ShipCardUI"
-//   ],
-//   function(createReactClass, PropTypes, React, ReactDOM, ReactDOMFactories, Redux, Logger, ShipFaction, Faction, Action, Agent, Reducer, ReactUtilities, ShipCardUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

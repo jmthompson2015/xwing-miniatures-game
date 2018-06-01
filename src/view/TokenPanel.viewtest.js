@@ -13,11 +13,6 @@ import TargetLock from "../model/TargetLock.js";
 
 import TokenPanel from "./TokenPanel.js";
 
-// require(["react", "react-dom", "redux", "utility/Logger", "artifact/PilotCard", "artifact/Faction", "artifact/UpgradeCard", "model/Agent",
-// 		"model/CardInstance", "model/Environment", "model/Reducer", "model/Squad", "model/TargetLock", "view/TokenPanel"
-// 	],
-// 	function(React, ReactDOM, Redux, Logger, PilotCard, Faction, UpgradeCard, Agent, CardInstance, Environment, Reducer, Squad, TargetLock, TokenPanel)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

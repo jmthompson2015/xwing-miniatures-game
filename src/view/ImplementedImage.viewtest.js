@@ -2,9 +2,6 @@ import Logger from "../utility/Logger.js";
 
 import ImplementedImage from "./ImplementedImage.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "view/ImplementedImage"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, ImplementedImage)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

@@ -9,12 +9,6 @@ import SquadBuilder from "../model/SquadBuilder.js";
 
 import SquadChooser from "./SquadChooser.js";
 
-// require(["react", "react-dom", "react-dom-factories", "redux", "utility/ArrayUtilities", "utility/Logger",
-// 		"model/Agent", "model/Reducer", "model/SquadBuilder", "artifact/Faction",
-// 		"view/SquadChooser"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Redux, ArrayUtilities, Logger, Agent, Reducer, SquadBuilder, Faction, SquadChooser)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

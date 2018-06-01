@@ -1,6 +1,5 @@
 import InputValidator from "../../utility/InputValidator.js";
 
-import Phase from "../../artifact/Phase.js";
 import UpgradeHeader from "../../artifact/UpgradeHeader.js";
 
 var TableRow = {};

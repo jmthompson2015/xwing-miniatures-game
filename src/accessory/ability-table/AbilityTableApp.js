@@ -5,11 +5,6 @@ import AbilityCountContainer from "../../controller/AbilityCountContainer.js";
 import AbilityTableContainer from "./AbilityTableContainer.js";
 import Reducer from "./Reducer.js";
 
-// require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "controller/AbilityCountContainer",
-//     "accessory/ability-table/AbilityTableContainer", "accessory/ability-table/Reducer"
-//   ],
-//   function(React, ReactDOM, ReactRedux, Redux, Logger, AbilityCountContainer, AbilityTableContainer, Reducer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

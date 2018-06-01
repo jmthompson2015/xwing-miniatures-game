@@ -5,11 +5,6 @@ import Ship from "../artifact/Ship.js";
 
 import ShipChooser from "./ShipChooser.js";
 
-// require(["react", "react-dom", "utility/Logger",
-// 		"artifact/Faction", "artifact/Ship", "view/ShipChooser"
-// 	],
-// 	function(React, ReactDOM, Logger, Faction, Ship, ShipChooser)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

@@ -6,11 +6,6 @@ import Position from "../model/Position.js";
 
 import ShipUI from "./ShipUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "model/Position", "artifact/ShipFaction", "artifact/Faction",
-// 		"view/ShipUI"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Position, ShipFaction, Faction, ShipUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

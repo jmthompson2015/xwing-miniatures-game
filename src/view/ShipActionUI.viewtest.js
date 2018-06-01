@@ -4,9 +4,6 @@ import ShipAction from "../artifact/ShipAction.js";
 
 import ShipActionUI from "./ShipActionUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/ShipAction", "view/ShipActionUI"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, ShipAction, ShipActionUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

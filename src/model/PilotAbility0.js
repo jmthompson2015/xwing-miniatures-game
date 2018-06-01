@@ -6,7 +6,6 @@ import InputValidator from "../utility/InputValidator.js";
 import AttackDiceValue from "../artifact/AttackDiceValue.js";
 import Difficulty from "../artifact/Difficulty.js";
 import Event from "../artifact/Event.js";
-// import Faction from "../artifact/Faction.js";
 import Maneuver from "../artifact/Maneuver.js";
 import PilotCard from "../artifact/PilotCard.js";
 import ShipAction from "../artifact/ShipAction.js";

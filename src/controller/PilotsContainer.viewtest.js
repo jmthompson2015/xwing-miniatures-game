@@ -6,11 +6,6 @@ import Reducer from "../model/Reducer.js";
 
 import PilotsContainer from "./PilotsContainer.js";
 
-// require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "model/Action", "model/Reducer", "model/EnvironmentFactory",
-// 		"controller/PilotsContainer"
-// 	],
-// 	function(React, ReactDOM, ReactRedux, Redux, Logger, Action, Reducer, EnvironmentFactory, PilotsContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

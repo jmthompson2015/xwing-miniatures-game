@@ -13,13 +13,6 @@ import AgentSquadUI from "./AgentSquadUI.js";
 
 import SquadBuilderContainer from "../controller/SquadBuilderContainer.js";
 
-// require(["react", "react-dom", "react-dom-factories", "react-redux", "redux", "utility/Logger", "artifact/Faction",
-// 		"model/Agent", "model/AgentSquadAction", "model/AgentSquadReducer", "model/MediumAgentStrategy", "model/Reducer", "model/SquadBuilder",
-// 		"view/AgentSquadUI", "controller/SquadBuilderContainer"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, ReactRedux, Redux, Logger, Faction,
-// 		Agent, AgentSquadAction, AgentSquadReducer, MediumAgentStrategy, Reducer, SquadBuilder, AgentSquadUI, SquadBuilderContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

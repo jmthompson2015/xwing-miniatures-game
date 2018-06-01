@@ -1,17 +1,11 @@
 import Logger from "../utility/Logger.js";
 
-// import Faction from "../artifact/Faction.js";
-
 import Button from "./Button.js";
-
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "view/Button"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Button)
 
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-// var resourceBase = "../resource/";
 var rows = [];
 var cells = [];
 

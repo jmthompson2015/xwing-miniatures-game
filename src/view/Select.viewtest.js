@@ -2,9 +2,6 @@ import Logger from "../utility/Logger.js";
 
 import Select from "./Select.js";
 
-// require(["react", "react-dom", "utility/Logger", "view/Select"],
-// 	function(React, ReactDOM, Logger, Select)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

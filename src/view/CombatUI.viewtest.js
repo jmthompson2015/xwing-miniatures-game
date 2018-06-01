@@ -16,17 +16,6 @@ import TargetLock from "../model/TargetLock.js";
 
 import CombatUI from "./CombatUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "model/Ability", "artifact/DiceModification", "artifact/Phase",
-// 		"artifact/UpgradeCard",
-// 		"model/Action", "model/Adjudicator", "model/AttackDice", "model/CombatAction", "model/DefenseDice", "model/DamageDealer",
-// 		"model/ModifyDiceAbility", "model/TargetLock", "model/CardAction", "model/EnvironmentFactory",
-// 		"view/CombatUI"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Ability, DiceModification, Phase, UpgradeCard, Action, Adjudicator, AttackDice, CombatAction, DefenseDice,
-// 		DamageDealer,
-// 		ModifyDiceAbility, TargetLock, CardAction, EnvironmentFactory,
-// 		CombatUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
@@ -34,7 +23,6 @@ LOGGER.setDebugEnabled(false);
 var resourceBase = "../resource/";
 var environment = EnvironmentFactory.createCoreSetEnvironment();
 var store = environment.store();
-// var adjudicator = new Adjudicator(store);
 var attacker = environment.pilotInstances()[0];
 LOGGER.debug("attacker = " + attacker);
 store.dispatch(CardAction.addFocusCount(attacker));
@@ -44,7 +32,7 @@ var defender = environment.pilotInstances()[2];
 LOGGER.debug("defender = " + defender);
 store.dispatch(CardAction.addFocusCount(defender));
 store.dispatch(CardAction.addEvadeCount(defender));
-var targetLock = TargetLock.newInstance(store, attacker, defender);
+TargetLock.newInstance(store, attacker, defender);
 var callback = function()
 {
    LOGGER.info("callback() start");

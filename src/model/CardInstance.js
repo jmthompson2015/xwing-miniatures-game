@@ -1,20 +1,14 @@
-// import ArrayUtilities from "../utility/ArrayUtilities.js";
 import InputValidator from "../utility/InputValidator.js";
 
-// import Bearing from "../artifact/Bearing.js";
 import CardResolver from "../artifact/CardResolver.js";
 import CardType from "../artifact/CardType.js";
 import ConditionCard from "../artifact/ConditionCard.js";
 import Count from "../artifact/Count.js";
 import DamageCard from "../artifact/DamageCard.js";
-// import Difficulty from "../artifact/Difficulty.js";
 import Event from "../artifact/Event.js";
 import Faction from "../artifact/Faction.js";
-// import FiringArc from "../artifact/FiringArc.js";
 import Maneuver from "../artifact/Maneuver.js";
 import PilotCard from "../artifact/PilotCard.js";
-// import Range from "../artifact/Range.js";
-// import ShipAction from "../artifact/ShipAction.js";
 import ShipBase from "../artifact/ShipBase.js";
 import UpgradeCard from "../artifact/UpgradeCard.js";
 import UpgradeType from "../artifact/UpgradeType.js";
@@ -26,7 +20,6 @@ import AgentAction from "./AgentAction.js";
 import CardAction from "./CardAction.js";
 import DamageDealer from "./DamageDealer.js";
 import PilotInstanceUtilities from "./PilotInstanceUtilities.js";
-// import RangeRuler from "./RangeRuler.js";
 import TargetLock from "./TargetLock.js";
 import Weapon from "./Weapon.js";
 

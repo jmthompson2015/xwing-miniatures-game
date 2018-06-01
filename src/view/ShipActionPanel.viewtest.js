@@ -4,9 +4,6 @@ import Ship from "../artifact/Ship.js";
 
 import ShipActionPanel from "./ShipActionPanel.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/Ship", "view/ShipActionPanel"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Ship, ShipActionPanel)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

@@ -2,10 +2,6 @@ import ReferenceCard from "../artifact/ReferenceCard.js";
 
 import CardImage from "./CardImage.js";
 
-// require(["react", "react-dom", "react-dom-factories", "artifact/ReferenceCard", "view/CardImage"],
-// 	function(React, ReactDOM, ReactDOMFactories, ReferenceCard, CardImage)
-
-// var resourceBase = "src/resource/";
 var resourceBase = "../";
 var referenceKeys = ReferenceCard.keys();
 

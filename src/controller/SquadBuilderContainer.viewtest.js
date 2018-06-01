@@ -10,13 +10,6 @@ import Select from "../view/Select.js";
 
 import SquadBuilderContainer from "./SquadBuilderContainer.js";
 
-// require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "artifact/Faction",
-//     "model/AgentSquadAction", "model/AgentSquadReducer", "model/Reducer", "view/Select",
-//     "controller/SquadBuilderContainer"
-//   ],
-//   function(React, ReactDOM, ReactRedux, Redux, Logger, Faction,
-//     AgentSquadAction, AgentSquadReducer, Reducer, Select, SquadBuilderContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

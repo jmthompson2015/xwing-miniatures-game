@@ -7,9 +7,6 @@ import Reducer from "../model/Reducer.js";
 
 import HumanAgentStrategy from "./HumanAgentStrategy.js";
 
-// require(["redux", "utility/Logger", "model/Action", "model/Adjudicator", "model/EnvironmentFactory", "model/Reducer", "controller/HumanAgentStrategy"],
-// 	function(Redux, Logger, Action, Adjudicator, EnvironmentFactory, Reducer, HumanAgentStrategy)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

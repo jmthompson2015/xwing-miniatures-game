@@ -4,9 +4,6 @@ import ConditionCard from "../../artifact/ConditionCard.js";
 
 import CardImage from "../../view/CardImage.js";
 
-// require(["create-react-class", "react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/ConditionCard", "view/CardImage"],
-//   function(createReactClass, React, ReactDOM, ReactDOMFactories, Logger, ConditionCard, CardImage)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

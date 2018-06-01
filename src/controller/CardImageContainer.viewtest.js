@@ -12,14 +12,6 @@ import Reducer from "../model/Reducer.js";
 
 import CardImageContainer from "./CardImageContainer.js";
 
-// require(["react", "react-dom", "react-dom-factories", "react-redux", "redux", "utility/Logger",
-// 		"artifact/CardType", "artifact/DamageCard", "artifact/PilotCard", "artifact/UpgradeCard",
-// 		"model/Action", "model/Agent", "model/CardInstance", "model/Reducer",
-// 		"controller/CardImageContainer"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, ReactRedux, Redux, Logger, CardType, DamageCard, PilotCard, UpgradeCard, Action, Agent, CardInstance, Reducer,
-// 		CardImageContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

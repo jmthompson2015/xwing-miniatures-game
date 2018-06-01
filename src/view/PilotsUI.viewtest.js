@@ -5,11 +5,6 @@ import EnvironmentFactory from "../model/EnvironmentFactory.js";
 
 import PilotsUI from "./PilotsUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "react-redux", "utility/Logger", "artifact/PilotCard", "model/Position", "artifact/Faction",
-// 		"model/Action", "model/CardInstance", "model/CardAction", "model/EnvironmentFactory", "view/PilotsUI"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, ReactRedux, Logger, PilotCard, Position, Faction, Action, CardInstance, CardAction, EnvironmentFactory, PilotsUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

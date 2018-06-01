@@ -7,17 +7,8 @@ import Ship from "../artifact/Ship.js";
 import ShipAction from "../artifact/ShipAction.js";
 import UpgradeCard from "../artifact/UpgradeCard.js";
 
-// import Action from "../model/Action.js";
-// import EnvironmentFactory from "../model/EnvironmentFactory.js";
-
 import EntityUI from "./EntityUI.js";
 import InputPanel from "./InputPanel.js";
-
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/DamageCard", "artifact/Maneuver", "artifact/PilotCard",
-// 		"artifact/Ship",
-// 		"artifact/ShipAction", "artifact/UpgradeCard", "view/EntityUI", "view/InputPanel"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, DamageCard, Maneuver, PilotCard, Ship, ShipAction, UpgradeCard, EntityUI, InputPanel)
 
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);

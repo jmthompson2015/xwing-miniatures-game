@@ -12,13 +12,6 @@ import Squad from "../model/Squad.js";
 import Select from "./Select.js";
 import SquadBuilderUI from "./SquadBuilderUI.js";
 
-// require(["react", "react-dom", "redux", "utility/Logger", "artifact/Faction",
-//     "model/Reducer", "model/Squad", "model/AgentSquadAction", "model/AgentSquadReducer", "model/CardInstance",
-//     "view/Select", "view/SquadBuilderUI"
-//   ],
-//   function(React, ReactDOM, Redux, Logger, Faction,
-//     DelegateReducer, Squad, AgentSquadAction, AgentSquadReducer, CardInstance, Select, SquadBuilderUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

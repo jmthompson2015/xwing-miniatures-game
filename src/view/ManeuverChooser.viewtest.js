@@ -9,11 +9,6 @@ import Reducer from "../model/Reducer.js";
 
 import ManeuverChooser from "./ManeuverChooser.js";
 
-// require(["react", "react-dom", "react-dom-factories", "redux", "utility/Logger", "artifact/Maneuver", "artifact/PilotCard", "artifact/Faction",
-// 		"model/Agent", "model/Reducer", "model/CardInstance", "view/ManeuverChooser"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Redux, Logger, Maneuver, PilotCard, Faction, Agent, Reducer, CardInstance, ManeuverChooser)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

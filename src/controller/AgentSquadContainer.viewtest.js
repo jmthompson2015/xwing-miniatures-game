@@ -8,12 +8,6 @@ import SquadBuilder from "../model/SquadBuilder.js";
 
 import AgentSquadContainer from "./AgentSquadContainer.js";
 
-// require(["react", "react-dom", "react-redux", "redux", "utility/Logger",
-// 		"model/Agent", "model/AgentSquadAction", "model/AgentSquadReducer", "model/Reducer", "model/SquadBuilder",
-// 		"controller/AgentSquadContainer"
-// 	],
-// 	function(React, ReactDOM, ReactRedux, Redux, Logger, Agent, AgentSquadAction, AgentSquadReducer, Reducer, SquadBuilder, AgentSquadContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

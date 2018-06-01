@@ -46,14 +46,12 @@ var ReferenceCard = {
       "acquireATargetLockAction":
       {
          name: "Acquire a Target Lock Action",
-         // image: "../../../src/resource/referenceCard/Acquire_A_Target_Lock_Action.png",
          image: "resource/referenceCard/Acquire_A_Target_Lock_Action.png",
          key: "acquireATargetLockAction",
       },
       "alternatePrimaryWeapons":
       {
          name: "Alternate Primary Weapons",
-         // image: "../../../src/resource/referenceCard/Alternate_Primary_Weapons.png",
          image: "resource/referenceCard/Alternate_Primary_Weapons.png",
          key: "alternatePrimaryWeapons",
       },
@@ -66,7 +64,6 @@ var ReferenceCard = {
       "barrelRollAction":
       {
          name: "Barrel Roll Action",
-         // image: "../../../src/resource/referenceCard/Barrel_Roll_Action.png",
          image: "resource/referenceCard/Barrel_Roll_Action.png",
          key: "barrelRollAction",
       },
@@ -169,14 +166,12 @@ var ReferenceCard = {
       "evadeAction":
       {
          name: "Evade Action",
-         // image: "../../../src/resource/referenceCard/Evade_Action.png",
          image: "resource/referenceCard/Evade_Action.png",
          key: "evadeAction",
       },
       "focusAction":
       {
          name: "Focus Action",
-         // image: "../../../src/resource/referenceCard/Focus_Action.png",
          image: "resource/referenceCard/Focus_Action.png",
          key: "focusAction",
       },
@@ -231,7 +226,6 @@ var ReferenceCard = {
       "stressToken":
       {
          name: "Stress Token",
-         // image: "../../../src/resource/referenceCard/Stress_Token.png",
          image: "resource/referenceCard/Stress_Token.png",
          key: "stressToken",
       },
@@ -244,14 +238,12 @@ var ReferenceCard = {
       "theCombatPhase":
       {
          name: "The Combat Phase",
-         // image: "../../../src/resource/referenceCard/The_Combat_Phase.png",
          image: "resource/referenceCard/The_Combat_Phase.png",
          key: "theCombatPhase",
       },
       "theGameRound":
       {
          name: "The Game Round",
-         // image: "../../../src/resource/referenceCard/The_Game_Round.png",
          image: "resource/referenceCard/The_Game_Round.png",
          key: "theGameRound",
       },

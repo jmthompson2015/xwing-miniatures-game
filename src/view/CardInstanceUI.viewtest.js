@@ -11,13 +11,6 @@ import TargetLock from "../model/TargetLock.js";
 
 import CardInstanceUI from "./CardInstanceUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "react-redux", "redux", "utility/Logger", "artifact/DamageCard", "artifact/Faction",
-//     "artifact/PilotCard", "artifact/UpgradeCard", "model/Action", "model/CardAction", "model/CardInstance", "model/Reducer",
-//     "model/TargetLock", "view/CardInstanceUI", "model/EnvironmentFactory"
-//   ],
-//   function(React, ReactDOM, ReactDOMFactories, ReactRedux, Redux, Logger, DamageCard, Faction, PilotCard, UpgradeCard, Action, CardAction, CardInstance, Reducer,
-//     TargetLock, CardInstanceUI, EnvironmentFactory)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

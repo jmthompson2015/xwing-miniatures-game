@@ -7,11 +7,6 @@ import UpgradeCard from "../artifact/UpgradeCard.js";
 
 import CardImage from "./CardImage.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/CardType", "artifact/DamageCard", "artifact/PilotCard",
-//     "artifact/UpgradeCard", "view/CardImage"
-//   ],
-//   function(React, ReactDOM, ReactDOMFactories, Logger, CardType, DamageCard, PilotCard, UpgradeCard, CardImage)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

@@ -5,9 +5,6 @@ import ShipState from "../artifact/ShipState.js";
 
 import ShipStateUI from "./ShipStateUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/Faction", "artifact/ShipState", "view/ShipStateUI"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Faction, ShipState, ShipStateUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

@@ -11,14 +11,6 @@ import Squad from "../model/Squad.js";
 
 import PlanningPanel from "./PlanningPanel.js";
 
-// require(["react", "react-dom", "react-dom-factories", "redux", "utility/Logger", "artifact/PilotCard", "artifact/Faction",
-// 		"model/Agent", "model/Environment", "model/Reducer", "model/Squad", "model/SquadBuilder", "model/CardInstance",
-// 		"view/PlanningPanel"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Redux, Logger, PilotCardCard, Faction,
-// 		Agent, Environment, Reducer, Squad, SquadBuilder, CardInstance,
-// 		PlanningPanel)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

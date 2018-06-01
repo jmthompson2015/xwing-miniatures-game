@@ -13,6 +13,7 @@ open ${BASE}/CombatUI2.viewtest.html
 open ${BASE}/DualCardInstanceUI.viewtest.html
 open ${BASE}/EntityUI.viewtest.html
 open ${BASE}/FactionUI.viewtest.html
+open ${BASE}/HtmlUtilities.viewtest.html
 open ${BASE}/ImplementedImage.viewtest.html
 
 # open ${BASE}/LabeledImage.viewtest.html

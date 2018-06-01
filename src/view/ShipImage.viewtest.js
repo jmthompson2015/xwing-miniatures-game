@@ -6,11 +6,6 @@ import Position from "../model/Position.js";
 
 import ShipImage from "./ShipImage.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "model/Position", "artifact/ShipFaction", "artifact/Faction",
-// 		"view/ShipImage"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Position, ShipFaction, Faction, ShipImage)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

@@ -2,9 +2,6 @@ import Logger from "../utility/Logger.js";
 
 import AbilityCountUI from "./AbilityCountUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "view/AbilityCountUI"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, AbilityCountUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

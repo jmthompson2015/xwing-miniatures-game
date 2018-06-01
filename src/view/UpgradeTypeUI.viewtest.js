@@ -4,9 +4,6 @@ import UpgradeType from "../artifact/UpgradeType.js";
 
 import UpgradeTypeUI from "./UpgradeTypeUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/UpgradeType", "view/UpgradeTypeUI"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, UpgradeType, UpgradeTypeUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

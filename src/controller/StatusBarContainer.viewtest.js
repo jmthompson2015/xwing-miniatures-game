@@ -13,7 +13,6 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-// var resourceBase = "../resource/";
 var store = Redux.createStore(Reducer.root);
 var environment = EnvironmentFactory.createCoreSetEnvironment(store);
 store.dispatch(EnvironmentAction.addRound(12));

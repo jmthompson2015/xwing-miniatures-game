@@ -4,9 +4,6 @@ import Phase from "../artifact/Phase.js";
 
 import StatusBarUI from "./StatusBarUI.js";
 
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/Phase", "view/StatusBarUI"],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Phase, StatusBarUI)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

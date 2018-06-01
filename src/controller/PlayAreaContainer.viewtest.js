@@ -5,19 +5,13 @@ import Reducer from "../model/Reducer.js";
 
 import PlayAreaContainer from "./PlayAreaContainer.js";
 
-// require(["react", "react-dom", "react-redux", "redux", "utility/Logger",
-// 		"model/Reducer", "model/EnvironmentFactory",
-// 		"controller/PlayAreaContainer"
-// 	],
-// 	function(React, ReactDOM, ReactRedux, Redux, Logger, Reducer, EnvironmentFactory, PlayAreaContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
 var resourceBase = "../resource/";
 var store = Redux.createStore(Reducer.root);
-var environment = EnvironmentFactory.createCoreSetEnvironment(store);
+EnvironmentFactory.createCoreSetEnvironment(store);
 
 var element = React.createElement(ReactRedux.Provider,
 {

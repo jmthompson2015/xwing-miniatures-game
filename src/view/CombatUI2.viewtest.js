@@ -13,29 +13,16 @@ import AttackDice from "../model/AttackDice.js";
 import CardAction from "../model/CardAction.js";
 import CardInstance from "../model/CardInstance.js";
 import CombatAction from "../model/CombatAction.js";
-// import DamageDealer from "../model/DamageDealer.js";
 import DefenseDice from "../model/DefenseDice.js";
 import Environment from "../model/Environment.js";
-// import EnvironmentFactory from "../model/EnvironmentFactory.js";
 import MockAttackDice from "../model/MockAttackDice.js";
 import MockDefenseDice from "../model/MockDefenseDice.js";
 import ModifyDiceAbility from "../model/ModifyDiceAbility.js";
 import Position from "../model/Position.js";
 import Reducer from "../model/Reducer.js";
 import Squad from "../model/Squad.js";
-// import TargetLock from "../model/TargetLock.js";
 
 import CombatUI from "./CombatUI.js";
-
-// require(["react", "react-dom", "react-dom-factories", "redux", "utility/Logger", "model/Ability", "artifact/DiceModification", "artifact/Phase",
-// 		"artifact/PilotCard", "model/Position", "artifact/Faction", "artifact/UpgradeCard", "model/Action", "model/Adjudicator",
-// 		"model/Agent", "model/AttackDice", "model/CombatAction", "model/DefenseDice", "model/Environment", "model/ModifyDiceAbility", "model/Reducer",
-// 		"model/Squad", "model/CardInstance", "model/CardAction", "view/CombatUI", "model/MockAttackDice",
-// 		"model/MockDefenseDice"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Redux, Logger, Ability, DiceModification, Phase, PilotCardCard, Position, Faction, UpgradeCard, Action, Adjudicator, Agent,
-// 		AttackDice,
-// 		CombatAction, DefenseDice, Environment, ModifyDiceAbility, Reducer, Squad, CardInstance, CardAction, CombatUI, MockAttackDice, MockDefenseDice)
 
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);

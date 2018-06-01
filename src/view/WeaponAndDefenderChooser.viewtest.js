@@ -13,14 +13,6 @@ import Squad from "../model/Squad.js";
 
 import WeaponAndDefenderChooser from "./WeaponAndDefenderChooser.js";
 
-// require(["react", "react-dom", "react-dom-factories", "redux", "utility/Logger", "artifact/PilotCard", "model/Position", "artifact/Faction",
-// 		"artifact/UpgradeCard",
-// 		"model/Agent", "model/Environment", "model/Reducer", "model/Squad", "model/CardInstance",
-// 		"view/WeaponAndDefenderChooser"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Redux, Logger, PilotCard, Position, Faction, UpgradeCard,
-// 		Agent, Environment, Reducer, Squad, CardInstance, WeaponAndDefenderChooser)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
@@ -28,9 +20,7 @@ LOGGER.setDebugEnabled(false);
 var store00 = Redux.createStore(Reducer.root);
 var imperialAgent = new Agent(store00, "Imperial Agent");
 var rebelAgent = new Agent(store00, "Rebel Agent");
-var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION,
-					UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE
-				]);
+var attacker = new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE]);
 var defender0 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
 var defender1 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
 var defender2 = new CardInstance(store00, PilotCard.OBSIDIAN_SQUADRON_PILOT, imperialAgent);
@@ -40,8 +30,7 @@ var defender5 = new CardInstance(store00, PilotCard.BLACK_SQUADRON_PILOT, imperi
 
 var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad #1", [defender0, defender1, defender2, defender3, defender4, defender5]);
 var squad2 = new Squad(Faction.REBEL, "squad2", 2016, "squad #2", [attacker]);
-var positions1 = [new Position(450, 845, 90), new Position(450, 795, 90), new Position(450, 745, 90), new Position(450, 695, 90), new Position(450, 645,
-   90), new Position(450, 595, 90)];
+var positions1 = [new Position(450, 845, 90), new Position(450, 795, 90), new Position(450, 745, 90), new Position(450, 695, 90), new Position(450, 645, 90), new Position(450, 595, 90)];
 var positions2 = [new Position(458, 895, -90)];
 
 var store = Redux.createStore(Reducer.root);

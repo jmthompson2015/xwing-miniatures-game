@@ -11,14 +11,6 @@ import Action from "./Action.js";
 import ArenaTableContainer from "./ArenaTableContainer.js";
 import Reducer from "./Reducer.js";
 
-// require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "utility/TimePrinter",
-// 		"model/Adjudicator", "model/Agent", "model/Game", "model/MediumAgentStrategy", "model/Reducer",
-// 		"accessory/arena/Action", "accessory/arena/Reducer", "accessory/arena/ArenaTableContainer"
-// 	],
-// 	function(React, ReactDOM, ReactRedux, Redux, Logger, TimePrinter,
-// 		Adjudicator, Agent, Game, MediumAgentStrategy, DelegateReducer,
-// 		Action, Reducer, ArenaTableContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

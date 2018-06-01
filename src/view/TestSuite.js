@@ -1,21 +1,11 @@
-"use strict";
+import Logger from "../utility/Logger.js";
 
-var prefix = "view/";
-var suffix = ".test";
-var testModules = ["SquadColumns", "UpgradeTypeComparator"];
+import SquadColumnsTest from "./SquadColumns.test.js";
+import UpgradeTypeComparatorTest from "./UpgradeTypeComparator.test.js";
 
-testModules = testModules.map(function(testModule)
-{
-   return prefix + testModule + suffix;
-});
-testModules.unshift("utility/Logger");
+window.LOGGER = new Logger();
+LOGGER.setTraceEnabled(false);
+LOGGER.setDebugEnabled(false);
+LOGGER.setInfoEnabled(false);
 
-require(testModules, function(Logger)
-{
-   window.LOGGER = new Logger();
-   LOGGER.setTraceEnabled(false);
-   LOGGER.setDebugEnabled(false);
-   LOGGER.setInfoEnabled(false);
-
-   QUnit.start();
-});
+QUnit.start();

@@ -12,13 +12,6 @@ import NewGamePanel from "./NewGamePanel.js";
 
 import AgentSquadContainer from "../controller/AgentSquadContainer.js";
 
-// require(["react", "react-dom", "redux", "utility/Logger", "artifact/Faction",
-// 		"model/AgentSquadAction", "model/AgentSquadReducer", "model/MediumAgentStrategy", "model/Reducer", "model/SquadBuilder",
-// 		"view/NewGamePanel", "controller/AgentSquadContainer"
-// 	],
-// 	function(React, ReactDOM, Redux, Logger, Faction,
-// 		AgentSquadAction, AgentSquadReducer, MediumAgentStrategy, Reducer, SquadBuilder, NewGamePanel, AgentSquadContainer)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
@@ -27,16 +20,12 @@ var resourceBase = "../resource/";
 var store1 = Redux.createStore(AgentSquadReducer.root);
 var delegateStore1 = Redux.createStore(Reducer.root);
 store1.dispatch(AgentSquadAction.setDelegateStore(delegateStore1));
-// store1.dispatch(AgentSquadAction.setInputAreaId("inputArea1"));
-// store1.dispatch(AgentSquadAction.setResourceBase(resourceBase));
 store1.dispatch(AgentSquadAction.setAgentName("Agent 1"));
 setSquad(store1);
 
 var store2 = Redux.createStore(AgentSquadReducer.root);
 var delegateStore2 = Redux.createStore(Reducer.root);
 store2.dispatch(AgentSquadAction.setDelegateStore(delegateStore2));
-// store2.dispatch(AgentSquadAction.setInputAreaId("inputArea2"));
-// store2.dispatch(AgentSquadAction.setResourceBase(resourceBase));
 store2.dispatch(AgentSquadAction.setFaction(Faction.properties[Faction.REBEL]));
 store2.dispatch(AgentSquadAction.setAgentName("Agent 2"));
 store2.dispatch(AgentSquadAction.setAgentType(MediumAgentStrategy));

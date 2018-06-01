@@ -4,22 +4,13 @@ import Faction from "../artifact/Faction.js";
 import PilotCard from "../artifact/PilotCard.js";
 import Ship from "../artifact/Ship.js";
 
-// import EnvironmentFactory from "../model/EnvironmentFactory.js";
-
 import PilotChooser from "./PilotChooser.js";
-
-// require(["react", "react-dom", "react-dom-factories", "utility/Logger",
-// 		"artifact/Faction", "artifact/PilotCard", "artifact/Ship", "model/EnvironmentFactory", "view/PilotChooser"
-// 	],
-// 	function(React, ReactDOM, ReactDOMFactories, Logger, Faction, PilotCard, Ship, EnvironmentFactory, PilotChooser)
 
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
 var resourceBase = "../resource/";
-// var environment = EnvironmentFactory.createCoreSetEnvironment();
-// var store = environment.store();
 var factionKey = Faction.IMPERIAL;
 var faction = Faction.properties[factionKey];
 var ship = Ship.properties[Ship.TIE_FIGHTER];

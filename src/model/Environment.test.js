@@ -2,7 +2,6 @@ import Faction from "../artifact/Faction.js";
 import PilotCard from "../artifact/PilotCard.js";
 import PlayFormat from "../artifact/PlayFormat.js";
 import Range from "../artifact/Range.js";
-// import Ship from "../artifact/Ship.js";
 import UpgradeCard from "../artifact/UpgradeCard.js";
 
 import Agent from "./Agent.js";

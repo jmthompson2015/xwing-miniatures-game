@@ -15,16 +15,6 @@ import UpgradeAbility2 from "../model/UpgradeAbility2.js";
 
 import AbilityChooser from "./AbilityChooser.js";
 
-// require(["react", "react-dom", "utility/Logger", "model/Ability", "artifact/DamageCard",
-// 		"artifact/Phase", "artifact/PilotCard", "artifact/ShipAction", "artifact/UpgradeCard",
-// 		"model/DamageAbility2", "model/PilotAbility2", "model/ShipActionAbility", "model/UpgradeAbility2", "model/EnvironmentFactory",
-// 		"view/AbilityChooser"
-// 	],
-// 	function(React, ReactDOM, Logger, Ability, DamageCard,
-// 		Phase, PilotCard, ShipAction, UpgradeCard,
-// 		DamageAbility2, PilotAbility2, ShipActionAbility, UpgradeAbility2, EnvironmentFactory,
-// 		AbilityChooser)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);

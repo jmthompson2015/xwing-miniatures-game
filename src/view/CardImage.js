@@ -22,11 +22,8 @@ CardImage.prototype.createSrc = function()
 {
    var card = this.props.card;
 
-   // return this.props.resourceBase + "../../lib/xwing-data/images/" + card.image;
    let answer;
-   // if (card.image !== undefined && (card.image.startsWith("src/") || card.image.startsWith("resource/")))
-   // console.log("card.image = " + card.image);
-   // console.log("card.image.indexOf(\"resource/\") = " + card.image.indexOf("resource/"));
+
    if (card.image !== undefined && card.image.indexOf("resource/") >= 0)
    {
       answer = this.props.resourceBase + card.image;
@@ -35,6 +32,7 @@ CardImage.prototype.createSrc = function()
    {
       answer = "https://cdn.jsdelivr.net/npm/xwing-data@0.65.0/images/" + card.image;
    }
+
    return answer;
 };
 

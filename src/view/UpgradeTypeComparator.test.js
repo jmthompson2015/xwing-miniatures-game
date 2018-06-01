@@ -360,3 +360,6 @@ function verifyResult(assert, upgradeTypeKeys, result, pilot)
       assert.equal(result[i], upgradeTypeKeys[i], (pilot ? pilot.name : ""));
    }
 }
+
+const UpgradeTypeComparatorTest = {};
+export default UpgradeTypeComparatorTest;

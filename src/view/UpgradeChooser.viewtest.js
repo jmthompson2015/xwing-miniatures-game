@@ -6,11 +6,6 @@ import UpgradeType from "../artifact/UpgradeType.js";
 
 import UpgradeChooser from "./UpgradeChooser.js";
 
-// require(["react", "react-dom", "utility/Logger",
-// 		"artifact/PilotCard", "artifact/UpgradeCard", "artifact/UpgradeType", "view/UpgradeChooser"
-// 	],
-// 	function(React, ReactDOM, Logger, PilotCard, UpgradeCard, UpgradeType, UpgradeChooser)
-
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
