@@ -3,66 +3,61 @@
  *
  * @see http://modernweb.com/2013/12/23/45-useful-javascript-tips-tricks-and-best-practices/
  */
-"use strict";
+var ArrayUtilities = {};
 
-define(function()
+// Note: This function modifies array.
+// array now contains array2 also.
+// @see http://stackoverflow.com/questions/351409/appending-to-array
+ArrayUtilities.addAll = function(array, array2)
 {
-   var ArrayUtilities = {};
+   Array.prototype.push.apply(array, array2);
+};
 
-   // Note: This function modifies array.
-   // array now contains array2 also.
-   // @see http://stackoverflow.com/questions/351409/appending-to-array
-   ArrayUtilities.addAll = function(array, array2)
+ArrayUtilities.intersect = function(array, array2)
+{
+   // Assumptions:
+   // - input is not necessarily sorted
+   // - an element only appears once in array and/or array2
+   var answer = [];
+
+   for (var i = 0; i < array.length; i++)
    {
-      Array.prototype.push.apply(array, array2);
-   };
+      var n = array[i];
 
-   ArrayUtilities.intersect = function(array, array2)
-   {
-      // Assumptions:
-      // - input is not necessarily sorted
-      // - an element only appears once in array and/or array2
-      var answer = [];
-
-      for (var i = 0; i < array.length; i++)
+      if (array2.indexOf(n) >= 0)
       {
-         var n = array[i];
-
-         if (array2.indexOf(n) >= 0)
-         {
-            answer.push(n);
-         }
+         answer.push(n);
       }
+   }
 
-      return answer;
-   };
+   return answer;
+};
 
-   ArrayUtilities.randomElement = function(array)
+ArrayUtilities.randomElement = function(array)
+{
+   var index = Math.floor(Math.random() * array.length);
+
+   return array[index];
+};
+
+// Note: This function modifies array.
+ArrayUtilities.remove = function(array, element)
+{
+   var index = array.indexOf(element);
+
+   if (index >= 0)
    {
-      var index = Math.floor(Math.random() * array.length);
+      array.splice(index, 1);
+   }
+};
 
-      return array[index];
-   };
-
-   // Note: This function modifies array.
-   ArrayUtilities.remove = function(array, element)
+// Note: This function modifies array.
+ArrayUtilities.shuffle = function(array)
+{
+   array.sort(function()
    {
-      var index = array.indexOf(element);
+      return Math.random() - 0.5;
+   });
+};
 
-      if (index >= 0)
-      {
-         array.splice(index, 1);
-      }
-   };
-
-   // Note: This function modifies array.
-   ArrayUtilities.shuffle = function(array)
-   {
-      array.sort(function()
-      {
-         return Math.random() - 0.5;
-      });
-   };
-
-   return ArrayUtilities;
-});
+export default ArrayUtilities;
