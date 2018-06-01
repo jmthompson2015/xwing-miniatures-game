@@ -23,7 +23,7 @@
   "homepage": "https://github.com/jmthompson2015/xwing-miniatures-game#readme",
   "dependencies": {
     "create-react-class": "^15.6.0",
-    "immutable": "^3.8.1",
+    "immutable": "^3.8.2",
     "prop-types": "^15.5.10",
     "qunit": "^2.6.1",
     "react": "^15.6.1",

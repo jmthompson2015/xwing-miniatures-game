@@ -10,4 +10,4 @@ open ${BASE}/model/TestSuite.html
 
 open ${BASE}/view/TestSuite.html
 
-open ${BASE}/accessory/xwing-data-converter/TestSuite.html
+# open ${BASE}/accessory/xwing-data-converter/TestSuite.html
