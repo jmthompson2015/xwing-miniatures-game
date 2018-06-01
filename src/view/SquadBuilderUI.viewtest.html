@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>MyTestSquadBuilderUI</title>
-  <link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
-  <link rel="stylesheet" href="../../lib/xwing-miniatures-font/xwing-miniatures.css">
+  <title>SquadBuilderUI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xwing-miniatures-font@1.0.29/dist/xwing-miniatures.css">
   <link rel="stylesheet" href="../view/style.css">
-  <script src="../../lib/requirejs/require-2.3.5.js"></script>
-  <script src="require-config.js"></script>
-  <script src="../main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-redux@5.0.6/dist/react-redux.js"></script>
+  <script src="SquadBuilderUI.viewtest.js" type="module">></script>
 
   <style>
     .factionTable {
@@ -31,175 +37,6 @@
       <td id="squadBuilderPanel"></td>
     </tr>
   </table>
-  <script>
-    "use strict";
-
-    require(["react", "react-dom", "redux", "utility/Logger", "artifact/Faction",
-        "model/Reducer", "model/Squad", "model/AgentSquadAction", "model/AgentSquadReducer", "model/CardInstance",
-        "view/Select", "view/SquadBuilderUI"
-      ],
-      function(React, ReactDOM, Redux, Logger, Faction,
-        DelegateReducer, Squad, AgentSquadAction, AgentSquadReducer, CardInstance, Select, SquadBuilderUI)
-      {
-        window.LOGGER = new Logger();
-        LOGGER.setTraceEnabled(false);
-        LOGGER.setDebugEnabled(false);
-
-        var resourceBase = "../resource/";
-        var faction = Faction.properties[Faction.IMPERIAL];
-        var store = Redux.createStore(AgentSquadReducer.root);
-        var delegateStore = Redux.createStore(DelegateReducer.root);
-
-        var displayItemChanged = function(displayItem)
-        {
-          store.dispatch(AgentSquadAction.setDisplayItem(displayItem));
-          renderSquadBuilderUI();
-        };
-        var pilotChanged = function(pilot, index)
-        {
-          store.dispatch(AgentSquadAction.setPilot(pilot, index));
-
-          if (pilot.fore)
-          {
-            store.dispatch(AgentSquadAction.setPilot(pilot.fore, this.computePilotIndexFore(index)));
-            store.dispatch(AgentSquadAction.setPilot(pilot.aft, this.computePilotIndexAft(index)));
-          }
-
-          var squad = createSquad();
-          store.dispatch(AgentSquadAction.setSquad(squad));
-          renderSquadBuilderUI();
-        };
-        var pilotUpgradeChanged = function(pilotIndex, upgrade, upgradeIndex)
-        {
-          store.dispatch(AgentSquadAction.setPilotUpgrade(pilotIndex, upgrade, upgradeIndex));
-          var squad = createSquad();
-          store.dispatch(AgentSquadAction.setSquad(squad));
-          renderSquadBuilderUI();
-        }
-        var shipChanged = function(ship, index)
-        {
-          store.dispatch(AgentSquadAction.setShip(ship, index));
-          var squad = createSquad();
-          store.dispatch(AgentSquadAction.setSquad(squad));
-          renderSquadBuilderUI();
-        };
-
-        ReactDOM.render(createFactionSelect(), document.getElementById("factionSelect"));
-
-        function createFactionSelect()
-        {
-          var factionValues = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM];
-          var factionLabelFunction = function(value)
-          {
-            var answer = Faction.properties[value].name;
-            var friend = Faction.friend(value);
-            if (friend)
-            {
-              answer += " + " + Faction.properties[friend].name;
-            }
-            return answer;
-          };
-
-          return React.createElement(Select,
-          {
-            values: factionValues,
-            labelFunction: factionLabelFunction,
-            initialSelectedValue: faction.key,
-            onChange: handleFactionChange,
-          });
-        }
-
-        function createSquad()
-        {
-          var factionKey = faction.key;
-          var name = "name";
-          var year = 2017;
-          var description = "description";
-          var pilots = store.getState().pilots;
-          var tokens = [];
-
-          if (pilots.size > 0)
-          {
-            var agent = {};
-
-            pilots.forEach(function(pilot, i)
-            {
-              if (pilot)
-              {
-                // Ignore child pilots.
-                if (!pilot.parent)
-                {
-                  var myPilot = (pilot.fore ? pilot.fore : pilot);
-                  var upgrades = store.getState().pilotIndexToUpgrades.get(i);
-                  var upgradeKeys = [];
-                  upgrades.forEach(function(upgrade)
-                  {
-                    if (upgrade)
-                    {
-                      upgradeKeys.push(upgrade.key);
-                    }
-                  });
-
-                  var upgradeKeysAft;
-                  myPilot = (pilot.aft ? pilot.aft : undefined);
-
-                  if (myPilot)
-                  {
-                    upgrades = store.getState().pilotIndexToUpgrades.get(i);
-                    upgradeKeysAft = [];
-                    upgrades.forEach(function(upgrade)
-                    {
-                      if (upgrade)
-                      {
-                        upgradeKeysAft.push(upgrade.key);
-                      }
-                    });
-                  }
-
-                  tokens.push(new CardInstance(delegateStore, pilot.key, agent, upgradeKeys, upgradeKeysAft));
-                }
-              }
-            }, this);
-          }
-
-          return new Squad(factionKey, name, year, description, tokens);
-        };
-
-        function handleFactionChange(event)
-        {
-          var factionKey = event.currentTarget.value;
-          faction = Faction.properties[factionKey];
-          store = Redux.createStore(AgentSquadReducer.root);
-          renderSquadBuilderUI();
-        }
-
-        function renderSquadBuilderUI()
-        {
-          var element = React.createElement(SquadBuilderUI,
-          {
-            delegateStore: delegateStore,
-            displayItem: store.getState().displayItem,
-            faction: faction,
-            pilotIndexToUpgrades: store.getState().pilotIndexToUpgrades,
-            pilots: store.getState().pilots,
-            resourceBase: resourceBase,
-            ships: store.getState().ships,
-            squad: store.getState().squad,
-            squadBuilderAction: AgentSquadAction,
-            squadClass: Squad,
-            tokenFactory: CardInstance,
-
-            displayItemChanged: displayItemChanged,
-            pilotChanged: pilotChanged,
-            pilotUpgradeChanged: pilotUpgradeChanged,
-            shipChanged: shipChanged,
-          });
-          ReactDOM.render(element, document.getElementById("squadBuilderPanel"));
-        };
-
-        renderSquadBuilderUI();
-      });
-  </script>
 </body>
 
 </html>

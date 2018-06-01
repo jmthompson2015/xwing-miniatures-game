@@ -1,64 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestShipChooser</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>ShipChooser</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-redux@5.0.6/dist/react-redux.js"></script>
+	<script src="ShipChooser.viewtest.js" type="module">></script>
 </head>
 <body>
 	<div id="shipChooserPanel1"></div>
 	<div id="shipChooserPanel2"></div>
 	<div id="shipChooserPanel3"></div>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "utility/Logger",
-				"artifact/Faction", "artifact/Ship", "view/ShipChooser"
-			],
-			function(React, ReactDOM, Logger, Faction, Ship, ShipChooser)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var resourceBase = "../resource/";
-
-				var element1 = React.createElement(ShipChooser,
-				{
-					resourceBase: resourceBase,
-					onChange: shipChanged,
-					faction: Faction.properties[Faction.IMPERIAL],
-				});
-				ReactDOM.render(element1, document.getElementById("shipChooserPanel1"));
-
-				var element2 = React.createElement(ShipChooser,
-				{
-					resourceBase: resourceBase,
-					index: 2,
-					initialShip: Ship.properties[Ship.TIE_FIGHTER],
-					onChange: shipChanged,
-					faction: Faction.properties[Faction.IMPERIAL],
-				});
-				ReactDOM.render(element2, document.getElementById("shipChooserPanel2"));
-
-				var element3 = React.createElement(ShipChooser,
-				{
-					resourceBase: resourceBase,
-					index: 3,
-					onChange: shipChanged,
-					faction: Faction.properties[Faction.REBEL],
-				});
-				ReactDOM.render(element3, document.getElementById("shipChooserPanel3"));
-
-				function shipChanged(event, ship, index)
-				{
-					LOGGER.info("shipChanged() ship = " + (ship ? ship.key : ship) + " index = " + index);
-				}
-			});
-	</script>
 </body>
 
 </html>

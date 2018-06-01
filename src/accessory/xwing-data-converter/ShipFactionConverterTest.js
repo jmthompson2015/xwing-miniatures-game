@@ -1,8 +1,8 @@
-"use strict";
 
-define(["qunit", "artifact/ShipFaction", "accessory/xwing-data-converter/ShipFactionConverter"],
-   function(QUnit, ShipFaction, ShipFactionConverter)
-   {
+
+import QUnit from "qunit";
+import ShipFaction from "../../artifact/ShipFaction";
+import ShipFactionConverter from "../accessory/xwing-data-converter/ShipFactionConverter";
       QUnit.module("ShipFactionConverter");
 
       QUnit.test("determineImage()", function(assert)
@@ -12,4 +12,4 @@ define(["qunit", "artifact/ShipFaction", "accessory/xwing-data-converter/ShipFac
          assert.equal(ShipFactionConverter.determineImage(ShipFaction.properties[ShipFaction.SCUM_FIRESPRAY_31]), "\"Firespray-31.png\"");
          assert.equal(ShipFactionConverter.determineImage(ShipFaction.properties[ShipFaction.SCUM_YV_666]), "\"Scum_YV-666.png\"");
       });
-   });
+   

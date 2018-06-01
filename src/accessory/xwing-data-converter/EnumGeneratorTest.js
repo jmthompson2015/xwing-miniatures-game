@@ -1,7 +1,7 @@
-"use strict";
 
-define(["qunit", "accessory/xwing-data-converter/EnumGenerator"], function(QUnit, EnumGenerator)
-{
+
+import QUnit from "qunit";
+import EnumGenerator from "../accessory/xwing-data-converter/EnumGenerator";
    QUnit.module("EnumGenerator");
 
    var NAMES = ["Academy Pilot", "ARC-170", "\"Chopper\"", "Graz the Hunter", "Luke Skywalker", "M3-A Interceptor", "TIE/x7"];
@@ -256,4 +256,4 @@ define(["qunit", "accessory/xwing-data-converter/EnumGenerator"], function(QUnit
       assert.equal(EnumGenerator.createUpgradeEnumValue(STAR_VIPER_MKII), "\"starViperMkii\"");
       assert.equal(EnumGenerator.createUpgradeEnumValue(TWIN_ION_ENGINE_MKII), "\"twinIonEngineMkii\"");
    });
-});
+

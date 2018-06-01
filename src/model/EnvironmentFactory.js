@@ -1,69 +1,72 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["redux", "utility/InputValidator",
-  "model/Agent", "model/Environment", "model/EventObserver", "model/PhaseObserver", "model/Reducer", "model/SimpleAgentStrategy", "model/SquadBuilder"],
-   function(Redux, InputValidator, Agent, Environment, EventObserver, PhaseObserver, Reducer, SimpleAgentStrategy, SquadBuilder)
-   {
-      var EnvironmentFactory = {};
+import Agent from "./Agent.js";
+import Environment from "./Environment.js";
+import EventObserver from "./EventObserver.js";
+import PhaseObserver from "./PhaseObserver.js";
+import Reducer from "./Reducer.js";
+import SimpleAgentStrategy from "./SimpleAgentStrategy.js";
+import SquadBuilder from "./SquadBuilder.js";
 
-      EnvironmentFactory.createCoreSetEnvironment = function(store, computerAgentType1, computerAgentType2)
-      {
-         var squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
-         var squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
+var EnvironmentFactory = {};
 
-         return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
-      };
+EnvironmentFactory.createCoreSetEnvironment = function(store, computerAgentType1, computerAgentType2)
+{
+   var squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
+   var squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
 
-      EnvironmentFactory.createTFACoreSetEnvironment = function(store, computerAgentType1, computerAgentType2)
-      {
-         var squadBuilder1 = SquadBuilder.CoreSetFirstOrderSquadBuilder;
-         var squadBuilder2 = SquadBuilder.CoreSetResistanceSquadBuilder;
+   return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
+};
 
-         return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
-      };
+EnvironmentFactory.createTFACoreSetEnvironment = function(store, computerAgentType1, computerAgentType2)
+{
+   var squadBuilder1 = SquadBuilder.CoreSetFirstOrderSquadBuilder;
+   var squadBuilder2 = SquadBuilder.CoreSetResistanceSquadBuilder;
 
-      EnvironmentFactory.createHugeShipEnvironment = function(store, computerAgentType1, computerAgentType2)
-      {
-         var squadBuilder1 = SquadBuilder.HugeShipImperialSquadBuilder;
-         var squadBuilder2 = SquadBuilder.HugeShipRebelSquadBuilder;
+   return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
+};
 
-         return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
-      };
+EnvironmentFactory.createHugeShipEnvironment = function(store, computerAgentType1, computerAgentType2)
+{
+   var squadBuilder1 = SquadBuilder.HugeShipImperialSquadBuilder;
+   var squadBuilder2 = SquadBuilder.HugeShipRebelSquadBuilder;
 
-      EnvironmentFactory.createAgent = function(store, name, type)
-      {
-         InputValidator.validateNotNull("store", store);
-         InputValidator.validateNotNull("name", name);
-         InputValidator.validateNotNull("type", type);
+   return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
+};
 
-         return new Agent(store, name, undefined, type);
-      };
+EnvironmentFactory.createAgent = function(store, name, type)
+{
+   InputValidator.validateNotNull("store", store);
+   InputValidator.validateNotNull("name", name);
+   InputValidator.validateNotNull("type", type);
 
-      EnvironmentFactory.createEnvironment = function(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2)
-      {
-         InputValidator.validateNotNull("squadBuilder1", squadBuilder1);
-         InputValidator.validateNotNull("squadBuilder2", squadBuilder2);
-         // store optional.
-         // computerAgentType1 optional.
-         // computerAgentType2 optional.
+   return new Agent(store, name, undefined, type);
+};
 
-         var myStore = (store ? store : Redux.createStore(Reducer.root));
-         var type1 = (computerAgentType1 ? computerAgentType1 : SimpleAgentStrategy);
-         var type2 = (computerAgentType2 ? computerAgentType2 : SimpleAgentStrategy);
+EnvironmentFactory.createEnvironment = function(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2)
+{
+   InputValidator.validateNotNull("squadBuilder1", squadBuilder1);
+   InputValidator.validateNotNull("squadBuilder2", squadBuilder2);
+   // store optional.
+   // computerAgentType1 optional.
+   // computerAgentType2 optional.
 
-         // Create initial agents and tokens.
-         var firstAgent = EnvironmentFactory.createAgent(myStore, "First Agent", type1);
-         var firstSquad = squadBuilder1.buildSquad(firstAgent);
-         var secondAgent = EnvironmentFactory.createAgent(myStore, "Second Agent", type2);
-         var secondSquad = squadBuilder2.buildSquad(secondAgent);
+   var myStore = (store ? store : Redux.createStore(Reducer.root));
+   var type1 = (computerAgentType1 ? computerAgentType1 : SimpleAgentStrategy);
+   var type2 = (computerAgentType2 ? computerAgentType2 : SimpleAgentStrategy);
 
-         var answer = new Environment(myStore, firstAgent, firstSquad, secondAgent, secondSquad);
+   // Create initial agents and tokens.
+   var firstAgent = EnvironmentFactory.createAgent(myStore, "First Agent", type1);
+   var firstSquad = squadBuilder1.buildSquad(firstAgent);
+   var secondAgent = EnvironmentFactory.createAgent(myStore, "Second Agent", type2);
+   var secondSquad = squadBuilder2.buildSquad(secondAgent);
 
-         EventObserver.observeStore(myStore);
-         PhaseObserver.observeStore(myStore);
+   var answer = new Environment(myStore, firstAgent, firstSquad, secondAgent, secondSquad);
 
-         return answer;
-      };
+   EventObserver.observeStore(myStore);
+   PhaseObserver.observeStore(myStore);
 
-      return EnvironmentFactory;
-   });
+   return answer;
+};
+
+export default EnvironmentFactory;

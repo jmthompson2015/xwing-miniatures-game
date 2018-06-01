@@ -1,8 +1,7 @@
-"use strict";
 
-define(["qunit", "accessory/xwing-data-converter/XWingType"],
-   function(QUnit, XWingType)
-   {
+
+import QUnit from "qunit";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       QUnit.module("XWingType");
 
       QUnit.test("XWingType properties Pilots", function(assert)
@@ -79,4 +78,4 @@ define(["qunit", "accessory/xwing-data-converter/XWingType"],
             1; // values
          assert.equal(result.length, count);
       });
-   });
+   

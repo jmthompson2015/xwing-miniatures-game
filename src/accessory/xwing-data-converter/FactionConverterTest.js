@@ -1,7 +1,7 @@
-"use strict";
 
-define(["qunit", "accessory/xwing-data-converter/FactionConverter"], function(QUnit, FactionConverter)
-{
+
+import QUnit from "qunit";
+import FactionConverter from "../accessory/xwing-data-converter/FactionConverter";
    QUnit.module("FactionConverter");
 
    var NAMES = ["First Order", "Galactic Empire", "Rebel Alliance", "Resistance", "Scum and Villainy"];
@@ -31,4 +31,4 @@ define(["qunit", "accessory/xwing-data-converter/FactionConverter"], function(QU
          assert.equal(enumValue, ENUM_VALUES[i], enumValue + " === " + ENUM_VALUES[i]);
       }
    });
-});
+

@@ -1,58 +1,60 @@
-"use strict";
+import DefenseDiceValue from "../artifact/DefenseDiceValue.js";
 
-define(["qunit", "redux", "artifact/DefenseDiceValue", "model/Reducer", "model/MockDefenseDice"],
-   function(QUnit, Redux, DefenseDiceValue, Reducer, MockDefenseDice)
-   {
-      QUnit.module("MockDefenseDice");
+import Reducer from "./Reducer.js";
+import MockDefenseDice from "./MockDefenseDice.js";
 
-      QUnit.test("MockDefenseDice properties", function(assert)
-      {
-         var store = Redux.createStore(Reducer.root);
-         var attackerId = 1;
-         var dice = new MockDefenseDice(store, attackerId);
-         assert.equal(dice.value(0), DefenseDiceValue.BLANK);
-         assert.equal(dice.value(1), DefenseDiceValue.EVADE);
-         assert.equal(dice.value(2), DefenseDiceValue.FOCUS);
-      });
+QUnit.module("MockDefenseDice");
 
-      QUnit.test("blankCount()", function(assert)
-      {
-         var store = Redux.createStore(Reducer.root);
-         var attackerId = 1;
-         var dice = new MockDefenseDice(store, attackerId);
-         LOGGER.trace("dice = " + dice);
-         assert.equal(dice.blankCount(), 1);
-      });
+QUnit.test("MockDefenseDice properties", function(assert)
+{
+   var store = Redux.createStore(Reducer.root);
+   var attackerId = 1;
+   var dice = new MockDefenseDice(store, attackerId);
+   assert.equal(dice.value(0), DefenseDiceValue.BLANK);
+   assert.equal(dice.value(1), DefenseDiceValue.EVADE);
+   assert.equal(dice.value(2), DefenseDiceValue.FOCUS);
+});
 
-      QUnit.test("evadeCount()", function(assert)
-      {
-         var store = Redux.createStore(Reducer.root);
-         var attackerId = 1;
-         var dice = new MockDefenseDice(store, attackerId);
-         LOGGER.trace("dice = " + dice);
-         assert.equal(dice.evadeCount(), 1);
-      });
+QUnit.test("blankCount()", function(assert)
+{
+   var store = Redux.createStore(Reducer.root);
+   var attackerId = 1;
+   var dice = new MockDefenseDice(store, attackerId);
+   LOGGER.trace("dice = " + dice);
+   assert.equal(dice.blankCount(), 1);
+});
 
-      QUnit.test("focusCount()", function(assert)
-      {
-         var store = Redux.createStore(Reducer.root);
-         var attackerId = 1;
-         var dice = new MockDefenseDice(store, attackerId);
-         LOGGER.trace("dice = " + dice);
-         assert.equal(dice.focusCount(), 1);
-      });
+QUnit.test("evadeCount()", function(assert)
+{
+   var store = Redux.createStore(Reducer.root);
+   var attackerId = 1;
+   var dice = new MockDefenseDice(store, attackerId);
+   LOGGER.trace("dice = " + dice);
+   assert.equal(dice.evadeCount(), 1);
+});
 
-      QUnit.test("rerollBlank()", function(assert)
-      {
-         // Setup.
-         var store = Redux.createStore(Reducer.root);
-         var attackerId = 1;
-         var dice = new MockDefenseDice(store, attackerId);
+QUnit.test("focusCount()", function(assert)
+{
+   var store = Redux.createStore(Reducer.root);
+   var attackerId = 1;
+   var dice = new MockDefenseDice(store, attackerId);
+   LOGGER.trace("dice = " + dice);
+   assert.equal(dice.focusCount(), 1);
+});
 
-         // Run.
-         dice.rerollBlank();
+QUnit.test("rerollBlank()", function(assert)
+{
+   // Setup.
+   var store = Redux.createStore(Reducer.root);
+   var attackerId = 1;
+   var dice = new MockDefenseDice(store, attackerId);
 
-         // Verify.
-         assert.equal(dice.blankCount(), 1);
-      });
-   });
+   // Run.
+   dice.rerollBlank();
+
+   // Verify.
+   assert.equal(dice.blankCount(), 1);
+});
+
+const MockDefenseDiceTest = {};
+export default MockDefenseDiceTest;

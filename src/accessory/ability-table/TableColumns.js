@@ -1,54 +1,49 @@
-"use strict";
-
-define(function()
-{
-   var TableColumns = [
-      {
-         key: "deck",
-         label: "Deck",
-         className: "textCell tl",
+var TableColumns = [
+   {
+      key: "deck",
+      label: "Deck",
+      className: "textCell tl",
       },
-      {
-         key: "type",
-         label: "Type",
-         className: "tc",
+   {
+      key: "type",
+      label: "Type",
+      className: "tc",
       },
-      {
-         key: "name",
-         label: "Name",
-         className: "textCell tl",
+   {
+      key: "name",
+      label: "Name",
+      className: "textCell tl",
       },
-      {
-         key: "wave",
-         label: "Wave",
-         className: "tc",
+   {
+      key: "wave",
+      label: "Wave",
+      className: "tc",
       },
-      {
-         key: "count",
-         label: "Used",
-         className: "tr",
+   {
+      key: "count",
+      label: "Used",
+      className: "tr",
       },
-      {
-         key: "description",
-         label: "Description",
-         className: "textCell tl",
+   {
+      key: "description",
+      label: "Description",
+      className: "textCell tl",
       },
-      {
-         key: "action",
-         label: "Action",
-         className: "textCell tl",
+   {
+      key: "action",
+      label: "Action",
+      className: "textCell tl",
       },
-      {
-         key: "isImplemented",
-         label: "Implemented",
-         className: "tc",
+   {
+      key: "isImplemented",
+      label: "Implemented",
+      className: "tc",
       },
-      {
-         key: "event",
-         label: "Event",
-         className: "textCell tl",
+   {
+      key: "event",
+      label: "Event",
+      className: "textCell tl",
       },
     ];
 
-   return TableColumns;
-});
+export default TableColumns;

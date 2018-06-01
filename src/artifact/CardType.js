@@ -1,52 +1,47 @@
-"use strict";
+var CardType = {
+   CONDITION: "condition",
+   DAMAGE: "damage",
+   PILOT: "pilot",
+   UPGRADE: "upgrade",
 
-define(function()
-{
-   var CardType = {
-      CONDITION: "condition",
-      DAMAGE: "damage",
-      PILOT: "pilot",
-      UPGRADE: "upgrade",
-
-      properties:
+   properties:
+   {
+      "condition":
       {
-         "condition":
-         {
-            name: "Condition",
-            key: "condition",
-         },
-         "damage":
-         {
-            name: "Damage",
-            key: "damage",
-         },
-         "pilot":
-         {
-            name: "Pilot",
-            key: "pilot",
-         },
-         "upgrade":
-         {
-            name: "Upgrade",
-            key: "upgrade",
-         },
+         name: "Condition",
+         key: "condition",
       },
-   };
+      "damage":
+      {
+         name: "Damage",
+         key: "damage",
+      },
+      "pilot":
+      {
+         name: "Pilot",
+         key: "pilot",
+      },
+      "upgrade":
+      {
+         name: "Upgrade",
+         key: "upgrade",
+      },
+   },
+};
 
-   CardType.keys = function()
-   {
-      return Object.keys(CardType.properties);
-   };
+CardType.keys = function()
+{
+   return Object.keys(CardType.properties);
+};
 
-   CardType.values = function()
-   {
-      return Object.values(CardType.properties);
-   };
+CardType.values = function()
+{
+   return Object.values(CardType.properties);
+};
 
-   if (Object.freeze)
-   {
-      Object.freeze(CardType);
-   }
+if (Object.freeze)
+{
+   Object.freeze(CardType);
+}
 
-   return CardType;
-});
+export default CardType;

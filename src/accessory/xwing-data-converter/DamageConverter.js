@@ -1,8 +1,10 @@
-"use strict";
 
-define(["artifact/DamageCard", "artifact/DamageCardTrait", "accessory/xwing-data-converter/EnumGenerator", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-   function(DamageCard, DamageCardTrait, EnumGenerator, XWingData, XWingType)
-   {
+
+import DamageCard from "../../artifact/DamageCard";
+import DamageCardTrait from "../../artifact/DamageCardTrait";
+import EnumGenerator from "../accessory/xwing-data-converter/EnumGenerator";
+import XWingData from "../accessory/xwing-data-converter/XWingData";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       var DamageConverter = {};
 
       DamageConverter.convert = function(callback)
@@ -253,5 +255,5 @@ define(["artifact/DamageCard", "artifact/DamageCardTrait", "accessory/xwing-data
          return answer;
       }
 
-      return DamageConverter;
-   });
+      export default DamageConverter;
+   

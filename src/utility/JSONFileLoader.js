@@ -1,29 +1,26 @@
-"use strict";
+import FileLoader from "./FileLoader.js";
+import InputValidator from "./InputValidator.js";
 
-define(["utility/FileLoader", "utility/InputValidator"],
-   function(FileLoader, InputValidator)
+var JSONFileLoader = {};
+
+JSONFileLoader.loadFile = function(filepath, callback)
+{
+   InputValidator.validateIsString("filepath", filepath);
+   InputValidator.validateIsFunction("callback", callback);
+
+   var finishCallback = function(response)
    {
-      var JSONFileLoader = {};
+      finishConvert(response, callback);
+   };
 
-      JSONFileLoader.loadFile = function(filepath, callback)
-      {
-         InputValidator.validateIsString("filepath", filepath);
-         InputValidator.validateIsFunction("callback", callback);
+   FileLoader.loadFile(filepath, finishCallback);
+};
 
-         var finishCallback = function(response)
-         {
-            finishConvert(response, callback);
-         };
+function finishConvert(response, callback)
+{
+   var content = JSON.parse(response);
 
-         FileLoader.loadFile(filepath, finishCallback);
-      };
+   callback(content);
+}
 
-      function finishConvert(response, callback)
-      {
-         var content = JSON.parse(response);
-
-         callback(content);
-      }
-
-      return JSONFileLoader;
-   });
+export default JSONFileLoader;

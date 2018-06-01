@@ -1,55 +1,56 @@
-"use strict";
+import Action from "./Action.js";
+import Adjudicator from "./Adjudicator.js";
+import CombatPhaseTask from "./CombatPhaseTask.js";
+import EnvironmentFactory from "./EnvironmentFactory.js";
+import Position from "./Position.js";
 
-define(["qunit",
-  "model/Action", "model/Adjudicator", "model/CombatPhaseTask", "model/Position",
-  "model/EnvironmentFactory"],
-   function(QUnit, Action, Adjudicator, CombatPhaseTask, Position, EnvironmentFactory)
+QUnit.module("CombatPhaseTask");
+
+var delay = 10;
+
+QUnit.test("performCombatPhase()", function(assert)
+{
+   // Setup.
+   var task = createTask();
+   var store = task.store();
+   var environment = store.getState().environment;
+   var token0 = environment.pilotInstances()[0]; // TIE Fighter.
+   var position0 = environment.getPositionFor(token0);
+   var token2 = environment.pilotInstances()[2]; // X-Wing.
+   var position2 = environment.getPositionFor(token2);
+   var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
+   environment.moveToken(position2, newPosition2);
+   var callback = function()
    {
-      QUnit.module("CombatPhaseTask");
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
+      done();
+   };
 
-      var delay = 10;
+   // Run.
+   var done = assert.async();
+   task.doIt(callback);
+});
 
-      QUnit.test("performCombatPhase()", function(assert)
-      {
-         // Setup.
-         var task = createTask();
-         var store = task.store();
-         var environment = store.getState().environment;
-         var token0 = environment.pilotInstances()[0]; // TIE Fighter.
-         var position0 = environment.getPositionFor(token0);
-         var token2 = environment.pilotInstances()[2]; // X-Wing.
-         var position2 = environment.getPositionFor(token2);
-         var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
-         environment.moveToken(position2, newPosition2);
-         var callback = function()
-         {
-            // Verify.
-            assert.ok(true, "test resumed from async operation");
-            done();
-         };
+function createTask(isHuge)
+{
+   var environment;
 
-         // Run.
-         var done = assert.async();
-         task.doIt(callback);
-      });
+   if (isHuge)
+   {
+      environment = EnvironmentFactory.createHugeShipEnvironment();
+   }
+   else
+   {
+      environment = EnvironmentFactory.createCoreSetEnvironment();
+   }
 
-      function createTask(isHuge)
-      {
-         var environment;
+   var store = environment.store();
+   Adjudicator.create(store);
+   store.dispatch(Action.setDelay(delay));
 
-         if (isHuge)
-         {
-            environment = EnvironmentFactory.createHugeShipEnvironment();
-         }
-         else
-         {
-            environment = EnvironmentFactory.createCoreSetEnvironment();
-         }
+   return new CombatPhaseTask(store);
+}
 
-         var store = environment.store();
-         Adjudicator.create(store);
-         store.dispatch(Action.setDelay(delay));
-
-         return new CombatPhaseTask(store);
-      }
-   });
+const CombatPhaseTaskTest = {};
+export default CombatPhaseTaskTest;

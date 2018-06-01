@@ -1,40 +1,40 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator", "artifact/AttackDiceValue", "model/AttackDice"],
-   function(InputValidator, AttackDiceValue, AttackDice)
-   {
-      function MockAttackDice(store, attackerId)
-      {
-         InputValidator.validateNotNull("store", store);
-         InputValidator.validateIsNumber("attackerId", attackerId);
+import AttackDiceValue from "../artifact/AttackDiceValue.js";
 
-         var values = [AttackDiceValue.BLANK, AttackDiceValue.CRITICAL_HIT, AttackDiceValue.FOCUS, AttackDiceValue.HIT];
-         var answer = new AttackDice(store, attackerId, values);
+import AttackDice from "./AttackDice.js";
 
-         answer.rerollAllBlank = function() {};
+function MockAttackDice(store, attackerId)
+{
+   InputValidator.validateNotNull("store", store);
+   InputValidator.validateIsNumber("attackerId", attackerId);
 
-         answer.rerollAllFocus = function() {};
+   var values = [AttackDiceValue.BLANK, AttackDiceValue.CRITICAL_HIT, AttackDiceValue.FOCUS, AttackDiceValue.HIT];
+   var answer = new AttackDice(store, attackerId, values);
 
-         answer.rerollBlank = function() {};
+   answer.rerollAllBlank = function() {};
 
-         answer.rerollBlankAndFocus = function() {};
+   answer.rerollAllFocus = function() {};
 
-         answer.rerollFocus = function() {};
+   answer.rerollBlank = function() {};
 
-         answer.rerollType = function() {};
+   answer.rerollBlankAndFocus = function() {};
 
-         answer.spendTargetLock = function() {};
+   answer.rerollFocus = function() {};
 
-         return answer;
-      }
+   answer.rerollType = function() {};
 
-      MockAttackDice.get = function(store, attackerId)
-      {
-         InputValidator.validateNotNull("store", store);
-         InputValidator.validateIsNumber("attackerId", attackerId);
+   answer.spendTargetLock = function() {};
 
-         return new MockAttackDice(store, attackerId);
-      };
+   return answer;
+}
 
-      return MockAttackDice;
-   });
+MockAttackDice.get = function(store, attackerId)
+{
+   InputValidator.validateNotNull("store", store);
+   InputValidator.validateIsNumber("attackerId", attackerId);
+
+   return new MockAttackDice(store, attackerId);
+};
+
+export default MockAttackDice;

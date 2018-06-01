@@ -1,23 +1,40 @@
-"use strict";
+import Logger from "../utility/Logger.js";
 
-var prefix = "artifact/";
-var suffix = ".test";
-var testModules = ["AttackDiceValue", "Bearing", "CardResolver", "CardType", "ConditionCard", "Count", "DamageCard", "DamageCardTrait", "DefenseDiceValue",
-      "DiceModification", "Difficulty", "Event", "Faction", "FiringArc", "Maneuver", "Phase", "PilotCard", "PlayFormat", "Range", "ReferenceCard", "Ship",
-      "ShipAction", "ShipBase", "ShipFaction", "ShipState", "UpgradeCard", "UpgradeHeader", "UpgradeRestriction", "UpgradeType", "Value",
-    ];
-testModules = testModules.map(function(testModule)
-{
-   return prefix + testModule + suffix;
-});
-testModules.unshift("utility/Logger");
+import AttackDiceValueTest from "./AttackDiceValue.test.js";
+import BasicManeuverTest from "./BasicManeuver.test.js";
+import BearingTest from "./Bearing.test.js";
+import CardResolverTest from "./CardResolver.test.js";
+import CardTypeTest from "./CardType.test.js";
+import ConditionCardTest from "./ConditionCard.test.js";
+import CountTest from "./Count.test.js";
+import DamageCardTest from "./DamageCard.test.js";
+import DamageCardTraitTest from "./DamageCardTrait.test.js";
+import DefenseDiceValueTest from "./DefenseDiceValue.test.js";
+import DiceModificationTest from "./DiceModification.test.js";
+import DifficultyTest from "./Difficulty.test.js";
+import EventTest from "./Event.test.js";
+import FactionTest from "./Faction.test.js";
+import FiringArcTest from "./FiringArc.test.js";
+import ManeuverTest from "./Maneuver.test.js";
+import PhaseTest from "./Phase.test.js";
+import PilotCardTest from "./PilotCard.test.js";
+import PlayFormatTest from "./PlayFormat.test.js";
+import RangeTest from "./Range.test.js";
+import ReferenceCardTest from "./ReferenceCard.test.js";
+import ShipTest from "./Ship.test.js";
+import ShipActionTest from "./ShipAction.test.js";
+import ShipBaseTest from "./ShipBase.test.js";
+import ShipFactionTest from "./ShipFaction.test.js";
+import ShipStateTest from "./ShipState.test.js";
+import UpgradeCardTest from "./UpgradeCard.test.js";
+import UpgradeHeaderTest from "./UpgradeHeader.test.js";
+import UpgradeRestrictionTest from "./UpgradeRestriction.test.js";
+import UpgradeTypeTest from "./UpgradeType.test.js";
+import ValueTest from "./Value.test.js";
 
-require(testModules, function(Logger)
-{
-   window.LOGGER = new Logger();
-   LOGGER.setTraceEnabled(false);
-   LOGGER.setDebugEnabled(false);
-   LOGGER.setInfoEnabled(false);
+window.LOGGER = new Logger();
+LOGGER.setTraceEnabled(false);
+LOGGER.setDebugEnabled(false);
+LOGGER.setInfoEnabled(false);
 
-   QUnit.start();
-});
+QUnit.start();

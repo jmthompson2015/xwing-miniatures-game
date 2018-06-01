@@ -3,109 +3,22 @@
 <head>
   <title>Ship Gallery</title>
   <meta charset="utf-8">
-
-  <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
-  <link rel="stylesheet" href="../../../lib/xwing-miniatures-font/xwing-miniatures.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xwing-miniatures-font@1.0.29/dist/xwing-miniatures.css">
   <link rel="stylesheet" href="../../view/style.css">
-
-  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
-  <script>
-    require.config(
-    {
-      "baseUrl": "../../../src",
-    });
-  </script>
-  <script src="../../../src/main.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-redux@5.0.6/dist/react-redux.js"></script>
+  <script src="ShipGallery.js" type="module">></script>
 </head>
 <body>
   <h1>Ship Gallery</h1>
   <div id="mainPanel"></div>
-  <script>
-    "use strict";
-
-    require(["create-react-class", "prop-types", "react", "react-dom", "react-dom-factories", "redux", "utility/Logger",
-        "artifact/ShipFaction", "artifact/Faction", "model/Action", "model/Agent", "model/Reducer", "view/ReactUtilities",
-        "view/ShipCardUI"
-      ],
-      function(createReactClass, PropTypes, React, ReactDOM, DOM, Redux, Logger, ShipFaction, Faction, Action, Agent, Reducer, ReactUtilities, ShipCardUI)
-      {
-        window.LOGGER = new Logger();
-        LOGGER.setTraceEnabled(false);
-        LOGGER.setDebugEnabled(false);
-
-        var store = Redux.createStore(Reducer.root);
-        var resourceBase = "../../../src/resource/";
-        store.dispatch(Action.setResourceBase(resourceBase));
-
-        var ShipGallery = createReactClass(
-        {
-          propTypes:
-          {
-            factionKey: PropTypes.string.isRequired,
-          },
-          render: function()
-          {
-            var factionKey = this.props.factionKey;
-            var isStrict = true;
-            var shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
-            var agent = new Agent(store, "Agent");
-
-            var cells = [];
-            var excludes = [ShipFaction.IMPERIAL_TIE_BOMBER_V2,
-              ShipFaction.IMPERIAL_TIE_DEFENDER_V2,
-              ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2,
-              ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V3,
-              ShipFaction.REBEL_A_WING_V2,
-              ShipFaction.REBEL_B_WING_V2,
-              ShipFaction.RESISTANCE_T_70_X_WING_V2,
-              ShipFaction.SCUM_KIHRAXZ_FIGHTER_V2,
-              ShipFaction.SCUM_M3_A_INTERCEPTOR_V2,
-              ShipFaction.SCUM_STAR_VIPER_V2,
-            ];
-
-            shipFactionKeys.forEach(function(shipFactionKey)
-            {
-              if (!excludes.includes(shipFactionKey))
-              {
-                var shipFaction = ShipFaction.properties[shipFactionKey];
-                var element = React.createElement(ShipCardUI,
-                {
-                  key: "instance" + shipFactionKey,
-                  agent: agent,
-                  resourceBase: resourceBase,
-                  shipFaction: shipFaction,
-                });
-                cells.push(element);
-              }
-            });
-
-            return ReactUtilities.createFlexboxWrap(cells);
-          },
-        });
-
-        var rows = [];
-
-        Faction.keys().forEach(function(factionKey)
-        {
-          var faction = Faction.properties[factionKey];
-          rows.push(DOM.h2(
-          {
-            key: "title" + factionKey,
-          }, faction.name));
-          var element = React.createElement(ShipGallery,
-          {
-            key: "gallery" + factionKey,
-            factionKey: factionKey,
-          });
-          rows.push(element);
-        });
-
-        var mainPanel = DOM.div(
-        {}, rows);
-        ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
-      });
-  </script>
 </body>
 
 </html>

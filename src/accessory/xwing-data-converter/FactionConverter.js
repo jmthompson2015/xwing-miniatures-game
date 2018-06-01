@@ -1,7 +1,6 @@
-"use strict";
 
-define(["utility/InputValidator"], function(InputValidator)
-{
+
+import InputValidator from "../../utility/InputValidator";
    var FactionConverter = {};
 
    FactionConverter.createEnumName = function(factionName)
@@ -60,5 +59,5 @@ define(["utility/InputValidator"], function(InputValidator)
       return answer;
    };
 
-   return FactionConverter;
-});
+   export default FactionConverter;
+

@@ -1,52 +1,46 @@
-"use strict";
-
-define(["create-react-class", "prop-types", "react-dom-factories"],
-   function(createReactClass, PropTypes, DOM)
+var UpgradeTypeUI = createReactClass(
+{
+   render: function()
    {
-      var UpgradeTypeUI = createReactClass(
+      var upgradeType = this.props.upgradeType;
+      var typeName0 = upgradeType.name;
+      var typeName = typeName0.replace(" ", "");
+      var fileString = this.props.resourceBase + "upgradeType/" + typeName + "24.png";
+      var myKey = (this.props.myKey !== undefined ? this.props.myKey : upgradeType.key);
+
+      var icon = ReactDOMFactories.img(
       {
-         render: function()
-         {
-            var upgradeType = this.props.upgradeType;
-            var typeName0 = upgradeType.name;
-            var typeName = typeName0.replace(" ", "");
-            var fileString = this.props.resourceBase + "upgradeType/" + typeName + "24.png";
-            var myKey = (this.props.myKey !== undefined ? this.props.myKey : upgradeType.key);
-
-            var icon = DOM.img(
-            {
-               key: myKey,
-               className: "upgradeTypeUIImage v-mid",
-               src: fileString,
-               title: typeName0,
-            });
-
-            var answer = icon;
-
-            if (this.props.showName)
-            {
-               answer = DOM.span(
-               {
-                  className: "v-mid",
-               }, icon, " ", upgradeType.name);
-            }
-
-            return answer;
-         },
+         key: myKey,
+         className: "upgradeTypeUIImage v-mid",
+         src: fileString,
+         title: typeName0,
       });
 
-      UpgradeTypeUI.propTypes = {
-         upgradeType: PropTypes.object.isRequired,
-         resourceBase: PropTypes.string.isRequired,
+      var answer = icon;
 
-         // default: upgrade type value
-         myKey: PropTypes.string,
-         showName: PropTypes.bool,
-      };
+      if (this.props.showName)
+      {
+         answer = ReactDOMFactories.span(
+         {
+            className: "v-mid",
+         }, icon, " ", upgradeType.name);
+      }
 
-      UpgradeTypeUI.defaultProps = {
-         showName: false,
-      };
+      return answer;
+   },
+});
 
-      return UpgradeTypeUI;
-   });
+UpgradeTypeUI.propTypes = {
+   upgradeType: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+
+   // default: upgrade type value
+   myKey: PropTypes.string,
+   showName: PropTypes.bool,
+};
+
+UpgradeTypeUI.defaultProps = {
+   showName: false,
+};
+
+export default UpgradeTypeUI;

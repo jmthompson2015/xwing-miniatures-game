@@ -1,88 +1,91 @@
-"use strict";
+import InputValidator from "../../utility/InputValidator.js";
 
-define(["utility/InputValidator", "artifact/PilotCard", "model/EntityFilter", "model/RangeFilter",
-  "accessory/pilot-table/DefaultFilters", "accessory/pilot-table/TableRow"],
-   function(InputValidator, PilotCard, EntityFilter, RangeFilter, DefaultFilters, TableRow)
+import PilotCard from "../../artifact/PilotCard.js";
+
+import EntityFilter from "../../model/EntityFilter.js";
+import RangeFilter from "../../model/RangeFilter.js";
+
+import DefaultFilters from "./DefaultFilters.js";
+import TableRow from "./TableRow.js";
+
+function InitialState()
+{
+   this.tableRows = [];
+   this.filteredTableRows = [];
+
+   this.tableRows = PilotCard.keys().reduce(function(accumulator, pilotKey)
    {
-      function InitialState()
+      var pilot = PilotCard.properties[pilotKey];
+
+      if (pilot.fore && pilot.aft)
       {
-         this.tableRows = [];
-         this.filteredTableRows = [];
-
-         this.tableRows = PilotCard.keys().reduce(function(accumulator, pilotKey)
-         {
-            var pilot = PilotCard.properties[pilotKey];
-
-            if (pilot.fore && pilot.aft)
-            {
-               accumulator.push(TableRow.createTableRow(pilot.fore));
-               accumulator.push(TableRow.createTableRow(pilot.aft));
-            }
-            else
-            {
-               accumulator.push(TableRow.createTableRow(pilot));
-            }
-
-            return accumulator;
-         }, []);
-
-         this.filteredTableRows = this.tableRows.slice();
-
-         // FIXME
-         // localStorage.removeItem("filters");
-         // FIXME
-
-         this.isFilterShown = false;
-         this.filters = DefaultFilters.create();
-         var oldFilters = InitialState.loadFromLocalStorage();
-
-         if (oldFilters)
-         {
-            this.merge(oldFilters);
-         }
+         accumulator.push(TableRow.createTableRow(pilot.fore));
+         accumulator.push(TableRow.createTableRow(pilot.aft));
+      }
+      else
+      {
+         accumulator.push(TableRow.createTableRow(pilot));
       }
 
-      InitialState.prototype.merge = function(oldFilters)
+      return accumulator;
+   }, []);
+
+   this.filteredTableRows = this.tableRows.slice();
+
+   // FIXME
+   // localStorage.removeItem("filters");
+   // FIXME
+
+   this.isFilterShown = false;
+   this.filters = DefaultFilters.create();
+   var oldFilters = InitialState.loadFromLocalStorage();
+
+   if (oldFilters)
+   {
+      this.merge(oldFilters);
+   }
+}
+
+InitialState.prototype.merge = function(oldFilters)
+{
+   InputValidator.validateNotNull("oldFilters", oldFilters);
+
+   Object.getOwnPropertyNames(oldFilters).forEach(function(columnKey)
+   {
+      this.filters[columnKey] = oldFilters[columnKey];
+   }, this);
+};
+
+InitialState.loadFromLocalStorage = function()
+{
+   var answer;
+   var filterObjects = JSON.parse(localStorage.filters || null);
+
+   if (filterObjects)
+   {
+      answer = {};
+
+      filterObjects.forEach(function(object)
       {
-         InputValidator.validateNotNull("oldFilters", oldFilters);
+         var filter;
 
-         Object.getOwnPropertyNames(oldFilters).forEach(function(columnKey)
+         switch (object.type)
          {
-            this.filters[columnKey] = oldFilters[columnKey];
-         }, this);
-      };
-
-      InitialState.loadFromLocalStorage = function()
-      {
-         var answer;
-         var filterObjects = JSON.parse(localStorage.filters || null);
-
-         if (filterObjects)
-         {
-            answer = {};
-
-            filterObjects.forEach(function(object)
-            {
-               var filter;
-
-               switch (object.type)
-               {
-                  case "EntityFilter":
-                     filter = EntityFilter.fromObject(object);
-                     break;
-                  case "RangeFilter":
-                     filter = RangeFilter.fromObject(object);
-                     break;
-                  default:
-                     throw "Unknown filter type: " + JSON.stringify(object);
-               }
-
-               answer[filter.columnKey()] = filter;
-            });
+            case "EntityFilter":
+               filter = EntityFilter.fromObject(object);
+               break;
+            case "RangeFilter":
+               filter = RangeFilter.fromObject(object);
+               break;
+            default:
+               throw "Unknown filter type: " + JSON.stringify(object);
          }
 
-         return answer;
-      };
+         answer[filter.columnKey()] = filter;
+      });
+   }
 
-      return InitialState;
-   });
+   return answer;
+};
+
+export default InitialState;

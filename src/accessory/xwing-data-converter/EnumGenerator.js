@@ -1,8 +1,7 @@
-"use strict";
 
-define(["utility/InputValidator", "accessory/xwing-data-converter/FactionConverter"],
-   function(InputValidator, FactionConverter)
-   {
+
+import InputValidator from "../../utility/InputValidator";
+import FactionConverter from "../accessory/xwing-data-converter/FactionConverter";
       var EnumGenerator = {};
 
       EnumGenerator.createConditionEnumName = function(condition)
@@ -325,5 +324,5 @@ define(["utility/InputValidator", "accessory/xwing-data-converter/FactionConvert
          }).join('');
       }
 
-      return EnumGenerator;
-   });
+      export default EnumGenerator;
+   

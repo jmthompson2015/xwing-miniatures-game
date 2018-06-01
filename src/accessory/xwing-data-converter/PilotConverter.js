@@ -1,8 +1,11 @@
-"use strict";
 
-define(["artifact/PilotCard", "artifact/UpgradeType", "view/UpgradeTypeComparator", "accessory/xwing-data-converter/EnumGenerator", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-   function(PilotCard, UpgradeType, UpgradeTypeComparator, EnumGenerator, XWingData, XWingType)
-   {
+
+import PilotCard from "../../artifact/PilotCard";
+import UpgradeType from "../../artifact/UpgradeType";
+import UpgradeTypeComparator from "../../view/UpgradeTypeComparator";
+import EnumGenerator from "../accessory/xwing-data-converter/EnumGenerator";
+import XWingData from "../accessory/xwing-data-converter/XWingData";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       var PilotConverter = {};
 
       PilotConverter.convert = function(callback)
@@ -331,5 +334,5 @@ define(["artifact/PilotCard", "artifact/UpgradeType", "view/UpgradeTypeComparato
          return answer;
       }
 
-      return PilotConverter;
-   });
+      export default PilotConverter;
+   

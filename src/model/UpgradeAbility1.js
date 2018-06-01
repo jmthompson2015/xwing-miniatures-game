@@ -1,21 +1,16 @@
 /*
  * Provides upgrade abilities for the Planning Phase.
  */
-"use strict";
+var UpgradeAbility1 = {};
 
-define(function()
+UpgradeAbility1.toString = function()
 {
-   var UpgradeAbility1 = {};
+   return "model/UpgradeAbility1";
+};
 
-   UpgradeAbility1.toString = function()
-   {
-      return "model/UpgradeAbility1";
-   };
+if (Object.freeze)
+{
+   Object.freeze(UpgradeAbility1);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(UpgradeAbility1);
-   }
-
-   return UpgradeAbility1;
-});
+export default UpgradeAbility1;

@@ -1,61 +1,56 @@
-"use strict";
+var AttackDiceValue = {
+   HIT: "hit",
+   CRITICAL_HIT: "criticalHit",
+   FOCUS: "focus",
+   BLANK: "blank",
 
-define(function()
-{
-   var AttackDiceValue = {
-      HIT: "hit",
-      CRITICAL_HIT: "criticalHit",
-      FOCUS: "focus",
-      BLANK: "blank",
-
-      properties:
+   properties:
+   {
+      "hit":
       {
-         "hit":
-         {
-            name: "Hit",
-            sortOrder: 0,
-            key: "hit",
-         },
-         "criticalHit":
-         {
-            name: "Critical Hit",
-            sortOrder: 1,
-            key: "criticalHit",
-         },
-         "focus":
-         {
-            name: "Focus",
-            sortOrder: 2,
-            key: "focus",
-         },
-         "blank":
-         {
-            name: "Blank",
-            sortOrder: 3,
-            key: "blank",
-         },
+         name: "Hit",
+         sortOrder: 0,
+         key: "hit",
       },
-   };
+      "criticalHit":
+      {
+         name: "Critical Hit",
+         sortOrder: 1,
+         key: "criticalHit",
+      },
+      "focus":
+      {
+         name: "Focus",
+         sortOrder: 2,
+         key: "focus",
+      },
+      "blank":
+      {
+         name: "Blank",
+         sortOrder: 3,
+         key: "blank",
+      },
+   },
+};
 
-   AttackDiceValue.keys = function()
-   {
-      return Object.keys(AttackDiceValue.properties);
-   };
+AttackDiceValue.keys = function()
+{
+   return Object.keys(AttackDiceValue.properties);
+};
 
-   AttackDiceValue.toString = function()
-   {
-      return "AttackDiceValue";
-   };
+AttackDiceValue.toString = function()
+{
+   return "AttackDiceValue";
+};
 
-   AttackDiceValue.values = function()
-   {
-      return Object.values(AttackDiceValue.properties);
-   };
+AttackDiceValue.values = function()
+{
+   return Object.values(AttackDiceValue.properties);
+};
 
-   if (Object.freeze)
-   {
-      Object.freeze(AttackDiceValue);
-   }
+if (Object.freeze)
+{
+   Object.freeze(AttackDiceValue);
+}
 
-   return AttackDiceValue;
-});
+export default AttackDiceValue;

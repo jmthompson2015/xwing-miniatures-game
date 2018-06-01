@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestCombatUI</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>CombatUI</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+	<script src="CombatUI.viewtest.js" type="module"></script>
 </head>
 <body>
 	<table>
@@ -26,124 +31,6 @@
 			</td>
 		</tr>
 	</table>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "react-dom-factories", "utility/Logger", "model/Ability", "artifact/DiceModification", "artifact/Phase",
-				"artifact/UpgradeCard",
-				"model/Action", "model/Adjudicator", "model/AttackDice", "model/CombatAction", "model/DefenseDice", "model/DamageDealer",
-				"model/ModifyDiceAbility", "model/TargetLock", "model/CardAction", "model/EnvironmentFactory",
-				"view/CombatUI"
-			],
-			function(React, ReactDOM, DOM, Logger, Ability, DiceModification, Phase, UpgradeCard, Action, Adjudicator, AttackDice, CombatAction, DefenseDice,
-				DamageDealer,
-				ModifyDiceAbility, TargetLock, CardAction, EnvironmentFactory,
-				CombatUI)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var resourceBase = "../resource/";
-				var environment = EnvironmentFactory.createCoreSetEnvironment();
-				var store = environment.store();
-				var adjudicator = new Adjudicator(store);
-				var attacker = environment.pilotInstances()[0];
-				LOGGER.debug("attacker = " + attacker);
-				store.dispatch(CardAction.addFocusCount(attacker));
-				var weapon = attacker.primaryWeapon();
-				var attackDice = new AttackDice(store, attacker.id(), 5);
-				var defender = environment.pilotInstances()[2];
-				LOGGER.debug("defender = " + defender);
-				store.dispatch(CardAction.addFocusCount(defender));
-				store.dispatch(CardAction.addEvadeCount(defender));
-				var targetLock = TargetLock.newInstance(store, attacker, defender);
-				var callback = function()
-				{
-					LOGGER.info("callback() start");
-				};
-				var combatAction = new CombatAction(store, attacker, weapon, defender, callback);
-				store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
-				var modificationKeys0 = [DiceModification.ATTACK_SPEND_FOCUS, DiceModification.ATTACK_SPEND_TARGET_LOCK];
-				var modifications0 = modificationKeys0.map(function(modificationKey)
-				{
-					return new Ability(DiceModification, modificationKey, ModifyDiceAbility, ModifyDiceAbility.ATTACK_KEY);
-				});
-
-				var element0 = React.createElement(CombatUI,
-				{
-					attacker: attacker,
-					attackDice: attackDice,
-					defender: defender,
-					resourceBase: resourceBase,
-					modifications: modifications0,
-					okFunction: myOK0,
-					phase: Phase.properties[Phase.COMBAT_MODIFY_ATTACK_DICE],
-					weapon: weapon,
-				});
-				ReactDOM.render(element0, document.getElementById("inputArea0"));
-
-				var defenseDice = new DefenseDice(store, attacker.id(), 4);
-				// var modificationKeys1 = [ModifyDefenseDiceAction.Modification.SPEND_EVADE, ModifyDefenseDiceAction.Modification.SPEND_FOCUS];
-				var modificationKeys1 = [DiceModification.DEFENSE_SPEND_EVADE, DiceModification.DEFENSE_SPEND_FOCUS];
-				var modifications1 = modificationKeys1.map(function(modificationKey)
-				{
-					// 	var pilotKey;
-					// 	var upgradeKey;
-					// 	return new ModifyDefenseDiceAction(store, attacker, defender, modificationKey, pilotKey, upgradeKey);
-					return new Ability(DiceModification, modificationKey, ModifyDiceAbility, ModifyDiceAbility.DEFENSE_KEY);
-				});
-
-				var element1 = React.createElement(CombatUI,
-				{
-					attacker: attacker,
-					attackDice: attackDice,
-					defender: defender,
-					defenseDice: defenseDice,
-					resourceBase: resourceBase,
-					modifications: modifications1,
-					okFunction: myOK1,
-					phase: Phase.properties[Phase.COMBAT_MODIFY_DEFENSE_DICE],
-					weapon: weapon,
-				});
-				ReactDOM.render(element1, document.getElementById("inputArea1"));
-
-				var hitCount = attackDice.hitCount();
-				var criticalHitCount = attackDice.criticalHitCount();
-				var evadeCount = defenseDice.evadeCount();
-				var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
-
-				var element2 = React.createElement(CombatUI,
-				{
-					attacker: attacker,
-					attackDice: attackDice,
-					criticalHitCount: damageDealer.criticalHits(),
-					defender: defender,
-					defenseDice: defenseDice,
-					hitCount: damageDealer.hits(),
-					resourceBase: resourceBase,
-					okFunction: myOK2,
-					phase: Phase.properties[Phase.COMBAT_NOTIFY_DAMAGE],
-					weapon: weapon,
-				});
-				ReactDOM.render(element2, document.getElementById("inputArea2"));
-
-				function myOK0(modification)
-				{
-					LOGGER.info("myOK0() modification = " + modification);
-				}
-
-				function myOK1(modification)
-				{
-					LOGGER.info("myOK1() modification = " + modification);
-				}
-
-				function myOK2()
-				{
-					LOGGER.info("myOK2()");
-				}
-			});
-	</script>
 </body>
 
 </html>

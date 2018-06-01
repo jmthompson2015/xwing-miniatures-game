@@ -1,173 +1,176 @@
-"use strict";
+import FiringArc from "../../artifact/FiringArc.js";
+import Range from "../../artifact/Range.js";
+import UpgradeHeader from "../../artifact/UpgradeHeader.js";
+import UpgradeRestriction from "../../artifact/UpgradeRestriction.js";
+import UpgradeType from "../../artifact/UpgradeType.js";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "react-redux",
-  "artifact/FiringArc", "artifact/Range", "artifact/UpgradeHeader", "artifact/UpgradeRestriction", "artifact/UpgradeType",
-  "view/Button", "view/DataTable", "view/ImplementedImage", "view/UpgradeTypeUI",
-  "accessory/upgrade-table/Action", "accessory/upgrade-table/FilterContainer", "accessory/upgrade-table/TableColumns"],
-   function(createReactClass, PropTypes, React, DOM, ReactRedux,
-      FiringArc, Range, UpgradeHeader, UpgradeRestriction, UpgradeType,
-      Button, DataTable, ImplementedImage, UpgradeTypeUI,
-      Action, FilterContainer, TableColumns)
+import Button from "../../view/Button.js";
+import DataTable from "../../view/DataTable.js";
+import ImplementedImage from "../../view/ImplementedImage.js";
+import UpgradeTypeUI from "../../view/UpgradeTypeUI.js";
+
+import Action from "./Action.js";
+import FilterContainer from "./FilterContainer.js";
+import TableColumns from "./TableColumns.js";
+
+function createImageLink(src, href)
+{
+   var image = ReactDOMFactories.img(
    {
-      function createImageLink(src, href)
+      className: "imageBlock fr v-mid",
+      src: src,
+   });
+
+   return ReactDOMFactories.a(
+   {
+      href: href,
+      target: "_blank",
+   }, image);
+}
+
+var valueFunctions = {
+   "restrictionKeys": function(data)
+   {
+      return data.restrictionKeys.reduce(function(previousValue, restrictionKey, i)
       {
-         var image = DOM.img(
-         {
-            className: "imageBlock fr v-mid",
-            src: src,
-         });
+         var restriction = UpgradeRestriction.properties[restrictionKey];
+         return previousValue + restriction.name + (i < data.restrictionKeys.length - 1 ? " " : "");
+      }, "");
+   },
+   "headerKey": function(data)
+   {
+      var header = (data.headerKey !== undefined ? UpgradeHeader.properties[data.headerKey] : undefined);
+      return (header !== undefined ? header.name : undefined);
+   },
+   "rangeKeys": function(data)
+   {
+      return data.rangeKeys.reduce(function(previousValue, rangeKey, i)
+      {
+         var range = Range.properties[rangeKey];
+         return previousValue + range.name + (i < data.rangeKeys.length - 1 ? "-" : "");
+      }, "");
+   },
+   "firingArcKey": function(data)
+   {
+      var firingArc = (data.firingArcKey !== undefined ? FiringArc.properties[data.firingArcKey] : undefined);
+      return (firingArc !== undefined ? firingArc.name : undefined);
+   },
+};
 
-         return DOM.a(
-         {
-            href: href,
-            target: "_blank",
-         }, image);
-      }
+var UpgradeTable = createReactClass(
+{
+   contextTypes:
+   {
+      store: PropTypes.object.isRequired,
+   },
 
-      var valueFunctions = {
-         "restrictionKeys": function(data)
+   propTypes:
+   {
+      isFilterShown: PropTypes.bool.isRequired,
+      filters: PropTypes.object.isRequired,
+      rowData: PropTypes.array.isRequired,
+   },
+
+   render: function()
+   {
+      var filterShownButton = React.createElement(Button,
+      {
+         name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
+         onClick: this.toggleFilterShownActionPerformed,
+      });
+
+      var myRowData = this.props.rowData;
+      var resourceBase = this.props.resourceBase;
+      var cellFunctions = {
+         "typeKey": function(data)
          {
-            return data.restrictionKeys.reduce(function(previousValue, restrictionKey, i)
+            return React.createElement(UpgradeTypeUI,
             {
-               var restriction = UpgradeRestriction.properties[restrictionKey];
-               return previousValue + restriction.name + (i < data.restrictionKeys.length - 1 ? " " : "");
-            }, "");
+               upgradeType: UpgradeType.properties[data.typeKey],
+               resourceBase: resourceBase,
+            });
          },
-         "headerKey": function(data)
+         "name": function(data)
          {
-            var header = (data.headerKey !== undefined ? UpgradeHeader.properties[data.headerKey] : undefined);
-            return (header !== undefined ? header.name : undefined);
-         },
-         "rangeKeys": function(data)
-         {
-            return data.rangeKeys.reduce(function(previousValue, rangeKey, i)
+            var src = resourceBase + "icon/Wikipedia16.png";
+            var searchString = data.name.replace(/ /g, "_");
+            var href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
+            var link = createImageLink(src, href);
+            return ReactDOMFactories.span(
             {
-               var range = Range.properties[rangeKey];
-               return previousValue + range.name + (i < data.rangeKeys.length - 1 ? "-" : "");
-            }, "");
+               className: "textImageLink dib w-100",
+            }, data.name, link);
          },
-         "firingArcKey": function(data)
+         "description": function(data)
          {
-            var firingArc = (data.firingArcKey !== undefined ? FiringArc.properties[data.firingArcKey] : undefined);
-            return (firingArc !== undefined ? firingArc.name : undefined);
+            return ReactDOMFactories.span(
+            {
+               dangerouslySetInnerHTML:
+               {
+                  __html: data.description,
+               },
+            });
+         },
+         "isImplemented": function(data)
+         {
+            return React.createElement(ImplementedImage,
+            {
+               resourceBase: resourceBase,
+               isImplemented: data.isImplemented,
+            });
          },
       };
 
-      var UpgradeTable = createReactClass(
+      var table = React.createElement(DataTable,
       {
-         contextTypes:
-         {
-            store: PropTypes.object.isRequired,
-         },
-
-         propTypes:
-         {
-            isFilterShown: PropTypes.bool.isRequired,
-            filters: PropTypes.object.isRequired,
-            rowData: PropTypes.array.isRequired,
-         },
-
-         render: function()
-         {
-            var filterShownButton = React.createElement(Button,
-            {
-               name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
-               onClick: this.toggleFilterShownActionPerformed,
-            });
-
-            var myRowData = this.props.rowData;
-            var resourceBase = this.props.resourceBase;
-            var cellFunctions = {
-               "typeKey": function(data)
-               {
-                  return React.createElement(UpgradeTypeUI,
-                  {
-                     upgradeType: UpgradeType.properties[data.typeKey],
-                     resourceBase: resourceBase,
-                  });
-               },
-               "name": function(data)
-               {
-                  var src = resourceBase + "icon/Wikipedia16.png";
-                  var searchString = data.name.replace(/ /g, "_");
-                  var href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
-                  var link = createImageLink(src, href);
-                  return DOM.span(
-                  {
-                     className: "textImageLink dib w-100",
-                  }, data.name, link);
-               },
-               "description": function(data)
-               {
-                  return DOM.span(
-                  {
-                     dangerouslySetInnerHTML:
-                     {
-                        __html: data.description,
-                     },
-                  });
-               },
-               "isImplemented": function(data)
-               {
-                  return React.createElement(ImplementedImage,
-                  {
-                     resourceBase: resourceBase,
-                     isImplemented: data.isImplemented,
-                  });
-               },
-            };
-
-            var table = React.createElement(DataTable,
-            {
-               columns: TableColumns,
-               rowData: myRowData,
-               cellFunctions: cellFunctions,
-               valueFunctions: valueFunctions,
-            });
-
-            var rows = [];
-            rows.push(DOM.tr(
-            {
-               key: rows.length,
-               className: "alignLeft tl",
-            }, DOM.td(
-            {}, filterShownButton)));
-
-            if (this.props.isFilterShown)
-            {
-               var filterUI = React.createElement(ReactRedux.Provider,
-               {
-                  store: this.context.store,
-               }, React.createElement(FilterContainer,
-               {
-                  resourceBase: resourceBase,
-               }));
-
-               rows.push(DOM.tr(
-               {
-                  key: rows.length,
-               }, DOM.td(
-               {}, filterUI)));
-            }
-
-            rows.push(DOM.tr(
-            {
-               key: rows.length,
-            }, DOM.td(
-            {}, table)));
-
-            return DOM.table(
-            {}, DOM.tbody(
-            {}, rows));
-         },
-
-         toggleFilterShownActionPerformed: function()
-         {
-            LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() start");
-            this.context.store.dispatch(Action.toggleFilterShown());
-            LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() end");
-         },
+         columns: TableColumns,
+         rowData: myRowData,
+         cellFunctions: cellFunctions,
+         valueFunctions: valueFunctions,
       });
 
-      return UpgradeTable;
-   });
+      var rows = [];
+      rows.push(ReactDOMFactories.tr(
+      {
+         key: rows.length,
+         className: "alignLeft tl",
+      }, ReactDOMFactories.td(
+      {}, filterShownButton)));
+
+      if (this.props.isFilterShown)
+      {
+         var filterUI = React.createElement(ReactRedux.Provider,
+         {
+            store: this.context.store,
+         }, React.createElement(FilterContainer,
+         {
+            resourceBase: resourceBase,
+         }));
+
+         rows.push(ReactDOMFactories.tr(
+         {
+            key: rows.length,
+         }, ReactDOMFactories.td(
+         {}, filterUI)));
+      }
+
+      rows.push(ReactDOMFactories.tr(
+      {
+         key: rows.length,
+      }, ReactDOMFactories.td(
+      {}, table)));
+
+      return ReactDOMFactories.table(
+      {}, ReactDOMFactories.tbody(
+      {}, rows));
+   },
+
+   toggleFilterShownActionPerformed: function()
+   {
+      LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() start");
+      this.context.store.dispatch(Action.toggleFilterShown());
+      LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() end");
+   },
+});
+
+export default UpgradeTable;

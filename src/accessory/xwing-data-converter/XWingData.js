@@ -1,8 +1,8 @@
-"use strict";
 
-define(["utility/InputValidator", "utility/JSONFileLoader", "accessory/xwing-data-converter/XWingType"],
-   function(InputValidator, JSONFileLoader, XWingType)
-   {
+
+import InputValidator from "../../utility/InputValidator";
+import JSONFileLoader from "../../utility/JSONFileLoader";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       function XWingData()
       {
          var dataMap = {};
@@ -160,5 +160,5 @@ define(["utility/InputValidator", "utility/JSONFileLoader", "accessory/xwing-dat
          }
       };
 
-      return XWingData;
-   });
+      export default XWingData;
+   

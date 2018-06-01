@@ -27,7 +27,7 @@
 		"use strict";
 
 		require(["react", "react-dom", "react-dom-factories", "utility/Logger", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-			function(React, ReactDOM, DOM, Logger, XWingData, XWingType)
+			function(React, ReactDOM, ReactDOMFactories, Logger, XWingData, XWingType)
 			{
 				window.LOGGER = new Logger();
 				LOGGER.setTraceEnabled(false);
@@ -70,19 +70,19 @@
 						// if (ship.firing_arcs && ship.firing_arcs.length > 1)
 						// {
 						cells = [];
-						cells.push(React.DOM.td(
+						cells.push(React.ReactDOMFactories.td(
 						{}, ship.name));
-						cells.push(React.DOM.td(
+						cells.push(React.ReactDOMFactories.td(
 						{}, (ship.firing_arcs ? ship.firing_arcs.join(", ") : undefined)));
-						rows.push(React.DOM.tr(
+						rows.push(React.ReactDOMFactories.tr(
 						{
 							className: "striped--light-gray",
 						}, cells));
 						// }
 					});
 
-					var table = React.DOM.table(
-					{}, React.DOM.tbody(
+					var table = React.ReactDOMFactories.table(
+					{}, React.ReactDOMFactories.tbody(
 					{}, rows));
 
 					ReactDOM.render(table, document.getElementById("panel"));

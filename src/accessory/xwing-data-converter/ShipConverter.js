@@ -1,8 +1,12 @@
-"use strict";
 
-define(["artifact/Bearing", "artifact/Difficulty", "artifact/Ship", "artifact/ShipAction", "accessory/xwing-data-converter/EnumGenerator", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-   function(Bearing, Difficulty, Ship, ShipAction, EnumGenerator, XWingData, XWingType)
-   {
+
+import Bearing from "../../artifact/Bearing";
+import Difficulty from "../../artifact/Difficulty";
+import Ship from "../../artifact/Ship";
+import ShipAction from "../../artifact/ShipAction";
+import EnumGenerator from "../accessory/xwing-data-converter/EnumGenerator";
+import XWingData from "../accessory/xwing-data-converter/XWingData";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       var ShipConverter = {};
 
       ShipConverter.convert = function(callback)
@@ -271,5 +275,5 @@ define(["artifact/Bearing", "artifact/Difficulty", "artifact/Ship", "artifact/Sh
          return answer;
       }
 
-      return ShipConverter;
-   });
+      export default ShipConverter;
+   

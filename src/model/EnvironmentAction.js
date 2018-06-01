@@ -1,234 +1,231 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var EnvironmentAction = {};
+
+EnvironmentAction.ADD_ROUND = "addRound";
+EnvironmentAction.ADD_TOUCHING = "addTouching";
+EnvironmentAction.DISCARD_DAMAGE = "discardDamage";
+EnvironmentAction.DRAW_DAMAGE = "drawDamage";
+EnvironmentAction.MOVE_TOKEN = "moveToken";
+EnvironmentAction.PLACE_TOKEN = "placeToken";
+EnvironmentAction.REMOVE_TOKEN = "removeToken";
+EnvironmentAction.REMOVE_TOKEN_AT = "removeTokenAt";
+EnvironmentAction.REMOVE_TOUCHING = "removeTouching";
+EnvironmentAction.REPLENISH_DAMAGE_DECK = "replenishDamageDeck";
+EnvironmentAction.SET_ACTIVE_TOKEN = "setActiveToken";
+EnvironmentAction.SET_DAMAGE_DECK = "setDamageDeck";
+EnvironmentAction.SET_FIRST_AGENT = "setFirstAgent";
+EnvironmentAction.SET_FIRST_SQUAD = "setFirstSquad";
+EnvironmentAction.SET_PLAY_AREA_SCALE = "setPlayAreaScale";
+EnvironmentAction.SET_PLAY_FORMAT = "setPlayFormat";
+EnvironmentAction.SET_SECOND_AGENT = "setSecondAgent";
+EnvironmentAction.SET_SECOND_SQUAD = "setSecondSquad";
+
+EnvironmentAction.addRound = function(value)
 {
-   var EnvironmentAction = {};
+   var myValue = (value !== undefined ? value : 1);
 
-   EnvironmentAction.ADD_ROUND = "addRound";
-   EnvironmentAction.ADD_TOUCHING = "addTouching";
-   EnvironmentAction.DISCARD_DAMAGE = "discardDamage";
-   EnvironmentAction.DRAW_DAMAGE = "drawDamage";
-   EnvironmentAction.MOVE_TOKEN = "moveToken";
-   EnvironmentAction.PLACE_TOKEN = "placeToken";
-   EnvironmentAction.REMOVE_TOKEN = "removeToken";
-   EnvironmentAction.REMOVE_TOKEN_AT = "removeTokenAt";
-   EnvironmentAction.REMOVE_TOUCHING = "removeTouching";
-   EnvironmentAction.REPLENISH_DAMAGE_DECK = "replenishDamageDeck";
-   EnvironmentAction.SET_ACTIVE_TOKEN = "setActiveToken";
-   EnvironmentAction.SET_DAMAGE_DECK = "setDamageDeck";
-   EnvironmentAction.SET_FIRST_AGENT = "setFirstAgent";
-   EnvironmentAction.SET_FIRST_SQUAD = "setFirstSquad";
-   EnvironmentAction.SET_PLAY_AREA_SCALE = "setPlayAreaScale";
-   EnvironmentAction.SET_PLAY_FORMAT = "setPlayFormat";
-   EnvironmentAction.SET_SECOND_AGENT = "setSecondAgent";
-   EnvironmentAction.SET_SECOND_SQUAD = "setSecondSquad";
-
-   EnvironmentAction.addRound = function(value)
+   return (
    {
-      var myValue = (value !== undefined ? value : 1);
+      type: EnvironmentAction.ADD_ROUND,
+      key: myValue,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.ADD_ROUND,
-         key: myValue,
-      });
-   };
+EnvironmentAction.addTouching = function(pilotInstance1, pilotInstance2)
+{
+   InputValidator.validateNotNull("pilotInstance1", pilotInstance1);
+   InputValidator.validateNotNull("pilotInstance2", pilotInstance2);
 
-   EnvironmentAction.addTouching = function(pilotInstance1, pilotInstance2)
+   return (
    {
-      InputValidator.validateNotNull("pilotInstance1", pilotInstance1);
-      InputValidator.validateNotNull("pilotInstance2", pilotInstance2);
+      type: EnvironmentAction.ADD_TOUCHING,
+      pilotInstance1: pilotInstance1,
+      pilotInstance2: pilotInstance2,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.ADD_TOUCHING,
-         pilotInstance1: pilotInstance1,
-         pilotInstance2: pilotInstance2,
-      });
-   };
+EnvironmentAction.discardDamage = function(damageInstance)
+{
+   InputValidator.validateNotNull("damageInstance", damageInstance);
+   InputValidator.validateIsFunction("damageInstance.id", damageInstance.id);
 
-   EnvironmentAction.discardDamage = function(damageInstance)
+   return (
    {
-      InputValidator.validateNotNull("damageInstance", damageInstance);
-      InputValidator.validateIsFunction("damageInstance.id", damageInstance.id);
+      type: EnvironmentAction.DISCARD_DAMAGE,
+      damageInstance: damageInstance,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.DISCARD_DAMAGE,
-         damageInstance: damageInstance,
-      });
-   };
+EnvironmentAction.drawDamage = function(damageInstance)
+{
+   InputValidator.validateNotNull("damageInstance", damageInstance);
+   InputValidator.validateIsFunction("damageInstance.id", damageInstance.id);
 
-   EnvironmentAction.drawDamage = function(damageInstance)
+   return (
    {
-      InputValidator.validateNotNull("damageInstance", damageInstance);
-      InputValidator.validateIsFunction("damageInstance.id", damageInstance.id);
+      type: EnvironmentAction.DRAW_DAMAGE,
+      damageInstance: damageInstance,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.DRAW_DAMAGE,
-         damageInstance: damageInstance,
-      });
-   };
+EnvironmentAction.moveToken = function(fromPosition, toPosition)
+{
+   InputValidator.validateNotNull("fromPosition", fromPosition);
+   InputValidator.validateNotNull("toPosition", toPosition);
 
-   EnvironmentAction.moveToken = function(fromPosition, toPosition)
+   return (
    {
-      InputValidator.validateNotNull("fromPosition", fromPosition);
-      InputValidator.validateNotNull("toPosition", toPosition);
+      type: EnvironmentAction.MOVE_TOKEN,
+      fromPosition: fromPosition,
+      toPosition: toPosition,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.MOVE_TOKEN,
-         fromPosition: fromPosition,
-         toPosition: toPosition,
-      });
-   };
+EnvironmentAction.placeToken = function(position, token)
+{
+   InputValidator.validateNotNull("position", position);
+   InputValidator.validateNotNull("token", token);
+   InputValidator.validateIsFunction("token.id", token.id);
 
-   EnvironmentAction.placeToken = function(position, token)
+   return (
    {
-      InputValidator.validateNotNull("position", position);
-      InputValidator.validateNotNull("token", token);
-      InputValidator.validateIsFunction("token.id", token.id);
+      type: EnvironmentAction.PLACE_TOKEN,
+      position: position,
+      token: token,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.PLACE_TOKEN,
-         position: position,
-         token: token,
-      });
-   };
+EnvironmentAction.removeToken = function(token)
+{
+   InputValidator.validateNotNull("token", token);
 
-   EnvironmentAction.removeToken = function(token)
+   return (
    {
-      InputValidator.validateNotNull("token", token);
+      type: EnvironmentAction.REMOVE_TOKEN,
+      token: token,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.REMOVE_TOKEN,
-         token: token,
-      });
-   };
+EnvironmentAction.removeTokenAt = function(position)
+{
+   InputValidator.validateNotNull("position", position);
 
-   EnvironmentAction.removeTokenAt = function(position)
+   return (
    {
-      InputValidator.validateNotNull("position", position);
+      type: EnvironmentAction.REMOVE_TOKEN_AT,
+      position: position,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.REMOVE_TOKEN_AT,
-         position: position,
-      });
-   };
+EnvironmentAction.removeTouching = function(pilotInstance)
+{
+   InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   EnvironmentAction.removeTouching = function(pilotInstance)
+   return (
    {
-      InputValidator.validateNotNull("pilotInstance", pilotInstance);
+      type: EnvironmentAction.REMOVE_TOUCHING,
+      pilotInstance: pilotInstance,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.REMOVE_TOUCHING,
-         pilotInstance: pilotInstance,
-      });
-   };
-
-   EnvironmentAction.replenishDamageDeck = function()
+EnvironmentAction.replenishDamageDeck = function()
+{
+   return (
    {
-      return (
-      {
-         type: EnvironmentAction.REPLENISH_DAMAGE_DECK,
-      });
-   };
+      type: EnvironmentAction.REPLENISH_DAMAGE_DECK,
+   });
+};
 
-   EnvironmentAction.setActiveToken = function(token)
+EnvironmentAction.setActiveToken = function(token)
+{
+   return (
    {
-      return (
-      {
-         type: EnvironmentAction.SET_ACTIVE_TOKEN,
-         token: token,
-      });
-   };
+      type: EnvironmentAction.SET_ACTIVE_TOKEN,
+      token: token,
+   });
+};
 
-   EnvironmentAction.setDamageDeck = function(damageDeck)
+EnvironmentAction.setDamageDeck = function(damageDeck)
+{
+   InputValidator.validateIsArray("damageDeck", damageDeck);
+
+   return (
    {
-      InputValidator.validateIsArray("damageDeck", damageDeck);
+      type: EnvironmentAction.SET_DAMAGE_DECK,
+      damageDeck: damageDeck,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.SET_DAMAGE_DECK,
-         damageDeck: damageDeck,
-      });
-   };
+EnvironmentAction.setFirstAgent = function(agent)
+{
+   InputValidator.validateNotNull("agent", agent);
 
-   EnvironmentAction.setFirstAgent = function(agent)
+   return (
    {
-      InputValidator.validateNotNull("agent", agent);
+      type: EnvironmentAction.SET_FIRST_AGENT,
+      agent: agent,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.SET_FIRST_AGENT,
-         agent: agent,
-      });
-   };
+EnvironmentAction.setFirstSquad = function(squad)
+{
+   InputValidator.validateNotNull("squad", squad);
 
-   EnvironmentAction.setFirstSquad = function(squad)
+   return (
    {
-      InputValidator.validateNotNull("squad", squad);
+      type: EnvironmentAction.SET_FIRST_SQUAD,
+      squad: squad,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.SET_FIRST_SQUAD,
-         squad: squad,
-      });
-   };
+EnvironmentAction.setPlayAreaScale = function(scale)
+{
+   InputValidator.validateNotNull("scale", scale);
 
-   EnvironmentAction.setPlayAreaScale = function(scale)
+   return (
    {
-      InputValidator.validateNotNull("scale", scale);
+      type: EnvironmentAction.SET_PLAY_AREA_SCALE,
+      scale: scale,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.SET_PLAY_AREA_SCALE,
-         scale: scale,
-      });
-   };
+EnvironmentAction.setPlayFormat = function(playFormatKey)
+{
+   InputValidator.validateNotNull("playFormatKey", playFormatKey);
 
-   EnvironmentAction.setPlayFormat = function(playFormatKey)
+   return (
    {
-      InputValidator.validateNotNull("playFormatKey", playFormatKey);
+      type: EnvironmentAction.SET_PLAY_FORMAT,
+      playFormatKey: playFormatKey,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.SET_PLAY_FORMAT,
-         playFormatKey: playFormatKey,
-      });
-   };
+EnvironmentAction.setSecondAgent = function(agent)
+{
+   InputValidator.validateNotNull("agent", agent);
 
-   EnvironmentAction.setSecondAgent = function(agent)
+   return (
    {
-      InputValidator.validateNotNull("agent", agent);
+      type: EnvironmentAction.SET_SECOND_AGENT,
+      agent: agent,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.SET_SECOND_AGENT,
-         agent: agent,
-      });
-   };
+EnvironmentAction.setSecondSquad = function(squad)
+{
+   InputValidator.validateNotNull("squad", squad);
 
-   EnvironmentAction.setSecondSquad = function(squad)
+   return (
    {
-      InputValidator.validateNotNull("squad", squad);
+      type: EnvironmentAction.SET_SECOND_SQUAD,
+      squad: squad,
+   });
+};
 
-      return (
-      {
-         type: EnvironmentAction.SET_SECOND_SQUAD,
-         squad: squad,
-      });
-   };
+if (Object.freeze)
+{
+   Object.freeze(EnvironmentAction);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(EnvironmentAction);
-   }
-
-   return EnvironmentAction;
-});
+export default EnvironmentAction;

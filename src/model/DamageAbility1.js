@@ -1,21 +1,16 @@
 /*
  * Provides damage abilities for the Planning Phase.
  */
-"use strict";
+var DamageAbility1 = {};
 
-define(function()
+DamageAbility1.toString = function()
 {
-   var DamageAbility1 = {};
+   return "model/DamageAbility1";
+};
 
-   DamageAbility1.toString = function()
-   {
-      return "model/DamageAbility1";
-   };
+if (Object.freeze)
+{
+   Object.freeze(DamageAbility1);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(DamageAbility1);
-   }
-
-   return DamageAbility1;
-});
+export default DamageAbility1;

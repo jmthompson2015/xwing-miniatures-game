@@ -1,54 +1,49 @@
-"use strict";
+var DefenseDiceValue = {
+   EVADE: "evade",
+   FOCUS: "focus",
+   BLANK: "blank",
 
-define(function()
-{
-   var DefenseDiceValue = {
-      EVADE: "evade",
-      FOCUS: "focus",
-      BLANK: "blank",
-
-      properties:
+   properties:
+   {
+      "evade":
       {
-         "evade":
-         {
-            name: "Evade",
-            sortOrder: 0,
-            key: "evade",
-         },
-         "focus":
-         {
-            name: "Focus",
-            sortOrder: 1,
-            key: "focus",
-         },
-         "blank":
-         {
-            name: "Blank",
-            sortOrder: 2,
-            key: "blank",
-         },
+         name: "Evade",
+         sortOrder: 0,
+         key: "evade",
       },
-   };
+      "focus":
+      {
+         name: "Focus",
+         sortOrder: 1,
+         key: "focus",
+      },
+      "blank":
+      {
+         name: "Blank",
+         sortOrder: 2,
+         key: "blank",
+      },
+   },
+};
 
-   DefenseDiceValue.keys = function()
-   {
-      return Object.keys(DefenseDiceValue.properties);
-   };
+DefenseDiceValue.keys = function()
+{
+   return Object.keys(DefenseDiceValue.properties);
+};
 
-   DefenseDiceValue.toString = function()
-   {
-      return "DefenseDiceValue";
-   };
+DefenseDiceValue.toString = function()
+{
+   return "DefenseDiceValue";
+};
 
-   DefenseDiceValue.values = function()
-   {
-      return Object.values(DefenseDiceValue.properties);
-   };
+DefenseDiceValue.values = function()
+{
+   return Object.values(DefenseDiceValue.properties);
+};
 
-   if (Object.freeze)
-   {
-      Object.freeze(DefenseDiceValue);
-   }
+if (Object.freeze)
+{
+   Object.freeze(DefenseDiceValue);
+}
 
-   return DefenseDiceValue;
-});
+export default DefenseDiceValue;

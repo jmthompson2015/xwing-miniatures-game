@@ -1,51 +1,46 @@
-"use strict";
+var Difficulty = {
+   EASY: "easy",
+   STANDARD: "standard",
+   HARD: "hard",
 
-define(function()
-{
-   var Difficulty = {
-      EASY: "easy",
-      STANDARD: "standard",
-      HARD: "hard",
-
-      properties:
+   properties:
+   {
+      "easy":
       {
-         "easy":
-         {
-            name: "Easy",
-            key: "easy",
-         },
-         "standard":
-         {
-            name: "Standard",
-            key: "standard",
-         },
-         "hard":
-         {
-            name: "Hard",
-            key: "hard",
-         },
+         name: "Easy",
+         key: "easy",
       },
-   };
+      "standard":
+      {
+         name: "Standard",
+         key: "standard",
+      },
+      "hard":
+      {
+         name: "Hard",
+         key: "hard",
+      },
+   },
+};
 
-   Difficulty.keys = function()
-   {
-      return Object.keys(Difficulty.properties);
-   };
+Difficulty.keys = function()
+{
+   return Object.keys(Difficulty.properties);
+};
 
-   Difficulty.toString = function()
-   {
-      return "Difficulty";
-   };
+Difficulty.toString = function()
+{
+   return "Difficulty";
+};
 
-   Difficulty.values = function()
-   {
-      return Object.values(Difficulty.properties);
-   };
+Difficulty.values = function()
+{
+   return Object.values(Difficulty.properties);
+};
 
-   if (Object.freeze)
-   {
-      Object.freeze(Difficulty);
-   }
+if (Object.freeze)
+{
+   Object.freeze(Difficulty);
+}
 
-   return Difficulty;
-});
+export default Difficulty;

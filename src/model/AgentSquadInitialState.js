@@ -1,32 +1,30 @@
-"use strict";
+import Faction from "../artifact/Faction.js";
 
-define(["immutable", "artifact/Faction", "model/SimpleAgentStrategy"],
-   function(Immutable, Faction, SimpleAgentStrategy)
-   {
-      function AgentSquadInitialState()
-      {
-         // AgentSquadUI
-         this.agent = undefined;
-         this.agentName = "Agent";
-         this.agentType = SimpleAgentStrategy;
-         this.faction = Faction.properties[Faction.IMPERIAL];
-         this.inputAreaId = "inputArea";
-         this.resourceBase = "resource";
-         this.squadBuilderType = "Prefabricated";
+import SimpleAgentStrategy from "./SimpleAgentStrategy.js";
 
-         // SquadBuilderUI
-         this.delegateStore = undefined;
-         this.displayItem = undefined;
-         this.pilots = Immutable.List();
-         this.pilotIndexToUpgrades = Immutable.Map();
-         this.ships = Immutable.List();
-         this.squad = undefined;
-      }
+function AgentSquadInitialState()
+{
+   // AgentSquadUI
+   this.agent = undefined;
+   this.agentName = "Agent";
+   this.agentType = SimpleAgentStrategy;
+   this.faction = Faction.properties[Faction.IMPERIAL];
+   this.inputAreaId = "inputArea";
+   this.resourceBase = "resource";
+   this.squadBuilderType = "Prefabricated";
 
-      if (Object.freeze)
-      {
-         Object.freeze(AgentSquadInitialState);
-      }
+   // SquadBuilderUI
+   this.delegateStore = undefined;
+   this.displayItem = undefined;
+   this.pilots = Immutable.List();
+   this.pilotIndexToUpgrades = Immutable.Map();
+   this.ships = Immutable.List();
+   this.squad = undefined;
+}
 
-      return AgentSquadInitialState;
-   });
+if (Object.freeze)
+{
+   Object.freeze(AgentSquadInitialState);
+}
+
+export default AgentSquadInitialState;

@@ -1,7 +1,6 @@
-"use strict";
 
-define(function()
-{
+
+
    var XWingType = {
       CONDITIONS: "conditions",
       DAMAGES: "damages",
@@ -80,5 +79,5 @@ define(function()
       Object.freeze(XWingType);
    }
 
-   return XWingType;
-});
+   export default XWingType;
+

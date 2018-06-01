@@ -1,0 +1,34 @@
+{
+  "name": "xwing-miniatures-game",
+  "version": "1.0.0",
+  "description": "Play the game: [X-Wing Miniatures Game](https://rawgit.com/jmthompson2015/xwing-miniatures-game/master/src/index.html)",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmthompson2015/xwing-miniatures-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmthompson2015/xwing-miniatures-game/issues"
+  },
+  "homepage": "https://github.com/jmthompson2015/xwing-miniatures-game#readme",
+  "dependencies": {
+    "create-react-class": "^15.6.0",
+    "immutable": "^3.8.1",
+    "qunit": "^2.6.1",
+    "react": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "xwing-data": "^0.65.0",
+    "xwing-miniatures-font": "^1.0.29"
+  }
+}

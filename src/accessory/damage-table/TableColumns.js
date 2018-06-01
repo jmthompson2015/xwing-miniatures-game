@@ -1,39 +1,34 @@
-"use strict";
-
-define(function()
-{
-   var TableColumns = [
-      {
-         key: "version",
-         label: "Version",
-         className: "textCell tl",
+var TableColumns = [
+   {
+      key: "version",
+      label: "Version",
+      className: "textCell tl",
         },
-      {
-         key: "name",
-         label: "Name",
-         className: "textCell tl",
+   {
+      key: "name",
+      label: "Name",
+      className: "textCell tl",
         },
-      {
-         key: "trait",
-         label: "Trait",
-         className: "textCell tl",
+   {
+      key: "trait",
+      label: "Trait",
+      className: "textCell tl",
         },
-      {
-         key: "description",
-         label: "Description",
-         className: "textCell tl",
+   {
+      key: "description",
+      label: "Description",
+      className: "textCell tl",
         },
-      {
-         key: "action",
-         label: "Action",
-         className: "textCell tl",
+   {
+      key: "action",
+      label: "Action",
+      className: "textCell tl",
         },
-      {
-         key: "isImplemented",
-         label: "Implemented",
-         className: "tc",
+   {
+      key: "isImplemented",
+      label: "Implemented",
+      className: "tc",
         },
     ];
 
-   return TableColumns;
-});
+export default TableColumns;

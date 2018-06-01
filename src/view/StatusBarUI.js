@@ -1,78 +1,72 @@
-"use strict";
-
-define(["create-react-class", "prop-types", "react-dom-factories"],
-   function(createReactClass, PropTypes, DOM)
+var StatusBarUI = createReactClass(
+{
+   propTypes:
    {
-      var StatusBarUI = createReactClass(
+      activeShipName: PropTypes.string.isRequired,
+      phase: PropTypes.object.isRequired,
+      round: PropTypes.number.isRequired,
+      userMessage: PropTypes.string.isRequired,
+   },
+
+   render: function()
+   {
+      var round = this.props.round;
+      var phase = this.props.phase;
+      var phaseName = (phase ? phase.name : " ");
+      var activeShipName = (this.props.activeShipName ? this.props.activeShipName : " ");
+      var userMessage = this.props.userMessage;
+
+      var roundUI = ReactDOMFactories.span(
+      {}, "Round: ", round);
+      var phaseUI = ReactDOMFactories.span(
+      {}, "Phase: ", phaseName);
+      var activePilotUI = ReactDOMFactories.span(
+      {}, "Active Ship: ", activeShipName);
+      var messageAreaUI = ReactDOMFactories.span(
+      {}, userMessage);
+      var helpLinkUI = ReactDOMFactories.a(
       {
-         propTypes:
-         {
-            activeShipName: PropTypes.string.isRequired,
-            phase: PropTypes.object.isRequired,
-            round: PropTypes.number.isRequired,
-            userMessage: PropTypes.string.isRequired,
-         },
+         href: "view/help.html",
+         target: "_blank",
+      }, "Help");
 
-         render: function()
-         {
-            var round = this.props.round;
-            var phase = this.props.phase;
-            var phaseName = (phase ? phase.name : " ");
-            var activeShipName = (this.props.activeShipName ? this.props.activeShipName : " ");
-            var userMessage = this.props.userMessage;
+      var cells = [];
 
-            var roundUI = DOM.span(
-            {}, "Round: ", round);
-            var phaseUI = DOM.span(
-            {}, "Phase: ", phaseName);
-            var activePilotUI = DOM.span(
-            {}, "Active Ship: ", activeShipName);
-            var messageAreaUI = DOM.span(
-            {}, userMessage);
-            var helpLinkUI = DOM.a(
-            {
-               href: "view/html/help.html",
-               target: "_blank",
-            }, "Help");
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+         className: "statusBarUICell ba",
+      }, roundUI));
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+         className: "statusBarUICell ba",
+      }, phaseUI));
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+         className: "statusBarUICell ba",
+      }, activePilotUI));
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+         className: "statusBarUICell ba",
+      }, messageAreaUI));
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+         className: "statusBarUICell ba",
+      }, helpLinkUI));
 
-            var cells = [];
+      var row = ReactDOMFactories.tr(
+      {}, cells);
 
-            cells.push(DOM.td(
-            {
-               key: cells.length,
-               className: "statusBarUICell ba",
-            }, roundUI));
-            cells.push(DOM.td(
-            {
-               key: cells.length,
-               className: "statusBarUICell ba",
-            }, phaseUI));
-            cells.push(DOM.td(
-            {
-               key: cells.length,
-               className: "statusBarUICell ba",
-            }, activePilotUI));
-            cells.push(DOM.td(
-            {
-               key: cells.length,
-               className: "statusBarUICell ba",
-            }, messageAreaUI));
-            cells.push(DOM.td(
-            {
-               key: cells.length,
-               className: "statusBarUICell ba",
-            }, helpLinkUI));
+      return ReactDOMFactories.table(
+      {
+         className: "statusBarUI bg-xw-light w-100",
+      }, ReactDOMFactories.tbody(
+      {}, row));
+   },
+});
 
-            var row = DOM.tr(
-            {}, cells);
-
-            return DOM.table(
-            {
-               className: "statusBarUI bg-xw-light w-100",
-            }, DOM.tbody(
-            {}, row));
-         },
-      });
-
-      return StatusBarUI;
-   });
+export default StatusBarUI;

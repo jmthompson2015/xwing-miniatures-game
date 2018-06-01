@@ -1,42 +1,41 @@
-"use strict";
+import StringUtilities from "../../utility/StringUtilities.js";
 
-define(["utility/StringUtilities", "artifact/Event", "artifact/Phase"],
-   function(StringUtilities, Event, Phase)
+import Event from "../../artifact/Event.js";
+import Phase from "../../artifact/Phase.js";
+
+var EventComparator = function(eventA, eventB)
+{
+   var valueA = createValue(eventA);
+   var valueB = createValue(eventB);
+
+   var answer = -1;
+   if (valueA === valueB)
    {
-      var EventComparator = function(eventA, eventB)
-      {
-         var valueA = createValue(eventA);
-         var valueB = createValue(eventB);
+      answer = 0;
+   }
+   else if (valueA > valueB)
+   {
+      answer = 1;
+   }
 
-         var answer = -1;
-         if (valueA === valueB)
-         {
-            answer = 0;
-         }
-         else if (valueA > valueB)
-         {
-            answer = 1;
-         }
+   return answer;
+};
 
-         return answer;
-      };
+function createValue(event)
+{
+   var answer = event;
+   var key = event.substring(event.indexOf(".") + 1);
 
-      function createValue(event)
-      {
-         var answer = event;
-         var key = event.substring(event.indexOf(".") + 1);
+   if (event.startsWith("Event"))
+   {
+      answer = "Event" + StringUtilities.pad(Event.keys().indexOf(key), 2);
+   }
+   else if (event.startsWith("Phase"))
+   {
+      answer = "Phase" + StringUtilities.pad(Phase.keys().indexOf(key), 2);
+   }
 
-         if (event.startsWith("Event"))
-         {
-            answer = "Event" + StringUtilities.pad(Event.keys().indexOf(key), 2);
-         }
-         else if (event.startsWith("Phase"))
-         {
-            answer = "Phase" + StringUtilities.pad(Phase.keys().indexOf(key), 2);
-         }
+   return answer;
+}
 
-         return answer;
-      }
-
-      return EventComparator;
-   });
+export default EventComparator;

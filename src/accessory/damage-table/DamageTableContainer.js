@@ -1,22 +1,20 @@
-"use strict";
+import InputValidator from "../../utility/InputValidator.js";
 
-define(["react-redux", "utility/InputValidator", "accessory/damage-table/DamageTable"],
-   function(ReactRedux, InputValidator, DamageTable)
+import DamageTable from "./DamageTable.js";
+
+// DamageTableContainer
+
+function mapStateToProps(state, ownProps)
+{
+   InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
+
+   return (
    {
-      // DamageTableContainer
-
-      function mapStateToProps(state, ownProps)
-      {
-         InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
-
-         return (
-         {
-            isFilterShown: state.isFilterShown,
-            filters: state.filters,
-            resourceBase: ownProps.resourceBase,
-            rowData: state.filteredTableRows,
-         });
-      }
-
-      return ReactRedux.connect(mapStateToProps)(DamageTable);
+      isFilterShown: state.isFilterShown,
+      filters: state.filters,
+      resourceBase: ownProps.resourceBase,
+      rowData: state.filteredTableRows,
    });
+}
+
+export default ReactRedux.connect(mapStateToProps)(DamageTable);

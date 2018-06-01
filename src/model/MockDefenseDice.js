@@ -1,36 +1,36 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator", "artifact/DefenseDiceValue", "model/DefenseDice"],
-   function(InputValidator, DefenseDiceValue, DefenseDice)
-   {
-      function MockDefenseDice(store, attackerId)
-      {
-         InputValidator.validateNotNull("store", store);
-         InputValidator.validateIsNumber("attackerId", attackerId);
+import DefenseDiceValue from "../artifact/DefenseDiceValue.js";
 
-         var values = [DefenseDiceValue.BLANK, DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS];
-         var answer = new DefenseDice(store, attackerId, values);
+import DefenseDice from "./DefenseDice.js";
 
-         answer.rerollAllFocus = function() {};
+function MockDefenseDice(store, attackerId)
+{
+   InputValidator.validateNotNull("store", store);
+   InputValidator.validateIsNumber("attackerId", attackerId);
 
-         answer.rerollBlank = function() {};
+   var values = [DefenseDiceValue.BLANK, DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS];
+   var answer = new DefenseDice(store, attackerId, values);
 
-         answer.rerollBlankAndFocus = function() {};
+   answer.rerollAllFocus = function() {};
 
-         answer.rerollFocus = function() {};
+   answer.rerollBlank = function() {};
 
-         answer.rerollType = function() {};
+   answer.rerollBlankAndFocus = function() {};
 
-         return answer;
-      }
+   answer.rerollFocus = function() {};
 
-      MockDefenseDice.get = function(store, attackerId)
-      {
-         InputValidator.validateNotNull("store", store);
-         InputValidator.validateIsNumber("attackerId", attackerId);
+   answer.rerollType = function() {};
 
-         return new MockDefenseDice(store, attackerId);
-      };
+   return answer;
+}
 
-      return MockDefenseDice;
-   });
+MockDefenseDice.get = function(store, attackerId)
+{
+   InputValidator.validateNotNull("store", store);
+   InputValidator.validateIsNumber("attackerId", attackerId);
+
+   return new MockDefenseDice(store, attackerId);
+};
+
+export default MockDefenseDice;

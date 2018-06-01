@@ -1,160 +1,157 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var AgentSquadAction = {};
+
+// AgentSquadUI
+AgentSquadAction.SET_AGENT_NAME = "setAgentName";
+AgentSquadAction.SET_AGENT_TYPE = "setAgentType";
+AgentSquadAction.SET_FACTION = "setFaction";
+AgentSquadAction.SET_SQUAD_BUILDER_TYPE = "setSquadBuilderType";
+
+// SquadBuilderUI
+AgentSquadAction.RESET = "reset";
+AgentSquadAction.SET_DELEGATE_STORE = "setDelegateStore";
+AgentSquadAction.SET_DISPLAY_ITEM = "setDisplayItem";
+AgentSquadAction.SET_PILOT = "setPilot";
+AgentSquadAction.SET_PILOT_UPGRADE = "setPilotUpgrade";
+AgentSquadAction.SET_SHIP = "setShip";
+AgentSquadAction.SET_SQUAD = "setSquad";
+
+/////////////////////////////////////////////////////////////////////////////
+// AgentSquadUI
+
+AgentSquadAction.setAgentName = function(agentName)
 {
-   var AgentSquadAction = {};
+   InputValidator.validateNotNull("agentName", agentName);
 
-   // AgentSquadUI
-   AgentSquadAction.SET_AGENT_NAME = "setAgentName";
-   AgentSquadAction.SET_AGENT_TYPE = "setAgentType";
-   AgentSquadAction.SET_FACTION = "setFaction";
-   AgentSquadAction.SET_SQUAD_BUILDER_TYPE = "setSquadBuilderType";
-
-   // SquadBuilderUI
-   AgentSquadAction.RESET = "reset";
-   AgentSquadAction.SET_DELEGATE_STORE = "setDelegateStore";
-   AgentSquadAction.SET_DISPLAY_ITEM = "setDisplayItem";
-   AgentSquadAction.SET_PILOT = "setPilot";
-   AgentSquadAction.SET_PILOT_UPGRADE = "setPilotUpgrade";
-   AgentSquadAction.SET_SHIP = "setShip";
-   AgentSquadAction.SET_SQUAD = "setSquad";
-
-   /////////////////////////////////////////////////////////////////////////////
-   // AgentSquadUI
-
-   AgentSquadAction.setAgentName = function(agentName)
+   return (
    {
-      InputValidator.validateNotNull("agentName", agentName);
+      type: this.SET_AGENT_NAME,
+      agentName: agentName,
+   });
+};
 
-      return (
-      {
-         type: this.SET_AGENT_NAME,
-         agentName: agentName,
-      });
-   };
+AgentSquadAction.setAgentType = function(agentType)
+{
+   InputValidator.validateNotNull("agentType", agentType);
 
-   AgentSquadAction.setAgentType = function(agentType)
+   return (
    {
-      InputValidator.validateNotNull("agentType", agentType);
+      type: this.SET_AGENT_TYPE,
+      agentType: agentType,
+   });
+};
 
-      return (
-      {
-         type: this.SET_AGENT_TYPE,
-         agentType: agentType,
-      });
-   };
+AgentSquadAction.setFaction = function(faction)
+{
+   InputValidator.validateNotNull("faction", faction);
 
-   AgentSquadAction.setFaction = function(faction)
+   return (
    {
-      InputValidator.validateNotNull("faction", faction);
+      type: this.SET_FACTION,
+      faction: faction,
+   });
+};
 
-      return (
-      {
-         type: this.SET_FACTION,
-         faction: faction,
-      });
-   };
+AgentSquadAction.setSquadBuilderType = function(squadBuilderType)
+{
+   InputValidator.validateNotNull("squadBuilderType", squadBuilderType);
 
-   AgentSquadAction.setSquadBuilderType = function(squadBuilderType)
+   return (
    {
-      InputValidator.validateNotNull("squadBuilderType", squadBuilderType);
+      type: this.SET_SQUAD_BUILDER_TYPE,
+      squadBuilderType: squadBuilderType,
+   });
+};
 
-      return (
-      {
-         type: this.SET_SQUAD_BUILDER_TYPE,
-         squadBuilderType: squadBuilderType,
-      });
-   };
+/////////////////////////////////////////////////////////////////////////////
+// SquadBuilderUI
 
-   /////////////////////////////////////////////////////////////////////////////
-   // SquadBuilderUI
-
-   AgentSquadAction.reset = function()
+AgentSquadAction.reset = function()
+{
+   return (
    {
-      return (
-      {
-         type: this.RESET,
-      });
-   };
+      type: this.RESET,
+   });
+};
 
-   AgentSquadAction.setDelegateStore = function(delegateStore)
+AgentSquadAction.setDelegateStore = function(delegateStore)
+{
+   InputValidator.validateNotNull("delegateStore", delegateStore);
+
+   return (
    {
-      InputValidator.validateNotNull("delegateStore", delegateStore);
+      type: this.SET_DELEGATE_STORE,
+      delegateStore: delegateStore,
+   });
+};
 
-      return (
-      {
-         type: this.SET_DELEGATE_STORE,
-         delegateStore: delegateStore,
-      });
-   };
+AgentSquadAction.setDisplayItem = function(displayItem)
+{
+   // displayItem optional.
 
-   AgentSquadAction.setDisplayItem = function(displayItem)
+   return (
    {
-      // displayItem optional.
+      type: this.SET_DISPLAY_ITEM,
+      displayItem: displayItem,
+   });
+};
 
-      return (
-      {
-         type: this.SET_DISPLAY_ITEM,
-         displayItem: displayItem,
-      });
-   };
+AgentSquadAction.setPilot = function(pilot, index)
+{
+   // pilot optional.
+   InputValidator.validateIsNumber("index", index);
 
-   AgentSquadAction.setPilot = function(pilot, index)
+   return (
    {
-      // pilot optional.
-      InputValidator.validateIsNumber("index", index);
+      type: this.SET_PILOT,
+      pilot: pilot,
+      index: index,
+   });
+};
 
-      return (
-      {
-         type: this.SET_PILOT,
-         pilot: pilot,
-         index: index,
-      });
-   };
+AgentSquadAction.setPilotUpgrade = function(pilotIndex, upgrade, upgradeIndex)
+{
+   InputValidator.validateIsNumber("pilotIndex", pilotIndex);
+   // upgrade optional.
+   InputValidator.validateIsNumber("upgradeIndex", upgradeIndex);
 
-   AgentSquadAction.setPilotUpgrade = function(pilotIndex, upgrade, upgradeIndex)
+   return (
    {
-      InputValidator.validateIsNumber("pilotIndex", pilotIndex);
-      // upgrade optional.
-      InputValidator.validateIsNumber("upgradeIndex", upgradeIndex);
+      type: this.SET_PILOT_UPGRADE,
+      pilotIndex: pilotIndex,
+      upgrade: upgrade,
+      upgradeIndex: upgradeIndex,
+   });
+};
 
-      return (
-      {
-         type: this.SET_PILOT_UPGRADE,
-         pilotIndex: pilotIndex,
-         upgrade: upgrade,
-         upgradeIndex: upgradeIndex,
-      });
-   };
+AgentSquadAction.setShip = function(ship, index)
+{
+   // ship optional.
+   InputValidator.validateIsNumber("index", index);
 
-   AgentSquadAction.setShip = function(ship, index)
+   return (
    {
-      // ship optional.
-      InputValidator.validateIsNumber("index", index);
+      type: this.SET_SHIP,
+      ship: ship,
+      index: index,
+   });
+};
 
-      return (
-      {
-         type: this.SET_SHIP,
-         ship: ship,
-         index: index,
-      });
-   };
+AgentSquadAction.setSquad = function(squad)
+{
+   InputValidator.validateNotNull("squad", squad);
 
-   AgentSquadAction.setSquad = function(squad)
+   return (
    {
-      InputValidator.validateNotNull("squad", squad);
+      type: this.SET_SQUAD,
+      squad: squad,
+   });
+};
 
-      return (
-      {
-         type: this.SET_SQUAD,
-         squad: squad,
-      });
-   };
+if (Object.freeze)
+{
+   Object.freeze(AgentSquadAction);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(AgentSquadAction);
-   }
-
-   return AgentSquadAction;
-});
+export default AgentSquadAction;

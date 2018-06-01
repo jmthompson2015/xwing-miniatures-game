@@ -1,19 +1,20 @@
-"use strict";
+import Phase from "../artifact/Phase.js";
 
-define(["qunit", "artifact/Phase", "model/InitialState"],
-   function(QUnit, Phase, InitialState)
-   {
-      QUnit.module("InitialState");
+import InitialState from "./InitialState.js";
 
-      QUnit.test("InitialState()", function(assert)
-      {
-         // Run.
-         var result = new InitialState();
+QUnit.module("InitialState");
 
-         // Verify.
-         assert.ok(!result.playFormatKey);
-         assert.equal(result.round, 0);
-         assert.equal(result.phaseKey, Phase.SETUP);
-         assert.ok(!result.activeCardId);
-      });
-   });
+QUnit.test("InitialState()", function(assert)
+{
+   // Run.
+   var result = new InitialState();
+
+   // Verify.
+   assert.ok(!result.playFormatKey);
+   assert.equal(result.round, 0);
+   assert.equal(result.phaseKey, Phase.SETUP);
+   assert.ok(!result.activeCardId);
+});
+
+const InitialStateTest = {};
+export default InitialStateTest;

@@ -1,54 +1,49 @@
-"use strict";
+var ReactUtilities = {};
 
-define(["react-dom-factories"], function(DOM)
+ReactUtilities.createCell = function(element, key, className, title)
 {
-   var ReactUtilities = {};
-
-   ReactUtilities.createCell = function(element, key, className, title)
+   return ReactDOMFactories.div(
    {
-      return DOM.div(
-      {
-         key: key,
-         className: "dtc" + (className ? " " + className : ""),
-         title: title,
-      }, element);
-   };
+      key: key,
+      className: "dtc" + (className ? " " + className : ""),
+      title: title,
+   }, element);
+};
 
-   ReactUtilities.createFlexbox = function(cells, key, className)
+ReactUtilities.createFlexbox = function(cells, key, className)
+{
+   return ReactDOMFactories.div(
    {
-      return DOM.div(
-      {
-         key: key,
-         className: "flex" + (className ? " " + className : ""),
-      }, cells);
-   };
+      key: key,
+      className: "flex" + (className ? " " + className : ""),
+   }, cells);
+};
 
-   ReactUtilities.createFlexboxWrap = function(cells, key, className)
+ReactUtilities.createFlexboxWrap = function(cells, key, className)
+{
+   return ReactDOMFactories.div(
    {
-      return DOM.div(
-      {
-         key: key,
-         className: "flex flex-wrap" + (className ? " " + className : ""),
-      }, cells);
-   };
+      key: key,
+      className: "flex flex-wrap" + (className ? " " + className : ""),
+   }, cells);
+};
 
-   ReactUtilities.createRow = function(cells, key, className)
+ReactUtilities.createRow = function(cells, key, className)
+{
+   return ReactDOMFactories.div(
    {
-      return DOM.div(
-      {
-         key: key,
-         className: "dt-row" + (className ? " " + className : ""),
-      }, cells);
-   };
+      key: key,
+      className: "dt-row" + (className ? " " + className : ""),
+   }, cells);
+};
 
-   ReactUtilities.createTable = function(rows, key, className)
+ReactUtilities.createTable = function(rows, key, className)
+{
+   return ReactDOMFactories.div(
    {
-      return DOM.div(
-      {
-         key: key,
-         className: "dt" + (className ? " " + className : ""),
-      }, rows);
-   };
+      key: key,
+      className: "dt" + (className ? " " + className : ""),
+   }, rows);
+};
 
-   return ReactUtilities;
-});
+export default ReactUtilities;

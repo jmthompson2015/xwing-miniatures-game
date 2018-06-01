@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestStatusBarUI</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>StatusBarUI</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="StatusBarUI.viewtest.js" type="module">></script>
 </head>
 <body>
 	<div id="statusBarPanel"></div>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/Phase", "view/StatusBarUI"],
-			function(React, ReactDOM, DOM, Logger, Phase, StatusBarUI)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var element = React.createElement(StatusBarUI,
-				{
-					activeShipName: "Bob's Fighter",
-					phase: Phase.properties[Phase.COMBAT_ROLL_ATTACK_DICE],
-					round: 12,
-					userMessage: "Somebody attacked someone.",
-				});
-				ReactDOM.render(element, document.getElementById("statusBarPanel"));
-			});
-	</script>
 </body>
 
 </html>

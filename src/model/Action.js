@@ -1,364 +1,361 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var Action = {};
+
+Action.ADD_AGENT = "addAgent";
+Action.ADD_PILOT_TO_MANEUVER = "addPilotToManeuver";
+Action.ADD_TARGET_LOCK = "addTargetLock";
+Action.CLEAR_EVENT = "clearEvent";
+Action.CLEAR_PHASE = "clearPhase";
+Action.CLEAR_PILOT_TO_MANEUVER = "clearPilotToManeuver";
+Action.DEQUEUE_EVENT = "dequeueEvent";
+Action.DEQUEUE_PHASE = "dequeuePhase";
+Action.ENQUEUE_EVENT = "enqueueEvent";
+Action.ENQUEUE_PHASE = "enqueuePhase";
+Action.INCREMENT_NEXT_TARGET_LOCK_ID = "incrementNextTargetLockId";
+Action.REMOVE_TARGET_LOCK = "removeTargetLock";
+Action.SET_ADJUDICATOR = "setAdjudicator";
+Action.SET_DELAY = "setDelay";
+Action.SET_ENVIRONMENT = "setEnvironment";
+Action.SET_GAME_OVER = "setGameOver";
+Action.SET_RESOURCE_BASE = "setResourceBase";
+Action.SET_TOKEN_ACTIVATION_ACTION = "setTokenActivationAction";
+Action.SET_TOKEN_ATTACK_DICE = "setTokenAttackDice";
+Action.SET_TOKEN_COMBAT_ACTION = "setTokenCombatAction";
+Action.SET_TOKEN_DAMAGE_DEALER = "setTokenDamageDealer";
+Action.SET_TOKEN_DEFENDER_HIT = "setTokenDefenderHit";
+Action.SET_TOKEN_DEFENSE_DICE = "setTokenDefenseDice";
+Action.SET_TOKEN_IN_FIRING_ARC = "setTokenInFiringArc";
+Action.SET_TOKEN_MANEUVER = "setTokenManeuver";
+Action.SET_TOKEN_MANEUVER_ACTION = "setTokenManeuverAction";
+Action.SET_TOKEN_RANGE = "setTokenRange";
+Action.SET_USER_MESSAGE = "setUserMessage";
+
+Action.addAgent = function(id, values)
 {
-   var Action = {};
+   InputValidator.validateIsNumber("id", id);
+   InputValidator.validateNotNull("values", values);
 
-   Action.ADD_AGENT = "addAgent";
-   Action.ADD_PILOT_TO_MANEUVER = "addPilotToManeuver";
-   Action.ADD_TARGET_LOCK = "addTargetLock";
-   Action.CLEAR_EVENT = "clearEvent";
-   Action.CLEAR_PHASE = "clearPhase";
-   Action.CLEAR_PILOT_TO_MANEUVER = "clearPilotToManeuver";
-   Action.DEQUEUE_EVENT = "dequeueEvent";
-   Action.DEQUEUE_PHASE = "dequeuePhase";
-   Action.ENQUEUE_EVENT = "enqueueEvent";
-   Action.ENQUEUE_PHASE = "enqueuePhase";
-   Action.INCREMENT_NEXT_TARGET_LOCK_ID = "incrementNextTargetLockId";
-   Action.REMOVE_TARGET_LOCK = "removeTargetLock";
-   Action.SET_ADJUDICATOR = "setAdjudicator";
-   Action.SET_DELAY = "setDelay";
-   Action.SET_ENVIRONMENT = "setEnvironment";
-   Action.SET_GAME_OVER = "setGameOver";
-   Action.SET_RESOURCE_BASE = "setResourceBase";
-   Action.SET_TOKEN_ACTIVATION_ACTION = "setTokenActivationAction";
-   Action.SET_TOKEN_ATTACK_DICE = "setTokenAttackDice";
-   Action.SET_TOKEN_COMBAT_ACTION = "setTokenCombatAction";
-   Action.SET_TOKEN_DAMAGE_DEALER = "setTokenDamageDealer";
-   Action.SET_TOKEN_DEFENDER_HIT = "setTokenDefenderHit";
-   Action.SET_TOKEN_DEFENSE_DICE = "setTokenDefenseDice";
-   Action.SET_TOKEN_IN_FIRING_ARC = "setTokenInFiringArc";
-   Action.SET_TOKEN_MANEUVER = "setTokenManeuver";
-   Action.SET_TOKEN_MANEUVER_ACTION = "setTokenManeuverAction";
-   Action.SET_TOKEN_RANGE = "setTokenRange";
-   Action.SET_USER_MESSAGE = "setUserMessage";
-
-   Action.addAgent = function(id, values)
+   return (
    {
-      InputValidator.validateIsNumber("id", id);
-      InputValidator.validateNotNull("values", values);
+      type: Action.ADD_AGENT,
+      id: id,
+      values: values,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_AGENT,
-         id: id,
-         values: values,
-      });
-   };
+Action.addPilotToManeuver = function(pilotToManeuver)
+{
+   InputValidator.validateNotNull("pilotToManeuver", pilotToManeuver);
 
-   Action.addPilotToManeuver = function(pilotToManeuver)
+   return (
    {
-      InputValidator.validateNotNull("pilotToManeuver", pilotToManeuver);
+      type: Action.ADD_PILOT_TO_MANEUVER,
+      pilotToManeuver: pilotToManeuver,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_PILOT_TO_MANEUVER,
-         pilotToManeuver: pilotToManeuver,
-      });
-   };
+Action.addTargetLock = function(targetLock)
+{
+   InputValidator.validateNotNull("targetLock", targetLock);
 
-   Action.addTargetLock = function(targetLock)
+   return (
    {
-      InputValidator.validateNotNull("targetLock", targetLock);
+      type: Action.ADD_TARGET_LOCK,
+      targetLock: targetLock,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_TARGET_LOCK,
-         targetLock: targetLock,
-      });
-   };
-
-   Action.clearEvent = function()
+Action.clearEvent = function()
+{
+   return (
    {
-      return (
-      {
-         type: Action.CLEAR_EVENT,
-      });
-   };
+      type: Action.CLEAR_EVENT,
+   });
+};
 
-   Action.clearPhase = function()
+Action.clearPhase = function()
+{
+   return (
    {
-      return (
-      {
-         type: Action.CLEAR_PHASE,
-      });
-   };
+      type: Action.CLEAR_PHASE,
+   });
+};
 
-   Action.clearPilotToManeuver = function()
+Action.clearPilotToManeuver = function()
+{
+   return (
    {
-      return (
-      {
-         type: Action.CLEAR_PILOT_TO_MANEUVER,
-      });
-   };
+      type: Action.CLEAR_PILOT_TO_MANEUVER,
+   });
+};
 
-   Action.dequeueEvent = function()
+Action.dequeueEvent = function()
+{
+   return (
    {
-      return (
-      {
-         type: Action.DEQUEUE_EVENT,
-      });
-   };
+      type: Action.DEQUEUE_EVENT,
+   });
+};
 
-   Action.dequeuePhase = function()
+Action.dequeuePhase = function()
+{
+   return (
    {
-      return (
-      {
-         type: Action.DEQUEUE_PHASE,
-      });
-   };
+      type: Action.DEQUEUE_PHASE,
+   });
+};
 
-   Action.enqueueEvent = function(eventKey, eventToken, eventCallback, eventContext)
+Action.enqueueEvent = function(eventKey, eventToken, eventCallback, eventContext)
+{
+   InputValidator.validateNotNull("eventKey", eventKey);
+   InputValidator.validateNotNull("eventToken", eventToken);
+   // eventCallback optional.
+   // eventContext optional.
+
+   return (
    {
-      InputValidator.validateNotNull("eventKey", eventKey);
-      InputValidator.validateNotNull("eventToken", eventToken);
-      // eventCallback optional.
-      // eventContext optional.
+      type: Action.ENQUEUE_EVENT,
+      eventKey: eventKey,
+      eventToken: eventToken,
+      eventCallback: eventCallback,
+      eventContext: eventContext,
+   });
+};
 
-      return (
-      {
-         type: Action.ENQUEUE_EVENT,
-         eventKey: eventKey,
-         eventToken: eventToken,
-         eventCallback: eventCallback,
-         eventContext: eventContext,
-      });
-   };
+Action.enqueuePhase = function(phaseKey, phaseToken, phaseCallback, phaseContext)
+{
+   InputValidator.validateNotNull("phaseKey", phaseKey);
+   // phaseToken optional.
+   // phaseCallback optional.
+   // phaseContext optional.
 
-   Action.enqueuePhase = function(phaseKey, phaseToken, phaseCallback, phaseContext)
+   return (
    {
-      InputValidator.validateNotNull("phaseKey", phaseKey);
-      // phaseToken optional.
-      // phaseCallback optional.
-      // phaseContext optional.
+      type: Action.ENQUEUE_PHASE,
+      phaseKey: phaseKey,
+      phaseToken: phaseToken,
+      phaseCallback: phaseCallback,
+      phaseContext: phaseContext,
+   });
+};
 
-      return (
-      {
-         type: Action.ENQUEUE_PHASE,
-         phaseKey: phaseKey,
-         phaseToken: phaseToken,
-         phaseCallback: phaseCallback,
-         phaseContext: phaseContext,
-      });
-   };
-
-   Action.incrementNextTargetLockId = function()
+Action.incrementNextTargetLockId = function()
+{
+   return (
    {
-      return (
-      {
-         type: Action.INCREMENT_NEXT_TARGET_LOCK_ID,
-      });
-   };
+      type: Action.INCREMENT_NEXT_TARGET_LOCK_ID,
+   });
+};
 
-   Action.removeTargetLock = function(targetLock)
+Action.removeTargetLock = function(targetLock)
+{
+   InputValidator.validateNotNull("targetLock", targetLock);
+
+   return (
    {
-      InputValidator.validateNotNull("targetLock", targetLock);
+      type: Action.REMOVE_TARGET_LOCK,
+      targetLock: targetLock,
+   });
+};
 
-      return (
-      {
-         type: Action.REMOVE_TARGET_LOCK,
-         targetLock: targetLock,
-      });
-   };
+Action.setAdjudicator = function(adjudicator)
+{
+   InputValidator.validateNotNull("adjudicator", adjudicator);
 
-   Action.setAdjudicator = function(adjudicator)
+   return (
    {
-      InputValidator.validateNotNull("adjudicator", adjudicator);
+      type: Action.SET_ADJUDICATOR,
+      adjudicator: adjudicator,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_ADJUDICATOR,
-         adjudicator: adjudicator,
-      });
-   };
+Action.setDelay = function(delay)
+{
+   InputValidator.validateIsNumber("delay", delay);
 
-   Action.setDelay = function(delay)
+   return (
    {
-      InputValidator.validateIsNumber("delay", delay);
+      type: Action.SET_DELAY,
+      delay: delay,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_DELAY,
-         delay: delay,
-      });
-   };
+Action.setEnvironment = function(environment)
+{
+   InputValidator.validateNotNull("environment", environment);
 
-   Action.setEnvironment = function(environment)
+   return (
    {
-      InputValidator.validateNotNull("environment", environment);
+      type: Action.SET_ENVIRONMENT,
+      environment: environment,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_ENVIRONMENT,
-         environment: environment,
-      });
-   };
-
-   Action.setGameOver = function(winner)
+Action.setGameOver = function(winner)
+{
+   return (
    {
-      return (
-      {
-         type: Action.SET_GAME_OVER,
-         winner: winner,
-      });
-   };
+      type: Action.SET_GAME_OVER,
+      winner: winner,
+   });
+};
 
-   Action.setResourceBase = function(resourceBase)
+Action.setResourceBase = function(resourceBase)
+{
+   InputValidator.validateIsString("resourceBase", resourceBase);
+
+   return (
    {
-      InputValidator.validateIsString("resourceBase", resourceBase);
+      type: Action.SET_RESOURCE_BASE,
+      resourceBase: resourceBase,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_RESOURCE_BASE,
-         resourceBase: resourceBase,
-      });
-   };
+Action.setTokenActivationAction = function(tokenId, activationActionValues)
+{
+   InputValidator.validateIsNumber("tokenId", tokenId);
+   // activationActionValues optional.
 
-   Action.setTokenActivationAction = function(tokenId, activationActionValues)
+   return (
    {
-      InputValidator.validateIsNumber("tokenId", tokenId);
-      // activationActionValues optional.
+      type: Action.SET_TOKEN_ACTIVATION_ACTION,
+      tokenId: tokenId,
+      activationActionValues: activationActionValues,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_ACTIVATION_ACTION,
-         tokenId: tokenId,
-         activationActionValues: activationActionValues,
-      });
-   };
+Action.setTokenAttackDice = function(tokenId, attackDiceValues)
+{
+   InputValidator.validateIsNumber("tokenId", tokenId);
+   // attackDiceValues optional.
 
-   Action.setTokenAttackDice = function(tokenId, attackDiceValues)
+   return (
    {
-      InputValidator.validateIsNumber("tokenId", tokenId);
-      // attackDiceValues optional.
+      type: Action.SET_TOKEN_ATTACK_DICE,
+      tokenId: tokenId,
+      attackDiceValues: attackDiceValues,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_ATTACK_DICE,
-         tokenId: tokenId,
-         attackDiceValues: attackDiceValues,
-      });
-   };
+Action.setTokenCombatAction = function(token, combatAction)
+{
+   InputValidator.validateNotNull("token", token);
+   // combatAction optional.
 
-   Action.setTokenCombatAction = function(token, combatAction)
+   return (
    {
-      InputValidator.validateNotNull("token", token);
-      // combatAction optional.
+      type: Action.SET_TOKEN_COMBAT_ACTION,
+      token: token,
+      combatAction: combatAction,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_COMBAT_ACTION,
-         token: token,
-         combatAction: combatAction,
-      });
-   };
+Action.setTokenDamageDealer = function(token, damageDealer)
+{
+   InputValidator.validateNotNull("token", token);
+   // damageDealer optional.
 
-   Action.setTokenDamageDealer = function(token, damageDealer)
+   return (
    {
-      InputValidator.validateNotNull("token", token);
-      // damageDealer optional.
+      type: Action.SET_TOKEN_DAMAGE_DEALER,
+      token: token,
+      damageDealer: damageDealer,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_DAMAGE_DEALER,
-         token: token,
-         damageDealer: damageDealer,
-      });
-   };
+Action.setTokenDefenderHit = function(token, isDefenderHit)
+{
+   InputValidator.validateNotNull("token", token);
+   InputValidator.validateNotNull("isDefenderHit", isDefenderHit);
 
-   Action.setTokenDefenderHit = function(token, isDefenderHit)
+   return (
    {
-      InputValidator.validateNotNull("token", token);
-      InputValidator.validateNotNull("isDefenderHit", isDefenderHit);
+      type: Action.SET_TOKEN_DEFENDER_HIT,
+      token: token,
+      isDefenderHit: isDefenderHit,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_DEFENDER_HIT,
-         token: token,
-         isDefenderHit: isDefenderHit,
-      });
-   };
+Action.setTokenDefenseDice = function(tokenId, defenseDiceValues)
+{
+   InputValidator.validateIsNumber("tokenId", tokenId);
+   // defenseDiceValues optional.
 
-   Action.setTokenDefenseDice = function(tokenId, defenseDiceValues)
+   return (
    {
-      InputValidator.validateIsNumber("tokenId", tokenId);
-      // defenseDiceValues optional.
+      type: Action.SET_TOKEN_DEFENSE_DICE,
+      tokenId: tokenId,
+      defenseDiceValues: defenseDiceValues,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_DEFENSE_DICE,
-         tokenId: tokenId,
-         defenseDiceValues: defenseDiceValues,
-      });
-   };
+Action.setTokenInFiringArc = function(token, isInFiringArc)
+{
+   InputValidator.validateNotNull("token", token);
+   InputValidator.validateNotNull("isInFiringArc", isInFiringArc);
 
-   Action.setTokenInFiringArc = function(token, isInFiringArc)
+   return (
    {
-      InputValidator.validateNotNull("token", token);
-      InputValidator.validateNotNull("isInFiringArc", isInFiringArc);
+      type: Action.SET_TOKEN_IN_FIRING_ARC,
+      token: token,
+      isInFiringArc: isInFiringArc,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_IN_FIRING_ARC,
-         token: token,
-         isInFiringArc: isInFiringArc,
-      });
-   };
+Action.setTokenManeuver = function(token, maneuver)
+{
+   InputValidator.validateNotNull("token", token);
+   // maneuver optional.
 
-   Action.setTokenManeuver = function(token, maneuver)
+   return (
    {
-      InputValidator.validateNotNull("token", token);
-      // maneuver optional.
+      type: Action.SET_TOKEN_MANEUVER,
+      token: token,
+      maneuver: maneuver,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_MANEUVER,
-         token: token,
-         maneuver: maneuver,
-      });
-   };
+Action.setTokenManeuverAction = function(tokenId, maneuverActionValues)
+{
+   InputValidator.validateIsNumber("tokenId", tokenId);
+   // maneuverActionValues optional.
 
-   Action.setTokenManeuverAction = function(tokenId, maneuverActionValues)
+   return (
    {
-      InputValidator.validateIsNumber("tokenId", tokenId);
-      // maneuverActionValues optional.
+      type: Action.SET_TOKEN_MANEUVER_ACTION,
+      tokenId: tokenId,
+      maneuverActionValues: maneuverActionValues,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_MANEUVER_ACTION,
-         tokenId: tokenId,
-         maneuverActionValues: maneuverActionValues,
-      });
-   };
+Action.setTokenRange = function(token, rangeKey)
+{
+   InputValidator.validateNotNull("token", token);
+   // rangeKey optional.
 
-   Action.setTokenRange = function(token, rangeKey)
+   return (
    {
-      InputValidator.validateNotNull("token", token);
-      // rangeKey optional.
+      type: Action.SET_TOKEN_RANGE,
+      token: token,
+      rangeKey: rangeKey,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_TOKEN_RANGE,
-         token: token,
-         rangeKey: rangeKey,
-      });
-   };
+Action.setUserMessage = function(userMessage)
+{
+   InputValidator.validateNotNull("userMessage", userMessage);
 
-   Action.setUserMessage = function(userMessage)
+   return (
    {
-      InputValidator.validateNotNull("userMessage", userMessage);
+      type: Action.SET_USER_MESSAGE,
+      userMessage: userMessage,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_USER_MESSAGE,
-         userMessage: userMessage,
-      });
-   };
+if (Object.freeze)
+{
+   Object.freeze(Action);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(Action);
-   }
-
-   return Action;
-});
+export default Action;

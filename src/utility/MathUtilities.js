@@ -1,38 +1,33 @@
 /*
  * Provides utility methods for Math.
  */
-"use strict";
+var MathUtilities = {};
 
-define(function()
+/*
+ * @param number The number to format.
+ * @param digits The number of digits to appear after the decimal point. (optional)
+ */
+MathUtilities.format = function(number, digits)
 {
-   var MathUtilities = {};
+   var answer = number;
 
-   /*
-    * @param number The number to format.
-    * @param digits The number of digits to appear after the decimal point. (optional)
-    */
-   MathUtilities.format = function(number, digits)
+   if (number !== undefined && typeof number === "number" && !isNaN(number))
    {
-      var answer = number;
+      answer = number.toFixed(digits);
+   }
 
-      if (number !== undefined && typeof number === "number" && !isNaN(number))
-      {
-         answer = number.toFixed(digits);
-      }
+   return answer;
+};
 
-      return answer;
-   };
+/*
+ * @param number The number to round.
+ * @param digits The number of digits to appear after the decimal point.
+ */
+MathUtilities.round = function(number, digits)
+{
+   var factor = Math.pow(10.0, digits);
 
-   /*
-    * @param number The number to round.
-    * @param digits The number of digits to appear after the decimal point.
-    */
-   MathUtilities.round = function(number, digits)
-   {
-      var factor = Math.pow(10.0, digits);
+   return Math.round(factor * number) / factor;
+};
 
-      return Math.round(factor * number) / factor;
-   };
-
-   return MathUtilities;
-});
+export default MathUtilities;

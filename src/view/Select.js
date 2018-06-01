@@ -2,88 +2,88 @@
  * Provides an HTML select with options derived from values and the label function.
  * Optionally provide client properties which can be retrieved from the event in your onChange function.
  */
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["create-react-class", "prop-types", "react-dom-factories", "utility/InputValidator"],
-   function(createReactClass, PropTypes, DOM, InputValidator)
+class Select extends React.Component
+{
+   constructor(props)
    {
-      var Select = createReactClass(
-      {
-         getInitialState: function()
-         {
-            return (
-            {
-               selectedValue: this.props.initialSelectedValue,
-            });
-         },
+      super(props);
 
-         handleChange: function(event)
-         {
-            this.setState(
-            {
-               selectedValue: event.target.value,
-            });
+      this.state = {
+         selectedValue: this.props.initialSelectedValue,
+      };
+   }
 
-            var onChange = this.props.onChange;
+   render()
+   {
+      const values = this.props.values;
+      InputValidator.validateNotEmpty("values", values);
 
-            if (onChange)
-            {
-               onChange(event);
-            }
-         },
-
-         render: function()
-         {
-            var values = this.props.values;
-            InputValidator.validateNotEmpty("values", values);
-
-            var selectProps = {
-               value: this.state.selectedValue,
-               onChange: this.handleChange,
-            };
-
-            var clientProps = this.props.clientProps;
-
-            if (clientProps)
-            {
-               Object.getOwnPropertyNames(clientProps).forEach(function(key)
-               {
-                  selectProps[key] = clientProps[key];
-               });
-            }
-
-            var labelFunction = this.props.labelFunction;
-            var options = [];
-
-            for (var i = 0; i < values.length; i++)
-            {
-               var value = values[i];
-               var label = (labelFunction ? labelFunction(value) : value);
-
-               options.push(DOM.option(
-               {
-                  key: i,
-                  value: value,
-               }, label));
-            }
-
-            return DOM.select(selectProps, options);
-         },
-      });
-
-      Select.propTypes = {
-         // Option values. (required)
-         values: PropTypes.array.isRequired,
-
-         // Client properties. (optional)
-         clientProps: PropTypes.object,
-         // Initially selected value. (optional)
-         initialSelectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-         // Function which returns the label for a value. Defaults to simply return the value. (optional)
-         labelFunction: PropTypes.func,
-         // Function called when the selection changes. (optional)
-         onChange: PropTypes.func,
+      const selectProps = {
+         value: this.state.selectedValue,
+         onChange: this.handleChange.bind(this),
+         disabled: this.props.disabled,
       };
 
-      return Select;
-   });
+      const clientProps = this.props.clientProps;
+
+      if (clientProps)
+      {
+         Object.getOwnPropertyNames(clientProps).forEach(function(key)
+         {
+            selectProps[key] = clientProps[key];
+         });
+      }
+
+      const labelFunction = this.props.labelFunction;
+      const options = [];
+
+      for (let i = 0; i < values.length; i++)
+      {
+         const value = values[i];
+         const label = (labelFunction ? labelFunction(value) : value);
+
+         options.push(ReactDOMFactories.option(
+         {
+            key: i,
+            value: value,
+         }, label));
+      }
+
+      return ReactDOMFactories.select(selectProps, options);
+   }
+
+   handleChange(event)
+   {
+      this.setState(
+      {
+         selectedValue: event.target.value,
+      });
+
+      const onChange = this.props.onChange;
+
+      if (onChange)
+      {
+         onChange(event);
+      }
+   }
+}
+
+Select.propTypes = {
+   // Option values. (required)
+   values: PropTypes.array.isRequired,
+
+   // Client properties. (optional)
+   clientProps: PropTypes.object,
+   // Disabled flag. (optional)
+   disabled: PropTypes.bool,
+   // Initially selected value. (optional)
+   initialSelectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+   // Function which returns the label for a value. Defaults to simply return the value. (optional)
+   labelFunction: PropTypes.func,
+   // Function called when the selection changes. (optional)
+   onChange: PropTypes.func,
+};
+
+export default Select;

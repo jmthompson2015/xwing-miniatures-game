@@ -1,20 +1,14 @@
-"use strict";
+import Logger from "./Logger.js";
 
-var prefix = "utility/";
-var suffix = ".test";
-var testModules = ["ArrayUtilities", "InputValidator", "JSONFileLoader", "MathUtilities", "TimePrinter"];
-testModules = testModules.map(function(testModule)
-{
-   return prefix + testModule + suffix;
-});
-testModules.unshift("utility/Logger");
+import ArrayUtilitiesTest from "./ArrayUtilities.test.js";
+import InputValidatorTest from "./InputValidator.test.js";
+import JSONFileLoaderTest from "./JSONFileLoader.test.js";
+import MathUtilitiesTest from "./MathUtilities.test.js";
+import TimePrinterTest from "./TimePrinter.test.js";
 
-require(testModules, function(Logger)
-{
-   window.LOGGER = new Logger();
-   LOGGER.setTraceEnabled(false);
-   LOGGER.setDebugEnabled(false);
-   LOGGER.setInfoEnabled(false);
+window.LOGGER = new Logger();
+LOGGER.setTraceEnabled(false);
+LOGGER.setDebugEnabled(false);
+LOGGER.setInfoEnabled(false);
 
-   QUnit.start();
-});
+QUnit.start();

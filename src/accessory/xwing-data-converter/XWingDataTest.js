@@ -1,8 +1,8 @@
-"use strict";
 
-define(["qunit", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-   function(QUnit, XWingData, XWingType)
-   {
+
+import QUnit from "qunit";
+import XWingData from "../accessory/xwing-data-converter/XWingData";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       QUnit.module("XWingData");
 
       QUnit.test("XWingData()", function(assert)
@@ -269,4 +269,4 @@ define(["qunit", "accessory/xwing-data-converter/XWingData", "accessory/xwing-da
          var xwingData = new XWingData();
          xwingData.load(callback);
       });
-   });
+   

@@ -1,8 +1,9 @@
-"use strict";
 
-define(["artifact/ConditionCard", "accessory/xwing-data-converter/EnumGenerator", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-   function(ConditionCard, EnumGenerator, XWingData, XWingType)
-   {
+
+import ConditionCard from "../../artifact/ConditionCard";
+import EnumGenerator from "../accessory/xwing-data-converter/EnumGenerator";
+import XWingData from "../accessory/xwing-data-converter/XWingData";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       var ConditionConverter = {};
 
       ConditionConverter.convert = function(callback)
@@ -166,5 +167,5 @@ define(["artifact/ConditionCard", "accessory/xwing-data-converter/EnumGenerator"
          return answer;
       }
 
-      return ConditionConverter;
-   });
+      export default ConditionConverter;
+   

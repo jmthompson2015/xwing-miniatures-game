@@ -1,174 +1,181 @@
 /*
  * Provides pilot abilities for Events.
  */
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator",
-  "artifact/AttackDiceValue", "artifact/Difficulty", "artifact/Event", "artifact/Faction", "artifact/Maneuver", "artifact/PilotCard", "artifact/ShipAction",
-  "model/Ability", "model/ActivationAction", "model/AttackDice", "model/CardAction", "model/Selector", "model/ShipActionAbility"],
-   function(InputValidator,
-      AttackDiceValue, Difficulty, Event, Faction, Maneuver, PilotCard, ShipAction,
-      Ability, ActivationAction, AttackDice, CardAction, Selector, ShipActionAbility)
+import AttackDiceValue from "../artifact/AttackDiceValue.js";
+import Difficulty from "../artifact/Difficulty.js";
+import Event from "../artifact/Event.js";
+// import Faction from "../artifact/Faction.js";
+import Maneuver from "../artifact/Maneuver.js";
+import PilotCard from "../artifact/PilotCard.js";
+import ShipAction from "../artifact/ShipAction.js";
+
+import Ability from "./Ability.js";
+import ActivationAction from "./ActivationAction.js";
+import AttackDice from "./AttackDice.js";
+import CardAction from "./CardAction.js";
+import Selector from "./Selector.js";
+import ShipActionAbility from "./ShipActionAbility.js";
+
+var PilotAbility0 = {};
+
+////////////////////////////////////////////////////////////////////////
+PilotAbility0[Event.AFTER_EXECUTE_MANEUVER] = {};
+
+PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.CAPTAIN_OICUNN] = {
+   // After executing a maneuver, each enemy ship you are touching suffers 1 damage.
+   condition: function(store, pilotInstance)
    {
-      var PilotAbility0 = {};
-
-      ////////////////////////////////////////////////////////////////////////
-      PilotAbility0[Event.AFTER_EXECUTE_MANEUVER] = {};
-
-      PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.CAPTAIN_OICUNN] = {
-         // After executing a maneuver, each enemy ship you are touching suffers 1 damage.
-         condition: function(store, pilotInstance)
-         {
-            var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
-            return isEventToken(store, pilotInstance) && pilotInstances.length > 0;
-         },
-         consequent: function(store, pilotInstance, callback)
-         {
-            var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
-            pilotInstances.forEach(function(pilotInstance)
-            {
-               pilotInstance.sufferDamage(1, 0);
-            });
-            callback();
-         },
-      };
-
-      PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.NIGHT_BEAST] = {
-         // After executing a green maneuver, you may perform a free focus action.
-         condition: function(store, token)
-         {
-            var maneuver = getManeuver(token);
-            return isEventToken(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.EASY;
-         },
-         consequent: function(store, token, callback)
-         {
-            var ability = new Ability(ShipAction, ShipAction.FOCUS, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
-            ability.consequent(store, token, callback);
-         },
-      };
-
-      ////////////////////////////////////////////////////////////////////////
-      PilotAbility0[Event.RECEIVE_STRESS] = {};
-
-      PilotAbility0[Event.RECEIVE_STRESS][PilotCard.JEK_PORKINS] = {
-         // When you receive a stress token, you may remove it and roll 1 attack die. On a Hit result, deal 1 facedown Damage card to this ship.
-         condition: function(store, token)
-         {
-            return isEventToken(store, token);
-         },
-         consequent: function(store, token, callback)
-         {
-            var environment = getEnvironment(store);
-            token.removeStress();
-            if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
-            {
-               token.receiveDamage(environment.drawDamage());
-            }
-            callback();
-         },
-      };
-
-      PilotAbility0[Event.RECEIVE_STRESS][PilotCard.SOONTIR_FEL] = {
-         // When you receive a stress token, you may assign 1 focus token to your ship.
-         condition: function(store, token)
-         {
-            return isEventToken(store, token);
-         },
-         consequent: function(store, token, callback)
-         {
-            token.receiveFocus(1, callback);
-         },
-      };
-
-      ////////////////////////////////////////////////////////////////////////
-      PilotAbility0[Event.REMOVE_SHIELD] = {};
-
-      PilotAbility0[Event.REMOVE_SHIELD][PilotCard.RED_ACE] = {
-         // The first time you remove a shield token from your ship each round, assign 1 evade token to your ship.
-         condition: function(store, token)
-         {
-            var pilotKey = PilotCard.RED_ACE;
-            return isEventToken(store, token) && !token.isPerRoundAbilityUsed(PilotCard, pilotKey);
-         },
-         consequent: function(store, token, callback)
-         {
-            store.dispatch(CardAction.addEvadeCount(token));
-            callback();
-         },
-      };
-
-      ////////////////////////////////////////////////////////////////////////
-      function getActivationAction(token)
+      var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
+      return isEventToken(store, pilotInstance) && pilotInstances.length > 0;
+   },
+   consequent: function(store, pilotInstance, callback)
+   {
+      var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
+      pilotInstances.forEach(function(pilotInstance)
       {
-         InputValidator.validateNotNull("token", token);
+         pilotInstance.sufferDamage(1, 0);
+      });
+      callback();
+   },
+};
 
-         var store = token.store();
+PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.NIGHT_BEAST] = {
+   // After executing a green maneuver, you may perform a free focus action.
+   condition: function(store, token)
+   {
+      var maneuver = getManeuver(token);
+      return isEventToken(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.EASY;
+   },
+   consequent: function(store, token, callback)
+   {
+      var ability = new Ability(ShipAction, ShipAction.FOCUS, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
+      ability.consequent(store, token, callback);
+   },
+};
 
-         return ActivationAction.get(store, token.id());
+////////////////////////////////////////////////////////////////////////
+PilotAbility0[Event.RECEIVE_STRESS] = {};
+
+PilotAbility0[Event.RECEIVE_STRESS][PilotCard.JEK_PORKINS] = {
+   // When you receive a stress token, you may remove it and roll 1 attack die. On a Hit result, deal 1 facedown Damage card to this ship.
+   condition: function(store, token)
+   {
+      return isEventToken(store, token);
+   },
+   consequent: function(store, token, callback)
+   {
+      var environment = getEnvironment(store);
+      token.removeStress();
+      if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
+      {
+         token.receiveDamage(environment.drawDamage());
       }
+      callback();
+   },
+};
 
-      function getEventData(store)
-      {
-         InputValidator.validateNotNull("store", store);
+PilotAbility0[Event.RECEIVE_STRESS][PilotCard.SOONTIR_FEL] = {
+   // When you receive a stress token, you may assign 1 focus token to your ship.
+   condition: function(store, token)
+   {
+      return isEventToken(store, token);
+   },
+   consequent: function(store, token, callback)
+   {
+      token.receiveFocus(1, callback);
+   },
+};
 
-         return store.getState().eventData;
-      }
+////////////////////////////////////////////////////////////////////////
+PilotAbility0[Event.REMOVE_SHIELD] = {};
 
-      function getEventToken(store)
-      {
-         InputValidator.validateNotNull("store", store);
+PilotAbility0[Event.REMOVE_SHIELD][PilotCard.RED_ACE] = {
+   // The first time you remove a shield token from your ship each round, assign 1 evade token to your ship.
+   condition: function(store, token)
+   {
+      var pilotKey = PilotCard.RED_ACE;
+      return isEventToken(store, token) && !token.isPerRoundAbilityUsed(PilotCard, pilotKey);
+   },
+   consequent: function(store, token, callback)
+   {
+      store.dispatch(CardAction.addEvadeCount(token));
+      callback();
+   },
+};
 
-         var eventData = getEventData(store);
+////////////////////////////////////////////////////////////////////////
+function getActivationAction(token)
+{
+   InputValidator.validateNotNull("token", token);
 
-         return (eventData !== undefined ? eventData.get("eventToken") : undefined);
-      }
+   var store = token.store();
 
-      function getEnvironment(store)
-      {
-         InputValidator.validateNotNull("store", store);
+   return ActivationAction.get(store, token.id());
+}
 
-         return Selector.environment(store.getState());
-      }
+function getEventData(store)
+{
+   InputValidator.validateNotNull("store", store);
 
-      function getManeuver(token)
-      {
-         InputValidator.validateNotNull("token", token);
+   return store.getState().eventData;
+}
 
-         var maneuverKey = getManeuverKey(token);
-         return Maneuver.properties[maneuverKey];
-      }
+function getEventToken(store)
+{
+   InputValidator.validateNotNull("store", store);
 
-      function getManeuverKey(token)
-      {
-         InputValidator.validateNotNull("token", token);
+   var eventData = getEventData(store);
 
-         var answer;
-         var activationAction = getActivationAction(token);
+   return (eventData !== undefined ? eventData.get("eventToken") : undefined);
+}
 
-         if (activationAction)
-         {
-            answer = activationAction.maneuverKey();
-         }
+function getEnvironment(store)
+{
+   InputValidator.validateNotNull("store", store);
 
-         return answer;
-      }
+   return Selector.environment(store.getState());
+}
 
-      function isEventToken(store, token)
-      {
-         var eventToken = getEventToken(store);
+function getManeuver(token)
+{
+   InputValidator.validateNotNull("token", token);
 
-         return token.equals(eventToken);
-      }
+   var maneuverKey = getManeuverKey(token);
+   return Maneuver.properties[maneuverKey];
+}
 
-      PilotAbility0.toString = function()
-      {
-         return "model/PilotAbility0";
-      };
+function getManeuverKey(token)
+{
+   InputValidator.validateNotNull("token", token);
 
-      if (Object.freeze)
-      {
-         Object.freeze(PilotAbility0);
-      }
+   var answer;
+   var activationAction = getActivationAction(token);
 
-      return PilotAbility0;
-   });
+   if (activationAction)
+   {
+      answer = activationAction.maneuverKey();
+   }
+
+   return answer;
+}
+
+function isEventToken(store, token)
+{
+   var eventToken = getEventToken(store);
+
+   return token.equals(eventToken);
+}
+
+PilotAbility0.toString = function()
+{
+   return "model/PilotAbility0";
+};
+
+if (Object.freeze)
+{
+   Object.freeze(PilotAbility0);
+}
+
+export default PilotAbility0;

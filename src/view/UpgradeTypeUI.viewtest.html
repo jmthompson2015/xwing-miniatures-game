@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestUpgradeTypeUI</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>UpgradeTypeUI</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="UpgradeTypeUI.viewtest.js" type="module">></script>
 </head>
 <body>
 	<table>
@@ -14,62 +17,6 @@
 			<td id="upgradeTypePanel"></td>
 		</tr>
 	</table>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "react-dom-factories", "utility/Logger", "artifact/UpgradeType", "view/UpgradeTypeUI"],
-			function(React, ReactDOM, DOM, Logger, UpgradeType, UpgradeTypeUI)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var values = UpgradeType.keys();
-				var resourceBase = "../resource/";
-				var className = "ba b--silver bg-near-white f6 tl";
-				var rows = [];
-
-				values.forEach(function(upgradeTypeKey, i)
-				{
-					var upgradeType = UpgradeType.properties[upgradeTypeKey];
-
-					var image0 = React.createElement(UpgradeTypeUI,
-					{
-						upgradeType: upgradeType,
-						resourceBase: resourceBase,
-					});
-
-					var image1 = React.createElement(UpgradeTypeUI,
-					{
-						upgradeType: upgradeType,
-						resourceBase: resourceBase,
-						showName: true,
-					});
-
-					var cells = [];
-
-					cells.push(DOM.td(
-					{
-						key: "standard",
-						className: className,
-					}, image0));
-					cells.push(DOM.td(
-					{
-						key: "standard+name",
-						className: className,
-					}, image1));
-
-					rows.push(DOM.tr(
-					{
-						key: rows.length,
-					}, cells));
-				});
-
-				ReactDOM.render(DOM.table(
-				{}, DOM.tbody(
-				{}, rows)), document.getElementById("upgradeTypePanel"));
-			});
-	</script>
 </body>
 
 </html>

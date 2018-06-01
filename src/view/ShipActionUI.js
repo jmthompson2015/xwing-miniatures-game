@@ -1,59 +1,55 @@
-"use strict";
+import ShipAction from "../artifact/ShipAction.js";
 
-define(["create-react-class", "prop-types", "react-dom-factories", "artifact/ShipAction"],
-   function(createReactClass, PropTypes, DOM, ShipAction)
+var ShipActionUI = createReactClass(
+{
+   render: function()
    {
-      var ShipActionUI = createReactClass(
+      var shipAction = this.props.shipAction;
+      var myKey = (this.props.myKey !== undefined ? this.props.myKey : shipAction.key);
+      var className = "center tc v-mid";
+      var src = shipAction.key.toLowerCase();
+
+      if (shipAction.key === ShipAction.DECLOAK)
       {
-         render: function()
+         src = "cloak";
+         className += " silver";
+      }
+
+      var image = ReactDOMFactories.span(
+      {
+         key: myKey,
+         className: className,
+         title: shipAction.name,
+      }, ReactDOMFactories.i(
+      {
+         className: "xwing-miniatures-font xwing-miniatures-font-" + src,
+      }));
+
+      var answer = image;
+      var showName = this.props.showName;
+
+      if (showName)
+      {
+         answer = ReactDOMFactories.span(
          {
-            var shipAction = this.props.shipAction;
-            var myKey = (this.props.myKey !== undefined ? this.props.myKey : shipAction.key);
-            var className = "center tc v-mid";
-            var src = shipAction.key.toLowerCase();
+            className: "v-mid",
+         }, image, " ", shipAction.name);
+      }
 
-            if (shipAction.key === ShipAction.DECLOAK)
-            {
-               src = "cloak";
-               className += " silver";
-            }
+      return answer;
+   },
+});
 
-            var image = DOM.span(
-            {
-               key: myKey,
-               className: className,
-               title: shipAction.name,
-            }, DOM.i(
-            {
-               className: "xwing-miniatures-font xwing-miniatures-font-" + src,
-            }));
+ShipActionUI.propTypes = {
+   shipAction: PropTypes.object.isRequired,
 
-            var answer = image;
-            var showName = this.props.showName;
+   // default: ship action value
+   myKey: PropTypes.string,
+   showName: PropTypes.bool,
+};
 
-            if (showName)
-            {
-               answer = DOM.span(
-               {
-                  className: "v-mid",
-               }, image, " ", shipAction.name);
-            }
+ShipActionUI.defaultProps = {
+   showName: false,
+};
 
-            return answer;
-         },
-      });
-
-      ShipActionUI.propTypes = {
-         shipAction: PropTypes.object.isRequired,
-
-         // default: ship action value
-         myKey: PropTypes.string,
-         showName: PropTypes.bool,
-      };
-
-      ShipActionUI.defaultProps = {
-         showName: false,
-      };
-
-      return ShipActionUI;
-   });
+export default ShipActionUI;

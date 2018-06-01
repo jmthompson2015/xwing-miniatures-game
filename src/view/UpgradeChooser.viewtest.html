@@ -1,59 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestUpgradeChooser</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>UpgradeChooser</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="UpgradeChooser.viewtest.js" type="module">></script>
 </head>
 <body>
 	<div id="upgradeChooserPanel1"></div>
 	<div id="upgradeChooserPanel2"></div>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "utility/Logger",
-				"artifact/PilotCard", "artifact/UpgradeCard", "artifact/UpgradeType", "view/UpgradeChooser"
-			],
-			function(React, ReactDOM, Logger, PilotCard, UpgradeCard, UpgradeType, UpgradeChooser)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var resourceBase = "../resource/";
-				var pilot = PilotCard.properties[PilotCard.DARTH_VADER];
-				var upgradeType = UpgradeType.properties[UpgradeType.ELITE];
-
-				var element1 = React.createElement(UpgradeChooser,
-				{
-					resourceBase: resourceBase,
-					pilot: pilot,
-					upgradeType: upgradeType,
-					onChange: upgradeCardChanged
-				});
-				ReactDOM.render(element1, document.getElementById("upgradeChooserPanel1"));
-
-				var element2 = React.createElement(UpgradeChooser,
-				{
-					resourceBase: resourceBase,
-					initialUpgrade: UpgradeCard.properties[UpgradeCard.JUKE],
-					pilot: pilot,
-					pilotIndex: 0,
-					upgradeType: upgradeType,
-					upgradeIndex: 2,
-					onChange: upgradeCardChanged
-				});
-				ReactDOM.render(element2, document.getElementById("upgradeChooserPanel2"));
-
-				function upgradeCardChanged(event, pilotIndex, upgrade, upgradeIndex)
-				{
-					LOGGER.info("upgradeCardChanged() pilotIndex = " + pilotIndex + " upgrade = " + (upgrade ? upgrade.key : upgrade) + " upgradeIndex = " + upgradeIndex);
-				}
-			});
-	</script>
 </body>
 
 </html>

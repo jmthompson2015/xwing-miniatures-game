@@ -1,22 +1,20 @@
-"use strict";
+import InputValidator from "../../utility/InputValidator.js";
 
-define(["react-redux", "utility/InputValidator", "accessory/ability-table/AbilityTable"],
-   function(ReactRedux, InputValidator, AbilityTable)
+import AbilityTable from "./AbilityTable.js";
+
+// AbilityTableContainer
+
+function mapStateToProps(state, ownProps)
+{
+   InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
+
+   return (
    {
-      // AbilityTableContainer
-
-      function mapStateToProps(state, ownProps)
-      {
-         InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
-
-         return (
-         {
-            isFilterShown: state.isFilterShown,
-            filters: state.filters,
-            resourceBase: ownProps.resourceBase,
-            rowData: state.filteredTableRows,
-         });
-      }
-
-      return ReactRedux.connect(mapStateToProps)(AbilityTable);
+      isFilterShown: state.isFilterShown,
+      filters: state.filters,
+      resourceBase: ownProps.resourceBase,
+      rowData: state.filteredTableRows,
    });
+}
+
+export default ReactRedux.connect(mapStateToProps)(AbilityTable);

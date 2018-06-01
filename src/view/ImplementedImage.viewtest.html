@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestImplementedImage</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>ImplementedImage</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="ImplementedImage.viewtest.js" type="module">></script>
 </head>
 <body>
 	<table class="backgroundLight">
@@ -20,39 +23,6 @@
 			<td id="panel3" style="height: 16px; width: 16px;"></td>
 		</tr>
 	</table>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "react-dom-factories", "utility/Logger", "view/ImplementedImage"],
-			function(React, ReactDOM, DOM, Logger, ImplementedImage)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var resourceBase = "../resource/";
-
-				var element1 = React.createElement(ImplementedImage,
-				{
-					resourceBase: resourceBase,
-					isImplemented: true,
-				});
-				ReactDOM.render(element1, document.getElementById("panel1"));
-
-				var element2 = React.createElement(ImplementedImage,
-				{
-					resourceBase: resourceBase,
-					isImplemented: false,
-				});
-				ReactDOM.render(element2, document.getElementById("panel2"));
-
-				var element3 = React.createElement(ImplementedImage,
-				{
-					resourceBase: resourceBase,
-				});
-				ReactDOM.render(element3, document.getElementById("panel3"));
-			});
-	</script>
 </body>
 
 </html>

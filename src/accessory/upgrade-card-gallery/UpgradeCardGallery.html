@@ -3,86 +3,21 @@
 <head>
   <title>Upgrade Card Gallery</title>
   <meta charset="utf-8">
-
-  <link rel="stylesheet" href="../../../lib/tachyons/tachyons-4.8.1.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
   <link rel="stylesheet" href="../../view/style.css">
-
-  <script src="../../../lib/requirejs/require-2.3.5.js"></script>
-  <script>
-    require.config(
-    {
-      "baseUrl": "../../../src",
-    });
-  </script>
-  <script src="../../../src/main.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-redux@5.0.6/dist/react-redux.js"></script>
+  <script src="UpgradeCardGallery.js" type="module">></script>
 </head>
 <body>
   <h1>Upgrade Card Gallery</h1>
   <div id="mainPanel"></div>
-  <script>
-    "use strict";
-
-    require(["create-react-class", "react", "react-dom", "react-dom-factories",
-        "utility/Logger", "artifact/UpgradeCard", "artifact/UpgradeType", "view/CardImage"
-      ],
-      function(createReactClass, React, ReactDOM, DOM, Logger, UpgradeCard, UpgradeType, CardImage)
-      {
-        window.LOGGER = new Logger();
-        LOGGER.setTraceEnabled(false);
-        LOGGER.setDebugEnabled(false);
-
-        var resourceBase = "../../../src/resource/";
-
-        var UpgradeGallery = createReactClass(
-        {
-          render: function()
-          {
-            var upgradeTypeKey = this.props.upgradeTypeKey;
-            var upgradeKeys = UpgradeCard.keysByType(upgradeTypeKey);
-
-            var cells = [];
-
-            upgradeKeys.forEach(function(upgradeKey)
-            {
-              var element = React.createElement(CardImage,
-              {
-                key: "upgradeInstance" + upgradeKey,
-                card: UpgradeCard.properties[upgradeKey],
-                resourceBase: resourceBase,
-                width: 135,
-              });
-              cells.push(element);
-            });
-
-            return DOM.div(
-            {}, cells);
-          },
-        });
-
-        var rows = [];
-
-        UpgradeType.keys().forEach(function(upgradeTypeKey, i)
-        {
-          var upgradeType = UpgradeType.properties[upgradeTypeKey];
-
-          rows.push(DOM.h2(
-          {
-            key: "upgradeHeader" + rows.length,
-          }, upgradeType.name));
-
-          rows.push(React.createElement(UpgradeGallery,
-          {
-            key: "upgradeGallery" + rows.length,
-            upgradeTypeKey: upgradeTypeKey,
-          }));
-        });
-
-        var mainPanel = DOM.div(
-        {}, rows);
-        ReactDOM.render(mainPanel, document.getElementById("mainPanel"));
-      });
-  </script>
 </body>
 
 </html>

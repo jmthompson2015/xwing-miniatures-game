@@ -1,73 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestAbilityCountUI</title>
+	<title>AbilityCountUI</title>
+	<!--
 	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
 	<link rel="stylesheet" href="../view/style.css">
 	<script src="../../lib/requirejs/require-2.3.5.js"></script>
 	<script src="require-config.js"></script>
 	<script src="../main.js"></script>
+ -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
+	<link rel="stylesheet" href="../view/style.css">
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="AbilityCountUI.viewtest.js" type="module">></script>
 </head>
 <body>
 	<div id="panel"></div>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "react-dom-factories", "utility/Logger", "view/AbilityCountUI"],
-			function(React, ReactDOM, DOM, Logger, AbilityCountUI)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var abilityCounts = [];
-				var rows = [];
-				var cells = [];
-
-				abilityCounts.push(React.createElement(AbilityCountUI,
-				{
-					implementedCount: 1,
-					abilityCount: 2,
-				}));
-				abilityCounts.push(React.createElement(AbilityCountUI,
-				{
-					implementedCount: 17,
-					abilityCount: 50,
-				}));
-				abilityCounts.push(React.createElement(AbilityCountUI,
-				{
-					implementedCount: 34,
-					abilityCount: 0,
-				}));
-				abilityCounts.push(React.createElement(AbilityCountUI,
-				{
-					implementedCount: 0,
-					abilityCount: 0,
-				}));
-
-				var cells = abilityCounts.map(function(abilityCount)
-				{
-					return DOM.div(
-					{
-						className: "dtc pa2",
-					}, abilityCount);
-				});
-
-				var rows = cells.map(function(cell, i)
-				{
-					return DOM.div(
-					{
-						key: i,
-						className: "dt-row",
-					}, cell);
-				});
-
-				ReactDOM.render(DOM.div(
-				{
-					className: "bg-light-gray center dt",
-				}, rows), document.getElementById("panel"));
-			});
-	</script>
 </body>
 
 </html>

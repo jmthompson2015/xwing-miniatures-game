@@ -1,21 +1,16 @@
 /*
  * Provides pilot abilities for the Planning Phase.
  */
-"use strict";
+var PilotAbility1 = {};
 
-define(function()
+PilotAbility1.toString = function()
 {
-   var PilotAbility1 = {};
+   return "model/PilotAbility1";
+};
 
-   PilotAbility1.toString = function()
-   {
-      return "model/PilotAbility1";
-   };
+if (Object.freeze)
+{
+   Object.freeze(PilotAbility1);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(PilotAbility1);
-   }
-
-   return PilotAbility1;
-});
+export default PilotAbility1;

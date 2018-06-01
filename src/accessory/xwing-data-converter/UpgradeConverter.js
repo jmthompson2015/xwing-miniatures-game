@@ -1,8 +1,11 @@
-"use strict";
 
-define(["artifact/UpgradeCard", "artifact/UpgradeHeader", "artifact/UpgradeType", "accessory/xwing-data-converter/EnumGenerator", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-   function(UpgradeCard, UpgradeHeader, UpgradeType, EnumGenerator, XWingData, XWingType)
-   {
+
+import UpgradeCard from "../../artifact/UpgradeCard";
+import UpgradeHeader from "../../artifact/UpgradeHeader";
+import UpgradeType from "../../artifact/UpgradeType";
+import EnumGenerator from "../accessory/xwing-data-converter/EnumGenerator";
+import XWingData from "../accessory/xwing-data-converter/XWingData";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       var UpgradeConverter = {};
 
       UpgradeConverter.convert = function(callback)
@@ -456,5 +459,5 @@ define(["artifact/UpgradeCard", "artifact/UpgradeHeader", "artifact/UpgradeType"
          return answer;
       }
 
-      return UpgradeConverter;
-   });
+      export default UpgradeConverter;
+   

@@ -1,45 +1,42 @@
-"use strict";
+import InputValidator from "../../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var Action = {};
+
+Action.ADD_LOSE_COUNT = "addLoseCount";
+Action.ADD_TIE_COUNT = "addTieCount";
+Action.ADD_WIN_COUNT = "addWinCount";
+
+Action.addLoseCount = function(squadBuilder)
 {
-   var Action = {};
+   InputValidator.validateNotNull("squadBuilder", squadBuilder);
 
-   Action.ADD_LOSE_COUNT = "addLoseCount";
-   Action.ADD_TIE_COUNT = "addTieCount";
-   Action.ADD_WIN_COUNT = "addWinCount";
-
-   Action.addLoseCount = function(squadBuilder)
+   return (
    {
-      InputValidator.validateNotNull("squadBuilder", squadBuilder);
+      type: Action.ADD_LOSE_COUNT,
+      squadBuilder: squadBuilder,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_LOSE_COUNT,
-         squadBuilder: squadBuilder,
-      });
-   };
+Action.addTieCount = function(squadBuilder)
+{
+   InputValidator.validateNotNull("squadBuilder", squadBuilder);
 
-   Action.addTieCount = function(squadBuilder)
+   return (
    {
-      InputValidator.validateNotNull("squadBuilder", squadBuilder);
+      type: Action.ADD_TIE_COUNT,
+      squadBuilder: squadBuilder,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_TIE_COUNT,
-         squadBuilder: squadBuilder,
-      });
-   };
+Action.addWinCount = function(squadBuilder)
+{
+   InputValidator.validateNotNull("squadBuilder", squadBuilder);
 
-   Action.addWinCount = function(squadBuilder)
+   return (
    {
-      InputValidator.validateNotNull("squadBuilder", squadBuilder);
+      type: Action.ADD_WIN_COUNT,
+      squadBuilder: squadBuilder,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_WIN_COUNT,
-         squadBuilder: squadBuilder,
-      });
-   };
-
-   return Action;
-});
+export default Action;

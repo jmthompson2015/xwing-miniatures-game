@@ -1,46 +1,42 @@
-"use strict";
+import CardInstanceUI from "./CardInstanceUI.js";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "view/CardInstanceUI"],
-   function(createReactClass, PropTypes, React, DOM, CardInstanceUI)
+var PilotsUI = createReactClass(
+{
+   propTypes:
    {
-      var PilotsUI = createReactClass(
+      tokens: PropTypes.array.isRequired,
+      resourceBase: PropTypes.string.isRequired,
+   },
+
+   render: function()
+   {
+      var tokens = this.props.tokens;
+
+      var tokenElements = tokens.map(function(token, i)
       {
-         propTypes:
+         var element = React.createElement(CardInstanceUI,
          {
-            tokens: PropTypes.array.isRequired,
-            resourceBase: PropTypes.string.isRequired,
-         },
-
-         render: function()
+            cardInstance: token,
+         });
+         return ReactDOMFactories.td(
          {
-            var tokens = this.props.tokens;
+            key: i,
+            className: "alignTop v-top",
+         }, element);
+      }, this);
 
-            var tokenElements = tokens.map(function(token, i)
-            {
-               var element = React.createElement(CardInstanceUI,
-               {
-                  cardInstance: token,
-               });
-               return DOM.td(
-               {
-                  key: i,
-                  className: "alignTop v-top",
-               }, element);
-            }, this);
+      var row = ReactDOMFactories.tr(
+      {}, tokenElements);
 
-            var row = DOM.tr(
-            {}, tokenElements);
+      var myTable = ReactDOMFactories.table(
+      {
+         className: "center"
+      }, ReactDOMFactories.tbody(
+      {}, row));
 
-            var myTable = DOM.table(
-            {
-               className: "center"
-            }, DOM.tbody(
-            {}, row));
+      return ReactDOMFactories.div(
+      {}, myTable);
+   },
+});
 
-            return DOM.div(
-            {}, myTable);
-         },
-      });
-
-      return PilotsUI;
-   });
+export default PilotsUI;

@@ -1,21 +1,16 @@
 /*
  * Provides pilot abilities for the End Phase.
  */
-"use strict";
+var PilotAbility4 = {};
 
-define(function()
+PilotAbility4.toString = function()
 {
-   var PilotAbility4 = {};
+   return "model/PilotAbility4";
+};
 
-   PilotAbility4.toString = function()
-   {
-      return "model/PilotAbility4";
-   };
+if (Object.freeze)
+{
+   Object.freeze(PilotAbility4);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(PilotAbility4);
-   }
-
-   return PilotAbility4;
-});
+export default PilotAbility4;

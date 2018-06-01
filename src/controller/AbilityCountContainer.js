@@ -1,24 +1,22 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["react-redux", "utility/InputValidator", "view/AbilityCountUI"],
-   function(ReactRedux, InputValidator, AbilityCountUI)
+import AbilityCountUI from "../view/AbilityCountUI.js";
+
+function mapStateToProps(state)
+{
+   InputValidator.validateNotNull("state.filteredTableRows", state.filteredTableRows);
+
+   var filteredTableRows = state.filteredTableRows;
+   var implementedCount = filteredTableRows.reduce(function(accumulator, tableRow)
    {
-      function mapStateToProps(state)
-      {
-         InputValidator.validateNotNull("state.filteredTableRows", state.filteredTableRows);
+      return accumulator + (tableRow.isImplemented ? 1 : 0);
+   }, 0);
 
-         var filteredTableRows = state.filteredTableRows;
-         var implementedCount = filteredTableRows.reduce(function(accumulator, tableRow)
-         {
-            return accumulator + (tableRow.isImplemented ? 1 : 0);
-         }, 0);
-
-         return (
-         {
-            implementedCount: implementedCount,
-            abilityCount: filteredTableRows.length,
-         });
-      }
-
-      return ReactRedux.connect(mapStateToProps)(AbilityCountUI);
+   return (
+   {
+      implementedCount: implementedCount,
+      abilityCount: filteredTableRows.length,
    });
+}
+
+export default ReactRedux.connect(mapStateToProps)(AbilityCountUI);

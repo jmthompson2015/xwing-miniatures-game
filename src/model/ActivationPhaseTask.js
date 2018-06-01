@@ -1,145 +1,146 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator", "artifact/Maneuver",
-  "model/Action", "model/ActivationAction", "model/QueueProcessor"],
-   function(InputValidator, Maneuver, Action, ActivationAction, QueueProcessor)
+import Maneuver from "../artifact/Maneuver.js";
+
+import Action from "./Action.js";
+import ActivationAction from "./ActivationAction.js";
+import QueueProcessor from "./QueueProcessor.js";
+
+function ActivationPhaseTask(store)
+{
+   InputValidator.validateNotNull("store", store);
+
+   this.store = function()
    {
-      function ActivationPhaseTask(store)
-      {
-         InputValidator.validateNotNull("store", store);
+      return store;
+   };
+}
 
-         this.store = function()
+ActivationPhaseTask.prototype.delay = function()
+{
+   return 10;
+};
+
+ActivationPhaseTask.prototype.doIt = function(callback)
+{
+   InputValidator.validateNotNull("callback", callback);
+
+   LOGGER.trace("ActivationPhaseTask.doIt() start");
+
+   var store = this.store();
+   var environment = store.getState().environment;
+
+   var queue = environment.getTokensForActivation(true);
+   var elementFunction = this.decloakElementFunction.bind(this);
+   var phaseCallback = this.activationAction.bind(this);
+   var finishFunction = function(finishCallback)
+   {
+      phaseCallback(finishCallback);
+   };
+   var delay = this.delay();
+
+   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+   queueProcessor.processQueue();
+
+   LOGGER.trace("ActivationPhaseTask.doIt() end");
+};
+
+ActivationPhaseTask.prototype.decloakElementFunction = function(cardInstance, queueCallback)
+{
+   InputValidator.validateNotNull("cardInstance", cardInstance);
+   InputValidator.validateIsFunction("queueCallback", queueCallback);
+
+   var store = this.store();
+
+   if (cardInstance.isCloaked && cardInstance.isCloaked())
+   {
+      LOGGER.debug("checking decloak for " + cardInstance);
+      var agent = cardInstance.agent();
+      var agentCallback = function(token, decloakAbility)
+      {
+         LOGGER.debug("token = " + token + " decloakAbility = " + decloakAbility);
+
+         if (decloakAbility !== undefined)
          {
-            return store;
-         };
-      }
-
-      ActivationPhaseTask.prototype.delay = function()
-      {
-         return 10;
-      };
-
-      ActivationPhaseTask.prototype.doIt = function(callback)
-      {
-         InputValidator.validateNotNull("callback", callback);
-
-         LOGGER.trace("ActivationPhaseTask.doIt() start");
-
-         var store = this.store();
-         var environment = store.getState().environment;
-
-         var queue = environment.getTokensForActivation(true);
-         var elementFunction = this.decloakElementFunction.bind(this);
-         var phaseCallback = this.activationAction.bind(this);
-         var finishFunction = function(finishCallback)
-         {
-            phaseCallback(finishCallback);
-         };
-         var delay = this.delay();
-
-         var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
-         queueProcessor.processQueue();
-
-         LOGGER.trace("ActivationPhaseTask.doIt() end");
-      };
-
-      ActivationPhaseTask.prototype.decloakElementFunction = function(cardInstance, queueCallback)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateIsFunction("queueCallback", queueCallback);
-
-         var store = this.store();
-
-         if (cardInstance.isCloaked && cardInstance.isCloaked())
-         {
-            LOGGER.debug("checking decloak for " + cardInstance);
-            var agent = cardInstance.agent();
-            var agentCallback = function(token, decloakAbility)
-            {
-               LOGGER.debug("token = " + token + " decloakAbility = " + decloakAbility);
-
-               if (decloakAbility !== undefined)
-               {
-                  var consequent = decloakAbility.consequent();
-                  consequent(store, token, queueCallback, decloakAbility.context());
-                  LOGGER.debug("token.isCloaked() ? " + token.isCloaked());
-                  LOGGER.debug("token.cloakCount() = " + token.cloakCount());
-               }
-               else
-               {
-                  queueCallback();
-               }
-            };
-            agent.getDecloakAction(cardInstance, agentCallback);
-
-            // Wait for agent to respond.
+            var consequent = decloakAbility.consequent();
+            consequent(store, token, queueCallback, decloakAbility.context());
+            LOGGER.debug("token.isCloaked() ? " + token.isCloaked());
+            LOGGER.debug("token.cloakCount() = " + token.cloakCount());
          }
          else
          {
             queueCallback();
          }
       };
+      agent.getDecloakAction(cardInstance, agentCallback);
 
-      ActivationPhaseTask.prototype.activationAction = function(callback)
-      {
-         InputValidator.validateNotNull("callback", callback);
+      // Wait for agent to respond.
+   }
+   else
+   {
+      queueCallback();
+   }
+};
 
-         LOGGER.trace("ActivationPhaseTask.activationAction() start");
+ActivationPhaseTask.prototype.activationAction = function(callback)
+{
+   InputValidator.validateNotNull("callback", callback);
 
-         var store = this.store();
-         var environment = store.getState().environment;
+   LOGGER.trace("ActivationPhaseTask.activationAction() start");
 
-         var queue = environment.getTokensForActivation(true);
-         var elementFunction = this.activationActionElementFunction.bind(this);
-         var phaseCallback = this.finishActivationPhase.bind(this);
-         var finishFunction = function(finishCallback)
-         {
-            phaseCallback(finishCallback);
-         };
-         var delay = this.delay();
+   var store = this.store();
+   var environment = store.getState().environment;
 
-         var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
-         queueProcessor.processQueue();
+   var queue = environment.getTokensForActivation(true);
+   var elementFunction = this.activationActionElementFunction.bind(this);
+   var phaseCallback = this.finishActivationPhase.bind(this);
+   var finishFunction = function(finishCallback)
+   {
+      phaseCallback(finishCallback);
+   };
+   var delay = this.delay();
 
-         LOGGER.trace("ActivationPhaseTask.activationAction() end");
-      };
+   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+   queueProcessor.processQueue();
 
-      ActivationPhaseTask.prototype.activationActionElementFunction = function(cardInstance, queueCallback)
-      {
-         InputValidator.validateNotNull("cardInstance", cardInstance);
-         InputValidator.validateIsFunction("queueCallback", queueCallback);
+   LOGGER.trace("ActivationPhaseTask.activationAction() end");
+};
 
-         var store = this.store();
-         var environment = store.getState().environment;
-         environment.setActiveToken(cardInstance);
-         var myToken = cardInstance;
+ActivationPhaseTask.prototype.activationActionElementFunction = function(cardInstance, queueCallback)
+{
+   InputValidator.validateNotNull("cardInstance", cardInstance);
+   InputValidator.validateIsFunction("queueCallback", queueCallback);
 
-         if (cardInstance.idParent() !== undefined && cardInstance.card().key.endsWith("fore"))
-         {
-            myToken = environment.parentOf(cardInstance);
-         }
+   var store = this.store();
+   var environment = store.getState().environment;
+   environment.setActiveToken(cardInstance);
+   var myToken = cardInstance;
 
-         var maneuverKey = store.getState().pilotToManeuver.get("" + myToken.id());
-         var activationAction = ActivationAction.create(store, cardInstance.id(), queueCallback);
-         var maneuver = Maneuver.properties[maneuverKey];
-         store.dispatch(Action.setTokenManeuver(cardInstance, maneuver));
+   if (cardInstance.idParent() !== undefined && cardInstance.card().key.endsWith("fore"))
+   {
+      myToken = environment.parentOf(cardInstance);
+   }
 
-         setTimeout(function()
-         {
-            activationAction.doIt();
-         }, this.delay());
-      };
+   var maneuverKey = store.getState().pilotToManeuver.get("" + myToken.id());
+   var activationAction = ActivationAction.create(store, cardInstance.id(), queueCallback);
+   var maneuver = Maneuver.properties[maneuverKey];
+   store.dispatch(Action.setTokenManeuver(cardInstance, maneuver));
 
-      ActivationPhaseTask.prototype.finishActivationPhase = function(callback)
-      {
-         InputValidator.validateNotNull("callback", callback);
+   setTimeout(function()
+   {
+      activationAction.doIt();
+   }, this.delay());
+};
 
-         LOGGER.trace("ActivationPhaseTask.finishActivationPhase() start");
+ActivationPhaseTask.prototype.finishActivationPhase = function(callback)
+{
+   InputValidator.validateNotNull("callback", callback);
 
-         callback();
+   LOGGER.trace("ActivationPhaseTask.finishActivationPhase() start");
 
-         LOGGER.trace("ActivationPhaseTask.finishActivationPhase() end");
-      };
+   callback();
 
-      return ActivationPhaseTask;
-   });
+   LOGGER.trace("ActivationPhaseTask.finishActivationPhase() end");
+};
+
+export default ActivationPhaseTask;

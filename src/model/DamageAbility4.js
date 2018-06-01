@@ -1,21 +1,16 @@
 /*
  * Provides damage abilities for the End Phase.
  */
-"use strict";
+var DamageAbility4 = {};
 
-define(function()
+DamageAbility4.toString = function()
 {
-   var DamageAbility4 = {};
+   return "model/DamageAbility4";
+};
 
-   DamageAbility4.toString = function()
-   {
-      return "model/DamageAbility4";
-   };
+if (Object.freeze)
+{
+   Object.freeze(DamageAbility4);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(DamageAbility4);
-   }
-
-   return DamageAbility4;
-});
+export default DamageAbility4;

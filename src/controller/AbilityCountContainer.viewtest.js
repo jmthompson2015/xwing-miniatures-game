@@ -1,17 +1,17 @@
-"use strict";
+import Logger from "../utility/Logger.js";
 
-require(["react", "react-dom", "react-redux", "redux", "utility/Logger", "controller/AbilityCountContainer", "accessory/ability-table/Reducer"],
-   function(React, ReactDOM, ReactRedux, Redux, Logger, AbilityCountContainer, Reducer)
-   {
-      window.LOGGER = new Logger();
-      LOGGER.setTraceEnabled(false);
-      LOGGER.setDebugEnabled(false);
+import AbilityCountContainer from "./AbilityCountContainer.js";
 
-      var store = Redux.createStore(Reducer.root);
+import Reducer from "../accessory/ability-table/Reducer.js";
 
-      var element = React.createElement(ReactRedux.Provider,
-      {
-         store: store,
-      }, React.createElement(AbilityCountContainer));
-      ReactDOM.render(element, document.getElementById("inputArea"));
-   });
+window.LOGGER = new Logger();
+LOGGER.setTraceEnabled(false);
+LOGGER.setDebugEnabled(false);
+
+var store = Redux.createStore(Reducer.root);
+
+var element = React.createElement(ReactRedux.Provider,
+{
+   store: store,
+}, React.createElement(AbilityCountContainer));
+ReactDOM.render(element, document.getElementById("inputArea"));

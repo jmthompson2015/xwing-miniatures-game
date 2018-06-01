@@ -1,69 +1,64 @@
-"use strict";
+var Value = {
+   AGILITY: "agility",
+   ENERGY: "energy",
+   HULL: "hull",
+   PILOT_SKILL: "pilotSkill",
+   PRIMARY_WEAPON: "primaryWeapon",
+   SHIELD: "shield",
 
-define(function()
-{
-   var Value = {
-      AGILITY: "agility",
-      ENERGY: "energy",
-      HULL: "hull",
-      PILOT_SKILL: "pilotSkill",
-      PRIMARY_WEAPON: "primaryWeapon",
-      SHIELD: "shield",
-
-      properties:
+   properties:
+   {
+      "agility":
       {
-         "agility":
-         {
-            name: "Agility",
-            key: "agility",
-         },
-         "energy":
-         {
-            name: "Energy",
-            key: "energy",
-         },
-         "hull":
-         {
-            name: "Hull",
-            key: "hull",
-         },
-         "pilotSkill":
-         {
-            name: "Pilot Skill",
-            key: "pilotSkill",
-         },
-         "primaryWeapon":
-         {
-            name: "Primary Weapon",
-            key: "primaryWeapon",
-         },
-         "shield":
-         {
-            name: "Shield",
-            key: "shield",
-         },
+         name: "Agility",
+         key: "agility",
       },
-   };
+      "energy":
+      {
+         name: "Energy",
+         key: "energy",
+      },
+      "hull":
+      {
+         name: "Hull",
+         key: "hull",
+      },
+      "pilotSkill":
+      {
+         name: "Pilot Skill",
+         key: "pilotSkill",
+      },
+      "primaryWeapon":
+      {
+         name: "Primary Weapon",
+         key: "primaryWeapon",
+      },
+      "shield":
+      {
+         name: "Shield",
+         key: "shield",
+      },
+   },
+};
 
-   Value.keys = function()
-   {
-      return Object.keys(Value.properties);
-   };
+Value.keys = function()
+{
+   return Object.keys(Value.properties);
+};
 
-   Value.toString = function()
-   {
-      return "Value";
-   };
+Value.toString = function()
+{
+   return "Value";
+};
 
-   Value.values = function()
-   {
-      return Object.values(Value.properties);
-   };
+Value.values = function()
+{
+   return Object.values(Value.properties);
+};
 
-   if (Object.freeze)
-   {
-      Object.freeze(Value);
-   }
+if (Object.freeze)
+{
+   Object.freeze(Value);
+}
 
-   return Value;
-});
+export default Value;

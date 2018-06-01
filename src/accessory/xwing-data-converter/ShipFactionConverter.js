@@ -1,8 +1,12 @@
-"use strict";
 
-define(["utility/InputValidator", "artifact/Ship", "artifact/ShipFaction", "accessory/xwing-data-converter/EnumGenerator", "accessory/xwing-data-converter/FactionConverter", "accessory/xwing-data-converter/XWingData", "accessory/xwing-data-converter/XWingType"],
-   function(InputValidator, Ship, ShipFaction, EnumGenerator, FactionConverter, XWingData, XWingType)
-   {
+
+import InputValidator from "../../utility/InputValidator";
+import Ship from "../../artifact/Ship";
+import ShipFaction from "../../artifact/ShipFaction";
+import EnumGenerator from "../accessory/xwing-data-converter/EnumGenerator";
+import FactionConverter from "../accessory/xwing-data-converter/FactionConverter";
+import XWingData from "../accessory/xwing-data-converter/XWingData";
+import XWingType from "../accessory/xwing-data-converter/XWingType";
       var ShipFactionConverter = {};
 
       ShipFactionConverter.convert = function(callback)
@@ -264,5 +268,5 @@ define(["utility/InputValidator", "artifact/Ship", "artifact/ShipFaction", "acce
          return answer;
       }
 
-      return ShipFactionConverter;
-   });
+      export default ShipFactionConverter;
+   

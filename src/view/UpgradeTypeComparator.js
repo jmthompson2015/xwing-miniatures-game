@@ -1,27 +1,25 @@
-"use strict";
+import UpgradeType from "../artifact/UpgradeType.js";
 
-define(["artifact/UpgradeType"], function(UpgradeType)
+var UpgradeTypeComparator = function(upgradeTypeA, upgradeTypeB)
 {
-   var UpgradeTypeComparator = function(upgradeTypeA, upgradeTypeB)
+   var valueA = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeA);
+   var valueB = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeB);
+
+   var answer = -1;
+
+   if (valueA === valueB)
    {
-      var valueA = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeA);
-      var valueB = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeB);
+      answer = 0;
+   }
+   else if (valueA > valueB)
+   {
+      answer = 1;
+   }
 
-      var answer = -1;
+   return answer;
+};
 
-      if (valueA === valueB)
-      {
-         answer = 0;
-      }
-      else if (valueA > valueB)
-      {
-         answer = 1;
-      }
-
-      return answer;
-   };
-
-   UpgradeTypeComparator.TYPE_ORDER = [
+UpgradeTypeComparator.TYPE_ORDER = [
      UpgradeType.TITLE, // type
      UpgradeType.ELITE, // type
      UpgradeType.SYSTEM, // type
@@ -41,5 +39,4 @@ define(["artifact/UpgradeType"], function(UpgradeType)
      UpgradeType.MODIFICATION, // type
    ];
 
-   return UpgradeTypeComparator;
-});
+export default UpgradeTypeComparator;

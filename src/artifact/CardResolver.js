@@ -1,42 +1,44 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator", "artifact/CardType", "artifact/ConditionCard", "artifact/DamageCard", "artifact/PilotCard", "artifact/UpgradeCard"],
-   function(InputValidator, CardType, ConditionCard, DamageCard, PilotCard, UpgradeCard)
+import CardType from "./CardType.js";
+import ConditionCard from "./ConditionCard.js";
+import DamageCard from "./DamageCard.js";
+import PilotCard from "./PilotCard.js";
+import UpgradeCard from "./UpgradeCard.js";
+
+var CardResolver = {};
+
+CardResolver.resolve = function(cardTypeKey, cardKey)
+{
+   InputValidator.validateIsString("cardTypeKey", cardTypeKey);
+   InputValidator.validateIsString("cardKey", cardKey);
+
+   var cardClass;
+
+   switch (cardTypeKey)
    {
-      var CardResolver = {};
+      case CardType.CONDITION:
+         cardClass = ConditionCard;
+         break;
+      case CardType.DAMAGE:
+         cardClass = DamageCard;
+         break;
+      case CardType.PILOT:
+         cardClass = PilotCard;
+         break;
+      case CardType.UPGRADE:
+         cardClass = UpgradeCard;
+         break;
+      default:
+         throw "Unknown cardTypeKey: " + cardTypeKey;
+   }
 
-      CardResolver.resolve = function(cardTypeKey, cardKey)
-      {
-         InputValidator.validateIsString("cardTypeKey", cardTypeKey);
-         InputValidator.validateIsString("cardKey", cardKey);
+   return cardClass.properties[cardKey];
+};
 
-         var cardClass;
+if (Object.freeze)
+{
+   Object.freeze(CardResolver);
+}
 
-         switch (cardTypeKey)
-         {
-            case CardType.CONDITION:
-               cardClass = ConditionCard;
-               break;
-            case CardType.DAMAGE:
-               cardClass = DamageCard;
-               break;
-            case CardType.PILOT:
-               cardClass = PilotCard;
-               break;
-            case CardType.UPGRADE:
-               cardClass = UpgradeCard;
-               break;
-            default:
-               throw "Unknown cardTypeKey: " + cardTypeKey;
-         }
-
-         return cardClass.properties[cardKey];
-      };
-
-      if (Object.freeze)
-      {
-         Object.freeze(CardResolver);
-      }
-
-      return CardResolver;
-   });
+export default CardResolver;

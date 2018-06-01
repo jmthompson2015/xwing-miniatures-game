@@ -1,8 +1,7 @@
-"use strict";
 
-define(["qunit", "accessory/xwing-data-converter/UpgradeConverter"],
-   function(QUnit, UpgradeConverter)
-   {
+
+import QUnit from "qunit";
+import UpgradeConverter from "../accessory/xwing-data-converter/UpgradeConverter";
       QUnit.module("UpgradeConverter");
 
       var INTEGRATED_ASTROMECH = {
@@ -157,4 +156,4 @@ define(["qunit", "accessory/xwing-data-converter/UpgradeConverter"],
          // Run / Verify.
          assert.equal(UpgradeConverter.determineRestrictionKeys(TWIN_ION_ENGINE_MKII), "[UpgradeRestriction.TIE_ONLY]");
       });
-   });
+   

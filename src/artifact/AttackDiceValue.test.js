@@ -1,59 +1,59 @@
-"use strict";
+import AttackDiceValue from "./AttackDiceValue.js";
 
-define(["qunit", "artifact/AttackDiceValue"], function(QUnit, AttackDiceValue)
+QUnit.module("AttackDiceValue");
+
+QUnit.test("keys and values", function(assert)
 {
-   QUnit.module("AttackDiceValue");
+   // Setup.
 
-   QUnit.test("keys and values", function(assert)
+   // Run.
+   var result = AttackDiceValue.keys();
+   var ownPropertyNames = Object.getOwnPropertyNames(AttackDiceValue);
+
+   // Verify.
+   ownPropertyNames.forEach(function(key)
    {
-      // Setup.
+      var key2 = AttackDiceValue[key];
 
-      // Run.
-      var result = AttackDiceValue.keys();
-      var ownPropertyNames = Object.getOwnPropertyNames(AttackDiceValue);
-
-      // Verify.
-      ownPropertyNames.forEach(function(key)
+      if (key !== "properties" && typeof key2 === "string")
       {
-         var key2 = AttackDiceValue[key];
-
-         if (key !== "properties" && typeof key2 === "string")
-         {
-            assert.ok(AttackDiceValue.properties[key2], "Missing value for key = " + key);
-         }
-      });
-
-      result.forEach(function(value)
-      {
-         var p = ownPropertyNames.filter(function(key)
-         {
-            return AttackDiceValue[key] === value;
-         });
-
-         assert.equal(p.length, 1, "Missing key for value = " + value);
-      });
+         assert.ok(AttackDiceValue.properties[key2], "Missing value for key = " + key);
+      }
    });
 
-   QUnit.test("keys()", function(assert)
+   result.forEach(function(value)
    {
-      // Run.
-      var result = AttackDiceValue.keys();
+      var p = ownPropertyNames.filter(function(key)
+      {
+         return AttackDiceValue[key] === value;
+      });
 
-      // Verify.
-      assert.ok(result);
-      var length = 4;
-      assert.equal(result.length, length);
-      var i = 0;
-      assert.equal(result[i++], AttackDiceValue.HIT);
-      assert.equal(result[i++], AttackDiceValue.CRITICAL_HIT);
-      assert.equal(result[i++], AttackDiceValue.FOCUS);
-      assert.equal(result[i++], AttackDiceValue.BLANK);
-
-      var properties = Object.getOwnPropertyNames(AttackDiceValue);
-      var count = properties.length - 1 - // properties
-         1 - // keys
-         1 - // toString
-         1; // values
-      assert.equal(result.length, count);
+      assert.equal(p.length, 1, "Missing key for value = " + value);
    });
 });
+
+QUnit.test("keys()", function(assert)
+{
+   // Run.
+   var result = AttackDiceValue.keys();
+
+   // Verify.
+   assert.ok(result);
+   var length = 4;
+   assert.equal(result.length, length);
+   var i = 0;
+   assert.equal(result[i++], AttackDiceValue.HIT);
+   assert.equal(result[i++], AttackDiceValue.CRITICAL_HIT);
+   assert.equal(result[i++], AttackDiceValue.FOCUS);
+   assert.equal(result[i++], AttackDiceValue.BLANK);
+
+   var properties = Object.getOwnPropertyNames(AttackDiceValue);
+   var count = properties.length - 1 - // properties
+      1 - // keys
+      1 - // toString
+      1; // values
+   assert.equal(result.length, count);
+});
+
+const AttackDiceValueTest = {};
+export default AttackDiceValueTest;

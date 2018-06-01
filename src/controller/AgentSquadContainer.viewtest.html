@@ -3,59 +3,20 @@
 <head>
 	<meta charset="utf-8">
 	<title>AgentSquadContainer</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-redux@5.0.6/dist/react-redux.js"></script>
+	<script src="AgentSquadContainer.viewtest.js" type="module">></script>
 </head>
 <body>
 	<div id="inputArea"></div>
-
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "react-redux", "redux", "utility/Logger",
-				"model/Agent", "model/AgentSquadAction", "model/AgentSquadReducer", "model/Reducer", "model/SquadBuilder",
-				"controller/AgentSquadContainer"
-			],
-			function(React, ReactDOM, ReactRedux, Redux, Logger, Agent, AgentSquadAction, AgentSquadReducer, Reducer, SquadBuilder, AgentSquadContainer)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var resourceBase = "../resource/";
-				var store = Redux.createStore(AgentSquadReducer.root);
-				var delegateStore = Redux.createStore(Reducer.root);
-				store.dispatch(AgentSquadAction.setDelegateStore(delegateStore));
-				var agentNumber = 1;
-				setAgentAndSquad(store, delegateStore, agentNumber);
-
-				var element = React.createElement(ReactRedux.Provider,
-				{
-					store: store,
-				}, React.createElement(AgentSquadContainer,
-				{
-					agentNumber: agentNumber,
-					resourceBase: resourceBase,
-				}));
-				ReactDOM.render(element, document.getElementById("inputArea"));
-
-				function setAgentAndSquad(store, delegateStore, agentNumber)
-				{
-					var faction = store.getState().faction;
-					var agentName = "Agent " + agentNumber;
-					var agentType = store.getState().agentType;
-					var agent = new Agent(delegateStore, agentName, undefined, agentType);
-					var squadBuilders = SquadBuilder.findByFaction(faction.key);
-					var squad = squadBuilders[0].buildSquad(agent);
-					store.dispatch(AgentSquadAction.setAgentName(agentName));
-					store.dispatch(AgentSquadAction.setAgentType(agentType));
-					store.dispatch(AgentSquadAction.setSquad(squad));
-				}
-			});
-	</script>
 </body>
 
 </html>

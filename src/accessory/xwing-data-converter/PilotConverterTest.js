@@ -1,8 +1,8 @@
-"use strict";
 
-define(["qunit", "artifact/PilotCard", "accessory/xwing-data-converter/PilotConverter"],
-   function(QUnit, PilotCard, PilotConverter)
-   {
+
+import QUnit from "qunit";
+import PilotCard from "../../artifact/PilotCard";
+import PilotConverter from "../accessory/xwing-data-converter/PilotConverter";
       QUnit.module("PilotConverter");
 
       var BOBA_FETT_IMPERIAL = {
@@ -92,4 +92,4 @@ define(["qunit", "artifact/PilotCard", "accessory/xwing-data-converter/PilotConv
          assert.ok(result);
          assert.equal(result, "BOBA_FETT_IMPERIAL: \"bobaFett_imperial\",<br/>BOBA_FETT_SCUM: \"bobaFett_scum\",<br/>DALAN_OBEROS_M12_L_KIMOGILA_FIGHTER: \"dalanOberos_m12LKimogilaFighter\",<br/>DALAN_OBEROS_STAR_VIPER: \"dalanOberos_starViper\",<br/>POE_DAMERON: \"poeDameron\",<br/>POE_DAMERON_HOTR: \"poeDameron_hotr\",<br/><br/>// Huge ships.<br/>C_ROC_CRUISER: \"cRocCruiser\",<br/>CR90_CORVETTE: \"cr90Corvette\",<br/>GOZANTI_CLASS_CRUISER: \"gozantiClassCruiser\",<br/>GR_75_MEDIUM_TRANSPORT: \"gr75MediumTransport\",<br/>RAIDER_CLASS_CORVETTE: \"raiderClassCorvette\",<br/>");
       });
-   });
+   

@@ -1,234 +1,239 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["redux", "utility/InputValidator",
-  "artifact/Faction", "artifact/Maneuver", "artifact/PilotCard", "artifact/UpgradeCard",
-  "model/Action", "model/Agent", "model/ManeuverComputer", "model/RectanglePath", "model/Reducer", "model/Selector"],
-   function(Redux, InputValidator, Faction, Maneuver, PilotCard, UpgradeCard,
-      Action, Agent, ManeuverComputer, RectanglePath, Reducer, Selector)
+import Faction from "../artifact/Faction.js";
+import Maneuver from "../artifact/Maneuver.js";
+import PilotCard from "../artifact/PilotCard.js";
+import UpgradeCard from "../artifact/UpgradeCard.js";
+
+import Action from "./Action.js";
+import Agent from "./Agent.js";
+import ManeuverComputer from "./ManeuverComputer.js";
+import RectanglePath from "./RectanglePath.js";
+import Reducer from "./Reducer.js";
+import Selector from "./Selector.js";
+
+function Adjudicator(store)
+{
+   InputValidator.validateNotNull("store", store);
+
+   this.store = function()
    {
-      function Adjudicator(store)
-      {
-         InputValidator.validateNotNull("store", store);
+      return store;
+   };
+}
 
-         this.store = function()
+//////////////////////////////////////////////////////////////////////////
+// Creation methods.
+
+Adjudicator.create = function(store)
+{
+   var adjudicator = new Adjudicator(store);
+
+   store.dispatch(Action.setAdjudicator(adjudicator));
+
+   return adjudicator;
+};
+
+//////////////////////////////////////////////////////////////////////////
+// Utility methods.
+
+Adjudicator.prototype.canAttack = function(attacker)
+{
+   InputValidator.validateNotNull("attacker", attacker);
+
+   // A cloaked ship cannot attack. Cannot attack if weapons are disabled. Cannot attack if Gunner upgrade was used this round.
+   return !attacker.isCloaked() && attacker.weaponsDisabledCount() === 0 && !attacker.isPerRoundAbilityUsed(UpgradeCard, UpgradeCard.GUNNER);
+};
+
+Adjudicator.prototype.canBarrelRoll = function(attacker, maneuverKey)
+{
+   InputValidator.validateNotNull("attacker", attacker);
+   InputValidator.validateNotNull("maneuverKey", maneuverKey);
+
+   // A ship cannot barrel roll if this would cause its base to overlap with another ship's base or an obstacle
+   // token.
+   var answer = false;
+   var store = this.store();
+   var environment = Selector.environment(store.getState());
+   var fromPosition = environment.getPositionFor(attacker);
+
+   if (fromPosition)
+   {
+      var maneuver = Maneuver.properties[maneuverKey];
+      var shipBase = attacker.card().shipFaction.ship.shipBase;
+      var toPolygon = ManeuverComputer.computeToPolygon(environment.playFormatKey(), maneuver, fromPosition,
+         shipBase);
+
+      if (toPolygon)
+      {
+         var tokens = environment.pilotInstances();
+         answer = true;
+
+         for (var i = 0; i < tokens.length; i++)
          {
-            return store;
-         };
-      }
+            var token = tokens[i];
 
-      //////////////////////////////////////////////////////////////////////////
-      // Creation methods.
-
-      Adjudicator.create = function(store)
-      {
-         var adjudicator = new Adjudicator(store);
-
-         store.dispatch(Action.setAdjudicator(adjudicator));
-
-         return adjudicator;
-      };
-
-      //////////////////////////////////////////////////////////////////////////
-      // Utility methods.
-
-      Adjudicator.prototype.canAttack = function(attacker)
-      {
-         InputValidator.validateNotNull("attacker", attacker);
-
-         // A cloaked ship cannot attack. Cannot attack if weapons are disabled. Cannot attack if Gunner upgrade was used this round.
-         return !attacker.isCloaked() && attacker.weaponsDisabledCount() === 0 && !attacker.isPerRoundAbilityUsed(UpgradeCard, UpgradeCard.GUNNER);
-      };
-
-      Adjudicator.prototype.canBarrelRoll = function(attacker, maneuverKey)
-      {
-         InputValidator.validateNotNull("attacker", attacker);
-         InputValidator.validateNotNull("maneuverKey", maneuverKey);
-
-         // A ship cannot barrel roll if this would cause its base to overlap with another ship's base or an obstacle
-         // token.
-         var answer = false;
-         var store = this.store();
-         var environment = Selector.environment(store.getState());
-         var fromPosition = environment.getPositionFor(attacker);
-
-         if (fromPosition)
-         {
-            var maneuver = Maneuver.properties[maneuverKey];
-            var shipBase = attacker.card().shipFaction.ship.shipBase;
-            var toPolygon = ManeuverComputer.computeToPolygon(environment.playFormatKey(), maneuver, fromPosition,
-               shipBase);
-
-            if (toPolygon)
+            if (token !== attacker)
             {
-               var tokens = environment.pilotInstances();
-               answer = true;
+               var myShipBase = token.card().shipFaction.ship.shipBase;
+               var position = environment.getPositionFor(token);
+               var polygon = ManeuverComputer.computePolygon(myShipBase, position.x(), position.y(),
+                  position.heading());
+               var collide = RectanglePath.doPolygonsCollide(polygon, toPolygon);
 
-               for (var i = 0; i < tokens.length; i++)
+               if (collide)
                {
-                  var token = tokens[i];
-
-                  if (token !== attacker)
-                  {
-                     var myShipBase = token.card().shipFaction.ship.shipBase;
-                     var position = environment.getPositionFor(token);
-                     var polygon = ManeuverComputer.computePolygon(myShipBase, position.x(), position.y(),
-                        position.heading());
-                     var collide = RectanglePath.doPolygonsCollide(polygon, toPolygon);
-
-                     if (collide)
-                     {
-                        answer = false;
-                        break;
-                     }
-                  }
+                  answer = false;
+                  break;
                }
             }
          }
+      }
+   }
 
-         return answer;
-      };
+   return answer;
+};
 
-      Adjudicator.prototype.canBoost = function(attacker, maneuverKey)
-      {
-         InputValidator.validateNotNull("attacker", attacker);
-         InputValidator.validateNotNull("maneuverKey", maneuverKey);
+Adjudicator.prototype.canBoost = function(attacker, maneuverKey)
+{
+   InputValidator.validateNotNull("attacker", attacker);
+   InputValidator.validateNotNull("maneuverKey", maneuverKey);
 
-         // A ship cannot boost if this would cause its base to overlap with another ship's base or an obstacle
-         // token, or if the maneuver template overlaps an obstacle token.
+   // A ship cannot boost if this would cause its base to overlap with another ship's base or an obstacle
+   // token, or if the maneuver template overlaps an obstacle token.
 
-         // FIXME: implement Adjudicator.canBoost()
-         return this.canBarrelRoll(attacker, maneuverKey);
-      };
+   // FIXME: implement Adjudicator.canBoost()
+   return this.canBarrelRoll(attacker, maneuverKey);
+};
 
-      Adjudicator.prototype.canDecloak = function(attacker, maneuverKey)
-      {
-         InputValidator.validateNotNull("attacker", attacker);
-         InputValidator.validateNotNull("maneuverKey", maneuverKey);
+Adjudicator.prototype.canDecloak = function(attacker, maneuverKey)
+{
+   InputValidator.validateNotNull("attacker", attacker);
+   InputValidator.validateNotNull("maneuverKey", maneuverKey);
 
-         // A ship cannot decloak if it would overlap another ship or an obstacle token, or if the maneuver template
-         // would overlap an obstacle token.
+   // A ship cannot decloak if it would overlap another ship or an obstacle token, or if the maneuver template
+   // would overlap an obstacle token.
 
-         // FIXME: implement Adjudicator.canDecloak()
-         return attacker.isCloaked() && this.canBarrelRoll(attacker, maneuverKey);
-      };
+   // FIXME: implement Adjudicator.canDecloak()
+   return attacker.isCloaked() && this.canBarrelRoll(attacker, maneuverKey);
+};
 
-      Adjudicator.prototype.canSelectShipAction = function(attacker)
-      {
-         InputValidator.validateNotNull("attacker", attacker);
+Adjudicator.prototype.canSelectShipAction = function(attacker)
+{
+   InputValidator.validateNotNull("attacker", attacker);
 
-         // Cannot select a ship action if the ship is stressed (exception: pilot Tycho Celchu), or
-         // if the ship is touching another ship.
-         return (attacker.card().key === PilotCard.TYCHO_CELCHU || !attacker.isStressed()) && !attacker.isTouching();
-      };
+   // Cannot select a ship action if the ship is stressed (exception: pilot Tycho Celchu), or
+   // if the ship is touching another ship.
+   return (attacker.card().key === PilotCard.TYCHO_CELCHU || !attacker.isStressed()) && !attacker.isTouching();
+};
 
-      Adjudicator.prototype.canSlam = function(token, maneuverKey)
-      {
-         InputValidator.validateNotNull("token", token);
-         InputValidator.validateNotNull("maneuverKey", maneuverKey);
+Adjudicator.prototype.canSlam = function(token, maneuverKey)
+{
+   InputValidator.validateNotNull("token", token);
+   InputValidator.validateNotNull("maneuverKey", maneuverKey);
 
-         // To SLAM, choose and execute a maneuver on the ship's dial.
-         // The chosen maneuver must be the same speed as the maneuver that ship executed this round.
-         // Performing a SLAM counts as executing a maneuver.
-         // A ship cannot perform SLAM as a free action.
-         var previousManeuver = Selector.maneuver(token.store().getState(), token);
-         var speed;
+   // To SLAM, choose and execute a maneuver on the ship's dial.
+   // The chosen maneuver must be the same speed as the maneuver that ship executed this round.
+   // Performing a SLAM counts as executing a maneuver.
+   // A ship cannot perform SLAM as a free action.
+   var previousManeuver = Selector.maneuver(token.store().getState(), token);
+   var speed;
 
-         if (previousManeuver)
-         {
-            speed = previousManeuver.speed;
-         }
+   if (previousManeuver)
+   {
+      speed = previousManeuver.speed;
+   }
 
-         var ship = token.card().shipFaction.ship;
-         var maneuverKeys = ship.maneuverKeys;
-         var slamManeuver = Maneuver.properties[maneuverKey];
-         var store = this.store();
-         var environment = Selector.environment(store.getState());
-         var fromPosition = environment.getPositionFor(token);
-         var toPolygon;
+   var ship = token.card().shipFaction.ship;
+   var maneuverKeys = ship.maneuverKeys;
+   var slamManeuver = Maneuver.properties[maneuverKey];
+   var store = this.store();
+   var environment = Selector.environment(store.getState());
+   var fromPosition = environment.getPositionFor(token);
+   var toPolygon;
 
-         if (fromPosition)
-         {
-            var playFormatKey = environment.playFormatKey();
-            var shipBase = token.card().shipFaction.ship.shipBase;
-            toPolygon = ManeuverComputer.computeToPolygon(playFormatKey, slamManeuver, fromPosition, shipBase);
-         }
+   if (fromPosition)
+   {
+      var playFormatKey = environment.playFormatKey();
+      var shipBase = token.card().shipFaction.ship.shipBase;
+      toPolygon = ManeuverComputer.computeToPolygon(playFormatKey, slamManeuver, fromPosition, shipBase);
+   }
 
-         return (previousManeuver !== undefined) && (toPolygon !== undefined) && maneuverKeys.includes(maneuverKey) && (slamManeuver.speed === speed);
-      };
+   return (previousManeuver !== undefined) && (toPolygon !== undefined) && maneuverKeys.includes(maneuverKey) && (slamManeuver.speed === speed);
+};
 
-      Adjudicator.prototype.compareInitiative = function(squadBuilder1, squadBuilder2)
-      {
-         InputValidator.validateNotNull("squadBuilder1", squadBuilder1);
-         InputValidator.validateNotNull("squadBuilder2", squadBuilder2);
+Adjudicator.prototype.compareInitiative = function(squadBuilder1, squadBuilder2)
+{
+   InputValidator.validateNotNull("squadBuilder1", squadBuilder1);
+   InputValidator.validateNotNull("squadBuilder2", squadBuilder2);
 
-         var answer = 1;
+   var answer = 1;
 
-         // Compare squad point costs.
-         var store = Redux.createStore(Reducer.root);
-         var factionKey1 = squadBuilder1.factionKey();
-         var agent1 = new Agent(store, "Agent1");
-         var squad1 = squadBuilder1.buildSquad(agent1);
-         var squadPointCost1 = squad1.squadPointCost();
+   // Compare squad point costs.
+   var store = Redux.createStore(Reducer.root);
+   var factionKey1 = squadBuilder1.factionKey();
+   var agent1 = new Agent(store, "Agent1");
+   var squad1 = squadBuilder1.buildSquad(agent1);
+   var squadPointCost1 = squad1.squadPointCost();
 
-         var factionKey2 = squadBuilder2.factionKey();
-         var agent2 = new Agent(store, "Agent2");
-         var squad2 = squadBuilder2.buildSquad(agent2);
-         var squadPointCost2 = squad2.squadPointCost();
+   var factionKey2 = squadBuilder2.factionKey();
+   var agent2 = new Agent(store, "Agent2");
+   var squad2 = squadBuilder2.buildSquad(agent2);
+   var squadPointCost2 = squad2.squadPointCost();
 
-         answer = (squadPointCost2 - squadPointCost1);
+   answer = (squadPointCost2 - squadPointCost1);
 
-         if (answer === 0)
-         {
-            // Compare faction keys.
-            var values = Faction.keys();
-            var index1 = values.indexOf(factionKey1);
-            var index2 = values.indexOf(factionKey2);
+   if (answer === 0)
+   {
+      // Compare faction keys.
+      var values = Faction.keys();
+      var index1 = values.indexOf(factionKey1);
+      var index2 = values.indexOf(factionKey2);
 
-            answer = index2 - index1;
-         }
+      answer = index2 - index1;
+   }
 
-         return answer;
-      };
+   return answer;
+};
 
-      Adjudicator.prototype.determineWinner = function()
-      {
-         var answer;
+Adjudicator.prototype.determineWinner = function()
+{
+   var answer;
 
-         var store = this.store();
-         var environment = Selector.environment(store.getState());
-         var firstCount = environment.firstAgent().pilotInstances().length;
-         var secondCount = environment.secondAgent().pilotInstances().length;
+   var store = this.store();
+   var environment = Selector.environment(store.getState());
+   var firstCount = environment.firstAgent().pilotInstances().length;
+   var secondCount = environment.secondAgent().pilotInstances().length;
 
-         if (firstCount === 0)
-         {
-            answer = environment.secondAgent();
-         }
-         else if (secondCount === 0)
-         {
-            answer = environment.firstAgent();
-         }
+   if (firstCount === 0)
+   {
+      answer = environment.secondAgent();
+   }
+   else if (secondCount === 0)
+   {
+      answer = environment.firstAgent();
+   }
 
-         return answer;
-      };
+   return answer;
+};
 
-      Adjudicator.prototype.isGameOver = function()
-      {
-         var answer = false;
+Adjudicator.prototype.isGameOver = function()
+{
+   var answer = false;
 
-         var store = this.store();
-         var environment = Selector.environment(store.getState());
-         var firstCount = environment.firstAgent().pilotInstances().length;
+   var store = this.store();
+   var environment = Selector.environment(store.getState());
+   var firstCount = environment.firstAgent().pilotInstances().length;
 
-         answer = (firstCount === 0);
+   answer = (firstCount === 0);
 
-         if (!answer)
-         {
-            var secondCount = environment.secondAgent().pilotInstances().length;
-            answer = (secondCount === 0);
-         }
+   if (!answer)
+   {
+      var secondCount = environment.secondAgent().pilotInstances().length;
+      answer = (secondCount === 0);
+   }
 
-         return answer;
-      };
+   return answer;
+};
 
-      return Adjudicator;
-   });
+export default Adjudicator;

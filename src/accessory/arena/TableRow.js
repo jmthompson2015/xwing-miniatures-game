@@ -1,29 +1,26 @@
-"use strict";
+import InputValidator from "../../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var TableRow = {};
+
+TableRow.createTableRow = function(squadBuilder, winCountIn, loseCountIn, tieCountIn)
 {
-   var TableRow = {};
+   InputValidator.validateNotNull("squadBuilder", squadBuilder);
+   // winCountIn optional.
+   // loseCountIn optional.
+   // tieCountIn optional.
 
-   TableRow.createTableRow = function(squadBuilder, winCountIn, loseCountIn, tieCountIn)
+   var winCount = (winCountIn !== undefined ? winCountIn : 0);
+   var loseCount = (loseCountIn !== undefined ? loseCountIn : 0);
+   var tieCount = (tieCountIn !== undefined ? tieCountIn : 0);
+
+   return (
    {
-      InputValidator.validateNotNull("squadBuilder", squadBuilder);
-      // winCountIn optional.
-      // loseCountIn optional.
-      // tieCountIn optional.
+      factionKey: squadBuilder.factionKey(),
+      squadBuilder: squadBuilder,
+      winCount: winCount,
+      loseCount: loseCount,
+      tieCount: tieCount,
+   });
+};
 
-      var winCount = (winCountIn !== undefined ? winCountIn : 0);
-      var loseCount = (loseCountIn !== undefined ? loseCountIn : 0);
-      var tieCount = (tieCountIn !== undefined ? tieCountIn : 0);
-
-      return (
-      {
-         factionKey: squadBuilder.factionKey(),
-         squadBuilder: squadBuilder,
-         winCount: winCount,
-         loseCount: loseCount,
-         tieCount: tieCount,
-      });
-   };
-
-   return TableRow;
-});
+export default TableRow;

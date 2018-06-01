@@ -1,27 +1,24 @@
-"use strict";
+import InputValidator from "../../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var TableRow = {};
+
+TableRow.createTableRow = function(damage, version)
 {
-   var TableRow = {};
+   InputValidator.validateNotNull("damage", damage);
+   InputValidator.validateNotNull("version", version);
 
-   TableRow.createTableRow = function(damage, version)
+   var action = (damage.hasAction !== undefined && damage.hasAction ? damage.actionDescription : undefined);
+   var isImplemented = (damage.isImplemented !== undefined ? damage.isImplemented : false);
+
+   return (
    {
-      InputValidator.validateNotNull("damage", damage);
-      InputValidator.validateNotNull("version", version);
+      version: version,
+      trait: damage.trait,
+      name: damage.name,
+      action: action,
+      description: damage.description,
+      isImplemented: isImplemented,
+   });
+};
 
-      var action = (damage.hasAction !== undefined && damage.hasAction ? damage.actionDescription : undefined);
-      var isImplemented = (damage.isImplemented !== undefined ? damage.isImplemented : false);
-
-      return (
-      {
-         version: version,
-         trait: damage.trait,
-         name: damage.name,
-         action: action,
-         description: damage.description,
-         isImplemented: isImplemented,
-      });
-   };
-
-   return TableRow;
-});
+export default TableRow;

@@ -1,53 +1,52 @@
-"use strict";
+import EntityFilter from "../../model/EntityFilter.js";
+import RangeFilter from "../../model/RangeFilter.js";
 
-define(["model/EntityFilter", "model/RangeFilter", "accessory/upgrade-table/TableColumns"],
-   function(EntityFilter, RangeFilter, TableColumns)
+import TableColumns from "./TableColumns.js";
+
+var DefaultFilters = {
+   entityColumns: [],
+   rangeColumns: [],
+
+   create: function()
    {
-      var DefaultFilters = {
-         entityColumns: [],
-         rangeColumns: [],
+      var filters = {};
 
-         create: function()
-         {
-            var filters = {};
+      this.entityColumns.forEach(function(column)
+      {
+         var values = [];
+         var filter = new EntityFilter(column.key, values);
+         filters[column.key] = filter;
+      });
 
-            this.entityColumns.forEach(function(column)
-            {
-               var values = [];
-               var filter = new EntityFilter(column.key, values);
-               filters[column.key] = filter;
-            });
+      this.rangeColumns.forEach(function(column)
+      {
+         var isMinEnabled = false;
+         var minValue = 1;
+         var isMaxEnabled = false;
+         var maxValue = 10;
 
-            this.rangeColumns.forEach(function(column)
-            {
-               var isMinEnabled = false;
-               var minValue = 1;
-               var isMaxEnabled = false;
-               var maxValue = 10;
+         var filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
+         filters[column.key] = filter;
+      });
 
-               var filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
-               filters[column.key] = filter;
-            });
+      return filters;
+   },
 
-            return filters;
-         },
+   initialize: function()
+   {
+      this.entityColumns.push(TableColumns[0]); // typeKey
+      this.entityColumns.push(TableColumns[2]); // wave
+      this.entityColumns.push(TableColumns[3]); // restrictionKeys
+      this.entityColumns.push(TableColumns[4]); // headerKey
+      this.entityColumns.push(TableColumns[6]); // isImplemented
+      this.entityColumns.push(TableColumns[8]); // rangeKeys
+      this.entityColumns.push(TableColumns[9]); // firingArc
 
-         initialize: function()
-         {
-            this.entityColumns.push(TableColumns[0]); // typeKey
-            this.entityColumns.push(TableColumns[2]); // wave
-            this.entityColumns.push(TableColumns[3]); // restrictionKeys
-            this.entityColumns.push(TableColumns[4]); // headerKey
-            this.entityColumns.push(TableColumns[6]); // isImplemented
-            this.entityColumns.push(TableColumns[8]); // rangeKeys
-            this.entityColumns.push(TableColumns[9]); // firingArc
+      this.rangeColumns.push(TableColumns[7]); // weaponValue
+      this.rangeColumns.push(TableColumns[10]); // squadPointCost
+   },
+};
 
-            this.rangeColumns.push(TableColumns[7]); // weaponValue
-            this.rangeColumns.push(TableColumns[10]); // squadPointCost
-         },
-      };
+DefaultFilters.initialize();
 
-      DefaultFilters.initialize();
-
-      return DefaultFilters;
-   });
+export default DefaultFilters;

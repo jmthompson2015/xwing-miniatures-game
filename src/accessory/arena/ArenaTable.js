@@ -1,59 +1,58 @@
-"use strict";
+import Faction from "../../artifact/Faction.js";
 
-define(["create-react-class", "prop-types", "react", "react-dom-factories", "artifact/Faction",
-  "view/FactionUI", "view/DataTable", "accessory/arena/TableColumns"],
-   function(createReactClass, PropTypes, React, DOM, Faction,
-      FactionUI, DataTable, TableColumns)
+import FactionUI from "../../view/FactionUI.js";
+import DataTable from "../../view/DataTable.js";
+
+import TableColumns from "./TableColumns.js";
+
+var ArenaTable = createReactClass(
+{
+   propTypes:
    {
-      var ArenaTable = createReactClass(
-      {
-         propTypes:
-         {
-            resourceBase: PropTypes.string.isRequired,
-            rowData: PropTypes.array.isRequired,
-         },
+      resourceBase: PropTypes.string.isRequired,
+      rowData: PropTypes.array.isRequired,
+   },
 
-         render: function()
+   render: function()
+   {
+      var rowData = this.props.rowData;
+      var resourceBase = this.props.resourceBase;
+      var cellFunctions = {
+         "factionKey": function(data)
          {
-            var rowData = this.props.rowData;
-            var resourceBase = this.props.resourceBase;
-            var cellFunctions = {
-               "factionKey": function(data)
-               {
-                  var faction = Faction.properties[data.factionKey];
-                  return React.createElement(FactionUI,
-                  {
-                     faction: faction,
-                     isSmall: true,
-                     resourceBase: resourceBase,
-                  });
-               },
-               "squadBuilder": function(data)
-               {
-                  return data.squadBuilder.toString();
-               },
-            };
-
-            var table = React.createElement(DataTable,
+            var faction = Faction.properties[data.factionKey];
+            return React.createElement(FactionUI,
             {
-               cellFunctions: cellFunctions,
-               columns: TableColumns,
+               faction: faction,
+               isSmall: true,
                resourceBase: resourceBase,
-               rowData: rowData,
             });
-
-            var rows = [];
-            rows.push(DOM.tr(
-            {
-               key: rows.length,
-            }, DOM.td(
-            {}, table)));
-
-            return DOM.table(
-            {}, DOM.tbody(
-            {}, rows));
          },
+         "squadBuilder": function(data)
+         {
+            return data.squadBuilder.toString();
+         },
+      };
+
+      var table = React.createElement(DataTable,
+      {
+         cellFunctions: cellFunctions,
+         columns: TableColumns,
+         resourceBase: resourceBase,
+         rowData: rowData,
       });
 
-      return ArenaTable;
-   });
+      var rows = [];
+      rows.push(ReactDOMFactories.tr(
+      {
+         key: rows.length,
+      }, ReactDOMFactories.td(
+      {}, table)));
+
+      return ReactDOMFactories.table(
+      {}, ReactDOMFactories.tbody(
+      {}, rows));
+   },
+});
+
+export default ArenaTable;

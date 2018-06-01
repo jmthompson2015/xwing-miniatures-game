@@ -1,22 +1,20 @@
-"use strict";
+import InputValidator from "../../utility/InputValidator.js";
 
-define(["react-redux", "utility/InputValidator", "accessory/squad-table/SquadTable"],
-   function(ReactRedux, InputValidator, SquadTable)
+import SquadTable from "./SquadTable.js";
+
+// SquadTableContainer
+
+function mapStateToProps(state, ownProps)
+{
+   InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
+
+   return (
    {
-      // SquadTableContainer
-
-      function mapStateToProps(state, ownProps)
-      {
-         InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
-
-         return (
-         {
-            isFilterShown: state.isFilterShown,
-            filters: state.filters,
-            resourceBase: ownProps.resourceBase,
-            rowData: state.filteredTableRows,
-         });
-      }
-
-      return ReactRedux.connect(mapStateToProps)(SquadTable);
+      isFilterShown: state.isFilterShown,
+      filters: state.filters,
+      resourceBase: ownProps.resourceBase,
+      rowData: state.filteredTableRows,
    });
+}
+
+export default ReactRedux.connect(mapStateToProps)(SquadTable);

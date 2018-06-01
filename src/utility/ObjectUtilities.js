@@ -1,21 +1,18 @@
-"use strict";
+import InputValidator from "./InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var ObjectUtilities = {};
+
+ObjectUtilities.merge = function(a, b)
 {
-   var ObjectUtilities = {};
+   InputValidator.validateNotNull("a", a);
+   InputValidator.validateNotNull("b", b);
 
-   ObjectUtilities.merge = function(a, b)
+   var keys = Object.keys(b);
+
+   keys.forEach(function(key)
    {
-      InputValidator.validateNotNull("a", a);
-      InputValidator.validateNotNull("b", b);
+      a[key] = b[key];
+   });
+};
 
-      var keys = Object.keys(b);
-
-      keys.forEach(function(key)
-      {
-         a[key] = b[key];
-      });
-   };
-
-   return ObjectUtilities;
-});
+export default ObjectUtilities;

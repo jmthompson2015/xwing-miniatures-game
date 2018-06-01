@@ -1,90 +1,90 @@
-"use strict";
+import ShipAction from "./ShipAction.js";
 
-define(["qunit", "artifact/ShipAction"], function(QUnit, ShipAction)
+QUnit.module("ShipAction");
+
+QUnit.test("ShipAction properties Barrel Roll", function(assert)
 {
-   QUnit.module("ShipAction");
+   var shipAction = ShipAction.BARREL_ROLL;
+   var properties = ShipAction.properties[shipAction];
+   assert.equal(properties.name, "Barrel Roll");
+});
 
-   QUnit.test("ShipAction properties Barrel Roll", function(assert)
+QUnit.test("ShipAction properties Evade", function(assert)
+{
+   var shipAction = ShipAction.EVADE;
+   var properties = ShipAction.properties[shipAction];
+   assert.equal(properties.name, "Evade");
+});
+
+QUnit.test("ShipAction properties Focus", function(assert)
+{
+   var shipAction = ShipAction.FOCUS;
+   var properties = ShipAction.properties[shipAction];
+   assert.equal(properties.name, "Focus");
+});
+
+QUnit.test("keys and values", function(assert)
+{
+   // Setup.
+
+   // Run.
+   var result = ShipAction.keys();
+   var ownPropertyNames = Object.getOwnPropertyNames(ShipAction);
+
+   // Verify.
+   ownPropertyNames.forEach(function(key)
    {
-      var shipAction = ShipAction.BARREL_ROLL;
-      var properties = ShipAction.properties[shipAction];
-      assert.equal(properties.name, "Barrel Roll");
-   });
+      var key2 = ShipAction[key];
 
-   QUnit.test("ShipAction properties Evade", function(assert)
-   {
-      var shipAction = ShipAction.EVADE;
-      var properties = ShipAction.properties[shipAction];
-      assert.equal(properties.name, "Evade");
-   });
-
-   QUnit.test("ShipAction properties Focus", function(assert)
-   {
-      var shipAction = ShipAction.FOCUS;
-      var properties = ShipAction.properties[shipAction];
-      assert.equal(properties.name, "Focus");
-   });
-
-   QUnit.test("keys and values", function(assert)
-   {
-      // Setup.
-
-      // Run.
-      var result = ShipAction.keys();
-      var ownPropertyNames = Object.getOwnPropertyNames(ShipAction);
-
-      // Verify.
-      ownPropertyNames.forEach(function(key)
+      if (key !== "properties" && typeof key2 === "string")
       {
-         var key2 = ShipAction[key];
+         assert.ok(ShipAction.properties[key2], "Missing value for key = " + key);
+      }
+   });
 
-         if (key !== "properties" && typeof key2 === "string")
-         {
-            assert.ok(ShipAction.properties[key2], "Missing value for key = " + key);
-         }
+   result.forEach(function(value)
+   {
+      var p = ownPropertyNames.filter(function(key)
+      {
+         return ShipAction[key] === value;
       });
 
-      result.forEach(function(value)
-      {
-         var p = ownPropertyNames.filter(function(key)
-         {
-            return ShipAction[key] === value;
-         });
-
-         assert.equal(p.length, 1, "Missing key for value = " + value);
-      });
-   });
-
-   QUnit.test("keys()", function(assert)
-   {
-      // Run.
-      var result = ShipAction.keys();
-
-      // Verify.
-      assert.ok(result);
-      assert.equal(result.length, 14);
-      var i = 0;
-      assert.equal(result[i++], ShipAction.BARREL_ROLL);
-      assert.equal(result[i++], ShipAction.BOOST);
-      assert.equal(result[i++], ShipAction.CLOAK);
-      assert.equal(result[i++], ShipAction.COORDINATE);
-      assert.equal(result[i++], ShipAction.DECLOAK);
-      assert.equal(result[i++], ShipAction.EVADE);
-      assert.equal(result[i++], ShipAction.FOCUS);
-      assert.equal(result[i++], ShipAction.JAM);
-      assert.equal(result[i++], ShipAction.RECOVER);
-      assert.equal(result[i++], ShipAction.REINFORCE);
-      assert.equal(result[i++], ShipAction.RELOAD);
-      assert.equal(result[i++], ShipAction.ROTATE_ARC);
-      assert.equal(result[i++], ShipAction.SLAM);
-      assert.equal(result[i++], ShipAction.TARGET_LOCK);
-
-      var properties = Object.getOwnPropertyNames(ShipAction);
-      var count = properties.length - 1 - // properties
-         1 - // keys
-         1 - // toString
-         1 - // findByName
-         1; // values
-      assert.equal(result.length, count);
+      assert.equal(p.length, 1, "Missing key for value = " + value);
    });
 });
+
+QUnit.test("keys()", function(assert)
+{
+   // Run.
+   var result = ShipAction.keys();
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 14);
+   var i = 0;
+   assert.equal(result[i++], ShipAction.BARREL_ROLL);
+   assert.equal(result[i++], ShipAction.BOOST);
+   assert.equal(result[i++], ShipAction.CLOAK);
+   assert.equal(result[i++], ShipAction.COORDINATE);
+   assert.equal(result[i++], ShipAction.DECLOAK);
+   assert.equal(result[i++], ShipAction.EVADE);
+   assert.equal(result[i++], ShipAction.FOCUS);
+   assert.equal(result[i++], ShipAction.JAM);
+   assert.equal(result[i++], ShipAction.RECOVER);
+   assert.equal(result[i++], ShipAction.REINFORCE);
+   assert.equal(result[i++], ShipAction.RELOAD);
+   assert.equal(result[i++], ShipAction.ROTATE_ARC);
+   assert.equal(result[i++], ShipAction.SLAM);
+   assert.equal(result[i++], ShipAction.TARGET_LOCK);
+
+   var properties = Object.getOwnPropertyNames(ShipAction);
+   var count = properties.length - 1 - // properties
+      1 - // keys
+      1 - // toString
+      1 - // findByName
+      1; // values
+   assert.equal(result.length, count);
+});
+
+const ShipActionTest = {};
+export default ShipActionTest;

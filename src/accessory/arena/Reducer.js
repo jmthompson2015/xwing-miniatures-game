@@ -1,55 +1,52 @@
-"use strict";
+import Action from "./Action.js";
+import InitialState from "./InitialState.js";
 
-define(["accessory/arena/Action", "accessory/arena/InitialState"],
-   function(Action, InitialState)
+var Reducer = {};
+
+Reducer.root = function(state, action)
+{
+   LOGGER.debug("root() type = " + action.type);
+
+   if (typeof state === 'undefined')
    {
-      var Reducer = {};
+      return new InitialState();
+   }
 
-      Reducer.root = function(state, action)
-      {
-         LOGGER.debug("root() type = " + action.type);
+   var newSbToCount;
 
-         if (typeof state === 'undefined')
+   switch (action.type)
+   {
+      case Action.ADD_LOSE_COUNT:
+         newSbToCount = Object.assign(
+         {}, state.sbToLoseCount);
+         newSbToCount[action.squadBuilder]++;
+         return Object.assign(
+         {}, state,
          {
-            return new InitialState();
-         }
-
-         var newSbToCount;
-
-         switch (action.type)
+            sbToLoseCount: newSbToCount,
+         });
+      case Action.ADD_TIE_COUNT:
+         newSbToCount = Object.assign(
+         {}, state.sbToTieCount);
+         newSbToCount[action.squadBuilder]++;
+         return Object.assign(
+         {}, state,
          {
-            case Action.ADD_LOSE_COUNT:
-               newSbToCount = Object.assign(
-               {}, state.sbToLoseCount);
-               newSbToCount[action.squadBuilder]++;
-               return Object.assign(
-               {}, state,
-               {
-                  sbToLoseCount: newSbToCount,
-               });
-            case Action.ADD_TIE_COUNT:
-               newSbToCount = Object.assign(
-               {}, state.sbToTieCount);
-               newSbToCount[action.squadBuilder]++;
-               return Object.assign(
-               {}, state,
-               {
-                  sbToTieCount: newSbToCount,
-               });
-            case Action.ADD_WIN_COUNT:
-               newSbToCount = Object.assign(
-               {}, state.sbToWinCount);
-               newSbToCount[action.squadBuilder]++;
-               return Object.assign(
-               {}, state,
-               {
-                  sbToWinCount: newSbToCount,
-               });
-            default:
-               LOGGER.warn("Reducer.root: Unhandled action type: " + action.type);
-               return state;
-         }
-      };
+            sbToTieCount: newSbToCount,
+         });
+      case Action.ADD_WIN_COUNT:
+         newSbToCount = Object.assign(
+         {}, state.sbToWinCount);
+         newSbToCount[action.squadBuilder]++;
+         return Object.assign(
+         {}, state,
+         {
+            sbToWinCount: newSbToCount,
+         });
+      default:
+         LOGGER.warn("Reducer.root: Unhandled action type: " + action.type);
+         return state;
+   }
+};
 
-      return Reducer;
-   });
+export default Reducer;

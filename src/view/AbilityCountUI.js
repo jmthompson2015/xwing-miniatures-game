@@ -1,26 +1,22 @@
-"use strict";
+import MathUtilities from "../utility/MathUtilities.js";
 
-define(["create-react-class", "prop-types", "react-dom-factories", "utility/MathUtilities"],
-   function(createReactClass, PropTypes, DOM, MathUtilities)
+var AbilityCountUI = createReactClass(
+{
+   render: function()
    {
-      var AbilityCountUI = createReactClass(
-      {
-         render: function()
-         {
-            var implementedCount = this.props.implementedCount;
-            var abilityCount = this.props.abilityCount;
-            var ratio = MathUtilities.round(100.0 * implementedCount / abilityCount, 0);
+      var implementedCount = this.props.implementedCount;
+      var abilityCount = this.props.abilityCount;
+      var ratio = MathUtilities.round(100.0 * implementedCount / abilityCount, 0);
 
-            return DOM.span(
-               {}, "Implemented ", implementedCount, " / ",
-               abilityCount, " = ", ratio, "%");
-         },
-      });
+      return ReactDOMFactories.span(
+         {}, "Implemented ", implementedCount, " / ",
+         abilityCount, " = ", ratio, "%");
+   },
+});
 
-      AbilityCountUI.propTypes = {
-         implementedCount: PropTypes.number.isRequired,
-         abilityCount: PropTypes.number.isRequired,
-      };
+AbilityCountUI.propTypes = {
+   implementedCount: PropTypes.number.isRequired,
+   abilityCount: PropTypes.number.isRequired,
+};
 
-      return AbilityCountUI;
-   });
+export default AbilityCountUI;

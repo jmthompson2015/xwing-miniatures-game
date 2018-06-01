@@ -1,58 +1,60 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["redux", "utility/InputValidator",
-  "model/Action", "model/Adjudicator", "model/Engine", "model/Environment", "model/EventObserver", "model/PhaseObserver", "model/Reducer"],
-   function(Redux, InputValidator,
-      Action, Adjudicator, Engine, Environment, EventObserver, PhaseObserver, Reducer)
+import Action from "./Action.js";
+import Adjudicator from "./Adjudicator.js";
+import Engine from "./Engine.js";
+import Environment from "./Environment.js";
+import EventObserver from "./EventObserver.js";
+import PhaseObserver from "./PhaseObserver.js";
+import Reducer from "./Reducer.js";
+
+function Game(agent1, squad1, agent2, squad2, delayIn)
+{
+   InputValidator.validateNotNull("agent1", agent1);
+   InputValidator.validateNotNull("squad1", squad1);
+   InputValidator.validateNotNull("agent2", agent2);
+   InputValidator.validateNotNull("squad2", squad2);
+   // delayIn optional.
+
+   var store = Redux.createStore(Reducer.root);
+   var resourceBase = "resource/";
+   store.dispatch(Action.setResourceBase(resourceBase));
+   var environment = new Environment(store, agent1, squad1, agent2, squad2);
+   EventObserver.observeStore(store);
+   PhaseObserver.observeStore(store);
+
+   if (delayIn !== undefined)
    {
-      function Game(agent1, squad1, agent2, squad2, delayIn)
-      {
-         InputValidator.validateNotNull("agent1", agent1);
-         InputValidator.validateNotNull("squad1", squad1);
-         InputValidator.validateNotNull("agent2", agent2);
-         InputValidator.validateNotNull("squad2", squad2);
-         // delayIn optional.
+      store.dispatch(Action.setDelay(delayIn));
+   }
 
-         var store = Redux.createStore(Reducer.root);
-         var resourceBase = "resource/";
-         store.dispatch(Action.setResourceBase(resourceBase));
-         var environment = new Environment(store, agent1, squad1, agent2, squad2);
-         EventObserver.observeStore(store);
-         PhaseObserver.observeStore(store);
+   var adjudicator = Adjudicator.create(store);
+   var engine = new Engine(store);
 
-         if (delayIn !== undefined)
-         {
-            store.dispatch(Action.setDelay(delayIn));
-         }
+   this.adjudicator = function()
+   {
+      return adjudicator;
+   };
 
-         var adjudicator = Adjudicator.create(store);
-         var engine = new Engine(store);
+   this.engine = function()
+   {
+      return engine;
+   };
 
-         this.adjudicator = function()
-         {
-            return adjudicator;
-         };
+   this.environment = function()
+   {
+      return environment;
+   };
+}
 
-         this.engine = function()
-         {
-            return engine;
-         };
+Game.prototype.start = function()
+{
+   var engine = this.engine();
 
-         this.environment = function()
-         {
-            return environment;
-         };
-      }
+   setTimeout(function()
+   {
+      engine.performPlanningPhase();
+   }, 0);
+};
 
-      Game.prototype.start = function()
-      {
-         var engine = this.engine();
-
-         setTimeout(function()
-         {
-            engine.performPlanningPhase();
-         }, 0);
-      };
-
-      return Game;
-   });
+export default Game;

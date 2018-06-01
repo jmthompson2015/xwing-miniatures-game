@@ -1,62 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestSelect</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>Select</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-redux@5.0.6/dist/react-redux.js"></script>
+	<script src="Select.viewtest.js" type="module">></script>
 </head>
 <body>
 	<div id="testPanel">testPanel</div>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "utility/Logger", "view/Select"],
-			function(React, ReactDOM, Logger, Select)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var values = ["zero", "one", "two"];
-				var labelFunction = function(value)
-				{
-					return value.toUpperCase();
-				}
-				var initialSelectedValue = values[1];
-				var select = React.createElement(Select,
-				{
-					values: values,
-					labelFunction: labelFunction,
-					initialSelectedValue: initialSelectedValue,
-					onChange: myOnChange,
-					clientProps:
-					{
-						"data-myprop": "something",
-					}
-				});
-				var selectElement = ReactDOM.render(select, document
-					.getElementById("testPanel"));
-
-				function myOnChange(event)
-				{
-					LOGGER.info("event = " + event);
-					LOGGER.info("event = " + Object.getOwnPropertyNames(event));
-					LOGGER.info("event.currentTarget = " + event.currentTarget);
-					LOGGER.info("event.currentTarget = " + Object.getOwnPropertyNames(event.currentTarget));
-					LOGGER.info("event.currentTarget.constructor = " + event.currentTarget.constructor);
-					LOGGER.info("event.currentTarget.constructor = " + Object.getOwnPropertyNames(event.currentTarget.constructor));
-					LOGGER.info("event.currentTarget.constructor.prototype = " + event.currentTarget.constructor.prototype);
-					LOGGER.info("event.currentTarget.constructor.prototype = " + Object.getOwnPropertyNames(event.currentTarget.constructor.prototype));
-					LOGGER.info("event.currentTarget.dataset.myprop = " + event.currentTarget.dataset.myprop);
-
-					var selectedValue = event.currentTarget.key;
-					LOGGER.info("myOnChange() selectedValue = " + selectedValue);
-				}
-			});
-	</script>
 </body>
 
 </html>

@@ -1,50 +1,49 @@
-"use strict";
+import EntityFilter from "../../model/EntityFilter.js";
+import RangeFilter from "../../model/RangeFilter.js";
 
-define(["model/EntityFilter", "model/RangeFilter", "accessory/ability-table/TableColumns"],
-   function(EntityFilter, RangeFilter, TableColumns)
+import TableColumns from "./TableColumns.js";
+
+var DefaultFilters = {
+   entityColumns: [],
+   rangeColumns: [],
+
+   create: function()
    {
-      var DefaultFilters = {
-         entityColumns: [],
-         rangeColumns: [],
+      var filters = {};
 
-         create: function()
-         {
-            var filters = {};
+      this.entityColumns.forEach(function(column)
+      {
+         var values = [];
+         var filter = new EntityFilter(column.key, values);
+         filters[column.key] = filter;
+      });
 
-            this.entityColumns.forEach(function(column)
-            {
-               var values = [];
-               var filter = new EntityFilter(column.key, values);
-               filters[column.key] = filter;
-            });
+      this.rangeColumns.forEach(function(column)
+      {
+         var isMinEnabled = false;
+         var minValue = 1;
+         var isMaxEnabled = false;
+         var maxValue = 10;
 
-            this.rangeColumns.forEach(function(column)
-            {
-               var isMinEnabled = false;
-               var minValue = 1;
-               var isMaxEnabled = false;
-               var maxValue = 10;
+         var filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
+         filters[column.key] = filter;
+      });
 
-               var filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
-               filters[column.key] = filter;
-            });
+      return filters;
+   },
 
-            return filters;
-         },
+   initialize: function()
+   {
+      this.entityColumns.push(TableColumns[0]); // deck
+      this.entityColumns.push(TableColumns[1]); // type
+      this.entityColumns.push(TableColumns[3]); // wave
+      this.entityColumns.push(TableColumns[7]); // isImplemented
+      this.entityColumns.push(TableColumns[8]); // event
 
-         initialize: function()
-         {
-            this.entityColumns.push(TableColumns[0]); // deck
-            this.entityColumns.push(TableColumns[1]); // type
-            this.entityColumns.push(TableColumns[3]); // wave
-            this.entityColumns.push(TableColumns[7]); // isImplemented
-            this.entityColumns.push(TableColumns[8]); // event
+      this.rangeColumns.push(TableColumns[4]); // count
+   },
+};
 
-            this.rangeColumns.push(TableColumns[4]); // count
-         },
-      };
+DefaultFilters.initialize();
 
-      DefaultFilters.initialize();
-
-      return DefaultFilters;
-   });
+export default DefaultFilters;

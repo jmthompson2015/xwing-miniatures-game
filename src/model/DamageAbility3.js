@@ -1,74 +1,76 @@
 /*
  * Provides damage abilities for the Combat Phase.
  */
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator", "artifact/AttackDiceValue", "artifact/DamageCard", "artifact/Phase", "model/AttackDice"],
-   function(InputValidator, AttackDiceValue, DamageCard, Phase, AttackDice)
+import AttackDiceValue from "../artifact/AttackDiceValue.js";
+import DamageCard from "../artifact/DamageCard.js";
+import Phase from "../artifact/Phase.js";
+
+import AttackDice from "./AttackDice.js";
+
+var DamageAbility3 = {};
+
+////////////////////////////////////////////////////////////////////////
+DamageAbility3[Phase.COMBAT_START] = {};
+
+DamageAbility3[Phase.COMBAT_START][DamageCard.CONSOLE_FIRE] = {
+   // At the start of each Combat phase, roll 1 attack die. On a Hit result, suffer 1 damage.
+   condition: function(store, token)
    {
-      var DamageAbility3 = {};
-
-      ////////////////////////////////////////////////////////////////////////
-      DamageAbility3[Phase.COMBAT_START] = {};
-
-      DamageAbility3[Phase.COMBAT_START][DamageCard.CONSOLE_FIRE] = {
-         // At the start of each Combat phase, roll 1 attack die. On a Hit result, suffer 1 damage.
-         condition: function(store, token)
-         {
-            return isActiveCardInstance(store, token);
-         },
-         consequent: function(store, token, callback)
-         {
-            if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
-            {
-               token.sufferDamage(1, 0);
-            }
-            callback();
-         },
-      };
-
-      DamageAbility3[Phase.COMBAT_START][DamageCard.CONSOLE_FIRE_V2] = {
-         // At the start of each Combat phase, roll 1 attack die. On a Hit result, suffer 1 damage.
-         condition: function(store, token)
-         {
-            return isActiveCardInstance(store, token);
-         },
-         consequent: function(store, token, callback)
-         {
-            if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
-            {
-               token.sufferDamage(1, 0);
-            }
-            callback();
-         },
-      };
-
-      ////////////////////////////////////////////////////////////////////////
-      function getActiveCardInstance(store)
+      return isActiveCardInstance(store, token);
+   },
+   consequent: function(store, token, callback)
+   {
+      if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
       {
-         InputValidator.validateNotNull("store", store);
-
-         var environment = store.getState().environment;
-
-         return environment.activeCardInstance();
+         token.sufferDamage(1, 0);
       }
+      callback();
+   },
+};
 
-      function isActiveCardInstance(store, token)
+DamageAbility3[Phase.COMBAT_START][DamageCard.CONSOLE_FIRE_V2] = {
+   // At the start of each Combat phase, roll 1 attack die. On a Hit result, suffer 1 damage.
+   condition: function(store, token)
+   {
+      return isActiveCardInstance(store, token);
+   },
+   consequent: function(store, token, callback)
+   {
+      if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
       {
-         var activeToken = getActiveCardInstance(store);
-
-         return token.equals(activeToken);
+         token.sufferDamage(1, 0);
       }
+      callback();
+   },
+};
 
-      DamageAbility3.toString = function()
-      {
-         return "model/DamageAbility3";
-      };
+////////////////////////////////////////////////////////////////////////
+function getActiveCardInstance(store)
+{
+   InputValidator.validateNotNull("store", store);
 
-      if (Object.freeze)
-      {
-         Object.freeze(DamageAbility3);
-      }
+   var environment = store.getState().environment;
 
-      return DamageAbility3;
-   });
+   return environment.activeCardInstance();
+}
+
+function isActiveCardInstance(store, token)
+{
+   var activeToken = getActiveCardInstance(store);
+
+   return token.equals(activeToken);
+}
+
+DamageAbility3.toString = function()
+{
+   return "model/DamageAbility3";
+};
+
+if (Object.freeze)
+{
+   Object.freeze(DamageAbility3);
+}
+
+export default DamageAbility3;

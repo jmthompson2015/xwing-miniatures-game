@@ -1,76 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyTestAbilityChooser</title>
-	<link rel="stylesheet" href="../../lib/tachyons/tachyons-4.8.1.css">
+	<title>AbilityChooser</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4.8.1/css/tachyons.min.css">
 	<link rel="stylesheet" href="../view/style.css">
-	<script src="../../lib/requirejs/require-2.3.5.js"></script>
-	<script src="require-config.js"></script>
-	<script src="../main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react@15.6.1/dist/react.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom@15.6.1/dist/react-dom.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.0/create-react-class.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prop-types@15.5.10/prop-types.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/react-dom-factories@1.0.1/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/redux@3.7.2/dist/redux.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/immutable@3.8.1/dist/immutable.js"></script>
+	<script src="AbilityChooser.viewtest.js" type="module">></script>
 </head>
 <body>
 	<div id="inputPanel"></div>
-	<script>
-		"use strict";
-
-		require(["react", "react-dom", "utility/Logger", "model/Ability", "artifact/DamageCard",
-				"artifact/Phase", "artifact/PilotCard", "artifact/ShipAction", "artifact/UpgradeCard",
-				"model/DamageAbility2", "model/PilotAbility2", "model/ShipActionAbility", "model/UpgradeAbility2", "model/EnvironmentFactory",
-				"view/AbilityChooser"
-			],
-			function(React, ReactDOM, Logger, Ability, DamageCard,
-				Phase, PilotCard, ShipAction, UpgradeCard,
-				DamageAbility2, PilotAbility2, ShipActionAbility, UpgradeAbility2, EnvironmentFactory,
-				AbilityChooser)
-			{
-				window.LOGGER = new Logger();
-				LOGGER.setTraceEnabled(false);
-				LOGGER.setDebugEnabled(false);
-
-				var resourceBase = "../resource/";
-				var damageKeys = [DamageCard.CONSOLE_FIRE, DamageCard.MINOR_HULL_BREACH];
-				var damages = damageKeys.map(function(damageKey)
-				{
-					return new Ability(DamageCard, damageKey, DamageAbility2, Phase.ACTIVATION_EXECUTE_MANEUVER);
-				});
-				var pilotKeys = [PilotCard.AIREN_CRACKEN, PilotCard.BOSSK, PilotCard.CAPTAIN_YORR];
-				var pilots = pilotKeys.map(function(pilotKey)
-				{
-					return new Ability(PilotCard, pilotKey, PilotAbility2, Phase.ACTIVATION_EXECUTE_MANEUVER);
-				});
-				var shipActionKeys = [ShipAction.EVADE, ShipAction.FOCUS];
-				var shipActions = shipActionKeys.map(function(shipActionKey)
-				{
-					return new Ability(ShipAction, shipActionKey, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
-				});
-				var upgradeKeys = [UpgradeCard.LIGHTNING_REFLEXES, UpgradeCard.TIE_X7];
-				var upgrades = upgradeKeys.map(function(upgradeKey)
-				{
-					return new Ability(UpgradeCard, upgradeKey, UpgradeAbility2, Phase.ACTIVATION_EXECUTE_MANEUVER);
-				});
-
-				var environment = EnvironmentFactory.createCoreSetEnvironment();
-				var store = environment.store();
-				var token = environment.pilotInstances()[2]; // X-Wing
-
-				var element = React.createElement(AbilityChooser,
-				{
-					damages: damages,
-					resourceBase: resourceBase,
-					onChange: callback,
-					pilots: pilots,
-					shipActions: shipActions,
-					token: token,
-					upgrades: upgrades,
-				});
-				ReactDOM.render(element, document.getElementById("inputPanel"));
-
-				function callback(pilotKey, upgradeKey, isAccepted)
-				{
-					LOGGER.info("pilotKey = " + pilotKey + " upgradeKey = " + upgradeKey + " isAccepted ? " + isAccepted);
-				}
-			});
-	</script>
 </body>
 
 </html>

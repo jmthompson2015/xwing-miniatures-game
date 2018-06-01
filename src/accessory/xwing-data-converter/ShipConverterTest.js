@@ -1,8 +1,7 @@
-"use strict";
 
-define(["qunit", "accessory/xwing-data-converter/ShipConverter"],
-   function(QUnit, ShipConverter)
-   {
+
+import QUnit from "qunit";
+import ShipConverter from "../accessory/xwing-data-converter/ShipConverter";
       QUnit.module("ShipConverter");
 
       var FIRESPRAY_31 = {
@@ -80,4 +79,4 @@ define(["qunit", "accessory/xwing-data-converter/ShipConverter"],
          assert.equal(ShipConverter.determinePrimaryFiringArc(FIRESPRAY_31), "FiringArc.FORWARD");
          assert.equal(ShipConverter.determinePrimaryFiringArc(YV_666), "FiringArc.FORWARD");
       });
-   });
+   
