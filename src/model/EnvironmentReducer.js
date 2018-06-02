@@ -8,7 +8,7 @@ EnvironmentReducer.reduce = function(state, action)
 {
    LOGGER.debug("EnvironmentReducer.reduce() type = " + action.type);
 
-   var action2, damageId, newPositionToTokenId, newTokenIdToData, newTokens;
+   var damageId, newPositionToTokenId, newTokenIdToData, newTokens;
 
    switch (action.type)
    {
@@ -83,25 +83,6 @@ EnvironmentReducer.reduce = function(state, action)
             {}, state,
             {
                cardPosition: newTokenIdToData,
-               cardInstances: newTokens,
-            });
-         }
-         return state;
-      case EnvironmentAction.REMOVE_TOKEN_AT:
-         // LOGGER.info("EnvironmentReducer REMOVE_TOKEN_AT state.positionToCardId[action.position] = " + state.positionToCardId[action.position]);
-         tokenId = state.positionToCardId.get(action.position.toString());
-         if (tokenId !== undefined)
-         {
-            tokenId = parseInt(tokenId);
-            var environment = state.environment;
-            action.token = environment.getTokenById(tokenId);
-            action2 = EnvironmentAction.removeToken(action.token);
-            newTokens = EnvironmentReducer.tokens(state.cardInstances, action2);
-            return Object.assign(
-            {}, state,
-            {
-               positionToCardId: state.positionToCardId.delete(action.position.toString()),
-               cardPosition: state.cardPosition.delete(action.token.id()),
                cardInstances: newTokens,
             });
          }

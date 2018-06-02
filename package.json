@@ -30,7 +30,7 @@
     "react-dom": "^16.4.0",
     "react-dom-factories": "^1.0.2",
     "react-redux": "^5.0.7",
-    "redux": "^3.7.2",
+    "redux": "^4.0.0",
     "xwing-data": "^0.65.0",
     "xwing-miniatures-font": "^1.0.29"
   }

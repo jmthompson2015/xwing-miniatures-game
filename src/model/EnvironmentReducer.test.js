@@ -156,26 +156,6 @@ QUnit.test("removeToken()", function(assert)
    assert.equal(store.getState().cardInstances.keySeq().size, 38);
 });
 
-QUnit.test("removeTokenAt()", function(assert)
-{
-   // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token0 = environment.pilotInstances()[0];
-   var position0 = environment.getPositionFor(token0);
-   assert.equal(store.getState().positionToCardId.keySeq().size, 3);
-   assert.equal(store.getState().cardPosition.keySeq().size, 3);
-   assert.equal(store.getState().cardInstances.keySeq().size, 39);
-
-   // Run.
-   store.dispatch(EnvironmentAction.removeTokenAt(position0));
-
-   // Verify.
-   assert.equal(store.getState().positionToCardId.keySeq().size, 2);
-   assert.equal(store.getState().cardPosition.keySeq().size, 2);
-   assert.equal(store.getState().cardInstances.keySeq().size, 38);
-});
-
 QUnit.test("removeTouching()", function(assert)
 {
    // Setup.

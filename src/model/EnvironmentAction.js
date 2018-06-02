@@ -9,7 +9,6 @@ EnvironmentAction.DRAW_DAMAGE = "drawDamage";
 EnvironmentAction.MOVE_TOKEN = "moveToken";
 EnvironmentAction.PLACE_TOKEN = "placeToken";
 EnvironmentAction.REMOVE_TOKEN = "removeToken";
-EnvironmentAction.REMOVE_TOKEN_AT = "removeTokenAt";
 EnvironmentAction.REMOVE_TOUCHING = "removeTouching";
 EnvironmentAction.REPLENISH_DAMAGE_DECK = "replenishDamageDeck";
 EnvironmentAction.SET_ACTIVE_TOKEN = "setActiveToken";
@@ -104,17 +103,6 @@ EnvironmentAction.removeToken = function(token)
    {
       type: EnvironmentAction.REMOVE_TOKEN,
       token: token,
-   });
-};
-
-EnvironmentAction.removeTokenAt = function(position)
-{
-   InputValidator.validateNotNull("position", position);
-
-   return (
-   {
-      type: EnvironmentAction.REMOVE_TOKEN_AT,
-      position: position,
    });
 };
 
