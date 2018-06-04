@@ -67,7 +67,7 @@ function startNewGame(agent1, squad1, agent2, squad2)
    LOGGER.info("squad2 = " + squad2);
 
    var element = document.getElementById("secondPilotInputArea");
-   element.innerHTML = "";
+   ReactDOM.unmountComponentAtNode(element);
 
    game = new Game(agent1, squad1, agent2, squad2);
    var store = game.environment().store();

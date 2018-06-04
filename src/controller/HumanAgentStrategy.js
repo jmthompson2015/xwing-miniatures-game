@@ -60,7 +60,7 @@ HumanAgentStrategy.finishChooseAbility = function(agent, ability, isAccepted, ca
 
    // Handle the user response.
    var element = document.getElementById(inputAreaId(agent));
-   element.innerHTML = "";
+   ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishChooseAbility() end");
 
@@ -106,7 +106,7 @@ HumanAgentStrategy.finishDecloakAction = function(agent, token, decloakAbility, 
 
    // Handle the user response.
    var element = document.getElementById(inputAreaId(agent));
-   element.innerHTML = "";
+   ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishDecloakAction() end");
 
@@ -291,7 +291,7 @@ HumanAgentStrategy.finishPlanningAction = function(agent, tokenToManeuver, callb
 
    // Handle the user response.
    var element = document.getElementById(inputAreaId(agent));
-   element.innerHTML = "";
+   ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishPlanningAction() end");
 
@@ -343,7 +343,7 @@ HumanAgentStrategy.finishShipAction = function(agent, shipAction, isAccepted, ca
 
    // Handle the user response.
    var element = document.getElementById(inputAreaId(agent));
-   element.innerHTML = "";
+   ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishShipAction() end");
 
@@ -388,7 +388,7 @@ HumanAgentStrategy.finishWeaponAndDefender = function(agent, weapon, defender, c
 
    // Handle the user response.
    var element = document.getElementById(inputAreaId(agent));
-   element.innerHTML = "";
+   ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishWeaponAndDefender() end");
 
@@ -438,7 +438,7 @@ HumanAgentStrategy.finishDealDamage = function(agent, callback)
 
    // Handle the user response.
    var element = document.getElementById(inputAreaId(agent));
-   element.innerHTML = "";
+   ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishDealDamage() end");
 
