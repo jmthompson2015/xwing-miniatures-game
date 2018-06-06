@@ -9,11 +9,11 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../../../src/resource/";
+var resourceBase = "../../../src/";
 
-var PilotCardGallery = createReactClass(
+class PilotCardGallery extends React.Component
 {
-   render: function()
+   render()
    {
       var factionKey = this.props.factionKey;
       var isStrict = true;
@@ -57,8 +57,8 @@ var PilotCardGallery = createReactClass(
 
       return ReactDOMFactories.div(
       {}, cells);
-   },
-});
+   }
+}
 
 var rows = [];
 

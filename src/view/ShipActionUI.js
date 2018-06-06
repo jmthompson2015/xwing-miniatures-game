@@ -1,8 +1,8 @@
 import ShipAction from "../artifact/ShipAction.js";
 
-var ShipActionUI = createReactClass(
+class ShipActionUI extends React.Component
 {
-   render: function()
+   render()
    {
       var shipAction = this.props.shipAction;
       var myKey = (this.props.myKey !== undefined ? this.props.myKey : shipAction.key);
@@ -37,8 +37,8 @@ var ShipActionUI = createReactClass(
       }
 
       return answer;
-   },
-});
+   }
+}
 
 ShipActionUI.propTypes = {
    shipAction: PropTypes.object.isRequired,

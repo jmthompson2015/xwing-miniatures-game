@@ -5,38 +5,28 @@ import ShipFaction from "../artifact/ShipFaction.js";
 
 import ShipImage from "./ShipImage.js";
 
-var PlayAreaUI = createReactClass(
+class PlayAreaUI extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      height: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      scale: PropTypes.number.isRequired,
-      tokenPositions: PropTypes.array.isRequired,
-      width: PropTypes.number.isRequired,
+      super(props);
 
-      explosion: PropTypes.object,
-      laserBeam: PropTypes.object,
-      maneuver: PropTypes.object,
-   },
+      this.explosionImage = undefined;
+      this.shipFactionToImage = {};
+   }
 
-   explosionImage: undefined,
-   shipFactionToImage:
-   {},
-
-   componentDidMount: function()
+   componentDidMount()
    {
       this.loadImages();
       this.paint();
-   },
+   }
 
-   componentDidUpdate: function()
+   componentDidUpdate()
    {
       this.paint();
-   },
+   }
 
-   render: function()
+   render()
    {
       var imageSrc = this.props.resourceBase + this.props.image;
 
@@ -51,245 +41,258 @@ var PlayAreaUI = createReactClass(
          width: this.props.width,
          height: this.props.height,
       });
-   },
+   }
+}
 
-   createExplosionImage: function()
+PlayAreaUI.prototype.createExplosionImage = function()
+{
+   var image = new Image();
+   image.src = this.props.resourceBase + "ship/Explosion64.png";
+
+   return image;
+};
+
+PlayAreaUI.prototype.createShipIcon = function(shipFaction)
+{
+   InputValidator.validateNotNull("shipFaction", shipFaction);
+
+   var image = new Image();
+   image.onload = function()
    {
-      var image = new Image();
-      image.src = this.props.resourceBase + "ship/Explosion64.png";
+      this.forceUpdate();
+   }.bind(this);
 
-      return image;
-   },
+   var filename = shipFaction.image;
+   image.src = this.props.resourceBase + "ship/" + filename;
 
-   createShipIcon: function(shipFaction)
+   return image;
+};
+
+PlayAreaUI.prototype.drawExplosion = function(context)
+{
+   var explosion = this.props.explosion;
+
+   if (explosion)
    {
-      InputValidator.validateNotNull("shipFaction", shipFaction);
+      InputValidator.validateNotNull("scale", this.props.scale);
+      InputValidator.validateNotNull("explosion.position", explosion.position);
+      InputValidator.validateNotNull("explosion.shipBase", explosion.shipBase);
+      InputValidator.validateNotNull("explosion.audioClip", explosion.audioClip);
 
-      var image = new Image();
-      image.onload = function()
+      var position = explosion.position;
+      var shipBase = explosion.shipBase;
+      var audioClip = explosion.audioClip;
+
+      var x = position.x();
+      var y = position.y();
+      var width = shipBase.width;
+      var height = shipBase.height;
+
+      context.save();
+      context.scale(this.props.scale, this.props.scale);
+      context.translate(x, y);
+      context.drawImage(this.explosionImage, -width / 2, -height / 2, width, height);
+
+      audioClip.play();
+
+      // Cleanup.
+      context.restore();
+   }
+};
+
+PlayAreaUI.prototype.drawLaserBeam = function(context)
+{
+   var laserBeam = this.props.laserBeam;
+
+   if (laserBeam)
+   {
+      InputValidator.validateNotNull("scale", this.props.scale);
+      InputValidator.validateNotNull("laserBeam.fromPosition", laserBeam.fromPosition);
+      InputValidator.validateNotNull("laserBeam.toPosition", laserBeam.toPosition);
+      InputValidator.validateNotNull("laserBeam.isPrimary", laserBeam.isPrimary);
+      InputValidator.validateNotNull("laserBeam.factionColor", laserBeam.factionColor);
+      // audioClip optional.
+
+      var fromPosition = laserBeam.fromPosition;
+      var toPosition = laserBeam.toPosition;
+      var isPrimary = laserBeam.isPrimary;
+      var factionColor = laserBeam.factionColor;
+      var audioClip = laserBeam.audioClip;
+
+      var strokeStyle = factionColor;
+      var lineDashSegments = (isPrimary ? undefined : [10, 5]);
+
+      context.save();
+      context.scale(this.props.scale, this.props.scale);
+      context.lineWidth = 3;
+      context.strokeStyle = strokeStyle;
+
+      if (lineDashSegments)
       {
-         this.forceUpdate();
-      }.bind(this);
+         context.setLineDash(lineDashSegments);
+      }
 
-      var filename = shipFaction.image;
-      image.src = this.props.resourceBase + "ship/" + filename;
+      context.beginPath();
+      context.moveTo(fromPosition.x(), fromPosition.y());
+      context.lineTo(toPosition.x(), toPosition.y());
+      context.stroke();
 
-      return image;
-   },
-
-   drawExplosion: function(context)
-   {
-      var explosion = this.props.explosion;
-
-      if (explosion)
+      if (audioClip)
       {
-         InputValidator.validateNotNull("scale", this.props.scale);
-         InputValidator.validateNotNull("explosion.position", explosion.position);
-         InputValidator.validateNotNull("explosion.shipBase", explosion.shipBase);
-         InputValidator.validateNotNull("explosion.audioClip", explosion.audioClip);
-
-         var position = explosion.position;
-         var shipBase = explosion.shipBase;
-         var audioClip = explosion.audioClip;
-
-         var x = position.x();
-         var y = position.y();
-         var width = shipBase.width;
-         var height = shipBase.height;
-
-         context.save();
-         context.scale(this.props.scale, this.props.scale);
-         context.translate(x, y);
-         context.drawImage(this.explosionImage, -width / 2, -height / 2, width, height);
-
          audioClip.play();
-
-         // Cleanup.
-         context.restore();
       }
-   },
 
-   drawLaserBeam: function(context)
+      // Cleanup.
+      context.restore();
+   }
+};
+
+PlayAreaUI.prototype.drawManeuver = function(context)
+{
+   var maneuverObj = this.props.maneuver;
+
+   if (maneuverObj)
    {
-      var laserBeam = this.props.laserBeam;
+      InputValidator.validateNotNull("scale", this.props.scale);
+      InputValidator.validateNotNull("maneuver.maneuver", maneuverObj.maneuver);
+      InputValidator.validateNotNull("maneuver.fromPolygon", maneuverObj.fromPolygon);
+      InputValidator.validateNotNull("maneuver.fromPosition", maneuverObj.fromPosition);
+      InputValidator.validateNotNull("maneuver.path", maneuverObj.path);
+      InputValidator.validateNotNull("maneuver.toPolygon", maneuverObj.toPolygon);
 
-      if (laserBeam)
+      var maneuver = maneuverObj.maneuver;
+      var fromPolygon = maneuverObj.fromPolygon;
+      var fromPosition = maneuverObj.fromPosition;
+      var path = maneuverObj.path;
+      var toPolygon = maneuverObj.toPolygon;
+
+      var FOREGROUND_COLOR = "white";
+      var EASY_COLOR = "lime";
+      var HARD_COLOR = "red";
+
+      context.save();
+      context.scale(this.props.scale, this.props.scale);
+
+      // Mark the center.
+      context.fillStyle = FOREGROUND_COLOR;
+      var radius = 4;
+      context.beginPath();
+      context.arc(fromPosition.x(), fromPosition.y(), radius, 0, 2 * Math.PI);
+      context.fill();
+
+      // Draw from ship base.
+      fromPolygon.paintComponent(context, FOREGROUND_COLOR);
+
+      if (toPolygon)
       {
-         InputValidator.validateNotNull("scale", this.props.scale);
-         InputValidator.validateNotNull("laserBeam.fromPosition", laserBeam.fromPosition);
-         InputValidator.validateNotNull("laserBeam.toPosition", laserBeam.toPosition);
-         InputValidator.validateNotNull("laserBeam.isPrimary", laserBeam.isPrimary);
-         InputValidator.validateNotNull("laserBeam.factionColor", laserBeam.factionColor);
-         // audioClip optional.
-
-         var fromPosition = laserBeam.fromPosition;
-         var toPosition = laserBeam.toPosition;
-         var isPrimary = laserBeam.isPrimary;
-         var factionColor = laserBeam.factionColor;
-         var audioClip = laserBeam.audioClip;
-
-         var strokeStyle = factionColor;
-         var lineDashSegments = (isPrimary ? undefined : [10, 5]);
-
-         context.save();
-         context.scale(this.props.scale, this.props.scale);
-         context.lineWidth = 3;
-         context.strokeStyle = strokeStyle;
-
-         if (lineDashSegments)
-         {
-            context.setLineDash(lineDashSegments);
-         }
-
-         context.beginPath();
-         context.moveTo(fromPosition.x(), fromPosition.y());
-         context.lineTo(toPosition.x(), toPosition.y());
-         context.stroke();
-
-         if (audioClip)
-         {
-            audioClip.play();
-         }
-
-         // Cleanup.
-         context.restore();
+         // Draw to ship base.
+         toPolygon.paintComponent(context, FOREGROUND_COLOR);
       }
-   },
 
-   drawManeuver: function(context)
+      // Draw maneuver path.
+      var difficulty = maneuver.difficultyKey;
+      path.paintComponent(context, getColor(difficulty));
+
+      // Cleanup.
+      context.restore();
+   }
+
+   function getColor(difficulty)
    {
-      var maneuverObj = this.props.maneuver;
+      var answer;
 
-      if (maneuverObj)
+      switch (difficulty)
       {
-         InputValidator.validateNotNull("scale", this.props.scale);
-         InputValidator.validateNotNull("maneuver.maneuver", maneuverObj.maneuver);
-         InputValidator.validateNotNull("maneuver.fromPolygon", maneuverObj.fromPolygon);
-         InputValidator.validateNotNull("maneuver.fromPosition", maneuverObj.fromPosition);
-         InputValidator.validateNotNull("maneuver.path", maneuverObj.path);
-         InputValidator.validateNotNull("maneuver.toPolygon", maneuverObj.toPolygon);
-
-         var maneuver = maneuverObj.maneuver;
-         var fromPolygon = maneuverObj.fromPolygon;
-         var fromPosition = maneuverObj.fromPosition;
-         var path = maneuverObj.path;
-         var toPolygon = maneuverObj.toPolygon;
-
-         var FOREGROUND_COLOR = "white";
-         var EASY_COLOR = "lime";
-         var HARD_COLOR = "red";
-
-         context.save();
-         context.scale(this.props.scale, this.props.scale);
-
-         // Mark the center.
-         context.fillStyle = FOREGROUND_COLOR;
-         var radius = 4;
-         context.beginPath();
-         context.arc(fromPosition.x(), fromPosition.y(), radius, 0, 2 * Math.PI);
-         context.fill();
-
-         // Draw from ship base.
-         fromPolygon.paintComponent(context, FOREGROUND_COLOR);
-
-         if (toPolygon)
-         {
-            // Draw to ship base.
-            toPolygon.paintComponent(context, FOREGROUND_COLOR);
-         }
-
-         // Draw maneuver path.
-         var difficulty = maneuver.difficultyKey;
-         path.paintComponent(context, getColor(difficulty));
-
-         // Cleanup.
-         context.restore();
+         case Difficulty.EASY:
+            answer = EASY_COLOR;
+            break;
+         case Difficulty.HARD:
+            answer = HARD_COLOR;
+            break;
+         default:
+            answer = FOREGROUND_COLOR;
       }
 
-      function getColor(difficulty)
-      {
-         var answer;
+      return answer;
+   }
+};
 
-         switch (difficulty)
-         {
-            case Difficulty.EASY:
-               answer = EASY_COLOR;
-               break;
-            case Difficulty.HARD:
-               answer = HARD_COLOR;
-               break;
-            default:
-               answer = FOREGROUND_COLOR;
-         }
+PlayAreaUI.prototype.drawTokens = function(context)
+{
+   InputValidator.validateNotNull("context", context);
+   InputValidator.validateNotNull("tokenPositions", this.props.tokenPositions);
 
-         return answer;
-      }
-   },
+   var scale = this.props.scale;
+   var tokenPositions = this.props.tokenPositions;
 
-   drawTokens: function(context)
+   if (tokenPositions)
    {
-      InputValidator.validateNotNull("context", context);
-      InputValidator.validateNotNull("tokenPositions", this.props.tokenPositions);
-
-      var scale = this.props.scale;
-      var tokenPositions = this.props.tokenPositions;
-
-      if (tokenPositions)
-      {
-         tokenPositions.forEach(function(tokenPosition)
-         {
-            var token = tokenPosition.token;
-            var shipFactionKey = token.card().shipFactionKey;
-            var id = token.id();
-            var image = this.shipFactionToImage[shipFactionKey];
-            var position = tokenPosition.position;
-            var shipFaction = ShipFaction.properties[shipFactionKey];
-
-            ShipImage.draw(context, scale, id, image, position, shipFaction);
-         }, this);
-      }
-   },
-
-   loadImages: function()
-   {
-      InputValidator.validateNotNull("tokenPositions", this.props.tokenPositions);
-
-      var tokenPositions = this.props.tokenPositions;
-      var shipFactions = [];
-
       tokenPositions.forEach(function(tokenPosition)
       {
-         var shipFaction = tokenPosition.token.card().shipFaction;
-         if (!shipFactions.includes(shipFaction))
-         {
-            shipFactions.push(shipFaction);
-         }
-      });
+         var token = tokenPosition.token;
+         var shipFactionKey = token.card().shipFactionKey;
+         var id = token.id();
+         var image = this.shipFactionToImage[shipFactionKey];
+         var position = tokenPosition.position;
+         var shipFaction = ShipFaction.properties[shipFactionKey];
 
-      for (var i = 0; i < shipFactions.length; i++)
-      {
-         var shipFaction = shipFactions[i];
-         this.shipFactionToImage[shipFaction.key] = this.createShipIcon(shipFaction);
-      }
+         ShipImage.draw(context, scale, id, image, position, shipFaction);
+      }, this);
+   }
+};
 
-      this.explosionImage = this.createExplosionImage();
-   },
+PlayAreaUI.prototype.loadImages = function()
+{
+   InputValidator.validateNotNull("tokenPositions", this.props.tokenPositions);
 
-   paint: function()
+   var tokenPositions = this.props.tokenPositions;
+   var shipFactions = [];
+
+   tokenPositions.forEach(function(tokenPosition)
    {
-      InputValidator.validateNotNull("width", this.props.width);
-      InputValidator.validateNotNull("height", this.props.height);
+      var shipFaction = tokenPosition.token.card().shipFaction;
+      if (!shipFactions.includes(shipFaction))
+      {
+         shipFactions.push(shipFaction);
+      }
+   });
 
-      var canvas = document.getElementById("playAreaCanvas");
-      var context = canvas.getContext("2d");
+   for (var i = 0; i < shipFactions.length; i++)
+   {
+      var shipFaction = shipFactions[i];
+      this.shipFactionToImage[shipFaction.key] = this.createShipIcon(shipFaction);
+   }
 
-      context.clearRect(0, 0, this.props.width, this.props.height);
+   this.explosionImage = this.createExplosionImage();
+};
 
-      this.drawTokens(context);
-      this.drawManeuver(context);
-      this.drawLaserBeam(context);
-      this.drawExplosion(context);
-   },
-});
+PlayAreaUI.prototype.paint = function()
+{
+   InputValidator.validateNotNull("width", this.props.width);
+   InputValidator.validateNotNull("height", this.props.height);
+
+   var canvas = document.getElementById("playAreaCanvas");
+   var context = canvas.getContext("2d");
+
+   context.clearRect(0, 0, this.props.width, this.props.height);
+
+   this.drawTokens(context);
+   this.drawManeuver(context);
+   this.drawLaserBeam(context);
+   this.drawExplosion(context);
+};
+
+PlayAreaUI.propTypes = {
+   height: PropTypes.number.isRequired,
+   image: PropTypes.string.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   scale: PropTypes.number.isRequired,
+   tokenPositions: PropTypes.array.isRequired,
+   width: PropTypes.number.isRequired,
+
+   explosion: PropTypes.object,
+   laserBeam: PropTypes.object,
+   maneuver: PropTypes.object,
+};
 
 export default PlayAreaUI;

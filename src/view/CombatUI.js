@@ -9,25 +9,16 @@ import EntityUI from "./EntityUI.js";
 import InputPanel from "./InputPanel.js";
 import OptionPane from "./OptionPane.js";
 
-var CombatUI = createReactClass(
+class CombatUI extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      attacker: PropTypes.object.isRequired,
-      attackDice: PropTypes.object.isRequired,
-      defender: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      phase: PropTypes.object.isRequired,
-      weapon: PropTypes.object.isRequired,
+      super(props);
 
-      criticalHitCount: PropTypes.number,
-      defenseDice: PropTypes.object,
-      hitCount: PropTypes.number,
-      modifications: PropTypes.array,
-      okFunction: PropTypes.func,
-   },
+      this.ok = this.okFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var phase = this.props.phase;
       var attacker = this.props.attacker;
@@ -162,63 +153,57 @@ var CombatUI = createReactClass(
          message: message,
          buttons: buttons,
       });
-   },
+   }
+}
 
-   createTitle: function(phase)
+CombatUI.prototype.createTitle = function(phase)
+{
+   var answer = "Combat";
+
+   switch (phase.key)
    {
-      var answer = "Combat";
+      case Phase.COMBAT_MODIFY_ATTACK_DICE:
+         answer += ": Modify Attack Dice";
+         break;
+      case Phase.COMBAT_MODIFY_DEFENSE_DICE:
+         answer += ": Modify Defense Dice";
+         break;
+      case Phase.COMBAT_NOTIFY_DAMAGE:
+         answer += ": Deal Damage";
+         break;
+   }
 
-      switch (phase.key)
-      {
-         case Phase.COMBAT_MODIFY_ATTACK_DICE:
-            answer += ": Modify Attack Dice";
-            break;
-         case Phase.COMBAT_MODIFY_DEFENSE_DICE:
-            answer += ": Modify Defense Dice";
-            break;
-         case Phase.COMBAT_NOTIFY_DAMAGE:
-            answer += ": Deal Damage";
-            break;
-      }
+   return answer;
+};
 
-      return answer;
-   },
+CombatUI.prototype.okFunction = function(modification)
+{
+   LOGGER.debug("CombatUI ok()");
+   var answer;
 
-   ok: function(modification)
+   if (modification && modification.consequent)
    {
-      LOGGER.debug("CombatUI ok()");
-      var answer;
+      answer = modification;
+   }
 
-      if (modification && modification.consequent)
-      {
-         answer = modification;
-      }
+   LOGGER.debug("CombatUI.ok() modification = " + modification + " " + (typeof modification));
 
-      LOGGER.debug("CombatUI.ok() modification = " + modification + " " + (typeof modification));
+   var okFunction = this.props.okFunction;
 
-      var okFunction = this.props.okFunction;
-
-      if (okFunction)
-      {
-         okFunction(answer);
-      }
-   },
-});
+   if (okFunction)
+   {
+      okFunction(answer);
+   }
+};
 
 /*
  * Provides a user interface for the attacker during combat.
  *
  * @param dice Attack dice. (required)
  */
-CombatUI.AttackDiceUI = createReactClass(
+class AttackDiceUI extends React.Component
 {
-   propTypes:
-   {
-      dice: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-   },
-
-   render: function()
+   render()
    {
       var columns = [];
 
@@ -241,35 +226,36 @@ CombatUI.AttackDiceUI = createReactClass(
       }, ReactDOMFactories.tbody(
       {}, ReactDOMFactories.tr(
       {}, columns)));
-   },
+   }
+}
 
-   createImage: function(die)
+AttackDiceUI.prototype.createImage = function(die)
+{
+   var title = AttackDiceValue.properties[die].name;
+   var source = this.props.resourceBase + "dice/Attack" + title.replace(" ", "") + "32.png";
+
+   return ReactDOMFactories.img(
    {
-      var title = AttackDiceValue.properties[die].name;
-      var source = this.props.resourceBase + "dice/Attack" + title.replace(" ", "") + "32.png";
+      src: source,
+      title: title,
+   });
+};
 
-      return ReactDOMFactories.img(
-      {
-         src: source,
-         title: title,
-      });
-   },
-});
+AttackDiceUI.propTypes = {
+   dice: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+};
+
+CombatUI.AttackDiceUI = AttackDiceUI;
 
 /*
  * Provides a user interface for the defender during combat.
  *
  * @param defenseDice Defense dice. (optional)
  */
-CombatUI.DefenseDiceUI = createReactClass(
+class DefenseDiceUI extends React.Component
 {
-   propTypes:
-   {
-      dice: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-   },
-
-   render: function()
+   render()
    {
       var columns = [];
 
@@ -294,32 +280,38 @@ CombatUI.DefenseDiceUI = createReactClass(
       }, ReactDOMFactories.tbody(
       {}, ReactDOMFactories.tr(
       {}, columns)));
-   },
+   }
+}
 
-   createImage: function(die)
-   {
-      var title = DefenseDiceValue.properties[die].name;
-      var source = this.props.resourceBase + "dice/Defense" + title.replace(" ", "") + "32.png";
-
-      return ReactDOMFactories.img(
-      {
-         src: source,
-         title: title,
-      });
-   },
-});
-
-CombatUI.ModifyAttackUI = createReactClass(
+DefenseDiceUI.prototype.createImage = function(die)
 {
-   propTypes:
-   {
-      attacker: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      modifications: PropTypes.array.isRequired,
-      onChange: PropTypes.func.isRequired,
-   },
+   var title = DefenseDiceValue.properties[die].name;
+   var source = this.props.resourceBase + "dice/Defense" + title.replace(" ", "") + "32.png";
 
-   render: function()
+   return ReactDOMFactories.img(
+   {
+      src: source,
+      title: title,
+   });
+};
+
+DefenseDiceUI.propTypes = {
+   dice: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+};
+
+CombatUI.DefenseDiceUI = DefenseDiceUI;
+
+class ModifyAttackUI extends React.Component
+{
+   constructor(props)
+   {
+      super(props);
+
+      this.myOnChange = this.myOnChangeFunction.bind(this);
+   }
+
+   render()
    {
       var modifications = this.props.modifications;
       var resourceBase = this.props.resourceBase;
@@ -341,27 +333,35 @@ CombatUI.ModifyAttackUI = createReactClass(
          onChange: this.myOnChange,
          panelClass: "combatChoicePanel",
       });
-   },
+   }
+}
 
-   myOnChange: function(event, selected)
-   {
-      LOGGER.trace("ModifyAttackUI.myOnChange()");
-      LOGGER.debug("ModifyAttackUI.myOnChange() modification = " + selected + " " + (typeof selected));
-      this.props.onChange(selected);
-   },
-});
-
-CombatUI.ModifyDefenseUI = createReactClass(
+ModifyAttackUI.prototype.myOnChangeFunction = function(event, selected)
 {
-   propTypes:
-   {
-      defender: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      modifications: PropTypes.array.isRequired,
-      onChange: PropTypes.func.isRequired,
-   },
+   LOGGER.trace("ModifyAttackUI.myOnChange()");
+   LOGGER.debug("ModifyAttackUI.myOnChange() modification = " + selected + " " + (typeof selected));
+   this.props.onChange(selected);
+};
 
-   render: function()
+ModifyAttackUI.propTypes = {
+   attacker: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   modifications: PropTypes.array.isRequired,
+   onChange: PropTypes.func.isRequired,
+};
+
+CombatUI.ModifyAttackUI = ModifyAttackUI;
+
+class ModifyDefenseUI extends React.Component
+{
+   constructor(props)
+   {
+      super(props);
+
+      this.myOnChange = this.myOnChangeFunction.bind(this);
+   }
+
+   render()
    {
       var modifications = this.props.modifications;
       var resourceBase = this.props.resourceBase;
@@ -383,15 +383,24 @@ CombatUI.ModifyDefenseUI = createReactClass(
          onChange: this.myOnChange,
          panelClass: "combatChoicePanel",
       });
-   },
+   }
+}
 
-   myOnChange: function(event, selected)
-   {
-      LOGGER.trace("ModifyDefenseUI.myOnChange()");
-      LOGGER.debug("ModifyDefenseUI.myOnChange() modification = " + selected + " " + (typeof selected));
-      this.props.onChange(selected);
-   },
-});
+ModifyDefenseUI.prototype.myOnChangeFunction = function(event, selected)
+{
+   LOGGER.trace("ModifyDefenseUI.myOnChange()");
+   LOGGER.debug("ModifyDefenseUI.myOnChange() modification = " + selected + " " + (typeof selected));
+   this.props.onChange(selected);
+};
+
+ModifyDefenseUI.propTypes = {
+   defender: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   modifications: PropTypes.array.isRequired,
+   onChange: PropTypes.func.isRequired,
+};
+
+CombatUI.ModifyDefenseUI = ModifyDefenseUI;
 
 /*
  * Provides a user interface for damage.
@@ -400,16 +409,9 @@ CombatUI.ModifyDefenseUI = createReactClass(
  *
  * @param criticalHitCount Critical hit count. (required)
  */
-CombatUI.DamageUI = createReactClass(
+class DamageUI extends React.Component
 {
-   propTypes:
-   {
-      criticalHitCount: PropTypes.number.isRequired,
-      hitCount: PropTypes.number.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-   },
-
-   render: function()
+   render()
    {
       var hitCount = this.props.hitCount;
       InputValidator.validateNotNull("hitCount", hitCount);
@@ -456,7 +458,30 @@ CombatUI.DamageUI = createReactClass(
       {}, ReactDOMFactories.tbody(
       {}, ReactDOMFactories.tr(
       {}, columns)));
-   },
-});
+   }
+}
+
+DamageUI.propTypes = {
+   criticalHitCount: PropTypes.number.isRequired,
+   hitCount: PropTypes.number.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+};
+
+CombatUI.DamageUI = DamageUI;
+
+CombatUI.propTypes = {
+   attacker: PropTypes.object.isRequired,
+   attackDice: PropTypes.object.isRequired,
+   defender: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   phase: PropTypes.object.isRequired,
+   weapon: PropTypes.object.isRequired,
+
+   criticalHitCount: PropTypes.number,
+   defenseDice: PropTypes.object,
+   hitCount: PropTypes.number,
+   modifications: PropTypes.array,
+   okFunction: PropTypes.func,
+};
 
 export default CombatUI;

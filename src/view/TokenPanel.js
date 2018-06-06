@@ -1,9 +1,9 @@
 import LabeledImage from "./LabeledImage.js";
 import ReactUtilities from "./ReactUtilities.js";
 
-var TokenPanel = createReactClass(
+class TokenPanel extends React.Component
 {
-   render: function()
+   render()
    {
       var rows = [];
 
@@ -46,8 +46,8 @@ var TokenPanel = createReactClass(
       var keySuffix = "" + this.props.bonusAttack + this.props.bonusDefense + this.props.bonusHitPoints + this.props.bonusThreat + this.props.bonusWillpower;
 
       return ReactUtilities.createFlexboxWrap(rows, this.props.myKey + keySuffix, "content-center flex-column justify-center");
-   },
-});
+   }
+}
 
 TokenPanel.prototype.addTargetLock = function(rows, targetLock, src, title)
 {

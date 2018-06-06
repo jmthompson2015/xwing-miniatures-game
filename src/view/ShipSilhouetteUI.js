@@ -1,6 +1,6 @@
-var ShipSilhouetteUI = createReactClass(
+class ShipSilhouetteUI extends React.Component
 {
-   render: function()
+   render()
    {
       var ship = this.props.ship;
       var shipName = ship.name.replace(/\//g, "_"); // forward slash
@@ -27,8 +27,8 @@ var ShipSilhouetteUI = createReactClass(
       }
 
       return answer;
-   },
-});
+   }
+}
 
 ShipSilhouetteUI.propTypes = {
    ship: PropTypes.object.isRequired,

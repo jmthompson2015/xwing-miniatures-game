@@ -1,6 +1,6 @@
-var UpgradeTypeUI = createReactClass(
+class UpgradeTypeUI extends React.Component
 {
-   render: function()
+   render()
    {
       var upgradeType = this.props.upgradeType;
       var typeName0 = upgradeType.name;
@@ -27,8 +27,8 @@ var UpgradeTypeUI = createReactClass(
       }
 
       return answer;
-   },
-});
+   }
+}
 
 UpgradeTypeUI.propTypes = {
    upgradeType: PropTypes.object.isRequired,

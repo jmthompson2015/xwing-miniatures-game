@@ -4,30 +4,24 @@ import Button from "./Button.js";
 import ManeuverChooser from "./ManeuverChooser.js";
 import OptionPane from "./OptionPane.js";
 
-var PlanningPanel = createReactClass(
+class PlanningPanel extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      agent: PropTypes.object.isRequired,
-      callback: PropTypes.func.isRequired,
-      environment: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      tokens: PropTypes.array.isRequired,
-   },
+      super(props);
 
-   getInitialState: function()
-   {
-      return (
-      {
+      this.state = {
          tokenToManeuver:
          {},
-      });
-   },
+      };
 
-   render: function()
+      this.ok = this.okFunction.bind(this);
+      this.selectionChanged = this.selectionChangedFunction.bind(this);
+   }
+
+   render()
    {
       var tokens = this.props.tokens;
-      var self = this;
       var cells = [];
 
       for (var i = 0; i < tokens.length; i++)
@@ -41,7 +35,7 @@ var PlanningPanel = createReactClass(
          }
          var element = React.createElement(ManeuverChooser,
          {
-            callback: self.selectionChanged,
+            callback: this.selectionChanged,
             resourceBase: this.props.resourceBase,
             maneuvers: maneuvers,
             pilotName: token.name(true),
@@ -64,7 +58,7 @@ var PlanningPanel = createReactClass(
       {
          disabled: disabled,
          name: "OK",
-         onClick: self.ok,
+         onClick: this.ok,
       });
       return React.createElement(OptionPane,
       {
@@ -73,30 +67,38 @@ var PlanningPanel = createReactClass(
          initialInput: initialInput,
          buttons: buttons,
       });
-   },
+   }
+}
 
-   ok: function()
+PlanningPanel.prototype.okFunction = function()
+{
+   var tokenToManeuver = this.state.tokenToManeuver;
+   var callback = this.props.callback;
+
+   callback(tokenToManeuver);
+};
+
+PlanningPanel.prototype.selectionChangedFunction = function(tokenId, maneuverKey)
+{
+   LOGGER.debug("selectionChanged() tokenId = " + tokenId + " maneuverKey = " + maneuverKey);
+   var tokens = this.props.tokens;
+   var store = (tokens.length > 0 ? tokens[0].store() : undefined);
+   var token = store.getState().environment.getTokenById(parseInt(tokenId));
+   var tokenToManeuver = this.state.tokenToManeuver;
+   tokenToManeuver[token.id()] = maneuverKey;
+
+   this.setState(
    {
-      var tokenToManeuver = this.state.tokenToManeuver;
-      var callback = this.props.callback;
+      tokenToManeuver: tokenToManeuver,
+   });
+};
 
-      callback(tokenToManeuver);
-   },
-
-   selectionChanged: function(tokenId, maneuverKey)
-   {
-      LOGGER.debug("selectionChanged() tokenId = " + tokenId + " maneuverKey = " + maneuverKey);
-      var tokens = this.props.tokens;
-      var store = (tokens.length > 0 ? tokens[0].store() : undefined);
-      var token = store.getState().environment.getTokenById(parseInt(tokenId));
-      var tokenToManeuver = this.state.tokenToManeuver;
-      tokenToManeuver[token.id()] = maneuverKey;
-
-      this.setState(
-      {
-         tokenToManeuver: tokenToManeuver,
-      });
-   },
-});
+PlanningPanel.propTypes = {
+   agent: PropTypes.object.isRequired,
+   callback: PropTypes.func.isRequired,
+   environment: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   tokens: PropTypes.array.isRequired,
+};
 
 export default PlanningPanel;

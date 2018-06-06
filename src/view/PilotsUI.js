@@ -1,14 +1,8 @@
 import CardInstanceUI from "./CardInstanceUI.js";
 
-var PilotsUI = createReactClass(
+class PilotsUI extends React.Component
 {
-   propTypes:
-   {
-      tokens: PropTypes.array.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-   },
-
-   render: function()
+   render()
    {
       var tokens = this.props.tokens;
 
@@ -36,7 +30,12 @@ var PilotsUI = createReactClass(
 
       return ReactDOMFactories.div(
       {}, myTable);
-   },
-});
+   }
+}
+
+PilotsUI.propTypes = {
+   tokens: PropTypes.array.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+};
 
 export default PilotsUI;

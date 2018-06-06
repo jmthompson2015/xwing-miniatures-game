@@ -2,14 +2,9 @@ import ShipAction from "../artifact/ShipAction.js";
 
 import ShipActionUI from "./ShipActionUI.js";
 
-var ShipActionPanel = createReactClass(
+class ShipActionPanel extends React.Component
 {
-   propTypes:
-   {
-      shipActionKeys: PropTypes.array.isRequired,
-   },
-
-   render: function()
+   render()
    {
       var shipActionKeys = this.props.shipActionKeys;
       var cells = [];
@@ -34,7 +29,11 @@ var ShipActionPanel = createReactClass(
          className: "pilotCardUIShipActions center bg-xw-light",
       }, ReactDOMFactories.tbody(
       {}, row));
-   },
-});
+   }
+}
+
+ShipActionPanel.propTypes = {
+   shipActionKeys: PropTypes.array.isRequired,
+};
 
 export default ShipActionPanel;

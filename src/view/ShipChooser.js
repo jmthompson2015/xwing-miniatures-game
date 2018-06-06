@@ -4,32 +4,23 @@ import ShipFaction from "../artifact/ShipFaction.js";
 import Select from "./Select.js";
 import ShipSilhouetteUI from "./ShipSilhouetteUI.js";
 
-var ShipChooser = createReactClass(
+class ShipChooser extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      resourceBase: PropTypes.string.isRequired,
-      onChange: PropTypes.func.isRequired,
-      faction: PropTypes.object.isRequired,
+      super(props);
 
-      index: PropTypes.number,
-      initialShip: PropTypes.object,
-   },
-
-   getInitialState: function()
-   {
-      var initialShip = this.props.initialShip;
+      var initialShip = props.initialShip;
       var shipKey = (initialShip !== undefined ? initialShip.key : undefined);
 
-      return (
-      {
+      this.state = {
          shipKey: shipKey,
-      });
-   },
+      };
 
-   SHIP_PROMPT: "Select a ship",
+      this.shipChanged = this.shipChangedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var faction = this.props.faction;
       var values = ShipFaction.shipKeysByFaction(faction.key);
@@ -71,21 +62,32 @@ var ShipChooser = createReactClass(
       {
          return select;
       }
-   },
+   }
+}
 
-   shipChanged: function(event)
+ShipChooser.prototype.shipChangedFunction = function(event)
+{
+   var shipKey = event.currentTarget.value;
+   var index = parseInt(event.currentTarget.dataset.index);
+
+   this.setState(
    {
-      var shipKey = event.currentTarget.value;
-      var index = parseInt(event.currentTarget.dataset.index);
+      shipKey: shipKey,
+   });
 
-      this.setState(
-      {
-         shipKey: shipKey,
-      });
+   var ship = Ship.properties[shipKey];
+   this.props.onChange(event, ship, index);
+};
 
-      var ship = Ship.properties[shipKey];
-      this.props.onChange(event, ship, index);
-   },
-});
+ShipChooser.SHIP_PROMPT = "Select a ship";
+
+ShipChooser.propTypes = {
+   resourceBase: PropTypes.string.isRequired,
+   onChange: PropTypes.func.isRequired,
+   faction: PropTypes.object.isRequired,
+
+   index: PropTypes.number,
+   initialShip: PropTypes.object,
+};
 
 export default ShipChooser;

@@ -10,21 +10,16 @@ import Action from "./Action.js";
 import FilterContainer from "./FilterContainer.js";
 import TableColumns from "./TableColumns.js";
 
-var SquadTable = createReactClass(
+class SquadTable extends React.Component
 {
-   contextTypes:
+   constructor(props)
    {
-      store: PropTypes.object.isRequired,
-   },
+      super(props);
 
-   propTypes:
-   {
-      isFilterShown: PropTypes.bool.isRequired,
-      filters: PropTypes.object.isRequired,
-      rowData: PropTypes.array.isRequired,
-   },
+      this.toggleFilterShownActionPerformed = this.toggleFilterShownActionPerformedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var filterShownButton = React.createElement(Button,
       {
@@ -98,14 +93,24 @@ var SquadTable = createReactClass(
       return ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   toggleFilterShownActionPerformed: function()
-   {
-      LOGGER.trace("SquadTable.toggleFilterShownActionPerformed() start");
-      this.context.store.dispatch(Action.toggleFilterShown());
-      LOGGER.trace("SquadTable.toggleFilterShownActionPerformed() end");
-   },
-});
+SquadTable.prototype.toggleFilterShownActionPerformedFunction = function()
+{
+   LOGGER.trace("SquadTable.toggleFilterShownActionPerformed() start");
+   this.context.store.dispatch(Action.toggleFilterShown());
+   LOGGER.trace("SquadTable.toggleFilterShownActionPerformed() end");
+};
+
+SquadTable.contextTypes = {
+   store: PropTypes.object.isRequired,
+};
+
+SquadTable.propTypes = {
+   isFilterShown: PropTypes.bool.isRequired,
+   filters: PropTypes.object.isRequired,
+   rowData: PropTypes.array.isRequired,
+};
 
 export default SquadTable;

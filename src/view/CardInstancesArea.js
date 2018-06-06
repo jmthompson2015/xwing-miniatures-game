@@ -1,16 +1,19 @@
 import ReactUtilities from "./ReactUtilities.js";
 
-var CardInstancesArea = createReactClass(
+class CardInstancesArea extends React.Component
 {
-   getInitialState: function()
+   constructor(props)
    {
-      return (
-      {
-         isExpanded: this.props.isExpanded,
-      });
-   },
+      super(props);
 
-   render: function()
+      this.state = {
+         isExpanded: this.props.isExpanded,
+      };
+
+      this.toggleExpand = this.toggleExpandFunction.bind(this);
+   }
+
+   render()
    {
       var rows = [];
 
@@ -18,8 +21,8 @@ var CardInstancesArea = createReactClass(
       rows.push(this.createCardInstanceCells());
 
       return ReactUtilities.createTable(rows, undefined, "bg-lotr-light");
-   },
-});
+   }
+}
 
 CardInstancesArea.prototype.createCardInstanceCells = function()
 {
@@ -61,7 +64,7 @@ CardInstancesArea.prototype.createLabelUI = function()
    var expandControl = ReactDOMFactories.div(
    {
       key: "expandCell",
-      onClick: this.toggleExpand.bind(this),
+      onClick: this.toggleExpand,
    }, expandLabel);
 
    var row = ReactUtilities.createRow([label, expandControl], "labelExpandRow");
@@ -71,7 +74,7 @@ CardInstancesArea.prototype.createLabelUI = function()
    return ReactUtilities.createRow(tableCell, "labelRow", "bg-lotr-dark");
 };
 
-CardInstancesArea.prototype.toggleExpand = function()
+CardInstancesArea.prototype.toggleExpandFunction = function()
 {
    this.setState(
    {

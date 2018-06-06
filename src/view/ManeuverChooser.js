@@ -4,29 +4,20 @@ import Maneuver from "../artifact/Maneuver.js";
 
 import HtmlUtilities from "./HtmlUtilities.js";
 
-var ManeuverChooser = createReactClass(
+class ManeuverChooser extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      resourceBase: PropTypes.string.isRequired,
-      shipName: PropTypes.string.isRequired,
-      maneuvers: PropTypes.array.isRequired,
+      super(props);
 
-      callback: PropTypes.func,
-      isEditable: PropTypes.bool, // default: true
-      pilotName: PropTypes.string,
-      tokenId: PropTypes.number,
-   },
-
-   getInitialState: function()
-   {
-      return (
-      {
+      this.state = {
          element: undefined,
-      });
-   },
+      };
 
-   render: function()
+      this.selectionChanged = this.selectionChangedFunction.bind(this);
+   }
+
+   render()
    {
       var isEditable = (this.props.isEditable !== undefined ? this.props.isEditable : true);
       var pilotName = this.props.pilotName;
@@ -176,136 +167,147 @@ var ManeuverChooser = createReactClass(
          className: "b--xw-medium bg-black center white",
       }, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   createManeuverIcon: function(bearingKey, speed, difficultyKey)
+ManeuverChooser.prototype.createManeuverIcon = function(bearingKey, speed, difficultyKey)
+{
+   var src;
+
+   switch (bearingKey)
    {
-      var src;
+      case Bearing.SEGNORS_LOOP_LEFT:
+         src = "sloopleft";
+         break;
+      case Bearing.SEGNORS_LOOP_RIGHT:
+         src = "sloopright";
+         break;
+      case Bearing.TALLON_ROLL_LEFT:
+         src = "trollleft";
+         break;
+      case Bearing.TALLON_ROLL_RIGHT:
+         src = "trollright";
+         break;
+      case undefined:
+         src = "stop";
+         break;
+      default:
+         src = (speed === -1 ? "reverse" : "") + bearingKey.toLowerCase();
+   }
 
-      switch (bearingKey)
-      {
-         case Bearing.SEGNORS_LOOP_LEFT:
-            src = "sloopleft";
-            break;
-         case Bearing.SEGNORS_LOOP_RIGHT:
-            src = "sloopright";
-            break;
-         case Bearing.TALLON_ROLL_LEFT:
-            src = "trollleft";
-            break;
-         case Bearing.TALLON_ROLL_RIGHT:
-            src = "trollright";
-            break;
-         case undefined:
-            src = "stop";
-            break;
-         default:
-            src = (speed === -1 ? "reverse" : "") + bearingKey.toLowerCase();
-      }
+   var className = "xw-f8";
 
-      var className = "xw-f8";
-
-      switch (difficultyKey)
-      {
-         case Difficulty.EASY:
-            className += " green";
-            break;
-         case Difficulty.HARD:
-            className += " red";
-            break;
-      }
-
-      return ReactDOMFactories.span(
-      {
-         className: className,
-      }, ReactDOMFactories.i(
-      {
-         className: "xwing-miniatures-font xwing-miniatures-font-" + src,
-      }));
-   },
-
-   findManeuver: function(maneuvers, bearingKey, speed)
+   switch (difficultyKey)
    {
-      var answer;
+      case Difficulty.EASY:
+         className += " green";
+         break;
+      case Difficulty.HARD:
+         className += " red";
+         break;
+   }
 
-      for (var i = 0; i < maneuvers.length; i++)
-      {
-         var maneuver = maneuvers[i];
-
-         if (maneuver.bearingKey === bearingKey && maneuver.speed === speed)
-         {
-            answer = maneuver;
-            break;
-         }
-      }
-
-      return answer;
-   },
-
-   getMaximumSpeed: function(maneuvers)
+   return ReactDOMFactories.span(
    {
-      var answer = -10000;
-
-      for (var i = 0; i < maneuvers.length; i++)
-      {
-         var maneuver = maneuvers[i];
-         var speed = maneuver.speed;
-         answer = Math.max(speed, answer);
-      }
-
-      return answer;
-   },
-
-   getMinimumSpeed: function(maneuvers)
+      className: className,
+   }, ReactDOMFactories.i(
    {
-      var answer = 10000;
+      className: "xwing-miniatures-font xwing-miniatures-font-" + src,
+   }));
+};
 
-      for (var i = 0; i < maneuvers.length; i++)
-      {
-         var maneuver = maneuvers[i];
-         var speed = maneuver.speed;
-         answer = Math.min(speed, answer);
-      }
+ManeuverChooser.prototype.findManeuver = function(maneuvers, bearingKey, speed)
+{
+   var answer;
 
-      return answer;
-   },
-
-   createManeuverEnergyIconSource: function(bearing, energy)
+   for (var i = 0; i < maneuvers.length; i++)
    {
-      var bearingName = bearing.replace(/B/g, "_b");
-      bearingName = bearingName.replace(/L/g, "_l");
-      bearingName = bearingName.replace(/R/g, "_r");
-      bearingName = bearingName.replace("straight", "huge_straight");
+      var maneuver = maneuvers[i];
 
-      return this.props.resourceBase + "maneuver/" + bearingName + "_" + energy + ".png";
-   },
+      if (maneuver.bearingKey === bearingKey && maneuver.speed === speed)
+      {
+         answer = maneuver;
+         break;
+      }
+   }
 
-   selectionChanged: function(event)
+   return answer;
+};
+
+ManeuverChooser.prototype.getMaximumSpeed = function(maneuvers)
+{
+   var answer = -10000;
+
+   for (var i = 0; i < maneuvers.length; i++)
    {
-      var oldElement = this.state.element;
+      var maneuver = maneuvers[i];
+      var speed = maneuver.speed;
+      answer = Math.max(speed, answer);
+   }
 
-      if (oldElement)
-      {
-         HtmlUtilities.removeClass(oldElement, "bg-xw-medium");
-      }
+   return answer;
+};
 
-      var element = event.currentTarget;
-      var tokenId = element.dataset.tokenid;
-      var maneuverKey = element.dataset.maneuverkey;
-      LOGGER.debug("selectionChanged() maneuverKey = " + maneuverKey);
-      this.setState(
-      {
-         element: element,
-      });
-      HtmlUtilities.addClass(element, "bg-xw-medium");
+ManeuverChooser.prototype.getMinimumSpeed = function(maneuvers)
+{
+   var answer = 10000;
 
-      var callback = this.props.callback;
+   for (var i = 0; i < maneuvers.length; i++)
+   {
+      var maneuver = maneuvers[i];
+      var speed = maneuver.speed;
+      answer = Math.min(speed, answer);
+   }
 
-      if (callback)
-      {
-         callback(tokenId, maneuverKey);
-      }
-   },
-});
+   return answer;
+};
+
+ManeuverChooser.prototype.createManeuverEnergyIconSource = function(bearing, energy)
+{
+   var bearingName = bearing.replace(/B/g, "_b");
+   bearingName = bearingName.replace(/L/g, "_l");
+   bearingName = bearingName.replace(/R/g, "_r");
+   bearingName = bearingName.replace("straight", "huge_straight");
+
+   return this.props.resourceBase + "maneuver/" + bearingName + "_" + energy + ".png";
+};
+
+ManeuverChooser.prototype.selectionChangedFunction = function(event)
+{
+   var oldElement = this.state.element;
+
+   if (oldElement)
+   {
+      HtmlUtilities.removeClass(oldElement, "bg-xw-medium");
+   }
+
+   var element = event.currentTarget;
+   var tokenId = element.dataset.tokenid;
+   var maneuverKey = element.dataset.maneuverkey;
+   LOGGER.debug("selectionChanged() maneuverKey = " + maneuverKey);
+   this.setState(
+   {
+      element: element,
+   });
+   HtmlUtilities.addClass(element, "bg-xw-medium");
+
+   var callback = this.props.callback;
+
+   if (callback)
+   {
+      callback(tokenId, maneuverKey);
+   }
+};
+
+ManeuverChooser.propTypes = {
+   resourceBase: PropTypes.string.isRequired,
+   shipName: PropTypes.string.isRequired,
+   maneuvers: PropTypes.array.isRequired,
+
+   callback: PropTypes.func,
+   isEditable: PropTypes.bool, // default: true
+   pilotName: PropTypes.string,
+   tokenId: PropTypes.number,
+};
 
 export default ManeuverChooser;

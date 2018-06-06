@@ -39,14 +39,14 @@ var GameColumns = [
          },
       ];
 
-var GameDataTable = createReactClass(
-{
-   // Factories.
-   Table: React.createFactory(Reactable.Table),
-   Tr: React.createFactory(Reactable.Tr),
-   Td: React.createFactory(Reactable.Td),
+// Factories.
+let Table = React.createFactory(Reactable.Table);
+let Tr = React.createFactory(Reactable.Tr);
+let Td = React.createFactory(Reactable.Td);
 
-   render: function()
+class GameDataTable extends React.Component
+{
+   render()
    {
       var rows = [];
 
@@ -78,39 +78,39 @@ var GameDataTable = createReactClass(
       rows.push(this.createRow("UpgradeType", UpgradeType.keys().length, rows.length));
       rows.push(this.createRow("Value", Value.keys().length, rows.length));
 
-      return this.Table(
+      return Table(
       {
          id: "gameTable",
          className: "bg-white f6",
          columns: GameColumns,
          sortable: true,
       }, rows);
-   },
+   }
+}
 
-   createCell: function(key, column, value)
+GameDataTable.prototype.createCell = function(key, column, value)
+{
+   return Td(
    {
-      return this.Td(
-      {
-         key: key,
-         className: column.className,
-         column: column.key,
-      }, (value !== undefined ? value : ""));
-   },
+      key: key,
+      className: column.className,
+      column: column.key,
+   }, (value !== undefined ? value : ""));
+};
 
-   createRow: function(item, count, key)
+GameDataTable.prototype.createRow = function(item, count, key)
+{
+   var cells = [];
+   var j = 0;
+
+   cells.push(this.createCell(cells.length, GameColumns[j++], item));
+   cells.push(this.createCell(cells.length, GameColumns[j++], count));
+
+   return Tr(
    {
-      var cells = [];
-      var j = 0;
-
-      cells.push(this.createCell(cells.length, GameColumns[j++], item));
-      cells.push(this.createCell(cells.length, GameColumns[j++], count));
-
-      return this.Tr(
-      {
-         key: key,
-         className: "striped--light-gray",
-      }, cells);
-   },
-});
+      key: key,
+      className: "striped--light-gray",
+   }, cells);
+};
 
 export default GameDataTable;

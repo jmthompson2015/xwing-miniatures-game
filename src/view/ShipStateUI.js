@@ -4,9 +4,9 @@ import ShipState from "../artifact/ShipState.js";
 import Faction from "../artifact/Faction.js";
 import LabeledImage from "./LabeledImage.js";
 
-var ShipStateUI = createReactClass(
+class ShipStateUI extends React.Component
 {
-   render: function()
+   render()
    {
       var shipState = this.props.shipState;
       var faction = this.determineFaction(this.props.faction);
@@ -54,51 +54,51 @@ var ShipStateUI = createReactClass(
       }
 
       return answer;
-   },
+   }
+}
 
-   createFilename: function(faction, shipState, size)
+ShipStateUI.prototype.createFilename = function(faction, shipState, size)
+{
+   InputValidator.validateNotNull("faction", faction);
+   InputValidator.validateNotNull("shipState", shipState);
+   InputValidator.validateNotNull("size", size);
+
+   var factionName = faction.shortName;
+   var shipStateName;
+
+   switch (shipState.key)
    {
-      InputValidator.validateNotNull("faction", faction);
-      InputValidator.validateNotNull("shipState", shipState);
-      InputValidator.validateNotNull("size", size);
+      case ShipState.PILOT_SKILL:
+         shipStateName = "Skill";
+         break;
+      case ShipState.PRIMARY_WEAPON:
+         shipStateName = "Weapon";
+         break;
+      case ShipState.TURRET_WEAPON:
+         shipStateName = "Turret_Weapon";
+         break;
+      default:
+         shipStateName = shipState.name;
+   }
 
-      var factionName = faction.shortName;
-      var shipStateName;
+   return "pilotCard/" + factionName + "_" + shipStateName + size + ".png";
+};
 
-      switch (shipState.key)
-      {
-         case ShipState.PILOT_SKILL:
-            shipStateName = "Skill";
-            break;
-         case ShipState.PRIMARY_WEAPON:
-            shipStateName = "Weapon";
-            break;
-         case ShipState.TURRET_WEAPON:
-            shipStateName = "Turret_Weapon";
-            break;
-         default:
-            shipStateName = shipState.name;
-      }
+ShipStateUI.prototype.determineFaction = function(faction)
+{
+   InputValidator.validateNotNull("faction", faction);
 
-      return "pilotCard/" + factionName + "_" + shipStateName + size + ".png";
-   },
+   var answer = faction;
 
-   determineFaction: function(faction)
+   if (faction.key === Faction.FIRST_ORDER ||
+      faction.key === Faction.RESISTANCE)
    {
-      InputValidator.validateNotNull("faction", faction);
+      var factionKey = Faction.friend(faction.key);
+      answer = Faction.properties[factionKey];
+   }
 
-      var answer = faction;
-
-      if (faction.key === Faction.FIRST_ORDER ||
-         faction.key === Faction.RESISTANCE)
-      {
-         var factionKey = Faction.friend(faction.key);
-         answer = Faction.properties[factionKey];
-      }
-
-      return answer;
-   },
-});
+   return answer;
+};
 
 ShipStateUI.propTypes = {
    faction: PropTypes.object.isRequired,

@@ -1,6 +1,6 @@
-var CardImage = createReactClass(
+class CardImage extends React.Component
 {
-   render: function()
+   render()
    {
       return ReactDOMFactories.img(
       {
@@ -10,8 +10,8 @@ var CardImage = createReactClass(
          title: this.props.card.name,
          width: this.props.width,
       });
-   },
-});
+   }
+}
 
 CardImage.prototype.canvasId = function()
 {

@@ -7,15 +7,9 @@ import ShipActionPanel from "./ShipActionPanel.js";
 import ShipSilhouetteUI from "./ShipSilhouetteUI.js";
 import ShipUI from "./ShipUI.js";
 
-var ShipCardUI = createReactClass(
+class ShipCardUI extends React.Component
 {
-   propTypes:
-   {
-      resourceBase: PropTypes.string.isRequired,
-      shipFaction: PropTypes.object.isRequired,
-   },
-
-   render: function()
+   render()
    {
       var shipFaction = this.props.shipFaction;
       var resourceBase = this.props.resourceBase;
@@ -168,50 +162,55 @@ var ShipCardUI = createReactClass(
       rows.push(ReactUtilities.createRow(cell3, rows.length));
 
       return ReactUtilities.createTable(rows, this.props.myKey, "b--xw-medium ba bg-black v-top");
-   },
+   }
+}
 
-   createShipImage: function(shipFactionKey)
+ShipCardUI.prototype.createShipImage = function(shipFactionKey)
+{
+   var shipFaction = ShipFaction.properties[shipFactionKey];
+   var shipBase = shipFaction.ship.shipBase;
+
+   // Mock the model/js/Position class to avoid a dependency.
+   var position = {
+      x: function()
+      {
+         return shipBase.width / 2;
+      },
+      y: function()
+      {
+         return shipBase.height / 2;
+      },
+      heading: function()
+      {
+         return 0;
+      },
+   };
+
+   return React.createElement(ShipUI,
    {
-      var shipFaction = ShipFaction.properties[shipFactionKey];
-      var shipBase = shipFaction.ship.shipBase;
+      key: shipFactionKey + shipBase.key + position.toString(),
+      canvasId: shipFaction.name,
+      resourceBase: this.props.resourceBase,
+      position: position,
+      shipFaction: shipFaction,
+   });
+};
 
-      // Mock the model/js/Position class to avoid a dependency.
-      var position = {
-         x: function()
-         {
-            return shipBase.width / 2;
-         },
-         y: function()
-         {
-            return shipBase.height / 2;
-         },
-         heading: function()
-         {
-            return 0;
-         },
-      };
-
-      return React.createElement(ShipUI,
-      {
-         key: shipFactionKey + shipBase.key + position.toString(),
-         canvasId: shipFaction.name,
-         resourceBase: this.props.resourceBase,
-         position: position,
-         shipFaction: shipFaction,
-      });
-   },
-
-   createTurretIcon: function()
+ShipCardUI.prototype.createTurretIcon = function()
+{
+   return ReactDOMFactories.span(
    {
-      return ReactDOMFactories.span(
-      {
-         key: "turretPrimaryWeapon",
-         className: "f7 white",
-      }, ReactDOMFactories.i(
-      {
-         className: "xwing-miniatures-font xwing-miniatures-font-attack-turret",
-      }));
-   },
-});
+      key: "turretPrimaryWeapon",
+      className: "f7 white",
+   }, ReactDOMFactories.i(
+   {
+      className: "xwing-miniatures-font xwing-miniatures-font-attack-turret",
+   }));
+};
+
+ShipCardUI.propTypes = {
+   resourceBase: PropTypes.string.isRequired,
+   shipFaction: PropTypes.object.isRequired,
+};
 
 export default ShipCardUI;

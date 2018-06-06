@@ -2,10 +2,12 @@ import ArrayUtilities from "../utility/ArrayUtilities.js";
 import InputValidator from "../utility/InputValidator.js";
 import ObjectUtilities from "../utility/ObjectUtilities.js";
 
-var InputPanel = createReactClass(
+class InputPanel extends React.Component
 {
-   getInitialState: function()
+   constructor(props)
    {
+      super(props);
+
       var selected;
 
       switch (this.props.type)
@@ -23,7 +25,7 @@ var InputPanel = createReactClass(
          switch (this.props.type)
          {
             case InputPanel.Type.CHECKBOX:
-               ArrayUtilities.addAll(selected, this.props.initialValues);
+               selected = selected.concat(this.props.initialValues);
                break;
             case InputPanel.Type.RADIO:
                selected = this.props.initialValues;
@@ -36,13 +38,14 @@ var InputPanel = createReactClass(
          }
       }
 
-      return (
-      {
+      this.state = {
          selected: selected,
-      });
-   },
+      };
 
-   render: function()
+      this.handleChange = this.handleChangeFunction.bind(this);
+   }
+
+   render()
    {
       this.validateProps();
 
@@ -59,129 +62,129 @@ var InputPanel = createReactClass(
          className: this.props.panelClass,
       }, ReactDOMFactories.tbody(
       {}, rows));
-   },
-
-   createInputProps: function()
-   {
-      var answer = {
-         name: this.props.name, // needed for radio
-         onChange: this.handleChange,
-         type: this.props.type,
-      };
-
-      var clientProps = this.props.clientProps;
-
-      if (clientProps)
-      {
-         ObjectUtilities.merge(answer, clientProps);
-      }
-
-      return answer;
-   },
-
-   createRow: function(i, value, inputProps)
-   {
-      var selected = this.state.selected;
-      var labelFunction = this.props.labelFunction;
-      var label = (labelFunction ? labelFunction(value) : value);
-      var type = this.props.type;
-
-      inputProps.id = i;
-
-      switch (type)
-      {
-         case InputPanel.Type.CHECKBOX:
-            inputProps.defaultChecked = selected.includes(value);
-            break;
-         case InputPanel.Type.RADIO:
-            inputProps.defaultChecked = (value === selected);
-            break;
-         case InputPanel.Type.TEXT:
-            inputProps.defaultValue = selected[i];
-            break;
-         default:
-            throw "Unknown input type: " + type;
-      }
-
-      var input = ReactDOMFactories.input(inputProps);
-      var cells = [];
-
-      if (type === InputPanel.Type.CHECKBOX || type === InputPanel.Type.RADIO)
-      {
-         cells.push(ReactDOMFactories.td(
-         {
-            key: cells.length,
-         }, input));
-         cells.push(ReactDOMFactories.td(
-         {
-            key: cells.length,
-            className: "labelCell ph1",
-         }, label));
-      }
-      else if (type === InputPanel.Type.TEXT)
-      {
-         cells.push(ReactDOMFactories.td(
-         {
-            key: cells.length,
-            className: "labelCell ph1",
-         }, label));
-         cells.push(ReactDOMFactories.td(
-         {
-            key: cells.length,
-         }, input));
-      }
-
-      return ReactDOMFactories.tr(
-      {
-         key: "row" + value + i,
-         className: "striped--light-gray",
-      }, cells);
-   },
-
-   handleChange: function(event)
-   {
-      var source = event.target;
-      var id = event.target.id;
-      var selected = this.state.selected;
-
-      switch (this.props.type)
-      {
-         case InputPanel.Type.CHECKBOX:
-            var mySelected = this.props.values[id];
-            if (source.checked)
-            {
-               selected.push(mySelected);
-            }
-            else
-            {
-               ArrayUtilities.remove(selected, mySelected);
-            }
-            break;
-         case InputPanel.Type.RADIO:
-            selected = this.props.values[id];
-            break;
-         case InputPanel.Type.TEXT:
-            selected[id] = source.key;
-            break;
-         default:
-            throw "Unknown input type: " + this.props.type;
-      }
-
-      this.setState(
-         {
-            selected: selected,
-         },
-         this.props.onChange(event, selected));
-   },
-
-   validateProps: function()
-   {
-      if (this.props.type === InputPanel.Type.RADIO)
-      {
-         InputValidator.validateNotNull("name", this.props.name);
-      }
    }
-});
+}
+
+InputPanel.prototype.createInputProps = function()
+{
+   var answer = {
+      name: this.props.name, // needed for radio
+      onChange: this.handleChange,
+      type: this.props.type,
+   };
+
+   var clientProps = this.props.clientProps;
+
+   if (clientProps)
+   {
+      ObjectUtilities.merge(answer, clientProps);
+   }
+
+   return answer;
+};
+
+InputPanel.prototype.createRow = function(i, value, inputProps)
+{
+   var selected = this.state.selected;
+   var labelFunction = this.props.labelFunction;
+   var label = (labelFunction ? labelFunction(value) : value);
+   var type = this.props.type;
+
+   inputProps.id = i;
+
+   switch (type)
+   {
+      case InputPanel.Type.CHECKBOX:
+         inputProps.defaultChecked = selected.includes(value);
+         break;
+      case InputPanel.Type.RADIO:
+         inputProps.defaultChecked = (value === selected);
+         break;
+      case InputPanel.Type.TEXT:
+         inputProps.defaultValue = selected[i];
+         break;
+      default:
+         throw "Unknown input type: " + type;
+   }
+
+   var input = ReactDOMFactories.input(inputProps);
+   var cells = [];
+
+   if (type === InputPanel.Type.CHECKBOX || type === InputPanel.Type.RADIO)
+   {
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+      }, input));
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+         className: "ph1",
+      }, label));
+   }
+   else if (type === InputPanel.Type.TEXT)
+   {
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+         className: "ph1",
+      }, label));
+      cells.push(ReactDOMFactories.td(
+      {
+         key: cells.length,
+      }, input));
+   }
+
+   return ReactDOMFactories.tr(
+   {
+      key: "row" + value + i,
+      className: "striped--light-gray",
+   }, cells);
+};
+
+InputPanel.prototype.handleChangeFunction = function(event)
+{
+   var source = event.target;
+   var id = event.target.id;
+   var selected = this.state.selected;
+
+   switch (this.props.type)
+   {
+      case InputPanel.Type.CHECKBOX:
+         var mySelected = this.props.values[id];
+         if (source.checked)
+         {
+            selected.push(mySelected);
+         }
+         else
+         {
+            ArrayUtilities.remove(selected, mySelected);
+         }
+         break;
+      case InputPanel.Type.RADIO:
+         selected = this.props.values[id];
+         break;
+      case InputPanel.Type.TEXT:
+         selected[id] = source.key;
+         break;
+      default:
+         throw "Unknown input type: " + this.props.type;
+   }
+
+   this.setState(
+      {
+         selected: selected,
+      },
+      this.props.onChange(event, selected));
+};
+
+InputPanel.prototype.validateProps = function()
+{
+   if (this.props.type === InputPanel.Type.RADIO)
+   {
+      InputValidator.validateNotNull("name", this.props.name);
+   }
+};
 
 InputPanel.propTypes = {
    // Function called when the selection changes.

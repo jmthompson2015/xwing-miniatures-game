@@ -57,21 +57,16 @@ var valueFunctions = {
    },
 };
 
-var UpgradeTable = createReactClass(
+class UpgradeTable extends React.Component
 {
-   contextTypes:
+   constructor(props)
    {
-      store: PropTypes.object.isRequired,
-   },
+      super(props);
 
-   propTypes:
-   {
-      isFilterShown: PropTypes.bool.isRequired,
-      filters: PropTypes.object.isRequired,
-      rowData: PropTypes.array.isRequired,
-   },
+      this.toggleFilterShownActionPerformed = this.toggleFilterShownActionPerformedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var filterShownButton = React.createElement(Button,
       {
@@ -163,14 +158,24 @@ var UpgradeTable = createReactClass(
       return ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   toggleFilterShownActionPerformed: function()
-   {
-      LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() start");
-      this.context.store.dispatch(Action.toggleFilterShown());
-      LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() end");
-   },
-});
+UpgradeTable.prototype.toggleFilterShownActionPerformedFunction = function()
+{
+   LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() start");
+   this.context.store.dispatch(Action.toggleFilterShown());
+   LOGGER.trace("UpgradeTable.toggleFilterShownActionPerformed() end");
+};
+
+UpgradeTable.contextTypes = {
+   store: PropTypes.object.isRequired,
+};
+
+UpgradeTable.propTypes = {
+   isFilterShown: PropTypes.bool.isRequired,
+   filters: PropTypes.object.isRequired,
+   rowData: PropTypes.array.isRequired,
+};
 
 export default UpgradeTable;

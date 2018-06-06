@@ -3,29 +3,23 @@ import InputValidator from "../utility/InputValidator.js";
 import Select from "./Select.js";
 import SquadUI from "./SquadUI.js";
 
-var SquadChooser = createReactClass(
+class SquadChooser extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      agent: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      squadBuilders: PropTypes.array.isRequired,
+      super(props);
 
-      onChange: PropTypes.func,
-   },
-
-   getInitialState: function()
-   {
       var squadBuilders = this.props.squadBuilders;
       InputValidator.validateNotEmpty("squadBuilders", squadBuilders);
 
-      return (
-      {
+      this.state = {
          squadBuilder: squadBuilders[0],
-      });
-   },
+      };
 
-   render: function()
+      this.handleSquadChange = this.handleSquadChangeFunction.bind(this);
+   }
+
+   render()
    {
       var squadLabelFunction = function(value)
       {
@@ -77,23 +71,31 @@ var SquadChooser = createReactClass(
          className: "squadChooser",
       }, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   handleSquadChange: function(event)
+SquadChooser.prototype.handleSquadChangeFunction = function(event)
+{
+   LOGGER.debug("SquadChooser.handleSquadChange() event.target.selectedIndex = " + event.target.selectedIndex);
+   var squadBuilder = this.props.squadBuilders[event.target.selectedIndex];
+   this.setState(
    {
-      LOGGER.debug("SquadChooser.handleSquadChange() event.target.selectedIndex = " + event.target.selectedIndex);
-      var squadBuilder = this.props.squadBuilders[event.target.selectedIndex];
-      this.setState(
-      {
-         squadBuilder: squadBuilder,
-      });
-      LOGGER.debug("SquadChooser.handleSquadChange() squadBuilder = " + squadBuilder);
+      squadBuilder: squadBuilder,
+   });
+   LOGGER.debug("SquadChooser.handleSquadChange() squadBuilder = " + squadBuilder);
 
-      if (this.props.onChange)
-      {
-         this.props.onChange(squadBuilder);
-      }
-   },
-});
+   if (this.props.onChange)
+   {
+      this.props.onChange(squadBuilder);
+   }
+};
+
+SquadChooser.propTypes = {
+   agent: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   squadBuilders: PropTypes.array.isRequired,
+
+   onChange: PropTypes.func,
+};
 
 export default SquadChooser;

@@ -9,15 +9,9 @@ import ImplementedImage from "./ImplementedImage.js";
 import ShipStateUI from "./ShipStateUI.js";
 import SquadColumns from "./SquadColumns.js";
 
-var SquadUI = createReactClass(
+class SquadUI extends React.Component
 {
-   propTypes:
-   {
-      resourceBase: PropTypes.string.isRequired,
-      squad: PropTypes.object.isRequired,
-   },
-
-   render: function()
+   render()
    {
       LOGGER.trace("SquadUI.render()");
 
@@ -78,244 +72,249 @@ var SquadUI = createReactClass(
       LOGGER.trace("SquadUI.render() end");
 
       return squadUI;
-   },
+   }
+}
 
-   createCell: function(key, className, value)
+SquadUI.prototype.createCell = function(key, className, value)
+{
+   return ReactDOMFactories.td(
    {
-      return ReactDOMFactories.td(
-      {
-         key: key,
-         className: className,
-      }, (value !== undefined ? value : ""));
-   },
+      key: key,
+      className: className,
+   }, (value !== undefined ? value : ""));
+};
 
-   createFooterRow: function(key)
+SquadUI.prototype.createFooterRow = function(key)
+{
+   var cells = [];
+   var squad = this.props.squad;
+
+   SquadColumns.forEach(function(column)
    {
-      var cells = [];
-      var squad = this.props.squad;
+      var value = 0;
+      var className = "squadUISum ba bg-xw-medium";
 
-      SquadColumns.forEach(function(column)
+      switch (column.key)
       {
-         var value = 0;
-         var className = "squadUISum ba bg-xw-medium";
+         case "pilot":
+            value = "Totals";
+            className += " alignRight tr";
+            break;
+         case "isImplemented":
+            value = undefined;
+            break;
+         default:
+            if (squad)
+            {
+               var valueFunction = squad[column.key];
+               value = valueFunction.apply(squad);
+            }
+            className += " alignRight tr";
+      }
 
-         switch (column.key)
-         {
-            case "pilot":
-               value = "Totals";
-               className += " alignRight tr";
-               break;
-            case "isImplemented":
-               value = undefined;
-               break;
-            default:
-               if (squad)
+      cells.push(this.createCell("footerCell" + cells.length, className, value));
+   }, this);
+
+   return ReactDOMFactories.tr(
+   {
+      key: key,
+   }, cells);
+};
+
+SquadUI.prototype.createHeaderCell = function(key, className, value)
+{
+   return ReactDOMFactories.th(
+   {
+      key: key,
+      className: className,
+   }, (value !== undefined ? value : ""));
+};
+
+SquadUI.prototype.createHeaderRow = function(key)
+{
+   var cells = [];
+   var squad = this.props.squad;
+   var faction = Faction.properties[squad.factionKey()];
+
+   SquadColumns.forEach(function(column)
+   {
+      var value, className;
+
+      switch (column.key)
+      {
+         case "pilot":
+         case "isImplemented":
+         case "pilotSkillValue":
+         case "squadPointCost":
+            value = column.label;
+            break;
+         default:
+            var shipStateKey = column.key.substring(0, column.key.length - "Value".length);
+            value = React.createElement(ShipStateUI,
+            {
+               faction: faction,
+               resourceBase: this.props.resourceBase,
+               shipState: ShipState.properties[shipStateKey],
+            });
+            className = "alignCenter tc";
+      }
+      cells.push(this.createHeaderCell("headerCell" + cells.length, className + " ba b--black bg-xw-dark pa1 white", value));
+   }, this);
+
+   return ReactDOMFactories.tr(
+   {
+      key: key,
+   }, cells);
+};
+
+SquadUI.prototype.createPilotRow = function(ship, pilot, index, rowKey)
+{
+   InputValidator.validateNotNull("ship", ship);
+   InputValidator.validateNotNull("pilot", pilot);
+   InputValidator.validateIsNumber("index", index);
+   InputValidator.validateNotNull("rowKey", rowKey);
+
+   var pilotUI = React.createElement(EntityUI,
+   {
+      entity: pilot,
+      resourceBase: this.props.resourceBase,
+      showImplemented: false,
+   });
+
+   var cells = [];
+   var isImplemented = (pilot ? (pilot.isImplemented === true) : undefined);
+
+   SquadColumns.forEach(function(column)
+   {
+      var value;
+
+      switch (column.key)
+      {
+         case "pilot":
+            value = pilotUI;
+            break;
+         case "isImplemented":
+            value = React.createElement(ImplementedImage,
+            {
+               resourceBase: this.props.resourceBase,
+               isImplemented: isImplemented,
+            });
+            break;
+         default:
+            if (!ship.fore)
+            {
+               value = (pilot[column.key] !== undefined ? pilot[column.key] : ship[column.key]);
+            }
+            else if (ship.fore && !pilot.parent)
+            {
+               value = (pilot[column.key] !== undefined ? pilot[column.key] : ship.fore[column.key]);
+            }
+            else
+            {
+               var myShip;
+               if (pilot.key.endsWith(".fore"))
                {
-                  var valueFunction = squad[column.key];
-                  value = valueFunction.apply(squad);
+                  myShip = ship.fore;
                }
-               className += " alignRight tr";
-         }
-
-         cells.push(this.createCell("footerCell" + cells.length, className, value));
-      }, this);
-
-      return ReactDOMFactories.tr(
-      {
-         key: key,
-      }, cells);
-   },
-
-   createHeaderCell: function(key, className, value)
-   {
-      return ReactDOMFactories.th(
-      {
-         key: key,
-         className: className,
-      }, (value !== undefined ? value : ""));
-   },
-
-   createHeaderRow: function(key)
-   {
-      var cells = [];
-      var squad = this.props.squad;
-      var faction = Faction.properties[squad.factionKey()];
-
-      SquadColumns.forEach(function(column)
-      {
-         var value, className;
-
-         switch (column.key)
-         {
-            case "pilot":
-            case "isImplemented":
-            case "pilotSkillValue":
-            case "squadPointCost":
-               value = column.label;
-               break;
-            default:
-               var shipStateKey = column.key.substring(0, column.key.length - "Value".length);
-               value = React.createElement(ShipStateUI,
+               else if (pilot.key.endsWith(".aft"))
                {
-                  faction: faction,
-                  resourceBase: this.props.resourceBase,
-                  shipState: ShipState.properties[shipStateKey],
-               });
-               className = "alignCenter tc";
-         }
-         cells.push(this.createHeaderCell("headerCell" + cells.length, className + " ba b--black bg-xw-dark pa1 white", value));
-      }, this);
-
-      return ReactDOMFactories.tr(
-      {
-         key: key,
-      }, cells);
-   },
-
-   createPilotRow: function(ship, pilot, index, rowKey)
-   {
-      InputValidator.validateNotNull("ship", ship);
-      InputValidator.validateNotNull("pilot", pilot);
-      InputValidator.validateIsNumber("index", index);
-      InputValidator.validateNotNull("rowKey", rowKey);
-
-      var pilotUI = React.createElement(EntityUI,
-      {
-         entity: pilot,
-         resourceBase: this.props.resourceBase,
-         showImplemented: false,
-      });
-
-      var cells = [];
-      var isImplemented = (pilot ? (pilot.isImplemented === true) : undefined);
-
-      SquadColumns.forEach(function(column)
-      {
-         var value;
-
-         switch (column.key)
-         {
-            case "pilot":
-               value = pilotUI;
-               break;
-            case "isImplemented":
-               value = React.createElement(ImplementedImage,
-               {
-                  resourceBase: this.props.resourceBase,
-                  isImplemented: isImplemented,
-               });
-               break;
-            default:
-               if (!ship.fore)
-               {
-                  value = (pilot[column.key] !== undefined ? pilot[column.key] : ship[column.key]);
+                  myShip = ship.aft;
                }
-               else if (ship.fore && !pilot.parent)
-               {
-                  value = (pilot[column.key] !== undefined ? pilot[column.key] : ship.fore[column.key]);
-               }
-               else
-               {
-                  var myShip;
-                  if (pilot.key.endsWith(".fore"))
-                  {
-                     myShip = ship.fore;
-                  }
-                  else if (pilot.key.endsWith(".aft"))
-                  {
-                     myShip = ship.aft;
-                  }
-                  value = (pilot[column.key] !== undefined ? pilot[column.key] : myShip[column.key]);
-               }
-         }
+               value = (pilot[column.key] !== undefined ? pilot[column.key] : myShip[column.key]);
+            }
+      }
 
-         cells.push(this.createCell("pilotCell" + cells.length + (pilot ? pilot.key : ""), column.className + " ba pa1", value));
-      }, this);
+      cells.push(this.createCell("pilotCell" + cells.length + (pilot ? pilot.key : ""), column.className + " ba pa1", value));
+   }, this);
 
-      return ReactDOMFactories.tr(
-      {
-         key: rowKey,
-      }, cells);
-   },
-
-   createShipRow: function(ship, index, rowKey)
+   return ReactDOMFactories.tr(
    {
-      InputValidator.validateNotNull("ship", ship);
-      InputValidator.validateIsNumber("index", index);
-      InputValidator.validateNotNull("rowKey", rowKey);
+      key: rowKey,
+   }, cells);
+};
 
-      var shipUI = React.createElement(EntityUI,
-      {
-         entity: ship,
-         resourceBase: this.props.resourceBase,
-         showImplemented: false,
-      });
+SquadUI.prototype.createShipRow = function(ship, index, rowKey)
+{
+   InputValidator.validateNotNull("ship", ship);
+   InputValidator.validateIsNumber("index", index);
+   InputValidator.validateNotNull("rowKey", rowKey);
 
-      var cells = [];
-
-      SquadColumns.forEach(function(column)
-      {
-         var value;
-
-         switch (column.key)
-         {
-            case "pilot":
-               value = shipUI;
-               break;
-         }
-
-         cells.push(this.createCell("shipCell" + cells.length + (ship ? ship.key : ""), "backgroundMedium bg-xw-medium " + column.className + " pa1", value));
-      }, this);
-
-      return ReactDOMFactories.tr(
-      {
-         key: rowKey,
-      }, cells);
-   },
-
-   createUpgradeTypeRow: function(upgradeCard, upgradeIndex, rowKey)
+   var shipUI = React.createElement(EntityUI,
    {
-      InputValidator.validateNotNull("upgradeCard", upgradeCard);
-      InputValidator.validateIsNumber("upgradeIndex", upgradeIndex);
-      InputValidator.validateNotNull("rowKey", rowKey);
+      entity: ship,
+      resourceBase: this.props.resourceBase,
+      showImplemented: false,
+   });
 
-      var upgradeUI = React.createElement(EntityUI,
+   var cells = [];
+
+   SquadColumns.forEach(function(column)
+   {
+      var value;
+
+      switch (column.key)
       {
-         entity: upgradeCard,
-         resourceBase: this.props.resourceBase,
-         showImplemented: false,
-      });
+         case "pilot":
+            value = shipUI;
+            break;
+      }
 
-      var cells = [];
-      var isImplemented = (upgradeCard ? (upgradeCard.isImplemented === true) : undefined);
+      cells.push(this.createCell("shipCell" + cells.length + (ship ? ship.key : ""), "backgroundMedium bg-xw-medium " + column.className + " pa1", value));
+   }, this);
 
-      SquadColumns.forEach(function(column)
+   return ReactDOMFactories.tr(
+   {
+      key: rowKey,
+   }, cells);
+};
+
+SquadUI.prototype.createUpgradeTypeRow = function(upgradeCard, upgradeIndex, rowKey)
+{
+   InputValidator.validateNotNull("upgradeCard", upgradeCard);
+   InputValidator.validateIsNumber("upgradeIndex", upgradeIndex);
+   InputValidator.validateNotNull("rowKey", rowKey);
+
+   var upgradeUI = React.createElement(EntityUI,
+   {
+      entity: upgradeCard,
+      resourceBase: this.props.resourceBase,
+      showImplemented: false,
+   });
+
+   var cells = [];
+   var isImplemented = (upgradeCard ? (upgradeCard.isImplemented === true) : undefined);
+
+   SquadColumns.forEach(function(column)
+   {
+      var value;
+
+      switch (column.key)
       {
-         var value;
+         case "pilot":
+            value = upgradeUI;
+            break;
+         case "isImplemented":
+            value = React.createElement(ImplementedImage,
+            {
+               resourceBase: this.props.resourceBase,
+               isImplemented: isImplemented,
+            });
+            break;
+         default:
+            value = (upgradeCard && upgradeCard[column.key] !== undefined ? upgradeCard[column.key] : undefined);
+      }
+      cells.push(this.createCell("upgradeCell" + cells.length + upgradeCard.key, column.className + " ba pa1", value));
+   }, this);
 
-         switch (column.key)
-         {
-            case "pilot":
-               value = upgradeUI;
-               break;
-            case "isImplemented":
-               value = React.createElement(ImplementedImage,
-               {
-                  resourceBase: this.props.resourceBase,
-                  isImplemented: isImplemented,
-               });
-               break;
-            default:
-               value = (upgradeCard && upgradeCard[column.key] !== undefined ? upgradeCard[column.key] : undefined);
-         }
-         cells.push(this.createCell("upgradeCell" + cells.length + upgradeCard.key, column.className + " ba pa1", value));
-      }, this);
+   return ReactDOMFactories.tr(
+   {
+      key: rowKey,
+   }, cells);
+};
 
-      return ReactDOMFactories.tr(
-      {
-         key: rowKey,
-      }, cells);
-   },
-});
+SquadUI.propTypes = {
+   resourceBase: PropTypes.string.isRequired,
+   squad: PropTypes.object.isRequired,
+};
 
 export default SquadUI;

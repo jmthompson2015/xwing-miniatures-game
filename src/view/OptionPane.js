@@ -2,27 +2,18 @@
  * Provides a React component which emulates a Java
  * <a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JOptionPane.html">JOptionPane</a>.
  */
-var OptionPane = createReactClass(
+class OptionPane extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      buttons: PropTypes.object.isRequired,
-      message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-      title: PropTypes.string.isRequired,
+      super(props);
 
-      initialInput: PropTypes.object,
-      icon: PropTypes.object,
-   },
-
-   getInitialState: function()
-   {
-      return (
-      {
+      this.state = {
          input: this.props.initialInput
-      });
-   },
+      };
+   }
 
-   render: function()
+   render()
    {
       var rows = [];
 
@@ -74,6 +65,15 @@ var OptionPane = createReactClass(
       }, ReactDOMFactories.tbody(
       {}, rows));
    }
-});
+}
+
+OptionPane.propTypes = {
+   buttons: PropTypes.object.isRequired,
+   message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+   title: PropTypes.string.isRequired,
+
+   initialInput: PropTypes.object,
+   icon: PropTypes.object,
+};
 
 export default OptionPane;

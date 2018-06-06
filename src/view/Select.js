@@ -13,6 +13,8 @@ class Select extends React.Component
       this.state = {
          selectedValue: this.props.initialSelectedValue,
       };
+
+      this.handleChange = this.handleChangeFunction.bind(this);
    }
 
    render()
@@ -22,7 +24,7 @@ class Select extends React.Component
 
       const selectProps = {
          value: this.state.selectedValue,
-         onChange: this.handleChange.bind(this),
+         onChange: this.handleChange,
          disabled: this.props.disabled,
       };
 
@@ -53,22 +55,22 @@ class Select extends React.Component
 
       return ReactDOMFactories.select(selectProps, options);
    }
-
-   handleChange(event)
-   {
-      this.setState(
-      {
-         selectedValue: event.target.value,
-      });
-
-      const onChange = this.props.onChange;
-
-      if (onChange)
-      {
-         onChange(event);
-      }
-   }
 }
+
+Select.prototype.handleChangeFunction = function(event)
+{
+   this.setState(
+   {
+      selectedValue: event.target.value,
+   });
+
+   const onChange = this.props.onChange;
+
+   if (onChange)
+   {
+      onChange(event);
+   }
+};
 
 Select.propTypes = {
    // Option values. (required)

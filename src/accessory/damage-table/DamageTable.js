@@ -31,21 +31,16 @@ var valueFunctions = {
    },
 };
 
-var DamageTable = createReactClass(
+class DamageTable extends React.Component
 {
-   contextTypes:
+   constructor(props)
    {
-      store: PropTypes.object.isRequired,
-   },
+      super(props);
 
-   propTypes:
-   {
-      isFilterShown: PropTypes.bool.isRequired,
-      filters: PropTypes.object.isRequired,
-      rowData: PropTypes.array.isRequired,
-   },
+      this.toggleFilterShownActionPerformed = this.toggleFilterShownActionPerformedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var filterShownButton = React.createElement(Button,
       {
@@ -140,14 +135,24 @@ var DamageTable = createReactClass(
       return ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   toggleFilterShownActionPerformed: function()
-   {
-      LOGGER.trace("DamageTable.toggleFilterShownActionPerformed() start");
-      this.context.store.dispatch(Action.toggleFilterShown());
-      LOGGER.trace("DamageTable.toggleFilterShownActionPerformed() end");
-   },
-});
+DamageTable.prototype.toggleFilterShownActionPerformedFunction = function()
+{
+   LOGGER.trace("DamageTable.toggleFilterShownActionPerformed() start");
+   this.context.store.dispatch(Action.toggleFilterShown());
+   LOGGER.trace("DamageTable.toggleFilterShownActionPerformed() end");
+};
+
+DamageTable.contextTypes = {
+   store: PropTypes.object.isRequired,
+};
+
+DamageTable.propTypes = {
+   isFilterShown: PropTypes.bool.isRequired,
+   filters: PropTypes.object.isRequired,
+   rowData: PropTypes.array.isRequired,
+};
 
 export default DamageTable;

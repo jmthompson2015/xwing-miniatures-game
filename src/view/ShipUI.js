@@ -1,27 +1,21 @@
 import ShipImage from "./ShipImage.js";
 
-var ShipUI = createReactClass(
+class ShipUI extends React.Component
 {
-   propTypes:
-   {
-      canvasId: PropTypes.string.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      position: PropTypes.object.isRequired,
-      shipFaction: PropTypes.object.isRequired,
-   },
-
-   componentDidMount: function()
+   componentDidMount()
    {
       this.paint();
-   },
+   }
 
-   componentDidUpdate: function()
+   componentDidUpdate()
    {
       this.paint();
-   },
+   }
 
-   getInitialState: function()
+   constructor(props)
    {
+      super(props);
+
       var shipFaction = this.props.shipFaction;
       var image = new Image();
       image.onload = function()
@@ -38,14 +32,13 @@ var ShipUI = createReactClass(
       var resourceBase = this.props.resourceBase;
       image.src = resourceBase + "ship/" + shipFaction.image;
 
-      return (
-      {
+      this.state = {
          image: image,
          isImageLoaded: false,
-      });
-   },
+      };
+   }
 
-   render: function()
+   render()
    {
       var shipFaction = this.props.shipFaction;
       var shipBase = shipFaction.ship.shipBase;
@@ -57,23 +50,30 @@ var ShipUI = createReactClass(
          height: shipBase.height,
          title: shipFaction.name,
       });
-   },
+   }
+}
 
-   paint: function()
-   {
-      var shipFaction = this.props.shipFaction;
-      var shipBase = shipFaction.ship.shipBase;
-      var canvas = document.getElementById(this.props.canvasId);
-      var context = canvas.getContext("2d");
-      var scale = 1.0;
-      var id;
-      var image = this.state.image;
-      var position = this.props.position;
+ShipUI.prototype.paint = function()
+{
+   var shipFaction = this.props.shipFaction;
+   var shipBase = shipFaction.ship.shipBase;
+   var canvas = document.getElementById(this.props.canvasId);
+   var context = canvas.getContext("2d");
+   var scale = 1.0;
+   var id;
+   var image = this.state.image;
+   var position = this.props.position;
 
-      context.clearRect(0, 0, shipBase.width, shipBase.height);
+   context.clearRect(0, 0, shipBase.width, shipBase.height);
 
-      ShipImage.draw(context, scale, id, image, position, shipFaction);
-   },
-});
+   ShipImage.draw(context, scale, id, image, position, shipFaction);
+};
+
+ShipUI.propTypes = {
+   canvasId: PropTypes.string.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   position: PropTypes.object.isRequired,
+   shipFaction: PropTypes.object.isRequired,
+};
 
 export default ShipUI;

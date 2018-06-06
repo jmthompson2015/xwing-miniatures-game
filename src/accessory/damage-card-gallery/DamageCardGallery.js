@@ -10,9 +10,9 @@ LOGGER.setDebugEnabled(false);
 
 var resourceBase = "../../../src/resource/";
 
-var DamageGallery = createReactClass(
+class DamageGallery extends React.Component
 {
-   render: function()
+   render()
    {
       var damageKeys = this.props.damageKeys;
 
@@ -32,8 +32,8 @@ var DamageGallery = createReactClass(
 
       return ReactDOMFactories.div(
       {}, cells);
-   },
-});
+   }
+}
 
 var rows = [];
 

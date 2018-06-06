@@ -5,15 +5,9 @@ import DataTable from "../../view/DataTable.js";
 
 import TableColumns from "./TableColumns.js";
 
-var ArenaTable = createReactClass(
+class ArenaTable extends React.Component
 {
-   propTypes:
-   {
-      resourceBase: PropTypes.string.isRequired,
-      rowData: PropTypes.array.isRequired,
-   },
-
-   render: function()
+   render()
    {
       var rowData = this.props.rowData;
       var resourceBase = this.props.resourceBase;
@@ -52,7 +46,12 @@ var ArenaTable = createReactClass(
       return ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, rows));
-   },
-});
+   }
+}
+
+ArenaTable.propTypes = {
+   resourceBase: PropTypes.string.isRequired,
+   rowData: PropTypes.array.isRequired,
+};
 
 export default ArenaTable;

@@ -3,33 +3,23 @@ import PilotCard from "../artifact/PilotCard.js";
 import FactionUI from "./FactionUI.js";
 import Select from "./Select.js";
 
-var PilotChooser = createReactClass(
+class PilotChooser extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      faction: PropTypes.object.isRequired,
-      onChange: PropTypes.func.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      ship: PropTypes.object.isRequired,
+      super(props);
 
-      index: PropTypes.number,
-      initialPilot: PropTypes.object,
-   },
-
-   getInitialState: function()
-   {
-      var initialPilot = this.props.initialPilot;
+      var initialPilot = props.initialPilot;
       var pilotKey = (initialPilot !== undefined ? initialPilot.key : undefined);
 
-      return (
-      {
+      this.state = {
          pilotKey: pilotKey,
-      });
-   },
+      };
 
-   PILOT_PROMPT: "Select a pilot",
+      this.pilotChanged = this.pilotChangedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var ship = this.props.ship;
       var faction = this.props.faction;
@@ -80,22 +70,34 @@ var PilotChooser = createReactClass(
       {
          return select;
       }
-   },
+   }
+}
 
-   pilotChanged: function(event)
+PilotChooser.prototype.pilotChangedFunction = function(event)
+{
+   var pilotKey = event.currentTarget.value;
+   LOGGER.debug("PilotChooser.pilotChanged() pilotKey = " + pilotKey);
+   var index = parseInt(event.currentTarget.dataset.index);
+
+   this.setState(
    {
-      var pilotKey = event.currentTarget.value;
-      LOGGER.debug("PilotChooser.pilotChanged() pilotKey = " + pilotKey);
-      var index = parseInt(event.currentTarget.dataset.index);
+      pilotKey: pilotKey,
+   });
 
-      this.setState(
-      {
-         pilotKey: pilotKey,
-      });
+   var pilot = PilotCard.properties[pilotKey];
+   this.props.onChange(event, pilot, index);
+};
 
-      var pilot = PilotCard.properties[pilotKey];
-      this.props.onChange(event, pilot, index);
-   },
-});
+PilotChooser.PILOT_PROMPT = "Select a pilot";
+
+PilotChooser.propTypes = {
+   faction: PropTypes.object.isRequired,
+   onChange: PropTypes.func.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   ship: PropTypes.object.isRequired,
+
+   index: PropTypes.number,
+   initialPilot: PropTypes.object,
+};
 
 export default PilotChooser;

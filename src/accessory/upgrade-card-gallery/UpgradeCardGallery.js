@@ -11,9 +11,9 @@ LOGGER.setDebugEnabled(false);
 
 var resourceBase = "../../../src/resource/";
 
-var UpgradeGallery = createReactClass(
+class UpgradeGallery extends React.Component
 {
-   render: function()
+   render()
    {
       var upgradeTypeKey = this.props.upgradeTypeKey;
       var upgradeKeys = UpgradeCard.keysByType(upgradeTypeKey);
@@ -34,8 +34,8 @@ var UpgradeGallery = createReactClass(
 
       return ReactDOMFactories.div(
       {}, cells);
-   },
-});
+   }
+}
 
 var rows = [];
 

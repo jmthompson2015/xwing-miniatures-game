@@ -1,6 +1,6 @@
-var LabeledImage = createReactClass(
+class LabeledImage extends React.Component
 {
-   render: function()
+   render()
    {
       var answer;
       var label = this.props.label;
@@ -35,24 +35,24 @@ var LabeledImage = createReactClass(
       }
 
       return answer;
-   },
+   }
+}
 
-   createContainerStyle: function()
+LabeledImage.prototype.createContainerStyle = function()
+{
+   var height = this.props.height;
+   var width = this.props.width;
+
+   return (
    {
-      var height = this.props.height;
-      var width = this.props.width;
-
-      return (
-      {
-         backgroundImage: 'url(' + this.props.resourceBase + this.props.image + ')',
-         backgroundPosition: "alignCenter",
-         backgroundRepeat: "no-repeat",
-         display: "table",
-         minHeight: height,
-         minWidth: width,
-      });
-   },
-});
+      backgroundImage: 'url(' + this.props.resourceBase + this.props.image + ')',
+      backgroundPosition: "alignCenter",
+      backgroundRepeat: "no-repeat",
+      display: "table",
+      minHeight: height,
+      minWidth: width,
+   });
+};
 
 LabeledImage.propTypes = {
    image: PropTypes.string.isRequired,

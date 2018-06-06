@@ -28,21 +28,16 @@ function createImageLink(src, href)
    }, image);
 }
 
-var PilotTable = createReactClass(
+class PilotTable extends React.Component
 {
-   contextTypes:
+   constructor(props)
    {
-      store: PropTypes.object.isRequired,
-   },
+      super(props);
 
-   propTypes:
-   {
-      isFilterShown: PropTypes.bool.isRequired,
-      filters: PropTypes.object.isRequired,
-      rowData: PropTypes.array.isRequired,
-   },
+      this.toggleFilterShownActionPerformed = this.toggleFilterShownActionPerformedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var filterShownButton = React.createElement(Button,
       {
@@ -180,14 +175,24 @@ var PilotTable = createReactClass(
       return ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   toggleFilterShownActionPerformed: function()
-   {
-      LOGGER.trace("PilotTable.toggleFilterShownActionPerformed() start");
-      this.context.store.dispatch(Action.toggleFilterShown());
-      LOGGER.trace("PilotTable.toggleFilterShownActionPerformed() end");
-   },
-});
+PilotTable.prototype.toggleFilterShownActionPerformedFunction = function()
+{
+   LOGGER.trace("PilotTable.toggleFilterShownActionPerformed() start");
+   this.context.store.dispatch(Action.toggleFilterShown());
+   LOGGER.trace("PilotTable.toggleFilterShownActionPerformed() end");
+};
+
+PilotTable.contextTypes = {
+   store: PropTypes.object.isRequired,
+};
+
+PilotTable.propTypes = {
+   isFilterShown: PropTypes.bool.isRequired,
+   filters: PropTypes.object.isRequired,
+   rowData: PropTypes.array.isRequired,
+};
 
 export default PilotTable;

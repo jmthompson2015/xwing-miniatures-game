@@ -3,17 +3,12 @@ import Range from "../artifact/Range.js";
 import Button from "./Button.js";
 import OptionPane from "./OptionPane.js";
 
-var WeaponAndDefenderChooser = createReactClass(
+class WeaponAndDefenderChooser extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      callback: PropTypes.func.isRequired,
-      choices: PropTypes.array.isRequired,
-      attacker: PropTypes.object.isRequired,
-   },
+      super(props);
 
-   getInitialState: function()
-   {
       var weapon;
       var defender;
 
@@ -26,14 +21,17 @@ var WeaponAndDefenderChooser = createReactClass(
          defender = rangeToDefenders[0].defenders[0];
       }
 
-      return (
-      {
+      this.state = {
          weapon: weapon,
          defender: defender
-      });
-   },
+      };
 
-   render: function()
+      this.cancel = this.cancelFunction.bind(this);
+      this.ok = this.okFunction.bind(this);
+      this.selectionChanged = this.selectionChangedFunction.bind(this);
+   }
+
+   render()
    {
       var attacker = this.props.attacker;
       var message = ReactDOMFactories.div(
@@ -142,97 +140,103 @@ var WeaponAndDefenderChooser = createReactClass(
          buttons: buttons,
          buttonsClass: "optionPaneButtons"
       });
-   },
+   }
+}
 
-   selectionChanged: function(event)
+WeaponAndDefenderChooser.prototype.cancelFunction = function()
+{
+   LOGGER.debug("cancel()");
+   this.props.callback(undefined);
+};
+
+WeaponAndDefenderChooser.prototype.findDefender = function(tokenId)
+{
+   var answer;
+
+   var choices = this.props.choices;
+
+   for (var i = 0; i < choices.length; i++)
    {
-      LOGGER.debug("selectionChanged()");
-      var weaponName = event.currentTarget.dataset.weaponName;
-      var defenderId = event.currentTarget.dataset.defenderId;
-      LOGGER.debug("weaponName = " + weaponName + " defenderId = " + defenderId);
-      var weapon = this.findWeapon(weaponName);
-      LOGGER.debug("weapon = " + weapon);
-      var defender = this.findDefender(defenderId);
-      LOGGER.debug("defender = " + defender);
-      this.setState(
+      var weaponAndRangeAndTokens = choices[i];
+
+      var rangeToDefendersArray = weaponAndRangeAndTokens.rangeToDefenders;
+
+      for (var j = 0; j < rangeToDefendersArray.length; j++)
       {
-         weapon: weapon,
-         defender: defender
-      });
-   },
+         var rangeToDefenders = rangeToDefendersArray[j];
 
-   cancel: function()
-   {
-      LOGGER.debug("cancel()");
-      this.props.callback(undefined);
-   },
+         var defenders = rangeToDefenders.defenders;
 
-   ok: function()
-   {
-      LOGGER.debug("ok()");
-      this.props.callback(this.state.weapon, this.state.defender);
-   },
-
-   findDefender: function(tokenId)
-   {
-      var answer;
-
-      var choices = this.props.choices;
-
-      for (var i = 0; i < choices.length; i++)
-      {
-         var weaponAndRangeAndTokens = choices[i];
-
-         var rangeToDefendersArray = weaponAndRangeAndTokens.rangeToDefenders;
-
-         for (var j = 0; j < rangeToDefendersArray.length; j++)
+         if (defenders)
          {
-            var rangeToDefenders = rangeToDefendersArray[j];
-
-            var defenders = rangeToDefenders.defenders;
-
-            if (defenders)
+            for (var k = 0; k < defenders.length; k++)
             {
-               for (var k = 0; k < defenders.length; k++)
-               {
-                  var token = defenders[k];
+               var token = defenders[k];
 
-                  if (token.id() == tokenId)
-                  {
-                     answer = token;
-                     break;
-                  }
+               if (token.id() == tokenId)
+               {
+                  answer = token;
+                  break;
                }
             }
          }
       }
+   }
 
-      return answer;
-   },
+   return answer;
+};
 
-   findWeapon: function(weaponName)
+WeaponAndDefenderChooser.prototype.findWeapon = function(weaponName)
+{
+   var attacker = this.props.attacker;
+   var answer = attacker.primaryWeapon();
+
+   if (weaponName !== "Primary Weapon")
    {
-      var attacker = this.props.attacker;
-      var answer = attacker.primaryWeapon();
+      var secondaryWeapons = attacker.secondaryWeapons();
 
-      if (weaponName !== "Primary Weapon")
+      for (var i = 0; i < secondaryWeapons.size; i++)
       {
-         var secondaryWeapons = attacker.secondaryWeapons();
+         var weapon = secondaryWeapons.get(i);
 
-         for (var i = 0; i < secondaryWeapons.size; i++)
+         if (weapon.name() === weaponName)
          {
-            var weapon = secondaryWeapons.get(i);
-
-            if (weapon.name() === weaponName)
-            {
-               answer = weapon;
-               break;
-            }
+            answer = weapon;
+            break;
          }
       }
+   }
 
-      return answer;
-   },
-});
+   return answer;
+};
+
+WeaponAndDefenderChooser.prototype.okFunction = function()
+{
+   LOGGER.debug("ok()");
+   this.props.callback(this.state.weapon, this.state.defender);
+};
+
+WeaponAndDefenderChooser.prototype.selectionChangedFunction = function(event)
+{
+   LOGGER.debug("selectionChanged()");
+   var weaponName = event.currentTarget.dataset.weaponName;
+   var defenderId = event.currentTarget.dataset.defenderId;
+   LOGGER.debug("weaponName = " + weaponName + " defenderId = " + defenderId);
+   var weapon = this.findWeapon(weaponName);
+   LOGGER.debug("weapon = " + weapon);
+   var defender = this.findDefender(defenderId);
+   LOGGER.debug("defender = " + defender);
+   this.setState(
+   {
+      weapon: weapon,
+      defender: defender
+   });
+};
+
+WeaponAndDefenderChooser.propTypes = {
+   callback: PropTypes.func.isRequired,
+   choices: PropTypes.array.isRequired,
+   attacker: PropTypes.object.isRequired,
+};
 
 export default WeaponAndDefenderChooser;

@@ -1,6 +1,6 @@
-var FactionUI = createReactClass(
+class FactionUI extends React.Component
 {
-   render: function()
+   render()
    {
       var faction = this.props.faction;
 
@@ -27,15 +27,15 @@ var FactionUI = createReactClass(
       }
 
       return answer;
-   },
+   }
+}
 
-   createSrc: function(faction, size)
-   {
-      var resourceBase = this.props.resourceBase;
+FactionUI.prototype.createSrc = function(faction, size)
+{
+   var resourceBase = this.props.resourceBase;
 
-      return resourceBase + "faction/" + size + "/" + faction.image;
-   },
-});
+   return resourceBase + "faction/" + size + "/" + faction.image;
+};
 
 FactionUI.propTypes = {
    faction: PropTypes.object.isRequired,

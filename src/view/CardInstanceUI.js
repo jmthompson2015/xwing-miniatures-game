@@ -6,17 +6,20 @@ import ReactUtilities from "./ReactUtilities.js";
 import CardImageContainer from "../controller/CardImageContainer.js";
 import TokenPanelContainer from "../controller/TokenPanelContainer.js";
 
-var CardInstanceUI = createReactClass(
+class CardInstanceUI extends React.Component
 {
-   getInitialState: function()
+   constructor(props)
    {
-      return (
-      {
-         isSmall: true,
-      });
-   },
+      super(props);
 
-   render: function()
+      this.state = {
+         isSmall: true,
+      };
+
+      this.toggleSize = this.toggleSizeFunction.bind(this);
+   }
+
+   render()
    {
       var columns = [];
       var cardInstance = this.props.cardInstance;
@@ -38,16 +41,16 @@ var CardInstanceUI = createReactClass(
       }
 
       return ReactUtilities.createFlexboxWrap(columns, "cardInstanceUI", "bg-xw-medium items-center justify-center ma0 pa0");
-   },
+   }
+}
 
-   toggleSize: function()
+CardInstanceUI.prototype.toggleSizeFunction = function()
+{
+   this.setState(
    {
-      this.setState(
-      {
-         isSmall: !this.state.isSmall,
-      });
-   },
-});
+      isSmall: !this.state.isSmall,
+   });
+};
 
 CardInstanceUI.prototype.createAttachmentPanel = function(columns, cardInstance)
 {

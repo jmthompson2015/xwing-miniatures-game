@@ -5,20 +5,17 @@ import EntityUI from "./EntityUI.js";
 import InputPanel from "./InputPanel.js";
 import OptionPane from "./OptionPane.js";
 
-var AbilityChooser = createReactClass(
+class AbilityChooser extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      damages: PropTypes.array.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      onChange: PropTypes.func.isRequired,
-      pilots: PropTypes.array.isRequired,
-      shipActions: PropTypes.array.isRequired,
-      token: PropTypes.object.isRequired,
-      upgrades: PropTypes.array.isRequired,
-   },
+      super(props);
 
-   render: function()
+      this.myOnChange = this.myOnChangeFunction.bind(this);
+      this.ok = this.okFunction.bind(this);
+   }
+
+   render()
    {
       var token = this.props.token;
       var damages = this.props.damages;
@@ -77,22 +74,32 @@ var AbilityChooser = createReactClass(
          buttons: buttons,
          buttonsClass: "optionPaneButtons pa2 tr",
       });
-   },
+   }
+}
 
-   myOnChange: function(event, selected)
-   {
-      LOGGER.trace("AbilityChooser.myOnChange()");
-      LOGGER.debug("AbilityChooser.myOnChange() selected = " + selected + " " + (typeof selected));
+AbilityChooser.prototype.myOnChangeFunction = function(event, selected)
+{
+   LOGGER.trace("AbilityChooser.myOnChange()");
+   LOGGER.debug("AbilityChooser.myOnChange() selected = " + selected + " " + (typeof selected));
 
-      var isAccepted = (selected !== undefined);
-      this.props.onChange(selected, isAccepted);
-   },
+   var isAccepted = (selected !== undefined);
+   this.props.onChange(selected, isAccepted);
+};
 
-   ok: function()
-   {
-      var isAccepted = false;
-      this.props.onChange(undefined, undefined, undefined, isAccepted);
-   },
-});
+AbilityChooser.prototype.okFunction = function()
+{
+   var isAccepted = false;
+   this.props.onChange(undefined, undefined, undefined, isAccepted);
+};
+
+AbilityChooser.propTypes = {
+   damages: PropTypes.array.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   onChange: PropTypes.func.isRequired,
+   pilots: PropTypes.array.isRequired,
+   shipActions: PropTypes.array.isRequired,
+   token: PropTypes.object.isRequired,
+   upgrades: PropTypes.array.isRequired,
+};
 
 export default AbilityChooser;

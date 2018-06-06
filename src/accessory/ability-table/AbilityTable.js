@@ -70,21 +70,16 @@ var valueFunctions = {
    },
 };
 
-var AbilityTable = createReactClass(
+class AbilityTable extends React.Component
 {
-   contextTypes:
+   constructor(props)
    {
-      store: PropTypes.object.isRequired,
-   },
+      super(props);
 
-   propTypes:
-   {
-      isFilterShown: PropTypes.bool.isRequired,
-      filters: PropTypes.object.isRequired,
-      rowData: PropTypes.array.isRequired,
-   },
+      this.toggleFilterShownActionPerformed = this.toggleFilterShownActionPerformedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var filterShownButton = React.createElement(Button,
       {
@@ -220,14 +215,24 @@ var AbilityTable = createReactClass(
       return ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   toggleFilterShownActionPerformed: function()
-   {
-      LOGGER.trace("AbilityTable.toggleFilterShownActionPerformed() start");
-      this.context.store.dispatch(Action.toggleFilterShown());
-      LOGGER.trace("AbilityTable.toggleFilterShownActionPerformed() end");
-   },
-});
+AbilityTable.prototype.toggleFilterShownActionPerformedFunction = function()
+{
+   LOGGER.trace("AbilityTable.toggleFilterShownActionPerformed() start");
+   this.context.store.dispatch(Action.toggleFilterShown());
+   LOGGER.trace("AbilityTable.toggleFilterShownActionPerformed() end");
+};
+
+AbilityTable.contextTypes = {
+   store: PropTypes.object.isRequired,
+};
+
+AbilityTable.propTypes = {
+   isFilterShown: PropTypes.bool.isRequired,
+   filters: PropTypes.object.isRequired,
+   rowData: PropTypes.array.isRequired,
+};
 
 export default AbilityTable;

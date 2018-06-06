@@ -561,7 +561,9 @@ function getDefender(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   return getCombatAction(attacker).defender();
+   const combatAction = getCombatAction(attacker);
+
+   return (combatAction !== undefined ? combatAction.defender() : undefined);
 }
 
 function getDefenseDice(attacker)

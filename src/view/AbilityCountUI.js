@@ -1,8 +1,8 @@
 import MathUtilities from "../utility/MathUtilities.js";
 
-var AbilityCountUI = createReactClass(
+class AbilityCountUI extends React.Component
 {
-   render: function()
+   render()
    {
       var implementedCount = this.props.implementedCount;
       var abilityCount = this.props.abilityCount;
@@ -11,8 +11,8 @@ var AbilityCountUI = createReactClass(
       return ReactDOMFactories.span(
          {}, "Implemented ", implementedCount, " / ",
          abilityCount, " = ", ratio, "%");
-   },
-});
+   }
+}
 
 AbilityCountUI.propTypes = {
    implementedCount: PropTypes.number.isRequired,

@@ -1,35 +1,27 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var DataTable = createReactClass(
+// Factories.
+let Table = React.createFactory(Reactable.Table);
+let Tr = React.createFactory(Reactable.Tr);
+let Td = React.createFactory(Reactable.Td);
+let Tfoot = React.createFactory(Reactable.Tfoot);
+
+class DataTable extends React.Component
 {
-   propTypes:
+   render()
    {
-      columns: PropTypes.array.isRequired,
-      rowData: PropTypes.array.isRequired,
+      const rowData = this.props.rowData;
+      const table = this.createTable(rowData);
 
-      cellFunctions: PropTypes.object,
-      valueFunctions: PropTypes.object,
-   },
+      const rows = [];
 
-   // Factories.
-   Table: React.createFactory(Reactable.Table),
-   Tr: React.createFactory(Reactable.Tr),
-   Td: React.createFactory(Reactable.Td),
-
-   render: function()
-   {
-      var rowData = this.props.rowData;
-      var table = this.createTable(rowData);
-
-      var rows = [];
-
-      var rowCount = "Row Count: " + rowData.length;
+      const rowCount = "Row Count: " + rowData.length;
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,
       }, ReactDOMFactories.td(
       {
-         className: "rowCount f6 tl",
+         className: "f6 tl",
       }, rowCount)));
       rows.push(ReactDOMFactories.tr(
       {
@@ -41,100 +33,170 @@ var DataTable = createReactClass(
          key: rows.length,
       }, ReactDOMFactories.td(
       {
-         className: "rowCount f6 tl",
+         className: "f6 tl",
       }, rowCount)));
 
       return ReactDOMFactories.table(
-      {}, ReactDOMFactories.tbody(
+      {
+         className: this.props.className,
+      }, ReactDOMFactories.tbody(
       {}, rows));
-   },
+   }
+}
 
-   createRow: function(data, key)
+DataTable.prototype.createFooterRow = function(rowData)
+{
+   const columns = this.props.columns;
+   let myData = {};
+   columns.forEach(column =>
    {
-      InputValidator.validateNotNull("data", data);
-      InputValidator.validateNotNull("key", key);
-
-      var columns = this.props.columns;
-      var cells = [];
-      columns.forEach(function(column)
+      if (column.isinfooter === "true")
       {
-         var value = this.determineValue(column, data);
-         var cell = this.determineCell(column, data, value);
-         cells.push(this.Td(
+         myData[column.key] = 0;
+         rowData.forEach(data =>
          {
-            key: cells.length,
-            className: column.className,
-            column: column.key,
-            value: value,
-         }, (cell === undefined ? "" : cell)));
-      }, this);
+            myData[column.key] += (Number.isInteger(data[column.key]) ? data[column.key] : 0);
+         });
+      }
+   });
 
-      return this.Tr(
-      {
-         key: key,
-         className: "striped--light-gray",
-      }, cells);
-   },
-
-   createTable: function(rowData)
+   return Tfoot(
    {
-      InputValidator.validateNotNull("rowData", rowData);
+      key: "footer",
+      className: "ba",
+   }, this.createRow0(myData, rowData.length));
+};
 
-      var columns = this.props.columns;
-      var rows = [];
+DataTable.prototype.createRow0 = function(data, key)
+{
+   InputValidator.validateNotNull("data", data);
+   InputValidator.validateNotNull("key", key);
 
-      rowData.forEach(function(data, i)
-      {
-         rows.push(this.createRow(data, i));
-      }.bind(this));
-
-      return this.Table(
-      {
-         className: "dataTable bg-white collapse f6",
-         columns: columns,
-         sortable: true,
-      }, rows);
-   },
-
-   determineCell: function(column, data, value)
+   const columns = this.props.columns;
+   const cells = [];
+   columns.forEach(function(column)
    {
-      InputValidator.validateNotNull("column", column);
-      InputValidator.validateNotNull("data", data);
-
-      var answer;
-      var cellFunctions = this.props.cellFunctions;
-
-      if (cellFunctions && cellFunctions[column.key])
+      const value = this.determineValue(column, data);
+      const cell = this.determineCell(column, data, value);
+      cells.push(ReactDOMFactories.td(
       {
-         answer = cellFunctions[column.key](data);
-      }
-      else
-      {
-         answer = value;
-      }
+         key: cells.length,
+         className: column.className,
+         value: value,
+      }, (cell === undefined ? "" : cell)));
+   }, this);
 
-      return answer;
-   },
-
-   determineValue: function(column, data)
+   return ReactDOMFactories.tr(
    {
-      InputValidator.validateNotNull("column", column);
-      InputValidator.validateNotNull("data", data);
+      key: key,
+      className: "ba bg-silver",
+   }, cells);
+};
 
-      var answer;
-      var valueFunctions = this.props.valueFunctions;
+DataTable.prototype.createRow = function(data, key)
+{
+   InputValidator.validateNotNull("data", data);
+   InputValidator.validateNotNull("key", key);
 
-      if (valueFunctions && valueFunctions[column.key])
+   const columns = this.props.columns;
+   const cells = [];
+   columns.forEach(function(column)
+   {
+      const value = this.determineValue(column, data);
+      const cell = this.determineCell(column, data, value);
+      cells.push(Td(
       {
-         answer = valueFunctions[column.key](data);
-      }
-      else
-      {
-         answer = data[column.key];
-      }
+         key: cells.length,
+         className: column.className,
+         column: column.key,
+         value: value,
+      }, (cell === undefined ? "" : cell)));
+   }, this);
 
-      return answer;
-   },
-});
+   return Tr(
+   {
+      key: key,
+      className: "striped--light-gray",
+   }, cells);
+};
+
+DataTable.prototype.createTable = function(rowData)
+{
+   InputValidator.validateNotNull("rowData", rowData);
+
+   const columns = this.props.columns;
+   const rows = [];
+
+   rowData.forEach(function(data, i)
+   {
+      rows.push(this.createRow(data, i));
+   }.bind(this));
+
+   if (this.props.showFooter && rowData.length > 0)
+   {
+      rows.push(this.createFooterRow(rowData));
+   }
+
+   return Table(
+   {
+      className: "dataTable bg-white collapse f6",
+      columns: columns,
+      sortable: true,
+   }, rows);
+};
+
+DataTable.prototype.determineCell = function(column, data, value)
+{
+   InputValidator.validateNotNull("column", column);
+   InputValidator.validateNotNull("data", data);
+
+   let answer;
+   const cellFunctions = this.props.cellFunctions;
+
+   if (cellFunctions && cellFunctions[column.key])
+   {
+      answer = cellFunctions[column.key](data);
+   }
+   else
+   {
+      answer = value;
+   }
+
+   return answer;
+};
+
+DataTable.prototype.determineValue = function(column, data)
+{
+   InputValidator.validateNotNull("column", column);
+   InputValidator.validateNotNull("data", data);
+
+   let answer;
+   const valueFunctions = this.props.valueFunctions;
+
+   if (valueFunctions && valueFunctions[column.key])
+   {
+      answer = valueFunctions[column.key](data);
+   }
+   else
+   {
+      answer = data[column.key];
+   }
+
+   return answer;
+};
+
+DataTable.propTypes = {
+   columns: PropTypes.array.isRequired,
+   rowData: PropTypes.array.isRequired,
+
+   cellFunctions: PropTypes.object,
+   className: PropTypes.string,
+   showFooter: PropTypes.bool,
+   valueFunctions: PropTypes.object,
+};
+
+DataTable.defaultProps = {
+   showFooter: false,
+};
 
 export default DataTable;

@@ -18,13 +18,9 @@ var store = Redux.createStore(Reducer.root);
 var resourceBase = "../../../src/resource/";
 store.dispatch(Action.setResourceBase(resourceBase));
 
-var ShipGallery = createReactClass(
+class ShipGallery extends React.Component
 {
-   propTypes:
-   {
-      factionKey: PropTypes.string.isRequired,
-   },
-   render: function()
+   render()
    {
       var factionKey = this.props.factionKey;
       var isStrict = true;
@@ -61,8 +57,12 @@ var ShipGallery = createReactClass(
       });
 
       return ReactUtilities.createFlexboxWrap(cells);
-   },
-});
+   }
+}
+
+ShipGallery.propTypes = {
+   factionKey: PropTypes.string.isRequired,
+};
 
 var rows = [];
 

@@ -3,34 +3,23 @@ import UpgradeCard from "../artifact/UpgradeCard.js";
 import Select from "./Select.js";
 import UpgradeTypeUI from "./UpgradeTypeUI.js";
 
-var UpgradeChooser = createReactClass(
+class UpgradeChooser extends React.Component
 {
-   propTypes:
+   constructor(props)
    {
-      onChange: PropTypes.func.isRequired,
-      pilot: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-      upgradeType: PropTypes.object.isRequired,
+      super(props);
 
-      initialUpgrade: PropTypes.object,
-      pilotIndex: PropTypes.number,
-      upgradeIndex: PropTypes.number,
-   },
-
-   getInitialState: function()
-   {
-      var initialUpgrade = this.props.initialUpgrade;
+      var initialUpgrade = props.initialUpgrade;
       var upgradeKey = (initialUpgrade !== undefined ? initialUpgrade.key : undefined);
 
-      return (
-      {
+      this.state = {
          upgradeKey: upgradeKey,
-      });
-   },
+      };
 
-   UPGRADE_PROMPT: "Select an upgrade",
+      this.upgradeChanged = this.upgradeChangedFunction.bind(this);
+   }
 
-   render: function()
+   render()
    {
       var pilot = this.props.pilot;
       var upgradeType = this.props.upgradeType;
@@ -65,23 +54,36 @@ var UpgradeChooser = createReactClass(
 
       return ReactDOMFactories.span(
       {}, image, " ", select);
-   },
+   }
+}
 
-   upgradeChanged: function(event)
+UpgradeChooser.prototype.upgradeChangedFunction = function(event)
+{
+   var upgradeKey = event.currentTarget.value;
+   var upgradeIndex = event.currentTarget.dataset.upgradeindex;
+   upgradeIndex = (upgradeIndex !== undefined ? parseInt(upgradeIndex) : undefined);
+
+   this.setState(
    {
-      var upgradeKey = event.currentTarget.value;
-      var upgradeIndex = event.currentTarget.dataset.upgradeindex;
-      upgradeIndex = (upgradeIndex !== undefined ? parseInt(upgradeIndex) : undefined);
+      upgradeKey: upgradeKey,
+   });
 
-      this.setState(
-      {
-         upgradeKey: upgradeKey,
-      });
+   var pilotIndex = this.props.pilotIndex;
+   var upgrade = UpgradeCard.properties[upgradeKey];
+   this.props.onChange(event, pilotIndex, upgrade, upgradeIndex);
+};
 
-      var pilotIndex = this.props.pilotIndex;
-      var upgrade = UpgradeCard.properties[upgradeKey];
-      this.props.onChange(event, pilotIndex, upgrade, upgradeIndex);
-   },
-});
+UpgradeChooser.UPGRADE_PROMPT = "Select an upgrade";
+
+UpgradeChooser.propTypes = {
+   onChange: PropTypes.func.isRequired,
+   pilot: PropTypes.object.isRequired,
+   resourceBase: PropTypes.string.isRequired,
+   upgradeType: PropTypes.object.isRequired,
+
+   initialUpgrade: PropTypes.object,
+   pilotIndex: PropTypes.number,
+   upgradeIndex: PropTypes.number,
+};
 
 export default UpgradeChooser;
