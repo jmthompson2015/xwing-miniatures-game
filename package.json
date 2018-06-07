@@ -22,10 +22,8 @@
   },
   "homepage": "https://github.com/jmthompson2015/xwing-miniatures-game#readme",
   "dependencies": {
-    "create-react-class": "^15.6.0",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
-    "qunit": "^2.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-dom-factories": "^1.0.2",
@@ -33,5 +31,8 @@
     "redux": "^4.0.0",
     "xwing-data": "^0.65.0",
     "xwing-miniatures-font": "^1.0.29"
+  },
+  "devDependencies": {
+    "qunit": "^2.6.1"
   }
 }
