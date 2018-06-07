@@ -8,27 +8,27 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var keys = ShipAction.keys();
-var resourceBase = "../resource/";
-var className = "ba bg-near-white f6 tl";
-var rows = [];
+const keys = ShipAction.keys();
+const resourceBase = "../resource/";
+const className = "ba bg-near-white f6 tl";
+const rows = [];
 
 keys.forEach(function(shipActionKey)
 {
-   var shipAction = ShipAction.properties[shipActionKey];
-   var image0 = React.createElement(ShipActionUI,
+   const shipAction = ShipAction.properties[shipActionKey];
+   const image0 = React.createElement(ShipActionUI,
    {
       shipAction: shipAction,
       resourceBase: resourceBase,
    });
-   var image1 = React.createElement(ShipActionUI,
+   const image1 = React.createElement(ShipActionUI,
    {
       shipAction: shipAction,
       resourceBase: resourceBase,
       showName: true,
    });
 
-   var cells = [];
+   const cells = [];
 
    cells.push(ReactDOMFactories.td(
    {

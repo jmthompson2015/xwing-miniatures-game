@@ -8,7 +8,7 @@ class InputPanel extends React.Component
    {
       super(props);
 
-      var selected;
+      let selected;
 
       switch (this.props.type)
       {
@@ -49,10 +49,10 @@ class InputPanel extends React.Component
    {
       this.validateProps();
 
-      var inputProps = this.createInputProps();
-      var values = this.props.values;
+      const inputProps = this.createInputProps();
+      const values = this.props.values;
 
-      var rows = values.map(function(value, i)
+      const rows = values.map(function(value, i)
       {
          return this.createRow(i, value, inputProps);
       }, this);
@@ -67,13 +67,13 @@ class InputPanel extends React.Component
 
 InputPanel.prototype.createInputProps = function()
 {
-   var answer = {
+   const answer = {
       name: this.props.name, // needed for radio
       onChange: this.handleChange,
       type: this.props.type,
    };
 
-   var clientProps = this.props.clientProps;
+   const clientProps = this.props.clientProps;
 
    if (clientProps)
    {
@@ -85,10 +85,10 @@ InputPanel.prototype.createInputProps = function()
 
 InputPanel.prototype.createRow = function(i, value, inputProps)
 {
-   var selected = this.state.selected;
-   var labelFunction = this.props.labelFunction;
-   var label = (labelFunction ? labelFunction(value) : value);
-   var type = this.props.type;
+   const selected = this.state.selected;
+   const labelFunction = this.props.labelFunction;
+   const label = (labelFunction ? labelFunction(value) : value);
+   const type = this.props.type;
 
    inputProps.id = i;
 
@@ -107,8 +107,8 @@ InputPanel.prototype.createRow = function(i, value, inputProps)
          throw "Unknown input type: " + type;
    }
 
-   var input = ReactDOMFactories.input(inputProps);
-   var cells = [];
+   const input = ReactDOMFactories.input(inputProps);
+   const cells = [];
 
    if (type === InputPanel.Type.CHECKBOX || type === InputPanel.Type.RADIO)
    {
@@ -144,14 +144,14 @@ InputPanel.prototype.createRow = function(i, value, inputProps)
 
 InputPanel.prototype.handleChangeFunction = function(event)
 {
-   var source = event.target;
-   var id = event.target.id;
-   var selected = this.state.selected;
+   const source = event.target;
+   const id = event.target.id;
+   let selected = this.state.selected;
 
    switch (this.props.type)
    {
       case InputPanel.Type.CHECKBOX:
-         var mySelected = this.props.values[id];
+         const mySelected = this.props.values[id];
          if (source.checked)
          {
             selected.push(mySelected);

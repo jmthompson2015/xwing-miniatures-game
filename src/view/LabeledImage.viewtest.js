@@ -6,9 +6,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
+const resourceBase = "../resource/";
 
-var element = React.createElement(LabeledImage,
+let element = React.createElement(LabeledImage,
 {
    image: "pilotCard/Imperial_Skill32.png",
    resourceBase: resourceBase,
@@ -18,7 +18,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("imperialSkillPanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "pilotCard/Rebel_Skill32.png",
    resourceBase: resourceBase,
@@ -28,7 +28,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("rebelSkillPanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "pilotCard/Scum_Skill32.png",
    resourceBase: resourceBase,
@@ -38,8 +38,8 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("scumSkillPanel"));
 
-var count = 1;
-var element = React.createElement(LabeledImage,
+let count = 1;
+element = React.createElement(LabeledImage,
 {
    image: "token/CloakToken32.png",
    resourceBase: resourceBase,
@@ -50,7 +50,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("cloakPanel1"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "token/CloakToken32.png",
    resourceBase: resourceBase,
@@ -61,7 +61,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("cloakPanel2"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "token/EvadeToken32.png",
    resourceBase: resourceBase,
@@ -71,7 +71,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("evadePanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "token/FocusToken32.png",
    resourceBase: resourceBase,
@@ -81,7 +81,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("focusPanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "token/ShieldToken32.png",
    resourceBase: resourceBase,
@@ -91,7 +91,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("shieldPanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "token/StressToken32.png",
    resourceBase: resourceBase,
@@ -101,7 +101,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("stressPanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "token/AttackerTargetLock32.png",
    resourceBase: resourceBase,
@@ -112,7 +112,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("atlPanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "token/DefenderTargetLock32.png",
    resourceBase: resourceBase,
@@ -123,7 +123,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("dtlPanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "pilotCard/Damage32.jpg",
    resourceBase: resourceBase,
@@ -133,7 +133,7 @@ var element = React.createElement(LabeledImage,
 });
 ReactDOM.render(element, document.getElementById("damagePanel"));
 
-var element = React.createElement(LabeledImage,
+element = React.createElement(LabeledImage,
 {
    image: "pilotCard/CriticalDamage32.jpg",
    resourceBase: resourceBase,

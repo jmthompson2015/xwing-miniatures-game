@@ -8,24 +8,24 @@ QUnit.module("PilotAbility1");
 QUnit.test("condition()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Phase.keys().forEach(function(phaseKey)
    {
-      var abilities = PilotAbility[phaseKey];
+      const abilities = PilotAbility[phaseKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (ability.condition)
             {
-               var result = ability.condition(store, token);
+               const result = ability.condition(store, token);
                assert.ok(result !== undefined, "phaseKey = " + phaseKey + " pilotKey = " + pilotKey);
             }
          });
@@ -38,20 +38,20 @@ QUnit.test("condition()", function(assert)
 QUnit.test("consequent()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Phase.keys().forEach(function(phaseKey)
    {
-      var abilities = PilotAbility[phaseKey];
+      const abilities = PilotAbility[phaseKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (ability.condition && ability.condition(store, token))
             {
@@ -68,20 +68,20 @@ QUnit.test("consequent()", function(assert)
 QUnit.test("function()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Phase.keys().forEach(function(phaseKey)
    {
-      var abilities = PilotAbility[phaseKey];
+      const abilities = PilotAbility[phaseKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (typeof ability === "function")
             {
@@ -97,8 +97,8 @@ QUnit.test("function()", function(assert)
 
 function createEnvironment()
 {
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    environment.setActiveToken(token);
 

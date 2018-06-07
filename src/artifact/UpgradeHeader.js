@@ -1,4 +1,4 @@
-var UpgradeHeader = {
+const UpgradeHeader = {
    ACTION: "action",
    ATTACK: "attack",
    ATTACK_ENERGY: "attackEnergy",

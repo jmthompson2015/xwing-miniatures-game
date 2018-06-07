@@ -34,37 +34,37 @@ class SquadBuilderUI extends React.Component
    {
       LOGGER.trace("SquadBuilderUI.render()");
 
-      var ships = this.props.ships;
-      var pilots = this.props.pilots;
-      var rows = [];
+      const ships = this.props.ships;
+      const pilots = this.props.pilots;
+      const rows = [];
       rows.push(this.createHeaderRow("row" + rows.length));
 
       ships.forEach(function(ship, i)
       {
          rows.push(this.createShipRow(ship, i, "row" + rows.length));
 
-         var pilot = pilots.get(i);
-         var upgradeTypeKeys;
+         const pilot = pilots.get(i);
+         let upgradeTypeKeys;
 
          if (pilot && pilot.fore)
          {
             rows.push(this.createPilotRow(ship, pilot.fore, i, "row" + rows.length));
-            var pilotIndexFore = SquadBuilderUI.computePilotIndexFore(i);
+            const pilotIndexFore = SquadBuilderUI.computePilotIndexFore(i);
             upgradeTypeKeys = this.upgradeTypeKeys(pilot.fore, pilotIndexFore);
 
             upgradeTypeKeys.forEach(function(upgradeTypeKey, j)
             {
-               var upgradeType = UpgradeType.properties[upgradeTypeKey];
+               const upgradeType = UpgradeType.properties[upgradeTypeKey];
                rows.push(this.createUpgradeTypeRow(pilot.fore, pilotIndexFore, upgradeType, j, "row" + rows.length));
             }, this);
 
             rows.push(this.createPilotRow(ship, pilot.aft, i, "row" + rows.length));
-            var pilotIndexAft = SquadBuilderUI.computePilotIndexAft(i);
+            const pilotIndexAft = SquadBuilderUI.computePilotIndexAft(i);
             upgradeTypeKeys = this.upgradeTypeKeys(pilot.aft, pilotIndexAft);
 
             upgradeTypeKeys.forEach(function(upgradeTypeKey, j)
             {
-               var upgradeType = UpgradeType.properties[upgradeTypeKey];
+               const upgradeType = UpgradeType.properties[upgradeTypeKey];
                rows.push(this.createUpgradeTypeRow(pilot.aft, pilotIndexAft, upgradeType, j, "row" + rows.length));
             }, this);
          }
@@ -78,7 +78,7 @@ class SquadBuilderUI extends React.Component
 
                upgradeTypeKeys.forEach(function(upgradeTypeKey, j)
                {
-                  var upgradeType = UpgradeType.properties[upgradeTypeKey];
+                  const upgradeType = UpgradeType.properties[upgradeTypeKey];
                   rows.push(this.createUpgradeTypeRow(pilot, i, upgradeType, j, "row" + rows.length));
                }, this);
             }
@@ -89,7 +89,7 @@ class SquadBuilderUI extends React.Component
       rows.push(this.createShipRow(undefined, ships.size, "row" + rows.length));
       rows.push(this.createFooterRow("row" + rows.length));
 
-      var squadUI = ReactDOMFactories.table(
+      const squadUI = ReactDOMFactories.table(
       {
          className: "squadUI bg-xw-light f6 fl",
       }, ReactDOMFactories.tbody(
@@ -122,19 +122,19 @@ SquadBuilderUI.prototype.createCell = function(key, className, value, onMouseEnt
 
 SquadBuilderUI.prototype.createDisplayItemUI = function()
 {
-   var answer;
-   var displayItem = this.props.displayItem;
+   let answer;
+   const displayItem = this.props.displayItem;
 
    if (displayItem)
    {
-      var xwingType = displayItem.xwingType;
+      const xwingType = displayItem.xwingType;
 
       switch (xwingType)
       {
          case Ship:
-            var faction = this.props.faction;
-            var shipFactionKeys = ShipFaction.keysByShipAndFaction(displayItem.key, faction.key);
-            var shipFactionKey = (shipFactionKeys.length > 0 ? shipFactionKeys[0] : undefined);
+            const faction = this.props.faction;
+            const shipFactionKeys = ShipFaction.keysByShipAndFaction(displayItem.key, faction.key);
+            const shipFactionKey = (shipFactionKeys.length > 0 ? shipFactionKeys[0] : undefined);
 
             answer = React.createElement(ShipCardUI,
             {
@@ -172,13 +172,13 @@ SquadBuilderUI.prototype.createDisplayItemUI = function()
 
 SquadBuilderUI.prototype.createFooterRow = function(key)
 {
-   var cells = [];
-   var squad = this.props.squad;
+   const cells = [];
+   const squad = this.props.squad;
 
    SquadColumns.forEach(function(column)
    {
-      var value = 0;
-      var className = "squadUISum ba bg-xw-medium";
+      let value = 0;
+      let className = "squadUISum ba bg-xw-medium";
 
       switch (column.key)
       {
@@ -192,7 +192,7 @@ SquadBuilderUI.prototype.createFooterRow = function(key)
          default:
             if (squad)
             {
-               var valueFunction = squad[column.key];
+               const valueFunction = squad[column.key];
                value = valueFunction.apply(squad);
             }
             className += " alignRight tr";
@@ -218,12 +218,12 @@ SquadBuilderUI.prototype.createHeaderCell = function(key, className, value)
 
 SquadBuilderUI.prototype.createHeaderRow = function(key)
 {
-   var cells = [];
+   const cells = [];
 
    SquadColumns.forEach(function(column)
    {
-      var value;
-      var className = "";
+      let value;
+      let className = "";
 
       switch (column.key)
       {
@@ -234,7 +234,7 @@ SquadBuilderUI.prototype.createHeaderRow = function(key)
             value = column.label;
             break;
          default:
-            var shipStateKey = column.key.substring(0, column.key.length - "Value".length);
+            const shipStateKey = column.key.substring(0, column.key.length - "Value".length);
             value = React.createElement(ShipStateUI,
             {
                faction: this.props.faction,
@@ -257,14 +257,14 @@ SquadBuilderUI.prototype.createPilotRow = function(ship, pilot, index, rowKey)
    InputValidator.validateIsNumber("index", index);
    InputValidator.validateNotNull("rowKey", rowKey);
 
-   var faction = (pilot ? pilot.shipFaction.faction : this.props.faction);
-   var pilotChooser, onMouseEnter;
-   var that = this;
-   var displayItemChanged = this.props.displayItemChanged;
+   const faction = (pilot ? pilot.shipFaction.faction : this.props.faction);
+   let pilotChooser, onMouseEnter;
+   const that = this;
+   const displayItemChanged = this.props.displayItemChanged;
 
    if (pilot && pilot.parent)
    {
-      var image = React.createElement(FactionUI,
+      const image = React.createElement(FactionUI,
       {
          faction: faction,
          isSmall: true,
@@ -316,12 +316,12 @@ SquadBuilderUI.prototype.createPilotRow = function(ship, pilot, index, rowKey)
       }
    }
 
-   var cells = [];
-   var isImplemented = (pilot ? (pilot.isImplemented === true) : undefined);
+   const cells = [];
+   const isImplemented = (pilot ? (pilot.isImplemented === true) : undefined);
 
    SquadColumns.forEach(function(column)
    {
-      var value, mouseFunction;
+      let value, mouseFunction;
 
       switch (column.key)
       {
@@ -349,7 +349,7 @@ SquadBuilderUI.prototype.createPilotRow = function(ship, pilot, index, rowKey)
                }
                else
                {
-                  var myShip;
+                  let myShip;
                   if (pilot.key.endsWith(".fore"))
                   {
                      myShip = ship.fore;
@@ -377,7 +377,7 @@ SquadBuilderUI.prototype.createShipRow = function(ship, index, rowKey)
    InputValidator.validateIsNumber("index", index);
    InputValidator.validateNotNull("rowKey", rowKey);
 
-   var shipChooser = React.createElement(ShipChooser,
+   const shipChooser = React.createElement(ShipChooser,
    {
       faction: this.props.faction,
       initialShip: ship,
@@ -386,9 +386,9 @@ SquadBuilderUI.prototype.createShipRow = function(ship, index, rowKey)
       resourceBase: this.props.resourceBase,
    });
 
-   var that = this;
-   var displayItemChanged = this.props.displayItemChanged;
-   var onMouseEnter = function()
+   const that = this;
+   const displayItemChanged = this.props.displayItemChanged;
+   const onMouseEnter = function()
    {
       LOGGER.debug("onMouseEnter() ship = " + ship);
 
@@ -401,11 +401,11 @@ SquadBuilderUI.prototype.createShipRow = function(ship, index, rowKey)
       }
    };
 
-   var cells = [];
+   const cells = [];
 
    SquadColumns.forEach(function(column)
    {
-      var value, mouseFunction;
+      let value, mouseFunction;
 
       switch (column.key)
       {
@@ -432,8 +432,8 @@ SquadBuilderUI.prototype.createUpgradeTypeRow = function(pilot, pilotIndex, upgr
    InputValidator.validateIsNumber("upgradeIndex", upgradeIndex);
    InputValidator.validateNotNull("rowKey", rowKey);
 
-   var upgradeCards = this.props.pilotIndexToUpgrades.get(pilotIndex);
-   var isVaksai = upgradeCards.reduce(function(accumulator, upgradeCard)
+   const upgradeCards = this.props.pilotIndexToUpgrades.get(pilotIndex);
+   const isVaksai = upgradeCards.reduce(function(accumulator, upgradeCard)
    {
       if (upgradeCard && upgradeCard.key === UpgradeCard.VAKSAI)
       {
@@ -441,9 +441,9 @@ SquadBuilderUI.prototype.createUpgradeTypeRow = function(pilot, pilotIndex, upgr
       }
       return accumulator;
    }, false);
-   var upgradeCard = upgradeCards.get(upgradeIndex);
+   const upgradeCard = upgradeCards.get(upgradeIndex);
 
-   var upgradeChooser = React.createElement(UpgradeChooser,
+   const upgradeChooser = React.createElement(UpgradeChooser,
    {
       initialUpgrade: upgradeCard,
       onChange: this.upgradeChanged,
@@ -454,9 +454,9 @@ SquadBuilderUI.prototype.createUpgradeTypeRow = function(pilot, pilotIndex, upgr
       upgradeType: upgradeType,
    });
 
-   var that = this;
-   var displayItemChanged = this.props.displayItemChanged;
-   var onMouseEnter = function()
+   const that = this;
+   const displayItemChanged = this.props.displayItemChanged;
+   const onMouseEnter = function()
    {
       LOGGER.debug("onMouseEnter() upgradeCard = " + upgradeCard);
 
@@ -469,12 +469,12 @@ SquadBuilderUI.prototype.createUpgradeTypeRow = function(pilot, pilotIndex, upgr
       }
    };
 
-   var cells = [];
-   var isImplemented = (upgradeCard ? (upgradeCard.isImplemented === true) : undefined);
+   const cells = [];
+   const isImplemented = (upgradeCard ? (upgradeCard.isImplemented === true) : undefined);
 
    SquadColumns.forEach(function(column)
    {
-      var value, mouseFunction;
+      let value, mouseFunction;
 
       switch (column.key)
       {
@@ -523,10 +523,10 @@ SquadBuilderUI.prototype.shipChangedFunction = function(event, ship, index)
 
    if (ship)
    {
-      var faction = this.props.faction;
-      var values = PilotCard.keysByShipAndFaction(ship.key, faction.key);
-      var pilotKey = values[0];
-      var pilot = PilotCard.properties[pilotKey];
+      const faction = this.props.faction;
+      const values = PilotCard.keysByShipAndFaction(ship.key, faction.key);
+      const pilotKey = values[0];
+      const pilot = PilotCard.properties[pilotKey];
       this.props.pilotChanged(pilot, index);
    }
 };
@@ -543,13 +543,13 @@ SquadBuilderUI.prototype.upgradeTypeKeys = function(pilot, pilotIndex)
    InputValidator.validateNotNull("pilot", pilot);
    InputValidator.validateIsNumber("pilotIndex", pilotIndex);
 
-   var answer = pilot.upgradeTypeKeys.slice();
+   let answer = pilot.upgradeTypeKeys.slice();
 
    answer.unshift(UpgradeType.TITLE);
    answer.push(UpgradeType.MODIFICATION);
 
-   var upgrades = this.props.pilotIndexToUpgrades.get(pilotIndex);
-   var upgradeKeys = upgrades.map(function(upgrade)
+   const upgrades = this.props.pilotIndexToUpgrades.get(pilotIndex);
+   const upgradeKeys = upgrades.map(function(upgrade)
    {
       return (upgrade ? upgrade.key : undefined);
    });

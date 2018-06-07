@@ -8,9 +8,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var store = Redux.createStore(Reducer.root);
+const store = Redux.createStore(Reducer.root);
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: store,
 }, React.createElement(AbilityCountContainer));

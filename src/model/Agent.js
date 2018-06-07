@@ -45,7 +45,7 @@ function Agent(store, name, idIn, strategyIn, isNewIn)
       return name;
    };
 
-   var id = idIn;
+   let id = idIn;
 
    if (isNaN(id))
    {
@@ -58,14 +58,14 @@ function Agent(store, name, idIn, strategyIn, isNewIn)
       return id;
    };
 
-   var strategy = (strategyIn !== undefined ? strategyIn : SimpleAgentStrategy);
+   const strategy = (strategyIn !== undefined ? strategyIn : SimpleAgentStrategy);
 
    this._strategy = function()
    {
       return strategy;
    };
 
-   var isNew = (isNewIn !== undefined ? isNewIn : true);
+   const isNew = (isNewIn !== undefined ? isNewIn : true);
 
    if (isNew)
    {
@@ -82,16 +82,16 @@ Agent.prototype.determineValidDecloakActions = function(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var answer = [];
-   var maneuverKeys = [Maneuver.BARREL_ROLL_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_STANDARD, Maneuver.BARREL_ROLL_RIGHT_2_STANDARD];
-   var store = this.store();
-   var adjudicator = store.getState().adjudicator;
+   const answer = [];
+   const maneuverKeys = [Maneuver.BARREL_ROLL_LEFT_2_STANDARD, Maneuver.STRAIGHT_2_STANDARD, Maneuver.BARREL_ROLL_RIGHT_2_STANDARD];
+   const store = this.store();
+   const adjudicator = store.getState().adjudicator;
 
    maneuverKeys.forEach(function(maneuverKey)
    {
       if (adjudicator.canDecloak(token, maneuverKey))
       {
-         var context = {
+         const context = {
             maneuverKey: maneuverKey,
          };
          answer.push(new Ability(ShipAction, ShipAction.DECLOAK, ShipActionAbility, ShipActionAbility.ABILITY_KEY, context));
@@ -105,19 +105,19 @@ Agent.prototype.determineValidManeuvers = function(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var store = this.store();
-   var environment = store.getState().environment;
-   var fromPosition = environment.getPositionFor(token);
-   var shipBase = token.card().shipFaction.ship.shipBase;
-   var playFormatKey = environment.playFormatKey();
-   var maneuverKeys = token.maneuverKeys();
+   const store = this.store();
+   const environment = store.getState().environment;
+   const fromPosition = environment.getPositionFor(token);
+   const shipBase = token.card().shipFaction.ship.shipBase;
+   const playFormatKey = environment.playFormatKey();
+   const maneuverKeys = token.maneuverKeys();
 
    // Find the maneuvers which keep the ship on the battlefield.
    return maneuverKeys.filter(function(maneuverKey)
    {
-      var maneuver = Maneuver.properties[maneuverKey];
-      var toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
-      var polygon;
+      const maneuver = Maneuver.properties[maneuverKey];
+      const toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+      let polygon;
 
       if (toPosition)
       {
@@ -133,16 +133,16 @@ Agent.prototype.determineValidModifyAttackDiceActions = function(attacker, defen
    InputValidator.validateNotNull("attacker", attacker);
    InputValidator.validateNotNull("defender", defender);
 
-   var answer = [];
-   var store = this.store();
+   const answer = [];
+   const store = this.store();
 
-   var usedDiceMods = attacker.usedAbilityKeys(DiceModification);
+   const usedDiceMods = attacker.usedAbilityKeys(DiceModification);
 
    DiceModification.keys().forEach(function(modificationKey)
    {
       if (!usedDiceMods.includes(modificationKey))
       {
-         var modifyDiceAbility = ModifyDiceAbility[ModifyDiceAbility.ATTACK_KEY][modificationKey];
+         const modifyDiceAbility = ModifyDiceAbility[ModifyDiceAbility.ATTACK_KEY][modificationKey];
 
          if (modifyDiceAbility !== undefined && modifyDiceAbility.condition(store, attacker))
          {
@@ -151,11 +151,11 @@ Agent.prototype.determineValidModifyAttackDiceActions = function(attacker, defen
       }
    });
 
-   var pilotKey = attacker.card().key;
+   const pilotKey = attacker.card().key;
 
    if (!attacker.isAbilityUsed(PilotCard, pilotKey) && !attacker.isPerRoundAbilityUsed(PilotCard, pilotKey))
    {
-      var pilotAbility = PilotAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][pilotKey];
+      const pilotAbility = PilotAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][pilotKey];
 
       if (pilotAbility !== undefined && pilotAbility.condition(store, attacker))
       {
@@ -163,14 +163,14 @@ Agent.prototype.determineValidModifyAttackDiceActions = function(attacker, defen
       }
    }
 
-   var attackerUsedUpgrades = attacker.usedAbilityKeys(UpgradeCard);
+   let attackerUsedUpgrades = attacker.usedAbilityKeys(UpgradeCard);
    attackerUsedUpgrades = attackerUsedUpgrades.concat(attacker.usedPerRoundAbilityKeys(UpgradeCard));
 
    attacker.upgradeKeys().forEach(function(upgradeKey)
    {
       if (!attackerUsedUpgrades.includes(upgradeKey))
       {
-         var upgradeAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][upgradeKey];
+         const upgradeAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][upgradeKey];
 
          if (upgradeAbility !== undefined && upgradeAbility.condition(store, attacker))
          {
@@ -187,15 +187,15 @@ Agent.prototype.determineValidModifyDefenseDiceActions = function(attacker, defe
    InputValidator.validateNotNull("attacker", attacker);
    InputValidator.validateNotNull("defender", defender);
 
-   var answer = [];
-   var store = this.store();
-   var usedDiceMods = defender.usedAbilityKeys(DiceModification);
+   const answer = [];
+   const store = this.store();
+   const usedDiceMods = defender.usedAbilityKeys(DiceModification);
 
    DiceModification.keys().forEach(function(modificationKey)
    {
       if (!usedDiceMods.includes(modificationKey))
       {
-         var modifyDiceAbility = ModifyDiceAbility[ModifyDiceAbility.DEFENSE_KEY][modificationKey];
+         const modifyDiceAbility = ModifyDiceAbility[ModifyDiceAbility.DEFENSE_KEY][modificationKey];
 
          if (modifyDiceAbility !== undefined && modifyDiceAbility.condition(store, defender))
          {
@@ -204,11 +204,11 @@ Agent.prototype.determineValidModifyDefenseDiceActions = function(attacker, defe
       }
    });
 
-   var pilotKey = defender.card().key;
+   const pilotKey = defender.card().key;
 
    if (!defender.isAbilityUsed(PilotCard, pilotKey) && !defender.isPerRoundAbilityUsed(PilotCard, pilotKey))
    {
-      var pilotAbility = PilotAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][pilotKey];
+      const pilotAbility = PilotAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][pilotKey];
 
       if (pilotAbility !== undefined && pilotAbility.condition(store, defender))
       {
@@ -216,14 +216,14 @@ Agent.prototype.determineValidModifyDefenseDiceActions = function(attacker, defe
       }
    }
 
-   var defenderUsedUpgrades = attacker.usedAbilityKeys(UpgradeCard);
+   let defenderUsedUpgrades = attacker.usedAbilityKeys(UpgradeCard);
    defenderUsedUpgrades = defenderUsedUpgrades.concat(attacker.usedPerRoundAbilityKeys(UpgradeCard));
 
    defender.upgradeKeys().forEach(function(upgradeKey)
    {
       if (!defenderUsedUpgrades.includes(upgradeKey))
       {
-         var upgradeAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][upgradeKey];
+         const upgradeAbility = UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][upgradeKey];
 
          if (upgradeAbility !== undefined && upgradeAbility.condition(store, defender))
          {
@@ -240,29 +240,29 @@ Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
    InputValidator.validateNotNull("token", token);
    // shipActionKeys0 optional.
 
-   var answer = [];
-   var store = this.store();
-   var environment = store.getState().environment;
-   var adjudicator = store.getState().adjudicator;
+   const answer = [];
+   const store = this.store();
+   const environment = store.getState().environment;
+   const adjudicator = store.getState().adjudicator;
 
    if (!adjudicator.canSelectShipAction(token))
    {
       return answer;
    }
 
-   var shipActionKeys = (shipActionKeys0 !== undefined ? shipActionKeys0 : token.shipActions());
-   var usedShipActionKeys = token.usedPerRoundAbilityKeys(ShipAction);
+   let shipActionKeys = (shipActionKeys0 !== undefined ? shipActionKeys0 : token.shipActions());
+   const usedShipActionKeys = token.usedPerRoundAbilityKeys(ShipAction);
    shipActionKeys = shipActionKeys.filter(function(shipActionKey)
    {
       return !usedShipActionKeys.includes(shipActionKey);
    });
 
-   var context;
-   var maneuverKeysMap = {};
+   let context;
+   const maneuverKeysMap = {};
    maneuverKeysMap[ShipAction.BARREL_ROLL] = [Maneuver.BARREL_ROLL_LEFT_1_STANDARD, Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
    maneuverKeysMap[ShipAction.BOOST] = [Maneuver.BANK_LEFT_1_STANDARD, Maneuver.STRAIGHT_1_STANDARD, Maneuver.BANK_RIGHT_1_STANDARD];
    maneuverKeysMap[ShipAction.SLAM] = token.card().shipFaction.ship.maneuverKeys;
-   var canDoItMap = {};
+   const canDoItMap = {};
    canDoItMap[ShipAction.BARREL_ROLL] = function(maneuverKey)
    {
       return adjudicator.canBarrelRoll(token, maneuverKey);
@@ -275,7 +275,7 @@ Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
    {
       return adjudicator.canSlam(token, maneuverKey);
    };
-   var tokens;
+   let tokens;
 
    shipActionKeys.forEach(function(shipActionKey)
    {
@@ -319,7 +319,7 @@ Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
             tokens = tokens.concat(environment.getUnfriendlyTokensAtRange(token, Range.TWO));
             tokens.forEach(function(myToken)
             {
-               var isHuge = myToken.isHuge();
+               const isHuge = myToken.isHuge();
 
                if (!isHuge && myToken.stressCount() < 2)
                {
@@ -334,7 +334,7 @@ Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
          case ShipAction.REINFORCE:
             if (token.idParent() !== undefined)
             {
-               var tokenParent = environment.parentOf(token);
+               const tokenParent = environment.parentOf(token);
 
                if (!tokenParent.tokenFore().isDestroyed())
                {
@@ -363,7 +363,7 @@ Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
             // FIXME: implement ship action rotate arc.
             break;
          case ShipAction.TARGET_LOCK:
-            var defenders = (token.isUpgradedWith(UpgradeCard.ST_321) ? environment.getDefenders(token) : environment.getDefendersInRange(token));
+            const defenders = (token.isUpgradedWith(UpgradeCard.ST_321) ? environment.getDefenders(token) : environment.getDefendersInRange(token));
             defenders.forEach(function(defender)
             {
                // Only put choices without a current target lock.
@@ -384,16 +384,16 @@ Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
 
    if (shipActionKeys0 === undefined)
    {
-      var phaseKey = Phase.ACTIVATION_PERFORM_ACTION;
-      var usedUpgradeKeys = token.usedPerRoundAbilityKeys(UpgradeCard);
+      const phaseKey = Phase.ACTIVATION_PERFORM_ACTION;
+      const usedUpgradeKeys = token.usedPerRoundAbilityKeys(UpgradeCard);
 
       token.upgradeKeys().forEach(function(upgradeKey)
       {
-         var myUpgrade = UpgradeCard.properties[upgradeKey];
+         const myUpgrade = UpgradeCard.properties[upgradeKey];
 
          if (myUpgrade && myUpgrade.headerKey === UpgradeHeader.ACTION)
          {
-            var myAbility = UpgradeAbility2[phaseKey][upgradeKey];
+            const myAbility = UpgradeAbility2[phaseKey][upgradeKey];
 
             if (myAbility !== undefined && !usedUpgradeKeys.includes(upgradeKey) && myAbility.condition(store, token))
             {
@@ -402,15 +402,15 @@ Agent.prototype.determineValidShipActions = function(token, shipActionKeys0)
          }
       });
 
-      var usedDamageKeys = token.usedPerRoundAbilityKeys(DamageCard);
+      const usedDamageKeys = token.usedPerRoundAbilityKeys(DamageCard);
 
       token.criticalDamageKeys().forEach(function(damageKey)
       {
-         var myDamage = DamageCard.properties[damageKey];
+         const myDamage = DamageCard.properties[damageKey];
 
          if (myDamage && myDamage.hasAction)
          {
-            var myAbility = DamageAbility2[phaseKey][damageKey];
+            const myAbility = DamageAbility2[phaseKey][damageKey];
 
             if (myAbility !== undefined && !usedDamageKeys.includes(damageKey) && myAbility.condition(store, token))
             {
@@ -454,9 +454,9 @@ Agent.prototype.chooseWeaponAndDefender = function(attacker, callback, weaponIn)
    InputValidator.validateIsFunction("callback", callback);
    // weapon optional.
 
-   var store = this.store();
-   var environment = store.getState().environment;
-   var choices = environment.createWeaponToRangeToDefenders(attacker, weaponIn);
+   const store = this.store();
+   const environment = store.getState().environment;
+   const choices = environment.createWeaponToRangeToDefenders(attacker, weaponIn);
 
    if (choices.length > 0)
    {
@@ -477,8 +477,8 @@ Agent.prototype.dealDamage = function(attacker, attackDice, defender, defenseDic
    InputValidator.validateNotNull("damageDealer", damageDealer);
    InputValidator.validateIsFunction("callback", callback);
 
-   var store = this.store();
-   var weapon = Selector.combatAction(store.getState(), attacker).weapon();
+   const store = this.store();
+   const weapon = Selector.combatAction(store.getState(), attacker).weapon();
 
    this._strategy().dealDamage(this, attacker, weapon, attackDice, defender, defenseDice, damageDealer, callback);
 };
@@ -488,7 +488,7 @@ Agent.prototype.getDecloakAction = function(token, callback)
    InputValidator.validateNotNull("token", token);
    InputValidator.validateIsFunction("callback", callback);
 
-   var decloakActions = this.determineValidDecloakActions(token);
+   const decloakActions = this.determineValidDecloakActions(token);
    this._strategy().chooseDecloakAction(this, token, decloakActions, callback);
 };
 
@@ -498,7 +498,7 @@ Agent.prototype.getModifyAttackDiceAction = function(attacker, defender, callbac
    InputValidator.validateNotNull("defender", defender);
    InputValidator.validateIsFunction("callback", callback);
 
-   var modifications = this.determineValidModifyAttackDiceActions(attacker, defender);
+   const modifications = this.determineValidModifyAttackDiceActions(attacker, defender);
    this._strategy().chooseModifyAttackDiceAction(this, attacker, defender, modifications, callback);
 };
 
@@ -508,7 +508,7 @@ Agent.prototype.getModifyDefenseDiceAction = function(attacker, defender, callba
    InputValidator.validateNotNull("defender", defender);
    InputValidator.validateIsFunction("callback", callback);
 
-   var modifications = this.determineValidModifyDefenseDiceActions(attacker, defender);
+   const modifications = this.determineValidModifyDefenseDiceActions(attacker, defender);
    this._strategy().chooseModifyDefenseDiceAction(this, attacker, defender, modifications, callback);
 };
 
@@ -516,13 +516,13 @@ Agent.prototype.getPlanningAction = function(callback)
 {
    InputValidator.validateIsFunction("callback", callback);
 
-   var isPure = false;
-   var tokens = this.pilotInstances(isPure);
-   var tokenToValidManeuvers = {};
+   const isPure = false;
+   const tokens = this.pilotInstances(isPure);
+   const tokenToValidManeuvers = {};
 
    tokens.forEach(function(token)
    {
-      var validManeuvers = this.determineValidManeuvers(token);
+      const validManeuvers = this.determineValidManeuvers(token);
       tokenToValidManeuvers[token] = validManeuvers;
    }, this);
 
@@ -535,13 +535,13 @@ Agent.prototype.getShipAction = function(token, callback, shipActionKeys0)
    // callback optional.
    // shipActionKeys0 optional.
 
-   var store = token.store();
-   var environment = store.getState().environment;
-   var activeCardInstance = environment.activeCardInstance();
+   const store = token.store();
+   const environment = store.getState().environment;
+   const activeCardInstance = environment.activeCardInstance();
 
    if (activeCardInstance && activeCardInstance.id() === token.id())
    {
-      var shipActionKeys = this.determineValidShipActions(token, shipActionKeys0);
+      const shipActionKeys = this.determineValidShipActions(token, shipActionKeys0);
       this._strategy().chooseShipAction(this, token, shipActionKeys, callback);
    }
    else
@@ -552,10 +552,10 @@ Agent.prototype.getShipAction = function(token, callback, shipActionKeys0)
 
 Agent.prototype.pilotInstances = function(isPureIn)
 {
-   var store = this.store();
-   var isPure = (isPureIn !== undefined ? isPureIn : false);
-   var ids = store.getState().agentPilots.get(this.id());
-   var answer = Agent.idsToCardInstances(store, ids).toJS();
+   const store = this.store();
+   const isPure = (isPureIn !== undefined ? isPureIn : false);
+   const ids = store.getState().agentPilots.get(this.id());
+   let answer = Agent.idsToCardInstances(store, ids).toJS();
 
    if (isPure)
    {
@@ -582,9 +582,9 @@ Agent.prototype.pilotInstances = function(isPureIn)
 
 Agent.prototype._save = function()
 {
-   var store = this.store();
-   var id = this.id();
-   var values = Immutable.Map(
+   const store = this.store();
+   const id = this.id();
+   const values = Immutable.Map(
    {
       id: id,
       name: this.name(),
@@ -609,14 +609,14 @@ Agent.get = function(store, id)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateIsNumber("id", id);
 
-   var values = store.getState().agents.get(id);
-   var answer;
+   const values = store.getState().agents.get(id);
+   let answer;
 
    if (values !== undefined)
    {
-      var name = values.get("name");
-      var strategy = values.get("strategy");
-      var isNew = false;
+      const name = values.get("name");
+      const strategy = values.get("strategy");
+      const isNew = false;
 
       answer = new Agent(store, name, id, strategy, isNew);
    }
@@ -629,13 +629,13 @@ Agent.idsToCardInstances = function(store, ids)
    InputValidator.validateNotNull("store", store);
    // ids optional.
 
-   var answer;
+   let answer;
 
    if (ids !== undefined)
    {
       answer = ids.reduce(function(accumulator, id)
       {
-         var cardInstance = CardInstance.get(store, id);
+         const cardInstance = CardInstance.get(store, id);
          if (cardInstance !== undefined)
          {
             accumulator = accumulator.push(cardInstance);

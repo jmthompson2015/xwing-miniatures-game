@@ -10,24 +10,24 @@ QUnit.module("DamageAbility0");
 QUnit.test("condition()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Event.keys().forEach(function(eventKey)
    {
-      var abilities = DamageAbility[eventKey];
+      const abilities = DamageAbility[eventKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(damageKey)
          {
-            var ability = abilities[damageKey];
+            const ability = abilities[damageKey];
 
             if (ability.condition)
             {
-               var result = ability.condition(store, token);
+               const result = ability.condition(store, token);
                assert.ok(result !== undefined, "eventKey = " + eventKey + " damageKey = " + damageKey);
             }
          });
@@ -38,29 +38,29 @@ QUnit.test("condition()", function(assert)
 QUnit.test("consequent()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Event.keys().forEach(function(eventKey)
    {
-      var abilities = DamageAbility[eventKey];
+      const abilities = DamageAbility[eventKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(damageKey)
          {
-            var damageInstance = new CardInstance(store, damageKey);
+            const damageInstance = new CardInstance(store, damageKey);
             token.receiveCriticalDamage(damageInstance);
-            var eventCallback = function()
+            const eventCallback = function()
             {
                assert.ok(true, "test resumed from async operation");
                assert.ok(true, "eventKey = " + eventKey + " damageKey = " + damageKey);
                done();
             };
             store.dispatch(Action.enqueueEvent(eventKey, token, eventCallback));
-            var done = assert.async();
+            const done = assert.async();
             store.dispatch(Action.dequeueEvent());
          });
       }
@@ -69,8 +69,8 @@ QUnit.test("consequent()", function(assert)
 
 function createEnvironment()
 {
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    environment.setActiveToken(token);
 

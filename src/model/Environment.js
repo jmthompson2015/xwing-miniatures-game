@@ -55,8 +55,8 @@ function Environment(store, agent1, squad1, agent2, squad2, positions1, position
    store.dispatch(Action.setEnvironment(this));
 
    // Initialize the damage deck.
-   var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
-   var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+   const damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+   const damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
    store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
 
    this._placeInitialTokens(agent1, squad1, agent2, squad2, positions1, positions2);
@@ -67,8 +67,8 @@ function Environment(store, agent1, squad1, agent2, squad2, positions1, position
 
 Environment.prototype.activeCardInstance = function()
 {
-   var store = this.store();
-   var activeCardId = store.getState().activeCardId;
+   const store = this.store();
+   const activeCardId = store.getState().activeCardId;
 
    return (activeCardId !== undefined ? CardInstance.get(store, activeCardId) : undefined);
 };
@@ -77,11 +77,11 @@ Environment.prototype.cardInstances = function(cardTypeKey)
 {
    // cardTypeKey optional.
 
-   var store = this.store();
-   var cardInstances = store.getState().cardInstances;
-   var keys = cardInstances.keySeq().toArray();
+   const store = this.store();
+   const cardInstances = store.getState().cardInstances;
+   const keys = cardInstances.keySeq().toArray();
 
-   var answer = keys.map(function(id)
+   let answer = keys.map(function(id)
    {
       return CardInstance.get(store, id);
    });
@@ -99,13 +99,13 @@ Environment.prototype.cardInstances = function(cardTypeKey)
 
 Environment.prototype.createTokenPositions = function()
 {
-   var answer = [];
+   const answer = [];
 
-   var tokens = this.pilotInstances();
+   const tokens = this.pilotInstances();
 
    tokens.forEach(function(token)
    {
-      var position = this.getPositionFor(token);
+      const position = this.getPositionFor(token);
       answer.push(
       {
          token: token,
@@ -121,17 +121,17 @@ Environment.prototype.createWeaponToRangeToDefenders = function(attacker, weapon
    InputValidator.validateNotNull("attacker", attacker);
    // weaponIn optional.
 
-   var answer = [];
+   const answer = [];
 
-   var attackerPosition = this.getPositionFor(attacker);
+   const attackerPosition = this.getPositionFor(attacker);
 
    if (attackerPosition)
    {
-      var primaryWeapon = attacker.primaryWeapon();
+      const primaryWeapon = attacker.primaryWeapon();
 
       if (primaryWeapon && (!weaponIn || weaponIn.equals(primaryWeapon)))
       {
-         var rangeToDefenders = this._createRangeToDefenders(attacker, attackerPosition, primaryWeapon);
+         const rangeToDefenders = this._createRangeToDefenders(attacker, attackerPosition, primaryWeapon);
 
          if (rangeToDefenders.length > 0)
          {
@@ -139,13 +139,13 @@ Environment.prototype.createWeaponToRangeToDefenders = function(attacker, weapon
          }
       }
 
-      var weapons = attacker.secondaryWeapons();
+      const weapons = attacker.secondaryWeapons();
 
       weapons.forEach(function(weapon)
       {
          if (!weaponIn || weaponIn.equals(weapon))
          {
-            rangeToDefenders = this._createRangeToDefenders(attacker, attackerPosition, weapon);
+            const rangeToDefenders = this._createRangeToDefenders(attacker, attackerPosition, weapon);
 
             if (rangeToDefenders.length > 0)
             {
@@ -160,14 +160,14 @@ Environment.prototype.createWeaponToRangeToDefenders = function(attacker, weapon
 
 Environment.prototype.firstAgent = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().firstAgent;
 };
 
 Environment.prototype.firstSquad = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().firstSquad;
 };
@@ -176,15 +176,15 @@ Environment.prototype.getDefenders = function(attacker0)
 {
    InputValidator.validateNotNull("attacker", attacker0);
 
-   var attacker = (attacker0.idParent() !== undefined ? this.parentOf(attacker0) : attacker0);
-   var answer = [];
-   var firstTokens = this.firstSquad().tokens();
-   var firstTokenIds = firstTokens.map(function(token)
+   const attacker = (attacker0.idParent() !== undefined ? this.parentOf(attacker0) : attacker0);
+   let answer = [];
+   const firstTokens = this.firstSquad().tokens();
+   const firstTokenIds = firstTokens.map(function(token)
    {
       return token.id();
    });
-   var secondTokens = this.secondSquad().tokens();
-   var secondTokenIds = secondTokens.map(function(token)
+   const secondTokens = this.secondSquad().tokens();
+   const secondTokenIds = secondTokens.map(function(token)
    {
       return token.id();
    });
@@ -215,19 +215,19 @@ Environment.prototype.getDefendersInRange = function(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var answer = [];
-   var attackerPosition = this.getPositionFor(attacker);
+   let answer = [];
+   const attackerPosition = this.getPositionFor(attacker);
 
    if (attackerPosition)
    {
-      var defenders = this.getDefenders(attacker);
+      const defenders = this.getDefenders(attacker);
 
       if (defenders && defenders.length > 0)
       {
          answer = defenders.filter(function(defender)
          {
-            var defenderPosition = this.getPositionFor(defender);
-            var range = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
+            const defenderPosition = this.getPositionFor(defender);
+            const range = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
             return (Range.STANDARD_RANGES.includes(range));
          }, this);
       }
@@ -249,19 +249,19 @@ Environment.prototype.getPositionFor = function(token)
    InputValidator.validateNotNull("token", token);
    InputValidator.validateIsFunction("token.id", token.id);
 
-   var store = this.store();
-   var answer;
+   const store = this.store();
+   let answer;
 
    if (token.idParent() !== undefined)
    {
-      var tokenParent = this.parentOf(token);
-      var parentPosition = this.getPositionFor(tokenParent);
+      const tokenParent = this.parentOf(token);
+      const parentPosition = this.getPositionFor(tokenParent);
 
       if (parentPosition)
       {
-         var angle = parentPosition.heading() * Math.PI / 180.0;
-         var length = 72;
-         var x, y;
+         const angle = parentPosition.heading() * Math.PI / 180.0;
+         const length = 72;
+         let x, y;
 
          if (token.card().key.endsWith(".fore"))
          {
@@ -294,11 +294,11 @@ Environment.prototype.getTargetableDefenders = function(attacker, attackerPositi
    InputValidator.validateNotNull("attackerPosition", attackerPosition);
    InputValidator.validateNotNull("weapon", weapon);
 
-   var answer = this.getDefenders(attacker);
+   let answer = this.getDefenders(attacker);
    LOGGER.trace("Environment.getTargetableDefenders() 0 defenders = " + answer);
    answer = answer.filter(function(defender)
    {
-      var defenderPosition = this.getPositionFor(defender);
+      const defenderPosition = this.getPositionFor(defender);
       return this._isTargetable(attacker, attackerPosition, weapon, defender, defenderPosition);
    }, this);
    LOGGER.trace("Environment.getTargetableDefenders() 1 targetable defenders = " + answer);
@@ -313,12 +313,12 @@ Environment.prototype.getTargetableDefendersAtRange = function(attacker, attacke
    InputValidator.validateNotNull("weapon", weapon);
    InputValidator.validateNotNull("range", range);
 
-   var answer = this.getTargetableDefenders(attacker, attackerPosition, weapon);
+   let answer = this.getTargetableDefenders(attacker, attackerPosition, weapon);
    LOGGER.trace("Environment.getTargetableDefendersAtRange() 0 targetable defenders = " + answer);
    answer = answer.filter(function(defender)
    {
-      var defenderPosition = this.getPositionFor(defender);
-      var myRange = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
+      const defenderPosition = this.getPositionFor(defender);
+      const myRange = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
       return (myRange === range);
    }, this);
    LOGGER.trace("Environment.getTargetableDefendersAtRange() 1 targetable defenders = " + answer);
@@ -330,9 +330,9 @@ Environment.prototype.getTokenAt = function(position)
 {
    InputValidator.validateNotNull("position", position);
 
-   var store = this.store();
-   var answer;
-   var tokenId = store.getState().positionToCardId.get(position.toString());
+   const store = this.store();
+   let answer;
+   const tokenId = store.getState().positionToCardId.get(position.toString());
 
    if (tokenId !== undefined)
    {
@@ -344,11 +344,11 @@ Environment.prototype.getTokenAt = function(position)
 
 Environment.prototype.getTokenById = function(tokenId)
 {
-   var answer;
+   let answer;
 
    if (tokenId !== undefined)
    {
-      var store = this.store();
+      const store = this.store();
       answer = CardInstance.get(store, tokenId);
    }
 
@@ -360,11 +360,11 @@ Environment.prototype.getTokensAtRange = function(token0, range)
    InputValidator.validateNotNull("token0", token0);
    InputValidator.validateNotNull("range", range);
 
-   var position0 = this.getPositionFor(token0);
+   const position0 = this.getPositionFor(token0);
 
    return this.pilotInstances().filter(function(token)
    {
-      var answer;
+      let answer;
 
       if (token.equals(token0))
       {
@@ -372,11 +372,11 @@ Environment.prototype.getTokensAtRange = function(token0, range)
       }
       else
       {
-         var position = this.getPositionFor(token);
+         const position = this.getPositionFor(token);
 
          if (position0 !== undefined && position !== undefined)
          {
-            var myRange = RangeRuler.getRange(token0, position0, token, position);
+            const myRange = RangeRuler.getRange(token0, position0, token, position);
             answer = (myRange === range);
          }
          else
@@ -391,7 +391,7 @@ Environment.prototype.getTokensAtRange = function(token0, range)
 
 Environment.prototype.getTokensForActivation = function(isPure)
 {
-   var pilotInstances = this.pilotInstances(isPure);
+   const pilotInstances = this.pilotInstances(isPure);
    pilotInstances.sort(CardComparator.Activation);
 
    return pilotInstances;
@@ -399,8 +399,8 @@ Environment.prototype.getTokensForActivation = function(isPure)
 
 Environment.prototype.getTokensForCombat = function()
 {
-   var isPure = true;
-   var pilotInstances = this.pilotInstances(isPure);
+   const isPure = true;
+   const pilotInstances = this.pilotInstances(isPure);
    pilotInstances.sort(CardComparator.Combat);
 
    return pilotInstances;
@@ -418,12 +418,12 @@ Environment.prototype.parentOf = function(pilotInstance)
 {
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   var answer;
-   var idParent = pilotInstance.idParent();
+   let answer;
+   const idParent = pilotInstance.idParent();
 
    if (idParent !== undefined)
    {
-      var store = this.store();
+      const store = this.store();
       answer = CardInstance.get(store, idParent);
    }
 
@@ -432,7 +432,7 @@ Environment.prototype.parentOf = function(pilotInstance)
 
 Environment.prototype.pilotInstances = function(isPure)
 {
-   var cardInstances = this.cardInstances(CardType.PILOT);
+   const cardInstances = this.cardInstances(CardType.PILOT);
 
    return cardInstances.reduce(function(accumulator, cardInstance)
    {
@@ -461,38 +461,38 @@ Environment.prototype.playFormat = function()
 
 Environment.prototype.playFormatKey = function()
 {
-   var store = this.store();
+   const store = this.store();
    return store.getState().playFormatKey;
 };
 
 Environment.prototype.round = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().round;
 };
 
 Environment.prototype.secondAgent = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().secondAgent;
 };
 
 Environment.prototype.secondSquad = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().secondSquad;
 };
 
 Environment.prototype.toString = function()
 {
-   var tokens = this.pilotInstances();
-   var getPositionFor = this.getPositionFor.bind(this);
+   const tokens = this.pilotInstances();
+   const getPositionFor = this.getPositionFor.bind(this);
    return tokens.reduce(function(accumulator, token)
    {
-      var position = getPositionFor(token);
+      const position = getPositionFor(token);
       return accumulator + position.toString() + " " + token.toString() + "\n";
    }, "");
 };
@@ -505,9 +505,9 @@ Environment.prototype.addTouching = function(pilotInstance1, pilotInstance2)
    InputValidator.validateNotNull("pilotInstance1", pilotInstance1);
    InputValidator.validateNotNull("pilotInstance2", pilotInstance2);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
-   var message = pilotInstance1.name() + " touching " + pilotInstance2.name();
+   const message = pilotInstance1.name() + " touching " + pilotInstance2.name();
    store.dispatch(Action.setUserMessage(message));
    LOGGER.info(message);
 };
@@ -526,14 +526,14 @@ Environment.prototype.discardDamage = function(damage)
 {
    InputValidator.validateNotNull("damage", damage);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.discardDamage(damage));
 };
 
 Environment.prototype.drawDamage = function()
 {
-   var answer;
-   var store = this.store();
+   let answer;
+   const store = this.store();
 
    if (store.getState().damageDeck.size === 0)
    {
@@ -551,7 +551,7 @@ Environment.prototype.drawDamage = function()
 
 Environment.prototype.incrementRound = function()
 {
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.addRound());
 };
 
@@ -560,7 +560,7 @@ Environment.prototype.moveToken = function(fromPosition, toPosition)
    InputValidator.validateNotNull("fromPosition", fromPosition);
    InputValidator.validateNotNull("toPosition", toPosition);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.moveToken(fromPosition, toPosition));
 };
 
@@ -568,7 +568,7 @@ Environment.prototype.removeToken = function(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.removeToken(token));
    store.dispatch(AgentAction.removePilot(token.agent(), token));
 };
@@ -577,13 +577,13 @@ Environment.prototype.removeTouching = function(pilotInstance)
 {
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.removeTouching(pilotInstance));
 };
 
 Environment.prototype.setActiveToken = function(newActiveToken)
 {
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.setActiveToken(newActiveToken));
 };
 
@@ -591,7 +591,7 @@ Environment.prototype.setPlayAreaScale = function(scale)
 {
    InputValidator.validateNotNull("scale", scale);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.setPlayAreaScale(scale));
 };
 
@@ -604,31 +604,31 @@ Environment.prototype._placeInitialTokens = function(agent1, squad1, agent2, squ
    // positions1 optional.
    // positions2 optional.
 
-   var store = this.store();
-   var firstAgent = agent1.newInstance(store);
-   var secondAgent = agent2.newInstance(store);
+   const store = this.store();
+   const firstAgent = agent1.newInstance(store);
+   const secondAgent = agent2.newInstance(store);
    store.dispatch(EnvironmentAction.setFirstAgent(firstAgent));
    store.dispatch(EnvironmentAction.setSecondAgent(secondAgent));
 
-   var firstTokens = squad1.tokens().map(function(token)
+   const firstTokens = squad1.tokens().map(function(token)
    {
       return token.newInstance(store, firstAgent);
    });
-   var secondTokens = squad2.tokens().map(function(token)
+   const secondTokens = squad2.tokens().map(function(token)
    {
       return token.newInstance(store, secondAgent);
    });
 
-   var firstSquad = new Squad(squad1.factionKey(), squad1.name(), squad1.year(), squad1.description(), firstTokens);
+   const firstSquad = new Squad(squad1.factionKey(), squad1.name(), squad1.year(), squad1.description(), firstTokens);
    store.dispatch(EnvironmentAction.setFirstSquad(firstSquad));
-   var secondSquad = new Squad(squad2.factionKey(), squad2.name(), squad2.year(), squad2.description(), secondTokens);
+   const secondSquad = new Squad(squad2.factionKey(), squad2.name(), squad2.year(), squad2.description(), secondTokens);
    store.dispatch(EnvironmentAction.setSecondSquad(secondSquad));
 
    // Determine the play format.
-   var tokens = [];
+   const tokens = [];
    ArrayUtilities.addAll(tokens, squad1.tokens());
    ArrayUtilities.addAll(tokens, squad2.tokens());
-   var playFormatKey = this._determinePlayFormat(tokens);
+   const playFormatKey = this._determinePlayFormat(tokens);
    store.dispatch(EnvironmentAction.setPlayFormat(playFormatKey));
 
    this._placeTokens(firstTokens, true, positions1);
@@ -640,7 +640,7 @@ Environment.prototype._placeToken = function(position, token)
    InputValidator.validateNotNull("position", position);
    InputValidator.validateNotNull("token", token);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(EnvironmentAction.placeToken(position, token));
 };
 
@@ -650,14 +650,14 @@ Environment.prototype._placeTokens = function(tokens, isTop, positions)
    InputValidator.validateNotNull("isTop", isTop);
    // positions optional.
 
-   var size = tokens.length;
-   var dx = this.playFormat().width / (size + 1);
-   var heading = isTop ? 90 : -90;
+   const size = tokens.length;
+   const dx = this.playFormat().width / (size + 1);
+   const heading = isTop ? 90 : -90;
 
-   for (var i = 1; i <= tokens.length; i++)
+   for (let i = 1; i <= tokens.length; i++)
    {
-      var position;
-      var token = tokens[i - 1];
+      let position;
+      const token = tokens[i - 1];
 
       if (positions !== undefined)
       {
@@ -665,9 +665,9 @@ Environment.prototype._placeTokens = function(tokens, isTop, positions)
       }
       else
       {
-         var shipBase = token.card().shipFaction.ship.shipBase;
-         var x = i * dx;
-         var y = (shipBase.width / 2);
+         const shipBase = token.card().shipFaction.ship.shipBase;
+         const x = i * dx;
+         let y = (shipBase.width / 2);
 
          if (!isTop)
          {
@@ -699,14 +699,14 @@ Environment.prototype._createRangeData = function(range, defenders)
 
 Environment.prototype._createRangeToDefenders = function(attacker, attackerPosition, weapon)
 {
-   var answer = [];
+   const answer = [];
 
-   var rangeKeys = weapon.rangeKeys();
+   const rangeKeys = weapon.rangeKeys();
 
    rangeKeys.forEach(function(range)
    {
       LOGGER.trace("Environment.createRangeToDefenders() range = " + range);
-      var defenders = this.getTargetableDefendersAtRange(attacker, attackerPosition, weapon, range);
+      const defenders = this.getTargetableDefendersAtRange(attacker, attackerPosition, weapon, range);
       LOGGER.trace("Environment.createRangeToDefenders() defenders.length = " + defenders.length);
 
       if (defenders.length > 0)
@@ -734,15 +734,15 @@ Environment.prototype._determinePlayFormat = function(tokens)
 {
    InputValidator.validateNotNull("tokens", tokens);
 
-   var answer;
+   let answer;
 
    if (tokens.length > 0)
    {
       answer = PlayFormat.STANDARD;
 
-      for (var i = 0; i < tokens.length; i++)
+      for (let i = 0; i < tokens.length; i++)
       {
-         var token = tokens[i];
+         const token = tokens[i];
 
          if (token.isHuge())
          {

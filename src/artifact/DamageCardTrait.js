@@ -1,4 +1,4 @@
-var DamageCardTrait = {
+const DamageCardTrait = {
    PILOT: "pilot",
    SHIP: "ship",
    properties:
@@ -31,10 +31,10 @@ DamageCardTrait.values = function()
 
 DamageCardTrait.findByName = function(name)
 {
-   var answer;
-   var values = DamageCardTrait.values();
+   let answer;
+   const values = DamageCardTrait.values();
 
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
       if (values[i].name === name)
       {

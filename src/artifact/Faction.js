@@ -3,7 +3,7 @@
  *
  * @see <a href="http://stijndewitt.wordpress.com/2014/01/26/enums-in-javascript/">Enums in JavaScript</a>
  */
-var Faction = {
+const Faction = {
    IMPERIAL: "imperial",
    FIRST_ORDER: "firstOrder",
    REBEL: "rebel",
@@ -72,7 +72,7 @@ Faction.values = function()
 
 Faction.friend = function(factionKey)
 {
-   var answer;
+   let answer;
 
    switch (factionKey)
    {

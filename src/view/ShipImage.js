@@ -4,9 +4,9 @@ import FiringArc from "../artifact/FiringArc.js";
 import Ship from "../artifact/Ship.js";
 import ShipBase from "../artifact/ShipBase.js";
 
-var ShipImage = {};
+const ShipImage = {};
 
-var DEG_TO_RADIANS = Math.PI / 180.0;
+const DEG_TO_RADIANS = Math.PI / 180.0;
 
 ShipImage.draw = function(context, scale, id, image, position, shipFaction)
 {
@@ -18,15 +18,15 @@ ShipImage.draw = function(context, scale, id, image, position, shipFaction)
    InputValidator.validateNotNull("shipFaction", shipFaction);
 
    // Setup.
-   var primaryFiringArc = shipFaction.ship.primaryFiringArc;
-   var auxiliaryFiringArc = shipFaction.ship.auxiliaryFiringArc;
-   var factionColor = shipFaction.faction.color;
-   var shipBase = shipFaction.ship.shipBase;
-   var width = shipBase.width;
-   var height = shipBase.height;
-   var x = position.x();
-   var y = position.y();
-   var angle = position.heading() * DEG_TO_RADIANS;
+   const primaryFiringArc = shipFaction.ship.primaryFiringArc;
+   const auxiliaryFiringArc = shipFaction.ship.auxiliaryFiringArc;
+   const factionColor = shipFaction.faction.color;
+   const shipBase = shipFaction.ship.shipBase;
+   const width = shipBase.width;
+   const height = shipBase.height;
+   const x = position.x();
+   const y = position.y();
+   const angle = position.heading() * DEG_TO_RADIANS;
 
    context.save();
    context.scale(scale, scale);
@@ -59,8 +59,8 @@ ShipImage.draw = function(context, scale, id, image, position, shipFaction)
    }
 
    // Draw ship image.
-   var myWidth = width;
-   var myHeight = height;
+   let myWidth = width;
+   let myHeight = height;
 
    if ([ShipBase.SMALL, ShipBase.LARGE].includes(shipBase.key))
    {

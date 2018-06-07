@@ -6,8 +6,8 @@ QUnit.module("ShipFaction");
 
 QUnit.test("ShipFaction properties Imperial Firespray-31", function(assert)
 {
-   var shipFaction = ShipFaction.IMPERIAL_FIRESPRAY_31;
-   var properties = ShipFaction.properties[shipFaction];
+   const shipFaction = ShipFaction.IMPERIAL_FIRESPRAY_31;
+   const properties = ShipFaction.properties[shipFaction];
    assert.equal(properties.name, "Firespray-31 (Imperial)");
    assert.equal(properties.shipKey, Ship.FIRESPRAY_31);
    assert.equal(properties.factionKey, Faction.IMPERIAL);
@@ -16,8 +16,8 @@ QUnit.test("ShipFaction properties Imperial Firespray-31", function(assert)
 
 QUnit.test("ShipFaction properties Imperial TIE Fighter", function(assert)
 {
-   var shipFaction = ShipFaction.IMPERIAL_TIE_FIGHTER;
-   var properties = ShipFaction.properties[shipFaction];
+   const shipFaction = ShipFaction.IMPERIAL_TIE_FIGHTER;
+   const properties = ShipFaction.properties[shipFaction];
    assert.equal(properties.name, "TIE Fighter (Imperial)");
    assert.equal(properties.shipKey, Ship.TIE_FIGHTER);
    assert.equal(properties.factionKey, Faction.IMPERIAL);
@@ -26,8 +26,8 @@ QUnit.test("ShipFaction properties Imperial TIE Fighter", function(assert)
 
 QUnit.test("ShipFaction properties Rebel X-Wing", function(assert)
 {
-   var shipFaction = ShipFaction.REBEL_X_WING;
-   var properties = ShipFaction.properties[shipFaction];
+   const shipFaction = ShipFaction.REBEL_X_WING;
+   const properties = ShipFaction.properties[shipFaction];
    assert.equal(properties.name, "X-Wing");
    assert.equal(properties.shipKey, Ship.X_WING);
    assert.equal(properties.factionKey, Faction.REBEL);
@@ -36,8 +36,8 @@ QUnit.test("ShipFaction properties Rebel X-Wing", function(assert)
 
 QUnit.test("ShipFaction properties Scum Firespray-31", function(assert)
 {
-   var shipFaction = ShipFaction.SCUM_FIRESPRAY_31;
-   var properties = ShipFaction.properties[shipFaction];
+   const shipFaction = ShipFaction.SCUM_FIRESPRAY_31;
+   const properties = ShipFaction.properties[shipFaction];
    assert.equal(properties.name, "Firespray-31 (Scum)");
    assert.equal(properties.shipKey, Ship.FIRESPRAY_31);
    assert.equal(properties.factionKey, Faction.SCUM);
@@ -49,13 +49,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = ShipFaction.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(ShipFaction);
+   const result = ShipFaction.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(ShipFaction);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = ShipFaction[key];
+      const key2 = ShipFaction[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -65,7 +65,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return ShipFaction[key] === value;
       });
@@ -77,17 +77,17 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = ShipFaction.keys();
+   const result = ShipFaction.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 70;
+   const length = 70;
    assert.equal(result.length, length);
    assert.equal(result[0], "firstOrder_tiefofighter");
    assert.equal(result[length - 1], "scum_cRocCruiser");
 
-   var properties = Object.getOwnPropertyNames(ShipFaction);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(ShipFaction);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // keysByFaction
       1 - // keysByShipAndFaction
@@ -100,12 +100,12 @@ QUnit.test("keys()", function(assert)
 QUnit.test("keysByShipAndFaction() Imperial", function(assert)
 {
    // Run.
-   var result = ShipFaction.keysByShipAndFaction(Ship.TIE_INTERCEPTOR, Faction.IMPERIAL);
+   const result = ShipFaction.keysByShipAndFaction(Ship.TIE_INTERCEPTOR, Faction.IMPERIAL);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 3);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.IMPERIAL_TIE_INTERCEPTOR);
    assert.equal(result[i++], ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2);
    assert.equal(result[i++], ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V3);
@@ -114,12 +114,12 @@ QUnit.test("keysByShipAndFaction() Imperial", function(assert)
 QUnit.test("keysByShipAndFaction() Rebel", function(assert)
 {
    // Run.
-   var result = ShipFaction.keysByShipAndFaction(Ship.A_WING, Faction.REBEL);
+   const result = ShipFaction.keysByShipAndFaction(Ship.A_WING, Faction.REBEL);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 2);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.REBEL_A_WING);
    assert.equal(result[i++], ShipFaction.REBEL_A_WING_V2);
 });
@@ -127,13 +127,13 @@ QUnit.test("keysByShipAndFaction() Rebel", function(assert)
 QUnit.test("keysByFaction() First Order", function(assert)
 {
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.FIRST_ORDER);
+   const result = ShipFaction.keysByFaction(Faction.FIRST_ORDER);
 
    // Verify.
    assert.ok(result);
-   var length = 24;
+   const length = 24;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.FIRST_ORDER_TIE_FO_FIGHTER);
    assert.equal(result[i++], ShipFaction.FIRST_ORDER_TIE_SF_FIGHTER);
    assert.equal(result[i++], ShipFaction.FIRST_ORDER_TIE_SILENCER);
@@ -163,15 +163,15 @@ QUnit.test("keysByFaction() First Order", function(assert)
 QUnit.test("keysByFaction() First Order strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.FIRST_ORDER, isStrict);
+   const result = ShipFaction.keysByFaction(Faction.FIRST_ORDER, isStrict);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 4);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.FIRST_ORDER_TIE_FO_FIGHTER);
    assert.equal(result[i++], ShipFaction.FIRST_ORDER_TIE_SF_FIGHTER);
    assert.equal(result[i++], ShipFaction.FIRST_ORDER_TIE_SILENCER);
@@ -181,13 +181,13 @@ QUnit.test("keysByFaction() First Order strict", function(assert)
 QUnit.test("keysByFaction() Imperial", function(assert)
 {
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.IMPERIAL);
+   const result = ShipFaction.keysByFaction(Faction.IMPERIAL);
 
    // Verify.
    assert.ok(result);
-   var length = 24;
+   const length = 24;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING);
    assert.equal(result[i++], ShipFaction.IMPERIAL_FIRESPRAY_31);
    assert.equal(result[i++], ShipFaction.IMPERIAL_LAMBDA_CLASS_SHUTTLE);
@@ -217,16 +217,16 @@ QUnit.test("keysByFaction() Imperial", function(assert)
 QUnit.test("keysByFaction() Imperial strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.IMPERIAL, isStrict);
+   const result = ShipFaction.keysByFaction(Faction.IMPERIAL, isStrict);
 
    // Verify.
    assert.ok(result);
-   var length = 20;
+   const length = 20;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.IMPERIAL_ALPHA_CLASS_STAR_WING);
    assert.equal(result[i++], ShipFaction.IMPERIAL_FIRESPRAY_31);
    assert.equal(result[i++], ShipFaction.IMPERIAL_LAMBDA_CLASS_SHUTTLE);
@@ -252,13 +252,13 @@ QUnit.test("keysByFaction() Imperial strict", function(assert)
 QUnit.test("keysByFaction() Rebel", function(assert)
 {
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.REBEL);
+   const result = ShipFaction.keysByFaction(Faction.REBEL);
 
    // Verify.
    assert.ok(result);
-   var length = 26;
+   const length = 26;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.REBEL_ARC_170);
    assert.equal(result[i++], ShipFaction.REBEL_ATTACK_SHUTTLE);
    assert.equal(result[i++], ShipFaction.REBEL_AUZITUCK_GUNSHIP);
@@ -290,16 +290,16 @@ QUnit.test("keysByFaction() Rebel", function(assert)
 QUnit.test("keysByFaction() Rebel strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.REBEL, isStrict);
+   const result = ShipFaction.keysByFaction(Faction.REBEL, isStrict);
 
    // Verify.
    assert.ok(result);
-   var length = 22;
+   const length = 22;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.REBEL_ARC_170);
    assert.equal(result[i++], ShipFaction.REBEL_ATTACK_SHUTTLE);
    assert.equal(result[i++], ShipFaction.REBEL_AUZITUCK_GUNSHIP);
@@ -327,13 +327,13 @@ QUnit.test("keysByFaction() Rebel strict", function(assert)
 QUnit.test("keysByFaction() Resistance", function(assert)
 {
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.RESISTANCE);
+   const result = ShipFaction.keysByFaction(Faction.RESISTANCE);
 
    // Verify.
    assert.ok(result);
-   var length = 26;
+   const length = 26;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.RESISTANCE_B_SF_17_BOMBER);
    assert.equal(result[i++], ShipFaction.RESISTANCE_T_70_X_WING);
    assert.equal(result[i++], ShipFaction.RESISTANCE_T_70_X_WING_V2);
@@ -365,15 +365,15 @@ QUnit.test("keysByFaction() Resistance", function(assert)
 QUnit.test("keysByFaction() Resistance strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.RESISTANCE, isStrict);
+   const result = ShipFaction.keysByFaction(Faction.RESISTANCE, isStrict);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 4);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.RESISTANCE_B_SF_17_BOMBER);
    assert.equal(result[i++], ShipFaction.RESISTANCE_T_70_X_WING);
    assert.equal(result[i++], ShipFaction.RESISTANCE_T_70_X_WING_V2);
@@ -383,13 +383,13 @@ QUnit.test("keysByFaction() Resistance strict", function(assert)
 QUnit.test("keysByFaction() Scum", function(assert)
 {
    // Run.
-   var result = ShipFaction.keysByFaction(Faction.SCUM);
+   const result = ShipFaction.keysByFaction(Faction.SCUM);
 
    // Verify.
    assert.ok(result);
-   var length = 20;
+   const length = 20;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipFaction.SCUM_AGGRESSOR);
    assert.equal(result[i++], ShipFaction.SCUM_FIRESPRAY_31);
    assert.equal(result[i++], ShipFaction.SCUM_G_1A_STARFIGHTER);
@@ -428,15 +428,15 @@ QUnit.test("required properties", function(assert)
 QUnit.test("shipKeysByFaction() First Order strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = ShipFaction.shipKeysByFaction(Faction.FIRST_ORDER, isStrict);
+   const result = ShipFaction.shipKeysByFaction(Faction.FIRST_ORDER, isStrict);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 4);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Ship.TIE_FO_FIGHTER);
    assert.equal(result[i++], Ship.TIE_SF_FIGHTER);
    assert.equal(result[i++], Ship.TIE_SILENCER);
@@ -446,13 +446,13 @@ QUnit.test("shipKeysByFaction() First Order strict", function(assert)
 QUnit.test("shipKeysByFaction() Imperial", function(assert)
 {
    // Run.
-   var result = ShipFaction.shipKeysByFaction(Faction.IMPERIAL);
+   const result = ShipFaction.shipKeysByFaction(Faction.IMPERIAL);
 
    // Verify.
    assert.ok(result);
-   var length = 20;
+   const length = 20;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Ship.ALPHA_CLASS_STAR_WING);
    assert.equal(result[i++], Ship.FIRESPRAY_31);
    assert.equal(result[i++], Ship.LAMBDA_CLASS_SHUTTLE);
@@ -478,13 +478,13 @@ QUnit.test("shipKeysByFaction() Imperial", function(assert)
 QUnit.test("shipKeysByFaction() Rebel", function(assert)
 {
    // Run.
-   var result = ShipFaction.shipKeysByFaction(Faction.REBEL);
+   const result = ShipFaction.shipKeysByFaction(Faction.REBEL);
 
    // Verify.
    assert.ok(result);
-   var length = 22;
+   const length = 22;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Ship.ARC_170);
    assert.equal(result[i++], Ship.ATTACK_SHUTTLE);
    assert.equal(result[i++], Ship.AUZITUCK_GUNSHIP);
@@ -512,15 +512,15 @@ QUnit.test("shipKeysByFaction() Rebel", function(assert)
 QUnit.test("shipKeysByFaction() Resistance strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = ShipFaction.shipKeysByFaction(Faction.RESISTANCE, isStrict);
+   const result = ShipFaction.shipKeysByFaction(Faction.RESISTANCE, isStrict);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 3);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Ship.B_SF_17_BOMBER);
    assert.equal(result[i++], Ship.T_70_X_WING);
    assert.equal(result[i++], Ship.YT_1300);

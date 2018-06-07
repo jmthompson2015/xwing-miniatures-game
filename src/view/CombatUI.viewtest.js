@@ -20,32 +20,32 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var environment = EnvironmentFactory.createCoreSetEnvironment();
-var store = environment.store();
-var attacker = environment.pilotInstances()[0];
+const resourceBase = "../resource/";
+const environment = EnvironmentFactory.createCoreSetEnvironment();
+const store = environment.store();
+const attacker = environment.pilotInstances()[0];
 LOGGER.debug("attacker = " + attacker);
 store.dispatch(CardAction.addFocusCount(attacker));
-var weapon = attacker.primaryWeapon();
-var attackDice = new AttackDice(store, attacker.id(), 5);
-var defender = environment.pilotInstances()[2];
+const weapon = attacker.primaryWeapon();
+const attackDice = new AttackDice(store, attacker.id(), 5);
+const defender = environment.pilotInstances()[2];
 LOGGER.debug("defender = " + defender);
 store.dispatch(CardAction.addFocusCount(defender));
 store.dispatch(CardAction.addEvadeCount(defender));
 TargetLock.newInstance(store, attacker, defender);
-var callback = function()
+const callback = function()
 {
    LOGGER.info("callback() start");
 };
-var combatAction = new CombatAction(store, attacker, weapon, defender, callback);
+const combatAction = new CombatAction(store, attacker, weapon, defender, callback);
 store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
-var modificationKeys0 = [DiceModification.ATTACK_SPEND_FOCUS, DiceModification.ATTACK_SPEND_TARGET_LOCK];
-var modifications0 = modificationKeys0.map(function(modificationKey)
+const modificationKeys0 = [DiceModification.ATTACK_SPEND_FOCUS, DiceModification.ATTACK_SPEND_TARGET_LOCK];
+const modifications0 = modificationKeys0.map(function(modificationKey)
 {
    return new Ability(DiceModification, modificationKey, ModifyDiceAbility, ModifyDiceAbility.ATTACK_KEY);
 });
 
-var element0 = React.createElement(CombatUI,
+const element0 = React.createElement(CombatUI,
 {
    attacker: attacker,
    attackDice: attackDice,
@@ -58,18 +58,18 @@ var element0 = React.createElement(CombatUI,
 });
 ReactDOM.render(element0, document.getElementById("inputArea0"));
 
-var defenseDice = new DefenseDice(store, attacker.id(), 4);
-// var modificationKeys1 = [ModifyDefenseDiceAction.Modification.SPEND_EVADE, ModifyDefenseDiceAction.Modification.SPEND_FOCUS];
-var modificationKeys1 = [DiceModification.DEFENSE_SPEND_EVADE, DiceModification.DEFENSE_SPEND_FOCUS];
-var modifications1 = modificationKeys1.map(function(modificationKey)
+const defenseDice = new DefenseDice(store, attacker.id(), 4);
+// const modificationKeys1 = [ModifyDefenseDiceAction.Modification.SPEND_EVADE, ModifyDefenseDiceAction.Modification.SPEND_FOCUS];
+const modificationKeys1 = [DiceModification.DEFENSE_SPEND_EVADE, DiceModification.DEFENSE_SPEND_FOCUS];
+const modifications1 = modificationKeys1.map(function(modificationKey)
 {
-   // 	var pilotKey;
-   // 	var upgradeKey;
+   // 	const pilotKey;
+   // 	const upgradeKey;
    // 	return new ModifyDefenseDiceAction(store, attacker, defender, modificationKey, pilotKey, upgradeKey);
    return new Ability(DiceModification, modificationKey, ModifyDiceAbility, ModifyDiceAbility.DEFENSE_KEY);
 });
 
-var element1 = React.createElement(CombatUI,
+const element1 = React.createElement(CombatUI,
 {
    attacker: attacker,
    attackDice: attackDice,
@@ -83,12 +83,12 @@ var element1 = React.createElement(CombatUI,
 });
 ReactDOM.render(element1, document.getElementById("inputArea1"));
 
-var hitCount = attackDice.hitCount();
-var criticalHitCount = attackDice.criticalHitCount();
-var evadeCount = defenseDice.evadeCount();
-var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+const hitCount = attackDice.hitCount();
+const criticalHitCount = attackDice.criticalHitCount();
+const evadeCount = defenseDice.evadeCount();
+const damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
 
-var element2 = React.createElement(CombatUI,
+const element2 = React.createElement(CombatUI,
 {
    attacker: attacker,
    attackDice: attackDice,

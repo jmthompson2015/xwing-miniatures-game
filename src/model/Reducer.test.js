@@ -19,8 +19,8 @@ QUnit.module("Reducer");
 QUnit.test("addPilotToManeuver()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var pilotToManeuver = {};
+   const store = Redux.createStore(Reducer.root);
+   const pilotToManeuver = {};
    pilotToManeuver[1] = Maneuver.STRAIGHT_1_STANDARD;
    pilotToManeuver[2] = Maneuver.BANK_RIGHT_2_STANDARD;
 
@@ -28,7 +28,7 @@ QUnit.test("addPilotToManeuver()", function(assert)
    store.dispatch(Action.addPilotToManeuver(pilotToManeuver));
 
    // Verify.
-   var result = store.getState().pilotToManeuver;
+   const result = store.getState().pilotToManeuver;
    assert.ok(result);
    assert.equal(result.get("1"), Maneuver.STRAIGHT_1_STANDARD);
    assert.equal(result.get("2"), Maneuver.BANK_RIGHT_2_STANDARD);
@@ -37,13 +37,13 @@ QUnit.test("addPilotToManeuver()", function(assert)
 QUnit.test("addTargetLock()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent0 = new Agent(store, "Alpha");
-   var attacker = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent0);
-   var agent1 = new Agent(store, "Bravo");
-   var defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent1);
+   const store = Redux.createStore(Reducer.root);
+   const agent0 = new Agent(store, "Alpha");
+   const attacker = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent0);
+   const agent1 = new Agent(store, "Bravo");
+   const defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent1);
    assert.equal(store.getState().targetLocks.size, 0);
-   var targetLock = Immutable.Map(
+   const targetLock = Immutable.Map(
    {
       attackerId: attacker.id(),
       defenderId: defender.id(),
@@ -63,22 +63,22 @@ QUnit.test("addTargetLock()", function(assert)
 QUnit.test("dequeueEvent()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Rebel");
-   var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Rebel");
+   const token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
-   var token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
+   const token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 45), token2));
 
    store.dispatch(Action.enqueueEvent(Event.AFTER_EXECUTE_MANEUVER, token));
    store.dispatch(Action.enqueueEvent(Event.SHIP_ACTION_PERFORMED, token2));
 
    assert.equal(store.getState().eventQueue.size, 2);
-   var eventData0 = store.getState().eventQueue.get(0);
+   let eventData0 = store.getState().eventQueue.get(0);
    assert.ok(eventData0);
    assert.equal(eventData0.get("eventKey"), Event.AFTER_EXECUTE_MANEUVER);
    assert.equal(eventData0.get("eventToken"), token);
-   var eventData1 = store.getState().eventQueue.get(1);
+   const eventData1 = store.getState().eventQueue.get(1);
    assert.ok(eventData1);
    assert.equal(eventData1.get("eventKey"), Event.SHIP_ACTION_PERFORMED);
    assert.equal(eventData1.get("eventToken"), token2);
@@ -103,22 +103,22 @@ QUnit.test("dequeueEvent()", function(assert)
 QUnit.test("dequeuePhase()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Rebel");
-   var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Rebel");
+   const token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
-   var token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
+   const token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 45), token2));
 
    store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_REVEAL_DIAL, token));
    store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_EXECUTE_MANEUVER, token2));
 
    assert.equal(store.getState().phaseQueue.size, 2);
-   var phaseData0 = store.getState().phaseQueue.get(0);
+   let phaseData0 = store.getState().phaseQueue.get(0);
    assert.ok(phaseData0);
    assert.equal(phaseData0.get("phaseKey"), Phase.ACTIVATION_REVEAL_DIAL);
    assert.equal(phaseData0.get("phaseToken"), token);
-   var phaseData1 = store.getState().phaseQueue.get(1);
+   const phaseData1 = store.getState().phaseQueue.get(1);
    assert.ok(phaseData1);
    assert.equal(phaseData1.get("phaseKey"), Phase.ACTIVATION_EXECUTE_MANEUVER);
    assert.equal(phaseData1.get("phaseToken"), token2);
@@ -143,9 +143,9 @@ QUnit.test("dequeuePhase()", function(assert)
 QUnit.test("enqueueEvent()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Rebel");
-   var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Rebel");
+   const token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
    assert.equal(store.getState().eventQueue.size, 0);
 
@@ -154,13 +154,13 @@ QUnit.test("enqueueEvent()", function(assert)
 
    // Verify.
    assert.equal(store.getState().eventQueue.size, 1);
-   var eventData0 = store.getState().eventQueue.get(0);
+   let eventData0 = store.getState().eventQueue.get(0);
    assert.ok(eventData0);
    assert.equal(eventData0.get("eventKey"), Event.AFTER_EXECUTE_MANEUVER);
    assert.equal(eventData0.get("eventToken"), token);
 
    // Run.
-   var token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
+   const token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 45), token2));
    store.dispatch(Action.enqueueEvent(Event.SHIP_ACTION_PERFORMED, token2));
 
@@ -170,7 +170,7 @@ QUnit.test("enqueueEvent()", function(assert)
    assert.ok(eventData0);
    assert.equal(eventData0.get("eventKey"), Event.AFTER_EXECUTE_MANEUVER);
    assert.equal(eventData0.get("eventToken"), token);
-   var eventData1 = store.getState().eventQueue.get(1);
+   const eventData1 = store.getState().eventQueue.get(1);
    assert.ok(eventData1);
    assert.equal(eventData1.get("eventKey"), Event.SHIP_ACTION_PERFORMED);
    assert.equal(eventData1.get("eventToken"), token2);
@@ -179,9 +179,9 @@ QUnit.test("enqueueEvent()", function(assert)
 QUnit.test("enqueuePhase()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Rebel");
-   var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Rebel");
+   const token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(100, 200, 45), token));
    assert.equal(store.getState().phaseQueue.size, 0);
 
@@ -190,13 +190,13 @@ QUnit.test("enqueuePhase()", function(assert)
 
    // Verify.
    assert.equal(store.getState().phaseQueue.size, 1);
-   var phaseData0 = store.getState().phaseQueue.get(0);
+   let phaseData0 = store.getState().phaseQueue.get(0);
    assert.ok(phaseData0);
    assert.equal(phaseData0.get("phaseKey"), Phase.ACTIVATION_REVEAL_DIAL);
    assert.equal(phaseData0.get("phaseToken"), token);
 
    // Run.
-   var token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
+   const token2 = new CardInstance(store, PilotCard.BIGGS_DARKLIGHTER, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 45), token2));
    store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_EXECUTE_MANEUVER, token2));
 
@@ -206,7 +206,7 @@ QUnit.test("enqueuePhase()", function(assert)
    assert.ok(phaseData0);
    assert.equal(phaseData0.get("phaseKey"), Phase.ACTIVATION_REVEAL_DIAL);
    assert.equal(phaseData0.get("phaseToken"), token);
-   var phaseData1 = store.getState().phaseQueue.get(1);
+   const phaseData1 = store.getState().phaseQueue.get(1);
    assert.ok(phaseData1);
    assert.equal(phaseData1.get("phaseKey"), Phase.ACTIVATION_EXECUTE_MANEUVER);
    assert.equal(phaseData1.get("phaseToken"), token2);
@@ -215,7 +215,7 @@ QUnit.test("enqueuePhase()", function(assert)
 QUnit.test("incrementNextTargetLockId()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
    assert.equal(store.getState().nextTargetLockId, 0);
 
    // Run.
@@ -230,7 +230,7 @@ QUnit.test("incrementNextTargetLockId()", function(assert)
    // Verify.
    assert.equal(store.getState().nextTargetLockId, 2);
 
-   for (var i = 3; i < 52; i++)
+   for (let i = 3; i < 52; i++)
    {
       store.dispatch(Action.incrementNextTargetLockId());
    }
@@ -247,12 +247,12 @@ QUnit.test("incrementNextTargetLockId()", function(assert)
 QUnit.test("removeTargetLock()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent0 = new Agent(store, "Alpha");
-   var attacker = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent0);
-   var agent1 = new Agent(store, "Bravo");
-   var defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent1);
-   var targetLock = TargetLock.newInstance(store, attacker, defender);
+   const store = Redux.createStore(Reducer.root);
+   const agent0 = new Agent(store, "Alpha");
+   const attacker = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent0);
+   const agent1 = new Agent(store, "Bravo");
+   const defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent1);
+   const targetLock = TargetLock.newInstance(store, attacker, defender);
    //  store.dispatch(Action.addTargetLock(targetLock));
    assert.equal(store.getState().targetLocks.size, 1);
    assert.equal(store.getState().targetLocks.get(0).get("id"), "A");
@@ -270,9 +270,9 @@ QUnit.test("removeTargetLock()", function(assert)
 QUnit.test("setTokenActivationAction()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var activationAction = {};
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const activationAction = {};
    assert.ok(!store.getState().cardActivationAction.get(token.id()));
 
    // Run.
@@ -286,21 +286,21 @@ QUnit.test("setTokenActivationAction()", function(assert)
 QUnit.test("setTokenAttackDice()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    assert.ok(store.getState().cardAttackDice.get(token.id()) === undefined);
-   var attackDice = new AttackDice(store, token.id(), 3);
+   const attackDice = new AttackDice(store, token.id(), 3);
 
    // Run.
    store.dispatch(Action.setTokenAttackDice(token.id(), attackDice.values()));
 
    // Verify.
-   var result = store.getState().cardAttackDice.get(token.id());
+   const result = store.getState().cardAttackDice.get(token.id());
    assert.ok(result);
-   var results = result.toJS();
-   var values = attackDice.values();
+   const results = result.toJS();
+   const values = attackDice.values();
    assert.equal(results.length, values.length);
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
       assert.equal(results[i], values[i]);
    }
@@ -309,9 +309,9 @@ QUnit.test("setTokenAttackDice()", function(assert)
 QUnit.test("setTokenCombatAction()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var combatAction = {};
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const combatAction = {};
    assert.ok(!store.getState().cardCombatAction.get(token.id()));
 
    // Run.
@@ -325,9 +325,9 @@ QUnit.test("setTokenCombatAction()", function(assert)
 QUnit.test("setTokenDamageDealer()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var damageDealer = {};
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const damageDealer = {};
    assert.ok(!store.getState().cardDamageDealer.get(token.id()));
 
    // Run.
@@ -341,8 +341,8 @@ QUnit.test("setTokenDamageDealer()", function(assert)
 QUnit.test("setTokenDefenderHit()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    assert.ok(!store.getState().cardIsDefenderHit.get(token.id()));
 
    // Run.
@@ -361,21 +361,21 @@ QUnit.test("setTokenDefenderHit()", function(assert)
 QUnit.test("setTokenDefenseDice()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    assert.ok(store.getState().cardDefenseDice.get(token.id()) === undefined);
-   var defenseDice = new DefenseDice(store, token.id(), 3);
+   const defenseDice = new DefenseDice(store, token.id(), 3);
 
    // Run.
    store.dispatch(Action.setTokenDefenseDice(token.id(), defenseDice.values()));
 
    // Verify.
-   var result = store.getState().cardDefenseDice.get(token.id());
+   const result = store.getState().cardDefenseDice.get(token.id());
    assert.ok(result);
-   var results = result.toJS();
-   var values = defenseDice.values();
+   const results = result.toJS();
+   const values = defenseDice.values();
    assert.equal(results.length, values.length);
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
       assert.equal(results[i], values[i]);
    }
@@ -384,8 +384,8 @@ QUnit.test("setTokenDefenseDice()", function(assert)
 QUnit.test("setTokenInFiringArc()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    assert.ok(!store.getState().cardIsInFiringArc.get(token.id()));
 
    // Run.
@@ -404,14 +404,14 @@ QUnit.test("setTokenInFiringArc()", function(assert)
 QUnit.test("setTokenManeuver()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var maneuverKey0 = Maneuver.STRAIGHT_1_STANDARD;
-   var maneuverKey1 = Maneuver.BANK_RIGHT_2_STANDARD;
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const maneuverKey0 = Maneuver.STRAIGHT_1_STANDARD;
+   const maneuverKey1 = Maneuver.BANK_RIGHT_2_STANDARD;
    assert.ok(!store.getState().cardManeuver[token.id()]);
 
    // Run.
-   var maneuver0 = Maneuver.properties[maneuverKey0];
+   const maneuver0 = Maneuver.properties[maneuverKey0];
    store.dispatch(Action.setTokenManeuver(token, maneuver0));
 
    // Verify.
@@ -419,7 +419,7 @@ QUnit.test("setTokenManeuver()", function(assert)
    assert.equal(store.getState().cardManeuver.get(token.id()), maneuver0);
 
    // Run.
-   var maneuver1 = Maneuver.properties[maneuverKey1];
+   const maneuver1 = Maneuver.properties[maneuverKey1];
    store.dispatch(Action.setTokenManeuver(token, maneuver1));
 
    // Verify.
@@ -430,9 +430,9 @@ QUnit.test("setTokenManeuver()", function(assert)
 QUnit.test("setTokenManeuverAction()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var maneuverAction = {};
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const maneuverAction = {};
    assert.ok(!store.getState().cardManeuverAction.get(token.id()));
 
    // Run.
@@ -446,9 +446,9 @@ QUnit.test("setTokenManeuverAction()", function(assert)
 QUnit.test("setTokenRange()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var rangeKey = Range.TWO;
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const rangeKey = Range.TWO;
    assert.ok(!store.getState().cardRange.get(token.id()));
 
    // Run.
@@ -462,8 +462,8 @@ QUnit.test("setTokenRange()", function(assert)
 QUnit.test("setUserMessage()", function(assert)
 {
    // Setup.
-   var userMessage = "This is an important message!";
-   var store = Redux.createStore(Reducer.root);
+   const userMessage = "This is an important message!";
+   const store = Redux.createStore(Reducer.root);
    assert.ok(!store.getState().userMessage);
 
    // Run.

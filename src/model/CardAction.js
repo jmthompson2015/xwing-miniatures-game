@@ -2,7 +2,7 @@ import InputValidator from "../utility/InputValidator.js";
 
 import Count from "../artifact/Count.js";
 
-var CardAction = {};
+const CardAction = {};
 
 CardAction.ADD_COUNT = "addCount";
 CardAction.ADD_DAMAGE = "addDamage";
@@ -30,7 +30,7 @@ CardAction.addCount = function(cardInstance, property, value)
    InputValidator.validateNotNull("cardInstance", cardInstance);
    InputValidator.validateNotNull("property", property);
 
-   var myValue = (value !== undefined ? value : 1);
+   const myValue = (value !== undefined ? value : 1);
 
    return (
    {
@@ -235,7 +235,7 @@ CardAction.setCardInstance = function(id, cardTypeKey, cardKey, agent, idParent,
    // idFore optional.
    // idAft optional.
 
-   var payload = Immutable.Map(
+   const payload = Immutable.Map(
    {
       id: id,
       cardTypeKey: cardTypeKey,
@@ -262,7 +262,7 @@ CardAction.setCount = function(cardInstance, property, value)
 {
    InputValidator.validateNotNull("cardInstance", cardInstance);
    InputValidator.validateNotNull("property", property);
-   var myValue = (value ? value : 0);
+   const myValue = (value ? value : 0);
 
    return (
    {

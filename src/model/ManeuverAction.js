@@ -19,7 +19,7 @@ function ManeuverAction(store, tokenId, maneuverKey, isBoostIn, fromPositionIn)
    // isBoost is optional. default: false
    // fromPosition is optional. default: lookup from environment
 
-   var isBoost = (isBoostIn !== undefined ? isBoostIn : false);
+   const isBoost = (isBoostIn !== undefined ? isBoostIn : false);
 
    this.store = function()
    {
@@ -41,9 +41,9 @@ function ManeuverAction(store, tokenId, maneuverKey, isBoostIn, fromPositionIn)
       return isBoost;
    };
 
-   var environment = store.getState().environment;
-   var token = environment.getTokenById(tokenId);
-   var fromPosition = (fromPositionIn !== undefined ? fromPositionIn : environment.getPositionFor(token));
+   const environment = store.getState().environment;
+   const token = environment.getTokenById(tokenId);
+   const fromPosition = (fromPositionIn !== undefined ? fromPositionIn : environment.getPositionFor(token));
 
    this.environment = function()
    {
@@ -66,16 +66,16 @@ function ManeuverAction(store, tokenId, maneuverKey, isBoostIn, fromPositionIn)
 
 ManeuverAction.prototype.maneuver = function()
 {
-   var maneuverKey = this.maneuverKey();
+   const maneuverKey = this.maneuverKey();
 
    return Maneuver.properties[maneuverKey];
 };
 
 ManeuverAction.prototype.shipBase = function()
 {
-   var token = this.token();
-   var pilot = token.card();
-   var shipBase = pilot.shipFaction.ship.shipBase;
+   const token = this.token();
+   const pilot = token.card();
+   const shipBase = pilot.shipFaction.ship.shipBase;
 
    return shipBase;
 };
@@ -92,22 +92,22 @@ ManeuverAction.prototype.doIt = function()
 {
    LOGGER.trace("ManeuverAction.doIt() start");
 
-   var token = this.token();
+   const token = this.token();
 
    if (token)
    {
-      var store = this.store();
-      var environment = this.environment();
-      var maneuver = this.maneuver();
-      var shipBase = this.shipBase();
+      const store = this.store();
+      const environment = this.environment();
+      const maneuver = this.maneuver();
+      const shipBase = this.shipBase();
       this._save();
       environment.removeTouching(token);
-      var bearingKey = maneuver.bearingKey;
-      var isBarrelRoll = [Bearing.BARREL_ROLL_LEFT, Bearing.BARREL_ROLL_RIGHT].includes(bearingKey);
-      var isBoost = this.isBoost();
-      var fromPosition = this.fromPosition();
-      var toPosition = this.determineToPosition(isBarrelRoll, isBoost);
-      var toPolygon;
+      const bearingKey = maneuver.bearingKey;
+      const isBarrelRoll = [Bearing.BARREL_ROLL_LEFT, Bearing.BARREL_ROLL_RIGHT].includes(bearingKey);
+      const isBoost = this.isBoost();
+      const fromPosition = this.fromPosition();
+      const toPosition = this.determineToPosition(isBarrelRoll, isBoost);
+      let toPolygon;
 
       if (toPosition)
       {
@@ -117,13 +117,13 @@ ManeuverAction.prototype.doIt = function()
       if (!toPosition && (isBarrelRoll || isBoost))
       {
          // Maneuver failed.
-         var message = isBarrelRoll ? "Barrel Roll failed." : "Boost failed.";
+         const message = isBarrelRoll ? "Barrel Roll failed." : "Boost failed.";
          LOGGER.info(message);
       }
       else if (!toPosition || !PlayFormat.isPathInPlayArea(environment.playFormatKey(), toPolygon))
       {
          LOGGER.info("Ship fled the battlefield: " + token.name());
-         var shipFledAction = new ShipFledAction(environment, token, fromPosition);
+         const shipFledAction = new ShipFledAction(environment, token, fromPosition);
          shipFledAction.doIt();
       }
       else
@@ -150,7 +150,7 @@ ManeuverAction.prototype.determineToPosition = function(isBarrelRoll, isBoost)
    InputValidator.validateNotNull("isBarrelRoll", isBarrelRoll);
    InputValidator.validateNotNull("isBoost", isBoost);
 
-   var answer;
+   let answer;
 
    if (isBarrelRoll || isBoost)
    {
@@ -168,14 +168,14 @@ ManeuverAction.prototype.determineToPositionWithBackOff = function()
 {
    LOGGER.trace("determineToPositionWithBackOff() start");
 
-   var answer;
-   var environment = this.environment();
-   var token = this.token();
-   var maneuver = this.maneuver();
-   var fromPosition = this.fromPosition();
-   var shipDataMap = ManeuverComputer.createShipDataMap(environment, token, maneuver, fromPosition);
-   var shipData0 = shipDataMap[token];
-   var toPosition;
+   let answer;
+   const environment = this.environment();
+   const token = this.token();
+   const maneuver = this.maneuver();
+   const fromPosition = this.fromPosition();
+   const shipDataMap = ManeuverComputer.createShipDataMap(environment, token, maneuver, fromPosition);
+   const shipData0 = shipDataMap[token];
+   let toPosition;
 
    if (shipData0 !== undefined)
    {
@@ -188,9 +188,9 @@ ManeuverAction.prototype.determineToPositionWithBackOff = function()
       return undefined;
    }
 
-   var shipData;
-   var index = -1;
-   var count = 0;
+   let shipData;
+   let index = -1;
+   let count = 0;
 
    do {
       shipData = ManeuverComputer.findCollision(shipDataMap, token);
@@ -229,13 +229,13 @@ ManeuverAction.prototype.determineToPositionWithBackOff = function()
 
 ManeuverAction.prototype.determineToPositionWithoutBackOff = function()
 {
-   var answer;
-   var environment = this.environment();
-   var token = this.token();
-   var maneuver = this.maneuver();
-   var fromPosition = this.fromPosition();
-   var shipDataMap = ManeuverComputer.createShipDataMap(environment, token, maneuver, fromPosition);
-   var toPosition = shipDataMap[token].position;
+   let answer;
+   const environment = this.environment();
+   const token = this.token();
+   const maneuver = this.maneuver();
+   const fromPosition = this.fromPosition();
+   const shipDataMap = ManeuverComputer.createShipDataMap(environment, token, maneuver, fromPosition);
+   const toPosition = shipDataMap[token].position;
 
    if (toPosition === undefined)
    {
@@ -243,7 +243,7 @@ ManeuverAction.prototype.determineToPositionWithoutBackOff = function()
       return undefined;
    }
 
-   var shipData = ManeuverComputer.findCollision(shipDataMap, token);
+   const shipData = ManeuverComputer.findCollision(shipDataMap, token);
 
    if (shipData === undefined)
    {
@@ -259,19 +259,19 @@ ManeuverAction.prototype.determineToPositionWithoutBackOff = function()
 
 ManeuverAction.prototype._save = function()
 {
-   var store = this.store();
-   var tokenId = this.tokenId();
-   var maneuverKey = this.maneuverKey();
-   var isBoost = this.isBoost();
-   var fromPosition = this.fromPosition();
-   var fromPosition0 = Immutable.Map(
+   const store = this.store();
+   const tokenId = this.tokenId();
+   const maneuverKey = this.maneuverKey();
+   const isBoost = this.isBoost();
+   const fromPosition = this.fromPosition();
+   const fromPosition0 = Immutable.Map(
    {
       x: fromPosition.x(),
       y: fromPosition.y(),
       heading: fromPosition.heading(),
    });
 
-   var values = Immutable.Map(
+   const values = Immutable.Map(
    {
       tokenId: tokenId,
       maneuverKey: maneuverKey,
@@ -290,18 +290,18 @@ ManeuverAction.get = function(store, tokenId)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateIsNumber("tokenId", tokenId);
 
-   var values = store.getState().cardManeuverAction.get(tokenId);
-   var answer;
+   const values = store.getState().cardManeuverAction.get(tokenId);
+   let answer;
 
    if (values !== undefined)
    {
-      var maneuverKey = values.get("maneuverKey");
-      var isBoost = values.get("isBoost");
-      var fromPosition0 = values.get("fromPosition");
-      var x = fromPosition0.get("x");
-      var y = fromPosition0.get("y");
-      var heading = fromPosition0.get("heading");
-      var fromPosition = new Position(x, y, heading);
+      const maneuverKey = values.get("maneuverKey");
+      const isBoost = values.get("isBoost");
+      const fromPosition0 = values.get("fromPosition");
+      const x = fromPosition0.get("x");
+      const y = fromPosition0.get("y");
+      const heading = fromPosition0.get("heading");
+      const fromPosition = new Position(x, y, heading);
 
       answer = new ManeuverAction(store, tokenId, maneuverKey, isBoost, fromPosition);
    }

@@ -1,4 +1,4 @@
-var Difficulty = {
+const Difficulty = {
    EASY: "easy",
    STANDARD: "standard",
    HARD: "hard",

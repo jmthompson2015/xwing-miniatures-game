@@ -15,8 +15,8 @@ function FactionGroupRestriction(name, factionKeys)
       name: name,
       passes: function(pilotKey)
       {
-         var pilot = PilotCard.properties[pilotKey];
-         var myFactionKey = pilot.shipFaction.factionKey;
+         const pilot = PilotCard.properties[pilotKey];
+         const myFactionKey = pilot.shipFaction.factionKey;
          return factionKeys.includes(myFactionKey);
       }
    });
@@ -26,15 +26,15 @@ function FactionRestriction(factionKey)
 {
    InputValidator.validateNotNull("factionKey", factionKey);
 
-   var props = Faction.properties[factionKey];
+   const props = Faction.properties[factionKey];
 
    return (
    {
       name: props.name + " only.",
       passes: function(pilotKey)
       {
-         var pilot = PilotCard.properties[pilotKey];
-         var myFactionKey = pilot.shipFaction.factionKey;
+         const pilot = PilotCard.properties[pilotKey];
+         const myFactionKey = pilot.shipFaction.factionKey;
          return myFactionKey === factionKey;
       }
    });
@@ -49,8 +49,8 @@ function PilotCardSkillRestriction(pilotSkill)
       name: "PilotCard Skill above \"" + pilotSkill + "\".",
       passes: function(pilotKey)
       {
-         var pilot = PilotCard.properties[pilotKey];
-         var myPilotCardSkill = pilot.pilotSkillValue;
+         const pilot = PilotCard.properties[pilotKey];
+         let myPilotCardSkill = pilot.pilotSkillValue;
          if (myPilotCardSkill === undefined && pilot.fore)
          {
             myPilotCardSkill = pilot.fore.pilotSkillValue;
@@ -78,8 +78,8 @@ function ShipGroupRestriction(name, shipKeys)
       name: name,
       passes: function(pilotKey)
       {
-         var pilot = PilotCard.properties[pilotKey];
-         var myShipKey = pilot.shipFaction.shipKey;
+         const pilot = PilotCard.properties[pilotKey];
+         const myShipKey = pilot.shipFaction.shipKey;
          return shipKeys.includes(myShipKey);
       }
    });
@@ -88,8 +88,8 @@ function ShipGroupRestriction(name, shipKeys)
 function ShipRestriction(shipKey)
 {
    InputValidator.validateNotNull("shipKey", shipKey);
-   var myShipKey = shipKey;
-   var props = Ship.properties[myShipKey];
+   let myShipKey = shipKey;
+   let props = Ship.properties[myShipKey];
 
    if (shipKey.endsWith(".fore"))
    {
@@ -102,7 +102,7 @@ function ShipRestriction(shipKey)
       props = Ship.properties[myShipKey].aft;
    }
 
-   var name = props.name;
+   let name = props.name;
 
    if (shipKey === Ship.CR90_CORVETTE || shipKey === Ship.GR_75_MEDIUM_TRANSPORT)
    {
@@ -120,8 +120,8 @@ function ShipRestriction(shipKey)
       name: name + " only.",
       passes: function(pilotKey)
       {
-         var pilot = PilotCard.properties[pilotKey];
-         var myShipKey = pilot.shipFaction.shipKey;
+         const pilot = PilotCard.properties[pilotKey];
+         const myShipKey = pilot.shipFaction.shipKey;
          return myShipKey === shipKey;
       }
    });
@@ -137,8 +137,8 @@ function ShipSizeGroupRestriction(name, shipBaseKeys)
       name: name,
       passes: function(pilotKey)
       {
-         var pilot = PilotCard.properties[pilotKey];
-         var myShipBaseKey = pilot.shipFaction.ship.shipBaseKey;
+         const pilot = PilotCard.properties[pilotKey];
+         const myShipBaseKey = pilot.shipFaction.ship.shipBaseKey;
          return shipBaseKeys.includes(myShipBaseKey);
       }
    });
@@ -148,21 +148,21 @@ function ShipSizeRestriction(shipBaseKey)
 {
    InputValidator.validateNotNull("shipBaseKey", shipBaseKey);
 
-   var props = ShipBase.properties[shipBaseKey];
+   const props = ShipBase.properties[shipBaseKey];
 
    return (
    {
       name: props.name + " only.",
       passes: function(pilotKey)
       {
-         var pilot = PilotCard.properties[pilotKey];
-         var myShipBaseKey = pilot.shipFaction.ship.shipBaseKey;
+         const pilot = PilotCard.properties[pilotKey];
+         const myShipBaseKey = pilot.shipFaction.ship.shipBaseKey;
          return myShipBaseKey === shipBaseKey;
       }
    });
 }
 
-var UpgradeRestriction = {
+const UpgradeRestriction = {
    // Faction specific.
    IMPERIAL_ONLY: "imperialOnly",
    REBEL_ONLY: "rebelOnly",
@@ -309,8 +309,8 @@ var UpgradeRestriction = {
          name: "TIE only.",
          passes: function(pilotKey)
          {
-            var pilot = PilotCard.properties[pilotKey];
-            var shipKey = pilot.shipFaction.shipKey;
+            const pilot = PilotCard.properties[pilotKey];
+            const shipKey = pilot.shipFaction.shipKey;
             return Ship.properties[shipKey].name.startsWith("TIE");
          }
       },
@@ -323,8 +323,8 @@ var UpgradeRestriction = {
          name: "Huge ship only.",
          passes: function(pilotKey)
          {
-            var pilot = PilotCard.properties[pilotKey];
-            var shipBaseKey = pilot.shipFaction.ship.shipBaseKey;
+            const pilot = PilotCard.properties[pilotKey];
+            const shipBaseKey = pilot.shipFaction.ship.shipBaseKey;
             return ShipBase.isHuge(shipBaseKey);
          }
       },
@@ -356,7 +356,7 @@ UpgradeRestriction.passes = function(restrictionKeys, pilotKey)
 {
    InputValidator.validateNotNull("pilotKey", pilotKey);
 
-   var answer = true;
+   let answer = true;
 
    if (restrictionKeys !== undefined)
    {

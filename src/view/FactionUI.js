@@ -2,12 +2,12 @@ class FactionUI extends React.Component
 {
    render()
    {
-      var faction = this.props.faction;
+      const faction = this.props.faction;
 
-      var myKey = (this.props.myKey !== undefined ? this.props.myKey : faction.key);
-      var size = (this.props.isSmall ? 24 : 32);
-      var src = this.createSrc(faction, size);
-      var icon = ReactDOMFactories.img(
+      const myKey = (this.props.myKey !== undefined ? this.props.myKey : faction.key);
+      const size = (this.props.isSmall ? 24 : 32);
+      const src = this.createSrc(faction, size);
+      const icon = ReactDOMFactories.img(
       {
          key: myKey,
          className: "factionUIImage v-mid",
@@ -16,9 +16,9 @@ class FactionUI extends React.Component
          title: faction.name,
       });
 
-      var answer = icon;
+      let answer = icon;
 
-      var showName = this.props.showName;
+      const showName = this.props.showName;
 
       if (showName)
       {
@@ -32,7 +32,7 @@ class FactionUI extends React.Component
 
 FactionUI.prototype.createSrc = function(faction, size)
 {
-   var resourceBase = this.props.resourceBase;
+   const resourceBase = this.props.resourceBase;
 
    return resourceBase + "faction/" + size + "/" + faction.image;
 };

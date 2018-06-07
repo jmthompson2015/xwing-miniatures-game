@@ -4,8 +4,8 @@ QUnit.module("ShipState");
 
 QUnit.test("ShipState properties Pilot Skill", function(assert)
 {
-   var shipStateKey = ShipState.PILOT_SKILL;
-   var properties = ShipState.properties[shipStateKey];
+   const shipStateKey = ShipState.PILOT_SKILL;
+   const properties = ShipState.properties[shipStateKey];
    assert.equal(properties.name, "Pilot Skill");
    assert.equal(properties.key, shipStateKey);
 });
@@ -13,13 +13,13 @@ QUnit.test("ShipState properties Pilot Skill", function(assert)
 QUnit.test("keys and values", function(assert)
 {
    // Run.
-   var result = ShipState.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(ShipState);
+   const result = ShipState.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(ShipState);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = ShipState[key];
+      const key2 = ShipState[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -29,7 +29,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return ShipState[key] === value;
       });
@@ -41,17 +41,17 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = ShipState.keys();
+   const result = ShipState.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 7;
+   const length = 7;
    assert.equal(result.length, length);
    assert.equal(result[0], "pilotSkill");
    assert.equal(result[length - 1], "shield");
 
-   var properties = Object.getOwnPropertyNames(ShipState);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(ShipState);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

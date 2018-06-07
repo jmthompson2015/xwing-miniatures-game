@@ -10,7 +10,7 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
+const resourceBase = "../resource/";
 
 drawShip("tieDefenderPanel", ShipFaction.properties[ShipFaction.IMPERIAL_TIE_DEFENDER_V2]);
 drawShip("firesprayPanel", ShipFaction.properties[ShipFaction.IMPERIAL_FIRESPRAY_31]);
@@ -26,10 +26,10 @@ drawShip("yt1300Panel", ShipFaction.properties[ShipFaction.RESISTANCE_YT_1300]);
 
 function drawShip(elementId, shipFaction)
 {
-   var shipBase = shipFaction.ship.shipBase;
-   var position = new Position(shipBase.width / 2, shipBase.height / 2, 0);
+   const shipBase = shipFaction.ship.shipBase;
+   const position = new Position(shipBase.width / 2, shipBase.height / 2, 0);
 
-   var element = React.createElement(ShipUI,
+   const element = React.createElement(ShipUI,
    {
       canvasId: shipFaction.name,
       resourceBase: resourceBase,

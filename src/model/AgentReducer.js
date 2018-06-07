@@ -1,13 +1,13 @@
 import AgentAction from "./AgentAction.js";
 
-var AgentReducer = {};
+const AgentReducer = {};
 
 AgentReducer.reduce = function(state, action)
 {
    LOGGER.debug("AgentReducer.reduce() type = " + action.type);
 
-   var agentId, cardId, index;
-   var oldPilots;
+   let agentId, cardId, index;
+   let oldPilots;
 
    switch (action.type)
    {
@@ -31,7 +31,7 @@ AgentReducer.reduce = function(state, action)
          cardId = action.cardInstance.id();
          oldPilots = (state.agentPilots.get(agentId) !== undefined ? state.agentPilots.get(agentId) : Immutable.List());
          index = oldPilots.indexOf(cardId);
-         var newPilots = (index >= 0 ? oldPilots.delete(index) : oldPilots);
+         const newPilots = (index >= 0 ? oldPilots.delete(index) : oldPilots);
          return Object.assign(
          {}, state,
          {

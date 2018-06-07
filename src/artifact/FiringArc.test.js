@@ -16,13 +16,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = FiringArc.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(FiringArc);
+   const result = FiringArc.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(FiringArc);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = FiringArc[key];
+      const key2 = FiringArc[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -32,7 +32,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return FiringArc[key] === value;
       });
@@ -44,12 +44,12 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = FiringArc.keys();
+   const result = FiringArc.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 12);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], "aft");
    assert.equal(result[i++], "aft180");
    assert.equal(result[i++], "bullseye");
@@ -63,8 +63,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[i++], "portAndStarboardFore");
    assert.equal(result[i++], "starboard");
 
-   var properties = Object.getOwnPropertyNames(FiringArc);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(FiringArc);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // offsetKeys
       1 - // toString

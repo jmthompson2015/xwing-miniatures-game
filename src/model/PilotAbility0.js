@@ -17,7 +17,7 @@ import CardAction from "./CardAction.js";
 import Selector from "./Selector.js";
 import ShipActionAbility from "./ShipActionAbility.js";
 
-var PilotAbility0 = {};
+const PilotAbility0 = {};
 
 ////////////////////////////////////////////////////////////////////////
 PilotAbility0[Event.AFTER_EXECUTE_MANEUVER] = {};
@@ -26,12 +26,12 @@ PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.CAPTAIN_OICUNN] = {
    // After executing a maneuver, each enemy ship you are touching suffers 1 damage.
    condition: function(store, pilotInstance)
    {
-      var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
+      const pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
       return isEventToken(store, pilotInstance) && pilotInstances.length > 0;
    },
    consequent: function(store, pilotInstance, callback)
    {
-      var pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
+      const pilotInstances = pilotInstance.unfriendlyPilotInstancesTouching();
       pilotInstances.forEach(function(pilotInstance)
       {
          pilotInstance.sufferDamage(1, 0);
@@ -44,12 +44,12 @@ PilotAbility0[Event.AFTER_EXECUTE_MANEUVER][PilotCard.NIGHT_BEAST] = {
    // After executing a green maneuver, you may perform a free focus action.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
+      const maneuver = getManeuver(token);
       return isEventToken(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.EASY;
    },
    consequent: function(store, token, callback)
    {
-      var ability = new Ability(ShipAction, ShipAction.FOCUS, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
+      const ability = new Ability(ShipAction, ShipAction.FOCUS, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
       ability.consequent(store, token, callback);
    },
 };
@@ -65,7 +65,7 @@ PilotAbility0[Event.RECEIVE_STRESS][PilotCard.JEK_PORKINS] = {
    },
    consequent: function(store, token, callback)
    {
-      var environment = getEnvironment(store);
+      const environment = getEnvironment(store);
       token.removeStress();
       if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
       {
@@ -94,7 +94,7 @@ PilotAbility0[Event.REMOVE_SHIELD][PilotCard.RED_ACE] = {
    // The first time you remove a shield token from your ship each round, assign 1 evade token to your ship.
    condition: function(store, token)
    {
-      var pilotKey = PilotCard.RED_ACE;
+      const pilotKey = PilotCard.RED_ACE;
       return isEventToken(store, token) && !token.isPerRoundAbilityUsed(PilotCard, pilotKey);
    },
    consequent: function(store, token, callback)
@@ -109,7 +109,7 @@ function getActivationAction(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var store = token.store();
+   const store = token.store();
 
    return ActivationAction.get(store, token.id());
 }
@@ -125,7 +125,7 @@ function getEventToken(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var eventData = getEventData(store);
+   const eventData = getEventData(store);
 
    return (eventData !== undefined ? eventData.get("eventToken") : undefined);
 }
@@ -141,7 +141,7 @@ function getManeuver(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var maneuverKey = getManeuverKey(token);
+   const maneuverKey = getManeuverKey(token);
    return Maneuver.properties[maneuverKey];
 }
 
@@ -149,8 +149,8 @@ function getManeuverKey(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var answer;
-   var activationAction = getActivationAction(token);
+   let answer;
+   const activationAction = getActivationAction(token);
 
    if (activationAction)
    {
@@ -162,7 +162,7 @@ function getManeuverKey(token)
 
 function isEventToken(store, token)
 {
-   var eventToken = getEventToken(store);
+   const eventToken = getEventToken(store);
 
    return token.equals(eventToken);
 }

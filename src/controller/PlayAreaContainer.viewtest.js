@@ -9,11 +9,11 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store = Redux.createStore(Reducer.root);
 EnvironmentFactory.createCoreSetEnvironment(store);
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: store,
 }, React.createElement(PlayAreaContainer,

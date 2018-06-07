@@ -1,4 +1,4 @@
-var UpgradeType = {
+const UpgradeType = {
    ASTROMECH: "astromech",
    BOMB: "bomb",
    CANNON: "cannon",
@@ -121,10 +121,10 @@ UpgradeType.values = function()
 
 UpgradeType.findByName = function(name)
 {
-   var answer;
-   var values = UpgradeType.values();
+   let answer;
+   const values = UpgradeType.values();
 
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
       if (values[i].name === name)
       {

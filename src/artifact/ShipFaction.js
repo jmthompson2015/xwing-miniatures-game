@@ -4,7 +4,7 @@ import InputValidator from "../utility/InputValidator.js";
 import Faction from "./Faction.js";
 import Ship from "./Ship.js";
 
-var ShipFaction = {
+const ShipFaction = {
    // First Order.
    FIRST_ORDER_TIE_FO_FIGHTER: "firstOrder_tiefofighter",
    FIRST_ORDER_TIE_SF_FIGHTER: "firstOrder_tiesffighter",
@@ -746,7 +746,7 @@ ShipFaction.values = function()
 
 ShipFaction.keys().forEach(function(shipFactionKey)
 {
-   var shipFaction = ShipFaction.properties[shipFactionKey];
+   const shipFaction = ShipFaction.properties[shipFactionKey];
    shipFaction.ship = Ship.properties[shipFaction.shipKey];
    shipFaction.faction = Faction.properties[shipFaction.factionKey];
 });
@@ -758,14 +758,14 @@ ShipFaction.keysByFaction = function(factionKey, isStrict)
 {
    InputValidator.validateIsString("factionKey", factionKey);
 
-   var answer = this.keys().filter(function(shipFactionKey)
+   const answer = this.keys().filter(function(shipFactionKey)
    {
       return ShipFaction.properties[shipFactionKey].factionKey === factionKey;
    });
 
    if (!isStrict)
    {
-      var friend = Faction.friend(factionKey);
+      const friend = Faction.friend(factionKey);
 
       if (friend)
       {
@@ -781,7 +781,7 @@ ShipFaction.keysByShipAndFaction = function(shipKey, factionKey, isStrict)
    InputValidator.validateIsString("shipKey", shipKey);
    InputValidator.validateIsString("factionKey", factionKey);
 
-   var answer = this.keysByFaction(factionKey, isStrict).filter(function(shipFactionKey)
+   const answer = this.keysByFaction(factionKey, isStrict).filter(function(shipFactionKey)
    {
       return ShipFaction.properties[shipFactionKey].shipKey === shipKey;
    });
@@ -793,11 +793,11 @@ ShipFaction.shipKeysByFaction = function(factionKey, isStrict)
 {
    InputValidator.validateIsString("factionKey", factionKey);
 
-   var shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
+   const shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
 
    return shipFactionKeys.reduce(function(accumulator, shipFactionKey)
    {
-      var shipKey = ShipFaction.properties[shipFactionKey].shipKey;
+      const shipKey = ShipFaction.properties[shipFactionKey].shipKey;
 
       if (!accumulator.includes(shipKey))
       {

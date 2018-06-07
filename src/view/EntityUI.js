@@ -16,14 +16,14 @@ class EntityUI extends React.Component
 {
    render()
    {
-      var showIcon = this.props.showIcon;
-      var showLabel = this.props.showLabel;
-      var showImplemented = this.props.showImplemented;
-      var cells = [];
+      const showIcon = this.props.showIcon;
+      const showLabel = this.props.showLabel;
+      const showImplemented = this.props.showImplemented;
+      const cells = [];
 
       if (showIcon)
       {
-         var icon = this.createIcon();
+         const icon = this.createIcon();
          cells.push(ReactDOMFactories.div(
          {
             key: "iconPanel",
@@ -33,7 +33,7 @@ class EntityUI extends React.Component
 
       if (showLabel)
       {
-         var label = this.createLabel();
+         const label = this.createLabel();
          cells.push(ReactDOMFactories.div(
          {
             key: "labelPanel",
@@ -43,7 +43,7 @@ class EntityUI extends React.Component
 
       if (showImplemented)
       {
-         var implementedImage = this.createImplementedImage();
+         const implementedImage = this.createImplementedImage();
          cells.push(ReactDOMFactories.div(
          {
             key: "implementedPanel",
@@ -60,16 +60,16 @@ class EntityUI extends React.Component
 
 EntityUI.prototype.createIcon = function()
 {
-   var entity = this.props.entity;
-   var resourceBase = this.props.resourceBase;
-   var type = entity.xwingType;
-   var key = "iconCell";
-   var answer;
+   const entity = this.props.entity;
+   const resourceBase = this.props.resourceBase;
+   const type = entity.xwingType;
+   const key = "iconCell";
+   let answer;
 
    switch (type)
    {
       case DamageCard:
-         var filename = resourceBase + "pilotCard/CriticalDamage24.jpg";
+         const filename = resourceBase + "pilotCard/CriticalDamage24.jpg";
          answer = ReactDOMFactories.img(
          {
             key: key,
@@ -125,9 +125,9 @@ EntityUI.prototype.createIcon = function()
 
 EntityUI.prototype.createImplementedImage = function()
 {
-   var answer;
-   var entity = this.props.entity;
-   var type = entity.xwingType;
+   let answer;
+   const entity = this.props.entity;
+   const type = entity.xwingType;
 
    switch (type)
    {
@@ -136,7 +136,7 @@ EntityUI.prototype.createImplementedImage = function()
       case PilotCard:
       case ShipAction:
       case UpgradeCard:
-         var isImplemented = (entity.isImplemented !== undefined ? entity.isImplemented : false);
+         const isImplemented = (entity.isImplemented !== undefined ? entity.isImplemented : false);
          answer = React.createElement(ImplementedImage,
          {
             key: "implementedCell",
@@ -155,10 +155,10 @@ EntityUI.prototype.createImplementedImage = function()
 
 EntityUI.prototype.createLabel = function()
 {
-   var entity = this.props.entity;
-   var type = entity.xwingType;
-   var title = this.createTitle();
-   var name;
+   const entity = this.props.entity;
+   const type = entity.xwingType;
+   const title = this.createTitle();
+   let name;
 
    switch (type)
    {
@@ -168,7 +168,7 @@ EntityUI.prototype.createLabel = function()
          name = entity.name;
          break;
       case ShipAction:
-         var context = this.props.context;
+         const context = this.props.context;
          name = this.createShipActionLabel(entity, context);
          break;
       case PilotCard:
@@ -190,11 +190,11 @@ EntityUI.prototype.createLabel = function()
 
 EntityUI.prototype.createShipActionLabel = function(shipAction, context)
 {
-   var answer;
-   var maneuverKey = (context !== undefined ? context.maneuverKey : undefined);
-   var maneuver = (maneuverKey !== undefined ? Maneuver.properties[maneuverKey] : undefined);
-   var token = (context !== undefined ? context.token : undefined);
-   var defender = (context !== undefined ? context.defender : undefined);
+   let answer;
+   const maneuverKey = (context !== undefined ? context.maneuverKey : undefined);
+   const maneuver = (maneuverKey !== undefined ? Maneuver.properties[maneuverKey] : undefined);
+   const token = (context !== undefined ? context.token : undefined);
+   const defender = (context !== undefined ? context.defender : undefined);
 
    switch (shipAction.key)
    {
@@ -202,7 +202,7 @@ EntityUI.prototype.createShipActionLabel = function(shipAction, context)
          answer = maneuver.bearing.name;
          break;
       case ShipAction.BOOST:
-         var parts = maneuver.bearing.name.split(" ");
+         const parts = maneuver.bearing.name.split(" ");
          answer = "Boost " + parts[parts.length - 1];
          break;
       case ShipAction.COORDINATE:
@@ -235,9 +235,9 @@ EntityUI.prototype.createShipActionLabel = function(shipAction, context)
 
 EntityUI.prototype.createTitle = function()
 {
-   var answer = "";
-   var entity = this.props.entity;
-   var type = entity.xwingType;
+   let answer = "";
+   const entity = this.props.entity;
+   const type = entity.xwingType;
 
    switch (type)
    {

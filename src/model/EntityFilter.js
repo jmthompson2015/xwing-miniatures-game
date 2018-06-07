@@ -19,7 +19,7 @@ function EntityFilter(columnKey, values)
    {
       InputValidator.validateNotNull("data", data);
 
-      var value = data[columnKey];
+      const value = data[columnKey];
 
       return values.length === 0 || values.includes(value);
    };
@@ -44,8 +44,8 @@ EntityFilter.fromObject = function(object)
 {
    InputValidator.validateNotNull("object", object);
 
-   var columnKey = object.columnKey;
-   var values = object.values;
+   const columnKey = object.columnKey;
+   const values = object.values;
 
    return new EntityFilter(columnKey, values);
 };

@@ -1,4 +1,4 @@
-var SquadColumns = [
+const SquadColumns = [
    {
       key: "pilot",
       label: "Ship / Pilot / Upgrade",

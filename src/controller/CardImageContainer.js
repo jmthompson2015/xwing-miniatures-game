@@ -8,8 +8,8 @@ function mapStateToProps(state, ownProps)
 {
    InputValidator.validateNotNull("ownProps.cardInstance", ownProps.cardInstance);
 
-   var cardInstance = ownProps.cardInstance;
-   var isFaceUp = state.cardIsFaceUp.get(cardInstance.id());
+   const cardInstance = ownProps.cardInstance;
+   const isFaceUp = state.cardIsFaceUp.get(cardInstance.id());
 
    return (
    {

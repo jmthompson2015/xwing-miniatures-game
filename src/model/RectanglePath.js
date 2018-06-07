@@ -21,9 +21,9 @@ function RectanglePath(width, height)
       throw "height must be positive: " + height;
    }
 
-   var x = -width / 2;
-   var y = -height / 2;
-   var path = new Path();
+   const x = -width / 2;
+   const y = -height / 2;
+   const path = new Path();
 
    path.add(x + width, y); // forward port
    path.add(x + width, y + height); // forward starboard
@@ -49,12 +49,12 @@ RectanglePath.determineWindingNumber = function(x, y, polygon)
    InputValidator.validateNotNull("y", y);
    InputValidator.validateNotNull("polygon", polygon);
 
-   var wn = 0; // the winding number counter
-   var points = polygon.points();
-   var n = points.length - 2;
+   let wn = 0; // the winding number counter
+   const points = polygon.points();
+   const n = points.length - 2;
 
    // loop through all edges of the polygon
-   for (var i = 0; i < n; i += 2)
+   for (let i = 0; i < n; i += 2)
    {
       // edge from V[i] to V[i+1]
       if (points[i + 1] <= y)
@@ -94,10 +94,10 @@ RectanglePath.doPolygonsCollide = function(polygon0, polygon1)
    LOGGER.trace("polygon0 = " + polygon0);
    LOGGER.trace("polygon1 = " + polygon1);
 
-   var answer;
-   var b0 = polygon0.boundingBox();
+   let answer;
+   const b0 = polygon0.boundingBox();
    LOGGER.trace("b0 = " + JSON.stringify(b0));
-   var b1 = polygon1.boundingBox();
+   const b1 = polygon1.boundingBox();
    LOGGER.trace("b1 = " + JSON.stringify(b1));
 
    if ((b1.maxX < b0.minX || b0.maxX < b1.minX) && // b1 is left or right of b0
@@ -111,18 +111,18 @@ RectanglePath.doPolygonsCollide = function(polygon0, polygon1)
    {
       answer = false;
       LOGGER.trace("b0.area = " + b0.area + " b1.area = " + b1.area);
-      var bb = (b0.area < b1.area ? b0 : b1);
+      const bb = (b0.area < b1.area ? b0 : b1);
 
       // Check if any point in bb is in both polygon0 and polygon1.
-      var startX = MathUtilities.round(bb.minX, 0);
-      var startY = MathUtilities.round(bb.minY, 0);
-      var endX = MathUtilities.round(bb.maxX, 0);
-      var endY = MathUtilities.round(bb.maxY, 0);
+      const startX = MathUtilities.round(bb.minX, 0);
+      const startY = MathUtilities.round(bb.minY, 0);
+      const endX = MathUtilities.round(bb.maxX, 0);
+      const endY = MathUtilities.round(bb.maxY, 0);
       LOGGER.trace("start = " + startX + ", " + startY + " end = " + endX + ", " + endY);
 
-      for (var y = startY; !answer && y <= endY; y++)
+      for (let y = startY; !answer && y <= endY; y++)
       {
-         for (var x = startX; !answer && x <= endX; x++)
+         for (let x = startX; !answer && x <= endX; x++)
          {
             // LOGGER.trace(x + "," + y + " isPointInPolygon ? " + RectanglePath.isPointInPolygon(x, y,
             // polygon0)
@@ -160,7 +160,7 @@ RectanglePath.isLeft = function(x0, y0, x1, y1, x2, y2)
 
 RectanglePath.isPointInPolygon = function(x, y, polygon)
 {
-   var wn = RectanglePath.determineWindingNumber(x, y, polygon);
+   const wn = RectanglePath.determineWindingNumber(x, y, polygon);
 
    return (wn % 2) !== 0;
 };

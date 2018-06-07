@@ -1,7 +1,7 @@
 /*
  * Provides utility methods for Math.
  */
-var MathUtilities = {};
+const MathUtilities = {};
 
 /*
  * @param number The number to format.
@@ -9,7 +9,7 @@ var MathUtilities = {};
  */
 MathUtilities.format = function(number, digits)
 {
-   var answer = number;
+   let answer = number;
 
    if (number !== undefined && typeof number === "number" && !isNaN(number))
    {
@@ -25,7 +25,7 @@ MathUtilities.format = function(number, digits)
  */
 MathUtilities.round = function(number, digits)
 {
-   var factor = Math.pow(10.0, digits);
+   const factor = Math.pow(10.0, digits);
 
    return Math.round(factor * number) / factor;
 };

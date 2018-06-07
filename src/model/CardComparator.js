@@ -1,24 +1,24 @@
 import Faction from "../artifact/Faction.js";
 
-var CardComparator = {};
+const CardComparator = {};
 
 CardComparator.Activation = function(a, b)
 {
-   var isHuge0 = a.isHuge();
-   var isHuge1 = b.isHuge();
-   var answer = (isHuge0 === isHuge1 ? 0 : (isHuge0 && !isHuge1 ? 1 : -1));
+   const isHuge0 = a.isHuge();
+   const isHuge1 = b.isHuge();
+   let answer = (isHuge0 === isHuge1 ? 0 : (isHuge0 && !isHuge1 ? 1 : -1));
 
    if (answer === 0)
    {
-      var skill0 = a.pilotSkillValue();
-      var skill1 = b.pilotSkillValue();
+      const skill0 = a.pilotSkillValue();
+      const skill1 = b.pilotSkillValue();
       answer = skill0 - skill1;
    }
 
    if (answer === 0)
    {
-      var teamKey0 = a.card().shipFaction.factionKey;
-      var teamKey1 = b.card().shipFaction.factionKey;
+      const teamKey0 = a.card().shipFaction.factionKey;
+      const teamKey1 = b.card().shipFaction.factionKey;
 
       if (Faction.isFriendly(teamKey0, teamKey1))
       {
@@ -44,14 +44,14 @@ CardComparator.Activation = function(a, b)
 
 CardComparator.Combat = function(a, b)
 {
-   var skill0 = a.pilotSkillValue();
-   var skill1 = b.pilotSkillValue();
-   var answer = skill1 - skill0;
+   const skill0 = a.pilotSkillValue();
+   const skill1 = b.pilotSkillValue();
+   let answer = skill1 - skill0;
 
    if (answer === 0)
    {
-      var teamKey0 = a.card().shipFaction.factionKey;
-      var teamKey1 = b.card().shipFaction.factionKey;
+      const teamKey0 = a.card().shipFaction.factionKey;
+      const teamKey1 = b.card().shipFaction.factionKey;
 
       if (Faction.isFriendly(teamKey0, teamKey1))
       {

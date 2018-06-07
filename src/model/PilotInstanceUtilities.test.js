@@ -23,17 +23,17 @@ QUnit.module("PilotInstanceUtilities");
 
 QUnit.test("computeAttackDiceCount()", function(assert)
 {
-   var store00 = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store00, "Imperial Agent");
-   var token0 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
-   var rebelAgent = new Agent(store00, "Rebel Agent");
-   var token1 = new CardInstance(store00, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const store00 = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store00, "Imperial Agent");
+   let token0 = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const rebelAgent = new Agent(store00, "Rebel Agent");
+   let token1 = new CardInstance(store00, PilotCard.ROOKIE_PILOT, rebelAgent);
 
-   var store = Redux.createStore(Reducer.root);
-   var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token0]);
-   var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [token1]);
-   var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2);
-   var tokens = environment.pilotInstances();
+   const store = Redux.createStore(Reducer.root);
+   const squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token0]);
+   const squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [token1]);
+   const environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2);
+   const tokens = environment.pilotInstances();
    token0 = tokens[0];
    token1 = tokens[1];
    assert.equal(token0.id(), 34);
@@ -57,14 +57,14 @@ QUnit.test("computeAttackDiceCount()", function(assert)
 QUnit.test("computeAttackDiceCount() Dorsal Turret", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var attacker = environment.pilotInstances()[1]; // Dark Curse
-   var store = environment.store();
-   var upgrade = new CardInstance(store, UpgradeCard.DORSAL_TURRET);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const attacker = environment.pilotInstances()[1]; // Dark Curse
+   const store = environment.store();
+   const upgrade = new CardInstance(store, UpgradeCard.DORSAL_TURRET);
    store.dispatch(CardAction.addUpgrade(attacker, upgrade));
-   var defender = environment.pilotInstances()[2]; // X-Wing
+   const defender = environment.pilotInstances()[2]; // X-Wing
    assert.equal(attacker.name(), "36 \u2022 \"Dark Curse\" (TIE Fighter)");
-   var weapon = attacker.primaryWeapon();
+   const weapon = attacker.primaryWeapon();
 
    // Run / Verify.
    assert.equal(attacker.computeAttackDiceCount(environment, weapon, defender, Range.ONE), 3);
@@ -75,11 +75,11 @@ QUnit.test("computeAttackDiceCount() Dorsal Turret", function(assert)
 QUnit.test("computeAttackDiceCount() Mauler Mithel", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var attacker = environment.pilotInstances()[0]; // Mauler Mithel
-   var defender = environment.pilotInstances()[2]; // X-Wing
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const attacker = environment.pilotInstances()[0]; // Mauler Mithel
+   const defender = environment.pilotInstances()[2]; // X-Wing
    assert.equal(attacker.name(), "34 \u2022 \"Mauler Mithel\" (TIE Fighter)");
-   var weapon = attacker.primaryWeapon();
+   const weapon = attacker.primaryWeapon();
 
    // Run / Verify.
    assert.equal(attacker.computeAttackDiceCount(environment, weapon, defender, Range.ONE), 4);
@@ -90,11 +90,11 @@ QUnit.test("computeAttackDiceCount() Mauler Mithel", function(assert)
 QUnit.test("computeAttackDiceCount() Talonbane Cobra", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var agent = environment.pilotInstances()[0].agent(); // Mauler Mithel
-   var token = new CardInstance(environment.store(), PilotCard.TALONBANE_COBRA, agent);
-   var weapon = token.primaryWeapon();
-   var defender = environment.pilotInstances()[2]; // X-Wing
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const agent = environment.pilotInstances()[0].agent(); // Mauler Mithel
+   const token = new CardInstance(environment.store(), PilotCard.TALONBANE_COBRA, agent);
+   const weapon = token.primaryWeapon();
+   const defender = environment.pilotInstances()[2]; // X-Wing
 
    // Run / Verify.
    assert.equal(token.computeAttackDiceCount(environment, weapon, defender, Range.ONE), 5);
@@ -104,18 +104,18 @@ QUnit.test("computeAttackDiceCount() Talonbane Cobra", function(assert)
 
 QUnit.test("computeAttackDiceCount() Blinded Pilot", function(assert)
 {
-   var store00 = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store00, "Imperial Agent");
-   var token = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
-   var rebelAgent = new Agent(store00, "Rebel Agent");
-   var defender = new CardInstance(store00, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const store00 = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store00, "Imperial Agent");
+   let token = new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const rebelAgent = new Agent(store00, "Rebel Agent");
+   let defender = new CardInstance(store00, PilotCard.ROOKIE_PILOT, rebelAgent);
 
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
    //  store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token]);
-   var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [defender]);
-   var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, [new Position(10, 20, 30)]);
-   var tokens = environment.pilotInstances();
+   const squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [token]);
+   const squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [defender]);
+   const environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, [new Position(10, 20, 30)]);
+   const tokens = environment.pilotInstances();
    token = tokens[0];
    defender = tokens[1];
 
@@ -125,7 +125,7 @@ QUnit.test("computeAttackDiceCount() Blinded Pilot", function(assert)
    assert.equal(token.computeAttackDiceCount(environment, token.primaryWeapon(), defender, Range.TWO), 2);
    assert.equal(token.computeAttackDiceCount(environment, token.primaryWeapon(), defender, Range.THREE), 2);
 
-   var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
+   const damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
    token.receiveCriticalDamage(damage);
    assert.equal(token.damageCount(), 0);
    assert.equal(token.criticalDamageCount(), 1);
@@ -139,22 +139,22 @@ QUnit.test("computeAttackDiceCount() Blinded Pilot", function(assert)
 
 QUnit.test("computeDefenseDiceCount()", function(assert)
 {
-   var store = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store, "Imperial Agent");
-   var token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const store = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store, "Imperial Agent");
+   const token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
    assert.equal(token0.id(), 1);
    assert.equal(token0.card().key, PilotCard.ACADEMY_PILOT);
    assert.equal(token0.card().shipFaction.shipKey, Ship.TIE_FIGHTER);
    assert.equal(token0.name(), "1 Academy Pilot (TIE Fighter)");
-   var environment = {};
+   const environment = {};
    assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.ONE), 3);
    assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.TWO), 3);
    assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.THREE), 4);
    assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.FOUR), 4);
    assert.equal(token0.computeDefenseDiceCount(environment, token0, token0.primaryWeapon(), Range.FIVE), 4);
 
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
    assert.equal(token1.id(), 2);
    assert.equal(token1.card().key, PilotCard.ROOKIE_PILOT);
    assert.equal(token1.card().shipFaction.shipKey, Ship.X_WING);
@@ -169,10 +169,10 @@ QUnit.test("computeDefenseDiceCount()", function(assert)
 QUnit.test("computeDefenseDiceCount() Talonbane Cobra", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var agent = environment.pilotInstances()[0].agent(); // Mauler Mithel
-   var token = new CardInstance(environment.store(), PilotCard.TALONBANE_COBRA, agent);
-   var weapon = token.primaryWeapon();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const agent = environment.pilotInstances()[0].agent(); // Mauler Mithel
+   const token = new CardInstance(environment.store(), PilotCard.TALONBANE_COBRA, agent);
+   const weapon = token.primaryWeapon();
 
    // Run / Verify.
    assert.equal(token.computeDefenseDiceCount(environment, token, weapon, Range.ONE), 2);
@@ -185,12 +185,12 @@ QUnit.test("computeDefenseDiceCount() Talonbane Cobra", function(assert)
 QUnit.test("maneuverKeys()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store, "Imperial Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const store = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store, "Imperial Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
 
    // Run.
-   var result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
+   const result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
 
    // Verify.
    assert.equal(result.length, 16);
@@ -199,13 +199,13 @@ QUnit.test("maneuverKeys()", function(assert)
 QUnit.test("maneuverKeys() stressed", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store, "Imperial Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const store = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store, "Imperial Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
    store.dispatch(CardAction.addStressCount(pilotInstance));
 
    // Run.
-   var result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
+   const result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
 
    // Verify.
    assert.equal(result.length, 14);
@@ -214,20 +214,20 @@ QUnit.test("maneuverKeys() stressed", function(assert)
 QUnit.test("maneuverKeys() Damaged Engine", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store, "Imperial Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const store = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store, "Imperial Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), pilotInstance));
    pilotInstance.receiveCriticalDamage(new CardInstance(store, DamageCard.DAMAGED_ENGINE));
 
    // Run.
-   var result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
+   const result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
 
    // Verify.
    assert.equal(result.length, 16);
    result.forEach(function(maneuver)
    {
-      var maneuverProps = Maneuver.properties[maneuver];
+      const maneuverProps = Maneuver.properties[maneuver];
       if (maneuverProps.bearing === Bearing.TURN_LEFT || maneuverProps.bearing === Bearing.TURN_RIGHT)
       {
          assert.equal(maneuverProps.difficulty, Difficulty.HARD);
@@ -238,18 +238,18 @@ QUnit.test("maneuverKeys() Damaged Engine", function(assert)
 QUnit.test("maneuverKeys() Nien Nunb crew", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Rebel Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, agent, [UpgradeCard.NIEN_NUNB]);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Rebel Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, agent, [UpgradeCard.NIEN_NUNB]);
 
    // Run.
-   var result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
+   const result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
 
    // Verify.
    assert.equal(result.length, 16);
    result.forEach(function(maneuver)
    {
-      var maneuverProps = Maneuver.properties[maneuver];
+      const maneuverProps = Maneuver.properties[maneuver];
       if (maneuverProps.bearing === Bearing.STRAIGHT)
       {
          assert.equal(maneuverProps.difficulty, Difficulty.EASY);
@@ -260,18 +260,18 @@ QUnit.test("maneuverKeys() Nien Nunb crew", function(assert)
 QUnit.test("maneuverKeys() R2 Astromech", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Rebel Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.R2_ASTROMECH]);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Rebel Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent, [UpgradeCard.R2_ASTROMECH]);
 
    // Run.
-   var result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
+   const result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
 
    // Verify.
    assert.equal(result.length, 15);
    result.forEach(function(maneuver)
    {
-      var maneuverProps = Maneuver.properties[maneuver];
+      const maneuverProps = Maneuver.properties[maneuver];
       if (maneuverProps.speed === 1 || maneuverProps.speed === 2)
       {
          assert.equal(maneuverProps.difficultyKey, Difficulty.EASY);
@@ -282,18 +282,18 @@ QUnit.test("maneuverKeys() R2 Astromech", function(assert)
 QUnit.test("maneuverKeys() Twin Ion Engine Mk. II", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Imperial Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent, [UpgradeCard.TWIN_ION_ENGINE_MKII]);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Imperial Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.ACADEMY_PILOT, agent, [UpgradeCard.TWIN_ION_ENGINE_MKII]);
 
    // Run.
-   var result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
+   const result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
 
    // Verify.
    assert.equal(result.length, 16);
    result.forEach(function(maneuver)
    {
-      var maneuverProps = Maneuver.properties[maneuver];
+      const maneuverProps = Maneuver.properties[maneuver];
       if (maneuverProps.bearing === Bearing.BANK_LEFT || maneuverProps.bearing === Bearing.BANK_RIGHT)
       {
          assert.equal(maneuverProps.difficultyKey, Difficulty.EASY);
@@ -304,18 +304,18 @@ QUnit.test("maneuverKeys() Twin Ion Engine Mk. II", function(assert)
 QUnit.test("maneuverKeys() Unhinged Astromech", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Scum Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.DREA_RENTHAL, agent, [UpgradeCard.UNHINGED_ASTROMECH]);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Scum Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.DREA_RENTHAL, agent, [UpgradeCard.UNHINGED_ASTROMECH]);
 
    // Run.
-   var result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
+   const result = PilotInstanceUtilities.maneuverKeys(pilotInstance);
 
    // Verify.
    assert.equal(result.length, 15);
    result.forEach(function(maneuver)
    {
-      var maneuverProps = Maneuver.properties[maneuver];
+      const maneuverProps = Maneuver.properties[maneuver];
       if (!maneuverProps)
       {
          throw "Unknown maneuver: " + maneuver;
@@ -330,11 +330,11 @@ QUnit.test("maneuverKeys() Unhinged Astromech", function(assert)
 QUnit.test("pilotName()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
 
    // Run / Verify.
    assert.equal(environment.pilotInstances().length, 3);
-   var i = 0;
+   let i = 0;
    assert.equal(environment.pilotInstances()[i++].name(), "34 \u2022 \"Mauler Mithel\" (TIE Fighter)");
    assert.equal(environment.pilotInstances()[i++].name(), "36 \u2022 \"Dark Curse\" (TIE Fighter)");
    assert.equal(environment.pilotInstances()[i++].name(), "37 \u2022 Luke Skywalker (X-Wing)");
@@ -343,12 +343,12 @@ QUnit.test("pilotName()", function(assert)
 QUnit.test("primaryWeapon()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var token = new CardInstance(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE]);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const token = new CardInstance(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE]);
 
    // Run.
-   var result = token.primaryWeapon();
+   const result = token.primaryWeapon();
 
    // Verify.
    assert.ok(result);
@@ -359,12 +359,12 @@ QUnit.test("primaryWeapon()", function(assert)
 QUnit.test("secondaryWeapons()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var token = new CardInstance(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE]);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const token = new CardInstance(store, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.OUTRIDER, UpgradeCard.CALCULATION, UpgradeCard.MANGLER_CANNON, UpgradeCard.CLUSTER_MISSILES, UpgradeCard.ENGINE_UPGRADE]);
 
    // Run.
-   var result = token.secondaryWeapons();
+   const result = token.secondaryWeapons();
 
    // Verify.
    assert.ok(result);
@@ -376,12 +376,12 @@ QUnit.test("secondaryWeapons()", function(assert)
 QUnit.test("ship() Rookie Pilot", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
 
    // Run.
-   var result = PilotInstanceUtilities.ship(pilotInstance);
+   const result = PilotInstanceUtilities.ship(pilotInstance);
 
    // Verify.
    assert.ok(result);
@@ -391,15 +391,15 @@ QUnit.test("ship() Rookie Pilot", function(assert)
 QUnit.test("ship() CR90", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var pilotInstance0 = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent);
-   var children = pilotInstance0.children();
-   var pilotInstance1 = children[0];
-   var pilotInstance2 = children[1];
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const pilotInstance0 = new CardInstance(store, PilotCard.CR90_CORVETTE, rebelAgent);
+   const children = pilotInstance0.children();
+   const pilotInstance1 = children[0];
+   const pilotInstance2 = children[1];
 
    // Run.
-   var result = PilotInstanceUtilities.ship(pilotInstance0);
+   let result = PilotInstanceUtilities.ship(pilotInstance0);
 
    // Verify.
    assert.ok(result);
@@ -423,12 +423,12 @@ QUnit.test("ship() CR90", function(assert)
 QUnit.test("shipActions() Rookie Pilot", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
 
    // Run.
-   var result = PilotInstanceUtilities.shipActions(pilotInstance);
+   const result = PilotInstanceUtilities.shipActions(pilotInstance);
 
    // Verify.
    assert.ok(result);
@@ -440,12 +440,12 @@ QUnit.test("shipActions() Rookie Pilot", function(assert)
 QUnit.test("shipName() Rookie Pilot", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var pilotInstance = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const pilotInstance = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
 
    // Run.
-   var result = PilotInstanceUtilities.shipName(pilotInstance);
+   const result = PilotInstanceUtilities.shipName(pilotInstance);
 
    // Verify.
    assert.ok(result);

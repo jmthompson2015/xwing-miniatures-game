@@ -1,7 +1,7 @@
 /*
  * Provides convenience methods to print time.
  */
-var TimePrinter = {
+const TimePrinter = {
    SECONDS_TO_MS: 1000,
    MINUTES_TO_MS: 60 * 1000,
 
@@ -14,15 +14,15 @@ var TimePrinter = {
     */
    formatElapsedTime: function(title, start, end)
    {
-      var myStart = Math.min(start, end);
-      var myEnd = Math.max(start, end);
+      const myStart = Math.min(start, end);
+      const myEnd = Math.max(start, end);
 
-      var elapsed = myEnd - myStart;
-      var minutes = Math.floor(elapsed / this.MINUTES_TO_MS);
-      var leftover = elapsed - (minutes * this.MINUTES_TO_MS);
-      var seconds = Math.floor(leftover / this.SECONDS_TO_MS);
+      const elapsed = myEnd - myStart;
+      const minutes = Math.floor(elapsed / this.MINUTES_TO_MS);
+      const leftover = elapsed - (minutes * this.MINUTES_TO_MS);
+      const seconds = Math.floor(leftover / this.SECONDS_TO_MS);
 
-      var sb = "";
+      let sb = "";
 
       sb += this.createTitleString(title);
       sb += minutes;
@@ -53,7 +53,7 @@ var TimePrinter = {
 
    createTitleString: function(title)
    {
-      var sb = "";
+      let sb = "";
 
       if (!title || title.length === 0)
       {

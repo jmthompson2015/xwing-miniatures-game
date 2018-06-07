@@ -8,7 +8,7 @@ import UpgradeHeader from "./UpgradeHeader.js";
 import UpgradeRestriction from "./UpgradeRestriction.js";
 import UpgradeType from "./UpgradeType.js";
 
-var UpgradeCard = {
+const UpgradeCard = {
    ACCURACY_CORRECTOR: "accuracyCorrector",
    ADAPTABILITY_DECREASE: "adaptabilityDecrease",
    ADAPTABILITY_INCREASE: "adaptabilityIncrease",
@@ -4621,7 +4621,7 @@ UpgradeCard.values = function()
 
 UpgradeCard.keys().forEach(function(upgradeKey)
 {
-   var upgrade = UpgradeCard.properties[upgradeKey];
+   const upgrade = UpgradeCard.properties[upgradeKey];
    upgrade.cardTypeKey = CardType.UPGRADE;
    upgrade.xwingType = UpgradeCard;
    upgrade.type = UpgradeType.properties[upgrade.typeKey];
@@ -4660,8 +4660,8 @@ UpgradeCard.getName = function(upgradeKey)
 {
    InputValidator.validateNotNull("upgradeKey", upgradeKey);
 
-   var upgrade = UpgradeCard.properties[upgradeKey];
-   var answer = "";
+   const upgrade = UpgradeCard.properties[upgradeKey];
+   let answer = "";
    answer += (upgrade.isUnique ? "\u2022 " : ""); // bullet
    answer += upgrade.name;
 
@@ -4673,21 +4673,21 @@ UpgradeCard.keysByPilotAndType = function(pilotKey, upgradeTypeKey)
    InputValidator.validateNotNull("pilotKey", pilotKey);
    InputValidator.validateNotNull("upgradeTypeKey", upgradeTypeKey);
 
-   var pilot = PilotCard.properties[pilotKey];
+   let pilot = PilotCard.properties[pilotKey];
    if (!pilot)
    {
-      var parentPilotCardKey = pilotKey.split(".")[0];
+      const parentPilotCardKey = pilotKey.split(".")[0];
       pilot = PilotCard.properties[parentPilotCardKey];
    }
    if (pilot === undefined)
    {
       throw "UpgradeCard: Can't find pilot for pilotKey: " + pilotKey;
    }
-   var myPilotCardKey = pilot.key;
+   const myPilotCardKey = pilot.key;
 
    return this.keysByType(upgradeTypeKey).filter(function(upgradeKey)
    {
-      var restrictionKeys = UpgradeCard.properties[upgradeKey].restrictionKeys;
+      const restrictionKeys = UpgradeCard.properties[upgradeKey].restrictionKeys;
       return UpgradeRestriction.passes(restrictionKeys, myPilotCardKey);
    });
 };

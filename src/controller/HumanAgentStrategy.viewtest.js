@@ -11,15 +11,15 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store = Redux.createStore(Reducer.root);
 store.dispatch(Action.setResourceBase(resourceBase));
-var environment = EnvironmentFactory.createCoreSetEnvironment(store, HumanAgentStrategy);
-var adjudicator = new Adjudicator(store);
+const environment = EnvironmentFactory.createCoreSetEnvironment(store, HumanAgentStrategy);
+const adjudicator = new Adjudicator(store);
 store.dispatch(Action.setAdjudicator(adjudicator));
-var token = environment.pilotInstances()[0]; // TIE Fighter.
+const token = environment.pilotInstances()[0]; // TIE Fighter.
 environment.setActiveToken(token);
-var agent = token.agent();
+const agent = token.agent();
 
 // Run.
 agent.getShipAction(token, myCallback);

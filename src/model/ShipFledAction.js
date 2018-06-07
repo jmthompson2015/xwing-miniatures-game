@@ -28,7 +28,7 @@ function ShipFledAction(environment, token, fromPosition)
    {
       LOGGER.trace("ShipFledAction.doIt() start");
 
-      var tokens = [];
+      const tokens = [];
 
       if (token.isParent())
       {
@@ -42,7 +42,7 @@ function ShipFledAction(environment, token, fromPosition)
 
       tokens.forEach(function(token)
       {
-         var store = environment.store();
+         const store = environment.store();
          TargetLock.removeAllTargetLocks(store, token);
 
          // Return the damage cards.

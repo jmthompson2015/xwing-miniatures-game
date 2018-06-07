@@ -16,7 +16,7 @@ QUnit.module("EnvironmentReducer");
 QUnit.test("addRound()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
    assert.equal(store.getState().round, 0);
 
    // Run.
@@ -35,18 +35,18 @@ QUnit.test("addRound()", function(assert)
 QUnit.test("addTouching()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var pilotInstance1 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var pilotInstance2 = new CardInstance(store, PilotCard.LUKE_SKYWALKER, new Agent(store, "Rebel"));
+   const store = Redux.createStore(Reducer.root);
+   const pilotInstance1 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const pilotInstance2 = new CardInstance(store, PilotCard.LUKE_SKYWALKER, new Agent(store, "Rebel"));
    assert.equal(store.getState().touching.size, 0);
 
    // Run.
    store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
 
    // Verify.
-   var touching = store.getState().touching;
+   const touching = store.getState().touching;
    assert.equal(touching.size, 1);
-   var touching0 = touching.get(0);
+   const touching0 = touching.get(0);
    assert.equal(touching0.get(0), pilotInstance1.id());
    assert.equal(touching0.get(1), pilotInstance2.id());
 });
@@ -54,11 +54,11 @@ QUnit.test("addTouching()", function(assert)
 QUnit.test("discardDamage()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
-   var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+   const store = Redux.createStore(Reducer.root);
+   const damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+   const damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
    store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
-   var damage = damageDeck[0];
+   const damage = damageDeck[0];
    store.dispatch(EnvironmentAction.drawDamage(damage));
    assert.equal(store.getState().damageDeck.size, 32);
    assert.equal(store.getState().damageDiscardPile.size, 0);
@@ -74,11 +74,11 @@ QUnit.test("discardDamage()", function(assert)
 QUnit.test("drawDamage()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
-   var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+   const store = Redux.createStore(Reducer.root);
+   const damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+   const damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
    store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
-   var damage = damageDeck[0];
+   const damage = damageDeck[0];
    assert.equal(store.getState().damageDeck.size, 33);
    assert.equal(store.getState().damageDiscardPile.size, 0);
 
@@ -93,11 +93,11 @@ QUnit.test("drawDamage()", function(assert)
 QUnit.test("moveToken()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token2 = environment.pilotInstances()[2];
-   var fromPosition = environment.getPositionFor(token2);
-   var toPosition = new Position(120, 220, 45);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token2 = environment.pilotInstances()[2];
+   const fromPosition = environment.getPositionFor(token2);
+   const toPosition = new Position(120, 220, 45);
    assert.equal(store.getState().positionToCardId.keySeq().size, 3);
    assert.equal(store.getState().cardPosition.keySeq().size, 3);
    assert.equal(store.getState().cardInstances.keySeq().size, 39);
@@ -110,7 +110,7 @@ QUnit.test("moveToken()", function(assert)
    assert.equal(store.getState().cardPosition.keySeq().size, 3);
    assert.equal(store.getState().cardInstances.keySeq().size, 39);
 
-   var token22 = CardInstance.get(store, token2.id());
+   const token22 = CardInstance.get(store, token2.id());
    assert.ok(token22.equals(token2));
    assert.equal(store.getState().cardPosition.get(token2.id()), toPosition);
 });
@@ -118,13 +118,13 @@ QUnit.test("moveToken()", function(assert)
 QUnit.test("placeToken()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var position = new Position(100, 200, 45);
-   var agent = new Agent(store, "Charlie");
+   const store = Redux.createStore(Reducer.root);
+   const position = new Position(100, 200, 45);
+   const agent = new Agent(store, "Charlie");
    assert.equal(store.getState().positionToCardId.keySeq().size, 0);
    assert.equal(store.getState().cardPosition.keySeq().size, 0);
    assert.equal(store.getState().cardInstances.keySeq().size, 0);
-   var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
+   const token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
 
    // Run.
    store.dispatch(EnvironmentAction.placeToken(position, token));
@@ -140,9 +140,9 @@ QUnit.test("placeToken()", function(assert)
 QUnit.test("removeToken()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token0 = environment.pilotInstances()[0];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token0 = environment.pilotInstances()[0];
    assert.equal(store.getState().positionToCardId.keySeq().size, 3);
    assert.equal(store.getState().cardPosition.keySeq().size, 3);
    assert.equal(store.getState().cardInstances.keySeq().size, 39);
@@ -159,11 +159,11 @@ QUnit.test("removeToken()", function(assert)
 QUnit.test("removeTouching()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store, "Imperial");
-   var pilotInstance1 = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
-   var pilotInstance2 = new CardInstance(store, PilotCard.LUKE_SKYWALKER, new Agent(store, "Rebel"));
-   var pilotInstance3 = new CardInstance(store, PilotCard.HOWLRUNNER, imperialAgent);
+   const store = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store, "Imperial");
+   const pilotInstance1 = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const pilotInstance2 = new CardInstance(store, PilotCard.LUKE_SKYWALKER, new Agent(store, "Rebel"));
+   const pilotInstance3 = new CardInstance(store, PilotCard.HOWLRUNNER, imperialAgent);
    assert.equal(store.getState().touching.size, 0);
    store.dispatch(EnvironmentAction.addTouching(pilotInstance1, pilotInstance2));
    store.dispatch(EnvironmentAction.addTouching(pilotInstance2, pilotInstance3));
@@ -173,9 +173,9 @@ QUnit.test("removeTouching()", function(assert)
    store.dispatch(EnvironmentAction.removeTouching(pilotInstance1));
 
    // Verify.
-   var touching = store.getState().touching;
+   const touching = store.getState().touching;
    assert.equal(touching.size, 1);
-   var touching0 = touching.get(0);
+   const touching0 = touching.get(0);
    assert.equal(touching0.get(0), pilotInstance2.id());
    assert.equal(touching0.get(1), pilotInstance3.id());
 });
@@ -183,13 +183,13 @@ QUnit.test("removeTouching()", function(assert)
 QUnit.test("replenishDamageDeck()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
-   var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+   const store = Redux.createStore(Reducer.root);
+   const damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+   const damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
    store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
-   for (var i = 0; i < 33; i++)
+   for (let i = 0; i < 33; i++)
    {
-      var damage = CardInstance.get(store, store.getState().damageDeck.get(0));
+      const damage = CardInstance.get(store, store.getState().damageDeck.get(0));
       store.dispatch(EnvironmentAction.drawDamage(damage));
       store.dispatch(EnvironmentAction.discardDamage(damage));
    }
@@ -207,9 +207,9 @@ QUnit.test("replenishDamageDeck()", function(assert)
 QUnit.test("setActiveToken()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, new Agent(store, "Rebel"));
+   const store = Redux.createStore(Reducer.root);
+   const token0 = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const token1 = new CardInstance(store, PilotCard.ROOKIE_PILOT, new Agent(store, "Rebel"));
    assert.ok(!store.getState().activeCardId);
 
    // Run.
@@ -228,10 +228,10 @@ QUnit.test("setActiveToken()", function(assert)
 QUnit.test("setDamageDeck()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
    assert.equal(store.getState().damageDeck.size, 0);
-   var damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
-   var damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
+   const damageDeck = CardInstance.keysToCardInstances(store, CardType.DAMAGE, DamageCard.createDeckV2());
+   const damageDeckIds = CardInstance.cardInstancesToIds(damageDeck);
 
    // Run.
    store.dispatch(EnvironmentAction.setDamageDeck(damageDeckIds));
@@ -243,8 +243,8 @@ QUnit.test("setDamageDeck()", function(assert)
 QUnit.test("setFirstAgent()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Bob");
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Bob");
    assert.ok(!store.getState().firstAgent);
 
    // Run.
@@ -257,9 +257,9 @@ QUnit.test("setFirstAgent()", function(assert)
 QUnit.test("setFirstSquad()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Bob");
-   var squad = SquadBuilder.CoreSetImperialSquadBuilder.buildSquad(agent);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Bob");
+   const squad = SquadBuilder.CoreSetImperialSquadBuilder.buildSquad(agent);
    assert.ok(!store.getState().firstSquad);
 
    // Run.
@@ -272,7 +272,7 @@ QUnit.test("setFirstSquad()", function(assert)
 QUnit.test("setPlayAreaScale()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
    assert.equal(store.getState().playAreaScale, 1.0);
 
    // Run.
@@ -285,7 +285,7 @@ QUnit.test("setPlayAreaScale()", function(assert)
 QUnit.test("setPlayFormat()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
    assert.equal(store.getState().playFormatKey, undefined);
 
    // Run.
@@ -304,8 +304,8 @@ QUnit.test("setPlayFormat()", function(assert)
 QUnit.test("setSecondAgent()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Mike");
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Mike");
    assert.ok(!store.getState().secondAgent);
 
    // Run.
@@ -318,9 +318,9 @@ QUnit.test("setSecondAgent()", function(assert)
 QUnit.test("setSecondSquad()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "Mike");
-   var squad = SquadBuilder.CoreSetRebelSquadBuilder.buildSquad(agent);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "Mike");
+   const squad = SquadBuilder.CoreSetRebelSquadBuilder.buildSquad(agent);
    assert.ok(!store.getState().secondSquad);
 
    // Run.

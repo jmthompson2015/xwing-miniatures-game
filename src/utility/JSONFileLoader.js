@@ -1,14 +1,14 @@
 import FileLoader from "./FileLoader.js";
 import InputValidator from "./InputValidator.js";
 
-var JSONFileLoader = {};
+const JSONFileLoader = {};
 
 JSONFileLoader.loadFile = function(filepath, callback)
 {
    InputValidator.validateIsString("filepath", filepath);
    InputValidator.validateIsFunction("callback", callback);
 
-   var finishCallback = function(response)
+   const finishCallback = function(response)
    {
       finishConvert(response, callback);
    };
@@ -18,7 +18,7 @@ JSONFileLoader.loadFile = function(filepath, callback)
 
 function finishConvert(response, callback)
 {
-   var content = JSON.parse(response);
+   const content = JSON.parse(response);
 
    callback(content);
 }

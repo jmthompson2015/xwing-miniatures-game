@@ -27,7 +27,7 @@ function Adjudicator(store)
 
 Adjudicator.create = function(store)
 {
-   var adjudicator = new Adjudicator(store);
+   const adjudicator = new Adjudicator(store);
 
    store.dispatch(Action.setAdjudicator(adjudicator));
 
@@ -52,34 +52,34 @@ Adjudicator.prototype.canBarrelRoll = function(attacker, maneuverKey)
 
    // A ship cannot barrel roll if this would cause its base to overlap with another ship's base or an obstacle
    // token.
-   var answer = false;
-   var store = this.store();
-   var environment = Selector.environment(store.getState());
-   var fromPosition = environment.getPositionFor(attacker);
+   let answer = false;
+   const store = this.store();
+   const environment = Selector.environment(store.getState());
+   const fromPosition = environment.getPositionFor(attacker);
 
    if (fromPosition)
    {
-      var maneuver = Maneuver.properties[maneuverKey];
-      var shipBase = attacker.card().shipFaction.ship.shipBase;
-      var toPolygon = ManeuverComputer.computeToPolygon(environment.playFormatKey(), maneuver, fromPosition,
+      const maneuver = Maneuver.properties[maneuverKey];
+      const shipBase = attacker.card().shipFaction.ship.shipBase;
+      const toPolygon = ManeuverComputer.computeToPolygon(environment.playFormatKey(), maneuver, fromPosition,
          shipBase);
 
       if (toPolygon)
       {
-         var tokens = environment.pilotInstances();
+         const tokens = environment.pilotInstances();
          answer = true;
 
-         for (var i = 0; i < tokens.length; i++)
+         for (let i = 0; i < tokens.length; i++)
          {
-            var token = tokens[i];
+            const token = tokens[i];
 
             if (token !== attacker)
             {
-               var myShipBase = token.card().shipFaction.ship.shipBase;
-               var position = environment.getPositionFor(token);
-               var polygon = ManeuverComputer.computePolygon(myShipBase, position.x(), position.y(),
+               const myShipBase = token.card().shipFaction.ship.shipBase;
+               const position = environment.getPositionFor(token);
+               const polygon = ManeuverComputer.computePolygon(myShipBase, position.x(), position.y(),
                   position.heading());
-               var collide = RectanglePath.doPolygonsCollide(polygon, toPolygon);
+               const collide = RectanglePath.doPolygonsCollide(polygon, toPolygon);
 
                if (collide)
                {
@@ -136,26 +136,26 @@ Adjudicator.prototype.canSlam = function(token, maneuverKey)
    // The chosen maneuver must be the same speed as the maneuver that ship executed this round.
    // Performing a SLAM counts as executing a maneuver.
    // A ship cannot perform SLAM as a free action.
-   var previousManeuver = Selector.maneuver(token.store().getState(), token);
-   var speed;
+   const previousManeuver = Selector.maneuver(token.store().getState(), token);
+   let speed;
 
    if (previousManeuver)
    {
       speed = previousManeuver.speed;
    }
 
-   var ship = token.card().shipFaction.ship;
-   var maneuverKeys = ship.maneuverKeys;
-   var slamManeuver = Maneuver.properties[maneuverKey];
-   var store = this.store();
-   var environment = Selector.environment(store.getState());
-   var fromPosition = environment.getPositionFor(token);
-   var toPolygon;
+   const ship = token.card().shipFaction.ship;
+   const maneuverKeys = ship.maneuverKeys;
+   const slamManeuver = Maneuver.properties[maneuverKey];
+   const store = this.store();
+   const environment = Selector.environment(store.getState());
+   const fromPosition = environment.getPositionFor(token);
+   let toPolygon;
 
    if (fromPosition)
    {
-      var playFormatKey = environment.playFormatKey();
-      var shipBase = token.card().shipFaction.ship.shipBase;
+      const playFormatKey = environment.playFormatKey();
+      const shipBase = token.card().shipFaction.ship.shipBase;
       toPolygon = ManeuverComputer.computeToPolygon(playFormatKey, slamManeuver, fromPosition, shipBase);
    }
 
@@ -167,28 +167,28 @@ Adjudicator.prototype.compareInitiative = function(squadBuilder1, squadBuilder2)
    InputValidator.validateNotNull("squadBuilder1", squadBuilder1);
    InputValidator.validateNotNull("squadBuilder2", squadBuilder2);
 
-   var answer = 1;
+   let answer = 1;
 
    // Compare squad point costs.
-   var store = Redux.createStore(Reducer.root);
-   var factionKey1 = squadBuilder1.factionKey();
-   var agent1 = new Agent(store, "Agent1");
-   var squad1 = squadBuilder1.buildSquad(agent1);
-   var squadPointCost1 = squad1.squadPointCost();
+   const store = Redux.createStore(Reducer.root);
+   const factionKey1 = squadBuilder1.factionKey();
+   const agent1 = new Agent(store, "Agent1");
+   const squad1 = squadBuilder1.buildSquad(agent1);
+   const squadPointCost1 = squad1.squadPointCost();
 
-   var factionKey2 = squadBuilder2.factionKey();
-   var agent2 = new Agent(store, "Agent2");
-   var squad2 = squadBuilder2.buildSquad(agent2);
-   var squadPointCost2 = squad2.squadPointCost();
+   const factionKey2 = squadBuilder2.factionKey();
+   const agent2 = new Agent(store, "Agent2");
+   const squad2 = squadBuilder2.buildSquad(agent2);
+   const squadPointCost2 = squad2.squadPointCost();
 
    answer = (squadPointCost2 - squadPointCost1);
 
    if (answer === 0)
    {
       // Compare faction keys.
-      var values = Faction.keys();
-      var index1 = values.indexOf(factionKey1);
-      var index2 = values.indexOf(factionKey2);
+      const values = Faction.keys();
+      const index1 = values.indexOf(factionKey1);
+      const index2 = values.indexOf(factionKey2);
 
       answer = index2 - index1;
    }
@@ -198,12 +198,12 @@ Adjudicator.prototype.compareInitiative = function(squadBuilder1, squadBuilder2)
 
 Adjudicator.prototype.determineWinner = function()
 {
-   var answer;
+   let answer;
 
-   var store = this.store();
-   var environment = Selector.environment(store.getState());
-   var firstCount = environment.firstAgent().pilotInstances().length;
-   var secondCount = environment.secondAgent().pilotInstances().length;
+   const store = this.store();
+   const environment = Selector.environment(store.getState());
+   const firstCount = environment.firstAgent().pilotInstances().length;
+   const secondCount = environment.secondAgent().pilotInstances().length;
 
    if (firstCount === 0)
    {
@@ -219,17 +219,17 @@ Adjudicator.prototype.determineWinner = function()
 
 Adjudicator.prototype.isGameOver = function()
 {
-   var answer = false;
+   let answer = false;
 
-   var store = this.store();
-   var environment = Selector.environment(store.getState());
-   var firstCount = environment.firstAgent().pilotInstances().length;
+   const store = this.store();
+   const environment = Selector.environment(store.getState());
+   const firstCount = environment.firstAgent().pilotInstances().length;
 
    answer = (firstCount === 0);
 
    if (!answer)
    {
-      var secondCount = environment.secondAgent().pilotInstances().length;
+      const secondCount = environment.secondAgent().pilotInstances().length;
       answer = (secondCount === 0);
    }
 

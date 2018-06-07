@@ -12,7 +12,7 @@ import SquadBuilderContainer from "./SquadBuilderContainer.js";
 
 function mapStateToProps(state, ownProps)
 {
-   var squadBuilders = SquadBuilder.findByFaction(state.faction.key);
+   const squadBuilders = SquadBuilder.findByFaction(state.faction.key);
 
    return (
    {

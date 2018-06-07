@@ -1,7 +1,7 @@
 /*
  * Provides upgrade abilities for the Planning Phase.
  */
-var UpgradeAbility1 = {};
+const UpgradeAbility1 = {};
 
 UpgradeAbility1.toString = function()
 {

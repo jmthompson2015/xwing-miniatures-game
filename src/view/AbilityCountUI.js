@@ -4,9 +4,9 @@ class AbilityCountUI extends React.Component
 {
    render()
    {
-      var implementedCount = this.props.implementedCount;
-      var abilityCount = this.props.abilityCount;
-      var ratio = MathUtilities.round(100.0 * implementedCount / abilityCount, 0);
+      const implementedCount = this.props.implementedCount;
+      const abilityCount = this.props.abilityCount;
+      const ratio = MathUtilities.round(100.0 * implementedCount / abilityCount, 0);
 
       return ReactDOMFactories.span(
          {}, "Implemented ", implementedCount, " / ",

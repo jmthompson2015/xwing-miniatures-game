@@ -9,12 +9,12 @@ QUnit.module("Selector");
 QUnit.test("adjudicator()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var adjudicator = Adjudicator.create(store);
+   const store = Redux.createStore(Reducer.root);
+   const adjudicator = Adjudicator.create(store);
    store.dispatch(Action.setAdjudicator(adjudicator));
 
    // Run.
-   var result = Selector.adjudicator(store.getState());
+   const result = Selector.adjudicator(store.getState());
 
    // Verify.
    assert.ok(result);
@@ -24,11 +24,11 @@ QUnit.test("adjudicator()", function(assert)
 QUnit.test("environment()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
 
    // Run.
-   var result = Selector.environment(store.getState());
+   const result = Selector.environment(store.getState());
 
    // Verify.
    assert.ok(result);

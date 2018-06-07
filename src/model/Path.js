@@ -3,7 +3,7 @@
  */
 function Path()
 {
-   var points = [];
+   const points = [];
 
    this.points = function()
    {
@@ -19,7 +19,7 @@ function Path()
 
 Path.prototype.close = function()
 {
-   var points = this.points();
+   const points = this.points();
 
    if (points.length >= 2)
    {
@@ -30,20 +30,20 @@ Path.prototype.close = function()
 
 Path.prototype.boundingBox = function()
 {
-   var answer;
-   var points = this.points();
+   let answer;
+   const points = this.points();
 
    if (points.length > 1)
    {
-      var minX = points[0];
-      var minY = points[1];
-      var maxX = minX;
-      var maxY = minY;
+      let minX = points[0];
+      let minY = points[1];
+      let maxX = minX;
+      let maxY = minY;
 
-      for (var i = 2; i < points.length; i += 2)
+      for (let i = 2; i < points.length; i += 2)
       {
-         var x = points[i];
-         var y = points[i + 1];
+         const x = points[i];
+         const y = points[i + 1];
 
          minX = Math.min(x, minX);
          minY = Math.min(y, minY);
@@ -67,14 +67,14 @@ Path.prototype.boundingBox = function()
 
 Path.prototype.paintComponent = function(context, strokeStyle)
 {
-   var points = this.points();
+   const points = this.points();
 
    if (points.length >= 2)
    {
       context.beginPath();
       context.moveTo(points[0], points[1]);
 
-      for (var i = 2; i < points.length; i += 2)
+      for (let i = 2; i < points.length; i += 2)
       {
          context.lineTo(points[i], points[i + 1]);
       }
@@ -89,16 +89,16 @@ Path.prototype.paintComponent = function(context, strokeStyle)
  */
 Path.prototype.rotate = function(angle, centerX, centerY)
 {
-   var points = this.points();
-   var cx = centerX || 0;
-   var cy = centerY || 0;
-   var sin = Math.sin(angle);
-   var cos = Math.cos(angle);
+   const points = this.points();
+   const cx = centerX || 0;
+   const cy = centerY || 0;
+   const sin = Math.sin(angle);
+   const cos = Math.cos(angle);
 
-   for (var i = 0; i < points.length; i += 2)
+   for (let i = 0; i < points.length; i += 2)
    {
-      var x = points[i] - cx;
-      var y = points[i + 1] - cy;
+      const x = points[i] - cx;
+      const y = points[i + 1] - cy;
 
       points[i] = (x * cos - y * sin) + cx;
       points[i + 1] = (x * sin + y * cos) + cy;
@@ -107,13 +107,13 @@ Path.prototype.rotate = function(angle, centerX, centerY)
 
 Path.prototype.toString = function()
 {
-   var answer = "";
-   var points = this.points();
+   let answer = "";
+   const points = this.points();
 
-   for (var i = 0; i < points.length; i += 2)
+   for (let i = 0; i < points.length; i += 2)
    {
-      var x = points[i];
-      var y = points[i + 1];
+      const x = points[i];
+      const y = points[i + 1];
 
       answer += i + " (" + x + ", " + y + ")\n";
    }
@@ -123,9 +123,9 @@ Path.prototype.toString = function()
 
 Path.prototype.translate = function(dx, dy)
 {
-   var points = this.points();
+   const points = this.points();
 
-   for (var i = 0; i < points.length; i += 2)
+   for (let i = 0; i < points.length; i += 2)
    {
       points[i] = points[i] + dx;
       points[i + 1] = points[i + 1] + dy;

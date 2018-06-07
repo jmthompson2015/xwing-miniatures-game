@@ -13,26 +13,26 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var environment = EnvironmentFactory.createCoreSetEnvironment();
-var token1 = environment.pilotInstances()[0];
-var token2 = environment.pilotInstances()[1];
-var token3 = environment.pilotInstances()[2];
+const resourceBase = "../resource/";
+const environment = EnvironmentFactory.createCoreSetEnvironment();
+const token1 = environment.pilotInstances()[0];
+const token2 = environment.pilotInstances()[1];
+const token3 = environment.pilotInstances()[2];
 environment.moveToken(environment.getPositionFor(token1), new Position(305, 120, 45));
 
-var tokenPositions = environment.createTokenPositions();
-var explosionPosition = new Position(400, 400, 0);
-var explosionShipBase = token1.card().shipFaction.ship.shipBase;
-var laserFromPosition = environment.getPositionFor(token3);
-var laserToPosition = environment.getPositionFor(token2);
-var laserIsPrimary = true;
-var laserFactionColor = token3.card().shipFaction.faction.color;
-var maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_LEFT_2_HARD];
-var maneuverFromPosition = environment.getPositionFor(token1);
-var maneuverShipBase = token1.card().shipFaction.ship.shipBase;
-var scale = 0.75;
+const tokenPositions = environment.createTokenPositions();
+const explosionPosition = new Position(400, 400, 0);
+const explosionShipBase = token1.card().shipFaction.ship.shipBase;
+const laserFromPosition = environment.getPositionFor(token3);
+const laserToPosition = environment.getPositionFor(token2);
+const laserIsPrimary = true;
+const laserFactionColor = token3.card().shipFaction.faction.color;
+const maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_LEFT_2_HARD];
+const maneuverFromPosition = environment.getPositionFor(token1);
+const maneuverShipBase = token1.card().shipFaction.ship.shipBase;
+const scale = 0.75;
 
-var element = React.createElement(PlayAreaUI,
+const element = React.createElement(PlayAreaUI,
 {
    resourceBase: resourceBase,
    scale: scale,

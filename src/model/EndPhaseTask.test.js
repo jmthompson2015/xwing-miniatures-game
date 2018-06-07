@@ -8,10 +8,10 @@ QUnit.module("EndPhaseTask");
 QUnit.test("doIt() X-Wing", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var pilotInstances = environment.pilotInstances();
-   var defender = pilotInstances[0];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const pilotInstances = environment.pilotInstances();
+   const defender = pilotInstances[0];
    pilotInstances.forEach(function(cardInstance)
    {
       store.dispatch(CardAction.addEvadeCount(cardInstance));
@@ -22,12 +22,12 @@ QUnit.test("doIt() X-Wing", function(assert)
       store.dispatch(CardAction.addWeaponsDisabledCount(cardInstance));
       TargetLock.newInstance(store, cardInstance, defender);
    });
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
 
-      var pilotInstances = environment.pilotInstances();
+      const pilotInstances = environment.pilotInstances();
       pilotInstances.forEach(function(cardInstance)
       {
          assert.equal(cardInstance.evadeCount(), 0);
@@ -43,10 +43,10 @@ QUnit.test("doIt() X-Wing", function(assert)
 
       done();
    };
-   var task = new EndPhaseTask(store);
+   const task = new EndPhaseTask(store);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    task.doIt(callback);
 });
 

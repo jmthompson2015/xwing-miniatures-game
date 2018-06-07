@@ -16,8 +16,8 @@ class ShipUI extends React.Component
    {
       super(props);
 
-      var shipFaction = this.props.shipFaction;
-      var image = new Image();
+      const shipFaction = this.props.shipFaction;
+      const image = new Image();
       image.onload = function()
       {
          if (!this.state.isImageLoaded)
@@ -29,7 +29,7 @@ class ShipUI extends React.Component
          }
       }.bind(this);
 
-      var resourceBase = this.props.resourceBase;
+      const resourceBase = this.props.resourceBase;
       image.src = resourceBase + "ship/" + shipFaction.image;
 
       this.state = {
@@ -40,8 +40,8 @@ class ShipUI extends React.Component
 
    render()
    {
-      var shipFaction = this.props.shipFaction;
-      var shipBase = shipFaction.ship.shipBase;
+      const shipFaction = this.props.shipFaction;
+      const shipBase = shipFaction.ship.shipBase;
 
       return ReactDOMFactories.canvas(
       {
@@ -55,14 +55,14 @@ class ShipUI extends React.Component
 
 ShipUI.prototype.paint = function()
 {
-   var shipFaction = this.props.shipFaction;
-   var shipBase = shipFaction.ship.shipBase;
-   var canvas = document.getElementById(this.props.canvasId);
-   var context = canvas.getContext("2d");
-   var scale = 1.0;
-   var id;
-   var image = this.state.image;
-   var position = this.props.position;
+   const shipFaction = this.props.shipFaction;
+   const shipBase = shipFaction.ship.shipBase;
+   const canvas = document.getElementById(this.props.canvasId);
+   const context = canvas.getContext("2d");
+   const scale = 1.0;
+   let id;
+   const image = this.state.image;
+   const position = this.props.position;
 
    context.clearRect(0, 0, shipBase.width, shipBase.height);
 

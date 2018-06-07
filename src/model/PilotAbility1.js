@@ -1,7 +1,7 @@
 /*
  * Provides pilot abilities for the Planning Phase.
  */
-var PilotAbility1 = {};
+const PilotAbility1 = {};
 
 PilotAbility1.toString = function()
 {

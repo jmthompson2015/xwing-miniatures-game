@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var EnvironmentAction = {};
+const EnvironmentAction = {};
 
 EnvironmentAction.ADD_ROUND = "addRound";
 EnvironmentAction.ADD_TOUCHING = "addTouching";
@@ -22,7 +22,7 @@ EnvironmentAction.SET_SECOND_SQUAD = "setSecondSquad";
 
 EnvironmentAction.addRound = function(value)
 {
-   var myValue = (value !== undefined ? value : 1);
+   const myValue = (value !== undefined ? value : 1);
 
    return (
    {

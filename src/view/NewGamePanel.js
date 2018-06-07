@@ -12,7 +12,7 @@ class NewGamePanel extends React.Component
 
    render()
    {
-      var agentSquad1 = React.createElement(ReactRedux.Provider,
+      const agentSquad1 = React.createElement(ReactRedux.Provider,
       {
          store: this.props.store1,
       }, React.createElement(this.props.agentSquadClass,
@@ -20,7 +20,7 @@ class NewGamePanel extends React.Component
          agentNumber: 1,
          resourceBase: this.props.resourceBase,
       }));
-      var agentSquad2 = React.createElement(ReactRedux.Provider,
+      const agentSquad2 = React.createElement(ReactRedux.Provider,
       {
          store: this.props.store2,
       }, React.createElement(this.props.agentSquadClass,
@@ -28,27 +28,27 @@ class NewGamePanel extends React.Component
          agentNumber: 2,
          resourceBase: this.props.resourceBase,
       }));
-      var cell1 = ReactDOMFactories.td(
+      const cell1 = ReactDOMFactories.td(
       {
          className: "newGamePanel ba bg-xw-light center v-top",
       }, agentSquad1);
-      var cell2 = ReactDOMFactories.td(
+      const cell2 = ReactDOMFactories.td(
       {
          className: "newGamePanel ba bg-xw-light center v-top",
       }, agentSquad2);
 
-      var message = ReactDOMFactories.table(
+      const message = ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, ReactDOMFactories.tr(
       {}, cell1, cell2)));
-      var initialInput;
-      var okButton = React.createElement(Button,
+      let initialInput;
+      const okButton = React.createElement(Button,
       {
          key: 0,
          name: "OK",
          onClick: this.ok,
       });
-      var buttons = ReactDOMFactories.span(
+      const buttons = ReactDOMFactories.span(
       {}, [okButton]);
 
       return React.createElement(OptionPane,
@@ -63,13 +63,13 @@ class NewGamePanel extends React.Component
 
 NewGamePanel.prototype.okFunction = function()
 {
-   var store1 = this.props.store1;
-   var agent1 = store1.getState().agent;
-   var squad1 = store1.getState().squad;
+   const store1 = this.props.store1;
+   const agent1 = store1.getState().agent;
+   const squad1 = store1.getState().squad;
 
-   var store2 = this.props.store2;
-   var agent2 = store2.getState().agent;
-   var squad2 = store2.getState().squad;
+   const store2 = this.props.store2;
+   const agent2 = store2.getState().agent;
+   const squad2 = store2.getState().squad;
 
    this.props.callback(agent1, squad1, agent2, squad2);
 };

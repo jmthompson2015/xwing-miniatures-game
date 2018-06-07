@@ -1,4 +1,4 @@
-var Event = {
+const Event = {
    AFTER_EXECUTE_MANEUVER: "afterExecuteManeuver",
    RECEIVE_CRITICAL_DAMAGE: "receiveCriticalDamage",
    RECEIVE_DAMAGE: "receiveDamage",

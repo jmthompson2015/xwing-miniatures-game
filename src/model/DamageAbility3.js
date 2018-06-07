@@ -9,7 +9,7 @@ import Phase from "../artifact/Phase.js";
 
 import AttackDice from "./AttackDice.js";
 
-var DamageAbility3 = {};
+const DamageAbility3 = {};
 
 ////////////////////////////////////////////////////////////////////////
 DamageAbility3[Phase.COMBAT_START] = {};
@@ -51,14 +51,14 @@ function getActiveCardInstance(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var environment = store.getState().environment;
+   const environment = store.getState().environment;
 
    return environment.activeCardInstance();
 }
 
 function isActiveCardInstance(store, token)
 {
-   var activeToken = getActiveCardInstance(store);
+   const activeToken = getActiveCardInstance(store);
 
    return token.equals(activeToken);
 }

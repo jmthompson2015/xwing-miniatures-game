@@ -1,4 +1,4 @@
-var ShipAction = {
+const ShipAction = {
    BARREL_ROLL: "barrelRoll",
    BOOST: "boost",
    CLOAK: "cloak",
@@ -113,7 +113,7 @@ ShipAction.values = function()
 
 ShipAction.keys().forEach(function(shipActionKey)
 {
-   var shipAction = ShipAction.properties[shipActionKey];
+   const shipAction = ShipAction.properties[shipActionKey];
    shipAction.xwingType = ShipAction;
 
    shipAction.oncePerRound = true;
@@ -124,10 +124,10 @@ ShipAction.keys().forEach(function(shipActionKey)
 
 ShipAction.findByName = function(name)
 {
-   var answer;
-   var values = ShipAction.values();
+   let answer;
+   const values = ShipAction.values();
 
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
       if (values[i].name === name)
       {

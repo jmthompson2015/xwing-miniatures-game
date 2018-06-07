@@ -16,10 +16,10 @@ function Game(agent1, squad1, agent2, squad2, delayIn)
    InputValidator.validateNotNull("squad2", squad2);
    // delayIn optional.
 
-   var store = Redux.createStore(Reducer.root);
-   var resourceBase = "resource/";
+   const store = Redux.createStore(Reducer.root);
+   const resourceBase = "resource/";
    store.dispatch(Action.setResourceBase(resourceBase));
-   var environment = new Environment(store, agent1, squad1, agent2, squad2);
+   const environment = new Environment(store, agent1, squad1, agent2, squad2);
    EventObserver.observeStore(store);
    PhaseObserver.observeStore(store);
 
@@ -28,8 +28,8 @@ function Game(agent1, squad1, agent2, squad2, delayIn)
       store.dispatch(Action.setDelay(delayIn));
    }
 
-   var adjudicator = Adjudicator.create(store);
-   var engine = new Engine(store);
+   const adjudicator = Adjudicator.create(store);
+   const engine = new Engine(store);
 
    this.adjudicator = function()
    {
@@ -49,7 +49,7 @@ function Game(agent1, squad1, agent2, squad2, delayIn)
 
 Game.prototype.start = function()
 {
-   var engine = this.engine();
+   const engine = this.engine();
 
    setTimeout(function()
    {

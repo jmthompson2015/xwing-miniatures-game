@@ -3,7 +3,7 @@
  *
  * @see http://stackoverflow.com/questions/195951/change-an-elements-css-class-with-javascript/196038#196038
  */
-var HtmlUtilities = {
+const HtmlUtilities = {
    addClass: function(element, cls)
    {
       if (!HtmlUtilities.hasClass(element, cls))
@@ -14,7 +14,7 @@ var HtmlUtilities = {
 
    hasClass: function(element, cls)
    {
-      var regex = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+      const regex = new RegExp('(\\s|^)' + cls + '(\\s|$)');
       return element.className.match(regex);
    },
 
@@ -22,7 +22,7 @@ var HtmlUtilities = {
    {
       if (HtmlUtilities.hasClass(element, cls))
       {
-         var regex = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+         const regex = new RegExp('(\\s|^)' + cls + '(\\s|$)');
          element.className = element.className.replace(regex, ' ');
       }
    },

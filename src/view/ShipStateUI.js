@@ -8,13 +8,13 @@ class ShipStateUI extends React.Component
 {
    render()
    {
-      var shipState = this.props.shipState;
-      var faction = this.determineFaction(this.props.faction);
-      var size = (shipState.key === ShipState.PILOT_SKILL ? 32 : 24);
-      var src = this.createFilename(faction, shipState, size);
-      var myKey = (this.props.myKey !== undefined ? this.props.myKey : shipState.key);
-      var label = this.props.label;
-      var image;
+      const shipState = this.props.shipState;
+      const faction = this.determineFaction(this.props.faction);
+      const size = (shipState.key === ShipState.PILOT_SKILL ? 32 : 24);
+      const src = this.createFilename(faction, shipState, size);
+      const myKey = (this.props.myKey !== undefined ? this.props.myKey : shipState.key);
+      const label = this.props.label;
+      let image;
 
       if (label !== undefined)
       {
@@ -42,8 +42,8 @@ class ShipStateUI extends React.Component
          });
       }
 
-      var showName = this.props.showName;
-      var answer = image;
+      const showName = this.props.showName;
+      let answer = image;
 
       if (showName)
       {
@@ -63,8 +63,8 @@ ShipStateUI.prototype.createFilename = function(faction, shipState, size)
    InputValidator.validateNotNull("shipState", shipState);
    InputValidator.validateNotNull("size", size);
 
-   var factionName = faction.shortName;
-   var shipStateName;
+   const factionName = faction.shortName;
+   let shipStateName;
 
    switch (shipState.key)
    {
@@ -88,12 +88,12 @@ ShipStateUI.prototype.determineFaction = function(faction)
 {
    InputValidator.validateNotNull("faction", faction);
 
-   var answer = faction;
+   let answer = faction;
 
    if (faction.key === Faction.FIRST_ORDER ||
       faction.key === Faction.RESISTANCE)
    {
-      var factionKey = Faction.friend(faction.key);
+      const factionKey = Faction.friend(faction.key);
       answer = Faction.properties[factionKey];
    }
 

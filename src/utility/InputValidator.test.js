@@ -18,7 +18,7 @@ QUnit.test("validateIsArray()", function(assert)
    validateIsArrayFail(assert, "", "");
    validateIsArrayFail(assert, "12", 12);
    InputValidator.validateIsArray("[]", []);
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
    InputValidator.validateIsArray("array", array);
    validateIsArrayFail(assert, "function", function() {});
 });
@@ -33,7 +33,7 @@ QUnit.test("validateIsBoolean()", function(assert)
    validateIsBooleanFail(assert, "", "");
    validateIsBooleanFail(assert, "12", 12);
    validateIsBooleanFail(assert, "[]", []);
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
    validateIsBooleanFail(assert, "array", array);
    validateIsBooleanFail(assert, "function", function() {});
 });
@@ -48,7 +48,7 @@ QUnit.test("validateIsFunction()", function(assert)
    validateIsFunctionFail(assert, "", "");
    validateIsFunctionFail(assert, "12", 12);
    validateIsFunctionFail(assert, "[]", []);
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
    validateIsFunctionFail(assert, "array", array);
    InputValidator.validateIsFunction("function", function() {});
 });
@@ -63,7 +63,7 @@ QUnit.test("validateIsNumber()", function(assert)
    validateIsNumberFail(assert, "", "");
    InputValidator.validateIsNumber("12", 12);
    validateIsNumberFail(assert, "[]", []);
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
    validateIsNumberFail(assert, "array", array);
    validateIsNumberFail(assert, "function", function() {});
 });
@@ -78,7 +78,7 @@ QUnit.test("validateIsString()", function(assert)
    InputValidator.validateIsString("", "");
    validateIsStringFail(assert, "12", 12);
    validateIsStringFail(assert, "[]", []);
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
    validateIsStringFail(assert, "array", array);
    validateIsStringFail(assert, "function", function() {});
 });
@@ -97,9 +97,9 @@ QUnit.test("validateNotEmpty()", function(assert)
    InputValidator.validateNotEmpty("0", 0);
    InputValidator.validateNotEmpty("12", 12);
    validateNotEmptyFail(assert, "[]", []);
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
    InputValidator.validateNotEmpty("array", array);
-   var object = {};
+   const object = {};
    InputValidator.validateNotEmpty("object", object);
    InputValidator.validateNotEmpty("function", function() {});
 });
@@ -112,14 +112,14 @@ QUnit.test("validateNotNull()", function(assert)
    validateNotNullFail(assert, "null", null);
    InputValidator.validateNotNull("12", 12);
    InputValidator.validateNotNull(assert, "[]", []);
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
    InputValidator.validateNotNull("array", array);
-   var object = {};
+   const object = {};
    InputValidator.validateNotNull("object", object);
    InputValidator.validateNotNull("function", function() {});
 });
 
-var SHOULD_THROW = "Should have thrown an exception.";
+const SHOULD_THROW = "Should have thrown an exception.";
 
 function validateInRangeFail(assert, objectName, object, low, high)
 {

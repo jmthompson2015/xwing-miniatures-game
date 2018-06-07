@@ -1,4 +1,4 @@
-var FiringArc = {
+const FiringArc = {
    AFT: "aft",
    AFT_180: "aft180",
    BULLSEYE: "bullseye",

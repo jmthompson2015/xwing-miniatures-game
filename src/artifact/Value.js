@@ -1,4 +1,4 @@
-var Value = {
+const Value = {
    AGILITY: "agility",
    ENERGY: "energy",
    HULL: "hull",

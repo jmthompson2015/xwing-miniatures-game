@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var ShipBase = {
+const ShipBase = {
    SMALL: "small",
    LARGE: "large",
    HUGE1: "huge1",

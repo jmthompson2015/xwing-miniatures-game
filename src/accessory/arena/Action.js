@@ -1,6 +1,6 @@
 import InputValidator from "../../utility/InputValidator.js";
 
-var Action = {};
+const Action = {};
 
 Action.ADD_LOSE_COUNT = "addLoseCount";
 Action.ADD_TIE_COUNT = "addTieCount";

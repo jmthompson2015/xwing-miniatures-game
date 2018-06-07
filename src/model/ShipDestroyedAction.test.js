@@ -8,14 +8,14 @@ QUnit.module("ShipDestroyedAction");
 QUnit.test("doIt()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var fromPosition = new Position(305, 20, 90); // TIE Fighter.
-   var token = environment.getTokenAt(fromPosition);
-   var defender = environment.pilotInstances()[2]; // X-Wing.
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const fromPosition = new Position(305, 20, 90); // TIE Fighter.
+   const token = environment.getTokenAt(fromPosition);
+   const defender = environment.pilotInstances()[2]; // X-Wing.
    TargetLock.newInstance(store, token, defender);
    assert.equal(store.getState().targetLocks.size, 1);
-   var shipDestroyedAction = new ShipDestroyedAction(environment, token, fromPosition);
+   const shipDestroyedAction = new ShipDestroyedAction(environment, token, fromPosition);
 
    // Run.
    shipDestroyedAction.doIt();

@@ -14,21 +14,21 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var store = Redux.createStore(Reducer.root);
-var resourceBase = "../../../src/resource/";
+const store = Redux.createStore(Reducer.root);
+const resourceBase = "../../../src/resource/";
 store.dispatch(Action.setResourceBase(resourceBase));
 
 class ShipGallery extends React.Component
 {
    render()
    {
-      var factionKey = this.props.factionKey;
-      var isStrict = true;
-      var shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
-      var agent = new Agent(store, "Agent");
+      const factionKey = this.props.factionKey;
+      const isStrict = true;
+      const shipFactionKeys = ShipFaction.keysByFaction(factionKey, isStrict);
+      const agent = new Agent(store, "Agent");
 
-      var cells = [];
-      var excludes = [ShipFaction.IMPERIAL_TIE_BOMBER_V2,
+      const cells = [];
+      const excludes = [ShipFaction.IMPERIAL_TIE_BOMBER_V2,
               ShipFaction.IMPERIAL_TIE_DEFENDER_V2,
               ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V2,
               ShipFaction.IMPERIAL_TIE_INTERCEPTOR_V3,
@@ -44,8 +44,8 @@ class ShipGallery extends React.Component
       {
          if (!excludes.includes(shipFactionKey))
          {
-            var shipFaction = ShipFaction.properties[shipFactionKey];
-            var element = React.createElement(ShipCardUI,
+            const shipFaction = ShipFaction.properties[shipFactionKey];
+            const element = React.createElement(ShipCardUI,
             {
                key: "instance" + shipFactionKey,
                agent: agent,
@@ -64,16 +64,16 @@ ShipGallery.propTypes = {
    factionKey: PropTypes.string.isRequired,
 };
 
-var rows = [];
+const rows = [];
 
 Faction.keys().forEach(function(factionKey)
 {
-   var faction = Faction.properties[factionKey];
+   const faction = Faction.properties[factionKey];
    rows.push(ReactDOMFactories.h2(
    {
       key: "title" + factionKey,
    }, faction.name));
-   var element = React.createElement(ShipGallery,
+   const element = React.createElement(ShipGallery,
    {
       key: "gallery" + factionKey,
       factionKey: factionKey,
@@ -81,6 +81,6 @@ Faction.keys().forEach(function(factionKey)
    rows.push(element);
 });
 
-var mainPanel = ReactDOMFactories.div(
+const mainPanel = ReactDOMFactories.div(
 {}, rows);
 ReactDOM.render(mainPanel, document.getElementById("mainPanel"));

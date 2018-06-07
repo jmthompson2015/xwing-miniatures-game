@@ -1,4 +1,4 @@
-var Count = {
+const Count = {
    CLOAK: "cloak",
    ENERGY: "energy",
    EVADE: "evade",

@@ -16,21 +16,21 @@ QUnit.module("ShipActionAbility");
 QUnit.test("condition()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
-   var abilities = ShipActionAbility;
+   const abilities = ShipActionAbility;
    assert.ok(abilities);
 
    Object.keys(abilities).forEach(function(shipActionKey)
    {
-      var ability = abilities[shipActionKey];
+      const ability = abilities[shipActionKey];
 
       if (ability.condition)
       {
-         var result = ability.condition(store, token);
+         const result = ability.condition(store, token);
          assert.ok(result !== undefined, "shipActionKey = " + shipActionKey);
       }
    });
@@ -39,21 +39,21 @@ QUnit.test("condition()", function(assert)
 QUnit.test("consequent()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
-   var callback = function()
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
+   const callback = function()
    {
       LOGGER.info("in callback()");
    };
 
    // Run / Verify.
-   var abilities = ShipActionAbility;
+   const abilities = ShipActionAbility;
    assert.ok(abilities);
 
    Object.keys(abilities).forEach(function(shipActionKey)
    {
-      var ability = abilities[shipActionKey];
+      const ability = abilities[shipActionKey];
 
       if (ability.condition && ability.condition(store, token))
       {
@@ -66,13 +66,13 @@ QUnit.test("consequent()", function(assert)
 QUnit.test("barrel roll", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var tokenPosition = environment.getPositionFor(token);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const tokenPosition = environment.getPositionFor(token);
    environment.moveToken(tokenPosition, new Position(458, 890, 270));
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BARREL_ROLL];
-   var callback = function()
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BARREL_ROLL];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -82,29 +82,29 @@ QUnit.test("barrel roll", function(assert)
       assert.equal(position.heading(), 270);
       done();
    };
-   var context = {
+   const context = {
       maneuverKey: Maneuver.BARREL_ROLL_LEFT_1_STANDARD,
    };
 
    // Run.
-   var position = environment.getPositionFor(token);
+   let position = environment.getPositionFor(token);
    assert.equal(position.x(), 458);
    assert.equal(position.y(), 890);
    assert.equal(position.heading(), 270);
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback, context);
 });
 
 QUnit.test("boost", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var tokenPosition = environment.getPositionFor(token);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const tokenPosition = environment.getPositionFor(token);
    environment.moveToken(tokenPosition, new Position(458, 890, 270));
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BOOST];
-   var callback = function()
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BOOST];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -114,27 +114,27 @@ QUnit.test("boost", function(assert)
       assert.equal(position.heading(), 270);
       done();
    };
-   var context = {
+   const context = {
       maneuverKey: Maneuver.BARREL_ROLL_RIGHT_1_STANDARD,
    };
 
    // Run.
-   var position = environment.getPositionFor(token);
+   let position = environment.getPositionFor(token);
    assert.equal(position.x(), 458);
    assert.equal(position.y(), 890);
    assert.equal(position.heading(), 270);
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback, context);
 });
 
 QUnit.test("cloak", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.CLOAK];
-   var callback = function()
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.CLOAK];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -144,21 +144,21 @@ QUnit.test("cloak", function(assert)
    assert.equal(token.cloakCount(), 0);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback);
 });
 
 QUnit.test("decloak left", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var tokenPosition = environment.getPositionFor(token);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const tokenPosition = environment.getPositionFor(token);
    environment.moveToken(tokenPosition, new Position(458, 890, 270));
    store.dispatch(CardAction.addCloakCount(token));
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.DECLOAK];
-   var callback = function()
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.DECLOAK];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -169,28 +169,28 @@ QUnit.test("decloak left", function(assert)
       assert.equal(position.heading(), 270);
       done();
    };
-   var context = {
+   const context = {
       maneuverKey: Maneuver.BARREL_ROLL_LEFT_2_STANDARD,
    };
    assert.equal(token.cloakCount(), 1);
-   var position = environment.getPositionFor(token);
+   let position = environment.getPositionFor(token);
    assert.equal(position.x(), 458);
    assert.equal(position.y(), 890);
    assert.equal(position.heading(), 270);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback, context);
 });
 
 QUnit.test("evade", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.EVADE];
-   var callback = function()
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.EVADE];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -200,18 +200,18 @@ QUnit.test("evade", function(assert)
    assert.equal(token.evadeCount(), 0);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback);
 });
 
 QUnit.test("focus", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.FOCUS];
-   var callback = function()
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.FOCUS];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -221,43 +221,43 @@ QUnit.test("focus", function(assert)
    assert.equal(token.focusCount(), 0);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback);
 });
 
 QUnit.test("jam", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[2]; // X-Wing
-   var defender = environment.pilotInstances()[0]; // TIE Fighter
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.JAM];
-   var callback = function()
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[2]; // X-Wing
+   const defender = environment.pilotInstances()[0]; // TIE Fighter
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.JAM];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.equal(defender.stressCount(), 2);
       done();
    };
-   var context = {
+   const context = {
       defender: defender,
    };
    assert.equal(defender.stressCount(), 0);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, attacker, callback, context);
 });
 
 QUnit.test("reinforce", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.REINFORCE];
-   var callback = function()
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.REINFORCE];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -267,18 +267,18 @@ QUnit.test("reinforce", function(assert)
    assert.equal(token.reinforceCount(), 0);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback);
 });
 
 QUnit.test("slam", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.SLAM];
-   var callback = function()
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.SLAM];
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -288,30 +288,30 @@ QUnit.test("slam", function(assert)
       assert.equal(position.heading(), 270);
       done();
    };
-   var context = {
+   const context = {
       maneuverKey: Maneuver.STRAIGHT_2_STANDARD,
    };
 
    // Run.
-   var position = environment.getPositionFor(token);
+   let position = environment.getPositionFor(token);
    assert.equal(position.x(), 458);
    assert.equal(position.y(), 895);
    assert.equal(position.heading(), 270);
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, token, callback, context);
 });
 
 QUnit.test("target lock", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var defender = environment.pilotInstances()[0]; // TIE Fighter
-   var attacker = environment.pilotInstances()[2]; // X-Wing
-   var ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.TARGET_LOCK];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const defender = environment.pilotInstances()[0]; // TIE Fighter
+   const attacker = environment.pilotInstances()[2]; // X-Wing
+   const ability = ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.TARGET_LOCK];
    assert.equal(store.getState().targetLocks.size, 0);
    assert.ok(TargetLock.getFirst(store, attacker, defender) === undefined);
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -319,23 +319,23 @@ QUnit.test("target lock", function(assert)
       assert.ok(TargetLock.getFirst(store, attacker, defender) !== undefined);
       done();
    };
-   var context = {
+   const context = {
       defender: defender,
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    ability.consequent(store, attacker, callback, context);
 });
 
 function createEnvironment()
 {
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[2]; // X-Wing.
-   var weapon = attacker.primaryWeapon();
-   var defender = environment.pilotInstances()[0]; // TIE Fighter.
-   var callback = function()
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[2]; // X-Wing.
+   const weapon = attacker.primaryWeapon();
+   const defender = environment.pilotInstances()[0]; // TIE Fighter.
+   const callback = function()
    {
       LOGGER.info("in callback()");
    };
@@ -348,7 +348,7 @@ function createEnvironment()
    store.dispatch(Action.setTokenDefenseDice(attacker.id(), (new MockDefenseDice(store, attacker.id())).values()));
    store.dispatch(Action.setTokenInFiringArc(attacker, true));
 
-   var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
+   const combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
    store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
 
    return environment;

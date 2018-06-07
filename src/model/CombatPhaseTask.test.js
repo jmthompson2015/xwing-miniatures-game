@@ -6,21 +6,21 @@ import Position from "./Position.js";
 
 QUnit.module("CombatPhaseTask");
 
-var delay = 10;
+const delay = 10;
 
 QUnit.test("performCombatPhase()", function(assert)
 {
    // Setup.
-   var task = createTask();
-   var store = task.store();
-   var environment = store.getState().environment;
-   var token0 = environment.pilotInstances()[0]; // TIE Fighter.
-   var position0 = environment.getPositionFor(token0);
-   var token2 = environment.pilotInstances()[2]; // X-Wing.
-   var position2 = environment.getPositionFor(token2);
-   var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
+   const task = createTask();
+   const store = task.store();
+   const environment = store.getState().environment;
+   const token0 = environment.pilotInstances()[0]; // TIE Fighter.
+   const position0 = environment.getPositionFor(token0);
+   const token2 = environment.pilotInstances()[2]; // X-Wing.
+   const position2 = environment.getPositionFor(token2);
+   const newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
    environment.moveToken(position2, newPosition2);
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -28,13 +28,13 @@ QUnit.test("performCombatPhase()", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    task.doIt(callback);
 });
 
 function createTask(isHuge)
 {
-   var environment;
+   let environment;
 
    if (isHuge)
    {
@@ -45,7 +45,7 @@ function createTask(isHuge)
       environment = EnvironmentFactory.createCoreSetEnvironment();
    }
 
-   var store = environment.store();
+   const store = environment.store();
    Adjudicator.create(store);
    store.dispatch(Action.setDelay(delay));
 

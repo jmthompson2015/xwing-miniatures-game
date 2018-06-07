@@ -5,8 +5,8 @@ QUnit.module("UpgradeRestriction");
 
 QUnit.test("UpgradeRestriction properties A-Wing only", function(assert)
 {
-   var restrictionKey = UpgradeRestriction.A_WING_ONLY;
-   var props = UpgradeRestriction.properties[restrictionKey];
+   const restrictionKey = UpgradeRestriction.A_WING_ONLY;
+   const props = UpgradeRestriction.properties[restrictionKey];
 
    assert.equal(props.name, "A-Wing only.");
    assert.ok(!props.passes(PilotCard.ACADEMY_PILOT));
@@ -15,8 +15,8 @@ QUnit.test("UpgradeRestriction properties A-Wing only", function(assert)
 
 QUnit.test("UpgradeRestriction properties Imperial only", function(assert)
 {
-   var restrictionKey = UpgradeRestriction.IMPERIAL_ONLY;
-   var props = UpgradeRestriction.properties[restrictionKey];
+   const restrictionKey = UpgradeRestriction.IMPERIAL_ONLY;
+   const props = UpgradeRestriction.properties[restrictionKey];
 
    assert.equal(props.name, "Imperial only.");
    assert.ok(props.passes(PilotCard.ACADEMY_PILOT));
@@ -25,8 +25,8 @@ QUnit.test("UpgradeRestriction properties Imperial only", function(assert)
 
 QUnit.test("UpgradeRestriction properties Large ship only", function(assert)
 {
-   var restrictionKey = UpgradeRestriction.LARGE_SHIP_ONLY;
-   var props = UpgradeRestriction.properties[restrictionKey];
+   const restrictionKey = UpgradeRestriction.LARGE_SHIP_ONLY;
+   const props = UpgradeRestriction.properties[restrictionKey];
 
    assert.equal(props.name, "Large ship only.");
    assert.ok(!props.passes(PilotCard.ACADEMY_PILOT));
@@ -35,8 +35,8 @@ QUnit.test("UpgradeRestriction properties Large ship only", function(assert)
 
 QUnit.test("UpgradeRestriction properties PilotCard Skill above 3", function(assert)
 {
-   var restrictionKey = UpgradeRestriction.PILOT_SKILL_ABOVE_3;
-   var props = UpgradeRestriction.properties[restrictionKey];
+   const restrictionKey = UpgradeRestriction.PILOT_SKILL_ABOVE_3;
+   const props = UpgradeRestriction.properties[restrictionKey];
 
    assert.equal(props.name, "PilotCard Skill above \"3\".");
    assert.ok(!props.passes(PilotCard.ACADEMY_PILOT));
@@ -67,7 +67,7 @@ QUnit.test("passes()", function(assert)
 
 QUnit.test("passes() X-Wing only", function(assert)
 {
-   var restriction = UpgradeRestriction.properties[UpgradeRestriction.X_WING_ONLY];
+   const restriction = UpgradeRestriction.properties[UpgradeRestriction.X_WING_ONLY];
 
    // T-65 X-Wings.
    assert.ok(restriction.passes(PilotCard.BIGGS_DARKLIGHTER));
@@ -99,13 +99,13 @@ QUnit.test("passes() X-Wing only", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = UpgradeRestriction.keys();
+   const result = UpgradeRestriction.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 65;
+   const length = 65;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], UpgradeRestriction.IMPERIAL_ONLY);
    assert.equal(result[i++], UpgradeRestriction.REBEL_ONLY);
    assert.equal(result[i++], UpgradeRestriction.SCUM_ONLY);
@@ -176,8 +176,8 @@ QUnit.test("keys()", function(assert)
 
    assert.equal(result[i++], UpgradeRestriction.LIMITED);
 
-   var properties = Object.getOwnPropertyNames(UpgradeRestriction);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(UpgradeRestriction);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // passes
       1 - // toString

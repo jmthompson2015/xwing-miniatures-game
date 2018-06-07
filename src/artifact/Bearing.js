@@ -1,4 +1,4 @@
-var Bearing = {
+const Bearing = {
    HUGE_BANK_LEFT: "hugeBankLeft",
    TURN_LEFT: "turnLeft",
    BANK_LEFT: "bankLeft",

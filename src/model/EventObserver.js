@@ -23,9 +23,9 @@ function EventObserver(store)
 
 EventObserver.observeStore = function(store)
 {
-   var observer = new EventObserver(store);
+   const observer = new EventObserver(store);
 
-   var select = function(state)
+   const select = function(state)
    {
       return state.eventQueue;
    };
@@ -44,28 +44,28 @@ EventObserver.prototype.onChange = function(eventQueue)
 
    if (eventQueue.size > 0)
    {
-      var store = this.store();
+      const store = this.store();
       store.dispatch(Action.dequeueEvent());
-      var eventData = store.getState().eventData;
+      const eventData = store.getState().eventData;
 
       LOGGER.debug("eventData = " + JSON.stringify(eventData));
 
       if (eventData !== undefined)
       {
-         var environment = store.getState().environment;
-         var queue = environment.getTokensForActivation();
-         var pilotInstanceCallback = this.finishOnChange.bind(this);
-         var callback = function()
+         const environment = store.getState().environment;
+         const queue = environment.getTokensForActivation();
+         const pilotInstanceCallback = this.finishOnChange.bind(this);
+         const callback = function()
          {
             pilotInstanceCallback(eventData);
          };
-         var pilotInstanceFunction = this.chooseAbility.bind(this);
-         var elementFunction = function(pilotInstance, queueCallback)
+         const pilotInstanceFunction = this.chooseAbility.bind(this);
+         const elementFunction = function(pilotInstance, queueCallback)
          {
             pilotInstanceFunction(eventData, pilotInstance, queueCallback);
          };
-         var delay = 10;
-         var queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
+         const delay = 10;
+         const queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
          queueProcessor.processQueue();
       }
    }
@@ -81,20 +81,20 @@ EventObserver.prototype.chooseAbility = function(eventData, pilotInstance, queue
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
    InputValidator.validateNotNull("queueCallback", queueCallback);
 
-   var eventKey = eventData.get("eventKey");
+   const eventKey = eventData.get("eventKey");
 
-   var damageAbilities = (pilotInstance.usableDamageAbilities !== undefined ? pilotInstance.usableDamageAbilities(DamageAbility0, eventKey) : []);
-   var pilotAbilities = (pilotInstance.usablePilotAbilities !== undefined ? pilotInstance.usablePilotAbilities(PilotAbility0, eventKey) : []);
-   var upgradeAbilities = (pilotInstance.usableUpgradeAbilities !== undefined ? pilotInstance.usableUpgradeAbilities(UpgradeAbility0, eventKey) : []);
+   const damageAbilities = (pilotInstance.usableDamageAbilities !== undefined ? pilotInstance.usableDamageAbilities(DamageAbility0, eventKey) : []);
+   const pilotAbilities = (pilotInstance.usablePilotAbilities !== undefined ? pilotInstance.usablePilotAbilities(PilotAbility0, eventKey) : []);
+   const upgradeAbilities = (pilotInstance.usableUpgradeAbilities !== undefined ? pilotInstance.usableUpgradeAbilities(UpgradeAbility0, eventKey) : []);
 
    if (damageAbilities.length > 0 || pilotAbilities.length > 0 || upgradeAbilities.length > 0)
    {
-      var that = this;
-      var agentCallback = function(ability, isAccepted)
+      const that = this;
+      const agentCallback = function(ability, isAccepted)
       {
          that.finishChooseAbility(eventData, pilotInstance, queueCallback, ability, isAccepted);
       };
-      var agent = pilotInstance.agent();
+      const agent = pilotInstance.agent();
       agent.chooseAbility(damageAbilities, pilotAbilities, upgradeAbilities, agentCallback);
    }
    else
@@ -117,12 +117,12 @@ EventObserver.prototype.finishChooseAbility = function(eventData, pilotInstance,
 
    LOGGER.debug("ActivationAction.finishRevealDial() ability = " + ability + " isAccepted ? " + isAccepted);
 
-   var that = this;
-   var backFunction = function()
+   const that = this;
+   const backFunction = function()
    {
       that.chooseAbility(eventData, pilotInstance, queueCallback);
    };
-   var forwardFunction = function()
+   const forwardFunction = function()
    {
       queueCallback();
    };
@@ -145,7 +145,7 @@ EventObserver.prototype.finish = function(eventData, pilotInstance, backFunction
 
    if (ability !== undefined && isAccepted === true)
    {
-      var store = this.store();
+      const store = this.store();
 
       if (ability.sourceObject().oncePerRound)
       {
@@ -156,11 +156,11 @@ EventObserver.prototype.finish = function(eventData, pilotInstance, backFunction
          store.dispatch(CardAction.addUsedAbility(pilotInstance, ability));
       }
 
-      var message = ability.sourceObject().name + " ability used.";
+      const message = ability.sourceObject().name + " ability used.";
       LOGGER.info(message);
       store.dispatch(Action.setUserMessage(message));
 
-      var consequent = ability.consequent();
+      const consequent = ability.consequent();
       consequent(store, pilotInstance, backFunction);
    }
    else
@@ -177,10 +177,10 @@ EventObserver.prototype.finishOnChange = function(eventData)
 
    InputValidator.validateNotNull("eventData", eventData);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.clearEvent());
 
-   var callback = eventData.get("eventCallback");
+   const callback = eventData.get("eventCallback");
 
    if (callback !== undefined)
    {

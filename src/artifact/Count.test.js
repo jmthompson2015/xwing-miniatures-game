@@ -4,8 +4,8 @@ QUnit.module("Count");
 
 QUnit.test("Count properties Cloak", function(assert)
 {
-   var property = Count.CLOAK;
-   var properties = Count.properties[property];
+   const property = Count.CLOAK;
+   const properties = Count.properties[property];
    assert.equal(properties.name, "Cloak");
    assert.equal(properties.image, "token/CloakToken32.png");
    assert.equal(properties.key, "cloak");
@@ -13,8 +13,8 @@ QUnit.test("Count properties Cloak", function(assert)
 
 QUnit.test("Count properties Energy", function(assert)
 {
-   var property = Count.ENERGY;
-   var properties = Count.properties[property];
+   const property = Count.ENERGY;
+   const properties = Count.properties[property];
    assert.equal(properties.name, "Energy");
    assert.equal(properties.image, "token/EnergyToken32.png");
    assert.equal(properties.key, "energy");
@@ -25,13 +25,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Count.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Count);
+   const result = Count.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Count);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Count[key];
+      const key2 = Count[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -41,7 +41,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Count[key] === value;
       });
@@ -53,13 +53,13 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Count.keys();
+   const result = Count.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 11;
+   const length = 11;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Count.CLOAK);
    assert.equal(result[i++], Count.ENERGY);
    assert.equal(result[i++], Count.EVADE);
@@ -72,8 +72,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[i++], Count.TRACTOR_BEAM);
    assert.equal(result[i++], Count.WEAPONS_DISABLED);
 
-   var properties = Object.getOwnPropertyNames(Count);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Count);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

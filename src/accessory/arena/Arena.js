@@ -16,10 +16,10 @@ LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 LOGGER.setInfoEnabled(false);
 
-var resourceBase = "../../../src/resource/";
-var arenaStore = Redux.createStore(Reducer.root);
+const resourceBase = "../../../src/resource/";
+const arenaStore = Redux.createStore(Reducer.root);
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: arenaStore,
 }, React.createElement(ArenaTableContainer,
@@ -29,21 +29,21 @@ var element = React.createElement(ReactRedux.Provider,
 
 ReactDOM.render(element, document.getElementById("tableContainer"));
 
-var squadBuilders = arenaStore.getState().squadBuilders;
-var sbsGameOver = {};
-var adjudicatorStore = Redux.createStore(DelegateReducer.root);
-var adjudicator = new Adjudicator(adjudicatorStore);
-var competeCount = 0;
-var doneCount = 0;
-var start = Date.now();
+const squadBuilders = arenaStore.getState().squadBuilders;
+const sbsGameOver = {};
+const adjudicatorStore = Redux.createStore(DelegateReducer.root);
+const adjudicator = new Adjudicator(adjudicatorStore);
+let competeCount = 0;
+let doneCount = 0;
+const start = Date.now();
 
-for (var i = 0; i < squadBuilders.length; i++)
+for (let i = 0; i < squadBuilders.length; i++)
 {
-   var squadBuilder1 = squadBuilders[i];
+   const squadBuilder1 = squadBuilders[i];
 
-   for (var j = i + 1; j < squadBuilders.length; j++)
+   for (let j = i + 1; j < squadBuilders.length; j++)
    {
-      var squadBuilder2 = squadBuilders[j];
+      const squadBuilder2 = squadBuilders[j];
 
       if (adjudicator.compareInitiative(squadBuilder1, squadBuilder2) >= 0)
       {
@@ -63,9 +63,9 @@ setStatusMessage();
 function compete(squadBuilder1, squadBuilder2)
 {
    LOGGER.info("compete() " + squadBuilder1 + " vs " + squadBuilder2);
-   var store = Redux.createStore(DelegateReducer.root);
-   var agent1 = new Agent(store, "Agent1", undefined, MediumAgentStrategy);
-   var agent2 = new Agent(store, "Agent2", undefined, MediumAgentStrategy);
+   const store = Redux.createStore(DelegateReducer.root);
+   const agent1 = new Agent(store, "Agent1", undefined, MediumAgentStrategy);
+   const agent2 = new Agent(store, "Agent2", undefined, MediumAgentStrategy);
 
    startNewGame(agent1, squadBuilder1, agent2, squadBuilder2);
    LOGGER.info("compete() end");
@@ -73,7 +73,7 @@ function compete(squadBuilder1, squadBuilder2)
 
 function setStatusMessage()
 {
-   var message = "Completed " + doneCount + " of " + competeCount + " competitions.";
+   let message = "Completed " + doneCount + " of " + competeCount + " competitions.";
    if (competeCount === doneCount)
    {
       message += " ";
@@ -86,25 +86,25 @@ function startNewGame(agent1, squadBuilder1, agent2, squadBuilder2)
 {
    LOGGER.info("startNewGame() start");
 
-   var squad1 = squadBuilder1.buildSquad(agent1);
-   var squad2 = squadBuilder2.buildSquad(agent2);
+   const squad1 = squadBuilder1.buildSquad(agent1);
+   const squad2 = squadBuilder2.buildSquad(agent2);
 
    LOGGER.info("agent1 = " + agent1);
    LOGGER.info("squad1 = " + squad1);
    LOGGER.info("agent2 = " + agent2);
    LOGGER.info("squad2 = " + squad2);
 
-   var delay = 10;
-   var game = new Game(agent1, squad1, agent2, squad2, delay);
-   var store = game.environment().store();
+   const delay = 10;
+   const game = new Game(agent1, squad1, agent2, squad2, delay);
+   const store = game.environment().store();
 
    function gameOver()
    {
-      var key = squadBuilder1.toString() + squadBuilder2.toString();
+      const key = squadBuilder1.toString() + squadBuilder2.toString();
 
       if (!sbsGameOver[key] && store.getState().isGameOver)
       {
-         var winner = store.getState().winner;
+         const winner = store.getState().winner;
          LOGGER.info("Arena.html gameOver() noticed the game is over. Winner = " + winner);
 
          if (winner !== undefined)

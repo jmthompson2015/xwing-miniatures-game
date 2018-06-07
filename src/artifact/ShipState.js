@@ -1,4 +1,4 @@
-var ShipState = {
+const ShipState = {
    PILOT_SKILL: "pilotSkill",
    PRIMARY_WEAPON: "primaryWeapon",
    TURRET_WEAPON: "turretWeapon",

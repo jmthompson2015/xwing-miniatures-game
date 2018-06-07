@@ -1,4 +1,4 @@
-var StringUtilities = {};
+const StringUtilities = {};
 
 /*
  * @param n Number. (required)

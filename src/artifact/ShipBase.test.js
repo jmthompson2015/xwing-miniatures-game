@@ -4,8 +4,8 @@ QUnit.module("ShipBase");
 
 QUnit.test("ShipBase properties Large", function(assert)
 {
-   var shipBase = ShipBase.LARGE;
-   var properties = ShipBase.properties[shipBase];
+   const shipBase = ShipBase.LARGE;
+   const properties = ShipBase.properties[shipBase];
    assert.equal(properties.width, 80);
    assert.equal(properties.height, 80);
    assert.equal(properties.key, shipBase);
@@ -13,8 +13,8 @@ QUnit.test("ShipBase properties Large", function(assert)
 
 QUnit.test("ShipBase properties Small", function(assert)
 {
-   var shipBase = ShipBase.SMALL;
-   var properties = ShipBase.properties[shipBase];
+   const shipBase = ShipBase.SMALL;
+   const properties = ShipBase.properties[shipBase];
    assert.equal(properties.width, 40);
    assert.equal(properties.height, 40);
    assert.equal(properties.key, shipBase);
@@ -33,13 +33,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = ShipBase.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(ShipBase);
+   const result = ShipBase.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(ShipBase);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = ShipBase[key];
+      const key2 = ShipBase[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -49,7 +49,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return ShipBase[key] === value;
       });
@@ -61,19 +61,19 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = ShipBase.keys();
+   const result = ShipBase.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 4);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipBase.SMALL);
    assert.equal(result[i++], ShipBase.LARGE);
    assert.equal(result[i++], ShipBase.HUGE1);
    assert.equal(result[i++], ShipBase.HUGE2);
 
-   var properties = Object.getOwnPropertyNames(ShipBase);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(ShipBase);
+   const count = properties.length - 1 - // properties
       1 - // isHuge
       1 - // keys
       1 - // toString

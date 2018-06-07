@@ -4,16 +4,16 @@ QUnit.module("Value");
 
 QUnit.test("Value properties Agility", function(assert)
 {
-   var property = Value.AGILITY;
-   var properties = Value.properties[property];
+   const property = Value.AGILITY;
+   const properties = Value.properties[property];
    assert.equal(properties.name, "Agility");
    assert.equal(properties.key, "agility");
 });
 
 QUnit.test("Value properties Energy", function(assert)
 {
-   var property = Value.ENERGY;
-   var properties = Value.properties[property];
+   const property = Value.ENERGY;
+   const properties = Value.properties[property];
    assert.equal(properties.name, "Energy");
    assert.equal(properties.key, "energy");
 });
@@ -23,13 +23,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Value.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Value);
+   const result = Value.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Value);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Value[key];
+      const key2 = Value[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -39,7 +39,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Value[key] === value;
       });
@@ -51,13 +51,13 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Value.keys();
+   const result = Value.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 6;
+   const length = 6;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Value.AGILITY);
    assert.equal(result[i++], Value.ENERGY);
    assert.equal(result[i++], Value.HULL);
@@ -65,8 +65,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[i++], Value.PRIMARY_WEAPON);
    assert.equal(result[i++], Value.SHIELD);
 
-   var properties = Object.getOwnPropertyNames(Value);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Value);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

@@ -13,27 +13,27 @@ QUnit.module("PilotAbility0");
 QUnit.test("Captain Oicunn", function(assert)
 {
    // Setup.
-   var squadBuilder1 = SquadBuilder.findByNameAndYear("JMT", 2017);
-   var environment = EnvironmentFactory.createEnvironment(squadBuilder1, SquadBuilder.CoreSetRebelSquadBuilder);
-   var store = environment.store();
-   var firstAgent = environment.firstAgent();
-   var pilotInstances1 = firstAgent.pilotInstances();
-   var decimator = pilotInstances1[0];
-   var tieDefender = pilotInstances1[1];
+   const squadBuilder1 = SquadBuilder.findByNameAndYear("JMT", 2017);
+   const environment = EnvironmentFactory.createEnvironment(squadBuilder1, SquadBuilder.CoreSetRebelSquadBuilder);
+   const store = environment.store();
+   const firstAgent = environment.firstAgent();
+   const pilotInstances1 = firstAgent.pilotInstances();
+   const decimator = pilotInstances1[0];
+   const tieDefender = pilotInstances1[1];
 
-   var secondAgent = environment.secondAgent();
-   var pilotInstances2 = secondAgent.pilotInstances();
-   var xwing = pilotInstances2[0];
+   const secondAgent = environment.secondAgent();
+   const pilotInstances2 = secondAgent.pilotInstances();
+   const xwing = pilotInstances2[0];
 
-   var decimatorPosition0 = environment.getPositionFor(decimator);
-   var decimatorPosition1 = new Position(400, 400, 90);
+   const decimatorPosition0 = environment.getPositionFor(decimator);
+   const decimatorPosition1 = new Position(400, 400, 90);
    environment.moveToken(decimatorPosition0, decimatorPosition1);
-   var xwingPosition0 = environment.getPositionFor(xwing);
-   var xwingPosition1 = new Position(400, 480, -90);
+   const xwingPosition0 = environment.getPositionFor(xwing);
+   const xwingPosition1 = new Position(400, 480, -90);
    environment.moveToken(xwingPosition0, xwingPosition1);
 
-   var maneuverAction = new ManeuverAction(store, decimator.id(), Maneuver.STRAIGHT_1_EASY, false, decimatorPosition1);
-   var callback = function()
+   const maneuverAction = new ManeuverAction(store, decimator.id(), Maneuver.STRAIGHT_1_EASY, false, decimatorPosition1);
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -48,31 +48,31 @@ QUnit.test("Captain Oicunn", function(assert)
 
    // Run.
    maneuverAction.doIt();
-   var done = assert.async();
+   const done = assert.async();
    store.dispatch(Action.enqueueEvent(Event.AFTER_EXECUTE_MANEUVER, decimator, callback));
 });
 
 QUnit.test("condition()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Event.keys().forEach(function(eventKey)
    {
-      var abilities = PilotAbility[eventKey];
+      const abilities = PilotAbility[eventKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (ability.condition)
             {
-               var result = ability.condition(store, token);
+               const result = ability.condition(store, token);
                assert.ok(result !== undefined, "eventKey = " + eventKey + " pilotKey = " + pilotKey);
             }
          });
@@ -85,20 +85,20 @@ QUnit.test("condition()", function(assert)
 QUnit.test("consequent()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Event.keys().forEach(function(eventKey)
    {
-      var abilities = PilotAbility[eventKey];
+      const abilities = PilotAbility[eventKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (ability.condition && ability.condition(store, token))
             {
@@ -114,8 +114,8 @@ QUnit.test("consequent()", function(assert)
 
 function createEnvironment()
 {
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    environment.setActiveToken(token);
 

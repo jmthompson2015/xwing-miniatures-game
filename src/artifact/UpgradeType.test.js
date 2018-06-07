@@ -4,8 +4,8 @@ QUnit.module("UpgradeType");
 
 QUnit.test("UpgradeType properties Astromech", function(assert)
 {
-   var typeKey = UpgradeType.ASTROMECH;
-   var properties = UpgradeType.properties[typeKey];
+   const typeKey = UpgradeType.ASTROMECH;
+   const properties = UpgradeType.properties[typeKey];
    assert.equal(properties.name, "Astromech");
    assert.equal(properties.key, "astromech");
 });
@@ -15,13 +15,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = UpgradeType.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(UpgradeType);
+   const result = UpgradeType.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(UpgradeType);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = UpgradeType[key];
+      const key2 = UpgradeType[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -31,7 +31,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return UpgradeType[key] === value;
       });
@@ -43,12 +43,12 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = UpgradeType.keys();
+   const result = UpgradeType.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 17);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], UpgradeType.ASTROMECH);
    assert.equal(result[i++], UpgradeType.BOMB);
    assert.equal(result[i++], UpgradeType.CANNON);
@@ -67,8 +67,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[i++], UpgradeType.TORPEDO);
    assert.equal(result[i++], UpgradeType.TURRET);
 
-   var properties = Object.getOwnPropertyNames(UpgradeType);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(UpgradeType);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // findByName
       1 - // toString

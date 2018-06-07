@@ -9,20 +9,20 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../../../src/resource/";
+const resourceBase = "../../../src/resource/";
 
 class UpgradeGallery extends React.Component
 {
    render()
    {
-      var upgradeTypeKey = this.props.upgradeTypeKey;
-      var upgradeKeys = UpgradeCard.keysByType(upgradeTypeKey);
+      const upgradeTypeKey = this.props.upgradeTypeKey;
+      const upgradeKeys = UpgradeCard.keysByType(upgradeTypeKey);
 
-      var cells = [];
+      const cells = [];
 
       upgradeKeys.forEach(function(upgradeKey)
       {
-         var element = React.createElement(CardImage,
+         const element = React.createElement(CardImage,
          {
             key: "upgradeInstance" + upgradeKey,
             card: UpgradeCard.properties[upgradeKey],
@@ -37,11 +37,11 @@ class UpgradeGallery extends React.Component
    }
 }
 
-var rows = [];
+const rows = [];
 
 UpgradeType.keys().forEach(function(upgradeTypeKey)
 {
-   var upgradeType = UpgradeType.properties[upgradeTypeKey];
+   const upgradeType = UpgradeType.properties[upgradeTypeKey];
 
    rows.push(ReactDOMFactories.h2(
    {
@@ -55,6 +55,6 @@ UpgradeType.keys().forEach(function(upgradeTypeKey)
    }));
 });
 
-var mainPanel = ReactDOMFactories.div(
+const mainPanel = ReactDOMFactories.div(
 {}, rows);
 ReactDOM.render(mainPanel, document.getElementById("mainPanel"));

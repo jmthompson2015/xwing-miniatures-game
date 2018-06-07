@@ -7,10 +7,10 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../../../src/resource/";
-var store = Redux.createStore(Reducer.root);
+const resourceBase = "../../../src/resource/";
+const store = Redux.createStore(Reducer.root);
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: store,
 }, React.createElement(UpgradeTableContainer,

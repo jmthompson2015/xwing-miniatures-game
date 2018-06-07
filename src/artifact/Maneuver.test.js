@@ -7,8 +7,8 @@ QUnit.module("Maneuver");
 
 QUnit.test("Maneuver properties Straight1Standard", function(assert)
 {
-   var maneuver = Maneuver.STRAIGHT_1_STANDARD;
-   var properties = Maneuver.properties[maneuver];
+   const maneuver = Maneuver.STRAIGHT_1_STANDARD;
+   const properties = Maneuver.properties[maneuver];
    assert.equal(properties.basicManeuverKey, BasicManeuver.STRAIGHT_1);
    assert.equal(properties.bearingKey, Bearing.STRAIGHT);
    assert.equal(properties.speed, 1);
@@ -19,8 +19,8 @@ QUnit.test("Maneuver properties Straight1Standard", function(assert)
 
 QUnit.test("Maneuver properties Straight1_3", function(assert)
 {
-   var maneuver = Maneuver.STRAIGHT_1_3;
-   var properties = Maneuver.properties[maneuver];
+   const maneuver = Maneuver.STRAIGHT_1_3;
+   const properties = Maneuver.properties[maneuver];
    assert.equal(properties.basicManeuverKey, BasicManeuver.STRAIGHT_1_3);
    assert.equal(properties.bearingKey, Bearing.STRAIGHT);
    assert.equal(properties.speed, 1);
@@ -54,13 +54,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Maneuver.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Maneuver);
+   const result = Maneuver.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Maneuver);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Maneuver[key];
+      const key2 = Maneuver[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -70,7 +70,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Maneuver[key] === value;
       });
@@ -111,17 +111,17 @@ QUnit.test("Maneuver.toString()", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Maneuver.keys();
+   const result = Maneuver.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 97;
+   const length = 97;
    assert.equal(result.length, length);
    assert.equal(result[0], "bankLeft1Easy");
    assert.equal(result[length - 1], "straight4_2");
 
-   var properties = Object.getOwnPropertyNames(Maneuver);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Maneuver);
+   const count = properties.length - 1 - // properties
       1 - // find
       1 - // keys
       1 - // toString

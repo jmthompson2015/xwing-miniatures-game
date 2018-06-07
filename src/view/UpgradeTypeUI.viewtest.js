@@ -8,29 +8,29 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var values = UpgradeType.keys();
-var resourceBase = "../resource/";
-var className = "ba b--silver bg-near-white f6 tl";
-var rows = [];
+const values = UpgradeType.keys();
+const resourceBase = "../resource/";
+const className = "ba b--silver bg-near-white f6 tl";
+const rows = [];
 
 values.forEach(function(upgradeTypeKey)
 {
-   var upgradeType = UpgradeType.properties[upgradeTypeKey];
+   const upgradeType = UpgradeType.properties[upgradeTypeKey];
 
-   var image0 = React.createElement(UpgradeTypeUI,
+   const image0 = React.createElement(UpgradeTypeUI,
    {
       upgradeType: upgradeType,
       resourceBase: resourceBase,
    });
 
-   var image1 = React.createElement(UpgradeTypeUI,
+   const image1 = React.createElement(UpgradeTypeUI,
    {
       upgradeType: upgradeType,
       resourceBase: resourceBase,
       showName: true,
    });
 
-   var cells = [];
+   const cells = [];
 
    cells.push(ReactDOMFactories.td(
    {

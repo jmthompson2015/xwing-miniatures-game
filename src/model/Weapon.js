@@ -51,21 +51,21 @@ function Weapon(name, weaponValue, rangeKeys, primaryFiringArcKey, auxiliaryFiri
       return (upgradeCard !== undefined ? upgradeCard.key : undefined);
    };
 
-   var primaryFiringArc = FiringArc.properties[primaryFiringArcKey];
+   const primaryFiringArc = FiringArc.properties[primaryFiringArcKey];
 
    this.primaryFiringArc = function()
    {
       return primaryFiringArc;
    };
 
-   var auxiliaryFiringArc = FiringArc.properties[auxiliaryFiringArcKey];
+   const auxiliaryFiringArc = FiringArc.properties[auxiliaryFiringArcKey];
 
    this.auxiliaryFiringArc = function()
    {
       return auxiliaryFiringArc;
    };
 
-   var upgrade = upgradeCard;
+   const upgrade = upgradeCard;
 
    this.upgrade = function()
    {
@@ -77,7 +77,7 @@ Weapon.prototype.equals = function(another)
 {
    InputValidator.validateNotNull("another", another);
 
-   var answer = this.name() === another.name();
+   let answer = this.name() === another.name();
 
    if (answer)
    {
@@ -92,8 +92,8 @@ Weapon.prototype.isUsable = function(attacker, defender)
    InputValidator.validateNotNull("attacker", attacker);
    InputValidator.validateNotNull("defender", defender);
 
-   var answer;
-   var upgrade = this.upgrade();
+   let answer;
+   const upgrade = this.upgrade();
 
    if (upgrade)
    {
@@ -135,7 +135,7 @@ Weapon.prototype.isDefenderInFiringArc = function(attackerPosition, firingArc, d
    InputValidator.validateNotNull("defender", defender);
    InputValidator.validateNotNull("defenderPosition", defenderPosition);
 
-   var shipBase = defender.card().shipFaction.ship.shipBase;
+   const shipBase = defender.card().shipFaction.ship.shipBase;
 
    return FiringComputer.isInFiringArc(attackerPosition, firingArc, defenderPosition, shipBase);
 };

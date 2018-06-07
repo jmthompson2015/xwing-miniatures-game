@@ -1,4 +1,4 @@
-var DefenseDiceValue = {
+const DefenseDiceValue = {
    EVADE: "evade",
    FOCUS: "focus",
    BLANK: "blank",

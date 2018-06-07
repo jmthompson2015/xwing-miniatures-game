@@ -9,15 +9,15 @@ class WeaponAndDefenderChooser extends React.Component
    {
       super(props);
 
-      var weapon;
-      var defender;
+      let weapon;
+      let defender;
 
-      var choices = this.props.choices;
+      const choices = this.props.choices;
 
       if (choices.length > 0)
       {
          weapon = choices[0].weapon;
-         var rangeToDefenders = choices[0].rangeToDefenders;
+         const rangeToDefenders = choices[0].rangeToDefenders;
          defender = rangeToDefenders[0].defenders[0];
       }
 
@@ -33,21 +33,21 @@ class WeaponAndDefenderChooser extends React.Component
 
    render()
    {
-      var attacker = this.props.attacker;
-      var message = ReactDOMFactories.div(
+      const attacker = this.props.attacker;
+      const message = ReactDOMFactories.div(
       {}, "Attacker: " + attacker.name());
-      var selectedWeapon = this.state.weapon;
-      var selectedDefender = this.state.defender;
-      var choices = this.props.choices;
-      var self = this;
+      const selectedWeapon = this.state.weapon;
+      const selectedDefender = this.state.defender;
+      const choices = this.props.choices;
+      const self = this;
 
-      var rows = [];
+      const rows = [];
 
-      for (var i = 0; i < choices.length; i++)
+      for (let i = 0; i < choices.length; i++)
       {
-         var weaponAndRangeAndTokens = choices[i];
-         var weapon = weaponAndRangeAndTokens.weapon;
-         var weaponName = weapon.name();
+         const weaponAndRangeAndTokens = choices[i];
+         const weapon = weaponAndRangeAndTokens.weapon;
+         const weaponName = weapon.name();
 
          rows.push(ReactDOMFactories.tr(
          {
@@ -57,13 +57,13 @@ class WeaponAndDefenderChooser extends React.Component
             className: "weaponName pv2",
          }, weaponName)));
 
-         var rangeToDefendersArray = weaponAndRangeAndTokens.rangeToDefenders;
+         const rangeToDefendersArray = weaponAndRangeAndTokens.rangeToDefenders;
 
-         for (var j = 0; j < rangeToDefendersArray.length; j++)
+         for (let j = 0; j < rangeToDefendersArray.length; j++)
          {
-            var rangeToDefenders = rangeToDefendersArray[j];
-            var rangeKey = rangeToDefenders.range;
-            var rangeName = Range.properties[rangeKey].name;
+            const rangeToDefenders = rangeToDefendersArray[j];
+            const rangeKey = rangeToDefenders.range;
+            const rangeName = Range.properties[rangeKey].name;
 
             rows.push(ReactDOMFactories.tr(
             {
@@ -73,15 +73,15 @@ class WeaponAndDefenderChooser extends React.Component
                className: "rangeLabel bg-xw-medium"
             }, "Range " + rangeName)));
 
-            var defenders = rangeToDefenders.defenders;
+            const defenders = rangeToDefenders.defenders;
 
             if (defenders)
             {
-               for (var k = 0; k < defenders.length; k++)
+               for (let k = 0; k < defenders.length; k++)
                {
-                  var token = defenders[k];
+                  const token = defenders[k];
 
-                  var input = ReactDOMFactories.input(
+                  const input = ReactDOMFactories.input(
                   {
                      key: 0,
                      type: "radio",
@@ -91,13 +91,13 @@ class WeaponAndDefenderChooser extends React.Component
                      "data-weapon-name": weaponName,
                      "data-defender-id": token.id()
                   });
-                  var span = ReactDOMFactories.span(
+                  const span = ReactDOMFactories.span(
                   {
                      key: 1
                   }, token.name());
-                  var label = ReactDOMFactories.label(
+                  const label = ReactDOMFactories.label(
                   {}, input, " ", span);
-                  var cell = ReactDOMFactories.td(
+                  const cell = ReactDOMFactories.td(
                   {
                      className: "defenderChoice tl"
                   }, label);
@@ -110,24 +110,24 @@ class WeaponAndDefenderChooser extends React.Component
          }
       }
 
-      var initialInput = ReactDOMFactories.table(
+      const initialInput = ReactDOMFactories.table(
       {
          className: "combatTable f6"
       }, ReactDOMFactories.tbody(
       {}, rows));
-      var cancelButton = React.createElement(Button,
+      const cancelButton = React.createElement(Button,
       {
          key: "cancelButton",
          name: "Cancel",
          onClick: self.cancel
       });
-      var okButton = React.createElement(Button,
+      const okButton = React.createElement(Button,
       {
          key: "okButton",
          name: "OK",
          onClick: self.ok
       });
-      var buttons = ReactDOMFactories.span(
+      const buttons = ReactDOMFactories.span(
       {}, cancelButton, " ", okButton);
       return React.createElement(OptionPane,
       {
@@ -151,27 +151,27 @@ WeaponAndDefenderChooser.prototype.cancelFunction = function()
 
 WeaponAndDefenderChooser.prototype.findDefender = function(tokenId)
 {
-   var answer;
+   let answer;
 
-   var choices = this.props.choices;
+   const choices = this.props.choices;
 
-   for (var i = 0; i < choices.length; i++)
+   for (let i = 0; i < choices.length; i++)
    {
-      var weaponAndRangeAndTokens = choices[i];
+      const weaponAndRangeAndTokens = choices[i];
 
-      var rangeToDefendersArray = weaponAndRangeAndTokens.rangeToDefenders;
+      const rangeToDefendersArray = weaponAndRangeAndTokens.rangeToDefenders;
 
-      for (var j = 0; j < rangeToDefendersArray.length; j++)
+      for (let j = 0; j < rangeToDefendersArray.length; j++)
       {
-         var rangeToDefenders = rangeToDefendersArray[j];
+         const rangeToDefenders = rangeToDefendersArray[j];
 
-         var defenders = rangeToDefenders.defenders;
+         const defenders = rangeToDefenders.defenders;
 
          if (defenders)
          {
-            for (var k = 0; k < defenders.length; k++)
+            for (let k = 0; k < defenders.length; k++)
             {
-               var token = defenders[k];
+               const token = defenders[k];
 
                if (token.id() == tokenId)
                {
@@ -188,16 +188,16 @@ WeaponAndDefenderChooser.prototype.findDefender = function(tokenId)
 
 WeaponAndDefenderChooser.prototype.findWeapon = function(weaponName)
 {
-   var attacker = this.props.attacker;
-   var answer = attacker.primaryWeapon();
+   const attacker = this.props.attacker;
+   let answer = attacker.primaryWeapon();
 
    if (weaponName !== "Primary Weapon")
    {
-      var secondaryWeapons = attacker.secondaryWeapons();
+      const secondaryWeapons = attacker.secondaryWeapons();
 
-      for (var i = 0; i < secondaryWeapons.size; i++)
+      for (let i = 0; i < secondaryWeapons.size; i++)
       {
-         var weapon = secondaryWeapons.get(i);
+         const weapon = secondaryWeapons.get(i);
 
          if (weapon.name() === weaponName)
          {
@@ -219,12 +219,12 @@ WeaponAndDefenderChooser.prototype.okFunction = function()
 WeaponAndDefenderChooser.prototype.selectionChangedFunction = function(event)
 {
    LOGGER.debug("selectionChanged()");
-   var weaponName = event.currentTarget.dataset.weaponName;
-   var defenderId = event.currentTarget.dataset.defenderId;
+   const weaponName = event.currentTarget.dataset.weaponName;
+   const defenderId = event.currentTarget.dataset.defenderId;
    LOGGER.debug("weaponName = " + weaponName + " defenderId = " + defenderId);
-   var weapon = this.findWeapon(weaponName);
+   const weapon = this.findWeapon(weaponName);
    LOGGER.debug("weapon = " + weapon);
-   var defender = this.findDefender(defenderId);
+   const defender = this.findDefender(defenderId);
    LOGGER.debug("defender = " + defender);
    this.setState(
    {

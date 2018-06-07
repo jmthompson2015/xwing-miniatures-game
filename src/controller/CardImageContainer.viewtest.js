@@ -16,12 +16,12 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store = Redux.createStore(Reducer.root);
 store.dispatch(Action.setResourceBase(resourceBase));
-var agent = new Agent(store, "Imperial Agent");
+const agent = new Agent(store, "Imperial Agent");
 
-var cells = [];
+const cells = [];
 addCardImage(cells, new CardInstance(store, DamageCard.BLINDED_PILOT));
 addCardImage(cells, new CardInstance(store, DamageCard.CONSOLE_FIRE));
 addCardImage(cells, new CardInstance(store, PilotCard.DARTH_VADER, agent));
@@ -34,7 +34,7 @@ ReactDOM.render(ReactDOMFactories.div(
 
 function addCardImage(cells, cardInstance)
 {
-   var element = React.createElement(ReactRedux.Provider,
+   const element = React.createElement(ReactRedux.Provider,
    {
       store: store,
    }, React.createElement(CardImageContainer,

@@ -18,13 +18,13 @@ class AgentSquadUI extends React.Component
 
    render()
    {
-      var factionUI = this.createFactionSelect();
-      var agentNameUI = this.createAgentNameUI();
-      var agentTypeUI = this.createAgentTypeSelect();
-      var squadBuilderTypeUI = this.createSquadBuilderTypeSelect();
-      var squadChooserPanel = this.createSquadChooserPanel();
+      const factionUI = this.createFactionSelect();
+      const agentNameUI = this.createAgentNameUI();
+      const agentTypeUI = this.createAgentTypeSelect();
+      const squadBuilderTypeUI = this.createSquadBuilderTypeSelect();
+      const squadChooserPanel = this.createSquadChooserPanel();
 
-      var rows = [];
+      const rows = [];
 
       rows.push(ReactDOMFactories.tr(
       {
@@ -97,7 +97,7 @@ class AgentSquadUI extends React.Component
 
 AgentSquadUI.prototype.createAgentNameUI = function()
 {
-   var agentName = this.props.agentName;
+   const agentName = this.props.agentName;
 
    return ReactDOMFactories.input(
    {
@@ -110,11 +110,11 @@ AgentSquadUI.prototype.createAgentNameUI = function()
 
 AgentSquadUI.prototype.createAgentTypeSelect = function()
 {
-   var typeNames = this.props.agentTypes.map(function(agentType)
+   const typeNames = this.props.agentTypes.map(function(agentType)
    {
       return agentType.name;
    });
-   var typeName = this.props.agentType.name;
+   const typeName = this.props.agentType.name;
 
    return React.createElement(Select,
    {
@@ -126,11 +126,11 @@ AgentSquadUI.prototype.createAgentTypeSelect = function()
 
 AgentSquadUI.prototype.createFactionSelect = function()
 {
-   var faction = this.props.faction;
-   var factionLabelFunction = function(value)
+   const faction = this.props.faction;
+   const factionLabelFunction = function(value)
    {
-      var answer = Faction.properties[value].name;
-      var friendKey = Faction.friend(value);
+      let answer = Faction.properties[value].name;
+      const friendKey = Faction.friend(value);
       if (friendKey)
       {
          answer += " + " + Faction.properties[friendKey].name;
@@ -149,14 +149,14 @@ AgentSquadUI.prototype.createFactionSelect = function()
 
 AgentSquadUI.prototype.createSquadChooserPanel = function()
 {
-   var squadChooserPanel;
-   var squadType = this.props.squadBuilderType;
-   var factionKey = this.props.faction.key;
+   let squadChooserPanel;
+   const squadType = this.props.squadBuilderType;
+   const factionKey = this.props.faction.key;
 
    if (squadType === AgentSquadUI.PREFABRICATED)
    {
-      var agent = this.props.agent;
-      var squadBuilders = this.props.squadBuilders;
+      const agent = this.props.agent;
+      const squadBuilders = this.props.squadBuilders;
       squadChooserPanel = React.createElement(SquadChooser,
       {
          key: squadType + factionKey,
@@ -197,16 +197,16 @@ AgentSquadUI.prototype.createSquadBuilderTypeSelect = function()
 
 AgentSquadUI.prototype.handleAgentNameChangeFunction = function(event)
 {
-   var name = event.target.value;
+   const name = event.target.value;
    LOGGER.debug("AgentSquadUI.handleAgentNameChange() name = " + name);
    this.props.agentNameChanged(name);
 };
 
 AgentSquadUI.prototype.handleAgentTypeChangeFunction = function(event)
 {
-   var selected = event.target.value;
+   const selected = event.target.value;
    LOGGER.debug("AgentSquadUI.handleAgentTypeChange() selected = " + selected);
-   var agentType = this.props.agentTypes.reduce(function(accumulator, agentType)
+   const agentType = this.props.agentTypes.reduce(function(accumulator, agentType)
    {
       if (selected === agentType.name)
       {
@@ -219,9 +219,9 @@ AgentSquadUI.prototype.handleAgentTypeChangeFunction = function(event)
 
 AgentSquadUI.prototype.handleFactionChangeFunction = function(event)
 {
-   var selected = event.target.value;
+   const selected = event.target.value;
    LOGGER.debug("AgentSquadUI.handleFactionChange() selected = " + selected);
-   var faction = Faction.properties[selected];
+   const faction = Faction.properties[selected];
    this.props.factionChanged(faction);
 };
 
@@ -234,14 +234,14 @@ AgentSquadUI.prototype.handleSquadChange = function(squad)
 AgentSquadUI.prototype.handleSquadBuilderChangeFunction = function(squadBuilder)
 {
    LOGGER.debug("AgentSquadUI.handleBuilderSquadChange() squadBuilder = " + squadBuilder);
-   var agent = this.props.agent;
-   var squad = squadBuilder.buildSquad(agent);
+   const agent = this.props.agent;
+   const squad = squadBuilder.buildSquad(agent);
    this.props.squadChanged(squad);
 };
 
 AgentSquadUI.prototype.handleSquadBuilderTypeChangeFunction = function(event)
 {
-   var selected = event.target.value;
+   const selected = event.target.value;
    LOGGER.debug("AgentSquadUI.handleSquadBuilderTypeChange() selected = " + selected);
    this.props.squadBuilderTypeChanged(selected);
 };

@@ -27,19 +27,19 @@ ActivationPhaseTask.prototype.doIt = function(callback)
 
    LOGGER.trace("ActivationPhaseTask.doIt() start");
 
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
 
-   var queue = environment.getTokensForActivation(true);
-   var elementFunction = this.decloakElementFunction.bind(this);
-   var phaseCallback = this.activationAction.bind(this);
-   var finishFunction = function(finishCallback)
+   const queue = environment.getTokensForActivation(true);
+   const elementFunction = this.decloakElementFunction.bind(this);
+   const phaseCallback = this.activationAction.bind(this);
+   const finishFunction = function(finishCallback)
    {
       phaseCallback(finishCallback);
    };
-   var delay = this.delay();
+   const delay = this.delay();
 
-   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+   const queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
    queueProcessor.processQueue();
 
    LOGGER.trace("ActivationPhaseTask.doIt() end");
@@ -50,19 +50,19 @@ ActivationPhaseTask.prototype.decloakElementFunction = function(cardInstance, qu
    InputValidator.validateNotNull("cardInstance", cardInstance);
    InputValidator.validateIsFunction("queueCallback", queueCallback);
 
-   var store = this.store();
+   const store = this.store();
 
    if (cardInstance.isCloaked && cardInstance.isCloaked())
    {
       LOGGER.debug("checking decloak for " + cardInstance);
-      var agent = cardInstance.agent();
-      var agentCallback = function(token, decloakAbility)
+      const agent = cardInstance.agent();
+      const agentCallback = function(token, decloakAbility)
       {
          LOGGER.debug("token = " + token + " decloakAbility = " + decloakAbility);
 
          if (decloakAbility !== undefined)
          {
-            var consequent = decloakAbility.consequent();
+            const consequent = decloakAbility.consequent();
             consequent(store, token, queueCallback, decloakAbility.context());
             LOGGER.debug("token.isCloaked() ? " + token.isCloaked());
             LOGGER.debug("token.cloakCount() = " + token.cloakCount());
@@ -88,19 +88,19 @@ ActivationPhaseTask.prototype.activationAction = function(callback)
 
    LOGGER.trace("ActivationPhaseTask.activationAction() start");
 
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
 
-   var queue = environment.getTokensForActivation(true);
-   var elementFunction = this.activationActionElementFunction.bind(this);
-   var phaseCallback = this.finishActivationPhase.bind(this);
-   var finishFunction = function(finishCallback)
+   const queue = environment.getTokensForActivation(true);
+   const elementFunction = this.activationActionElementFunction.bind(this);
+   const phaseCallback = this.finishActivationPhase.bind(this);
+   const finishFunction = function(finishCallback)
    {
       phaseCallback(finishCallback);
    };
-   var delay = this.delay();
+   const delay = this.delay();
 
-   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+   const queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
    queueProcessor.processQueue();
 
    LOGGER.trace("ActivationPhaseTask.activationAction() end");
@@ -111,19 +111,19 @@ ActivationPhaseTask.prototype.activationActionElementFunction = function(cardIns
    InputValidator.validateNotNull("cardInstance", cardInstance);
    InputValidator.validateIsFunction("queueCallback", queueCallback);
 
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
    environment.setActiveToken(cardInstance);
-   var myToken = cardInstance;
+   let myToken = cardInstance;
 
    if (cardInstance.idParent() !== undefined && cardInstance.card().key.endsWith("fore"))
    {
       myToken = environment.parentOf(cardInstance);
    }
 
-   var maneuverKey = store.getState().pilotToManeuver.get("" + myToken.id());
-   var activationAction = ActivationAction.create(store, cardInstance.id(), queueCallback);
-   var maneuver = Maneuver.properties[maneuverKey];
+   const maneuverKey = store.getState().pilotToManeuver.get("" + myToken.id());
+   const activationAction = ActivationAction.create(store, cardInstance.id(), queueCallback);
+   const maneuver = Maneuver.properties[maneuverKey];
    store.dispatch(Action.setTokenManeuver(cardInstance, maneuver));
 
    setTimeout(function()

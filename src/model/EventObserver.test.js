@@ -12,11 +12,11 @@ QUnit.module("EventObserver");
 QUnit.test("onChange()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing Luke Skywalker
-   var eventKey = Event.AFTER_EXECUTE_MANEUVER;
-   var eventCallback = function()
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing Luke Skywalker
+   const eventKey = Event.AFTER_EXECUTE_MANEUVER;
+   const eventCallback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -27,20 +27,20 @@ QUnit.test("onChange()", function(assert)
    assert.equal(store.getState().eventQueue.size, 1);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    EventObserver.observeStore(store);
 });
 
 function createEnvironment()
 {
-   var squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
-   var squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
-   var store = Redux.createStore(Reducer.root);
-   var agent1 = new Agent(store, "1");
-   var agent2 = new Agent(store, "2");
-   var squad1 = squadBuilder1.buildSquad(agent1);
-   var squad2 = squadBuilder2.buildSquad(agent2);
-   var environment = new Environment(store, agent1, squad1, agent2, squad2);
+   const squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
+   const squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
+   const store = Redux.createStore(Reducer.root);
+   const agent1 = new Agent(store, "1");
+   const agent2 = new Agent(store, "2");
+   const squad1 = squadBuilder1.buildSquad(agent1);
+   const squad2 = squadBuilder2.buildSquad(agent2);
+   const environment = new Environment(store, agent1, squad1, agent2, squad2);
 
    return environment;
 }

@@ -15,9 +15,9 @@ class OptionPane extends React.Component
 
    render()
    {
-      var rows = [];
+      const rows = [];
 
-      var cell0 = ReactDOMFactories.td(
+      const cell0 = ReactDOMFactories.td(
       {
          colSpan: 2,
          className: "optionPaneTitle bg-xw-medium tc",
@@ -27,12 +27,12 @@ class OptionPane extends React.Component
          key: 0
       }, cell0));
 
-      var cell10 = ReactDOMFactories.td(
+      const cell10 = ReactDOMFactories.td(
       {
          key: 0,
          rowSpan: 2,
       }, this.props.icon);
-      var cell11 = ReactDOMFactories.td(
+      const cell11 = ReactDOMFactories.td(
       {
          key: 1,
          className: "optionPaneMessage",
@@ -42,14 +42,14 @@ class OptionPane extends React.Component
          key: 1
       }, [cell10, cell11]));
 
-      var cell2 = ReactDOMFactories.td(
+      const cell2 = ReactDOMFactories.td(
       {}, this.state.input);
       rows.push(ReactDOMFactories.tr(
       {
          key: 2
       }, cell2));
 
-      var cell3 = ReactDOMFactories.td(
+      const cell3 = ReactDOMFactories.td(
       {
          colSpan: 2,
          className: "optionPaneButtons pa2 tr",

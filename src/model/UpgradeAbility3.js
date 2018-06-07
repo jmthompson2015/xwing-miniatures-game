@@ -23,7 +23,7 @@ import Selector from "./Selector.js";
 import ShipActionAbility from "./ShipActionAbility.js";
 import TargetLock from "./TargetLock.js";
 
-var UpgradeAbility3 = {};
+const UpgradeAbility3 = {};
 
 ////////////////////////////////////////////////////////////////////////
 UpgradeAbility3[Phase.COMBAT_START] = {};
@@ -36,8 +36,8 @@ UpgradeAbility3[Phase.COMBAT_START][UpgradeCard.YSANNE_ISARD] = {
    },
    consequent: function(store, token, callback)
    {
-      var ability = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
-      var consequent = ability.consequent();
+      const ability = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
+      const consequent = ability.consequent();
       consequent(store, token, callback);
    },
 };
@@ -49,14 +49,14 @@ UpgradeAbility3[Phase.COMBAT_DECLARE_TARGET][UpgradeCard.BLASTER_TURRET] = {
    // Spend 1 Focus token to perform this attack against 1 ship (even a ship outside your firing arc).
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.BLASTER_TURRET;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.BLASTER_TURRET;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendFocusToken(store, attacker);
       callback();
    },
@@ -66,14 +66,14 @@ UpgradeAbility3[Phase.COMBAT_DECLARE_TARGET][UpgradeCard.HOT_SHOT_BLASTER] = {
    // Discard this card to attack 1 ship (even a ship outside your firing arc).
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.HOT_SHOT_BLASTER;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.HOT_SHOT_BLASTER;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       discardUpgrade(attacker);
       callback();
    },
@@ -83,19 +83,19 @@ UpgradeAbility3[Phase.COMBAT_DECLARE_TARGET][UpgradeCard.R3_A2] = {
    // When you declare the target of your attack, if the defender is inside your firing arc, you may receive 1 stress token to cause the defender to receive 1 stress token.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var attackerPosition = getAttackerPosition(attacker);
-      var firingArc = weapon.primaryFiringArc();
-      var defender = getDefender(attacker);
-      var defenderPosition = getDefenderPosition(attacker);
-      var isDefenderInFiringArc = weapon.isDefenderInFiringArc(attackerPosition, firingArc, defender, defenderPosition);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const attackerPosition = getAttackerPosition(attacker);
+      const firingArc = weapon.primaryFiringArc();
+      const defender = getDefender(attacker);
+      const defenderPosition = getDefenderPosition(attacker);
+      const isDefenderInFiringArc = weapon.isDefenderInFiringArc(attackerPosition, firingArc, defender, defenderPosition);
       return isActiveCardInstance(store, token) && isDefenderInFiringArc;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
       attacker.receiveStress();
       defender.receiveStress(1, callback);
    },
@@ -105,14 +105,14 @@ UpgradeAbility3[Phase.COMBAT_DECLARE_TARGET][UpgradeCard.REBEL_CAPTIVE] = {
    // Once per round, the first ship that declares you as the target of an attack immediately receives 1 stress token.
    condition: function(store, token)
    {
-      var upgradeKey = UpgradeCard.REBEL_CAPTIVE;
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
+      const upgradeKey = UpgradeCard.REBEL_CAPTIVE;
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
       return token.equals(defender) && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       attacker.receiveStress(1, callback);
    },
 };
@@ -124,18 +124,18 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.ADVANCED_PROTON_TOR
    // Spend your Target Lock and discard this card to perform this attack. You may change up to 3 of your blank results to Focus results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.ADVANCED_PROTON_TORPEDOES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.ADVANCED_PROTON_TORPEDOES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
-      var attackDice = getAttackDice(attacker);
+      const attackDice = getAttackDice(attacker);
       attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.FOCUS);
       attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.FOCUS);
       attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.FOCUS);
@@ -147,14 +147,14 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.CALCULATION] = {
    // When attacking, you may spend a Focus token to change 1 of your Focus results to a Critical Hit result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && token.focusCount() > 0 && attackDice.focusCount() > 0;
    },
    consequent: function(store, token, callback)
    {
       spendFocusToken(store, token);
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeOneToValue(AttackDiceValue.FOCUS, AttackDiceValue.CRITICAL_HIT);
       callback();
    },
@@ -164,16 +164,16 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.CLUSTER_MISSILES] =
    // Spend your Target Lock and discard this card to perform this attack twice.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.CLUSTER_MISSILES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.CLUSTER_MISSILES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
       callback();
    },
@@ -183,18 +183,18 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.CONCUSSION_MISSILES
    // Spend your Target Lock and discard this card to perform this attack. You may change 1 of your blank results to a Hit result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.CONCUSSION_MISSILES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.CONCUSSION_MISSILES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
-      var attackDice = getAttackDice(attacker);
+      const attackDice = getAttackDice(attacker);
       attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.HIT);
       callback();
    },
@@ -208,9 +208,9 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.DENGAR] = {
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
-      var defender = getDefender(token);
-      var count = (defender.card().isUnique ? 2 : 1);
+      const attackDice = getAttackDice(token);
+      const defender = getDefender(token);
+      const count = (defender.card().isUnique ? 2 : 1);
       attackDice.rerollBlankAndFocus(count);
       callback();
    },
@@ -220,13 +220,13 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.EXPERTISE] = {
    // When attacking, if you are not stressed, you may change all of your focus results to hit results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && !token.isStressed() && attackDice.focusCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeAllToValue(AttackDiceValue.FOCUS, AttackDiceValue.HIT);
       callback();
    },
@@ -236,13 +236,13 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.EZRA_BRIDGER] = {
    // When attacking, if you are stressed, you may change 1 of your Focus results to a Critical Hit result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && token.isStressed() && attackDice.focusCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeOneToValue(AttackDiceValue.FOCUS, AttackDiceValue.CRITICAL_HIT);
       callback();
    },
@@ -252,19 +252,19 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.GUIDANCE_CHIPS] = {
    // Once per round, when attacking with a Torpedo or Missile secondary weapon, you may change 1 die result to a Hit result (or a Critical result if your primary weapon value is "3" or higher).
    condition: function(store, token)
    {
-      var upgradeKey = UpgradeCard.GUIDANCE_CHIPS;
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
-      var weapon = getWeapon(attacker);
-      var isTorpedoOrMissile = (weapon.upgrade() !== undefined) && [UpgradeType.TORPEDO, UpgradeType.MISSILE].includes(weapon.upgrade().type);
+      const upgradeKey = UpgradeCard.GUIDANCE_CHIPS;
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
+      const weapon = getWeapon(attacker);
+      const isTorpedoOrMissile = (weapon.upgrade() !== undefined) && [UpgradeType.TORPEDO, UpgradeType.MISSILE].includes(weapon.upgrade().type);
       return isActiveCardInstance(store, token) && isTorpedoOrMissile && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
-      var weapon = getWeapon(token);
-      var oldValue = (attackDice.blankCount() > 0 ? AttackDiceValue.BLANK : AttackDiceValue.FOCUS);
-      var newValue = (weapon.weaponValue() >= 3 ? AttackDiceValue.CRITICAL_HIT : AttackDiceValue.HIT);
+      const attackDice = getAttackDice(token);
+      const weapon = getWeapon(token);
+      const oldValue = (attackDice.blankCount() > 0 ? AttackDiceValue.BLANK : AttackDiceValue.FOCUS);
+      const newValue = (weapon.weaponValue() >= 3 ? AttackDiceValue.CRITICAL_HIT : AttackDiceValue.HIT);
       attackDice.changeOneToValue(oldValue, newValue);
       callback();
    },
@@ -274,15 +274,15 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.GUNNERY_TEAM] = {
    // Once per round, when attacking with a secondary weapon, you may spend 1 energy to change 1 of your blank results to a Hit result.
    condition: function(store, token)
    {
-      var upgradeKey = UpgradeCard.GUNNERY_TEAM;
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var attackDice = getAttackDice(attacker);
+      const upgradeKey = UpgradeCard.GUNNERY_TEAM;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && !weapon.isPrimary() && token.energyCount() > 0 && attackDice.blankCount() > 0 && !token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.HIT);
       callback();
    },
@@ -292,17 +292,17 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.HAN_SOLO] = {
    // When attacking, if you have a Target Lock on the defender, you may spend that Target Lock to change all of your Focus results to Hit results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && targetLock !== undefined && attackDice.focusCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var defender = getDefender(token);
+      const defender = getDefender(token);
       spendTargetLock(store, token, defender);
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeAllToValue(AttackDiceValue.FOCUS, AttackDiceValue.HIT);
       callback();
    },
@@ -312,8 +312,8 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.HEAVY_LASER_CANNON]
    // Attack 1 ship. Immediately after rolling your attack dice, you must change all of your Critical Hit results to Hit results.
    condition: function(store, token)
    {
-      var weapon = getWeapon(token);
-      var attackDice = getAttackDice(token);
+      const weapon = getWeapon(token);
+      const attackDice = getAttackDice(token);
       if (isActiveCardInstance(store, token) && weapon.upgradeKey() === UpgradeCard.HEAVY_LASER_CANNON && attackDice.criticalHitCount() > 0)
       {
          attackDice.changeAllToValue(AttackDiceValue.CRITICAL_HIT, AttackDiceValue.HIT);
@@ -330,17 +330,17 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.JESS_PAVA] = {
    // When attacking or defending, you may reroll 1 of your dice for each other friendly ship at Range 1.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(token);
-      var environment = getEnvironment(store);
-      var friendlyCount = environment.getFriendlyTokensAtRange(attacker, Range.ONE).length;
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(token);
+      const environment = getEnvironment(store);
+      const friendlyCount = environment.getFriendlyTokensAtRange(attacker, Range.ONE).length;
       return isActiveCardInstance(store, token) && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && friendlyCount > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
-      var environment = getEnvironment(store);
-      var friendlyCount = environment.getFriendlyTokensAtRange(token, Range.ONE).length;
+      const attackDice = getAttackDice(token);
+      const environment = getEnvironment(store);
+      const friendlyCount = environment.getFriendlyTokensAtRange(token, Range.ONE).length;
       attackDice.rerollBlankAndFocus(friendlyCount);
       callback();
    },
@@ -350,16 +350,16 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.LONE_WOLF] = {
    // When attacking or defending, if there are no friendly ships at Range 1-2, you may reroll 1 of your blank results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var environment = store.getState().environment;
-      var rangeOneTokens = environment.getFriendlyTokensAtRange(token, Range.ONE);
-      var rangeTwoTokens = environment.getFriendlyTokensAtRange(token, Range.TWO);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const environment = store.getState().environment;
+      const rangeOneTokens = environment.getFriendlyTokensAtRange(token, Range.ONE);
+      const rangeTwoTokens = environment.getFriendlyTokensAtRange(token, Range.TWO);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && rangeOneTokens.length === 0 && rangeTwoTokens === 0 && attackDice.blankCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.rerollBlank();
       callback();
    },
@@ -369,16 +369,16 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.MANGLER_CANNON] = {
    // Attack 1 ship. When attacking, you may change 1 of your Hit results to a Critical Hit result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.MANGLER_CANNON;
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.MANGLER_CANNON;
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && attackDice.hitCount() > 0 && !attacker.isAbilityUsed(UpgradeCard, upgradeKey);
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
       attackDice.changeOneToValue(AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT);
       callback();
    },
@@ -388,13 +388,13 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.MARKSMANSHIP] = {
    // Action: When attacking this round, you may change 1 of your Focus results to a Critical Hit result and all of your other Focus results to Hit results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(token);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(token);
       return isActiveCardInstance(store, token) && attackDice.focusCount() > 0 && attacker.isPerRoundAbilityUsed(UpgradeCard, UpgradeCard.MARKSMANSHIP);
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeOneToValue(AttackDiceValue.FOCUS, AttackDiceValue.CRITICAL_HIT);
       attackDice.changeAllToValue(AttackDiceValue.FOCUS, AttackDiceValue.HIT);
       callback();
@@ -405,14 +405,14 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.MERCENARY_COPILOT] 
    // When attacking at Range 3, you may change 1 of your Hit results to a Critical Hit result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var rangeKey = getRangeKey(attacker);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const rangeKey = getRangeKey(attacker);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && rangeKey === Range.THREE && attackDice.hitCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeOneToValue(AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT);
       callback();
    }
@@ -422,13 +422,13 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.OPPORTUNIST] = {
    // When attacking, if the defender does not have any Focus or Evade tokens, you may receive 1 stress token to roll 1 additional attack die. You cannot use this ability if you have any stress tokens.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
       return isActiveCardInstance(store, token) && token.stressCount() === 0 && defender.evadeCount() === 0 && defender.focusCount() === 0;
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.addDie();
       token.receiveStress(1, callback);
    },
@@ -438,16 +438,16 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.PREDATOR] = {
    // When attacking, you may reroll 1 attack die. If the defender's pilot skill value is "2" or lower, you may instead reroll up to 2 attack dice.
    condition: function(store, token)
    {
-      var upgradeKey = UpgradeCard.PREDATOR;
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(token);
+      const upgradeKey = UpgradeCard.PREDATOR;
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(token);
       return isActiveCardInstance(store, token) && (attackDice.blankCount() > 0 || attackDice.focusCount() > 0) && !attacker.isAbilityUsed(UpgradeCard, upgradeKey);
    },
    consequent: function(store, token, callback)
    {
-      var defender = getDefender(token);
-      var attackDice = getAttackDice(token);
-      var count = (defender.pilotSkillValue() <= 2 ? 2 : 1);
+      const defender = getDefender(token);
+      const attackDice = getAttackDice(token);
+      const count = (defender.pilotSkillValue() <= 2 ? 2 : 1);
       attackDice.rerollBlankAndFocus(count);
       callback();
    }
@@ -457,14 +457,14 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.PROTON_ROCKETS] = {
    // Discard this card to perform this attack. You may roll additional attack dice equal to your agility value, to a maximum of 3 additional dice.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.PROTON_ROCKETS;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.PROTON_ROCKETS;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && token.upgradeKeys().includes(upgradeKey);
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       discardUpgrade(attacker);
       callback();
    },
@@ -474,18 +474,18 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.PROTON_TORPEDOES] =
    // Spend your Target Lock and discard this card to perform this attack. You may change 1 of your Focus results to a Critical Hit result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.PROTON_TORPEDOES;
-      var defender = getDefender(attacker);
-      var targetLock = (defender ? TargetLock.getFirst(store, token, defender) : undefined);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.PROTON_TORPEDOES;
+      const defender = getDefender(attacker);
+      const targetLock = (defender ? TargetLock.getFirst(store, token, defender) : undefined);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && defender && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
-      var attackDice = getAttackDice(attacker);
+      const attackDice = getAttackDice(attacker);
       attackDice.changeOneToValue(AttackDiceValue.FOCUS, AttackDiceValue.CRITICAL_HIT);
       callback();
    },
@@ -495,13 +495,13 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.RAGE] = {
    // Action: Assign 1 focus token to your ship and receive 2 stress tokens. Until the end of the round, when attacking, you may reroll up to 3 attack dice.
    condition: function(store, token)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       return isActiveCardInstance(store, token) && (attackDice.blankCount() + attackDice.focusCount() > 0);
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
-      var count = Math.min(3, attackDice.blankCount() + attackDice.focusCount());
+      const attackDice = getAttackDice(token);
+      const count = Math.min(3, attackDice.blankCount() + attackDice.focusCount());
       attackDice.rerollBlankAndFocus(count);
       callback();
    }
@@ -511,15 +511,15 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.WEAPONS_GUIDANCE] =
    // When attacking, you may spend a focus token to change 1 of your blank results to a Hit result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && token.focusCount() > 0 && attackDice.blankCount() > 0;
    },
    consequent: function(store, token, callback)
    {
       spendFocusToken(store, token);
 
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.changeOneToValue(AttackDiceValue.BLANK, AttackDiceValue.HIT);
       callback();
    },
@@ -529,13 +529,13 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_ATTACK_DICE][UpgradeCard.WIRED] = {
    // When attacking or defending, if you are stressed, you may reroll 1 or more of your Focus results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
       return isActiveCardInstance(store, token) && token.isStressed() && attackDice.focusCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attackDice = getAttackDice(token);
+      const attackDice = getAttackDice(token);
       attackDice.rerollAllFocus();
       callback();
    },
@@ -548,18 +548,18 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.AUTOTHRUSTERS] = {
    // When defending, if you are beyond Range 2 or outside the attacker's firing arc, you may change 1 of your blank results to an Evade result. You can equip this card only if you have the Boost action icon.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var rangeKey = getRangeKey(attacker);
-      var defenseDice = getDefenseDice(attacker);
-      var isBeyondRange2 = ![Range.ONE, Range.TWO].includes(rangeKey);
-      var isOutsideFiringArc = !isInFiringArc(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const rangeKey = getRangeKey(attacker);
+      const defenseDice = getDefenseDice(attacker);
+      const isBeyondRange2 = ![Range.ONE, Range.TWO].includes(rangeKey);
+      const isOutsideFiringArc = !isInFiringArc(attacker);
       return token.equals(defender) && (isBeyondRange2 || isOutsideFiringArc) && defenseDice.blankCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
       defenseDice.changeOneToValue(DefenseDiceValue.BLANK, DefenseDiceValue.EVADE);
       callback();
    },
@@ -569,21 +569,21 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.CONCORD_DAWN_PROTE
    // When defending, if you are inside the attacker's firing arc and at Range 1, and the attacker is inside your firing arc, add 1 Evade result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var isInFiringArcAttacker = isInFiringArc(attacker);
-      var isRange1 = (getRangeKey(attacker) === Range.ONE);
-      var weapon = defender.primaryWeapon();
-      var environment = store.getState().environment;
-      var attackerPosition = environment.getPositionFor(attacker);
-      var defenderPosition = environment.getPositionFor(defender);
-      var isInFiringArcDefender = weapon.isDefenderInFiringArc(defenderPosition, weapon.primaryFiringArc(), attacker, attackerPosition);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const isInFiringArcAttacker = isInFiringArc(attacker);
+      const isRange1 = (getRangeKey(attacker) === Range.ONE);
+      const weapon = defender.primaryWeapon();
+      const environment = store.getState().environment;
+      const attackerPosition = environment.getPositionFor(attacker);
+      const defenderPosition = environment.getPositionFor(defender);
+      const isInFiringArcDefender = weapon.isDefenderInFiringArc(defenderPosition, weapon.primaryFiringArc(), attacker, attackerPosition);
       return token.equals(defender) && isInFiringArcAttacker && isRange1 && isInFiringArcDefender;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
       defenseDice.addDie(DefenseDiceValue.EVADE);
       callback();
    },
@@ -593,20 +593,20 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.CROSSFIRE_FORMATIO
    // When defending, if there is at least 1 other friendly Resistance ship at Range 1-2 of the attacker, you may add 1 Focus result to your roll.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var defenders = [];
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      let defenders = [];
 
       if (token.equals(defender))
       {
-         var environment = store.getState().environment;
-         var attackerPosition = environment.getPositionFor(attacker);
-         var ranges = [Range.ONE, Range.TWO];
+         const environment = store.getState().environment;
+         const attackerPosition = environment.getPositionFor(attacker);
+         const ranges = [Range.ONE, Range.TWO];
          defenders = environment.getDefenders(attacker).filter(function(myDefender)
          {
-            var isResistance = myDefender.card().shipFaction.factionKey === Faction.RESISTANCE;
-            var myDefenderPosition = environment.getPositionFor(myDefender);
-            var range = RangeRuler.getRange(attacker, attackerPosition, myDefender, myDefenderPosition);
+            const isResistance = myDefender.card().shipFaction.factionKey === Faction.RESISTANCE;
+            const myDefenderPosition = environment.getPositionFor(myDefender);
+            const range = RangeRuler.getRange(attacker, attackerPosition, myDefender, myDefenderPosition);
             return myDefender !== defender && isResistance && ranges.includes(range);
          });
       }
@@ -614,8 +614,8 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.CROSSFIRE_FORMATIO
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
       defenseDice.addDie(DefenseDiceValue.FOCUS);
       callback();
    },
@@ -625,16 +625,16 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.FLIGHT_INSTRUCTOR]
    // When defending, you may reroll 1 of your Focus results. If the attacker's pilot skill value is "2" or lower, you may reroll 1 of your blank results instead.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var pilotSkill = attacker.pilotSkillValue();
-      var defender = getDefender(attacker);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const pilotSkill = attacker.pilotSkillValue();
+      const defender = getDefender(attacker);
+      const defenseDice = getDefenseDice(attacker);
       return token.equals(defender) && ((pilotSkill <= 2 && defenseDice.blankCount() > 0) || (pilotSkill > 2 && defenseDice.focusCount() > 0));
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
       if (attacker.pilotSkillValue() <= 2)
       {
          defenseDice.rerollBlank();
@@ -651,19 +651,19 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.JESS_PAVA] = {
    // When attacking or defending, you may reroll 1 of your dice for each other friendly ship at Range 1.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var defenseDice = getDefenseDice(attacker);
-      var environment = getEnvironment(store);
-      var friendlyCount = environment.getFriendlyTokensAtRange(defender, Range.ONE).length;
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const defenseDice = getDefenseDice(attacker);
+      const environment = getEnvironment(store);
+      const friendlyCount = environment.getFriendlyTokensAtRange(defender, Range.ONE).length;
       return token.equals(defender) && (defenseDice.blankCount() > 0 || defenseDice.focusCount() > 0) && friendlyCount > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
-      var environment = getEnvironment(store);
-      var friendlyCount = environment.getFriendlyTokensAtRange(token, Range.ONE).length;
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
+      const environment = getEnvironment(store);
+      const friendlyCount = environment.getFriendlyTokensAtRange(token, Range.ONE).length;
       defenseDice.rerollBlankAndFocus(friendlyCount);
       callback();
    },
@@ -673,14 +673,14 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.JUKE] = {
    // When attacking, if you have an Evade token, you may change 1 of the defender's Evade results to a Focus result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
       return isActiveCardInstance(store, token) && token.evadeCount() > 0 && defenseDice.evadeCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
       defenseDice.changeOneToValue(DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS);
       callback();
    },
@@ -690,19 +690,19 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.LONE_WOLF] = {
    // When attacking or defending, if there are no friendly ships at Range 1-2, you may reroll 1 of your blank results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var environment = store.getState().environment;
-      var rangeOneTokens = environment.getFriendlyTokensAtRange(token, Range.ONE);
-      var rangeTwoTokens = environment.getFriendlyTokensAtRange(token, Range.TWO);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const environment = store.getState().environment;
+      const rangeOneTokens = environment.getFriendlyTokensAtRange(token, Range.ONE);
+      const rangeTwoTokens = environment.getFriendlyTokensAtRange(token, Range.TWO);
+      const defenseDice = getDefenseDice(attacker);
       return token.equals(defender) && rangeOneTokens.length === 0 && rangeTwoTokens.length === 0 && defenseDice.blankCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const defenseDice = getDefenseDice(attacker);
       defenseDice.rerollBlank();
       store.dispatch(CardAction.addUsedAbility(defender, new Ability(UpgradeCard, UpgradeCard.LONE_WOLF, UpgradeAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)));
       callback();
@@ -713,15 +713,15 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.SENSOR_JAMMER] = {
    // When defending, you may change 1 of the attacker's Hit results to a Focus result. The attacker cannot reroll the die with the changed result.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const attackDice = getAttackDice(attacker);
       return token.equals(defender) && attackDice.hitCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var attackDice = getAttackDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const attackDice = getAttackDice(attacker);
       attackDice.changeOneToValue(AttackDiceValue.HIT, AttackDiceValue.FOCUS);
       callback();
    },
@@ -731,15 +731,15 @@ UpgradeAbility3[Phase.COMBAT_MODIFY_DEFENSE_DICE][UpgradeCard.WIRED] = {
    // When attacking or defending, if you are stressed, you may reroll 1 or more of your Focus results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const defenseDice = getDefenseDice(attacker);
       return token.equals(defender) && token.isStressed() && defenseDice.focusCount() > 0;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defenseDice = getDefenseDice(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defenseDice = getDefenseDice(attacker);
       defenseDice.rerollAllFocus();
       callback();
    },
@@ -752,19 +752,19 @@ UpgradeAbility3[Phase.COMBAT_DEAL_DAMAGE][UpgradeCard.ADVANCED_HOMING_MISSILES] 
    // Discard this card to perform this attack. If this attack hits, deal 1 faceup Damage card to the defender. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.ADVANCED_HOMING_MISSILES;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.ADVANCED_HOMING_MISSILES;
       return isActiveCardInstance(store, token) && weapon && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       discardUpgrade(attacker);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
-         var environment = store.getState().environment;
+         const defender = getDefender(attacker);
+         const environment = store.getState().environment;
          defender.receiveCriticalDamage(environment.drawDamage());
       }
       callback();
@@ -775,20 +775,20 @@ UpgradeAbility3[Phase.COMBAT_DEAL_DAMAGE][UpgradeCard.ION_PULSE_MISSILES] = {
    // Spend your Target Lock and discard this card to perform this attack. If this attack hits, the defender suffers 1 damage and receives 2 ion tokens. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.ION_PULSE_MISSILES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.ION_PULSE_MISSILES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       discardUpgrade(attacker);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
+         const defender = getDefender(attacker);
          defender.sufferDamage(1, 0);
          store.dispatch(CardAction.addIonCount(defender, 2));
       }
@@ -800,27 +800,27 @@ UpgradeAbility3[Phase.COMBAT_DEAL_DAMAGE][UpgradeCard.XX_23_S_THREAD_TRACERS] = 
    // Discard this card to perform this attack. If this attack hits, each friendly ship at Range 1-2 of you may acquire a target lock on the defender. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.XX_23_S_THREAD_TRACERS;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.XX_23_S_THREAD_TRACERS;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       discardUpgrade(attacker);
       if (isDefenderHit(attacker))
       {
          // Each friendly ship at Range 1-2 of you may acquire a target lock on the defender.
-         var defender = getDefender(attacker);
-         var defenderPosition = getDefenderPosition(attacker);
-         var environment = store.getState().environment;
+         const defender = getDefender(attacker);
+         const defenderPosition = getDefenderPosition(attacker);
+         const environment = store.getState().environment;
                     [Range.ONE, Range.TWO].forEach(function(rangeKey)
          {
             environment.getFriendlyTokensAtRange(attacker, rangeKey).forEach(function(token)
             {
-               var tokenPosition = environment.getPositionFor(token);
-               var myRangeKey = RangeRuler.getRange(token, tokenPosition, defender, defenderPosition);
+               const tokenPosition = environment.getPositionFor(token);
+               const myRangeKey = RangeRuler.getRange(token, tokenPosition, defender, defenderPosition);
 
                if (Range.STANDARD_RANGES.includes(myRangeKey))
                {
@@ -840,13 +840,13 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.ADVANCED_CLOAKING_DE
    // After you perform an attack, you may perform a free cloak action.
    condition: function(store, token)
    {
-      var combatAction = getCombatAction(token);
+      const combatAction = getCombatAction(token);
       return isActiveCardInstance(store, token) && combatAction !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var ability = new Ability(ShipAction, ShipAction.CLOAK, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
-      var consequent = ability.consequent();
+      const ability = new Ability(ShipAction, ShipAction.CLOAK, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
+      const consequent = ability.consequent();
       consequent(store, token, callback);
    },
 };
@@ -855,21 +855,21 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.ASSAULT_MISSILES] = 
    // Spend your Target Lock and discard this card to perform this attack. If this attack hits, each other ship at Range 1 of the defender suffers 1 damage.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.ASSAULT_MISSILES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.ASSAULT_MISSILES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
       if (isDefenderHit(attacker))
       {
-         var environment = store.getState().environment;
-         var defender = getDefender(attacker);
+         const environment = store.getState().environment;
+         const defender = getDefender(attacker);
          environment.getTokensAtRange(defender, Range.ONE).forEach(function(token)
          {
             token.sufferDamage(1, 0);
@@ -883,7 +883,7 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.BOSSK] = {
    // After you perform an attack that does not hit, if you are not stressed, you must receive 1 Stress token. Then assign 1 Focus token to your ship and acquire a Target Lock on the defender.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       return isActiveCardInstance(store, token) && !isDefenderHit(attacker);
    },
    consequent: function(store, token, callback)
@@ -894,7 +894,7 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.BOSSK] = {
       }
 
       token.receiveFocus();
-      var defender = getDefender(token);
+      const defender = getDefender(token);
       TargetLock.newInstance(store, token, defender, callback);
    },
 };
@@ -907,8 +907,8 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.DEAD_MANS_SWITCH] = 
    },
    consequent: function(store, token, callback)
    {
-      var environment = store.getState().environment;
-      var defender = getDefender(token);
+      const environment = store.getState().environment;
+      const defender = getDefender(token);
 
       environment.getTokensAtRange(defender, Range.ONE).forEach(function(myToken)
       {
@@ -922,13 +922,13 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.FIRE_CONTROL_SYSTEM]
    // After you perform an attack, you may acquire a Target Lock on the defender.
    condition: function(store, token)
    {
-      var combatAction = getCombatAction(token);
+      const combatAction = getCombatAction(token);
       return isActiveCardInstance(store, token) && combatAction !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
       TargetLock.newInstance(store, attacker, defender, callback);
    },
 };
@@ -937,17 +937,17 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.FLECHETTE_CANNON] = 
    // Attack 1 ship. If this attack hits, the defender suffers 1 damage and, if the defender is not stressed, it also receives 1 stress token. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.FLECHETTE_CANNON;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.FLECHETTE_CANNON;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
+         const defender = getDefender(attacker);
          defender.sufferDamage(1, 0);
 
          if (!defender.isStressed())
@@ -963,18 +963,18 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.FLECHETTE_TORPEDOES]
    // Discard this card and spend your Target Lock to perform this attack. After you perform this attack, the defender receives 1 stress token if its hull value is "4" or lower.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.FLECHETTE_TORPEDOES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.FLECHETTE_TORPEDOES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
-      var defender = getDefender(attacker);
+      const defender = getDefender(attacker);
       if (defender.hullValue() <= 4)
       {
          defender.receiveStress();
@@ -987,20 +987,20 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.GUNNER] = {
    // After you perform an attack that does not hit, you may immediately perform a primary weapon attack. You cannot perform another attack this round.
    condition: function(store, token)
    {
-      var upgradeKey = UpgradeCard.GUNNER;
-      var attacker = getActiveCardInstance(store);
-      var attackerPosition = getAttackerPosition(attacker);
-      var defender = getDefender(attacker);
-      var defenderPosition = getDefenderPosition(attacker);
-      var weapon = attacker.primaryWeapon();
+      const upgradeKey = UpgradeCard.GUNNER;
+      const attacker = getActiveCardInstance(store);
+      const attackerPosition = getAttackerPosition(attacker);
+      const defender = getDefender(attacker);
+      const defenderPosition = getDefenderPosition(attacker);
+      const weapon = attacker.primaryWeapon();
       return isActiveCardInstance(store, token) && !isDefenderHit(attacker) && !attacker.isPerRoundAbilityUsed(UpgradeCard, upgradeKey) && weapon && weapon.isDefenderTargetable(attacker, attackerPosition, defender, defenderPosition);
    },
    consequent: function(store, token, callback)
    {
-      var agent = token.agent();
-      var weapon = token.primaryWeapon();
-      var that = this;
-      var finishCallback = function(weapon, defender)
+      const agent = token.agent();
+      const weapon = token.primaryWeapon();
+      const that = this;
+      const finishCallback = function(weapon, defender)
       {
          that.finishConsequent(store, token, weapon, defender, callback);
       };
@@ -1010,7 +1010,7 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.GUNNER] = {
    {
       if (defender)
       {
-         var combatAction = new CombatAction(store, token, weapon, defender, callback);
+         const combatAction = new CombatAction(store, token, weapon, defender, callback);
          combatAction.doIt();
       }
       else
@@ -1024,17 +1024,17 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.IMPETUOUS] = {
    // 	After you perform an attack that destroys an enemy ship, you may acquire a target lock.
    condition: function(store, token)
    {
-      var defender = getDefender(token);
+      const defender = getDefender(token);
       return isActiveCardInstance(store, token) && defender.isDestroyed();
    },
    consequent: function(store, token, callback)
    {
-      var agent = token.agent();
-      var environment = store.getState().environment;
-      var adjudicator = store.getState().adjudicator;
-      var shipActions0 = [ShipAction.TARGET_LOCK];
-      var that = this;
-      var finishCallback = function(shipActionAbility)
+      const agent = token.agent();
+      const environment = store.getState().environment;
+      const adjudicator = store.getState().adjudicator;
+      const shipActions0 = [ShipAction.TARGET_LOCK];
+      const that = this;
+      const finishCallback = function(shipActionAbility)
       {
          that.finishConsequent(store, token, shipActionAbility, callback);
       };
@@ -1046,7 +1046,7 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.IMPETUOUS] = {
    {
       if (shipActionAbility)
       {
-         var consequent = shipActionAbility.consequent();
+         const consequent = shipActionAbility.consequent();
          consequent(store, token, callback, shipActionAbility.context());
       }
       else
@@ -1060,17 +1060,17 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.ION_CANNON] = {
    // Attack 1 ship. If this attack hits, the defender suffers 1 damage and receives 1 ion token. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.ION_CANNON;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.ION_CANNON;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
+         const defender = getDefender(attacker);
          defender.sufferDamage(1, 0);
          store.dispatch(CardAction.addIonCount(defender));
       }
@@ -1082,17 +1082,17 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.ION_CANNON_TURRET] =
    // Attack 1 ship (even a ship outside your firing arc). If this attack hits the target ship, the ship suffers 1 damage and receives 1 ion token. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.ION_CANNON_TURRET;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.ION_CANNON_TURRET;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
+         const defender = getDefender(attacker);
          defender.sufferDamage(1, 0);
          store.dispatch(CardAction.addIonCount(defender));
       }
@@ -1104,21 +1104,21 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.ION_TORPEDOES] = {
    // Spend your Target Lock and discard this card to perform this attack. If this attack hits, the defender and each ship at Range 1 of it receives 1 ion token.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.ION_TORPEDOES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.ION_TORPEDOES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
       if (isDefenderHit(attacker))
       {
-         var environment = store.getState().environment;
-         var defender = getDefender(attacker);
+         const environment = store.getState().environment;
+         const defender = getDefender(attacker);
          store.dispatch(CardAction.addIonCount(defender));
          environment.getTokensAtRange(defender, Range.ONE).forEach(function(token)
          {
@@ -1133,20 +1133,20 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.PLASMA_TORPEDOES] = 
    // Spend your Target Lock and discard this card to perform this attack. If this attack hits, after dealing damage, remove 1 shield token from the defender.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.PLASMA_TORPEDOES;
-      var defender = getDefender(attacker);
-      var targetLock = TargetLock.getFirst(store, token, defender);
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.PLASMA_TORPEDOES;
+      const defender = getDefender(attacker);
+      const targetLock = TargetLock.getFirst(store, token, defender);
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey && targetLock !== undefined;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       spendTargetLockAndDiscardUpgrade(store, attacker);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
+         const defender = getDefender(attacker);
          defender.removeShield();
       }
       callback();
@@ -1157,15 +1157,15 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.REINFORCED_DEFLECTOR
    // After you suffer 3 or more damage from an attack, recover 1 shield (up to your shield value).
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
-      var damageDealer = getDamageDealer(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
+      const damageDealer = getDamageDealer(attacker);
       return token.equals(defender) && damageDealer.hits() + damageDealer.criticalHits() >= 3;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
       defender.recoverShield();
       callback();
    },
@@ -1175,13 +1175,13 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.STEALTH_DEVICE] = {
    // Increase your agility value by 1. If you are hit by an attack, discard this card.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var defender = getDefender(attacker);
+      const attacker = getActiveCardInstance(store);
+      const defender = getDefender(attacker);
       return token.equals(defender) && isDefenderHit(attacker);
    },
    consequent: function(store, token, callback)
    {
-      var upgradeInstance = token.upgrade(UpgradeCard.STEALTH_DEVICE);
+      const upgradeInstance = token.upgrade(UpgradeCard.STEALTH_DEVICE);
       discardUpgrade(token, upgradeInstance);
       callback();
    },
@@ -1191,14 +1191,14 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.TACTICIAN] = {
    // After you perform an attack against a ship inside your firing arc at Range 2, that ship receives 1 stress token.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var inFiringArc = isInFiringArc(attacker);
-      var rangeKey = getRangeKey(attacker);
+      const attacker = getActiveCardInstance(store);
+      const inFiringArc = isInFiringArc(attacker);
+      const rangeKey = getRangeKey(attacker);
       return isActiveCardInstance(store, token) && inFiringArc && rangeKey === Range.TWO;
    },
    consequent: function(store, token, callback)
    {
-      var defender = getDefender(token);
+      const defender = getDefender(token);
       defender.receiveStress(1, callback);
    },
 };
@@ -1207,17 +1207,17 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.TRACTOR_BEAM] = {
    // Attack 1 ship. If this attack hits, the defender receives 1 tractor beam token. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.TRACTOR_BEAM;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.TRACTOR_BEAM;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
+         const defender = getDefender(attacker);
          store.dispatch(CardAction.addTractorBeamCount(defender));
       }
       callback();
@@ -1228,17 +1228,17 @@ UpgradeAbility3[Phase.COMBAT_AFTER_DEAL_DAMAGE][UpgradeCard.TWIN_LASER_TURRET] =
    // Perform this attack twice (even against a ship outside your firing arc). Each time this attack hits, the defender suffers 1 damage. Then cancel all dice results.
    condition: function(store, token)
    {
-      var attacker = getActiveCardInstance(store);
-      var weapon = getWeapon(attacker);
-      var upgradeKey = UpgradeCard.TWIN_LASER_TURRET;
+      const attacker = getActiveCardInstance(store);
+      const weapon = getWeapon(attacker);
+      const upgradeKey = UpgradeCard.TWIN_LASER_TURRET;
       return isActiveCardInstance(store, token) && weapon.upgradeKey() === upgradeKey;
    },
    consequent: function(store, token, callback)
    {
-      var attacker = getActiveCardInstance(store);
+      const attacker = getActiveCardInstance(store);
       if (isDefenderHit(attacker))
       {
-         var defender = getDefender(attacker);
+         const defender = getDefender(attacker);
          defender.sufferDamage(1, 0);
       }
       callback();
@@ -1252,15 +1252,15 @@ UpgradeAbility3[Phase.COMBAT_END][UpgradeCard.MARA_JADE] = {
    // At the end of the Combat phase, each enemy ship at Range 1 that does not have a stress token receives 1 stress token.
    condition: function(store, token)
    {
-      var upgradeKey = UpgradeCard.MARA_JADE;
-      var environment = getEnvironment(store);
-      var enemies = environment.getUnfriendlyTokensAtRange(token, Range.ONE);
+      const upgradeKey = UpgradeCard.MARA_JADE;
+      const environment = getEnvironment(store);
+      const enemies = environment.getUnfriendlyTokensAtRange(token, Range.ONE);
       return enemies.length > 0 && !token.isAbilityUsed(UpgradeCard, upgradeKey);
    },
    consequent: function(store, token, callback)
    {
-      var environment = getEnvironment(store);
-      var enemies = environment.getUnfriendlyTokensAtRange(token, Range.ONE);
+      const environment = getEnvironment(store);
+      const enemies = environment.getUnfriendlyTokensAtRange(token, Range.ONE);
       enemies.forEach(function(enemy)
       {
          if (!enemy.isStressed())
@@ -1292,11 +1292,11 @@ function discardUpgrade(token, upgradeInstance)
    InputValidator.validateNotNull("token", token);
    // upgradeKey optional.
 
-   var myUpgradeInstance = (upgradeInstance === undefined ? token.upgrade(getWeapon(token).upgradeKey()) : upgradeInstance);
+   const myUpgradeInstance = (upgradeInstance === undefined ? token.upgrade(getWeapon(token).upgradeKey()) : upgradeInstance);
 
    if (myUpgradeInstance.ordnanceCount() > 0)
    {
-      var store = token.store();
+      const store = token.store();
       store.dispatch(CardAction.addOrdnanceCount(myUpgradeInstance, -1));
    }
    else
@@ -1309,7 +1309,7 @@ function getActiveCardInstance(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var environment = store.getState().environment;
+   const environment = store.getState().environment;
 
    return environment.activeCardInstance();
 }
@@ -1318,9 +1318,9 @@ function getAttackDice(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var store = attacker.store();
-   var combatAction = getCombatAction(attacker);
-   var attackDiceClass = (combatAction ? combatAction.attackDiceClass() : AttackDice);
+   const store = attacker.store();
+   const combatAction = getCombatAction(attacker);
+   const attackDiceClass = (combatAction ? combatAction.attackDiceClass() : AttackDice);
 
    return attackDiceClass.get(store, attacker.id());
 }
@@ -1329,7 +1329,7 @@ function getAttackerPosition(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var combatAction = getCombatAction(attacker);
+   const combatAction = getCombatAction(attacker);
 
    return (combatAction ? combatAction.attackerPosition() : undefined);
 }
@@ -1345,7 +1345,7 @@ function getDamageDealer(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var store = attacker.store();
+   const store = attacker.store();
 
    return Selector.damageDealer(store.getState(), attacker);
 }
@@ -1354,7 +1354,7 @@ function getDefender(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var combatAction = getCombatAction(attacker);
+   const combatAction = getCombatAction(attacker);
 
    return (combatAction ? combatAction.defender() : undefined);
 }
@@ -1363,7 +1363,7 @@ function getDefenderPosition(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var combatAction = getCombatAction(attacker);
+   const combatAction = getCombatAction(attacker);
 
    return (combatAction ? combatAction.defenderPosition() : undefined);
 }
@@ -1372,9 +1372,9 @@ function getDefenseDice(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var store = attacker.store();
-   var combatAction = getCombatAction(attacker);
-   var defenseDiceClass = (combatAction ? combatAction.defenseDiceClass() : DefenseDice);
+   const store = attacker.store();
+   const combatAction = getCombatAction(attacker);
+   const defenseDiceClass = (combatAction ? combatAction.defenseDiceClass() : DefenseDice);
 
    return defenseDiceClass.get(store, attacker.id());
 }
@@ -1390,7 +1390,7 @@ function getRangeKey(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var store = attacker.store();
+   const store = attacker.store();
 
    return Selector.rangeKey(store.getState(), attacker);
 }
@@ -1399,14 +1399,14 @@ function getWeapon(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var combatAction = getCombatAction(attacker);
+   const combatAction = getCombatAction(attacker);
 
    return (combatAction ? combatAction.weapon() : undefined);
 }
 
 function isActiveCardInstance(store, token)
 {
-   var activeToken = getActiveCardInstance(store);
+   const activeToken = getActiveCardInstance(store);
 
    return token.equals(activeToken);
 }
@@ -1415,7 +1415,7 @@ function isDefenderHit(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var store = attacker.store();
+   const store = attacker.store();
 
    return Selector.isDefenderHit(store.getState(), attacker);
 }
@@ -1424,7 +1424,7 @@ function isInFiringArc(attacker)
 {
    InputValidator.validateNotNull("attacker", attacker);
 
-   var store = attacker.store();
+   const store = attacker.store();
 
    return Selector.isInFiringArc(store.getState(), attacker);
 }
@@ -1443,7 +1443,7 @@ function spendTargetLock(store, attacker, defender)
    InputValidator.validateNotNull("attacker", attacker);
    InputValidator.validateNotNull("defender", defender);
 
-   var targetLock = TargetLock.getFirst(store, attacker, defender);
+   const targetLock = TargetLock.getFirst(store, attacker, defender);
    targetLock.delete();
 }
 
@@ -1452,7 +1452,7 @@ function spendTargetLockAndDiscardUpgrade(store, attacker)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateNotNull("attacker", attacker);
 
-   var defender = getDefender(attacker);
+   const defender = getDefender(attacker);
    spendTargetLock(store, attacker, defender);
    discardUpgrade(attacker);
 }

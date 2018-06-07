@@ -9,9 +9,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
+const resourceBase = "../resource/";
 
-var element1 = React.createElement(ShipChooser,
+const element1 = React.createElement(ShipChooser,
 {
    resourceBase: resourceBase,
    onChange: shipChanged,
@@ -19,7 +19,7 @@ var element1 = React.createElement(ShipChooser,
 });
 ReactDOM.render(element1, document.getElementById("shipChooserPanel1"));
 
-var element2 = React.createElement(ShipChooser,
+const element2 = React.createElement(ShipChooser,
 {
    resourceBase: resourceBase,
    index: 2,
@@ -29,7 +29,7 @@ var element2 = React.createElement(ShipChooser,
 });
 ReactDOM.render(element2, document.getElementById("shipChooserPanel2"));
 
-var element3 = React.createElement(ShipChooser,
+const element3 = React.createElement(ShipChooser,
 {
    resourceBase: resourceBase,
    index: 3,

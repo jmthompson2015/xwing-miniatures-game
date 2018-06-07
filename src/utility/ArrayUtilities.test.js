@@ -5,8 +5,8 @@ QUnit.module("ArrayUtilities");
 QUnit.test("addAll()", function(assert)
 {
    // Setup.
-   var array1 = [1];
-   var array2 = [2, 3, 4];
+   const array1 = [1];
+   const array2 = [2, 3, 4];
 
    // Run.
    ArrayUtilities.addAll(array1, array2);
@@ -22,11 +22,11 @@ QUnit.test("addAll()", function(assert)
 QUnit.test("intersect()", function(assert)
 {
    // Setup.
-   var array1 = [1, 2, 3];
-   var array2 = [2, 3, 4, 5];
+   const array1 = [1, 2, 3];
+   const array2 = [2, 3, 4, 5];
 
    // Run.
-   var result = ArrayUtilities.intersect(array1, array2);
+   const result = ArrayUtilities.intersect(array1, array2);
 
    // Verify.
    assert.ok(result);
@@ -40,9 +40,9 @@ QUnit.test("intersect()", function(assert)
 
 QUnit.test("randomElement()", function(assert)
 {
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
 
-   for (var i = 0; i < 10; i++)
+   for (let i = 0; i < 10; i++)
    {
       assert.ok(array.includes(ArrayUtilities.randomElement(array)));
    }
@@ -51,7 +51,7 @@ QUnit.test("randomElement()", function(assert)
 QUnit.test("remove()", function(assert)
 {
    // Setup.
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
 
    // Run.
    ArrayUtilities.remove(array, 2);
@@ -65,9 +65,9 @@ QUnit.test("remove()", function(assert)
 
 QUnit.test("shuffle()", function(assert)
 {
-   var array = [1, 2, 3, 4];
+   const array = [1, 2, 3, 4];
 
-   for (var i = 0; i < 10; i++)
+   for (let i = 0; i < 10; i++)
    {
       ArrayUtilities.shuffle(array);
       assert.equal(array.length, 4);

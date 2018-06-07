@@ -16,18 +16,18 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var faction = Faction.properties[Faction.IMPERIAL];
-var store = Redux.createStore(AgentSquadReducer.root);
-var delegateStore = Redux.createStore(Reducer.root);
-var agent = new Agent(delegateStore, "Placeholder");
+const resourceBase = "../resource/";
+let faction = Faction.properties[Faction.IMPERIAL];
+let store = Redux.createStore(AgentSquadReducer.root);
+const delegateStore = Redux.createStore(Reducer.root);
+const agent = new Agent(delegateStore, "Placeholder");
 
-var displayItemChanged = function(displayItem)
+const displayItemChanged = function(displayItem)
 {
    store.dispatch(AgentSquadAction.setDisplayItem(displayItem));
    renderSquadBuilderUI();
 };
-var pilotChanged = function(pilot, index)
+const pilotChanged = function(pilot, index)
 {
    store.dispatch(AgentSquadAction.setPilot(pilot, index));
 
@@ -37,21 +37,21 @@ var pilotChanged = function(pilot, index)
       store.dispatch(AgentSquadAction.setPilot(pilot.aft, this.computePilotIndexAft(index)));
    }
 
-   var squad = createSquad();
+   const squad = createSquad();
    store.dispatch(AgentSquadAction.setSquad(squad));
    renderSquadBuilderUI();
 };
-var pilotUpgradeChanged = function(pilotIndex, upgrade, upgradeIndex)
+const pilotUpgradeChanged = function(pilotIndex, upgrade, upgradeIndex)
 {
    store.dispatch(AgentSquadAction.setPilotUpgrade(pilotIndex, upgrade, upgradeIndex));
-   var squad = createSquad();
+   const squad = createSquad();
    store.dispatch(AgentSquadAction.setSquad(squad));
    renderSquadBuilderUI();
 };
-var shipChanged = function(ship, index)
+const shipChanged = function(ship, index)
 {
    store.dispatch(AgentSquadAction.setShip(ship, index));
-   var squad = createSquad();
+   const squad = createSquad();
    store.dispatch(AgentSquadAction.setSquad(squad));
    renderSquadBuilderUI();
 };
@@ -60,11 +60,11 @@ ReactDOM.render(createFactionSelect(), document.getElementById("factionSelect"))
 
 function createFactionSelect()
 {
-   var factionValues = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM];
-   var factionLabelFunction = function(value)
+   const factionValues = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM];
+   const factionLabelFunction = function(value)
    {
-      var answer = Faction.properties[value].name;
-      var friend = Faction.friend(value);
+      let answer = Faction.properties[value].name;
+      const friend = Faction.friend(value);
       if (friend)
       {
          answer += " + " + Faction.properties[friend].name;
@@ -83,16 +83,16 @@ function createFactionSelect()
 
 function createSquad()
 {
-   var factionKey = faction.key;
-   var name = "name";
-   var year = 2017;
-   var description = "description";
-   var pilots = store.getState().pilots;
-   var tokens = [];
+   const factionKey = faction.key;
+   const name = "name";
+   const year = 2017;
+   const description = "description";
+   const pilots = store.getState().pilots;
+   const tokens = [];
 
    if (pilots.size > 0)
    {
-      // var agent = new Agent();
+      // const agent = new Agent();
 
       pilots.forEach(function(pilot, i)
       {
@@ -101,9 +101,9 @@ function createSquad()
             // Ignore child pilots.
             if (!pilot.parent)
             {
-               var myPilot = (pilot.fore ? pilot.fore : pilot);
-               var upgrades = store.getState().pilotIndexToUpgrades.get(i);
-               var upgradeKeys = [];
+               let myPilot = (pilot.fore ? pilot.fore : pilot);
+               let upgrades = store.getState().pilotIndexToUpgrades.get(i);
+               const upgradeKeys = [];
                upgrades.forEach(function(upgrade)
                {
                   if (upgrade)
@@ -112,7 +112,7 @@ function createSquad()
                   }
                });
 
-               var upgradeKeysAft;
+               let upgradeKeysAft;
                myPilot = (pilot.aft ? pilot.aft : undefined);
 
                if (myPilot)
@@ -139,7 +139,7 @@ function createSquad()
 
 function handleFactionChange(event)
 {
-   var factionKey = event.currentTarget.value;
+   const factionKey = event.currentTarget.value;
    faction = Faction.properties[factionKey];
    store = Redux.createStore(AgentSquadReducer.root);
    renderSquadBuilderUI();
@@ -147,7 +147,7 @@ function handleFactionChange(event)
 
 function renderSquadBuilderUI()
 {
-   var element = React.createElement(SquadBuilderUI,
+   const element = React.createElement(SquadBuilderUI,
    {
       delegateStore: delegateStore,
       displayItem: store.getState().displayItem,

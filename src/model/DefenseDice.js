@@ -21,10 +21,10 @@ function DefenseDice(store, attackerId, sizeOrValues)
 
    if (typeof sizeOrValues === "number")
    {
-      var size = sizeOrValues;
-      var newValues = [];
+      const size = sizeOrValues;
+      const newValues = [];
 
-      for (var i = 0; i < size; i++)
+      for (let i = 0; i < size; i++)
       {
          newValues.push(DefenseDice.rollRandomValue());
       }
@@ -64,8 +64,8 @@ DefenseDice.prototype.sortedValues = function()
 {
    return this.values().sort(function(die0, die1)
    {
-      var value0 = DefenseDiceValue.properties[die0].sortOrder;
-      var value1 = DefenseDiceValue.properties[die1].sortOrder;
+      const value0 = DefenseDiceValue.properties[die0].sortOrder;
+      const value1 = DefenseDiceValue.properties[die1].sortOrder;
 
       return value0 - value1;
    });
@@ -73,7 +73,7 @@ DefenseDice.prototype.sortedValues = function()
 
 DefenseDice.prototype.toString = function()
 {
-   var values = this.values();
+   const values = this.values();
 
    return "attackerId=" + this.attackerId() + ", size=" + values.length + ", values=" + values;
 };
@@ -82,7 +82,7 @@ DefenseDice.prototype.value = function(index)
 {
    InputValidator.validateIsNumber("index", index);
 
-   var values = this.values();
+   const values = this.values();
 
    return values[index];
 };
@@ -99,10 +99,10 @@ DefenseDice.prototype.valueCount = function(target)
 
 DefenseDice.prototype.values = function()
 {
-   var store = this.store();
-   var attackerId = this.attackerId();
+   const store = this.store();
+   const attackerId = this.attackerId();
 
-   var answer = store.getState().cardDefenseDice.get(attackerId);
+   const answer = store.getState().cardDefenseDice.get(attackerId);
 
    return (answer !== undefined ? answer.toJS() : []);
 };
@@ -114,18 +114,18 @@ DefenseDice.prototype.addDie = function(value)
 {
    // value optional.
 
-   var myValue = (value !== undefined ? value : DefenseDice.rollRandomValue());
-   var values = this.values();
+   const myValue = (value !== undefined ? value : DefenseDice.rollRandomValue());
+   const values = this.values();
    values.push(myValue);
    this.save(values);
 };
 
 DefenseDice.prototype.changeAllToValue = function(oldValue, newValue)
 {
-   var oldValues = this.values();
-   var newValues = oldValues.slice();
+   const oldValues = this.values();
+   const newValues = oldValues.slice();
 
-   for (var i = 0; i < oldValues.length; i++)
+   for (let i = 0; i < oldValues.length; i++)
    {
       if (oldValues[i] === oldValue)
       {
@@ -138,10 +138,10 @@ DefenseDice.prototype.changeAllToValue = function(oldValue, newValue)
 
 DefenseDice.prototype.changeOneToValue = function(oldValue, newValue)
 {
-   var oldValues = this.values();
-   var newValues = oldValues.slice();
+   const oldValues = this.values();
+   const newValues = oldValues.slice();
 
-   for (var i = 0; i < oldValues.length; i++)
+   for (let i = 0; i < oldValues.length; i++)
    {
       if (oldValues[i] === oldValue)
       {
@@ -155,13 +155,13 @@ DefenseDice.prototype.changeOneToValue = function(oldValue, newValue)
 
 DefenseDice.prototype.rerollAllFocus = function()
 {
-   var oldValues = this.values();
-   var newValues = [];
+   const oldValues = this.values();
+   const newValues = [];
 
    // Reroll all focus values.
-   for (var i = 0; i < oldValues.size; i++)
+   for (let i = 0; i < oldValues.size; i++)
    {
-      var oldValue = oldValues.get(i);
+      const oldValue = oldValues.get(i);
 
       if (oldValue === DefenseDiceValue.FOCUS)
       {
@@ -185,7 +185,7 @@ DefenseDice.prototype.rerollBlankAndFocus = function(count)
 {
    // count optional; default: 1
 
-   var blankCount = this.blankCount();
+   const blankCount = this.blankCount();
 
    if (blankCount >= count)
    {
@@ -199,7 +199,7 @@ DefenseDice.prototype.rerollBlankAndFocus = function(count)
          this.rerollBlank(count);
       }
 
-      var myCount = count - blankCount;
+      const myCount = count - blankCount;
 
       if (myCount > 0)
       {
@@ -219,14 +219,14 @@ DefenseDice.prototype.rerollType = function(type, count)
    // count optional; default: 1
 
    // Reroll type values.
-   var myCount = (count === undefined ? 1 : count);
+   let myCount = (count === undefined ? 1 : count);
 
-   var oldValues = this.values();
-   var newValues = oldValues;
+   const oldValues = this.values();
+   const newValues = oldValues;
 
-   for (var i = 0; i < oldValues.size; i++)
+   for (let i = 0; i < oldValues.size; i++)
    {
-      var oldValue = oldValues.get(i);
+      const oldValue = oldValues.get(i);
 
       if (oldValue === type)
       {
@@ -245,16 +245,16 @@ DefenseDice.prototype.rerollType = function(type, count)
 
 DefenseDice.prototype.save = function(newValues)
 {
-   var store = this.store();
-   var attackerId = this.attackerId();
-   var values = (Array.isArray(newValues) ? Immutable.List(newValues) : newValues);
+   const store = this.store();
+   const attackerId = this.attackerId();
+   const values = (Array.isArray(newValues) ? Immutable.List(newValues) : newValues);
    store.dispatch(Action.setTokenDefenseDice(attackerId, values));
 };
 
 DefenseDice.prototype.spendEvadeToken = function()
 {
-   var oldValues = this.values();
-   var newValues = oldValues.slice();
+   const oldValues = this.values();
+   const newValues = oldValues.slice();
 
    // Add an evade result.
    newValues.push(DefenseDiceValue.EVADE);
@@ -280,10 +280,10 @@ DefenseDice.get = function(store, attackerId)
 
 DefenseDice.rollRandomValue = function()
 {
-   var min = 1;
-   var max = 8;
-   var roll = Math.floor(Math.random() * (max - min + 1)) + min;
-   var value;
+   const min = 1;
+   const max = 8;
+   const roll = Math.floor(Math.random() * (max - min + 1)) + min;
+   let value;
 
    // There are 2 focus, 3 evade, and 3 blank.
    switch (roll)

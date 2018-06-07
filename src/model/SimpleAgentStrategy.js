@@ -1,7 +1,7 @@
 import ArrayUtilities from "../utility/ArrayUtilities.js";
 import InputValidator from "../utility/InputValidator.js";
 
-var SimpleAgentStrategy = {};
+const SimpleAgentStrategy = {};
 
 SimpleAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbilities, upgradeAbilities, callback)
 {
@@ -11,7 +11,7 @@ SimpleAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbilit
    InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
    InputValidator.validateIsFunction("callback", callback);
 
-   var ability = (damageAbilities.length > 0 ? ArrayUtilities.randomElement(damageAbilities) : undefined);
+   let ability = (damageAbilities.length > 0 ? ArrayUtilities.randomElement(damageAbilities) : undefined);
 
    if (ability === undefined)
    {
@@ -23,7 +23,7 @@ SimpleAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbilit
       }
    }
 
-   var isAccepted = (ability !== undefined);
+   const isAccepted = (ability !== undefined);
 
    callback(ability, isAccepted);
 };
@@ -35,7 +35,7 @@ SimpleAgentStrategy.chooseDecloakAction = function(agent, token, decloakActions,
    InputValidator.validateNotNull("decloakActions", decloakActions);
    InputValidator.validateIsFunction("callback", callback);
 
-   var answer = ArrayUtilities.randomElement(decloakActions);
+   const answer = ArrayUtilities.randomElement(decloakActions);
 
    callback(token, answer);
 };
@@ -48,8 +48,8 @@ SimpleAgentStrategy.chooseModifyAttackDiceAction = function(agent, attacker, def
    InputValidator.validateNotNull("modifications", modifications);
    InputValidator.validateIsFunction("callback", callback);
 
-   var answer = ArrayUtilities.randomElement(modifications);
-   var isAccepted = (answer !== undefined);
+   const answer = ArrayUtilities.randomElement(modifications);
+   const isAccepted = (answer !== undefined);
 
    callback(answer, isAccepted);
 };
@@ -62,8 +62,8 @@ SimpleAgentStrategy.chooseModifyDefenseDiceAction = function(agent, attacker, de
    InputValidator.validateNotNull("modifications", modifications);
    InputValidator.validateIsFunction("callback", callback);
 
-   var answer = ArrayUtilities.randomElement(modifications);
-   var isAccepted = (answer !== undefined);
+   const answer = ArrayUtilities.randomElement(modifications);
+   const isAccepted = (answer !== undefined);
 
    callback(answer, isAccepted);
 };
@@ -75,11 +75,11 @@ SimpleAgentStrategy.choosePlanningActions = function(agent, tokens, tokenToValid
    InputValidator.validateNotNull("tokenToValidManeuvers", tokenToValidManeuvers);
    InputValidator.validateIsFunction("callback", callback);
 
-   var tokenToManeuver = {};
+   const tokenToManeuver = {};
 
    tokens.forEach(function(token)
    {
-      var validManeuvers = tokenToValidManeuvers[token];
+      const validManeuvers = tokenToValidManeuvers[token];
       tokenToManeuver[token.id()] = ArrayUtilities.randomElement(validManeuvers);
    });
 
@@ -93,8 +93,8 @@ SimpleAgentStrategy.chooseShipAction = function(agent, token, shipActions, callb
    InputValidator.validateNotNull("shipActions", shipActions);
    InputValidator.validateIsFunction("callback", callback);
 
-   var answer = ArrayUtilities.randomElement(shipActions);
-   var isAccepted = (answer !== undefined);
+   const answer = ArrayUtilities.randomElement(shipActions);
+   const isAccepted = (answer !== undefined);
 
    callback(answer, isAccepted);
 };
@@ -106,14 +106,14 @@ SimpleAgentStrategy.chooseWeaponAndDefender = function(agent, attacker, choices,
    InputValidator.validateNotNull("choices", choices);
    InputValidator.validateIsFunction("callback", callback);
 
-   var weaponData = ArrayUtilities.randomElement(choices);
-   var myWeapon = weaponData.weapon;
+   const weaponData = ArrayUtilities.randomElement(choices);
+   const myWeapon = weaponData.weapon;
 
    // The first entry should be the closest.
-   var rangeToDefenders = weaponData.rangeToDefenders;
-   var defenders = rangeToDefenders[0].defenders;
-   var weapon = myWeapon;
-   var defender = defenders[0];
+   const rangeToDefenders = weaponData.rangeToDefenders;
+   const defenders = rangeToDefenders[0].defenders;
+   const weapon = myWeapon;
+   const defender = defenders[0];
 
    callback(weapon, defender);
 };

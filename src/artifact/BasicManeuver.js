@@ -6,7 +6,7 @@
 import InputValidator from "../utility/InputValidator.js";
 import Bearing from "./Bearing.js";
 
-var BasicManeuver = {
+const BasicManeuver = {
    // Bank.
    BANK_LEFT_1: "bankLeft1",
    BANK_LEFT_2: "bankLeft2",
@@ -474,7 +474,7 @@ BasicManeuver.values = function()
 
 BasicManeuver.keys().forEach(function(maneuverKey)
 {
-   var maneuver = BasicManeuver.properties[maneuverKey];
+   const maneuver = BasicManeuver.properties[maneuverKey];
    maneuver.bearing = Bearing.properties[maneuver.bearingKey];
 });
 
@@ -488,7 +488,7 @@ BasicManeuver.find = function(bearingKey, speed)
 
    LOGGER.info("find() " + bearingKey + " " + speed);
 
-   var answer;
+   let answer;
 
    if (speed === 0)
    {
@@ -496,12 +496,12 @@ BasicManeuver.find = function(bearingKey, speed)
    }
    else
    {
-      var keys = BasicManeuver.keys();
+      const keys = BasicManeuver.keys();
 
-      for (var i = 0; i < keys.length; i++)
+      for (let i = 0; i < keys.length; i++)
       {
-         var maneuverKey = keys[i];
-         var maneuver = BasicManeuver.properties[maneuverKey];
+         const maneuverKey = keys[i];
+         const maneuver = BasicManeuver.properties[maneuverKey];
 
          if (maneuver.bearingKey === bearingKey && maneuver.speed === speed)
          {
@@ -517,13 +517,13 @@ BasicManeuver.find = function(bearingKey, speed)
 
 BasicManeuver.toString = function(maneuverKey)
 {
-   var answer = "BasicManeuver";
+   let answer = "BasicManeuver";
 
    if (maneuverKey)
    {
-      var maneuver = BasicManeuver.properties[maneuverKey];
-      var bearingName = maneuver.bearing.name;
-      var speed = maneuver.speed;
+      const maneuver = BasicManeuver.properties[maneuverKey];
+      const bearingName = maneuver.bearing.name;
+      const speed = maneuver.speed;
 
       answer = bearingName + " " + speed;
    }

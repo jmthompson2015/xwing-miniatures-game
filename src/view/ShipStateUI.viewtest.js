@@ -9,11 +9,11 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var className0 = "ba b--black bg-dark-green white";
-var className1 = "ba bg-near-white f6 tl";
-var rows = [];
-var cells = [];
+const resourceBase = "../resource/";
+const className0 = "ba b--black bg-dark-green white";
+const className1 = "ba bg-near-white f6 tl";
+const rows = [];
+let cells = [];
 
 Faction.keys().forEach(function(factionKey)
 {
@@ -31,18 +31,18 @@ rows.push(ReactDOMFactories.tr(
 
 ShipState.keys().forEach(function(shipStateKey)
 {
-   var shipState = ShipState.properties[shipStateKey];
+   const shipState = ShipState.properties[shipStateKey];
    cells = [];
-   var image0, image1;
+   let image0, image1;
 
    Faction.keys().forEach(function(factionKey)
    {
-      var faction = Faction.properties[factionKey];
+      const faction = Faction.properties[factionKey];
 
       if (shipStateKey === "Skill")
       {
-         var label = 8;
-         var labelClass = "pilotSkillValue";
+         const label = 8;
+         const labelClass = "pilotSkillValue";
          image0 = React.createElement(ShipStateUI,
          {
             shipState: shipState,

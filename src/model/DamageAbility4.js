@@ -1,7 +1,7 @@
 /*
  * Provides damage abilities for the End Phase.
  */
-var DamageAbility4 = {};
+const DamageAbility4 = {};
 
 DamageAbility4.toString = function()
 {

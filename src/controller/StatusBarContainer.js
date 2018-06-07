@@ -6,9 +6,9 @@ import StatusBarUI from "../view/StatusBarUI.js";
 
 function mapStateToProps(state)
 {
-   var environment = state.environment;
-   var activeToken = environment.getTokenById(state.activeCardId);
-   var activeShipName = (activeToken ? activeToken.name() : "");
+   const environment = state.environment;
+   const activeToken = environment.getTokenById(state.activeCardId);
+   const activeShipName = (activeToken ? activeToken.name() : "");
 
    return (
    {

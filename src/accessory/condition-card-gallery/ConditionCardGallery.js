@@ -8,19 +8,19 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../../../src/resource/";
+const resourceBase = "../../../src/resource/";
 
 class ConditionGallery extends React.Component
 {
    render()
    {
-      var conditionKeys = this.props.conditionKeys;
+      const conditionKeys = this.props.conditionKeys;
 
-      var cells = [];
+      const cells = [];
 
       conditionKeys.forEach(function(conditionKey)
       {
-         var element = React.createElement(CardImage,
+         const element = React.createElement(CardImage,
          {
             key: "conditionInstance" + conditionKey,
             card: ConditionCard.properties[conditionKey],
@@ -35,7 +35,7 @@ class ConditionGallery extends React.Component
    }
 }
 
-var rows = [];
+const rows = [];
 
 rows.push(React.createElement(ConditionGallery,
 {
@@ -43,6 +43,6 @@ rows.push(React.createElement(ConditionGallery,
    conditionKeys: ConditionCard.keys(),
 }));
 
-var mainPanel = ReactDOMFactories.div(
+const mainPanel = ReactDOMFactories.div(
 {}, rows);
 ReactDOM.render(mainPanel, document.getElementById("mainPanel"));

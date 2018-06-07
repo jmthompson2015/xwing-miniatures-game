@@ -2,10 +2,10 @@ class LabeledImage extends React.Component
 {
    render()
    {
-      var answer;
-      var label = this.props.label;
-      var containerStyle = this.createContainerStyle();
-      var title = this.props.title;
+      let answer;
+      const label = this.props.label;
+      const containerStyle = this.createContainerStyle();
+      const title = this.props.title;
 
       if (!this.props.showOne && label === "1")
       {
@@ -17,7 +17,7 @@ class LabeledImage extends React.Component
       }
       else
       {
-         var cell = ReactDOMFactories.div(
+         const cell = ReactDOMFactories.div(
          {
             className: this.props.labelClass,
             style:
@@ -40,8 +40,8 @@ class LabeledImage extends React.Component
 
 LabeledImage.prototype.createContainerStyle = function()
 {
-   var height = this.props.height;
-   var width = this.props.width;
+   const height = this.props.height;
+   const width = this.props.width;
 
    return (
    {

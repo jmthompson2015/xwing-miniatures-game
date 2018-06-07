@@ -13,11 +13,11 @@ QUnit.module("Ability");
 QUnit.test("Ability properties", function(assert)
 {
    // Setup.
-   var source = UpgradeCard;
-   var sourceKey = UpgradeCard.RECON_SPECIALIST;
-   var type = UpgradeAbility0;
-   var abilityKey = Event.SHIP_ACTION_PERFORMED;
-   var ability = new Ability(source, sourceKey, type, abilityKey);
+   const source = UpgradeCard;
+   const sourceKey = UpgradeCard.RECON_SPECIALIST;
+   const type = UpgradeAbility0;
+   const abilityKey = Event.SHIP_ACTION_PERFORMED;
+   const ability = new Ability(source, sourceKey, type, abilityKey);
 
    // Run / Verify.
    assert.equal(ability.source(), source);
@@ -34,7 +34,7 @@ QUnit.test("Ability properties", function(assert)
 QUnit.test("isDamage()", function(assert)
 {
    // Setup.
-   var ability = new Ability(DamageCard, DamageCard.BLINDED_PILOT, DamageAbility0, Event.SHIP_ACTION_PERFORMED);
+   const ability = new Ability(DamageCard, DamageCard.BLINDED_PILOT, DamageAbility0, Event.SHIP_ACTION_PERFORMED);
 
    // Run / Verify.
    assert.ok(ability.isDamage());
@@ -45,7 +45,7 @@ QUnit.test("isDamage()", function(assert)
 QUnit.test("isPilotCard()", function(assert)
 {
    // Setup.
-   var ability = new Ability(PilotCard, PilotCard.DASH_RENDAR, PilotAbility0, Event.SHIP_ACTION_PERFORMED);
+   const ability = new Ability(PilotCard, PilotCard.DASH_RENDAR, PilotAbility0, Event.SHIP_ACTION_PERFORMED);
 
    // Run / Verify.
    assert.ok(!ability.isDamage());
@@ -56,7 +56,7 @@ QUnit.test("isPilotCard()", function(assert)
 QUnit.test("isUpgrade()", function(assert)
 {
    // Setup.
-   var ability = new Ability(UpgradeCard, UpgradeCard.RECON_SPECIALIST, UpgradeAbility0, Event.SHIP_ACTION_PERFORMED);
+   const ability = new Ability(UpgradeCard, UpgradeCard.RECON_SPECIALIST, UpgradeAbility0, Event.SHIP_ACTION_PERFORMED);
 
    // Run / Verify.
    assert.ok(!ability.isDamage());
@@ -67,10 +67,10 @@ QUnit.test("isUpgrade()", function(assert)
 QUnit.test("toString()", function(assert)
 {
    // Setup.
-   var ability = new Ability(UpgradeCard, UpgradeCard.RECON_SPECIALIST, UpgradeAbility0, Event.SHIP_ACTION_PERFORMED);
+   const ability = new Ability(UpgradeCard, UpgradeCard.RECON_SPECIALIST, UpgradeAbility0, Event.SHIP_ACTION_PERFORMED);
 
    // Run.
-   var result = ability.toString();
+   const result = ability.toString();
 
    // Verify.
    assert.ok(result);

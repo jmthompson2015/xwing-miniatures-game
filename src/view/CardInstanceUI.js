@@ -21,14 +21,14 @@ class CardInstanceUI extends React.Component
 
    render()
    {
-      var columns = [];
-      var cardInstance = this.props.cardInstance;
+      const columns = [];
+      const cardInstance = this.props.cardInstance;
 
       if (cardInstance)
       {
-         var image = this.createCardImage(cardInstance);
-         var tokenPanel = this.createTokenPanel(cardInstance);
-         var cell = ReactDOMFactories.div(
+         const image = this.createCardImage(cardInstance);
+         const tokenPanel = this.createTokenPanel(cardInstance);
+         const cell = ReactDOMFactories.div(
          {
             key: "imagePanel" + columns.length,
             className: "v-mid",
@@ -54,27 +54,27 @@ CardInstanceUI.prototype.toggleSizeFunction = function()
 
 CardInstanceUI.prototype.createAttachmentPanel = function(columns, cardInstance)
 {
-   var upgrades = cardInstance.upgrades();
-   var attachments = [];
+   const upgrades = cardInstance.upgrades();
+   const attachments = [];
 
    if (upgrades.size > 0)
    {
-      for (var i = 0; i < upgrades.size; i++)
+      for (let i = 0; i < upgrades.size; i++)
       {
-         var upgradeInstance = upgrades.get(i);
-         var upgradeUI = this.createAttachmentUI(upgradeInstance);
+         const upgradeInstance = upgrades.get(i);
+         const upgradeUI = this.createAttachmentUI(upgradeInstance);
          attachments.push(upgradeUI);
       }
    }
 
-   var damages = cardInstance.criticalDamages();
+   const damages = cardInstance.criticalDamages();
 
    if (damages.size > 0)
    {
-      for (var j = 0; j < damages.size; j++)
+      for (let j = 0; j < damages.size; j++)
       {
-         var damageInstance = damages.get(j);
-         var damageUI = this.createAttachmentUI(damageInstance);
+         const damageInstance = damages.get(j);
+         const damageUI = this.createAttachmentUI(damageInstance);
          attachments.push(damageUI);
       }
    }
@@ -99,7 +99,7 @@ CardInstanceUI.prototype.createAttachmentUI = function(cardInstance)
 
 CardInstanceUI.prototype.createCardImage = function(cardInstance)
 {
-   var width = this.props.width;
+   let width = this.props.width;
 
    if (this.state.isSmall)
    {
@@ -116,9 +116,9 @@ CardInstanceUI.prototype.createCardImage = function(cardInstance)
 
 CardInstanceUI.prototype.createTokenPanel = function(cardInstance)
 {
-   var store = cardInstance.store();
-   var attackerTargetLocks = TargetLock.getByAttacker(store, cardInstance);
-   var defenderTargetLocks = TargetLock.getByDefender(store, cardInstance);
+   const store = cardInstance.store();
+   const attackerTargetLocks = TargetLock.getByAttacker(store, cardInstance);
+   const defenderTargetLocks = TargetLock.getByDefender(store, cardInstance);
 
    return React.createElement(TokenPanelContainer,
    {

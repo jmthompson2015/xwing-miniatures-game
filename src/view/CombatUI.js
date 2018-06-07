@@ -20,15 +20,15 @@ class CombatUI extends React.Component
 
    render()
    {
-      var phase = this.props.phase;
-      var attacker = this.props.attacker;
-      var defender = this.props.defender;
-      var attackDice = this.props.attackDice;
-      var defenseDice = this.props.defenseDice;
-      var modifications = this.props.modifications;
-      var weapon = this.props.weapon;
+      const phase = this.props.phase;
+      const attacker = this.props.attacker;
+      const defender = this.props.defender;
+      const attackDice = this.props.attackDice;
+      const defenseDice = this.props.defenseDice;
+      const modifications = this.props.modifications;
+      const weapon = this.props.weapon;
 
-      var rows = [];
+      const rows = [];
 
       // Attacker label.
       rows.push(ReactDOMFactories.tr(
@@ -47,7 +47,7 @@ class CombatUI extends React.Component
       {}, "Weapon: " + weapon))));
 
       // Attack Dice panel.
-      var attackPanel = React.createElement(CombatUI.AttackDiceUI,
+      const attackPanel = React.createElement(CombatUI.AttackDiceUI,
       {
          dice: attackDice,
          resourceBase: this.props.resourceBase,
@@ -61,7 +61,7 @@ class CombatUI extends React.Component
       if (phase.key === Phase.COMBAT_MODIFY_ATTACK_DICE && modifications !== undefined)
       {
          // Modify Attack Dice panel.
-         var modifyAttackPanel = React.createElement(CombatUI.ModifyAttackUI,
+         const modifyAttackPanel = React.createElement(CombatUI.ModifyAttackUI,
          {
             attacker: attacker,
             resourceBase: this.props.resourceBase,
@@ -87,7 +87,7 @@ class CombatUI extends React.Component
       if (defenseDice)
       {
          // Defense Dice panel.
-         var defensePanel = React.createElement(CombatUI.DefenseDiceUI,
+         const defensePanel = React.createElement(CombatUI.DefenseDiceUI,
          {
             dice: defenseDice,
             resourceBase: this.props.resourceBase,
@@ -102,7 +102,7 @@ class CombatUI extends React.Component
          if (phase.key === Phase.COMBAT_MODIFY_DEFENSE_DICE && modifications !== undefined)
          {
             // Modify Defense Dice panel.
-            var modifyDefensePanel = React.createElement(CombatUI.ModifyDefenseUI,
+            const modifyDefensePanel = React.createElement(CombatUI.ModifyDefenseUI,
             {
                defender: defender,
                resourceBase: this.props.resourceBase,
@@ -121,7 +121,7 @@ class CombatUI extends React.Component
       if (phase.key === Phase.COMBAT_NOTIFY_DAMAGE)
       {
          // Damage panel.
-         var damagePanel = React.createElement(CombatUI.DamageUI,
+         const damagePanel = React.createElement(CombatUI.DamageUI,
          {
             criticalHitCount: this.props.criticalHitCount,
             hitCount: this.props.hitCount,
@@ -135,16 +135,16 @@ class CombatUI extends React.Component
          {}, damagePanel)));
       }
 
-      var message = ReactDOMFactories.table(
+      const message = ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, rows));
-      var okButton = React.createElement(Button,
+      const okButton = React.createElement(Button,
       {
          key: 0,
          name: "OK",
          onClick: this.ok,
       });
-      var buttons = ReactDOMFactories.span(
+      const buttons = ReactDOMFactories.span(
       {}, [okButton]);
 
       return React.createElement(OptionPane,
@@ -158,7 +158,7 @@ class CombatUI extends React.Component
 
 CombatUI.prototype.createTitle = function(phase)
 {
-   var answer = "Combat";
+   let answer = "Combat";
 
    switch (phase.key)
    {
@@ -179,7 +179,7 @@ CombatUI.prototype.createTitle = function(phase)
 CombatUI.prototype.okFunction = function(modification)
 {
    LOGGER.debug("CombatUI ok()");
-   var answer;
+   let answer;
 
    if (modification && modification.consequent)
    {
@@ -188,7 +188,7 @@ CombatUI.prototype.okFunction = function(modification)
 
    LOGGER.debug("CombatUI.ok() modification = " + modification + " " + (typeof modification));
 
-   var okFunction = this.props.okFunction;
+   const okFunction = this.props.okFunction;
 
    if (okFunction)
    {
@@ -205,12 +205,12 @@ class AttackDiceUI extends React.Component
 {
    render()
    {
-      var columns = [];
+      const columns = [];
 
-      var dice = this.props.dice;
+      const dice = this.props.dice;
       InputValidator.validateNotNull("attack dice", dice);
 
-      var values = dice.sortedValues();
+      const values = dice.sortedValues();
 
       values.forEach(function(die)
       {
@@ -231,8 +231,8 @@ class AttackDiceUI extends React.Component
 
 AttackDiceUI.prototype.createImage = function(die)
 {
-   var title = AttackDiceValue.properties[die].name;
-   var source = this.props.resourceBase + "dice/Attack" + title.replace(" ", "") + "32.png";
+   const title = AttackDiceValue.properties[die].name;
+   const source = this.props.resourceBase + "dice/Attack" + title.replace(" ", "") + "32.png";
 
    return ReactDOMFactories.img(
    {
@@ -257,13 +257,13 @@ class DefenseDiceUI extends React.Component
 {
    render()
    {
-      var columns = [];
+      const columns = [];
 
-      var dice = this.props.dice;
+      const dice = this.props.dice;
 
       if (dice)
       {
-         var values = dice.sortedValues();
+         const values = dice.sortedValues();
 
          values.forEach(function(die)
          {
@@ -285,8 +285,8 @@ class DefenseDiceUI extends React.Component
 
 DefenseDiceUI.prototype.createImage = function(die)
 {
-   var title = DefenseDiceValue.properties[die].name;
-   var source = this.props.resourceBase + "dice/Defense" + title.replace(" ", "") + "32.png";
+   const title = DefenseDiceValue.properties[die].name;
+   const source = this.props.resourceBase + "dice/Defense" + title.replace(" ", "") + "32.png";
 
    return ReactDOMFactories.img(
    {
@@ -313,9 +313,9 @@ class ModifyAttackUI extends React.Component
 
    render()
    {
-      var modifications = this.props.modifications;
-      var resourceBase = this.props.resourceBase;
-      var labelFunction = function(value)
+      const modifications = this.props.modifications;
+      const resourceBase = this.props.resourceBase;
+      const labelFunction = function(value)
       {
          return React.createElement(EntityUI,
          {
@@ -363,9 +363,9 @@ class ModifyDefenseUI extends React.Component
 
    render()
    {
-      var modifications = this.props.modifications;
-      var resourceBase = this.props.resourceBase;
-      var labelFunction = function(value)
+      const modifications = this.props.modifications;
+      const resourceBase = this.props.resourceBase;
+      const labelFunction = function(value)
       {
          return React.createElement(EntityUI,
          {
@@ -413,14 +413,14 @@ class DamageUI extends React.Component
 {
    render()
    {
-      var hitCount = this.props.hitCount;
+      const hitCount = this.props.hitCount;
       InputValidator.validateNotNull("hitCount", hitCount);
-      var criticalHitCount = this.props.criticalHitCount;
+      const criticalHitCount = this.props.criticalHitCount;
       InputValidator.validateNotNull("criticalHitCount", criticalHitCount);
 
-      var hitFilename = this.props.resourceBase + "pilotCard/Damage32.jpg";
-      var criticalHitFilename = this.props.resourceBase + "pilotCard/CriticalDamage32.jpg";
-      var columns = [];
+      const hitFilename = this.props.resourceBase + "pilotCard/Damage32.jpg";
+      const criticalHitFilename = this.props.resourceBase + "pilotCard/CriticalDamage32.jpg";
+      const columns = [];
 
       columns.push(ReactDOMFactories.td(
       {

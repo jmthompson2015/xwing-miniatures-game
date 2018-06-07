@@ -21,19 +21,19 @@ class PlanningPanel extends React.Component
 
    render()
    {
-      var tokens = this.props.tokens;
-      var cells = [];
+      const tokens = this.props.tokens;
+      const cells = [];
 
-      for (var i = 0; i < tokens.length; i++)
+      for (let i = 0; i < tokens.length; i++)
       {
-         var token = tokens[i];
-         var maneuverKeys = token.maneuverKeys();
-         var maneuvers = [];
-         for (var m = 0; m < maneuverKeys.length; m++)
+         const token = tokens[i];
+         const maneuverKeys = token.maneuverKeys();
+         const maneuvers = [];
+         for (let m = 0; m < maneuverKeys.length; m++)
          {
             maneuvers.push(Maneuver.properties[maneuverKeys[m]]);
          }
-         var element = React.createElement(ManeuverChooser,
+         const element = React.createElement(ManeuverChooser,
          {
             callback: this.selectionChanged,
             resourceBase: this.props.resourceBase,
@@ -49,12 +49,12 @@ class PlanningPanel extends React.Component
          }, element));
       }
 
-      var initialInput = ReactDOMFactories.table(
+      const initialInput = ReactDOMFactories.table(
       {}, ReactDOMFactories.tbody(
       {}, ReactDOMFactories.tr(
       {}, cells)));
-      var disabled = Object.getOwnPropertyNames(this.state.tokenToManeuver).length < tokens.length;
-      var buttons = React.createElement(Button,
+      const disabled = Object.getOwnPropertyNames(this.state.tokenToManeuver).length < tokens.length;
+      const buttons = React.createElement(Button,
       {
          disabled: disabled,
          name: "OK",
@@ -72,8 +72,8 @@ class PlanningPanel extends React.Component
 
 PlanningPanel.prototype.okFunction = function()
 {
-   var tokenToManeuver = this.state.tokenToManeuver;
-   var callback = this.props.callback;
+   const tokenToManeuver = this.state.tokenToManeuver;
+   const callback = this.props.callback;
 
    callback(tokenToManeuver);
 };
@@ -81,10 +81,10 @@ PlanningPanel.prototype.okFunction = function()
 PlanningPanel.prototype.selectionChangedFunction = function(tokenId, maneuverKey)
 {
    LOGGER.debug("selectionChanged() tokenId = " + tokenId + " maneuverKey = " + maneuverKey);
-   var tokens = this.props.tokens;
-   var store = (tokens.length > 0 ? tokens[0].store() : undefined);
-   var token = store.getState().environment.getTokenById(parseInt(tokenId));
-   var tokenToManeuver = this.state.tokenToManeuver;
+   const tokens = this.props.tokens;
+   const store = (tokens.length > 0 ? tokens[0].store() : undefined);
+   const token = store.getState().environment.getTokenById(parseInt(tokenId));
+   const tokenToManeuver = this.state.tokenToManeuver;
    tokenToManeuver[token.id()] = maneuverKey;
 
    this.setState(

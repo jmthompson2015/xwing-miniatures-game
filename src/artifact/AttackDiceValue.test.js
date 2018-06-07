@@ -7,13 +7,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = AttackDiceValue.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(AttackDiceValue);
+   const result = AttackDiceValue.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(AttackDiceValue);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = AttackDiceValue[key];
+      const key2 = AttackDiceValue[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -23,7 +23,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return AttackDiceValue[key] === value;
       });
@@ -35,20 +35,20 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = AttackDiceValue.keys();
+   const result = AttackDiceValue.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 4;
+   const length = 4;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], AttackDiceValue.HIT);
    assert.equal(result[i++], AttackDiceValue.CRITICAL_HIT);
    assert.equal(result[i++], AttackDiceValue.FOCUS);
    assert.equal(result[i++], AttackDiceValue.BLANK);
 
-   var properties = Object.getOwnPropertyNames(AttackDiceValue);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(AttackDiceValue);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

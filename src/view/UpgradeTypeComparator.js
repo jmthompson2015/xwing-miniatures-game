@@ -1,11 +1,11 @@
 import UpgradeType from "../artifact/UpgradeType.js";
 
-var UpgradeTypeComparator = function(upgradeTypeA, upgradeTypeB)
+const UpgradeTypeComparator = function(upgradeTypeA, upgradeTypeB)
 {
-   var valueA = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeA);
-   var valueB = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeB);
+   const valueA = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeA);
+   const valueB = UpgradeTypeComparator.TYPE_ORDER.indexOf(upgradeTypeB);
 
-   var answer = -1;
+   let answer = -1;
 
    if (valueA === valueB)
    {

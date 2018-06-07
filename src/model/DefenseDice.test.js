@@ -9,15 +9,15 @@ QUnit.module("DefenseDice");
 QUnit.test("DefenseDice() size", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var size = 3;
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   const size = 3;
 
    // Run.
-   var dice = new DefenseDice(store, attackerId, size);
+   const dice = new DefenseDice(store, attackerId, size);
 
    // Verify.
-   for (var i = 0; i < size; i++)
+   for (let i = 0; i < size; i++)
    {
       assert.ok(dice.value(i));
    }
@@ -26,15 +26,15 @@ QUnit.test("DefenseDice() size", function(assert)
 QUnit.test("DefenseDice() values", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var values = [DefenseDiceValue.BLANK, DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS];
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   const values = [DefenseDiceValue.BLANK, DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS];
 
    // Run.
-   var dice = new DefenseDice(store, attackerId, values);
+   const dice = new DefenseDice(store, attackerId, values);
 
    // Verify.
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
       assert.equal(dice.value(i), values[i]);
    }
@@ -43,9 +43,9 @@ QUnit.test("DefenseDice() values", function(assert)
 QUnit.test("DefenseDice properties", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var dice = new DefenseDice(store, attackerId, 3);
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   const dice = new DefenseDice(store, attackerId, 3);
 
    assert.ok(dice.value(0));
    assert.ok(dice.value(1));
@@ -55,9 +55,9 @@ QUnit.test("DefenseDice properties", function(assert)
 QUnit.test("addDie()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var dice = new DefenseDice(store, attackerId, 1);
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   const dice = new DefenseDice(store, attackerId, 1);
    assert.equal(dice.size(), 1);
 
    // Run.
@@ -71,9 +71,9 @@ QUnit.test("addDie()", function(assert)
 QUnit.test("blankCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var dice = new DefenseDice(store, attackerId, 1);
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   const dice = new DefenseDice(store, attackerId, 1);
 
    // Run / Verify.
    if (dice.value(0) == DefenseDiceValue.BLANK)
@@ -89,7 +89,7 @@ QUnit.test("blankCount()", function(assert)
 QUnit.test("changeAllToValue()", function(assert)
 {
    // Setup.
-   var dice = createFocusDice(2);
+   const dice = createFocusDice(2);
    assert.equal(dice.evadeCount(), 0);
    assert.equal(dice.focusCount(), 2);
 
@@ -104,7 +104,7 @@ QUnit.test("changeAllToValue()", function(assert)
 QUnit.test("changeOneToValue()", function(assert)
 {
    // Setup.
-   var dice = createFocusDice(2);
+   const dice = createFocusDice(2);
    assert.equal(dice.evadeCount(), 0);
    assert.equal(dice.focusCount(), 2);
 
@@ -119,9 +119,9 @@ QUnit.test("changeOneToValue()", function(assert)
 QUnit.test("evadeCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var dice = new DefenseDice(store, attackerId, 1);
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   const dice = new DefenseDice(store, attackerId, 1);
 
    // Run / Verify.
    if (dice.value(0) == DefenseDiceValue.EVADE)
@@ -137,9 +137,9 @@ QUnit.test("evadeCount()", function(assert)
 QUnit.test("focusCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var dice = new DefenseDice(store, attackerId, 1);
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   const dice = new DefenseDice(store, attackerId, 1);
 
    // Run / Verify.
    if (dice.value(0) == DefenseDiceValue.FOCUS)
@@ -155,7 +155,7 @@ QUnit.test("focusCount()", function(assert)
 QUnit.test("rerollAllFocus()", function(assert)
 {
    // Setup.
-   var dice = createFocusDice(1);
+   const dice = createFocusDice(1);
 
    // Run.
    dice.rerollAllFocus();
@@ -174,7 +174,7 @@ QUnit.test("rerollAllFocus()", function(assert)
 QUnit.test("rerollBlank()", function(assert)
 {
    // Setup.
-   var dice = createBlankDice(1);
+   const dice = createBlankDice(1);
 
    // Run.
    dice.rerollBlank();
@@ -192,13 +192,13 @@ QUnit.test("rerollBlank()", function(assert)
 
 QUnit.test("rerollFocus()", function(assert)
 {
-   //  var dice;
+   //  const dice;
    //  do {
    //     dice = new DefenseDice(1);
    //  }
    //  while (dice.focusCount() === 0);
    // Setup.
-   var dice = createFocusDice(1);
+   const dice = createFocusDice(1);
 
    // Run.
    dice.rerollFocus();
@@ -217,7 +217,7 @@ QUnit.test("rerollFocus()", function(assert)
 QUnit.test("spendEvadeToken()", function(assert)
 {
    // Setup.
-   var dice = createFocusDice(2);
+   const dice = createFocusDice(2);
    assert.equal(dice.focusCount(), 2);
 
    // Run.
@@ -231,7 +231,7 @@ QUnit.test("spendEvadeToken()", function(assert)
 QUnit.test("spendFocusToken()", function(assert)
 {
    // Setup.
-   var dice = createFocusDice(2);
+   const dice = createFocusDice(2);
    assert.equal(dice.focusCount(), 2);
 
    // Run.
@@ -245,11 +245,11 @@ QUnit.test("spendFocusToken()", function(assert)
 QUnit.test("toString()", function(assert)
 {
    // Setup.
-   var dice = createFocusDice(2);
+   const dice = createFocusDice(2);
    assert.equal(dice.focusCount(), 2);
 
    // Run.
-   var result = dice.toString();
+   const result = dice.toString();
 
    // Verify.
    assert.equal(result, "attackerId=1, size=2, values=focus,focus");
@@ -257,9 +257,9 @@ QUnit.test("toString()", function(assert)
 
 function createBlankDice(count)
 {
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var answer;
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   let answer;
 
    do {
       store.dispatch(Action.setTokenDefenseDice(1));
@@ -272,9 +272,9 @@ function createBlankDice(count)
 
 function createFocusDice(count)
 {
-   var store = Redux.createStore(Reducer.root);
-   var attackerId = 1;
-   var answer;
+   const store = Redux.createStore(Reducer.root);
+   const attackerId = 1;
+   let answer;
 
    do {
       store.dispatch(Action.setTokenDefenseDice(1));

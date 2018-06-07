@@ -17,47 +17,47 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store = Redux.createStore(AgentSquadReducer.root);
-var delegateStore = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store = Redux.createStore(AgentSquadReducer.root);
+const delegateStore = Redux.createStore(Reducer.root);
 store.dispatch(AgentSquadAction.setDelegateStore(delegateStore));
-var faction = Faction.properties[Faction.IMPERIAL];
-var agent = new Agent(delegateStore, "Placeholder");
-var factionToSquadBuilders = {};
+let faction = Faction.properties[Faction.IMPERIAL];
+const agent = new Agent(delegateStore, "Placeholder");
+const factionToSquadBuilders = {};
 				[Faction.IMPERIAL, Faction.REBEL, Faction.SCUM].forEach(function(factionKey)
 {
    factionToSquadBuilders[factionKey] = SquadBuilder.findByFaction(factionKey);
 });
-var squadBuilder = factionToSquadBuilders[faction.key][0];
-var squad = squadBuilder.buildSquad(agent);
+const squadBuilder = factionToSquadBuilders[faction.key][0];
+const squad = squadBuilder.buildSquad(agent);
 
 // store.dispatch(AgentSquadAction.setAgent(agent));
 store.dispatch(AgentSquadAction.setAgentName(agent.name()));
 store.dispatch(AgentSquadAction.setAgentType(agent._strategy()));
 store.dispatch(AgentSquadAction.setSquad(squad));
 
-var agentNameChanged = function(agentName)
+const agentNameChanged = function(agentName)
 {
    store.dispatch(AgentSquadAction.setAgentName(agentName));
    renderAgentSquadUI();
 };
-var agentTypeChanged = function(agentType)
+const agentTypeChanged = function(agentType)
 {
    store.dispatch(AgentSquadAction.setAgentType(agentType));
    renderAgentSquadUI();
 };
-var factionChanged = function(factionIn)
+const factionChanged = function(factionIn)
 {
    faction = factionIn;
    store.dispatch(AgentSquadAction.setFaction(faction));
    renderAgentSquadUI();
 };
-var squadBuilderTypeChanged = function(squadBuilderType)
+const squadBuilderTypeChanged = function(squadBuilderType)
 {
    store.dispatch(AgentSquadAction.setSquadBuilderType(squadBuilderType));
    renderAgentSquadUI();
 };
-var squadChanged = function(squad)
+const squadChanged = function(squad)
 {
    store.dispatch(AgentSquadAction.setSquad(squad));
    renderAgentSquadUI();
@@ -65,7 +65,7 @@ var squadChanged = function(squad)
 
 function renderAgentSquadUI()
 {
-   var element = React.createElement(ReactRedux.Provider,
+   const element = React.createElement(ReactRedux.Provider,
    {
       store: store,
    }, React.createElement(AgentSquadUI,

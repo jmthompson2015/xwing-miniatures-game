@@ -10,12 +10,12 @@ QUnit.module("AgentReducer");
 QUnit.test("addPilot()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "agent1");
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "agent1");
    assert.equal(store.getState().agentPilots.size, 0);
 
    // Run.
-   var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
+   const token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
 
    // Verify.
    assert.equal(store.getState().agentPilots.size, 1);
@@ -26,7 +26,7 @@ QUnit.test("addPilot()", function(assert)
 QUnit.test("incrementNextAgentId()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
    assert.equal(store.getState().nextAgentId, 1);
 
    // Run.
@@ -45,9 +45,9 @@ QUnit.test("incrementNextAgentId()", function(assert)
 QUnit.test("removePilot()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "agent1");
-   var token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "agent1");
+   const token = new CardInstance(store, PilotCard.LUKE_SKYWALKER, agent);
    assert.equal(store.getState().agentPilots.size, 1);
    assert.equal(store.getState().agentPilots.get(agent.id()).size, 1);
    assert.equal(store.getState().agentPilots.get(agent.id()).get(0), token.id());

@@ -8,33 +8,33 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var factionKeys = Faction.keys();
-var className = "ba bg-near-white f6 tl";
-var rows = [];
+const resourceBase = "../resource/";
+const factionKeys = Faction.keys();
+const className = "ba bg-near-white f6 tl";
+const rows = [];
 
 factionKeys.forEach(function(factionKey)
 {
-   var faction = Faction.properties[factionKey];
+   const faction = Faction.properties[factionKey];
 
-   var image0 = React.createElement(FactionUI,
+   const image0 = React.createElement(FactionUI,
    {
       faction: faction,
       resourceBase: resourceBase,
    });
-   var image1 = React.createElement(FactionUI,
+   const image1 = React.createElement(FactionUI,
    {
       faction: faction,
       resourceBase: resourceBase,
       showName: true,
    });
-   var image2 = React.createElement(FactionUI,
+   const image2 = React.createElement(FactionUI,
    {
       faction: faction,
       resourceBase: resourceBase,
       isSmall: true,
    });
-   var image3 = React.createElement(FactionUI,
+   const image3 = React.createElement(FactionUI,
    {
       faction: faction,
       resourceBase: resourceBase,
@@ -42,7 +42,7 @@ factionKeys.forEach(function(factionKey)
       showName: true,
    });
 
-   var cells = [];
+   const cells = [];
 
    cells.push(ReactDOMFactories.td(
    {

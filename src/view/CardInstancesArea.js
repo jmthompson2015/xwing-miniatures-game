@@ -15,7 +15,7 @@ class CardInstancesArea extends React.Component
 
    render()
    {
-      var rows = [];
+      const rows = [];
 
       rows.push(this.createLabelUI());
       rows.push(this.createCardInstanceCells());
@@ -26,12 +26,12 @@ class CardInstancesArea extends React.Component
 
 CardInstancesArea.prototype.createCardInstanceCells = function()
 {
-   var cardInstanceUIs = this.props.cardInstanceUIs;
-   var isExpanded = this.state.isExpanded;
+   const cardInstanceUIs = this.props.cardInstanceUIs;
+   const isExpanded = this.state.isExpanded;
 
-   var cells = cardInstanceUIs.map(function(cardInstanceUI, i)
+   const cells = cardInstanceUIs.map(function(cardInstanceUI, i)
    {
-      var myClassName;
+      let myClassName;
 
       if (isExpanded || i === cardInstanceUIs.length - 1)
       {
@@ -49,28 +49,28 @@ CardInstancesArea.prototype.createCardInstanceCells = function()
       }, cardInstanceUI);
    });
 
-   var cell = ReactUtilities.createCell(cells);
+   const cell = ReactUtilities.createCell(cells);
 
    return ReactUtilities.createRow(cell, "mainRow", "bg-lotr-medium");
 };
 
 CardInstancesArea.prototype.createLabelUI = function()
 {
-   var label = ReactUtilities.createCell(this.props.label, "labelCell", "b lotr-light tc");
+   const label = ReactUtilities.createCell(this.props.label, "labelCell", "b lotr-light tc");
 
-   var cardCount = this.props.cardInstanceUIs.length;
-   var isExpanded = this.state.isExpanded;
-   var expandLabel = (cardCount > 1 ? (isExpanded ? "\u25B6" : "\u25BC") : "");
-   var expandControl = ReactDOMFactories.div(
+   const cardCount = this.props.cardInstanceUIs.length;
+   const isExpanded = this.state.isExpanded;
+   const expandLabel = (cardCount > 1 ? (isExpanded ? "\u25B6" : "\u25BC") : "");
+   const expandControl = ReactDOMFactories.div(
    {
       key: "expandCell",
       onClick: this.toggleExpand,
    }, expandLabel);
 
-   var row = ReactUtilities.createRow([label, expandControl], "labelExpandRow");
-   var table = ReactUtilities.createTable(row, "labelExpandTable", "w-100");
+   const row = ReactUtilities.createRow([label, expandControl], "labelExpandRow");
+   const table = ReactUtilities.createTable(row, "labelExpandTable", "w-100");
 
-   var tableCell = ReactUtilities.createCell(table, "tableCell");
+   const tableCell = ReactUtilities.createCell(table, "tableCell");
    return ReactUtilities.createRow(tableCell, "labelRow", "bg-lotr-dark");
 };
 

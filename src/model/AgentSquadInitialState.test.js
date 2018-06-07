@@ -5,7 +5,7 @@ QUnit.module("AgentSquadInitialState");
 QUnit.test("AgentSquadInitialState()", function(assert)
 {
    // Run.
-   var result = new AgentSquadInitialState();
+   const result = new AgentSquadInitialState();
 
    // Verify.
    assert.equal(result.delegateStore, undefined);

@@ -1,7 +1,7 @@
 /*
  * Provides pilot abilities for the End Phase.
  */
-var PilotAbility4 = {};
+const PilotAbility4 = {};
 
 PilotAbility4.toString = function()
 {

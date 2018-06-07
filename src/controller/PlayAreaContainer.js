@@ -13,22 +13,22 @@ import PlayAreaUI from "../view/PlayAreaUI.js";
 
 // PlayAreaContainer
 
-var EXPLOSION_PHASES = [Phase.COMBAT_AFTER_DEAL_DAMAGE];
-var LASER_AUDIO_PHASES = [Phase.COMBAT_ROLL_ATTACK_DICE, ];
-var LASER_BEAM_PHASES = [Phase.COMBAT_DECLARE_TARGET, Phase.COMBAT_ROLL_ATTACK_DICE, Phase.COMBAT_MODIFY_ATTACK_DICE, Phase.COMBAT_ROLL_DEFENSE_DICE, Phase.COMBAT_MODIFY_DEFENSE_DICE, Phase.COMBAT_COMPARE_RESULTS, Phase.COMBAT_NOTIFY_DAMAGE, Phase.COMBAT_DEAL_DAMAGE, Phase.COMBAT_AFTER_DEAL_DAMAGE];
-var MANEUVER_PHASES = [Phase.ACTIVATION_REVEAL_DIAL, Phase.ACTIVATION_SET_TEMPLATE, Phase.ACTIVATION_EXECUTE_MANEUVER, Phase.ACTIVATION_CHECK_PILOT_STRESS, Phase.ACTIVATION_CLEAN_UP];
+const EXPLOSION_PHASES = [Phase.COMBAT_AFTER_DEAL_DAMAGE];
+const LASER_AUDIO_PHASES = [Phase.COMBAT_ROLL_ATTACK_DICE, ];
+const LASER_BEAM_PHASES = [Phase.COMBAT_DECLARE_TARGET, Phase.COMBAT_ROLL_ATTACK_DICE, Phase.COMBAT_MODIFY_ATTACK_DICE, Phase.COMBAT_ROLL_DEFENSE_DICE, Phase.COMBAT_MODIFY_DEFENSE_DICE, Phase.COMBAT_COMPARE_RESULTS, Phase.COMBAT_NOTIFY_DAMAGE, Phase.COMBAT_DEAL_DAMAGE, Phase.COMBAT_AFTER_DEAL_DAMAGE];
+const MANEUVER_PHASES = [Phase.ACTIVATION_REVEAL_DIAL, Phase.ACTIVATION_SET_TEMPLATE, Phase.ACTIVATION_EXECUTE_MANEUVER, Phase.ACTIVATION_CHECK_PILOT_STRESS, Phase.ACTIVATION_CLEAN_UP];
 
 function mapStateToProps(state, ownProps)
 {
    InputValidator.validateIsString("resourceBase", ownProps.resourceBase);
 
-   var environment = state.environment;
-   var scale = state.playAreaScale;
-   var image = "background/" + (state.playFormatKey === PlayFormat.STANDARD ? "pia13845.jpg" : "horsehead_nebula_02092008.jpg");
-   var width = (state.playFormatKey === PlayFormat.STANDARD ? 915 : 1830);
-   var tokenPositions = environment.createTokenPositions();
+   const environment = state.environment;
+   const scale = state.playAreaScale;
+   const image = "background/" + (state.playFormatKey === PlayFormat.STANDARD ? "pia13845.jpg" : "horsehead_nebula_02092008.jpg");
+   const width = (state.playFormatKey === PlayFormat.STANDARD ? 915 : 1830);
+   const tokenPositions = environment.createTokenPositions();
 
-   var answer = {
+   const answer = {
       playFormatKey: state.playFormatKey,
       scale: state.playAreaScale,
       width: scale * width,
@@ -38,7 +38,7 @@ function mapStateToProps(state, ownProps)
       tokenPositions: tokenPositions,
    };
 
-   var activeToken = environment.activeCardInstance();
+   const activeToken = environment.activeCardInstance();
    LOGGER.debug("activeToken = " + activeToken);
 
    if (activeToken)
@@ -55,19 +55,19 @@ function checkExplosion(state, activeToken, answer)
 {
    if (EXPLOSION_PHASES.includes(state.phaseKey))
    {
-      var combatAction = Selector.combatAction(state, activeToken);
+      const combatAction = Selector.combatAction(state, activeToken);
 
       if (combatAction)
       {
-         var fromPosition = combatAction.attackerPosition();
+         const fromPosition = combatAction.attackerPosition();
 
          if (fromPosition)
          {
-            var toPosition = combatAction.defenderPosition();
+            const toPosition = combatAction.defenderPosition();
 
             if (toPosition)
             {
-               var defender = combatAction.defender();
+               const defender = combatAction.defender();
 
                if (defender && defender.isDestroyed())
                {
@@ -89,26 +89,26 @@ function checkLaserBeam(state, activeToken, answer)
 {
    if (LASER_BEAM_PHASES.includes(state.phaseKey))
    {
-      var combatAction = Selector.combatAction(state, activeToken);
+      const combatAction = Selector.combatAction(state, activeToken);
       LOGGER.debug("combatAction = " + combatAction);
 
       if (combatAction)
       {
-         var attacker = combatAction.attacker();
-         var fromPosition = combatAction.attackerPosition();
+         const attacker = combatAction.attacker();
+         const fromPosition = combatAction.attackerPosition();
          LOGGER.debug("fromPosition = " + fromPosition);
 
          if (fromPosition)
          {
-            var defender = combatAction.defender();
-            var toPosition = combatAction.defenderPosition();
+            const defender = combatAction.defender();
+            const toPosition = combatAction.defenderPosition();
             LOGGER.debug("toPosition = " + toPosition);
 
             if (toPosition && !defender.isDestroyed())
             {
-               var isPrimary = combatAction.weapon().isPrimary();
-               var factionColor = attacker.card().shipFaction.faction.color;
-               var audioClip;
+               const isPrimary = combatAction.weapon().isPrimary();
+               const factionColor = attacker.card().shipFaction.faction.color;
+               let audioClip;
 
                if (LASER_AUDIO_PHASES.includes(state.phaseKey))
                {
@@ -133,21 +133,21 @@ function checkManeuver(state, activeToken, answer)
 {
    if (MANEUVER_PHASES.includes(state.phaseKey))
    {
-      var maneuverAction = ManeuverAction.get(activeToken.store(), activeToken.id());
+      const maneuverAction = ManeuverAction.get(activeToken.store(), activeToken.id());
 
       if (maneuverAction)
       {
-         var maneuver = maneuverAction.maneuver();
-         var fromPosition = maneuverAction.fromPosition();
-         var playFormatKey = state.environment.playFormatKey();
-         var shipBase = maneuverAction.shipBase();
-         var toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+         const maneuver = maneuverAction.maneuver();
+         const fromPosition = maneuverAction.fromPosition();
+         const playFormatKey = state.environment.playFormatKey();
+         const shipBase = maneuverAction.shipBase();
+         const toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
          if (toPosition)
          {
-            var path = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
-            var fromPolygon = ManeuverComputer.computeFromPolygon(fromPosition, shipBase);
-            var toPolygon = ManeuverComputer.computePolygon(shipBase, toPosition.x(), toPosition.y(), toPosition.heading());
+            const path = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+            const fromPolygon = ManeuverComputer.computeFromPolygon(fromPosition, shipBase);
+            const toPolygon = ManeuverComputer.computePolygon(shipBase, toPosition.x(), toPosition.y(), toPosition.heading());
             LOGGER.debug("setting maneuver data");
 
             answer.maneuver = {
@@ -165,9 +165,9 @@ function checkManeuver(state, activeToken, answer)
 
 function getLaserAudioClip(token)
 {
-   var answer;
+   let answer;
 
-   var shipKey = token.card().shipFaction.shipKey;
+   const shipKey = token.card().shipFaction.shipKey;
 
    if (shipKey === Ship.YT_1300 || shipKey === Ship.YT_2400)
    {
@@ -179,7 +179,7 @@ function getLaserAudioClip(token)
    }
    else
    {
-      var factionKey = token.card().shipFaction.factionKey;
+      const factionKey = token.card().shipFaction.factionKey;
 
       if (factionKey === Faction.IMPERIAL)
       {

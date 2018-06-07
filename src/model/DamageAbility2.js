@@ -10,7 +10,7 @@ import Phase from "../artifact/Phase.js";
 // import Action from "./Action.js";
 import AttackDice from "./AttackDice.js";
 
-var DamageAbility2 = {};
+const DamageAbility2 = {};
 
 ////////////////////////////////////////////////////////////////////////
 DamageAbility2[Phase.ACTIVATION_REVEAL_DIAL] = {};
@@ -81,7 +81,7 @@ DamageAbility2[Phase.ACTIVATION_PERFORM_ACTION][DamageCard.DAMAGED_SENSOR_ARRAY_
    },
    consequent: function(store, token, callback)
    {
-      var attackDie = AttackDice.rollRandomValue();
+      const attackDie = AttackDice.rollRandomValue();
       if ([AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT].includes(attackDie))
       {
          flipCardFacedown(store, token, DamageCard.DAMAGED_SENSOR_ARRAY_V2);
@@ -140,7 +140,7 @@ DamageAbility2[Phase.ACTIVATION_PERFORM_ACTION][DamageCard.STRUCTURAL_DAMAGE_V2]
    },
    consequent: function(store, token, callback)
    {
-      var attackDie = AttackDice.rollRandomValue();
+      const attackDie = AttackDice.rollRandomValue();
       if ([AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT].includes(attackDie))
       {
          flipCardFacedown(store, token, DamageCard.STRUCTURAL_DAMAGE_V2);
@@ -157,7 +157,7 @@ DamageAbility2[Phase.ACTIVATION_PERFORM_ACTION][DamageCard.WEAPON_MALFUNCTION] =
    },
    consequent: function(store, token, callback)
    {
-      var attackDie = AttackDice.rollRandomValue();
+      const attackDie = AttackDice.rollRandomValue();
       if ([AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT].includes(attackDie))
       {
          flipCardFacedown(store, token, DamageCard.WEAPON_MALFUNCTION);
@@ -174,7 +174,7 @@ DamageAbility2[Phase.ACTIVATION_PERFORM_ACTION][DamageCard.WEAPONS_FAILURE_V2] =
    },
    consequent: function(store, token, callback)
    {
-      var attackDie = AttackDice.rollRandomValue();
+      const attackDie = AttackDice.rollRandomValue();
       if ([AttackDiceValue.HIT, AttackDiceValue.CRITICAL_HIT].includes(attackDie))
       {
          flipCardFacedown(store, token, DamageCard.WEAPONS_FAILURE_V2);
@@ -190,7 +190,7 @@ function flipCardFacedown(store, token, damageKey)
    InputValidator.validateNotNull("token", token);
    InputValidator.validateNotNull("damageKey", damageKey);
 
-   var damageInstance = token.criticalDamage(damageKey);
+   const damageInstance = token.criticalDamage(damageKey);
    token.flipDamageCardFacedown(damageInstance);
 }
 
@@ -198,14 +198,14 @@ function getActiveCardInstance(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var environment = store.getState().environment;
+   const environment = store.getState().environment;
 
    return environment.activeCardInstance();
 }
 
 function isActiveCardInstance(store, token)
 {
-   var activeToken = getActiveCardInstance(store);
+   const activeToken = getActiveCardInstance(store);
 
    return token.equals(activeToken);
 }

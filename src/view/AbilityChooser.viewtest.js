@@ -19,33 +19,33 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var damageKeys = [DamageCard.CONSOLE_FIRE, DamageCard.MINOR_HULL_BREACH];
-var damages = damageKeys.map(function(damageKey)
+const resourceBase = "../resource/";
+const damageKeys = [DamageCard.CONSOLE_FIRE, DamageCard.MINOR_HULL_BREACH];
+const damages = damageKeys.map(function(damageKey)
 {
    return new Ability(DamageCard, damageKey, DamageAbility2, Phase.ACTIVATION_EXECUTE_MANEUVER);
 });
-var pilotKeys = [PilotCard.AIREN_CRACKEN, PilotCard.BOSSK, PilotCard.CAPTAIN_YORR];
-var pilots = pilotKeys.map(function(pilotKey)
+const pilotKeys = [PilotCard.AIREN_CRACKEN, PilotCard.BOSSK, PilotCard.CAPTAIN_YORR];
+const pilots = pilotKeys.map(function(pilotKey)
 {
    return new Ability(PilotCard, pilotKey, PilotAbility2, Phase.ACTIVATION_EXECUTE_MANEUVER);
 });
-var shipActionKeys = [ShipAction.EVADE, ShipAction.FOCUS];
-var shipActions = shipActionKeys.map(function(shipActionKey)
+const shipActionKeys = [ShipAction.EVADE, ShipAction.FOCUS];
+const shipActions = shipActionKeys.map(function(shipActionKey)
 {
    return new Ability(ShipAction, shipActionKey, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
 });
-var upgradeKeys = [UpgradeCard.LIGHTNING_REFLEXES, UpgradeCard.TIE_X7];
-var upgrades = upgradeKeys.map(function(upgradeKey)
+const upgradeKeys = [UpgradeCard.LIGHTNING_REFLEXES, UpgradeCard.TIE_X7];
+const upgrades = upgradeKeys.map(function(upgradeKey)
 {
    return new Ability(UpgradeCard, upgradeKey, UpgradeAbility2, Phase.ACTIVATION_EXECUTE_MANEUVER);
 });
 
-var environment = EnvironmentFactory.createCoreSetEnvironment();
-// var store = environment.store();
-var token = environment.pilotInstances()[2]; // X-Wing
+const environment = EnvironmentFactory.createCoreSetEnvironment();
+// const store = environment.store();
+const token = environment.pilotInstances()[2]; // X-Wing
 
-var element = React.createElement(AbilityChooser,
+const element = React.createElement(AbilityChooser,
 {
    damages: damages,
    resourceBase: resourceBase,

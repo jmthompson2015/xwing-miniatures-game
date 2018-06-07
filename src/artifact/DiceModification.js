@@ -1,6 +1,6 @@
 import ShipAction from "./ShipAction.js";
 
-var DiceModification = {
+const DiceModification = {
    ATTACK_SPEND_FOCUS: "attackSpendFocus",
    ATTACK_SPEND_TARGET_LOCK: "attackSpendTargetLock",
    DEFENSE_SPEND_EVADE: "defenseSpendEvade",
@@ -60,7 +60,7 @@ DiceModification.values = function()
 
 DiceModification.keys().forEach(function(modificationKey)
 {
-   var modification = DiceModification.properties[modificationKey];
+   const modification = DiceModification.properties[modificationKey];
    modification.xwingType = DiceModification;
    modification.shipAction = ShipAction.properties[modification.shipActionKey];
 });

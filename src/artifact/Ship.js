@@ -4,7 +4,7 @@ import Range from "./Range.js";
 import ShipAction from "./ShipAction.js";
 import ShipBase from "./ShipBase.js";
 
-var Ship = {
+const Ship = {
    AGGRESSOR: "aggressor",
    ALPHA_CLASS_STAR_WING: "alphaclassstarwing",
    ARC_170: "arc170",
@@ -1110,7 +1110,7 @@ Ship.values = function()
 
 Ship.keys().forEach(function(shipKey)
 {
-   var ship = Ship.properties[shipKey];
+   const ship = Ship.properties[shipKey];
    ship.xwingType = Ship;
    ship.shipBase = ShipBase.properties[ship.shipBaseKey];
 

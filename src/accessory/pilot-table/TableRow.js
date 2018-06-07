@@ -1,13 +1,13 @@
 import InputValidator from "../../utility/InputValidator.js";
 import MathUtilities from "../../utility/MathUtilities.js";
 
-var TableRow = {};
+const TableRow = {};
 
 TableRow.computeHullPlusShield = function(ship)
 {
    InputValidator.validateNotNull("ship", ship);
 
-   var answer = (ship.hullValue !== undefined ? ship.hullValue : 0);
+   let answer = (ship.hullValue !== undefined ? ship.hullValue : 0);
    answer += (ship.shieldValue !== undefined ? ship.shieldValue : 0);
 
    return answer;
@@ -17,8 +17,8 @@ TableRow.computeRatioPrimaryWeaponAgility = function(ship)
 {
    InputValidator.validateNotNull("ship", ship);
 
-   var primaryWeapon = (ship.primaryWeaponValue !== undefined ? ship.primaryWeaponValue : 0);
-   var agility = (ship.agilityValue !== undefined ? ship.agilityValue : 0);
+   const primaryWeapon = (ship.primaryWeaponValue !== undefined ? ship.primaryWeaponValue : 0);
+   const agility = (ship.agilityValue !== undefined ? ship.agilityValue : 0);
 
    return (agility !== 0 ? MathUtilities.round(primaryWeapon / agility, 2) : "");
 };
@@ -28,8 +28,8 @@ TableRow.computeRatioSumStatsSquadPointCost = function(pilot, ship)
    InputValidator.validateNotNull("pilot", pilot);
    InputValidator.validateNotNull("ship", ship);
 
-   var sumStats = TableRow.computeSumStats(pilot, ship);
-   var squadPointCost = (pilot.squadPointCost !== undefined ? pilot.squadPointCost : 0);
+   const sumStats = TableRow.computeSumStats(pilot, ship);
+   const squadPointCost = (pilot.squadPointCost !== undefined ? pilot.squadPointCost : 0);
 
    return (squadPointCost !== 0 ? MathUtilities.round(sumStats / squadPointCost, 4) : "");
 };
@@ -39,7 +39,7 @@ TableRow.computeSumStats = function(pilot, ship)
    InputValidator.validateNotNull("pilot", pilot);
    InputValidator.validateNotNull("ship", ship);
 
-   var answer = (pilot.pilotSkillValue !== undefined ? pilot.pilotSkillValue : 0);
+   let answer = (pilot.pilotSkillValue !== undefined ? pilot.pilotSkillValue : 0);
    answer += (ship.primaryWeaponValue !== undefined ? ship.primaryWeaponValue : 0);
    answer += (ship.energyValue !== undefined ? ship.energyValue : 0);
    answer += (ship.agilityValue !== undefined ? ship.agilityValue : 0);
@@ -53,12 +53,12 @@ TableRow.createTableRow = function(pilot)
 {
    InputValidator.validateNotNull("pilot", pilot);
 
-   var ship = TableRow.determineShip(pilot);
-   var isImplemented = (pilot.isImplemented !== undefined ? pilot.isImplemented : false);
-   var sumStats = TableRow.computeSumStats(pilot, ship);
-   var ratioPrimaryWeaponAgility = TableRow.computeRatioPrimaryWeaponAgility(ship);
-   var hullPlusShield = TableRow.computeHullPlusShield(ship);
-   var ratioSumStatsSquadPointCost = TableRow.computeRatioSumStatsSquadPointCost(pilot, ship);
+   const ship = TableRow.determineShip(pilot);
+   const isImplemented = (pilot.isImplemented !== undefined ? pilot.isImplemented : false);
+   const sumStats = TableRow.computeSumStats(pilot, ship);
+   const ratioPrimaryWeaponAgility = TableRow.computeRatioPrimaryWeaponAgility(ship);
+   const hullPlusShield = TableRow.computeHullPlusShield(ship);
+   const ratioSumStatsSquadPointCost = TableRow.computeRatioSumStatsSquadPointCost(pilot, ship);
 
    return (
    {
@@ -90,7 +90,7 @@ TableRow.determineShip = function(pilot)
 {
    InputValidator.validateNotNull("pilot", pilot);
 
-   var ship = pilot.shipFaction.ship;
+   let ship = pilot.shipFaction.ship;
 
    if (pilot.parent)
    {

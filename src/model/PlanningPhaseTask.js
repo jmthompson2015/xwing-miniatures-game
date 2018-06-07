@@ -24,14 +24,14 @@ PlanningPhaseTask.prototype.doIt = function(callback)
 
    LOGGER.trace("PlanningPhaseTask.doIt() start");
 
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
 
-   var queue = [environment.firstAgent(), environment.secondAgent()];
-   var elementFunction = this.planningElementFunction.bind(this);
-   var delay = this.delay();
+   const queue = [environment.firstAgent(), environment.secondAgent()];
+   const elementFunction = this.planningElementFunction.bind(this);
+   const delay = this.delay();
 
-   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
+   const queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
    queueProcessor.processQueue();
 
    LOGGER.trace("PlanningPhaseTask.doIt() end");
@@ -43,9 +43,9 @@ PlanningPhaseTask.prototype.planningElementFunction = function(agent, queueCallb
    InputValidator.validateIsFunction("queueCallback", queueCallback);
 
    LOGGER.trace("PlanningPhaseTask.planningElementFunction() start");
-   var store = this.store();
+   const store = this.store();
 
-   var agentCallback = function(pilotToManeuver)
+   const agentCallback = function(pilotToManeuver)
    {
       store.dispatch(Action.addPilotToManeuver(pilotToManeuver));
       queueCallback();

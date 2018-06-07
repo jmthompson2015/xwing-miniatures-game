@@ -7,13 +7,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Range.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Range);
+   const result = Range.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Range);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Range[key];
+      const key2 = Range[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -23,7 +23,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Range[key] === value;
       });
@@ -35,21 +35,21 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Range.keys();
+   const result = Range.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 5;
+   const length = 5;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Range.ONE);
    assert.equal(result[i++], Range.TWO);
    assert.equal(result[i++], Range.THREE);
    assert.equal(result[i++], Range.FOUR);
    assert.equal(result[i++], Range.FIVE);
 
-   var properties = Object.getOwnPropertyNames(Range);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Range);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1 - // values

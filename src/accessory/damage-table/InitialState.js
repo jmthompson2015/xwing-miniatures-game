@@ -15,9 +15,9 @@ function InitialState()
 
    DamageCard.keys().forEach(function(damageKey)
    {
-      var damage = DamageCard.properties[damageKey];
-      var version = (damageKey.substring(damageKey.length - 2) === "V2" ? "v2" : "v1");
-      var tableRows = TableRow.createTableRow(damage, version);
+      const damage = DamageCard.properties[damageKey];
+      const version = (damageKey.substring(damageKey.length - 2) === "V2" ? "v2" : "v1");
+      const tableRows = TableRow.createTableRow(damage, version);
       this.tableRows.push(tableRows);
       this.filteredTableRows.push(tableRows);
    }, this);
@@ -28,7 +28,7 @@ function InitialState()
 
    this.isFilterShown = false;
    this.filters = DefaultFilters.create();
-   var oldFilters = InitialState.loadFromLocalStorage();
+   const oldFilters = InitialState.loadFromLocalStorage();
 
    if (oldFilters)
    {
@@ -48,8 +48,8 @@ InitialState.prototype.merge = function(oldFilters)
 
 InitialState.loadFromLocalStorage = function()
 {
-   var answer;
-   var filterObjects = JSON.parse(localStorage.filters || null);
+   let answer;
+   const filterObjects = JSON.parse(localStorage.filters || null);
 
    if (filterObjects)
    {
@@ -57,7 +57,7 @@ InitialState.loadFromLocalStorage = function()
 
       filterObjects.forEach(function(object)
       {
-         var filter;
+         let filter;
 
          switch (object.type)
          {

@@ -13,14 +13,14 @@ QUnit.module("DamageDealer");
 QUnit.test("DamageDealer()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var hitCount = 2;
-   var criticalHitCount = 3;
-   var defender = environment.pilotInstances()[0]; // TIE Fighter
-   var evadeCount = 1;
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const hitCount = 2;
+   const criticalHitCount = 3;
+   const defender = environment.pilotInstances()[0]; // TIE Fighter
+   const evadeCount = 1;
 
    // Run.
-   var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+   const damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
 
    // Verify.
    assert.equal(damageDealer.hits(), 1);
@@ -31,12 +31,12 @@ QUnit.test("DamageDealer()", function(assert)
 QUnit.test("dealDamage()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var hitCount = 2;
-   var criticalHitCount = 3;
-   var defender = environment.pilotInstances()[0]; // TIE Fighter
-   var evadeCount = 1;
-   var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const hitCount = 2;
+   const criticalHitCount = 3;
+   const defender = environment.pilotInstances()[0]; // TIE Fighter
+   const evadeCount = 1;
+   const damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
    assert.equal(defender.damageCount(), 0);
    assert.equal(defender.criticalDamageCount(), 0);
 
@@ -50,12 +50,12 @@ QUnit.test("dealDamage()", function(assert)
 QUnit.test("dealDamage() shields", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var hitCount = 2;
-   var criticalHitCount = 3;
-   var defender = environment.pilotInstances()[2]; // X-Wing
-   var evadeCount = 1;
-   var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const hitCount = 2;
+   const criticalHitCount = 3;
+   const defender = environment.pilotInstances()[2]; // X-Wing
+   const evadeCount = 1;
+   const damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
    assert.equal(defender.damageCount(), 0);
    assert.equal(defender.criticalDamageCount(), 0);
 
@@ -69,15 +69,15 @@ QUnit.test("dealDamage() shields", function(assert)
 QUnit.test("dealDamage() Determination", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var hitCount = 2;
-   var criticalHitCount = 1;
-   var defender = environment.pilotInstances()[2];
-   var upgrade = new CardInstance(store, UpgradeCard.DETERMINATION);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const hitCount = 2;
+   const criticalHitCount = 1;
+   const defender = environment.pilotInstances()[2];
+   const upgrade = new CardInstance(store, UpgradeCard.DETERMINATION);
    store.dispatch(CardAction.addUpgrade(defender, upgrade));
-   var evadeCount = 0;
-   var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+   const evadeCount = 0;
+   const damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
    assert.equal(defender.damageCount(), 0);
    assert.equal(defender.criticalDamageCount(), 0);
 
@@ -85,23 +85,23 @@ QUnit.test("dealDamage() Determination", function(assert)
    damageDealer.dealDamage();
 
    // Verify.
-   var sum = defender.damageCount() + defender.criticalDamageCount();
+   const sum = defender.damageCount() + defender.criticalDamageCount();
    assert.ok([0, 1, 2].includes(sum), "sum = " + sum);
 });
 
 QUnit.test("dealDamage() Chewbacca", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var hitCount = 2;
-   var criticalHitCount = 3;
-   var rebelAgent = environment.pilotInstances()[2].agent();
-   var defender = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, rebelAgent);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const hitCount = 2;
+   const criticalHitCount = 3;
+   const rebelAgent = environment.pilotInstances()[2].agent();
+   const defender = new CardInstance(store, PilotCard.CHEWBACCA_REBEL, rebelAgent);
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), defender));
    store.dispatch(CardAction.addShieldCount(defender, -3)); // two shields remaining
-   var evadeCount = 1;
-   var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
+   const evadeCount = 1;
+   const damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCount);
    assert.equal(defender.damageCount(), 0);
    assert.equal(defender.criticalDamageCount(), 0);
 

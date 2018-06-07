@@ -2,7 +2,7 @@ class Button extends React.Component
 {
    render()
    {
-      var className = "ba br3 f6 ph2";
+      let className = "ba br3 f6 ph2";
 
       if (this.props.disabled !== undefined)
       {

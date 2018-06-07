@@ -7,7 +7,7 @@ QUnit.module("InitialState");
 QUnit.test("InitialState()", function(assert)
 {
    // Run.
-   var result = new InitialState();
+   const result = new InitialState();
 
    // Verify.
    assert.ok(!result.playFormatKey);

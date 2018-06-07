@@ -4,8 +4,8 @@ QUnit.module("UpgradeHeader");
 
 QUnit.test("UpgradeHeader properties Attack (Focus)", function(assert)
 {
-   var headerKey = UpgradeHeader.ATTACK_FOCUS;
-   var properties = UpgradeHeader.properties[headerKey];
+   const headerKey = UpgradeHeader.ATTACK_FOCUS;
+   const properties = UpgradeHeader.properties[headerKey];
    assert.equal(properties.name, "Attack [Focus]");
    assert.equal(properties.key, "attackFocus");
 });
@@ -15,13 +15,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = UpgradeHeader.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(UpgradeHeader);
+   const result = UpgradeHeader.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(UpgradeHeader);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = UpgradeHeader[key];
+      const key2 = UpgradeHeader[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -31,7 +31,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return UpgradeHeader[key] === value;
       });
@@ -42,10 +42,10 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   var result = UpgradeHeader.keys();
+   const result = UpgradeHeader.keys();
    assert.ok(result);
    assert.equal(result.length, 6);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], UpgradeHeader.ACTION);
    assert.equal(result[i++], UpgradeHeader.ATTACK);
    assert.equal(result[i++], UpgradeHeader.ATTACK_ENERGY);
@@ -53,8 +53,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[i++], UpgradeHeader.ATTACK_TARGET_LOCK);
    assert.equal(result[i++], UpgradeHeader.ENERGY);
 
-   var properties = Object.getOwnPropertyNames(UpgradeHeader);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(UpgradeHeader);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

@@ -14,33 +14,33 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
+const resourceBase = "../resource/";
 
-var damage = DamageCard.properties[DamageCard.CONSOLE_FIRE];
-var pilot0 = PilotCard.properties[PilotCard.DARTH_VADER];
-var pilot1 = PilotCard.properties[PilotCard.LUKE_SKYWALKER];
-var pilot2 = PilotCard.properties[PilotCard.DENGAR];
-var ship = Ship.properties[Ship.YT_1300];
-var shipAction0 = ShipAction.properties[ShipAction.BARREL_ROLL];
-var context0 = {
+const damage = DamageCard.properties[DamageCard.CONSOLE_FIRE];
+const pilot0 = PilotCard.properties[PilotCard.DARTH_VADER];
+const pilot1 = PilotCard.properties[PilotCard.LUKE_SKYWALKER];
+const pilot2 = PilotCard.properties[PilotCard.DENGAR];
+const ship = Ship.properties[Ship.YT_1300];
+const shipAction0 = ShipAction.properties[ShipAction.BARREL_ROLL];
+const context0 = {
    maneuverKey: Maneuver.BARREL_ROLL_LEFT_1_STANDARD,
 };
-var shipAction1 = ShipAction.properties[ShipAction.BOOST];
-var context1 = {
+const shipAction1 = ShipAction.properties[ShipAction.BOOST];
+const context1 = {
    maneuverKey: Maneuver.BANK_RIGHT_1_STANDARD,
 };
-var shipAction2 = ShipAction.properties[ShipAction.EVADE];
-var upgrade0 = UpgradeCard.properties[UpgradeCard.VETERAN_INSTINCTS];
-var upgrade1 = UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN];
-var upgrade2 = UpgradeCard.properties[UpgradeCard.ION_PROJECTOR];
-var entities = [damage, pilot0, pilot1, pilot2, ship, shipAction0, shipAction1, shipAction2, upgrade0, upgrade1, upgrade2];
-var contexts = [undefined, undefined, undefined, undefined, undefined, context0, context1, undefined, undefined, undefined, undefined];
+const shipAction2 = ShipAction.properties[ShipAction.EVADE];
+const upgrade0 = UpgradeCard.properties[UpgradeCard.VETERAN_INSTINCTS];
+const upgrade1 = UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN];
+const upgrade2 = UpgradeCard.properties[UpgradeCard.ION_PROJECTOR];
+const entities = [damage, pilot0, pilot1, pilot2, ship, shipAction0, shipAction1, shipAction2, upgrade0, upgrade1, upgrade2];
+const contexts = [undefined, undefined, undefined, undefined, undefined, context0, context1, undefined, undefined, undefined, undefined];
 
-var showIcon, showLabel, showImplemented;
+let showIcon, showLabel, showImplemented;
 
-for (var j = 0; j < 5; j++)
+for (let j = 0; j < 5; j++)
 {
-   var input = undefined;
+   let input;
 
    switch (j)
    {
@@ -73,9 +73,9 @@ for (var j = 0; j < 5; j++)
          break;
    }
 
-   var rows = entities.map(function(entity, i)
+   let rows = entities.map(function(entity, i)
    {
-      var element = React.createElement(EntityUI,
+      const element = React.createElement(EntityUI,
       {
          key: "childDiv" + i,
          context: contexts[i],
@@ -102,9 +102,9 @@ for (var j = 0; j < 5; j++)
       className: "bg-near-white dt f6 mb1",
    }, rows), document.getElementById("panel" + j));
 
-   var rows = entities.map(function(entity, i)
+   rows = entities.map(function(entity, i)
    {
-      var element = React.createElement(EntityUI,
+      const element = React.createElement(EntityUI,
       {
          key: "childDiv" + i,
          context: contexts[i],

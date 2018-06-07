@@ -1,8 +1,8 @@
-var FileLoader = {};
+const FileLoader = {};
 
 FileLoader.loadFile = function(file, callback)
 {
-   var xhr = new XMLHttpRequest();
+   const xhr = new XMLHttpRequest();
    xhr.onreadystatechange = function()
    {
       if (xhr.readyState === 4 /* && xhr.status === 200 */ )

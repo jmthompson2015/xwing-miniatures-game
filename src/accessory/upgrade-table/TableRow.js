@@ -1,14 +1,14 @@
 import InputValidator from "../../utility/InputValidator.js";
 
-var TableRow = {};
+const TableRow = {};
 
 TableRow.createTableRow = function(upgrade)
 {
    InputValidator.validateNotNull("upgrade", upgrade);
 
-   var restrictionKeys = (upgrade.restrictionKeys !== undefined ? upgrade.restrictionKeys : []);
-   var rangeKeys = (upgrade.rangeKeys !== undefined ? upgrade.rangeKeys : []);
-   var isImplemented = (upgrade.isImplemented !== undefined ? upgrade.isImplemented : false);
+   const restrictionKeys = (upgrade.restrictionKeys !== undefined ? upgrade.restrictionKeys : []);
+   const rangeKeys = (upgrade.rangeKeys !== undefined ? upgrade.rangeKeys : []);
+   const isImplemented = (upgrade.isImplemented !== undefined ? upgrade.isImplemented : false);
 
    return (
    {

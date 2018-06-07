@@ -6,9 +6,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var abilityCounts = [];
-var rows = [];
-var cells = [];
+const abilityCounts = [];
+let rows = [];
+let cells = [];
 
 abilityCounts.push(React.createElement(AbilityCountUI,
 {
@@ -31,7 +31,7 @@ abilityCounts.push(React.createElement(AbilityCountUI,
    abilityCount: 0,
 }));
 
-var cells = abilityCounts.map(function(abilityCount)
+cells = abilityCounts.map(function(abilityCount)
 {
    return ReactDOMFactories.div(
    {
@@ -39,7 +39,7 @@ var cells = abilityCounts.map(function(abilityCount)
    }, abilityCount);
 });
 
-var rows = cells.map(function(cell, i)
+rows = cells.map(function(cell, i)
 {
    return ReactDOMFactories.div(
    {

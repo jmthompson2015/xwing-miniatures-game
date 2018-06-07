@@ -2,13 +2,13 @@ class UpgradeTypeUI extends React.Component
 {
    render()
    {
-      var upgradeType = this.props.upgradeType;
-      var typeName0 = upgradeType.name;
-      var typeName = typeName0.replace(" ", "");
-      var fileString = this.props.resourceBase + "upgradeType/" + typeName + "24.png";
-      var myKey = (this.props.myKey !== undefined ? this.props.myKey : upgradeType.key);
+      const upgradeType = this.props.upgradeType;
+      const typeName0 = upgradeType.name;
+      const typeName = typeName0.replace(" ", "");
+      const fileString = this.props.resourceBase + "upgradeType/" + typeName + "24.png";
+      const myKey = (this.props.myKey !== undefined ? this.props.myKey : upgradeType.key);
 
-      var icon = ReactDOMFactories.img(
+      const icon = ReactDOMFactories.img(
       {
          key: myKey,
          className: "upgradeTypeUIImage v-mid",
@@ -16,7 +16,7 @@ class UpgradeTypeUI extends React.Component
          title: typeName0,
       });
 
-      var answer = icon;
+      let answer = icon;
 
       if (this.props.showName)
       {

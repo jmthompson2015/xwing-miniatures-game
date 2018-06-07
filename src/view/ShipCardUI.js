@@ -11,13 +11,13 @@ class ShipCardUI extends React.Component
 {
    render()
    {
-      var shipFaction = this.props.shipFaction;
-      var resourceBase = this.props.resourceBase;
+      const shipFaction = this.props.shipFaction;
+      const resourceBase = this.props.resourceBase;
 
-      var cell0, cell1, cell2, cell3;
-      var shipFactionKey = shipFaction.key;
+      let cell0, cell1, cell2, cell3;
+      const shipFactionKey = shipFaction.key;
 
-      var images = [];
+      const images = [];
       images.push(this.createShipImage(shipFactionKey));
 
       if (shipFactionKey === ShipFaction.IMPERIAL_TIE_BOMBER)
@@ -58,7 +58,7 @@ class ShipCardUI extends React.Component
          images.push(this.createShipImage(ShipFaction.SCUM_STAR_VIPER_V2));
       }
 
-      var imagePanel;
+      let imagePanel;
 
       if (images.length === 1)
       {
@@ -66,23 +66,23 @@ class ShipCardUI extends React.Component
       }
       else
       {
-         var imagePanelCells = images.map(function(image, i)
+         const imagePanelCells = images.map(function(image, i)
          {
             return ReactUtilities.createCell(image, "image" + i, "pa1");
          });
 
-         var imagePanelRow = ReactUtilities.createRow(imagePanelCells);
+         const imagePanelRow = ReactUtilities.createRow(imagePanelCells);
          imagePanel = ReactUtilities.createTable(imagePanelRow, "imagePanel", "center tc");
       }
 
-      var silhouette = React.createElement(ShipSilhouetteUI,
+      const silhouette = React.createElement(ShipSilhouetteUI,
       {
          ship: shipFaction.ship,
          resourceBase: resourceBase,
          showName: true,
       });
 
-      var shipActionPanel0, shipActionPanel1;
+      let shipActionPanel0, shipActionPanel1;
 
       if ([ShipFaction.IMPERIAL_RAIDER_CLASS_CORVETTE, ShipFaction.REBEL_CR90_CORVETTE].includes(shipFactionKey))
       {
@@ -103,12 +103,12 @@ class ShipCardUI extends React.Component
          });
       }
 
-      var maneuverKeys = shipFaction.ship.maneuverKeys;
-      var maneuvers = maneuverKeys.map(function(maneuverKey)
+      const maneuverKeys = shipFaction.ship.maneuverKeys;
+      const maneuvers = maneuverKeys.map(function(maneuverKey)
       {
          return Maneuver.properties[maneuverKey];
       });
-      var chooser = React.createElement(ManeuverChooser,
+      const chooser = React.createElement(ManeuverChooser,
       {
          resourceBase: resourceBase,
          isEditable: false,
@@ -119,8 +119,8 @@ class ShipCardUI extends React.Component
       cell0 = ReactUtilities.createCell(imagePanel, "image" + shipFactionKey, "center tc");
       cell1 = ReactUtilities.createCell(silhouette, "name" + shipFactionKey, "center pa1 tc");
 
-      var cell2Cells = [];
-      var cell2Row, cell2Table;
+      const cell2Cells = [];
+      let cell2Row, cell2Table;
 
       if (shipActionPanel1 !== undefined)
       {
@@ -155,7 +155,7 @@ class ShipCardUI extends React.Component
 
       cell3 = ReactUtilities.createCell(chooser, "maneuvers" + shipFactionKey, "alignBottom center pa1");
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactUtilities.createRow(cell0, rows.length));
       rows.push(ReactUtilities.createRow(cell1, rows.length, "white"));
       rows.push(ReactUtilities.createRow(cell2, rows.length));
@@ -167,11 +167,11 @@ class ShipCardUI extends React.Component
 
 ShipCardUI.prototype.createShipImage = function(shipFactionKey)
 {
-   var shipFaction = ShipFaction.properties[shipFactionKey];
-   var shipBase = shipFaction.ship.shipBase;
+   const shipFaction = ShipFaction.properties[shipFactionKey];
+   const shipBase = shipFaction.ship.shipBase;
 
    // Mock the model/js/Position class to avoid a dependency.
-   var position = {
+   const position = {
       x: function()
       {
          return shipBase.width / 2;

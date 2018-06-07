@@ -8,19 +8,19 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../../../src/resource/";
+const resourceBase = "../../../src/resource/";
 
 class DamageGallery extends React.Component
 {
    render()
    {
-      var damageKeys = this.props.damageKeys;
+      const damageKeys = this.props.damageKeys;
 
-      var cells = [];
+      const cells = [];
 
       damageKeys.forEach(function(damageKey)
       {
-         var element = React.createElement(CardImage,
+         const element = React.createElement(CardImage,
          {
             key: "damageInstance" + damageKey,
             card: DamageCard.properties[damageKey],
@@ -35,7 +35,7 @@ class DamageGallery extends React.Component
    }
 }
 
-var rows = [];
+const rows = [];
 
 rows.push(ReactDOMFactories.h2(
 {
@@ -59,6 +59,6 @@ rows.push(React.createElement(DamageGallery,
    damageKeys: DamageCard.keysV2(),
 }));
 
-var mainPanel = ReactDOMFactories.div(
+const mainPanel = ReactDOMFactories.div(
 {}, rows);
 ReactDOM.render(mainPanel, document.getElementById("mainPanel"));

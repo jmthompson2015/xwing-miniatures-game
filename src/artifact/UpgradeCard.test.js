@@ -7,8 +7,8 @@ QUnit.module("UpgradeCard");
 
 QUnit.test("UpgradeCard properties Adrenaline Rush", function(assert)
 {
-   var upgrade = UpgradeCard.ADRENALINE_RUSH;
-   var properties = UpgradeCard.properties[upgrade];
+   const upgrade = UpgradeCard.ADRENALINE_RUSH;
+   const properties = UpgradeCard.properties[upgrade];
    assert.equal(properties.name, "Adrenaline Rush");
    assert.equal(properties.typeKey, UpgradeType.ELITE);
    assert.ok(properties.type);
@@ -24,10 +24,10 @@ QUnit.test("UpgradeCard properties Adrenaline Rush", function(assert)
 QUnit.test("UpgradeCard properties C-3PO", function(assert)
 {
    // Setup.
-   var upgradeCard = UpgradeCard.C_3PO;
+   const upgradeCard = UpgradeCard.C_3PO;
 
    // Run.
-   var result = UpgradeCard.properties[upgradeCard];
+   const result = UpgradeCard.properties[upgradeCard];
 
    // Verify.
    assert.ok(result);
@@ -53,13 +53,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = UpgradeCard.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(UpgradeCard);
+   const result = UpgradeCard.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(UpgradeCard);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = UpgradeCard[key];
+      const key2 = UpgradeCard[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -69,7 +69,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return UpgradeCard[key] === value;
       });
@@ -81,17 +81,17 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = UpgradeCard.keys();
+   const result = UpgradeCard.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 354;
+   const length = 354;
    assert.equal(result.length, length);
    assert.equal(result[0], UpgradeCard.A_SCORE_TO_SETTLE);
    assert.equal(result[length - 1], UpgradeCard.ZUCKUSS);
 
-   var properties = Object.getOwnPropertyNames(UpgradeCard);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(UpgradeCard);
+   const count = properties.length - 1 - // properties
       1 - // getName
       1 - // keys
       1 - // keysByPilotAndType
@@ -104,11 +104,11 @@ QUnit.test("keys()", function(assert)
 QUnit.test("keysByPilotAndType() Astromech", function(assert)
 {
    // Run.
-   var result = UpgradeCard.keysByPilotAndType(PilotCard.LUKE_SKYWALKER, UpgradeType.ASTROMECH);
+   const result = UpgradeCard.keysByPilotAndType(PilotCard.LUKE_SKYWALKER, UpgradeType.ASTROMECH);
 
    // Verify.
    assert.ok(result);
-   var length = 19;
+   const length = 19;
    assert.equal(result.length, length);
    assert.equal(result[0], UpgradeCard.BB_8);
    assert.equal(result[length - 1], UpgradeCard.TARGETING_ASTROMECH);
@@ -117,13 +117,13 @@ QUnit.test("keysByPilotAndType() Astromech", function(assert)
 QUnit.test("keysByPilotAndType() Boba Fett Modification", function(assert)
 {
    // Run.
-   var result = UpgradeCard.keysByPilotAndType(PilotCard.BOBA_FETT_IMPERIAL, UpgradeType.MODIFICATION);
+   const result = UpgradeCard.keysByPilotAndType(PilotCard.BOBA_FETT_IMPERIAL, UpgradeType.MODIFICATION);
 
    // Verify.
    assert.ok(result);
-   var length = 16;
+   const length = 16;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], UpgradeCard.ADVANCED_SLAM);
    assert.equal(result[i++], UpgradeCard.ANTI_PURSUIT_LASERS);
    assert.equal(result[i++], UpgradeCard.AUTOTHRUSTERS);
@@ -145,12 +145,12 @@ QUnit.test("keysByPilotAndType() Boba Fett Modification", function(assert)
 QUnit.test("keysByPilotAndType() Boba Fett Title", function(assert)
 {
    // Run.
-   var result = UpgradeCard.keysByPilotAndType(PilotCard.BOBA_FETT_IMPERIAL, UpgradeType.TITLE);
+   const result = UpgradeCard.keysByPilotAndType(PilotCard.BOBA_FETT_IMPERIAL, UpgradeType.TITLE);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 2);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], UpgradeCard.ANDRASTA);
    assert.equal(result[i++], UpgradeCard.SLAVE_I);
 });
@@ -158,13 +158,13 @@ QUnit.test("keysByPilotAndType() Boba Fett Title", function(assert)
 QUnit.test("keysByPilotAndType() Elite", function(assert)
 {
    // Run.
-   var result = UpgradeCard.keysByPilotAndType(PilotCard.DARTH_VADER, UpgradeType.ELITE);
+   const result = UpgradeCard.keysByPilotAndType(PilotCard.DARTH_VADER, UpgradeType.ELITE);
 
    // Verify.
    assert.ok(result);
-   var length = 40;
+   const length = 40;
    assert.equal(result.length, length);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], UpgradeCard.A_SCORE_TO_SETTLE);
    assert.equal(result[i++], UpgradeCard.ADAPTABILITY_DECREASE);
    assert.equal(result[i++], UpgradeCard.ADAPTABILITY_INCREASE);
@@ -223,11 +223,11 @@ QUnit.test("required properties", function(assert)
 QUnit.test("valuesByType() Astromech", function(assert)
 {
    // Run.
-   var result = UpgradeCard.keysByType(UpgradeType.ASTROMECH);
+   const result = UpgradeCard.keysByType(UpgradeType.ASTROMECH);
 
    // Verify.
    assert.ok(result);
-   var length = 19;
+   const length = 19;
    assert.equal(result.length, length);
    assert.equal(result[0], UpgradeCard.BB_8);
    assert.equal(result[length - 1], UpgradeCard.TARGETING_ASTROMECH);
@@ -236,11 +236,11 @@ QUnit.test("valuesByType() Astromech", function(assert)
 QUnit.test("valuesByType() Elite", function(assert)
 {
    // Run.
-   var result = UpgradeCard.keysByType(UpgradeType.ELITE);
+   const result = UpgradeCard.keysByType(UpgradeType.ELITE);
 
    // Verify.
    assert.ok(result);
-   var length = 44;
+   const length = 44;
    assert.equal(result.length, length);
    assert.equal(result[0], UpgradeCard.A_SCORE_TO_SETTLE);
    assert.equal(result[length - 1], UpgradeCard.WIRED);

@@ -1,4 +1,4 @@
-var CardType = {
+const CardType = {
    CONDITION: "condition",
    DAMAGE: "damage",
    PILOT: "pilot",

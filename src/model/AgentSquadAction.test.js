@@ -5,10 +5,10 @@ QUnit.module("AgentSquadAction");
 QUnit.test("setDisplayItem()", function(assert)
 {
    // Setup.
-   var displayItem = {};
+   const displayItem = {};
 
    // Run.
-   var result = AgentSquadAction.setDisplayItem(displayItem);
+   const result = AgentSquadAction.setDisplayItem(displayItem);
 
    // Verify.
    assert.ok(result);

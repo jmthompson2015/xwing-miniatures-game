@@ -6,8 +6,8 @@ function mapStateToProps(state)
 {
    InputValidator.validateNotNull("state.filteredTableRows", state.filteredTableRows);
 
-   var filteredTableRows = state.filteredTableRows;
-   var implementedCount = filteredTableRows.reduce(function(accumulator, tableRow)
+   const filteredTableRows = state.filteredTableRows;
+   const implementedCount = filteredTableRows.reduce(function(accumulator, tableRow)
    {
       return accumulator + (tableRow.isImplemented ? 1 : 0);
    }, 0);

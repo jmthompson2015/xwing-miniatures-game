@@ -8,7 +8,7 @@ function QueueProcessor(queueIn, callback, elementFunctionIn, finishFunctionIn, 
    // finishFunction optional.
    // delayIn optional.
 
-   var queue = queueIn.slice();
+   const queue = queueIn.slice();
 
    this.queue = function()
    {
@@ -20,7 +20,7 @@ function QueueProcessor(queueIn, callback, elementFunctionIn, finishFunctionIn, 
       return callback;
    };
 
-   var elementFunction = (elementFunctionIn !== undefined ? elementFunctionIn : function(element, queueCallback)
+   const elementFunction = (elementFunctionIn !== undefined ? elementFunctionIn : function(element, queueCallback)
    {
       queueCallback();
    });
@@ -30,7 +30,7 @@ function QueueProcessor(queueIn, callback, elementFunctionIn, finishFunctionIn, 
       return elementFunction;
    };
 
-   var finishFunction = (finishFunctionIn !== undefined ? finishFunctionIn : function(finishCallback)
+   const finishFunction = (finishFunctionIn !== undefined ? finishFunctionIn : function(finishCallback)
    {
       finishCallback();
    });
@@ -40,7 +40,7 @@ function QueueProcessor(queueIn, callback, elementFunctionIn, finishFunctionIn, 
       return finishFunction;
    };
 
-   var delay = (delayIn !== undefined ? delayIn : 1000);
+   const delay = (delayIn !== undefined ? delayIn : 1000);
 
    this.delay = function()
    {
@@ -52,8 +52,8 @@ QueueProcessor.prototype.processQueue = function()
 {
    if (this.queue().length === 0)
    {
-      var finishFunction = this.finishFunction();
-      var finishCallback = this.callback();
+      const finishFunction = this.finishFunction();
+      const finishCallback = this.callback();
 
       setTimeout(function()
       {
@@ -62,10 +62,10 @@ QueueProcessor.prototype.processQueue = function()
       return;
    }
 
-   var element = this.queue().shift();
-   var elementFunction = this.elementFunction();
-   var processQueue = this.processQueue.bind(this);
-   var queueCallback = function()
+   const element = this.queue().shift();
+   const elementFunction = this.elementFunction();
+   const processQueue = this.processQueue.bind(this);
+   const queueCallback = function()
    {
       processQueue();
    };

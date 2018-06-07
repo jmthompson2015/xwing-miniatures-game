@@ -18,17 +18,17 @@ import SquadBuilder from "./SquadBuilder.js";
 
 QUnit.module("Engine");
 
-var delay = 10;
+const delay = 10;
 
 QUnit.test("performActivationPhase()", function(assert)
 {
    // Setup.
-   var engine = createEngine();
+   const engine = createEngine();
    engine.performCombatPhase = function()
    {
       LOGGER.info("performCombatPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -36,19 +36,19 @@ QUnit.test("performActivationPhase()", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performPlanningPhase(callback);
 });
 
 QUnit.test("performActivationPhase() Huge", function(assert)
 {
    // Setup.
-   var engine = createEngine(true);
+   const engine = createEngine(true);
    engine.performCombatPhase = function()
    {
       LOGGER.info("performCombatPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -56,25 +56,25 @@ QUnit.test("performActivationPhase() Huge", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performPlanningPhase(callback);
 });
 
 QUnit.test("performActivationPhase() decloak", function(assert)
 {
    // Setup.
-   var squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #2", 2014);
-   var squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
-   var store = Redux.createStore(Reducer.root);
-   var agent1 = new Agent(store, "1");
-   var agent2 = new Agent(store, "2");
-   var squad1 = squadBuilder1.buildSquad(agent1);
-   var squad2 = squadBuilder2.buildSquad(agent2);
-   var environment = new Environment(store, agent1, squad1, agent2, squad2);
+   const squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #2", 2014);
+   const squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
+   const store = Redux.createStore(Reducer.root);
+   const agent1 = new Agent(store, "1");
+   const agent2 = new Agent(store, "2");
+   const squad1 = squadBuilder1.buildSquad(agent1);
+   const squad2 = squadBuilder2.buildSquad(agent2);
+   const environment = new Environment(store, agent1, squad1, agent2, squad2);
    Adjudicator.create(store);
    store.dispatch(Action.setDelay(delay));
-   var engine = new Engine(store);
-   var token0 = environment.pilotInstances()[0]; // TIE Phantom
+   const engine = new Engine(store);
+   const token0 = environment.pilotInstances()[0]; // TIE Phantom
    EventObserver.observeStore(store);
    PhaseObserver.observeStore(store);
    store.dispatch(CardAction.addCloakCount(token0));
@@ -82,12 +82,12 @@ QUnit.test("performActivationPhase() decloak", function(assert)
    {
       LOGGER.info("performCombatPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
 
-      var token = environment.pilotInstances()[0]; // TIE Phantom
+      const token = environment.pilotInstances()[0]; // TIE Phantom
       if (token.card().key === PilotCard.WHISPER)
       {
          if (token.isCloaked())
@@ -116,26 +116,26 @@ QUnit.test("performActivationPhase() decloak", function(assert)
    assert.equal(token0.cloakCount(), 1);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performPlanningPhase(callback);
 });
 
 QUnit.test("performCombatPhase()", function(assert)
 {
    // Setup.
-   var engine = createEngine();
-   var environment = engine.environment();
-   var token0 = environment.pilotInstances()[0]; // TIE Fighter.
-   var position0 = environment.getPositionFor(token0);
-   var token2 = environment.pilotInstances()[2]; // X-Wing.
-   var position2 = environment.getPositionFor(token2);
-   var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
+   const engine = createEngine();
+   const environment = engine.environment();
+   const token0 = environment.pilotInstances()[0]; // TIE Fighter.
+   const position0 = environment.getPositionFor(token0);
+   const token2 = environment.pilotInstances()[2]; // X-Wing.
+   const position2 = environment.getPositionFor(token2);
+   const newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
    environment.moveToken(position2, newPosition2);
    engine.performEndPhase = function()
    {
       LOGGER.info("performEndPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -143,32 +143,32 @@ QUnit.test("performCombatPhase()", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performCombatPhase(callback);
 });
 
 QUnit.test("performCombatPhase() Epsilon Leader", function(assert)
 {
    // Setup.
-   var engine = createEngineEpsilonLeader();
-   var environment = engine.environment();
-   var store = environment.store();
-   var tokens = environment.pilotInstances();
-   var token0 = tokens[0]; // TIE/fo Fighter.
-   var position0 = environment.getPositionFor(token0);
-   var token1 = tokens[1]; // TIE/fo Fighter.
-   var position1 = environment.getPositionFor(token1);
-   var newPosition1 = new Position(position0.x() + 50, position0.y(), position1.heading());
+   const engine = createEngineEpsilonLeader();
+   const environment = engine.environment();
+   const store = environment.store();
+   const tokens = environment.pilotInstances();
+   const token0 = tokens[0]; // TIE/fo Fighter.
+   const position0 = environment.getPositionFor(token0);
+   const token1 = tokens[1]; // TIE/fo Fighter.
+   const position1 = environment.getPositionFor(token1);
+   const newPosition1 = new Position(position0.x() + 50, position0.y(), position1.heading());
    environment.moveToken(position1, newPosition1);
-   var token2 = tokens[2]; // T-70 X-Wing.
-   var position2 = environment.getPositionFor(token2);
-   var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
+   const token2 = tokens[2]; // T-70 X-Wing.
+   const position2 = environment.getPositionFor(token2);
+   const newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
    environment.moveToken(position2, newPosition2);
    engine.performEndPhase = function()
    {
       LOGGER.info("performEndPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -185,59 +185,59 @@ QUnit.test("performCombatPhase() Epsilon Leader", function(assert)
    assert.equal(token2.stressCount(), 1, "token2.stressCount() === 1");
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performCombatPhase(callback);
 });
 
 QUnit.test("performCombatPhase() Mara Jade", function(assert)
 {
    // Setup.
-   var engine = createEngine();
-   var environment = engine.environment();
-   var token0 = environment.pilotInstances()[0]; // TIE Fighter.
-   var store = environment.store();
-   var upgrade = new CardInstance(store, UpgradeCard.MARA_JADE);
+   const engine = createEngine();
+   const environment = engine.environment();
+   const token0 = environment.pilotInstances()[0]; // TIE Fighter.
+   const store = environment.store();
+   const upgrade = new CardInstance(store, UpgradeCard.MARA_JADE);
    store.dispatch(CardAction.addUpgrade(token0, upgrade));
-   var position0 = environment.getPositionFor(token0);
-   var token1 = environment.pilotInstances()[1]; // TIE Fighter.
-   var token2 = environment.pilotInstances()[2]; // X-Wing.
-   var position2 = environment.getPositionFor(token2);
-   var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
+   const position0 = environment.getPositionFor(token0);
+   const token1 = environment.pilotInstances()[1]; // TIE Fighter.
+   const token2 = environment.pilotInstances()[2]; // X-Wing.
+   const position2 = environment.getPositionFor(token2);
+   const newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
    environment.moveToken(position2, newPosition2);
    engine.performEndPhase = function()
    {
       LOGGER.info("performEndPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.equal(token0.stressCount(), 0, "token0.stressCount() === 0");
       assert.equal(token1.stressCount(), 0, "token1.stressCount() === 0");
-      var stressCount = (token0.isDestroyed() ? 0 : 1);
+      const stressCount = (token0.isDestroyed() ? 0 : 1);
       assert.equal(token2.stressCount(), stressCount, "token2.stressCount() === " + stressCount);
       done();
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performCombatPhase(callback);
 });
 
 QUnit.test("performCombatPhase() R5-P9", function(assert)
 {
    // Setup.
-   var engine = createEngine();
-   var environment = engine.environment();
-   var store = environment.store();
-   var token2 = environment.pilotInstances()[2]; // X-Wing.
-   var upgrade = new CardInstance(store, UpgradeCard.R5_P9);
+   const engine = createEngine();
+   const environment = engine.environment();
+   const store = environment.store();
+   const token2 = environment.pilotInstances()[2]; // X-Wing.
+   const upgrade = new CardInstance(store, UpgradeCard.R5_P9);
    store.dispatch(CardAction.addUpgrade(token2, upgrade));
    engine.performEndPhase = function()
    {
       LOGGER.info("performEndPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -251,32 +251,32 @@ QUnit.test("performCombatPhase() R5-P9", function(assert)
    assert.equal(token2.shieldCount(), 1, "token2.shieldCount() === 1");
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performCombatPhase(callback);
 });
 
 QUnit.test("performCombatPhase() Ysanne Isard", function(assert)
 {
    // Setup.
-   var engine = createEngine();
-   var environment = engine.environment();
-   var token0 = environment.pilotInstances()[0]; // TIE Fighter.
-   var store = environment.store();
-   var upgrade = new CardInstance(store, UpgradeCard.YSANNE_ISARD);
+   const engine = createEngine();
+   const environment = engine.environment();
+   const token0 = environment.pilotInstances()[0]; // TIE Fighter.
+   const store = environment.store();
+   const upgrade = new CardInstance(store, UpgradeCard.YSANNE_ISARD);
    store.dispatch(CardAction.addUpgrade(token0, upgrade));
    store.dispatch(CardAction.setShieldCount(token0));
-   var damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
+   const damage = new CardInstance(store, DamageCard.BLINDED_PILOT);
    token0.receiveDamage(damage);
-   var position0 = environment.getPositionFor(token0);
-   var token2 = environment.pilotInstances()[2]; // X-Wing.
-   var position2 = environment.getPositionFor(token2);
-   var newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
+   const position0 = environment.getPositionFor(token0);
+   const token2 = environment.pilotInstances()[2]; // X-Wing.
+   const position2 = environment.getPositionFor(token2);
+   const newPosition2 = new Position(position0.x(), position0.y() + 50, position2.heading());
    environment.moveToken(position2, newPosition2);
    engine.performEndPhase = function()
    {
       LOGGER.info("performEndPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -290,25 +290,25 @@ QUnit.test("performCombatPhase() Ysanne Isard", function(assert)
    assert.equal(token0.evadeCount(), 0, "token0.evadeCount() === 0");
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performCombatPhase(callback);
 });
 
 QUnit.test("performEndPhase()", function(assert)
 {
    // Setup.
-   var engine = createEngine();
-   var environment = engine.environment();
-   var store = environment.store();
-   var token0 = environment.pilotInstances()[0];
+   const engine = createEngine();
+   const environment = engine.environment();
+   const store = environment.store();
+   const token0 = environment.pilotInstances()[0];
    store.dispatch(CardAction.addEvadeCount(token0));
    store.dispatch(CardAction.addFocusCount(token0));
    store.dispatch(CardAction.addWeaponsDisabledCount(token0));
-   var token1 = environment.pilotInstances()[1];
+   const token1 = environment.pilotInstances()[1];
    store.dispatch(CardAction.addEvadeCount(token1));
    store.dispatch(CardAction.addFocusCount(token1));
    store.dispatch(CardAction.addWeaponsDisabledCount(token1));
-   var token2 = environment.pilotInstances()[2];
+   const token2 = environment.pilotInstances()[2];
    store.dispatch(CardAction.addEvadeCount(token2));
    store.dispatch(CardAction.addFocusCount(token2));
    store.dispatch(CardAction.addWeaponsDisabledCount(token2));
@@ -316,7 +316,7 @@ QUnit.test("performEndPhase()", function(assert)
    {
       LOGGER.info("performPlanningPhase() dummy");
    };
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -333,28 +333,28 @@ QUnit.test("performEndPhase()", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performEndPhase(callback);
 });
 
 QUnit.test("performPlanningPhase()", function(assert)
 {
    // Setup.
-   var engine = createEngine();
+   const engine = createEngine();
    engine.performActivationPhase = function()
    {
       LOGGER.info("performActivationPhase() dummy");
    };
-   var store = engine.store();
-   var environment = store.getState().environment;
-   var callback = function()
+   const store = engine.store();
+   const environment = store.getState().environment;
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      var pilotInstances = environment.pilotInstances();
-      var pilotToManeuver = store.getState().pilotToManeuver;
+      const pilotInstances = environment.pilotInstances();
+      const pilotToManeuver = store.getState().pilotToManeuver;
       assert.ok(pilotToManeuver);
-      var keys = pilotToManeuver.keySeq().toArray();
+      const keys = pilotToManeuver.keySeq().toArray();
       assert.ok(keys);
       assert.equal(keys.length, pilotInstances.length);
       keys.forEach(function(key)
@@ -366,13 +366,13 @@ QUnit.test("performPlanningPhase()", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    engine.performPlanningPhase(callback);
 });
 
 function createEngine(isHuge)
 {
-   var environment;
+   let environment;
 
    if (isHuge)
    {
@@ -383,8 +383,8 @@ function createEngine(isHuge)
       environment = EnvironmentFactory.createCoreSetEnvironment();
    }
 
-   var store = environment.store();
-   var adjudicator = Adjudicator.create(store);
+   const store = environment.store();
+   const adjudicator = Adjudicator.create(store);
    store.dispatch(Action.setAdjudicator(adjudicator));
    store.dispatch(Action.setDelay(delay));
 
@@ -393,9 +393,9 @@ function createEngine(isHuge)
 
 function createEngineEpsilonLeader()
 {
-   var environment = EnvironmentFactory.createTFACoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = Adjudicator.create(store);
+   const environment = EnvironmentFactory.createTFACoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = Adjudicator.create(store);
    store.dispatch(Action.setAdjudicator(adjudicator));
    store.dispatch(Action.setDelay(delay));
 

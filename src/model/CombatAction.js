@@ -28,8 +28,8 @@ function CombatAction(store, attacker, weapon, defender, callback, attackDiceCla
       throw "ERROR: attacker === defender when creating CombatAction " + attacker;
    }
 
-   var attackDiceClass = (attackDiceClassIn ? attackDiceClassIn : AttackDice);
-   var defenseDiceClass = (defenseDiceClassIn ? defenseDiceClassIn : DefenseDice);
+   const attackDiceClass = (attackDiceClassIn ? attackDiceClassIn : AttackDice);
+   const defenseDiceClass = (defenseDiceClassIn ? defenseDiceClassIn : DefenseDice);
 
    this.store = function()
    {
@@ -66,7 +66,7 @@ function CombatAction(store, attacker, weapon, defender, callback, attackDiceCla
       return defenseDiceClass;
    };
 
-   var executionCount = 0;
+   let executionCount = 0;
 
    this.executionCount = function(value)
    {
@@ -86,34 +86,34 @@ CombatAction.prototype.PERFORM_ATTACK_TWICE_UPGRADES = [UpgradeCard.CLUSTER_MISS
 
 CombatAction.prototype.adjudicator = function()
 {
-   var store = this.store();
+   const store = this.store();
    return Selector.adjudicator(store.getState());
 };
 
 CombatAction.prototype.attackerPosition = function()
 {
-   var environment = this.environment();
-   var attacker = this.attacker();
+   const environment = this.environment();
+   const attacker = this.attacker();
    return environment.getPositionFor(attacker);
 };
 
 CombatAction.prototype.defenderPosition = function()
 {
-   var environment = this.environment();
-   var defender = this.defender();
+   const environment = this.environment();
+   const defender = this.defender();
    return environment.getPositionFor(defender);
 };
 
 CombatAction.prototype.delay = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().delay;
 };
 
 CombatAction.prototype.environment = function()
 {
-   var store = this.store();
+   const store = this.store();
    return Selector.environment(store.getState());
 };
 
@@ -125,8 +125,8 @@ CombatAction.prototype.doIt = function()
    LOGGER.trace("CombatAction.doIt() start");
 
    this.executionCount(this.executionCount() + 1);
-   var store = this.store();
-   var attacker = this.attacker();
+   const store = this.store();
+   const attacker = this.attacker();
    store.dispatch(Action.setTokenCombatAction(attacker, this));
 
    this.declareTarget();
@@ -138,7 +138,7 @@ CombatAction.prototype.declareTarget = function()
 {
    LOGGER.trace("CombatAction.declareTarget() start");
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_DECLARE_TARGET, this.attacker(), this.finishDeclareTarget.bind(this)));
 
    LOGGER.trace("CombatAction.declareTarget() end");
@@ -148,22 +148,22 @@ CombatAction.prototype.finishDeclareTarget = function()
 {
    LOGGER.trace("CombatAction.finishDeclareTarget() start");
 
-   var store = this.store();
-   var attacker = this.attacker();
-   var attackerPosition = this.attackerPosition();
-   var weapon = this.weapon();
-   var defender = this.defender();
-   var defenderPosition = this.defenderPosition();
+   const store = this.store();
+   const attacker = this.attacker();
+   const attackerPosition = this.attackerPosition();
+   const weapon = this.weapon();
+   const defender = this.defender();
+   const defenderPosition = this.defenderPosition();
 
-   var rangeKey = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
+   const rangeKey = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
    if (rangeKey === undefined)
    {
       throw "Defender out of range. attacker: " + attacker + " defender: " + defender;
    }
    store.dispatch(Action.setTokenRange(attacker, rangeKey));
 
-   var firingArc = weapon.primaryFiringArc();
-   var isInFiringArc = weapon.isDefenderInFiringArc(attackerPosition, firingArc, defender, defenderPosition);
+   const firingArc = weapon.primaryFiringArc();
+   const isInFiringArc = weapon.isDefenderInFiringArc(attackerPosition, firingArc, defender, defenderPosition);
    store.dispatch(Action.setTokenInFiringArc(attacker, isInFiringArc));
 
    this.rollAttackDice();
@@ -175,7 +175,7 @@ CombatAction.prototype.rollAttackDice = function()
 {
    LOGGER.trace("CombatAction.rollAttackDice() start");
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_ROLL_ATTACK_DICE, this.attacker(), this.finishRollAttackDice.bind(this)));
 
    LOGGER.trace("CombatAction.rollAttackDice() end");
@@ -185,17 +185,17 @@ CombatAction.prototype.finishRollAttackDice = function()
 {
    LOGGER.trace("CombatAction.finishRollAttackDice() start");
 
-   var store = this.store();
-   var environment = this.environment();
-   var attacker = this.attacker();
-   var defender = this.defender();
-   var weapon = this.weapon();
-   var rangeKey = Selector.rangeKey(store.getState(), attacker);
-   var attackDiceCount = attacker.computeAttackDiceCount(environment, weapon, defender, rangeKey);
-   var attackDiceClass = this.attackDiceClass();
-   var attackDice = new attackDiceClass(store, attacker.id(), attackDiceCount);
+   const store = this.store();
+   const environment = this.environment();
+   const attacker = this.attacker();
+   const defender = this.defender();
+   const weapon = this.weapon();
+   const rangeKey = Selector.rangeKey(store.getState(), attacker);
+   const attackDiceCount = attacker.computeAttackDiceCount(environment, weapon, defender, rangeKey);
+   const attackDiceClass = this.attackDiceClass();
+   const attackDice = new attackDiceClass(store, attacker.id(), attackDiceCount);
 
-   var phaseContext = {
+   const phaseContext = {
       defender: defender,
    };
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_MODIFY_ATTACK_DICE, attacker, this.rollDefenseDice.bind(this), phaseContext));
@@ -207,7 +207,7 @@ CombatAction.prototype.rollDefenseDice = function()
 {
    LOGGER.trace("CombatAction.rollDefenseDice() start");
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_ROLL_DEFENSE_DICE, this.attacker(), this.finishRollDefenseDice.bind(this)));
 
    LOGGER.trace("CombatAction.rollDefenseDice() end");
@@ -217,14 +217,14 @@ CombatAction.prototype.finishRollDefenseDice = function()
 {
    LOGGER.trace("CombatAction.finishRollDefenseDice() start");
 
-   var store = this.store();
-   var attacker = this.attacker();
-   var defender = this.defender();
-   var weapon = this.weapon();
-   var rangeKey = Selector.rangeKey(store.getState(), attacker);
-   var defenderDiceCount = defender.computeDefenseDiceCount(this.environment(), attacker, weapon, rangeKey);
-   var defenseDiceClass = this.defenseDiceClass();
-   var defenseDice = new defenseDiceClass(store, attacker.id(), defenderDiceCount);
+   const store = this.store();
+   const attacker = this.attacker();
+   const defender = this.defender();
+   const weapon = this.weapon();
+   const rangeKey = Selector.rangeKey(store.getState(), attacker);
+   const defenderDiceCount = defender.computeDefenseDiceCount(this.environment(), attacker, weapon, rangeKey);
+   const defenseDiceClass = this.defenseDiceClass();
+   const defenseDice = new defenseDiceClass(store, attacker.id(), defenderDiceCount);
 
    this.modifyDefenseDice();
 
@@ -235,9 +235,9 @@ CombatAction.prototype.modifyDefenseDice = function()
 {
    LOGGER.trace("CombatAction.modifyDefenseDice() start");
 
-   var store = this.store();
-   var defender = this.defender();
-   var phaseContext = {
+   const store = this.store();
+   const defender = this.defender();
+   const phaseContext = {
       defender: defender,
    };
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_MODIFY_DEFENSE_DICE, this.attacker(), this.compareResults.bind(this), phaseContext));
@@ -249,7 +249,7 @@ CombatAction.prototype.compareResults = function()
 {
    LOGGER.trace("CombatAction.compareResults() start");
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_COMPARE_RESULTS, this.attacker(), this.finishCompareResults.bind(this)));
 
    LOGGER.trace("CombatAction.compareResults() end");
@@ -259,15 +259,15 @@ CombatAction.prototype.finishCompareResults = function()
 {
    LOGGER.trace("CombatAction.finishCompareResults() start");
 
-   var store = this.store();
-   var environment = this.environment();
-   var attacker = this.attacker();
-   var defender = this.defender();
-   var attackDice = AttackDice.get(store, attacker.id());
-   var defenseDice = DefenseDice.get(store, attacker.id());
-   var damageDealer = new DamageDealer(environment, attackDice.hitCount(), attackDice.criticalHitCount(), defender, defenseDice.evadeCount());
+   const store = this.store();
+   const environment = this.environment();
+   const attacker = this.attacker();
+   const defender = this.defender();
+   const attackDice = AttackDice.get(store, attacker.id());
+   const defenseDice = DefenseDice.get(store, attacker.id());
+   const damageDealer = new DamageDealer(environment, attackDice.hitCount(), attackDice.criticalHitCount(), defender, defenseDice.evadeCount());
    store.dispatch(Action.setTokenDamageDealer(attacker, damageDealer));
-   var isDefenderHit = (damageDealer.hits() + damageDealer.criticalHits() > 0);
+   let isDefenderHit = (damageDealer.hits() + damageDealer.criticalHits() > 0);
    if (attacker.card().key === PilotCard.LIEUTENANT_BLOUNT)
    {
       isDefenderHit = true;
@@ -283,7 +283,7 @@ CombatAction.prototype.notifyDamage = function()
 {
    LOGGER.trace("CombatAction.dealDamage() start");
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_NOTIFY_DAMAGE, this.attacker(), this.finishNotifyDamage.bind(this)));
 };
 
@@ -291,17 +291,17 @@ CombatAction.prototype.finishNotifyDamage = function()
 {
    LOGGER.trace("CombatAction.finishNotifyDamage() start");
 
-   var store = this.store();
-   var attacker = this.attacker();
-   var defender = this.defender();
-   var attackerAgent = attacker.agent();
-   var defenderAgent = defender.agent();
-   var attackerIsComputerAgent = attackerAgent.isComputerAgent();
-   var defenderIsComputerAgent = defenderAgent.isComputerAgent();
-   var attackDice = AttackDice.get(store, attacker.id());
-   var defenseDice = DefenseDice.get(store, attacker.id());
-   var damageDealer = Selector.damageDealer(store.getState(), attacker);
-   var callback = this.dealDamage.bind(this);
+   const store = this.store();
+   const attacker = this.attacker();
+   const defender = this.defender();
+   const attackerAgent = attacker.agent();
+   const defenderAgent = defender.agent();
+   const attackerIsComputerAgent = attackerAgent.isComputerAgent();
+   const defenderIsComputerAgent = defenderAgent.isComputerAgent();
+   const attackDice = AttackDice.get(store, attacker.id());
+   const defenseDice = DefenseDice.get(store, attacker.id());
+   const damageDealer = Selector.damageDealer(store.getState(), attacker);
+   const callback = this.dealDamage.bind(this);
 
    // Four possibilities:
    // computer vs computer: call dealDamage() once
@@ -335,7 +335,7 @@ CombatAction.prototype.dealDamage = function()
 {
    LOGGER.trace("CombatAction.dealDamage() start");
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_DEAL_DAMAGE, this.attacker(), this.finishDealDamage.bind(this)));
 
    LOGGER.trace("CombatAction.dealDamage() end");
@@ -345,11 +345,11 @@ CombatAction.prototype.finishDealDamage = function()
 {
    LOGGER.trace("CombatAction.finishDealDamage() start");
 
-   var store = this.store();
-   var attacker = this.attacker();
-   var damageDealer = Selector.damageDealer(store.getState(), attacker);
-   var weapon = this.weapon();
-   var isDefenderHit = Selector.isDefenderHit(store.getState(), attacker);
+   const store = this.store();
+   const attacker = this.attacker();
+   const damageDealer = Selector.damageDealer(store.getState(), attacker);
+   const weapon = this.weapon();
+   const isDefenderHit = Selector.isDefenderHit(store.getState(), attacker);
 
    if (isDefenderHit)
    {
@@ -368,7 +368,7 @@ CombatAction.prototype.afterDealDamage = function()
 {
    LOGGER.trace("CombatAction.afterDealDamage() start");
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_AFTER_DEAL_DAMAGE, this.attacker(), this.finishAfterDealDamage.bind(this)));
 
    LOGGER.trace("CombatAction.afterDealDamage() end");
@@ -378,13 +378,13 @@ CombatAction.prototype.finishAfterDealDamage = function()
 {
    LOGGER.trace("CombatAction.finishAfterDealDamage() start");
 
-   var environment = this.environment();
-   var attacker = this.attacker();
-   var weapon = this.weapon();
-   var defender = this.defender();
-   var defenderPosition = this.defenderPosition();
-   var callback = this.callback();
-   var myDefender, myDefenderPosition;
+   const environment = this.environment();
+   const attacker = this.attacker();
+   const weapon = this.weapon();
+   const defender = this.defender();
+   const defenderPosition = this.defenderPosition();
+   const callback = this.callback();
+   let myDefender, myDefenderPosition;
 
    if (defender.idParent() !== undefined)
    {
@@ -397,15 +397,15 @@ CombatAction.prototype.finishAfterDealDamage = function()
       myDefenderPosition = defenderPosition;
    }
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(CardAction.clearUsedAbilities(attacker));
    store.dispatch(CardAction.clearUsedAbilities(defender));
 
    if (myDefender.isDestroyed())
    {
-      var shipDestroyedAction = new ShipDestroyedAction(environment, myDefender, myDefenderPosition);
+      const shipDestroyedAction = new ShipDestroyedAction(environment, myDefender, myDefenderPosition);
       shipDestroyedAction.doIt();
-      var delay = 1.5 * this.delay();
+      const delay = 1.5 * this.delay();
       setTimeout(function()
       {
          callback();

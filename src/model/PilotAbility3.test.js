@@ -16,25 +16,25 @@ QUnit.module("PilotAbility3");
 QUnit.test("Epsilon Leader", function(assert)
 {
    // Setup.
-   var squadBuilder1 = SquadBuilder.findByNameAndYear("First Order TFA Core Set: 39 Points", 2015);
-   var environment = EnvironmentFactory.createEnvironment(squadBuilder1, SquadBuilder.CoreSetRebelSquadBuilder);
-   var store = environment.store();
-   var firstAgent = environment.firstAgent();
-   var pilotInstances1 = firstAgent.pilotInstances();
-   var epsilonLeader = pilotInstances1[0];
-   var zetaAce = pilotInstances1[1];
+   const squadBuilder1 = SquadBuilder.findByNameAndYear("First Order TFA Core Set: 39 Points", 2015);
+   const environment = EnvironmentFactory.createEnvironment(squadBuilder1, SquadBuilder.CoreSetRebelSquadBuilder);
+   const store = environment.store();
+   const firstAgent = environment.firstAgent();
+   const pilotInstances1 = firstAgent.pilotInstances();
+   const epsilonLeader = pilotInstances1[0];
+   const zetaAce = pilotInstances1[1];
 
-   var secondAgent = environment.secondAgent();
-   var pilotInstances2 = secondAgent.pilotInstances();
-   var lukeSkywalker = pilotInstances2[0];
+   const secondAgent = environment.secondAgent();
+   const pilotInstances2 = secondAgent.pilotInstances();
+   const lukeSkywalker = pilotInstances2[0];
 
-   var epsilonLeaderPosition0 = environment.getPositionFor(epsilonLeader);
-   var epsilonLeaderPosition1 = new Position(510, 20, 90);
+   const epsilonLeaderPosition0 = environment.getPositionFor(epsilonLeader);
+   const epsilonLeaderPosition1 = new Position(510, 20, 90);
    environment.moveToken(epsilonLeaderPosition0, epsilonLeaderPosition1);
    store.dispatch(CardAction.addStressCount(epsilonLeader));
    store.dispatch(CardAction.addStressCount(zetaAce));
    store.dispatch(CardAction.addStressCount(lukeSkywalker));
-   var callback = function()
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -45,31 +45,31 @@ QUnit.test("Epsilon Leader", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_START, undefined, callback));
 });
 
 QUnit.test("condition()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Phase.keys().forEach(function(phaseKey)
    {
-      var abilities = PilotAbility[phaseKey];
+      const abilities = PilotAbility[phaseKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (ability.condition)
             {
-               var result = ability.condition(store, token);
+               const result = ability.condition(store, token);
                assert.ok(result !== undefined, "phaseKey = " + phaseKey + " pilotKey = " + pilotKey);
             }
          });
@@ -80,10 +80,10 @@ QUnit.test("condition()", function(assert)
 QUnit.test("consequent()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
-   var callback = function()
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
+   const callback = function()
    {
       LOGGER.info("in callback()");
    };
@@ -91,13 +91,13 @@ QUnit.test("consequent()", function(assert)
    // Run / Verify.
    Phase.keys().forEach(function(phaseKey)
    {
-      var abilities = PilotAbility[phaseKey];
+      const abilities = PilotAbility[phaseKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (ability.condition && ability.condition(store, token))
             {
@@ -112,20 +112,20 @@ QUnit.test("consequent()", function(assert)
 QUnit.test("function()", function(assert)
 {
    // Setup.
-   var environment = createEnvironment();
-   var store = environment.store();
-   var token = environment.pilotInstances()[2]; // X-Wing.
+   const environment = createEnvironment();
+   const store = environment.store();
+   const token = environment.pilotInstances()[2]; // X-Wing.
 
    // Run / Verify.
    Phase.keys().forEach(function(phaseKey)
    {
-      var abilities = PilotAbility[phaseKey];
+      const abilities = PilotAbility[phaseKey];
 
       if (abilities)
       {
          Object.keys(abilities).forEach(function(pilotKey)
          {
-            var ability = abilities[pilotKey];
+            const ability = abilities[pilotKey];
 
             if (typeof ability === "function")
             {
@@ -141,14 +141,14 @@ QUnit.test("function()", function(assert)
 
 function createEnvironment()
 {
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
 
-   var attacker = environment.pilotInstances()[2]; // X-Wing.
-   var weapon = attacker.primaryWeapon();
-   var defender = environment.pilotInstances()[0]; // TIE Fighter.
-   var callback = function()
+   const attacker = environment.pilotInstances()[2]; // X-Wing.
+   const weapon = attacker.primaryWeapon();
+   const defender = environment.pilotInstances()[0]; // TIE Fighter.
+   const callback = function()
    {
       LOGGER.info("in callback()");
    };
@@ -162,7 +162,7 @@ function createEnvironment()
    store.dispatch(Action.setTokenDefenseDice(attacker.id(), (new MockDefenseDice(store, attacker.id())).values()));
    store.dispatch(Action.setTokenInFiringArc(attacker, true));
 
-   var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
+   const combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
    store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
 
    return environment;

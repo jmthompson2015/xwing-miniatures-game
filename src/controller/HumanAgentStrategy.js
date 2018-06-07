@@ -11,7 +11,7 @@ import CombatUI from "../view/CombatUI.js";
 import PlanningPanel from "../view/PlanningPanel.js";
 import WeaponAndDefenderChooser from "../view/WeaponAndDefenderChooser.js";
 
-var HumanAgentStrategy = {};
+const HumanAgentStrategy = {};
 
 HumanAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbilities, upgradeAbilities, callback)
 {
@@ -21,19 +21,19 @@ HumanAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbiliti
    InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
    InputValidator.validateIsFunction("callback", callback);
 
-   var finishCallback = this.finishChooseAbility;
-   var myCallback = function(ability, isAccepted)
+   const finishCallback = this.finishChooseAbility;
+   const myCallback = function(ability, isAccepted)
    {
       finishCallback(agent, ability, isAccepted, callback);
    };
 
-   var store = agent.store();
-   var resourceBase = store.getState().resourceBase;
-   var environment = store.getState().environment;
+   const store = agent.store();
+   const resourceBase = store.getState().resourceBase;
+   const environment = store.getState().environment;
 
    if (damageAbilities.length > 0 || pilotAbilities.length > 0 || upgradeAbilities.length > 0)
    {
-      var element = React.createElement(AbilityChooser,
+      const element = React.createElement(AbilityChooser,
       {
          damages: damageAbilities,
          resourceBase: resourceBase,
@@ -59,7 +59,7 @@ HumanAgentStrategy.finishChooseAbility = function(agent, ability, isAccepted, ca
    LOGGER.trace("HumanAgent.finishChooseAbility() start");
 
    // Handle the user response.
-   var element = document.getElementById(inputAreaId(agent));
+   const element = document.getElementById(inputAreaId(agent));
    ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishChooseAbility() end");
@@ -74,15 +74,15 @@ HumanAgentStrategy.chooseDecloakAction = function(agent, token, decloakActions, 
    InputValidator.validateNotNull("decloakActions", decloakActions);
    InputValidator.validateIsFunction("callback", callback);
 
-   var store = agent.store();
-   var resourceBase = store.getState().resourceBase;
-   var attacker = token;
+   const store = agent.store();
+   const resourceBase = store.getState().resourceBase;
+   const attacker = token;
 
-   var callback2 = function(decloakAbility)
+   const callback2 = function(decloakAbility)
    {
       this.finishDecloakAction(agent, token, decloakAbility, callback);
    };
-   var element = React.createElement(AbilityChooser,
+   const element = React.createElement(AbilityChooser,
    {
       damages: [],
       resourceBase: resourceBase,
@@ -105,7 +105,7 @@ HumanAgentStrategy.finishDecloakAction = function(agent, token, decloakAbility, 
    LOGGER.debug("decloakAbility.context().maneuverKey = " + decloakAbility.context().maneuverKey);
 
    // Handle the user response.
-   var element = document.getElementById(inputAreaId(agent));
+   const element = document.getElementById(inputAreaId(agent));
    ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishDecloakAction() end");
@@ -121,24 +121,24 @@ HumanAgentStrategy.chooseModifyAttackDiceAction = function(agent, attacker, defe
    InputValidator.validateNotNull("modifications", modifications);
    InputValidator.validateIsFunction("callback", callback);
 
-   var finishCallback = this.finishModifyAttackDice;
-   var myCallback = function(modification)
+   const finishCallback = this.finishModifyAttackDice;
+   const myCallback = function(modification)
    {
       finishCallback(modification, callback);
    };
 
-   var store = agent.store();
-   var resourceBase = store.getState().resourceBase;
-   var combatAction = Selector.combatAction(store.getState(), attacker);
+   const store = agent.store();
+   const resourceBase = store.getState().resourceBase;
+   const combatAction = Selector.combatAction(store.getState(), attacker);
 
    if (combatAction)
    {
-      var weapon = combatAction.weapon();
-      var attackDice = AttackDice.get(store, attacker.id());
+      const weapon = combatAction.weapon();
+      const attackDice = AttackDice.get(store, attacker.id());
 
       if (modifications.length > 0)
       {
-         var element = React.createElement(CombatUI,
+         const element = React.createElement(CombatUI,
          {
             attacker: attacker,
             attackDice: attackDice,
@@ -167,14 +167,14 @@ HumanAgentStrategy.chooseModifyAttackDiceAction = function(agent, attacker, defe
 
 HumanAgentStrategy.finishModifyAttackDice = function(modification, callback)
 {
-   var answer;
+   let answer;
 
    if (modification && modification !== null && modification !== "null")
    {
       answer = modification;
    }
 
-   var isAccepted = (answer !== undefined && answer !== null);
+   const isAccepted = (answer !== undefined && answer !== null);
 
    callback(answer, isAccepted);
 };
@@ -187,25 +187,25 @@ HumanAgentStrategy.chooseModifyDefenseDiceAction = function(agent, attacker, def
    InputValidator.validateNotNull("modifications", modifications);
    InputValidator.validateIsFunction("callback", callback);
 
-   var finishCallback = this.finishModifyDefenseDice;
-   var myCallback = function(modification)
+   const finishCallback = this.finishModifyDefenseDice;
+   const myCallback = function(modification)
    {
       finishCallback(modification, callback);
    };
 
-   var store = agent.store();
-   var resourceBase = store.getState().resourceBase;
-   var combatAction = Selector.combatAction(store.getState(), attacker);
+   const store = agent.store();
+   const resourceBase = store.getState().resourceBase;
+   const combatAction = Selector.combatAction(store.getState(), attacker);
 
    if (combatAction !== undefined)
    {
-      var weapon = combatAction.weapon();
-      var attackDice = AttackDice.get(store, attacker.id());
-      var defenseDice = DefenseDice.get(store, attacker.id());
+      const weapon = combatAction.weapon();
+      const attackDice = AttackDice.get(store, attacker.id());
+      const defenseDice = DefenseDice.get(store, attacker.id());
 
       if (modifications.length > 0)
       {
-         var element = React.createElement(CombatUI,
+         const element = React.createElement(CombatUI,
          {
             attacker: attacker,
             attackDice: attackDice,
@@ -235,14 +235,14 @@ HumanAgentStrategy.chooseModifyDefenseDiceAction = function(agent, attacker, def
 
 HumanAgentStrategy.finishModifyDefenseDice = function(modification, callback)
 {
-   var answer;
+   let answer;
 
    if (modification && modification !== null && modification !== "null")
    {
       answer = modification;
    }
 
-   var isAccepted = (answer !== undefined && answer !== null);
+   const isAccepted = (answer !== undefined && answer !== null);
 
    callback(answer, isAccepted);
 };
@@ -254,24 +254,24 @@ HumanAgentStrategy.choosePlanningActions = function(agent, tokens, tokenToValidM
    InputValidator.validateNotNull("tokenToValidManeuvers", tokenToValidManeuvers);
    InputValidator.validateIsFunction("callback", callback);
 
-   var finishCallback = this.finishPlanningAction;
-   var myCallback = function(tokenToManeuver)
+   const finishCallback = this.finishPlanningAction;
+   const myCallback = function(tokenToManeuver)
    {
       finishCallback(agent, tokenToManeuver, callback);
    };
 
-   var store = agent.store();
-   var resourceBase = store.getState().resourceBase;
-   var environment = store.getState().environment;
+   const store = agent.store();
+   const resourceBase = store.getState().resourceBase;
+   const environment = store.getState().environment;
 
    tokens.sort(function(token0, token1)
    {
-      var id0 = token0.id();
-      var id1 = token1.id();
+      const id0 = token0.id();
+      const id1 = token1.id();
       return id0 - id1;
    });
-   var self = this;
-   var element = React.createElement(PlanningPanel,
+   const self = this;
+   const element = React.createElement(PlanningPanel,
    {
       agent: self,
       callback: myCallback,
@@ -290,7 +290,7 @@ HumanAgentStrategy.finishPlanningAction = function(agent, tokenToManeuver, callb
    LOGGER.trace("HumanAgent.finishPlanningAction() start");
 
    // Handle the user response.
-   var element = document.getElementById(inputAreaId(agent));
+   const element = document.getElementById(inputAreaId(agent));
    ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishPlanningAction() end");
@@ -305,18 +305,18 @@ HumanAgentStrategy.chooseShipAction = function(agent, token, shipActions, callba
    InputValidator.validateNotNull("shipActions", shipActions);
    InputValidator.validateIsFunction("callback", callback);
 
-   var finishCallback = this.finishShipAction;
-   var myCallback = function(shipAction, isAccepted)
+   const finishCallback = this.finishShipAction;
+   const myCallback = function(shipAction, isAccepted)
    {
       finishCallback(agent, shipAction, isAccepted, callback);
    };
 
-   var store = agent.store();
-   var resourceBase = store.getState().resourceBase;
+   const store = agent.store();
+   const resourceBase = store.getState().resourceBase;
 
    if (shipActions.length > 0)
    {
-      var element = React.createElement(AbilityChooser,
+      const element = React.createElement(AbilityChooser,
       {
          damages: [],
          resourceBase: resourceBase,
@@ -342,7 +342,7 @@ HumanAgentStrategy.finishShipAction = function(agent, shipAction, isAccepted, ca
    LOGGER.trace("HumanAgent.finishShipAction() start");
 
    // Handle the user response.
-   var element = document.getElementById(inputAreaId(agent));
+   const element = document.getElementById(inputAreaId(agent));
    ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishShipAction() end");
@@ -357,15 +357,15 @@ HumanAgentStrategy.chooseWeaponAndDefender = function(agent, attacker, choices, 
    InputValidator.validateNotNull("choices", choices);
    InputValidator.validateIsFunction("callback", callback);
 
-   var finishCallback = this.finishWeaponAndDefender;
-   var myCallback = function(weapon, defender)
+   const finishCallback = this.finishWeaponAndDefender;
+   const myCallback = function(weapon, defender)
    {
       finishCallback(agent, weapon, defender, callback);
    };
 
    if (choices.length > 0)
    {
-      var element = React.createElement(WeaponAndDefenderChooser,
+      const element = React.createElement(WeaponAndDefenderChooser,
       {
          attacker: attacker,
          choices: choices,
@@ -387,7 +387,7 @@ HumanAgentStrategy.finishWeaponAndDefender = function(agent, weapon, defender, c
    LOGGER.trace("HumanAgent.finishWeaponAndDefender() start");
 
    // Handle the user response.
-   var element = document.getElementById(inputAreaId(agent));
+   const element = document.getElementById(inputAreaId(agent));
    ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishWeaponAndDefender() end");
@@ -406,15 +406,15 @@ HumanAgentStrategy.dealDamage = function(agent, attacker, weapon, attackDice, de
    InputValidator.validateNotNull("damageDealer", damageDealer);
    InputValidator.validateNotNull("callback", callback);
 
-   var store = agent.store();
-   var resourceBase = store.getState().resourceBase;
-   var finishCallback = this.finishDealDamage;
-   var myCallback = function()
+   const store = agent.store();
+   const resourceBase = store.getState().resourceBase;
+   const finishCallback = this.finishDealDamage;
+   const myCallback = function()
    {
       finishCallback(agent, callback);
    };
 
-   var element = React.createElement(CombatUI,
+   const element = React.createElement(CombatUI,
    {
       attacker: attacker,
       attackDice: attackDice,
@@ -437,7 +437,7 @@ HumanAgentStrategy.finishDealDamage = function(agent, callback)
    LOGGER.trace("HumanAgent.finishDealDamage() start");
 
    // Handle the user response.
-   var element = document.getElementById(inputAreaId(agent));
+   const element = document.getElementById(inputAreaId(agent));
    ReactDOM.unmountComponentAtNode(element);
    window.dispatchEvent(new Event('resize'));
    LOGGER.trace("HumanAgent.finishDealDamage() end");
@@ -451,9 +451,9 @@ function inputAreaId(agent)
 {
    InputValidator.validateNotNull("agent", agent);
 
-   var store = agent.store();
-   var environment = store.getState().environment;
-   var answer = "inputArea";
+   const store = agent.store();
+   const environment = store.getState().environment;
+   let answer = "inputArea";
 
    if (agent === environment.firstAgent())
    {

@@ -1,14 +1,14 @@
 import InputValidator from "../../utility/InputValidator.js";
 
-var TableRow = {};
+const TableRow = {};
 
 TableRow.createTableRow = function(damage, version)
 {
    InputValidator.validateNotNull("damage", damage);
    InputValidator.validateNotNull("version", version);
 
-   var action = (damage.hasAction !== undefined && damage.hasAction ? damage.actionDescription : undefined);
-   var isImplemented = (damage.isImplemented !== undefined ? damage.isImplemented : false);
+   const action = (damage.hasAction !== undefined && damage.hasAction ? damage.actionDescription : undefined);
+   const isImplemented = (damage.isImplemented !== undefined ? damage.isImplemented : false);
 
    return (
    {

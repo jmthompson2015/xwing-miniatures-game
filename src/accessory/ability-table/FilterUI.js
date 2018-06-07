@@ -32,7 +32,7 @@ class FilterUI extends React.Component
 
    render()
    {
-      var cells = [];
+      const cells = [];
       cells.push(ReactDOMFactories.td(
       {
          key: cells.length,
@@ -44,7 +44,7 @@ class FilterUI extends React.Component
          className: "filtersUI f6 v-top",
       }, this.createEntityTable()));
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,
@@ -68,23 +68,23 @@ class FilterUI extends React.Component
 
 FilterUI.prototype.createButtonTable = function()
 {
-   var restoreButton = React.createElement(Button,
+   const restoreButton = React.createElement(Button,
    {
       name: "Restore Defaults",
       onClick: this.restoreActionPerformed,
    });
-   var unfilterButton = React.createElement(Button,
+   const unfilterButton = React.createElement(Button,
    {
       name: "Remove Filter",
       onClick: this.unfilterActionPerformed,
    });
-   var filterButton = React.createElement(Button,
+   const filterButton = React.createElement(Button,
    {
       name: "Apply Filter",
       onClick: this.filterActionPerformed,
    });
 
-   var cells = [];
+   const cells = [];
    cells.push(ReactDOMFactories.td(
    {
       key: cells.length,
@@ -97,7 +97,7 @@ FilterUI.prototype.createButtonTable = function()
    {
       key: cells.length,
    }, filterButton));
-   var row = ReactDOMFactories.tr(
+   const row = ReactDOMFactories.tr(
    {}, cells);
 
    return ReactDOMFactories.table(
@@ -107,13 +107,13 @@ FilterUI.prototype.createButtonTable = function()
 
 FilterUI.prototype.createEntityTable = function()
 {
-   var cells = [];
+   const cells = [];
 
    DefaultFilters.entityColumns.forEach(function(column)
    {
-      var values;
-      var labelFunction;
-      var clientProps = {};
+      let values;
+      let labelFunction;
+      const clientProps = {};
       clientProps["data-entitytype"] = column.key;
 
       switch (column.key)
@@ -157,19 +157,19 @@ FilterUI.prototype.createEntityTable = function()
             throw "Unknown entity column: " + column.key;
       }
 
-      var oldFilter = this.context.store.getState().filters[column.key];
-      var initialValues = [];
+      const oldFilter = this.context.store.getState().filters[column.key];
+      const initialValues = [];
 
       if (oldFilter)
       {
          ArrayUtilities.addAll(initialValues, oldFilter.values());
       }
 
-      var label = ReactDOMFactories.span(
+      const label = ReactDOMFactories.span(
       {
          className: "entityLabel b f6",
       }, column.label);
-      var checkboxPanel = React.createElement(InputPanel,
+      const checkboxPanel = React.createElement(InputPanel,
       {
          type: InputPanel.Type.CHECKBOX,
          values: values,
@@ -190,7 +190,7 @@ FilterUI.prototype.createEntityTable = function()
       }, checkboxPanel)));
    }, this);
 
-   var row = ReactDOMFactories.tr(
+   const row = ReactDOMFactories.tr(
    {}, cells);
 
    return ReactDOMFactories.table(
@@ -202,12 +202,12 @@ FilterUI.prototype.createEntityTable = function()
 
 FilterUI.prototype.createRangeTable = function()
 {
-   var rows = [];
+   const rows = [];
 
    DefaultFilters.rangeColumns.forEach(function(column)
    {
-      var filter = this.props.filters[column.key];
-      var cells = [];
+      const filter = this.props.filters[column.key];
+      const cells = [];
       cells.push(ReactDOMFactories.td(
       {
          key: cells.length,
@@ -273,11 +273,11 @@ FilterUI.prototype.filterActionPerformedFunction = function()
 {
    LOGGER.trace("FilterUI.filterActionPerformed() start");
 
-   var filters = {};
+   const filters = {};
 
    DefaultFilters.entityColumns.forEach(function(column)
    {
-      var values = [];
+      const values = [];
 
       switch (column.key)
       {
@@ -300,18 +300,18 @@ FilterUI.prototype.filterActionPerformedFunction = function()
             throw "Unknown entity column: " + column.key;
       }
 
-      var filter = new EntityFilter(column.key, values);
+      const filter = new EntityFilter(column.key, values);
       filters[column.key] = filter;
    }, this);
 
    DefaultFilters.rangeColumns.forEach(function(column)
    {
-      var isMinEnabled = document.getElementById(column.key + "MinChecked").checked;
-      var minValue = document.getElementById(column.key + "Min").value;
-      var isMaxEnabled = document.getElementById(column.key + "MaxChecked").checked;
-      var maxValue = document.getElementById(column.key + "Max").value;
+      const isMinEnabled = document.getElementById(column.key + "MinChecked").checked;
+      const minValue = document.getElementById(column.key + "Min").value;
+      const isMaxEnabled = document.getElementById(column.key + "MaxChecked").checked;
+      const maxValue = document.getElementById(column.key + "Max").value;
 
-      var filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
+      const filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
       filters[column.key] = filter;
    });
 
@@ -324,9 +324,9 @@ FilterUI.prototype.handleEntityChangeFunction = function(event, selected)
 {
    LOGGER.trace("FilterUI.handleEntityChange() start");
 
-   var entityType = event.target.dataset.entitytype;
+   const entityType = event.target.dataset.entitytype;
    LOGGER.debug("entityType = " + entityType);
-   var values = [];
+   const values = [];
    ArrayUtilities.addAll(values, selected);
 
    switch (entityType)

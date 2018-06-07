@@ -6,23 +6,23 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var rows = [];
-var cells = [];
+const rows = [];
+let cells = [];
 
-var button0 = ReactDOMFactories.button(
+let button0 = ReactDOMFactories.button(
 {
    onClick: myOk,
 }, "OK");
-var button1 = ReactDOMFactories.button(
+let button1 = ReactDOMFactories.button(
 {
    disabled: true,
 }, "Disabled");
-var button2 = ReactDOMFactories.button(
+let button2 = ReactDOMFactories.button(
 {
    onClick: myCancel,
 }, "Cancel");
 
-var i = 0;
+let i = 0;
 cells.push(ReactDOMFactories.td(
 {
    key: "title" + i,
@@ -51,17 +51,17 @@ rows.push(ReactDOMFactories.tr(
 
 i++;
 cells = [];
-var button0 = React.createElement(Button,
+button0 = React.createElement(Button,
 {
    name: "OK",
    onClick: myOk,
 });
-var button1 = React.createElement(Button,
+button1 = React.createElement(Button,
 {
    disabled: true,
    name: "Disabled",
 });
-var button2 = React.createElement(Button,
+button2 = React.createElement(Button,
 {
    name: "Cancel",
    onClick: myCancel,

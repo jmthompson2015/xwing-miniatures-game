@@ -14,21 +14,21 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../../../src/resource/";
-var faction = Faction.properties[Faction.IMPERIAL];
-var store = Redux.createStore(AgentSquadReducer.root);
-var delegateStore = Redux.createStore(Reducer.root);
+const resourceBase = "../../../src/resource/";
+let faction = Faction.properties[Faction.IMPERIAL];
+const store = Redux.createStore(AgentSquadReducer.root);
+const delegateStore = Redux.createStore(Reducer.root);
 store.dispatch(AgentSquadAction.setDelegateStore(delegateStore));
 
 ReactDOM.render(createFactionSelect(), document.getElementById("factionSelect"));
 
 function createFactionSelect()
 {
-   var factionValues = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM];
-   var factionLabelFunction = function(value)
+   const factionValues = [Faction.IMPERIAL, Faction.REBEL, Faction.SCUM];
+   const factionLabelFunction = function(value)
    {
-      var answer = Faction.properties[value].name;
-      var friend = Faction.friend(value);
+      let answer = Faction.properties[value].name;
+      const friend = Faction.friend(value);
       if (friend)
       {
          answer += " + " + Faction.properties[friend].name;
@@ -47,7 +47,7 @@ function createFactionSelect()
 
 function handleFactionChange(event)
 {
-   var factionKey = event.currentTarget.value;
+   const factionKey = event.currentTarget.value;
    faction = Faction.properties[factionKey];
    store.dispatch(AgentSquadAction.reset());
    renderSquadBuilderContainer();
@@ -55,7 +55,7 @@ function handleFactionChange(event)
 
 function renderSquadBuilderContainer()
 {
-   var element = React.createElement(ReactRedux.Provider,
+   const element = React.createElement(ReactRedux.Provider,
    {
       store: store,
    }, React.createElement(SquadBuilderContainer,

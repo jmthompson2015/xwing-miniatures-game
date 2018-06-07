@@ -32,22 +32,22 @@ function TargetLock(id, attacker, defender)
 
 TargetLock.prototype.store = function()
 {
-   var attacker = this.attacker();
+   const attacker = this.attacker();
 
    return attacker.store();
 };
 
 TargetLock.prototype.values = function()
 {
-   var store = this.store();
-   var attackerId = this.attacker().id();
-   var defenderId = this.defender().id();
+   const store = this.store();
+   const attackerId = this.attacker().id();
+   const defenderId = this.defender().id();
 
-   var targetLocks = store.getState().targetLocks;
+   const targetLocks = store.getState().targetLocks;
 
-   for (var i = 0; i < targetLocks.size; i++)
+   for (let i = 0; i < targetLocks.size; i++)
    {
-      var values = targetLocks.get(i);
+      const values = targetLocks.get(i);
 
       if (values.get("attackerId") === attackerId && values.get("defenderId") === defenderId)
       {
@@ -61,8 +61,8 @@ TargetLock.prototype.values = function()
 
 TargetLock.prototype.delete = function()
 {
-   var store = this.store();
-   var values = this.values();
+   const store = this.store();
+   const values = this.values();
 
    store.dispatch(Action.removeTargetLock(values));
 };
@@ -78,11 +78,11 @@ TargetLock.newInstance = function(store, attacker, defender, eventCallback)
    // eventCallback optional.
 
    // Initialize ID.
-   var newId = TargetLock.nextId(store);
+   const newId = TargetLock.nextId(store);
 
-   var answer = new TargetLock(newId, attacker, defender);
+   const answer = new TargetLock(newId, attacker, defender);
 
-   var values = Immutable.Map(
+   const values = Immutable.Map(
    {
       attackerId: attacker.id(),
       defenderId: defender.id(),
@@ -91,7 +91,7 @@ TargetLock.newInstance = function(store, attacker, defender, eventCallback)
 
    store.dispatch(Action.addTargetLock(values));
 
-   var eventContext = {
+   const eventContext = {
       defenderId: defender.id(),
       id: newId,
       shipActionKey: ShipAction.TARGET_LOCK,
@@ -108,16 +108,16 @@ TargetLock.get = function(store, attacker, defender)
    InputValidator.validateNotNull("attacker", attacker);
    InputValidator.validateNotNull("defender", defender);
 
-   var tlValues = store.getState().targetLocks;
-   var attackerId = attacker.id();
-   var defenderId = defender.id();
+   const tlValues = store.getState().targetLocks;
+   const attackerId = attacker.id();
+   const defenderId = defender.id();
 
    return tlValues.toArray().filter(function(values)
    {
       return values.get("attackerId") === attackerId && values.get("defenderId") === defenderId;
    }).map(function(values)
    {
-      var id = values.get("id");
+      const id = values.get("id");
       return new TargetLock(id, attacker, defender);
    });
 };
@@ -127,17 +127,17 @@ TargetLock.getByAttacker = function(store, attacker)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateNotNull("attacker", attacker);
 
-   var tlValues = store.getState().targetLocks;
-   var attackerId = attacker.id();
+   const tlValues = store.getState().targetLocks;
+   const attackerId = attacker.id();
 
    return tlValues.toArray().filter(function(values)
    {
       return values.get("attackerId") === attackerId;
    }).map(function(values)
    {
-      var id = values.get("id");
-      var defenderId = values.get("defenderId");
-      var defender = store.getState().environment.getTokenById(defenderId);
+      const id = values.get("id");
+      const defenderId = values.get("defenderId");
+      const defender = store.getState().environment.getTokenById(defenderId);
       return new TargetLock(id, attacker, defender);
    });
 };
@@ -147,17 +147,17 @@ TargetLock.getByDefender = function(store, defender)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateNotNull("defender", defender);
 
-   var tlValues = store.getState().targetLocks;
-   var defenderId = defender.id();
+   const tlValues = store.getState().targetLocks;
+   const defenderId = defender.id();
 
    return tlValues.toArray().filter(function(values)
    {
       return values.get("defenderId") === defenderId;
    }).map(function(values)
    {
-      var id = values.get("id");
-      var attackerId = values.get("attackerId");
-      var attacker = store.getState().environment.getTokenById(attackerId);
+      const id = values.get("id");
+      const attackerId = values.get("attackerId");
+      const attacker = store.getState().environment.getTokenById(attackerId);
       return new TargetLock(id, attacker, defender);
    });
 };
@@ -168,7 +168,7 @@ TargetLock.getFirst = function(store, attacker, defender)
    InputValidator.validateNotNull("attacker", attacker);
    InputValidator.validateNotNull("defender", defender);
 
-   var answer = TargetLock.get(store, attacker, defender);
+   let answer = TargetLock.get(store, attacker, defender);
 
    if (answer.length === 0)
    {
@@ -186,10 +186,10 @@ TargetLock.nextId = function(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var isDoubling = (store.getState().nextTargetLockId > 25);
-   var offset = store.getState().nextTargetLockId - (isDoubling ? 26 : 0);
-   var letter = String.fromCharCode(65 + offset);
-   var answer = (isDoubling ? letter + letter : letter);
+   const isDoubling = (store.getState().nextTargetLockId > 25);
+   const offset = store.getState().nextTargetLockId - (isDoubling ? 26 : 0);
+   const letter = String.fromCharCode(65 + offset);
+   const answer = (isDoubling ? letter + letter : letter);
    store.dispatch(Action.incrementNextTargetLockId());
 
    return answer;
@@ -200,14 +200,14 @@ TargetLock.removeAllTargetLocks = function(store, token)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateNotNull("token", token);
 
-   var tlValues = store.getState().targetLocks.filter(function(targetLock)
+   const tlValues = store.getState().targetLocks.filter(function(targetLock)
    {
       return targetLock.get("attackerId") === token.id() || targetLock.get("defenderId") === token.id();
    });
 
-   for (var i = 0; i < tlValues.size; i++)
+   for (let i = 0; i < tlValues.size; i++)
    {
-      var values = tlValues.get(i);
+      const values = tlValues.get(i);
       store.dispatch(Action.removeTargetLock(values));
    }
 };

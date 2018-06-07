@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var Action = {};
+const Action = {};
 
 Action.ADD_AGENT = "addAgent";
 Action.ADD_PILOT_TO_MANEUVER = "addPilotToManeuver";

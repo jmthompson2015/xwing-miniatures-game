@@ -28,37 +28,37 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
+const resourceBase = "../resource/";
 
-var store00 = Redux.createStore(Reducer.root);
-var imperialAgent = new Agent(store00, "Imperial Agent");
-var rebelAgent = new Agent(store00, "Rebel Agent");
-var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
-var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES,
+const store00 = Redux.createStore(Reducer.root);
+const imperialAgent = new Agent(store00, "Imperial Agent");
+const rebelAgent = new Agent(store00, "Rebel Agent");
+const squad1 = new Squad(Faction.IMPERIAL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
+const squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES,
 					UpgradeCard.R2_D2_ASTROMECH
 				])]);
-var positions1 = [new Position(305, 20, 90)];
-var positions2 = [new Position(458, 895, 270)];
+const positions1 = [new Position(305, 20, 90)];
+const positions2 = [new Position(458, 895, 270)];
 
-var store = Redux.createStore(Reducer.root);
-var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
-// var adjudicator = new Adjudicator(store);
-var tokens = environment.pilotInstances();
-var attacker = tokens[1]; // X-Wing.
-var defender = tokens[0]; // VT-49 Decimator.
+const store = Redux.createStore(Reducer.root);
+const environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
+// const adjudicator = new Adjudicator(store);
+const tokens = environment.pilotInstances();
+const attacker = tokens[1]; // X-Wing.
+const defender = tokens[0]; // VT-49 Decimator.
 
-var attackDice = new AttackDice(store, attacker.id(), 5);
-var defenseDice = new DefenseDice(store, attacker.id(), 0);
+const attackDice = new AttackDice(store, attacker.id(), 5);
+const defenseDice = new DefenseDice(store, attacker.id(), 0);
 store.dispatch(CardAction.addEvadeCount(defender));
 environment.setActiveToken(attacker);
-var weapon = attacker.primaryWeapon();
-var callback = function() {};
+const weapon = attacker.primaryWeapon();
+const callback = function() {};
 store.dispatch(Action.setDelay(10));
-var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
+const combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
 store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
-var modifications1 = [new Ability(DiceModification, DiceModification.DEFENSE_SPEND_EVADE, ModifyDiceAbility, ModifyDiceAbility.DEFENSE_KEY)];
+const modifications1 = [new Ability(DiceModification, DiceModification.DEFENSE_SPEND_EVADE, ModifyDiceAbility, ModifyDiceAbility.DEFENSE_KEY)];
 
-var element1 = React.createElement(CombatUI,
+const element1 = React.createElement(CombatUI,
 {
    attacker: attacker,
    attackDice: attackDice,

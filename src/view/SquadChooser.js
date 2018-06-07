@@ -9,7 +9,7 @@ class SquadChooser extends React.Component
    {
       super(props);
 
-      var squadBuilders = this.props.squadBuilders;
+      const squadBuilders = this.props.squadBuilders;
       InputValidator.validateNotEmpty("squadBuilders", squadBuilders);
 
       this.state = {
@@ -21,29 +21,29 @@ class SquadChooser extends React.Component
 
    render()
    {
-      var squadLabelFunction = function(value)
+      const squadLabelFunction = function(value)
       {
          return value.toString();
       };
-      var squadBuilders = this.props.squadBuilders;
-      var selectedSquadBuilder = this.state.squadBuilder;
-      var squadChooserSelect = React.createElement(Select,
+      const squadBuilders = this.props.squadBuilders;
+      const selectedSquadBuilder = this.state.squadBuilder;
+      const squadChooserSelect = React.createElement(Select,
       {
          values: squadBuilders,
          labelFunction: squadLabelFunction,
          initialSelectedValue: selectedSquadBuilder,
          onChange: this.handleSquadChange,
       });
-      var agent = this.props.agent;
-      var mySquad = selectedSquadBuilder.buildSquad(agent);
-      var squadDisplayPanel = React.createElement(SquadUI,
+      const agent = this.props.agent;
+      const mySquad = selectedSquadBuilder.buildSquad(agent);
+      const squadDisplayPanel = React.createElement(SquadUI,
       {
          resourceBase: this.props.resourceBase,
          squad: mySquad,
       });
 
-      var rows = [];
-      var cells = [];
+      const rows = [];
+      const cells = [];
       cells.push(ReactDOMFactories.td(
       {
          key: "squadLabel",
@@ -77,7 +77,7 @@ class SquadChooser extends React.Component
 SquadChooser.prototype.handleSquadChangeFunction = function(event)
 {
    LOGGER.debug("SquadChooser.handleSquadChange() event.target.selectedIndex = " + event.target.selectedIndex);
-   var squadBuilder = this.props.squadBuilders[event.target.selectedIndex];
+   const squadBuilder = this.props.squadBuilders[event.target.selectedIndex];
    this.setState(
    {
       squadBuilder: squadBuilder,

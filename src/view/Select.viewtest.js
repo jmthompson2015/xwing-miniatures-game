@@ -6,13 +6,13 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var values = ["zero", "one", "two"];
-var labelFunction = function(value)
+const values = ["zero", "one", "two"];
+const labelFunction = function(value)
 {
    return value.toUpperCase();
 };
-var initialSelectedValue = values[1];
-var select = React.createElement(Select,
+const initialSelectedValue = values[1];
+const select = React.createElement(Select,
 {
    values: values,
    labelFunction: labelFunction,
@@ -37,6 +37,6 @@ function myOnChange(event)
    LOGGER.info("event.currentTarget.constructor.prototype = " + Object.getOwnPropertyNames(event.currentTarget.constructor.prototype));
    LOGGER.info("event.currentTarget.dataset.myprop = " + event.currentTarget.dataset.myprop);
 
-   var selectedValue = event.target.value;
+   const selectedValue = event.target.value;
    LOGGER.info("myOnChange() selectedValue = " + selectedValue);
 }

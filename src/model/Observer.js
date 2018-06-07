@@ -3,7 +3,7 @@
  */
 import InputValidator from "../utility/InputValidator.js";
 
-var Observer = {};
+const Observer = {};
 
 Observer.observeStore = function(store, select, onChange)
 {
@@ -11,11 +11,11 @@ Observer.observeStore = function(store, select, onChange)
    InputValidator.validateNotNull("select", select);
    InputValidator.validateNotNull("onChange", onChange);
 
-   var currentState;
+   let currentState;
 
    function handleChange()
    {
-      var nextState = select(store.getState());
+      const nextState = select(store.getState());
 
       if (nextState !== currentState)
       {
@@ -24,7 +24,7 @@ Observer.observeStore = function(store, select, onChange)
       }
    }
 
-   var unsubscribe = store.subscribe(handleChange);
+   const unsubscribe = store.subscribe(handleChange);
 
    handleChange();
 

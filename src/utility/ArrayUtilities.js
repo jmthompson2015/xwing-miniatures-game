@@ -3,7 +3,7 @@
  *
  * @see http://modernweb.com/2013/12/23/45-useful-javascript-tips-tricks-and-best-practices/
  */
-var ArrayUtilities = {};
+const ArrayUtilities = {};
 
 // Note: This function modifies array.
 // array now contains array2 also.
@@ -18,11 +18,11 @@ ArrayUtilities.intersect = function(array, array2)
    // Assumptions:
    // - input is not necessarily sorted
    // - an element only appears once in array and/or array2
-   var answer = [];
+   const answer = [];
 
-   for (var i = 0; i < array.length; i++)
+   for (let i = 0; i < array.length; i++)
    {
-      var n = array[i];
+      const n = array[i];
 
       if (array2.indexOf(n) >= 0)
       {
@@ -35,7 +35,7 @@ ArrayUtilities.intersect = function(array, array2)
 
 ArrayUtilities.randomElement = function(array)
 {
-   var index = Math.floor(Math.random() * array.length);
+   const index = Math.floor(Math.random() * array.length);
 
    return array[index];
 };
@@ -43,7 +43,7 @@ ArrayUtilities.randomElement = function(array)
 // Note: This function modifies array.
 ArrayUtilities.remove = function(array, element)
 {
-   var index = array.indexOf(element);
+   const index = array.indexOf(element);
 
    if (index >= 0)
    {

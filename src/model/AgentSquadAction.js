@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var AgentSquadAction = {};
+const AgentSquadAction = {};
 
 // AgentSquadUI
 AgentSquadAction.SET_AGENT_NAME = "setAgentName";

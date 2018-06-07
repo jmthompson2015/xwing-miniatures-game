@@ -1,4 +1,4 @@
-var AttackDiceValue = {
+const AttackDiceValue = {
    HIT: "hit",
    CRITICAL_HIT: "criticalHit",
    FOCUS: "focus",

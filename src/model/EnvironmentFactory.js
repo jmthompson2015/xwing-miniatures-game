@@ -8,28 +8,28 @@ import Reducer from "./Reducer.js";
 import SimpleAgentStrategy from "./SimpleAgentStrategy.js";
 import SquadBuilder from "./SquadBuilder.js";
 
-var EnvironmentFactory = {};
+const EnvironmentFactory = {};
 
 EnvironmentFactory.createCoreSetEnvironment = function(store, computerAgentType1, computerAgentType2)
 {
-   var squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
-   var squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
+   const squadBuilder1 = SquadBuilder.CoreSetImperialSquadBuilder;
+   const squadBuilder2 = SquadBuilder.CoreSetRebelSquadBuilder;
 
    return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
 };
 
 EnvironmentFactory.createTFACoreSetEnvironment = function(store, computerAgentType1, computerAgentType2)
 {
-   var squadBuilder1 = SquadBuilder.CoreSetFirstOrderSquadBuilder;
-   var squadBuilder2 = SquadBuilder.CoreSetResistanceSquadBuilder;
+   const squadBuilder1 = SquadBuilder.CoreSetFirstOrderSquadBuilder;
+   const squadBuilder2 = SquadBuilder.CoreSetResistanceSquadBuilder;
 
    return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
 };
 
 EnvironmentFactory.createHugeShipEnvironment = function(store, computerAgentType1, computerAgentType2)
 {
-   var squadBuilder1 = SquadBuilder.HugeShipImperialSquadBuilder;
-   var squadBuilder2 = SquadBuilder.HugeShipRebelSquadBuilder;
+   const squadBuilder1 = SquadBuilder.HugeShipImperialSquadBuilder;
+   const squadBuilder2 = SquadBuilder.HugeShipRebelSquadBuilder;
 
    return EnvironmentFactory.createEnvironment(squadBuilder1, squadBuilder2, store, computerAgentType1, computerAgentType2);
 };
@@ -51,17 +51,17 @@ EnvironmentFactory.createEnvironment = function(squadBuilder1, squadBuilder2, st
    // computerAgentType1 optional.
    // computerAgentType2 optional.
 
-   var myStore = (store ? store : Redux.createStore(Reducer.root));
-   var type1 = (computerAgentType1 ? computerAgentType1 : SimpleAgentStrategy);
-   var type2 = (computerAgentType2 ? computerAgentType2 : SimpleAgentStrategy);
+   const myStore = (store ? store : Redux.createStore(Reducer.root));
+   const type1 = (computerAgentType1 ? computerAgentType1 : SimpleAgentStrategy);
+   const type2 = (computerAgentType2 ? computerAgentType2 : SimpleAgentStrategy);
 
    // Create initial agents and tokens.
-   var firstAgent = EnvironmentFactory.createAgent(myStore, "First Agent", type1);
-   var firstSquad = squadBuilder1.buildSquad(firstAgent);
-   var secondAgent = EnvironmentFactory.createAgent(myStore, "Second Agent", type2);
-   var secondSquad = squadBuilder2.buildSquad(secondAgent);
+   const firstAgent = EnvironmentFactory.createAgent(myStore, "First Agent", type1);
+   const firstSquad = squadBuilder1.buildSquad(firstAgent);
+   const secondAgent = EnvironmentFactory.createAgent(myStore, "Second Agent", type2);
+   const secondSquad = squadBuilder2.buildSquad(secondAgent);
 
-   var answer = new Environment(myStore, firstAgent, firstSquad, secondAgent, secondSquad);
+   const answer = new Environment(myStore, firstAgent, firstSquad, secondAgent, secondSquad);
 
    EventObserver.observeStore(myStore);
    PhaseObserver.observeStore(myStore);

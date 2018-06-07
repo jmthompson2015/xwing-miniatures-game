@@ -1,4 +1,4 @@
-var Phase = {
+const Phase = {
    SETUP: "setup",
 
    PLANNING_START: "planningStart",

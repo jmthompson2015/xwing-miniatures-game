@@ -1,4 +1,4 @@
-var ReferenceCard = {
+const ReferenceCard = {
    ACQUIRE_A_TARGET_LOCK_ACTION: "acquireATargetLockAction",
    ALTERNATE_PRIMARY_WEAPONS: "alternatePrimaryWeapons",
    AUXILIARY_FIRING_ARC: "auxiliaryFiringArc",

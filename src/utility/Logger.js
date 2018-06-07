@@ -138,7 +138,7 @@ function Logger()
    {
       if (!this.OFF && this.TIME)
       {
-         var message = TimePrinter.formatElapsedTime(title, start, end);
+         const message = TimePrinter.formatElapsedTime(title, start, end);
          console.log(getDateString() + " TIME  " + message);
       }
    };
@@ -153,26 +153,26 @@ function Logger()
 
    function getDateString()
    {
-      var date = new Date();
-      var hours = date.getHours();
+      const date = new Date();
+      let hours = date.getHours();
       if (hours < 10)
       {
          hours = "0" + hours;
       }
 
-      var minutes = date.getMinutes();
+      let minutes = date.getMinutes();
       if (minutes < 10)
       {
          minutes = "0" + minutes;
       }
 
-      var seconds = date.getSeconds();
+      let seconds = date.getSeconds();
       if (seconds < 10)
       {
          seconds = "0" + seconds;
       }
 
-      var millis = date.getMilliseconds();
+      let millis = date.getMilliseconds();
       if (millis < 10)
       {
          millis = "00" + millis;

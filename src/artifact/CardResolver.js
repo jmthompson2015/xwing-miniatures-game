@@ -6,14 +6,14 @@ import DamageCard from "./DamageCard.js";
 import PilotCard from "./PilotCard.js";
 import UpgradeCard from "./UpgradeCard.js";
 
-var CardResolver = {};
+const CardResolver = {};
 
 CardResolver.resolve = function(cardTypeKey, cardKey)
 {
    InputValidator.validateIsString("cardTypeKey", cardTypeKey);
    InputValidator.validateIsString("cardKey", cardKey);
 
-   var cardClass;
+   let cardClass;
 
    switch (cardTypeKey)
    {

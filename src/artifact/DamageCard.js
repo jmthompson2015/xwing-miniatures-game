@@ -3,7 +3,7 @@ import ArrayUtilities from "../utility/ArrayUtilities.js";
 import CardType from "./CardType.js";
 import DamageCardTrait from "./DamageCardTrait.js";
 
-var DamageCard = {
+const DamageCard = {
    BLINDED_PILOT: "blindedPilot",
    CONSOLE_FIRE: "consoleFire",
    DAMAGED_COCKPIT: "damagedCockpit",
@@ -318,7 +318,7 @@ DamageCard.values = function()
 
 DamageCard.keys().forEach(function(damageKey)
 {
-   var damage = DamageCard.properties[damageKey];
+   const damage = DamageCard.properties[damageKey];
    damage.cardTypeKey = CardType.DAMAGE;
    damage.xwingType = DamageCard;
 
@@ -334,16 +334,16 @@ DamageCard.keys().forEach(function(damageKey)
 DamageCard.createDeckV1 = function()
 {
    // There are two of each, except seven of Direct Hit!
-   var keys = DamageCard.keysV1();
+   const keys = DamageCard.keysV1();
 
-   var answer = keys.reduce(function(accumulator, damageKey)
+   const answer = keys.reduce(function(accumulator, damageKey)
    {
       accumulator.push(damageKey);
       accumulator.push(damageKey);
       return accumulator;
    }, []);
 
-   for (var i = 0; i < 5; i++)
+   for (let i = 0; i < 5; i++)
    {
       answer.push(DamageCard.DIRECT_HIT);
    }
@@ -356,16 +356,16 @@ DamageCard.createDeckV1 = function()
 DamageCard.createDeckV2 = function()
 {
    // There are two of each, except seven of Direct Hit!
-   var keys = DamageCard.keysV2();
+   const keys = DamageCard.keysV2();
 
-   var answer = keys.reduce(function(accumulator, damageKey)
+   const answer = keys.reduce(function(accumulator, damageKey)
    {
       accumulator.push(damageKey);
       accumulator.push(damageKey);
       return accumulator;
    }, []);
 
-   for (var i = 0; i < 5; i++)
+   for (let i = 0; i < 5; i++)
    {
       answer.push(DamageCard.DIRECT_HIT_V2);
    }
@@ -377,7 +377,7 @@ DamageCard.createDeckV2 = function()
 
 DamageCard.keysV1 = function()
 {
-   var values = this.keys();
+   const values = this.keys();
 
    return values.filter(function(damageKey)
    {
@@ -387,7 +387,7 @@ DamageCard.keysV1 = function()
 
 DamageCard.keysV2 = function()
 {
-   var values = this.keys();
+   const values = this.keys();
 
    return values.filter(function(damageKey)
    {

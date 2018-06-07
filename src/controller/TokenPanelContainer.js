@@ -8,7 +8,7 @@ function mapStateToProps(state, ownProps)
 {
    InputValidator.validateNotNull("ownProps.cardInstance", ownProps.cardInstance);
 
-   var cardInstance = ownProps.cardInstance;
+   const cardInstance = ownProps.cardInstance;
 
    return (
    {

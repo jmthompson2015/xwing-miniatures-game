@@ -26,10 +26,10 @@ function mapDispatchToProps(dispatch, ownProps)
    InputValidator.validateNotNull("store", ownProps.store);
    InputValidator.validateNotNull("faction", ownProps.faction);
 
-   var store = ownProps.store;
-   var factionKey = ownProps.faction.key;
-   var computePilotIndexFore = SquadBuilderUI.computePilotIndexFore;
-   var computePilotIndexAft = SquadBuilderUI.computePilotIndexAft;
+   const store = ownProps.store;
+   const factionKey = ownProps.faction.key;
+   const computePilotIndexFore = SquadBuilderUI.computePilotIndexFore;
+   const computePilotIndexAft = SquadBuilderUI.computePilotIndexAft;
 
    return (
    {
@@ -47,19 +47,19 @@ function mapDispatchToProps(dispatch, ownProps)
             dispatch(AgentSquadAction.setPilot(pilot.aft, computePilotIndexAft(index)));
          }
 
-         var squad = createSquad(store, factionKey);
+         const squad = createSquad(store, factionKey);
          dispatch(AgentSquadAction.setSquad(squad));
       },
       pilotUpgradeChanged: function(pilotIndex, upgrade, upgradeIndex)
       {
          dispatch(AgentSquadAction.setPilotUpgrade(pilotIndex, upgrade, upgradeIndex));
-         var squad = createSquad(store, factionKey);
+         const squad = createSquad(store, factionKey);
          dispatch(AgentSquadAction.setSquad(squad));
       },
       shipChanged: function(ship, index)
       {
          dispatch(AgentSquadAction.setShip(ship, index));
-         var squad = createSquad(store, factionKey);
+         const squad = createSquad(store, factionKey);
          dispatch(AgentSquadAction.setSquad(squad));
       },
    });
@@ -67,25 +67,25 @@ function mapDispatchToProps(dispatch, ownProps)
 
 function createSquad(store, factionKey)
 {
-   var name = "name";
-   var year = 2017;
-   var description = "description";
-   var pilots = store.getState().pilots;
-   var tokens = [];
+   const name = "name";
+   const year = 2017;
+   const description = "description";
+   const pilots = store.getState().pilots;
+   const tokens = [];
 
    if (pilots.size > 0)
    {
-      var delegateStore = store.getState().delegateStore;
-      var mockAgent = new Agent(delegateStore, "mockAgent");
+      const delegateStore = store.getState().delegateStore;
+      const mockAgent = new Agent(delegateStore, "mockAgent");
 
       pilots.forEach(function(pilot, i)
       {
          // Ignore child pilots.
          if (pilot && !pilot.parent)
          {
-            var myPilot = (pilot.fore ? pilot.fore : pilot);
-            var upgrades = store.getState().pilotIndexToUpgrades.get(i);
-            var upgradeKeys = [];
+            let myPilot = (pilot.fore ? pilot.fore : pilot);
+            let upgrades = store.getState().pilotIndexToUpgrades.get(i);
+            const upgradeKeys = [];
             upgrades.forEach(function(upgrade)
             {
                if (upgrade)
@@ -94,7 +94,7 @@ function createSquad(store, factionKey)
                }
             });
 
-            var upgradeKeysAft;
+            let upgradeKeysAft;
             myPilot = (pilot.aft ? pilot.aft : undefined);
 
             if (myPilot)

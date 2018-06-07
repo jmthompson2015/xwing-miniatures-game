@@ -11,7 +11,7 @@ import UpgradeCard from "../artifact/UpgradeCard.js";
 import AttackDice from "./AttackDice.js";
 import CardAction from "./CardAction.js";
 
-var UpgradeAbility4 = {};
+const UpgradeAbility4 = {};
 
 ////////////////////////////////////////////////////////////////////////
 UpgradeAbility4[Phase.END_START] = {};
@@ -53,22 +53,22 @@ UpgradeAbility4[Phase.END_ROUND_END][UpgradeCard.CLOAKING_DEVICE] = {
    // Action: Perform a free cloak action. At the end of each round, if you are cloaked, roll 1 attack die. On a focus result, discard this card, then decloak or discard your cloak token.
    condition: function(store, token)
    {
-      var upgradeKey = UpgradeCard.CLOAKING_DEVICE;
+      const upgradeKey = UpgradeCard.CLOAKING_DEVICE;
       return isActiveCardInstance(store, token) && token.isCloaked() && token.isPerRoundAbilityUsed(UpgradeCard, upgradeKey);
    },
    consequent: function(store, token, callback)
    {
       if (AttackDice.rollRandomValue() === AttackDiceValue.FOCUS)
       {
-         var upgradeKey = UpgradeCard.CLOAKING_DEVICE;
+         const upgradeKey = UpgradeCard.CLOAKING_DEVICE;
          token.discardUpgrade(upgradeKey);
 
-         var agent = token.agent();
-         var environment = store.getState().environment;
-         var adjudicator = store.getState().adjudicator;
-         var shipActions0 = [ShipAction.DECLOAK];
-         var that = this;
-         var finishCallback = function(shipActionAbility)
+         const agent = token.agent();
+         const environment = store.getState().environment;
+         const adjudicator = store.getState().adjudicator;
+         const shipActions0 = [ShipAction.DECLOAK];
+         const that = this;
+         const finishCallback = function(shipActionAbility)
          {
             that.finishConsequent(store, token, shipActionAbility, callback);
          };
@@ -86,7 +86,7 @@ UpgradeAbility4[Phase.END_ROUND_END][UpgradeCard.CLOAKING_DEVICE] = {
       store.dispatch(CardAction.addIonCount(token));
       if (shipActionAbility)
       {
-         var consequent = shipActionAbility.consequent();
+         const consequent = shipActionAbility.consequent();
          consequent(store, token, callback, shipActionAbility.context());
       }
       else
@@ -101,14 +101,14 @@ function getActiveCardInstance(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var environment = store.getState().environment;
+   const environment = store.getState().environment;
 
    return environment.activeCardInstance();
 }
 
 function isActiveCardInstance(store, token)
 {
-   var activeToken = getActiveCardInstance(store);
+   const activeToken = getActiveCardInstance(store);
 
    return token.equals(activeToken);
 }

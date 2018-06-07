@@ -7,13 +7,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Difficulty.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Difficulty);
+   const result = Difficulty.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Difficulty);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Difficulty[key];
+      const key2 = Difficulty[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -23,7 +23,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Difficulty[key] === value;
       });
@@ -35,18 +35,18 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Difficulty.keys();
+   const result = Difficulty.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 3);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Difficulty.EASY);
    assert.equal(result[i++], Difficulty.STANDARD);
    assert.equal(result[i++], Difficulty.HARD);
 
-   var properties = Object.getOwnPropertyNames(Difficulty);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Difficulty);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

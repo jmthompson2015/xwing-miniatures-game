@@ -27,13 +27,13 @@ import Squad from "./Squad.js";
 
 QUnit.module("SimpleAgent");
 
-var delay = 10;
+const delay = 10;
 
 QUnit.test("properties", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var result = new Agent(store, "myAgent");
+   const store = Redux.createStore(Reducer.root);
+   const result = new Agent(store, "myAgent");
 
    // Run / Verify.
    assert.equal(result.name(), "myAgent");
@@ -42,17 +42,17 @@ QUnit.test("properties", function(assert)
 QUnit.test("chooseAbility()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var name = "myAgent";
-   var agent = new Agent(store, name);
-   var tokens = environment.pilotInstances();
-   var token2 = tokens[2];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const name = "myAgent";
+   const agent = new Agent(store, name);
+   const tokens = environment.pilotInstances();
+   const token2 = tokens[2];
    LOGGER.debug("token2 = " + token2);
 
-   var damageAbilities = [];
-   var pilotAbilities = [new Ability(PilotCard, PilotCard.LUKE_SKYWALKER, PilotAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)];
-   var upgradeAbilities = [];
+   const damageAbilities = [];
+   const pilotAbilities = [new Ability(PilotCard, PilotCard.LUKE_SKYWALKER, PilotAbility3, Phase.COMBAT_MODIFY_DEFENSE_DICE)];
+   const upgradeAbilities = [];
    LOGGER.debug("damageAbilities = " + damageAbilities);
    LOGGER.debug("pilotAbilities = " + pilotAbilities);
    LOGGER.debug("upgradeAbilities = " + upgradeAbilities);
@@ -77,22 +77,22 @@ QUnit.test("chooseAbility()", function(assert)
 QUnit.test("chooseWeaponAndDefender() Imperial", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var name = "myAgent";
-   var agent = new Agent(store, name);
+   const name = "myAgent";
+   const agent = new Agent(store, name);
 
-   var oldPosition0 = new Position(305, 20, 90);
-   var token0 = environment.getTokenAt(oldPosition0);
-   var position0 = new Position(458, 795, 90);
+   const oldPosition0 = new Position(305, 20, 90);
+   const token0 = environment.getTokenAt(oldPosition0);
+   const position0 = new Position(458, 795, 90);
    environment.moveToken(oldPosition0, position0);
 
-   var position1 = new Position(610, 20, 90);
-   var token1 = environment.getTokenAt(position1);
+   const position1 = new Position(610, 20, 90);
+   const token1 = environment.getTokenAt(position1);
 
-   var position2 = new Position(458, 895, -90);
-   var token2 = environment.getTokenAt(position2);
+   const position2 = new Position(458, 895, -90);
+   const token2 = environment.getTokenAt(position2);
 
    LOGGER.debug("token0 = " + token0);
    LOGGER.debug("token1 = " + token1);
@@ -116,12 +116,12 @@ QUnit.test("chooseWeaponAndDefender() Imperial", function(assert)
 QUnit.test("determineValidManeuvers()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var token = environment.pilotInstances()[0]; // TIE Fighter.
-   var agent = token.agent();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const token = environment.pilotInstances()[0]; // TIE Fighter.
+   const agent = token.agent();
 
    // Run.
-   var result = agent.determineValidManeuvers(token);
+   const result = agent.determineValidManeuvers(token);
 
    // Validate.
    assert.ok(result);
@@ -131,16 +131,16 @@ QUnit.test("determineValidManeuvers()", function(assert)
 QUnit.test("determineValidManeuvers() corner", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var token = environment.pilotInstances()[0]; // TIE Fighter.
-   var agent = token.agent();
-   var position0 = environment.getPositionFor(token);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const token = environment.pilotInstances()[0]; // TIE Fighter.
+   const agent = token.agent();
+   const position0 = environment.getPositionFor(token);
    LOGGER.debug("before position0 = " + position0);
-   var position = new Position(21, position0.y(), position0.heading());
+   const position = new Position(21, position0.y(), position0.heading());
    environment.moveToken(position0, position);
 
    // Run.
-   var result = agent.determineValidManeuvers(token);
+   const result = agent.determineValidManeuvers(token);
 
    // Validate.
    assert.ok(result);
@@ -154,30 +154,30 @@ QUnit.test("determineValidManeuvers() corner", function(assert)
 QUnit.test("determineValidModifyDefenseDiceActions() Captain Oicunn", function(assert)
 {
    // Setup.
-   var store00 = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store00, "Imperial Agent");
-   var rebelAgent = new Agent(store00, "Rebel Agent");
-   var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
-   var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH])]);
-   var positions1 = [new Position(305, 20, 90)];
-   var positions2 = [new Position(458, 895, 270)];
+   const store00 = Redux.createStore(Reducer.root);
+   let imperialAgent = new Agent(store00, "Imperial Agent");
+   let rebelAgent = new Agent(store00, "Rebel Agent");
+   const squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.CAPTAIN_OICUNN, imperialAgent, [UpgradeCard.YSANNE_ISARD])]);
+   const squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH])]);
+   const positions1 = [new Position(305, 20, 90)];
+   const positions2 = [new Position(458, 895, 270)];
 
-   var store = Redux.createStore(Reducer.root);
-   var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
+   const store = Redux.createStore(Reducer.root);
+   const environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
    imperialAgent = environment.firstAgent();
    rebelAgent = environment.secondAgent();
-   var attacker = environment.pilotInstances()[1]; // X-Wing.
-   var defender = environment.pilotInstances()[0]; // VT-49 Decimator.
+   const attacker = environment.pilotInstances()[1]; // X-Wing.
+   const defender = environment.pilotInstances()[0]; // VT-49 Decimator.
    store.dispatch(CardAction.addEvadeCount(defender));
    environment.setActiveToken(attacker);
-   var weapon = attacker.primaryWeapon();
-   var callback = function() {};
+   const weapon = attacker.primaryWeapon();
+   const callback = function() {};
    store.dispatch(Action.setDelay(delay));
-   var combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
+   const combatAction = new CombatAction(store, attacker, weapon, defender, callback, MockAttackDice, MockDefenseDice);
    store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
 
    // Run.
-   var result = rebelAgent.determineValidModifyDefenseDiceActions(attacker, defender);
+   const result = rebelAgent.determineValidModifyDefenseDiceActions(attacker, defender);
 
    // Validate.
    assert.ok(result);
@@ -188,14 +188,14 @@ QUnit.test("determineValidModifyDefenseDiceActions() Captain Oicunn", function(a
 QUnit.test("determineValidShipActions() Mauler Mithel", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var token = environment.pilotInstances()[0]; // TIE Fighter.
-   var agent = token.agent();
+   const token = environment.pilotInstances()[0]; // TIE Fighter.
+   const agent = token.agent();
 
    // Run.
-   var result = agent.determineValidShipActions(token);
+   const result = agent.determineValidShipActions(token);
 
    // Validate.
    assert.ok(result);
@@ -209,19 +209,19 @@ QUnit.test("determineValidShipActions() Mauler Mithel", function(assert)
 QUnit.test("determineValidShipActions() Luke Skywalker", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var token = environment.pilotInstances()[2]; // X-Wing.
-   var agent = token.agent();
-   var upgrade = new CardInstance(store, UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN]);
+   const token = environment.pilotInstances()[2]; // X-Wing.
+   const agent = token.agent();
+   const upgrade = new CardInstance(store, UpgradeCard.properties[UpgradeCard.LANDO_CALRISSIAN]);
    store.dispatch(CardAction.addUpgrade(token, upgrade));
-   var damage = new CardInstance(store, DamageCard.CONSOLE_FIRE);
+   const damage = new CardInstance(store, DamageCard.CONSOLE_FIRE);
    token.receiveCriticalDamage(damage);
    environment.setActiveToken(token);
 
    // Run.
-   var result = agent.determineValidShipActions(token);
+   const result = agent.determineValidShipActions(token);
 
    // Validate.
    assert.ok(result);
@@ -244,25 +244,25 @@ QUnit.test("determineValidShipActions() Luke Skywalker", function(assert)
 QUnit.test("determineValidShipActions() Miranda Doni", function(assert)
 {
    // Setup.
-   var store00 = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store00, "Imperial Agent");
-   var rebelAgent = new Agent(store00, "Rebel Agent");
-   var squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]), new CardInstance(store00, PilotCard.DARK_CURSE, imperialAgent)]);
-   var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH]), new CardInstance(store00, PilotCard.MIRANDA_DONI, rebelAgent)]);
-   var positions1 = [new Position(305, 20, 90), new Position(610, 20, 90)];
-   var positions2 = [new Position(458, 895, 270), new Position(400, 400, 0)];
+   const store00 = Redux.createStore(Reducer.root);
+   let imperialAgent = new Agent(store00, "Imperial Agent");
+   let rebelAgent = new Agent(store00, "Rebel Agent");
+   const squad1 = new Squad(Faction.REBEL, "squad1", 2016, "squad1", [new CardInstance(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]), new CardInstance(store00, PilotCard.DARK_CURSE, imperialAgent)]);
+   const squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH]), new CardInstance(store00, PilotCard.MIRANDA_DONI, rebelAgent)]);
+   const positions1 = [new Position(305, 20, 90), new Position(610, 20, 90)];
+   const positions2 = [new Position(458, 895, 270), new Position(400, 400, 0)];
 
-   var store = Redux.createStore(Reducer.root);
-   var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
+   const store = Redux.createStore(Reducer.root);
+   const environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
    Adjudicator.create(store);
    imperialAgent = environment.firstAgent();
    rebelAgent = environment.secondAgent();
-   var token = environment.pilotInstances()[3]; // K-Wing.
-   var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_2_EASY];
+   const token = environment.pilotInstances()[3]; // K-Wing.
+   const previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_2_EASY];
    store.dispatch(Action.setTokenManeuver(token, previousManeuver));
 
    // Run.
-   var result = rebelAgent.determineValidShipActions(token);
+   const result = rebelAgent.determineValidShipActions(token);
 
    // Validate.
    assert.ok(result);
@@ -292,15 +292,15 @@ QUnit.test("determineValidShipActions() Miranda Doni", function(assert)
 QUnit.test("getDecloakAction()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var agent = new Agent(store, "Imperial Agent");
-   var token = new CardInstance(store, PilotCard.SIGMA_SQUADRON_PILOT, agent);
+   const agent = new Agent(store, "Imperial Agent");
+   const token = new CardInstance(store, PilotCard.SIGMA_SQUADRON_PILOT, agent);
    store.dispatch(EnvironmentAction.placeToken(new Position(200, 200, 0), token));
    store.dispatch(CardAction.addCloakCount(token));
 
-   var result;
+   let result;
 
    function callback(token, maneuverAction)
    {
@@ -326,16 +326,16 @@ QUnit.test("getDecloakAction()", function(assert)
 QUnit.test("getModifyAttackDiceAction() focus", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var attacker = environment.pilotInstances()[0]; // TIE Fighter
-   var defender = environment.pilotInstances()[2]; // X-Wing
-   var weapon = attacker.primaryWeapon();
-   var caCallback = function() {};
+   const attacker = environment.pilotInstances()[0]; // TIE Fighter
+   const defender = environment.pilotInstances()[2]; // X-Wing
+   const weapon = attacker.primaryWeapon();
+   const caCallback = function() {};
    store.dispatch(Action.setDelay(delay));
-   var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, MockAttackDice, MockDefenseDice);
-   var agent = attacker.agent();
+   const combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, MockAttackDice, MockDefenseDice);
+   const agent = attacker.agent();
    environment.setActiveToken(attacker);
    store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
    store.dispatch(CardAction.addFocusCount(attacker));
@@ -356,16 +356,16 @@ QUnit.test("getModifyAttackDiceAction() focus", function(assert)
 QUnit.test("getModifyDefenseDiceAction() evade", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var attacker = environment.pilotInstances()[2]; // X-Wing
-   var defender = environment.pilotInstances()[0]; // TIE Fighter
-   var weapon = attacker.primaryWeapon();
-   var caCallback = function() {};
+   const attacker = environment.pilotInstances()[2]; // X-Wing
+   const defender = environment.pilotInstances()[0]; // TIE Fighter
+   const weapon = attacker.primaryWeapon();
+   const caCallback = function() {};
    store.dispatch(Action.setDelay(delay));
-   var combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, MockAttackDice, MockDefenseDice);
-   var agent = defender.agent();
+   const combatAction = new CombatAction(store, attacker, weapon, defender, caCallback, MockAttackDice, MockDefenseDice);
+   const agent = defender.agent();
    environment.setActiveToken(attacker);
    store.dispatch(Action.setTokenCombatAction(attacker, combatAction));
    store.dispatch(CardAction.addEvadeCount(defender));
@@ -386,21 +386,21 @@ QUnit.test("getModifyDefenseDiceAction() evade", function(assert)
 QUnit.test("getPlanningAction() Imperial", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var agent = environment.firstAgent();
+   const agent = environment.firstAgent();
 
-   var position0 = new Position(305, 20, 90);
-   var token0 = environment.getTokenAt(position0);
+   const position0 = new Position(305, 20, 90);
+   const token0 = environment.getTokenAt(position0);
 
-   var position1 = new Position(610, 20, 90);
-   var token1 = environment.getTokenAt(position1);
+   const position1 = new Position(610, 20, 90);
+   const token1 = environment.getTokenAt(position1);
 
-   var position2 = new Position(458, 895, -90);
-   var token2 = environment.getTokenAt(position2);
+   const position2 = new Position(458, 895, -90);
+   const token2 = environment.getTokenAt(position2);
 
-   var result;
+   let result;
 
    function callback(planningAction)
    {
@@ -421,22 +421,22 @@ QUnit.test("getPlanningAction() Imperial", function(assert)
 QUnit.test("getPlanningAction() Rebel", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var agent = environment.secondAgent();
+   const agent = environment.secondAgent();
 
-   var position0 = new Position(305, 20, 90);
-   var token0 = environment.getTokenAt(position0);
+   const position0 = new Position(305, 20, 90);
+   const token0 = environment.getTokenAt(position0);
 
-   var position1 = new Position(610, 20, 90);
-   var token1 = environment.getTokenAt(position1);
+   const position1 = new Position(610, 20, 90);
+   const token1 = environment.getTokenAt(position1);
 
-   var position2 = new Position(458, 895, -90);
-   var token2 = environment.getTokenAt(position2);
-   var maneuver2 = Maneuver.STRAIGHT_1_STANDARD;
+   const position2 = new Position(458, 895, -90);
+   const token2 = environment.getTokenAt(position2);
+   const maneuver2 = Maneuver.STRAIGHT_1_STANDARD;
 
-   var result;
+   let result;
 
    function callback(planningAction)
    {
@@ -457,14 +457,14 @@ QUnit.test("getPlanningAction() Rebel", function(assert)
 QUnit.test("getPlanningAction() Rebel 2", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var agent = environment.secondAgent();
+   const agent = environment.secondAgent();
 
-   var oldPosition = new Position(458, 895, -90);
-   var newPosition = new Position(20, 110, -90);
-   var token = environment.getTokenAt(oldPosition);
+   const oldPosition = new Position(458, 895, -90);
+   const newPosition = new Position(20, 110, -90);
+   const token = environment.getTokenAt(oldPosition);
    environment.moveToken(oldPosition, newPosition);
 
    function callback(planningAction)
@@ -472,7 +472,7 @@ QUnit.test("getPlanningAction() Rebel 2", function(assert)
       // Verify.
       assert.ok(planningAction);
       assert.ok(planningAction[token.id()]);
-      var maneuver = planningAction[token.id()];
+      const maneuver = planningAction[token.id()];
       assert.ok(maneuver === Maneuver.STRAIGHT_1_EASY || maneuver === Maneuver.TURN_RIGHT_2_STANDARD);
    }
 
@@ -483,13 +483,13 @@ QUnit.test("getPlanningAction() Rebel 2", function(assert)
 QUnit.test("getShipAction()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    Adjudicator.create(store);
-   var name = "myAgent";
-   var agent = new Agent(store, name);
-   var tokens = environment.pilotInstances();
-   var token2 = tokens[2];
+   const name = "myAgent";
+   const agent = new Agent(store, name);
+   const tokens = environment.pilotInstances();
+   const token2 = tokens[2];
    LOGGER.debug("token2 = " + token2);
    environment.setActiveToken(token2);
 
@@ -513,11 +513,11 @@ QUnit.test("getShipAction()", function(assert)
 QUnit.test("toString()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var agent = new Agent(store, "myAgent");
+   const store = Redux.createStore(Reducer.root);
+   const agent = new Agent(store, "myAgent");
 
    // Run.
-   var result = agent.toString();
+   const result = agent.toString();
 
    // Verify.
    assert.ok(result);

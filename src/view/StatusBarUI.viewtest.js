@@ -8,7 +8,7 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var element = React.createElement(StatusBarUI,
+const element = React.createElement(StatusBarUI,
 {
    activeShipName: "Bob's Fighter",
    phase: Phase.properties[Phase.COMBAT_ROLL_ATTACK_DICE],

@@ -11,7 +11,7 @@ import CardAction from "./CardAction.js";
 import ManeuverAction from "./ManeuverAction.js";
 import TargetLock from "./TargetLock.js";
 
-var ShipActionAbility = {};
+const ShipActionAbility = {};
 
 ShipActionAbility.ABILITY_KEY = "shipAction";
 
@@ -26,8 +26,8 @@ ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BARREL_ROLL] = {
    },
    consequent: function(store, token, callback, context)
    {
-      var maneuverKey = context.maneuverKey;
-      var maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
+      const maneuverKey = context.maneuverKey;
+      const maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
       maneuverAction.doIt();
       notifyEvent(store, token, callback, ShipAction.BARREL_ROLL);
    },
@@ -41,8 +41,8 @@ ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.BOOST] = {
    },
    consequent: function(store, token, callback, context)
    {
-      var maneuverKey = context.maneuverKey;
-      var maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
+      const maneuverKey = context.maneuverKey;
+      const maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
       maneuverAction.doIt();
       notifyEvent(store, token, callback, ShipAction.BOOST);
    },
@@ -82,8 +82,8 @@ ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.DECLOAK] = {
    },
    consequent: function(store, token, callback, context)
    {
-      var maneuverKey = context.maneuverKey;
-      var maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
+      const maneuverKey = context.maneuverKey;
+      const maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
       maneuverAction.doIt();
       store.dispatch(CardAction.addCloakCount(token, -1));
       notifyEvent(store, token, callback, ShipAction.DECLOAK);
@@ -124,7 +124,7 @@ ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.JAM] = {
    },
    consequent: function(store, token, callback, context)
    {
-      var defender = context.defender;
+      const defender = context.defender;
       if (defender.stressCount() < 2)
       {
          defender.receiveStress();
@@ -171,8 +171,8 @@ ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.SLAM] = {
    },
    consequent: function(store, token, callback, context)
    {
-      var maneuverKey = context.maneuverKey;
-      var maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
+      const maneuverKey = context.maneuverKey;
+      const maneuverAction = new ManeuverAction(store, token.id(), maneuverKey);
       maneuverAction.doIt();
       store.dispatch(CardAction.addWeaponsDisabledCount(token));
       notifyEvent(store, token, callback, ShipAction.SLAM);
@@ -187,12 +187,12 @@ ShipActionAbility[ShipActionAbility.ABILITY_KEY][ShipAction.TARGET_LOCK] = {
    },
    consequent: function(store, attacker, callback, context)
    {
-      var oldTargetLocks = TargetLock.getByAttacker(store, attacker);
+      const oldTargetLocks = TargetLock.getByAttacker(store, attacker);
       if (oldTargetLocks.length > 0)
       {
          oldTargetLocks[0].delete();
       }
-      var defender = context.defender;
+      const defender = context.defender;
       TargetLock.newInstance(store, attacker, defender);
       notifyEvent(store, attacker, callback, ShipAction.TARGET_LOCK);
    },
@@ -203,14 +203,14 @@ function getActiveToken(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var environment = store.getState().environment;
+   const environment = store.getState().environment;
 
    return environment.activeCardInstance();
 }
 
 function isActiveToken(store, token)
 {
-   var activeToken = getActiveToken(store);
+   const activeToken = getActiveToken(store);
 
    return token.equals(activeToken);
 }
@@ -228,8 +228,8 @@ function notifyEvent(store, eventToken, eventCallback, shipActionKey)
    InputValidator.validateNotNull("shipActionKey", shipActionKey);
 
    // Issue event.
-   var eventKey = Event.SHIP_ACTION_PERFORMED;
-   var eventContext = {
+   const eventKey = Event.SHIP_ACTION_PERFORMED;
+   const eventContext = {
       shipActionKey: shipActionKey,
    };
    store.dispatch(Action.enqueueEvent(eventKey, eventToken, eventCallback, eventContext));

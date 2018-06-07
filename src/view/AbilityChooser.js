@@ -17,26 +17,26 @@ class AbilityChooser extends React.Component
 
    render()
    {
-      var token = this.props.token;
-      var damages = this.props.damages;
-      var pilots = this.props.pilots;
-      var shipActions = this.props.shipActions;
-      var upgrades = this.props.upgrades;
-      var resourceBase = this.props.resourceBase;
+      const token = this.props.token;
+      const damages = this.props.damages;
+      const pilots = this.props.pilots;
+      const shipActions = this.props.shipActions;
+      const upgrades = this.props.upgrades;
+      const resourceBase = this.props.resourceBase;
 
-      var message = "Active Ship: " + token.name();
-      var okButton = React.createElement(Button,
+      const message = "Active Ship: " + token.name();
+      const okButton = React.createElement(Button,
       {
          key: 0,
          name: "Pass",
          onClick: this.ok,
       });
-      var buttons = ReactDOMFactories.span(
+      const buttons = ReactDOMFactories.span(
       {}, [okButton]);
 
-      var labelFunction = function(value)
+      const labelFunction = function(value)
       {
-         var answer = React.createElement(EntityUI,
+         const answer = React.createElement(EntityUI,
          {
             context: value.context(),
             entity: value.sourceObject(),
@@ -46,12 +46,12 @@ class AbilityChooser extends React.Component
          return answer;
       };
 
-      var values = shipActions.slice();
+      const values = shipActions.slice();
       ArrayUtilities.addAll(values, pilots);
       ArrayUtilities.addAll(values, upgrades);
       ArrayUtilities.addAll(values, damages);
 
-      var initialInput = React.createElement(InputPanel,
+      const initialInput = React.createElement(InputPanel,
       {
          type: InputPanel.Type.RADIO,
          values: values,
@@ -61,7 +61,7 @@ class AbilityChooser extends React.Component
          panelClass: "combatChoicePanel f6 tl",
       });
 
-      var title = "Select Ability";
+      const title = "Select Ability";
 
       return React.createElement(OptionPane,
       {
@@ -82,13 +82,13 @@ AbilityChooser.prototype.myOnChangeFunction = function(event, selected)
    LOGGER.trace("AbilityChooser.myOnChange()");
    LOGGER.debug("AbilityChooser.myOnChange() selected = " + selected + " " + (typeof selected));
 
-   var isAccepted = (selected !== undefined);
+   const isAccepted = (selected !== undefined);
    this.props.onChange(selected, isAccepted);
 };
 
 AbilityChooser.prototype.okFunction = function()
 {
-   var isAccepted = false;
+   const isAccepted = false;
    this.props.onChange(undefined, undefined, undefined, isAccepted);
 };
 

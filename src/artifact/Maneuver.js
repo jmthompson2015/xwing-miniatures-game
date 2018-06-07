@@ -9,7 +9,7 @@ import BasicManeuver from "./BasicManeuver.js";
 import Bearing from "./Bearing.js";
 import Difficulty from "./Difficulty.js";
 
-var Maneuver = {
+const Maneuver = {
    // Bank.
    BANK_LEFT_1_EASY: "bankLeft1Easy",
    BANK_LEFT_1_STANDARD: "bankLeft1Standard",
@@ -734,7 +734,7 @@ Maneuver.values = function()
 
 Maneuver.keys().forEach(function(maneuverKey)
 {
-   var maneuver = Maneuver.properties[maneuverKey];
+   const maneuver = Maneuver.properties[maneuverKey];
    maneuver.basicManeuver = BasicManeuver.properties[maneuver.basicManeuverKey];
    maneuver.difficulty = Difficulty.properties[maneuver.difficultyKey];
 
@@ -754,14 +754,14 @@ Maneuver.find = function(bearingKey, speed, difficultyKey)
    InputValidator.validateIsNumber("speed", speed);
    InputValidator.validateIsString("difficultyKey", difficultyKey);
 
-   var answer;
+   let answer;
 
-   var keys = Maneuver.keys();
+   const keys = Maneuver.keys();
 
-   for (var i = 0; i < keys.length; i++)
+   for (let i = 0; i < keys.length; i++)
    {
-      var maneuverKey = keys[i];
-      var maneuver = Maneuver.properties[maneuverKey];
+      const maneuverKey = keys[i];
+      const maneuver = Maneuver.properties[maneuverKey];
 
       if ((maneuver.bearingKey === bearingKey) && (maneuver.speed === speed) && (maneuver.difficultyKey === difficultyKey))
       {
@@ -775,14 +775,14 @@ Maneuver.find = function(bearingKey, speed, difficultyKey)
 
 Maneuver.toString = function(maneuverKey)
 {
-   var answer = "Maneuver";
+   let answer = "Maneuver";
 
    if (maneuverKey)
    {
-      var maneuver = Maneuver.properties[maneuverKey];
-      var bearingName = maneuver.bearing.name;
-      var speed = maneuver.speed;
-      var difficultyName = maneuver.difficulty.name;
+      const maneuver = Maneuver.properties[maneuverKey];
+      const bearingName = maneuver.bearing.name;
+      const speed = maneuver.speed;
+      const difficultyName = maneuver.difficulty.name;
 
       answer = bearingName + " " + speed + " " + difficultyName;
    }

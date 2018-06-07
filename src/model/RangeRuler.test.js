@@ -26,16 +26,16 @@ QUnit.test("findRange()", function(assert)
 QUnit.test("getRange() One", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var attacker = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
-   var attackerPosition = new Position(300, 80, -90);
-   var imperialAgent = new Agent(store, "Imperial Agent");
-   var defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
-   var defenderPosition = new Position(300, 30, 45);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const attacker = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const attackerPosition = new Position(300, 80, -90);
+   const imperialAgent = new Agent(store, "Imperial Agent");
+   const defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const defenderPosition = new Position(300, 30, 45);
 
    // Run.
-   var result = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
+   const result = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
 
    // Verify.
    assert.ok(result);
@@ -45,16 +45,16 @@ QUnit.test("getRange() One", function(assert)
 QUnit.test("getRange() Two", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var attacker = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
-   var attackerPosition = new Position(300, 180, -90);
-   var imperialAgent = new Agent(store, "Imperial Agent");
-   var defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
-   var defenderPosition = new Position(300, 30, 45);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const attacker = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const attackerPosition = new Position(300, 180, -90);
+   const imperialAgent = new Agent(store, "Imperial Agent");
+   const defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const defenderPosition = new Position(300, 30, 45);
 
    // Run.
-   var result = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
+   const result = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
 
    // Verify.
    assert.ok(result);
@@ -64,16 +64,16 @@ QUnit.test("getRange() Two", function(assert)
 QUnit.test("getRange() Three", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var rebelAgent = new Agent(store, "Rebel Agent");
-   var attacker = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
-   var attackerPosition = new Position(300, 280, -90);
-   var imperialAgent = new Agent(store, "Imperial Agent");
-   var defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
-   var defenderPosition = new Position(300, 30, 45);
+   const store = Redux.createStore(Reducer.root);
+   const rebelAgent = new Agent(store, "Rebel Agent");
+   const attacker = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
+   const attackerPosition = new Position(300, 280, -90);
+   const imperialAgent = new Agent(store, "Imperial Agent");
+   const defender = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+   const defenderPosition = new Position(300, 30, 45);
 
    // Run.
-   var result = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
+   const result = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
 
    // Verify.
    assert.ok(result);

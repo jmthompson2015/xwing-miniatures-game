@@ -12,7 +12,7 @@ import Maneuver from "../artifact/Maneuver.js";
 import ActivationAction from "./ActivationAction.js";
 import AttackDice from "./AttackDice.js";
 
-var DamageAbility0 = {};
+const DamageAbility0 = {};
 
 ////////////////////////////////////////////////////////////////////////
 DamageAbility0[Event.AFTER_EXECUTE_MANEUVER] = {};
@@ -21,7 +21,7 @@ DamageAbility0[Event.AFTER_EXECUTE_MANEUVER][DamageCard.LOOSE_STABILIZER_V2] = {
    // After you execute a white maneuver, receive 1 stress token.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
+      const maneuver = getManeuver(token);
       return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.LOOSE_STABILIZER_V2) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.STANDARD;
    },
    consequent: function(store, token, callback)
@@ -34,7 +34,7 @@ DamageAbility0[Event.AFTER_EXECUTE_MANEUVER][DamageCard.MINOR_HULL_BREACH] = {
    // After executing a red maneuver, roll 1 attack die. On a Hit result, suffer 1 damage.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
+      const maneuver = getManeuver(token);
       return isEventToken(store, token) && token.isCriticallyDamagedWith(DamageCard.MINOR_HULL_BREACH) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.HARD;
    },
    consequent: function(store, token, callback)
@@ -60,7 +60,7 @@ DamageAbility0[Event.RECEIVE_CRITICAL_DAMAGE][DamageCard.MAJOR_EXPLOSION_V2] = {
    {
       if (AttackDice.rollRandomValue() === AttackDiceValue.HIT)
       {
-         var environment = store.getState().environment;
+         const environment = store.getState().environment;
          token.receiveCriticalDamage(environment.drawDamage());
       }
       flipCardFacedown(store, token, DamageCard.MAJOR_EXPLOSION_V2);
@@ -118,7 +118,7 @@ function flipCardFacedown(store, token, damageKey)
    InputValidator.validateNotNull("token", token);
    InputValidator.validateNotNull("damageKey", damageKey);
 
-   var damageInstance = token.criticalDamage(damageKey);
+   const damageInstance = token.criticalDamage(damageKey);
    token.flipDamageCardFacedown(damageInstance);
 }
 
@@ -126,7 +126,7 @@ function getActivationAction(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var store = token.store();
+   const store = token.store();
 
    return ActivationAction.get(store, token.id());
 }
@@ -142,7 +142,7 @@ function getEventToken(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var eventData = getEventData(store);
+   const eventData = getEventData(store);
 
    return (eventData !== undefined ? eventData.get("eventToken") : undefined);
 }
@@ -151,7 +151,7 @@ function getManeuver(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var maneuverKey = getManeuverKey(token);
+   const maneuverKey = getManeuverKey(token);
    return Maneuver.properties[maneuverKey];
 }
 
@@ -159,8 +159,8 @@ function getManeuverKey(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var answer;
-   var activationAction = getActivationAction(token);
+   let answer;
+   const activationAction = getActivationAction(token);
 
    if (activationAction)
    {
@@ -172,7 +172,7 @@ function getManeuverKey(token)
 
 function isEventToken(store, token)
 {
-   var eventToken = getEventToken(store);
+   const eventToken = getEventToken(store);
 
    return token.equals(eventToken);
 }

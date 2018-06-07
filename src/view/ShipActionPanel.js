@@ -6,12 +6,12 @@ class ShipActionPanel extends React.Component
 {
    render()
    {
-      var shipActionKeys = this.props.shipActionKeys;
-      var cells = [];
+      const shipActionKeys = this.props.shipActionKeys;
+      const cells = [];
 
       shipActionKeys.forEach(function(shipActionKey, i)
       {
-         var image = React.createElement(ShipActionUI,
+         const image = React.createElement(ShipActionUI,
          {
             shipAction: ShipAction.properties[shipActionKey],
          });
@@ -22,7 +22,7 @@ class ShipActionPanel extends React.Component
          }, image));
       }, this);
 
-      var row = ReactDOMFactories.tr(
+      const row = ReactDOMFactories.tr(
       {}, cells);
       return ReactDOMFactories.table(
       {

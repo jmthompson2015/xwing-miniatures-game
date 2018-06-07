@@ -2,22 +2,22 @@ import InputValidator from "../utility/InputValidator.js";
 
 import CardAction from "./CardAction.js";
 
-var CardReducer = {};
+const CardReducer = {};
 
 CardReducer.reduce = function(state, action)
 {
    LOGGER.debug("CardReducer.reduce() type = " + action.type);
 
-   var cardId, damageId, index, upgradeId;
-   var oldDamages, oldUpgrades;
-   var newCardIdToData;
+   let cardId, damageId, index, upgradeId;
+   let oldDamages, oldUpgrades;
+   let newCardIdToData;
 
    switch (action.type)
    {
       case CardAction.ADD_COUNT:
       case CardAction.SET_COUNT:
          // LOGGER.info("ADD_COUNT || SET_COUNT: cardInstance = " + action.cardInstance + " property = " + action.property + " value = " + action.key);
-         var newCardIdToCounts = CardReducer.cardIdToCounts(state.cardCounts, action);
+         const newCardIdToCounts = CardReducer.cardIdToCounts(state.cardCounts, action);
          return Object.assign(
          {}, state,
          {
@@ -68,7 +68,7 @@ CardReducer.reduce = function(state, action)
          damageId = action.damageInstance.id();
          oldDamages = (state.cardDamages.get(cardId) ? state.cardDamages.get(cardId) : Immutable.List());
          index = oldDamages.indexOf(damageId);
-         var newDamages = (index >= 0 ? oldDamages.delete(index) : oldDamages);
+         const newDamages = (index >= 0 ? oldDamages.delete(index) : oldDamages);
          return Object.assign(
          {}, state,
          {
@@ -79,7 +79,7 @@ CardReducer.reduce = function(state, action)
          upgradeId = action.upgradeInstance.id();
          oldUpgrades = (state.cardUpgrades.get(cardId) ? state.cardUpgrades.get(cardId) : Immutable.List());
          index = oldUpgrades.indexOf(upgradeId);
-         var newUpgrades = (index >= 0 ? oldUpgrades.delete(index) : oldUpgrades);
+         const newUpgrades = (index >= 0 ? oldUpgrades.delete(index) : oldUpgrades);
          return Object.assign(
          {}, state,
          {
@@ -87,7 +87,7 @@ CardReducer.reduce = function(state, action)
          });
       case CardAction.SET_CARD_INSTANCE:
          // LOGGER.info("SET_TOKEN: payload = " + JSON.stringify(action.payload));
-         var newCards = state.cardInstances.set(action.payload.get("id"), action.payload);
+         const newCards = state.cardInstances.set(action.payload.get("id"), action.payload);
          return Object.assign(
          {}, state,
          {
@@ -112,7 +112,7 @@ CardReducer.counts = function(state, action)
    switch (action.type)
    {
       case CardAction.ADD_COUNT:
-         var oldValue = (state.get(action.property) ? state.get(action.property) : 0);
+         const oldValue = (state.get(action.property) ? state.get(action.property) : 0);
          return state.set(action.property, Math.max(oldValue + action.key, 0));
       case CardAction.SET_COUNT:
          return state.set(action.property, action.key);
@@ -131,7 +131,7 @@ CardReducer.cardIdToArray = function(state, actionType, actionTokenId, actionDat
 
    LOGGER.debug("CardReducer.cardIdToArray() type = " + actionType);
 
-   var newArray, oldArray;
+   let newArray, oldArray;
 
    switch (actionType)
    {
@@ -152,7 +152,7 @@ CardReducer.cardIdToArray = function(state, actionType, actionTokenId, actionDat
       case CardAction.REMOVE_USED_PER_ROUND_ABILITY:
          oldArray = state.get(actionTokenId);
          newArray = (oldArray ? oldArray : Immutable.List());
-         var index = newArray.indexOf(actionData);
+         const index = newArray.indexOf(actionData);
          newArray = newArray.delete(index);
          return state.set(actionTokenId, newArray);
       default:
@@ -169,7 +169,7 @@ CardReducer.cardIdToCounts = function(state, action)
    {
       case CardAction.ADD_COUNT:
       case CardAction.SET_COUNT:
-         var oldTokenIdToCounts = (state.get(action.cardInstance.id()) ? state.get(action.cardInstance.id()) : Immutable.Map());
+         const oldTokenIdToCounts = (state.get(action.cardInstance.id()) ? state.get(action.cardInstance.id()) : Immutable.Map());
          return state.set(action.cardInstance.id(), CardReducer.counts(oldTokenIdToCounts, action));
       default:
          LOGGER.warn("CardReducer.cardIdToCounts: Unhandled action type: " + action.type);

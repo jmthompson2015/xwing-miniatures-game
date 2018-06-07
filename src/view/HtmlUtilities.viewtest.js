@@ -9,7 +9,7 @@ LOGGER.setDebugEnabled(false);
 QUnit.test("HtmlUtilities.addClass()", function(assert)
 {
    // Setup.
-   var element = document.getElementById("div1");
+   const element = document.getElementById("div1");
    assert.ok(HtmlUtilities.hasClass(element, "one"));
    assert.ok(!HtmlUtilities.hasClass(element, "two"));
 
@@ -28,7 +28,7 @@ QUnit.test("HtmlUtilities.addClass()", function(assert)
 
 QUnit.test("HtmlUtilities.hasClass()", function(assert)
 {
-   var element = document.getElementById("div1");
+   const element = document.getElementById("div1");
    assert.ok(HtmlUtilities.hasClass(element, "one"));
    assert.ok(!HtmlUtilities.hasClass(element, "two"));
 });
@@ -36,7 +36,7 @@ QUnit.test("HtmlUtilities.hasClass()", function(assert)
 QUnit.test("HtmlUtilities.removeClass()", function(assert)
 {
    // Setup.
-   var element = document.getElementById("div1");
+   const element = document.getElementById("div1");
    assert.ok(HtmlUtilities.hasClass(element, "one"));
    assert.ok(!HtmlUtilities.hasClass(element, "two"));
 

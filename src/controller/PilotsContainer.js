@@ -9,13 +9,13 @@ function mapStateToProps(state, ownProps)
    InputValidator.validateNotNull("agent", ownProps.agent);
    InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
 
-   var agent = ownProps.agent;
-   var tokens = agent.pilotInstances();
+   const agent = ownProps.agent;
+   let tokens = agent.pilotInstances();
    tokens.sort(function(token0, token1)
    {
-      var pilotSkill0 = token0.pilotSkillValue();
-      var pilotSkill1 = token1.pilotSkillValue();
-      var answer = pilotSkill0 - pilotSkill1;
+      const pilotSkill0 = token0.pilotSkillValue();
+      const pilotSkill1 = token1.pilotSkillValue();
+      let answer = pilotSkill0 - pilotSkill1;
 
       if (answer === 0)
       {

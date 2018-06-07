@@ -13,7 +13,7 @@ import UpgradeCard from "../artifact/UpgradeCard.js";
 
 import Weapon from "./Weapon.js";
 
-var PilotInstanceUtilities = {};
+const PilotInstanceUtilities = {};
 
 PilotInstanceUtilities.computeAttackDiceCount = function(pilotInstance, environment, weapon, defender, rangeKey)
 {
@@ -23,12 +23,12 @@ PilotInstanceUtilities.computeAttackDiceCount = function(pilotInstance, environm
    InputValidator.validateNotNull("defender", defender);
    InputValidator.validateNotNull("rangeKey", rangeKey);
 
-   var answer;
+   let answer;
 
    if (pilotInstance.isCriticallyDamagedWith(DamageCard.BLINDED_PILOT))
    {
       answer = 0;
-      var damageInstance = pilotInstance.criticalDamage(DamageCard.BLINDED_PILOT);
+      const damageInstance = pilotInstance.criticalDamage(DamageCard.BLINDED_PILOT);
       pilotInstance.flipDamageCardFacedown(damageInstance);
    }
    else
@@ -46,9 +46,9 @@ PilotInstanceUtilities.computeAttackDiceCount = function(pilotInstance, environm
          }
       }
 
-      var attackerPosition = environment.getPositionFor(pilotInstance);
-      var defenderPosition = environment.getPositionFor(defender);
-      var firingArc, isInFiringArc;
+      const attackerPosition = environment.getPositionFor(pilotInstance);
+      const defenderPosition = environment.getPositionFor(defender);
+      let firingArc, isInFiringArc;
 
       if (pilotInstance.card().key === PilotCard.BACKSTABBER)
       {
@@ -124,7 +124,7 @@ PilotInstanceUtilities.computeDefenseDiceCount = function(pilotInstance, environ
    InputValidator.validateNotNull("weapon", weapon);
    InputValidator.validateNotNull("rangeKey", rangeKey);
 
-   var answer = pilotInstance.agilityValue();
+   let answer = pilotInstance.agilityValue();
 
    if ([Range.THREE, Range.FOUR, Range.FIVE].includes(rangeKey) && weapon.isPrimary())
    {
@@ -144,10 +144,10 @@ PilotInstanceUtilities.computeDefenseDiceCount = function(pilotInstance, environ
 
    if (pilotInstance.card().key === PilotCard.GRAZ_THE_HUNTER)
    {
-      var attackerPosition = environment.getPositionFor(attacker);
-      var defenderPosition = environment.getPositionFor(pilotInstance);
-      var firingArc = FiringArc.FORWARD;
-      var isInFiringArc = weapon.isDefenderInFiringArc(defenderPosition, firingArc, attacker, attackerPosition);
+      const attackerPosition = environment.getPositionFor(attacker);
+      const defenderPosition = environment.getPositionFor(pilotInstance);
+      const firingArc = FiringArc.FORWARD;
+      const isInFiringArc = weapon.isDefenderInFiringArc(defenderPosition, firingArc, attacker, attackerPosition);
 
       if (!isInFiringArc)
       {
@@ -162,7 +162,7 @@ PilotInstanceUtilities.maneuverKeys = function(pilotInstance)
 {
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   var answer;
+   let answer;
 
    if (pilotInstance.isIonized())
    {
@@ -170,7 +170,7 @@ PilotInstanceUtilities.maneuverKeys = function(pilotInstance)
    }
    else
    {
-      var ship = pilotInstance.ship();
+      const ship = pilotInstance.ship();
       answer = ship.maneuverKeys.slice();
 
       if (pilotInstance.isCriticallyDamagedWith(DamageCard.SHAKEN_PILOT_V2))
@@ -178,7 +178,7 @@ PilotInstanceUtilities.maneuverKeys = function(pilotInstance)
          // During the Planning phase, you cannot be assigned straight maneuvers. When you reveal a maneuver, flip this card facedown.
          answer = answer.filter(function(maneuverKey)
          {
-            var maneuver = Maneuver.properties[maneuverKey];
+            const maneuver = Maneuver.properties[maneuverKey];
             return maneuver.bearing !== Bearing.STRAIGHT;
          });
       }
@@ -234,12 +234,12 @@ PilotInstanceUtilities.pilotName = function(pilotInstance, isShort)
 {
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   var answer = pilotInstance.id() + " " + PilotCard.getName(pilotInstance.card().key);
+   let answer = pilotInstance.id() + " " + PilotCard.getName(pilotInstance.card().key);
 
    if (!isShort)
    {
-      var pilotName = pilotInstance.card().name;
-      var shipName = pilotInstance.card().shipFaction.ship.name;
+      const pilotName = pilotInstance.card().name;
+      const shipName = pilotInstance.card().shipFaction.ship.name;
 
       if (!pilotName.startsWith(shipName))
       {
@@ -254,8 +254,8 @@ PilotInstanceUtilities.primaryWeapon = function(pilotInstance)
 {
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   var answer;
-   var ship = pilotInstance.ship();
+   let answer;
+   const ship = pilotInstance.ship();
 
    if (ship && pilotInstance.primaryWeaponValue() !== undefined && ship.primaryWeaponRanges !== undefined)
    {
@@ -271,7 +271,7 @@ PilotInstanceUtilities.secondaryWeapons = function(pilotInstance)
 
    return pilotInstance.upgrades().reduce(function(accumulator, cardInstance)
    {
-      var card = cardInstance.card();
+      const card = cardInstance.card();
 
       if (card.weaponValue !== undefined)
       {
@@ -286,8 +286,8 @@ PilotInstanceUtilities.ship = function(pilotInstance)
 {
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   var answer;
-   var pilot = pilotInstance.card();
+   let answer;
+   const pilot = pilotInstance.card();
 
    if (pilot && pilot.shipFaction)
    {
@@ -318,7 +318,7 @@ PilotInstanceUtilities.shipActions = function(pilotInstance)
 {
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
 
-   var answer = [];
+   const answer = [];
 
    if (!pilotInstance.isCriticallyDamagedWith(DamageCard.DAMAGED_SENSOR_ARRAY_V2))
    {
@@ -383,12 +383,12 @@ PilotInstanceUtilities.upgrade = function(pilotInstance, upgradeKey)
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
    InputValidator.validateIsString("upgradeKey", upgradeKey);
 
-   var upgradeInstances = pilotInstance.upgrades().filter(function(cardInstance)
+   const upgradeInstances = pilotInstance.upgrades().filter(function(cardInstance)
    {
       return cardInstance.card().key === upgradeKey;
    });
 
-   var answer;
+   let answer;
 
    if (upgradeInstances.size > 0)
    {

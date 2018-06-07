@@ -1,4 +1,4 @@
-var TableColumns = [
+const TableColumns = [
    {
       key: "factionKey",
       label: "Faction",

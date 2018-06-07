@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var PlayFormat = {
+const PlayFormat = {
    STANDARD: "standard",
    CINEMATIC: "cinematic",
    EPIC: "epic",
@@ -35,10 +35,10 @@ PlayFormat.isPathInPlayArea = function(playFormatKey, path)
    InputValidator.validateNotNull("playFormatKey", playFormatKey);
    InputValidator.validateNotNull("path", path);
 
-   var answer = true;
-   var points = path.points();
+   let answer = true;
+   const points = path.points();
 
-   for (var i = 0; i < points.length; i += 2)
+   for (let i = 0; i < points.length; i += 2)
    {
       if (!PlayFormat.isPointInPlayArea(playFormatKey, points[i], points[i + 1]))
       {
@@ -56,9 +56,9 @@ PlayFormat.isPointInPlayArea = function(playFormatKey, xIn, yIn)
    InputValidator.validateNotNull("xIn", xIn);
    InputValidator.validateNotNull("yIn", yIn);
 
-   var playFormat = PlayFormat.properties[playFormatKey];
-   var x = Math.round(xIn);
-   var y = Math.round(yIn);
+   const playFormat = PlayFormat.properties[playFormatKey];
+   const x = Math.round(xIn);
+   const y = Math.round(yIn);
 
    return ((0 <= x) && (x < playFormat.width)) && ((0 <= y) && (y < playFormat.height));
 };

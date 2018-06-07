@@ -1,4 +1,4 @@
-var ReactUtilities = {};
+const ReactUtilities = {};
 
 ReactUtilities.createCell = function(element, key, className, title)
 {

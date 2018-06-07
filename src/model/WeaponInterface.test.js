@@ -8,18 +8,18 @@ QUnit.module("WeaponInterface");
 QUnit.test("Weapon interface", function(assert)
 {
    // Setup.
-   var name = "myWeapon";
-   var weaponValue = 12;
-   var ranges = [Range.TWO, Range.THREE];
-   var firingArc = FiringArc.FORWARD;
+   const name = "myWeapon";
+   const weaponValue = 12;
+   const ranges = [Range.TWO, Range.THREE];
+   const firingArc = FiringArc.FORWARD;
 
-   var weapon0 = new Weapon(name, weaponValue, ranges, firingArc);
-   var weapons = [weapon0];
+   const weapon0 = new Weapon(name, weaponValue, ranges, firingArc);
+   const weapons = [weapon0];
 
    // Run / Verify.
-   for (var i = 0; i < weapons.length; i++)
+   for (let i = 0; i < weapons.length; i++)
    {
-      var weapon = weapons[i];
+      const weapon = weapons[i];
 
       // Verify the functions exist.
       assert.ok(weapon.name);

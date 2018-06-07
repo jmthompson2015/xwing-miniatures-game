@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var AgentAction = {};
+const AgentAction = {};
 
 AgentAction.ADD_PILOT = "addPilot";
 AgentAction.INCREMENT_NEXT_AGENT_ID = "incrementNextAgentId";

@@ -9,19 +9,19 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var environment = EnvironmentFactory.createHugeShipEnvironment();
-var store = environment.store();
+const resourceBase = "../resource/";
+const environment = EnvironmentFactory.createHugeShipEnvironment();
+const store = environment.store();
 store.dispatch(Action.setResourceBase(resourceBase));
 
-var pilotInstance2 = environment.pilotInstances()[2];
-var pilotInstance2Fore = pilotInstance2.tokenFore();
-var pilotInstance2Aft = pilotInstance2.tokenAft();
-var pilotInstance3 = environment.pilotInstances()[3];
-var pilotInstance3Fore = pilotInstance3.tokenFore();
-var pilotInstance3Aft = pilotInstance3.tokenAft();
+const pilotInstance2 = environment.pilotInstances()[2];
+const pilotInstance2Fore = pilotInstance2.tokenFore();
+const pilotInstance2Aft = pilotInstance2.tokenAft();
+const pilotInstance3 = environment.pilotInstances()[3];
+const pilotInstance3Fore = pilotInstance3.tokenFore();
+const pilotInstance3Aft = pilotInstance3.tokenAft();
 
-var cells = [];
+const cells = [];
 
 addCardInstanceUI(cells, pilotInstance2Fore);
 addCardInstanceUI(cells, pilotInstance2Aft);
@@ -33,7 +33,7 @@ ReactDOM.render(ReactDOMFactories.div(
 
 function addCardInstanceUI(cells, cardInstance)
 {
-   var element = React.createElement(ReactRedux.Provider,
+   const element = React.createElement(ReactRedux.Provider,
    {
       store: store,
    }, React.createElement(CardInstanceUI,

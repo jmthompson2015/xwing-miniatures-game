@@ -6,13 +6,13 @@ QUnit.module("RectanglePath");
 
 QUnit.test("RectanglePath properties", function(assert)
 {
-   var result = new RectanglePath(40, 40);
+   const result = new RectanglePath(40, 40);
 
    assert.ok(result);
    assert.equal(result.points().length, 10);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], 20);
    assert.equal(points[i++], -20);
    assert.equal(points[i++], 20);
@@ -28,10 +28,10 @@ QUnit.test("RectanglePath properties", function(assert)
 QUnit.test("boundingBox()", function(assert)
 {
    // Setup.
-   var path = new RectanglePath(20, 40);
+   const path = new RectanglePath(20, 40);
 
    // Run.
-   var result = path.boundingBox();
+   const result = path.boundingBox();
 
    // Verify.
    assert.ok(result);
@@ -45,10 +45,10 @@ QUnit.test("boundingBox()", function(assert)
 QUnit.test("boundingBox() degenerate", function(assert)
 {
    // Setup.
-   var path = new RectanglePath(0, 0);
+   const path = new RectanglePath(0, 0);
 
    // Run.
-   var result = path.boundingBox();
+   const result = path.boundingBox();
 
    // Verify.
    assert.ok(result);
@@ -62,14 +62,14 @@ QUnit.test("boundingBox() degenerate", function(assert)
 QUnit.test("rotate()", function(assert)
 {
    // Setup.
-   var path = new RectanglePath(20, 40);
+   const path = new RectanglePath(20, 40);
 
    // Run.
    path.rotate(30.0 * Math.PI / 180.0);
 
    // Verify.
-   var i = 0;
-   var points = path.points();
+   let i = 0;
+   const points = path.points();
    assert.equal(MathUtilities.round(points[i++], 2), 18.66);
    assert.equal(MathUtilities.round(points[i++], 2), -12.32);
    assert.equal(MathUtilities.round(points[i++], 2), -1.34);
@@ -85,10 +85,10 @@ QUnit.test("rotate()", function(assert)
 QUnit.test("toString()", function(assert)
 {
    // Setup.
-   var path = new RectanglePath(20, 40);
+   const path = new RectanglePath(20, 40);
 
    // Run.
-   var result = path.toString();
+   const result = path.toString();
 
    // Verify.
    assert.equal(result, "0 (10, -20)\n2 (10, 20)\n4 (-10, 20)\n6 (-10, -20)\n8 (10, -20)\n");
@@ -97,14 +97,14 @@ QUnit.test("toString()", function(assert)
 QUnit.test("translate()", function(assert)
 {
    // Setup.
-   var path = new RectanglePath(20, 40);
+   const path = new RectanglePath(20, 40);
 
    // Run.
    path.translate(5, 6);
 
    // Verify.
-   var i = 0;
-   var points = path.points();
+   let i = 0;
+   const points = path.points();
    assert.equal(points[i++], 15);
    assert.equal(points[i++], -14);
    assert.equal(points[i++], 15);
@@ -128,7 +128,7 @@ QUnit.test("isLeft()", function(assert)
 QUnit.test("determineWindingNumber()", function(assert)
 {
    // Setup.
-   var polygon = new RectanglePath(20, 30);
+   const polygon = new RectanglePath(20, 30);
    polygon.rotate(30.0 * Math.PI / 180.0);
    polygon.translate(10, 20);
 
@@ -167,7 +167,7 @@ QUnit.test("determineWindingNumber()", function(assert)
 QUnit.test("isPointInPolygon()", function(assert)
 {
    // Setup.
-   var polygon = new RectanglePath(20, 30);
+   const polygon = new RectanglePath(20, 30);
    polygon.rotate(30.0 * Math.PI / 180.0);
    polygon.translate(10, 20);
 
@@ -206,12 +206,12 @@ QUnit.test("isPointInPolygon()", function(assert)
 QUnit.test("doPolygonsCollide() yes 1", function(assert)
 {
    // Setup.
-   var polygon0 = new RectanglePath(10, 10);
-   var polygon1 = new RectanglePath(10, 20);
+   const polygon0 = new RectanglePath(10, 10);
+   const polygon1 = new RectanglePath(10, 20);
    polygon1.translate(5, 0);
 
    // Run.
-   var result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
+   const result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
 
    // Verify.
    assert.ok(result);
@@ -220,12 +220,12 @@ QUnit.test("doPolygonsCollide() yes 1", function(assert)
 QUnit.test("doPolygonsCollide() yes 2", function(assert)
 {
    // Setup.
-   var polygon0 = new RectanglePath(10, 20);
-   var polygon1 = new RectanglePath(10, 10);
+   const polygon0 = new RectanglePath(10, 20);
+   const polygon1 = new RectanglePath(10, 10);
    polygon1.translate(5, 0);
 
    // Run.
-   var result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
+   const result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
 
    // Verify.
    assert.ok(result);
@@ -234,12 +234,12 @@ QUnit.test("doPolygonsCollide() yes 2", function(assert)
 QUnit.test("doPolygonsCollide() yes 3", function(assert)
 {
    // Setup.
-   var polygon0 = new RectanglePath(40, 40);
-   var polygon1 = new RectanglePath(40, 40);
+   const polygon0 = new RectanglePath(40, 40);
+   const polygon1 = new RectanglePath(40, 40);
    polygon1.rotate(45.0 * Math.PI / 180.0);
 
    // Run.
-   var result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
+   const result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
 
    // Verify.
    assert.ok(result);
@@ -248,12 +248,12 @@ QUnit.test("doPolygonsCollide() yes 3", function(assert)
 QUnit.test("doPolygonsCollide() no right", function(assert)
 {
    // Setup.
-   var polygon0 = new RectanglePath(10, 10);
-   var polygon1 = new RectanglePath(10, 20);
+   const polygon0 = new RectanglePath(10, 10);
+   const polygon1 = new RectanglePath(10, 20);
    polygon1.translate(15, 0);
 
    // Run.
-   var result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
+   const result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
 
    // Verify.
    assert.ok(!result);
@@ -262,12 +262,12 @@ QUnit.test("doPolygonsCollide() no right", function(assert)
 QUnit.test("doPolygonsCollide() no above", function(assert)
 {
    // Setup.
-   var polygon0 = new RectanglePath(10, 10);
-   var polygon1 = new RectanglePath(10, 20);
+   const polygon0 = new RectanglePath(10, 10);
+   const polygon1 = new RectanglePath(10, 20);
    polygon1.translate(0, 25);
 
    // Run.
-   var result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
+   const result = RectanglePath.doPolygonsCollide(polygon0, polygon1);
 
    // Verify.
    assert.ok(!result);

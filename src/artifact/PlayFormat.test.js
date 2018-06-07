@@ -4,8 +4,8 @@ QUnit.module("PlayFormat");
 
 QUnit.test("PlayFormat properties Standard", function(assert)
 {
-   var type = PlayFormat.STANDARD;
-   var properties = PlayFormat.properties[type];
+   const type = PlayFormat.STANDARD;
+   const properties = PlayFormat.properties[type];
    assert.equal(properties.name, "Standard");
    assert.equal(properties.key, "standard");
 });
@@ -15,13 +15,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = PlayFormat.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(PlayFormat);
+   const result = PlayFormat.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(PlayFormat);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = PlayFormat[key];
+      const key2 = PlayFormat[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -31,7 +31,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return PlayFormat[key] === value;
       });
@@ -58,18 +58,18 @@ QUnit.test("PlayFormat.isPointInPlayArea()", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = PlayFormat.keys();
+   const result = PlayFormat.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 3);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], PlayFormat.STANDARD);
    assert.equal(result[i++], PlayFormat.CINEMATIC);
    assert.equal(result[i++], PlayFormat.EPIC);
 
-   var properties = Object.getOwnPropertyNames(PlayFormat);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(PlayFormat);
+   const count = properties.length - 1 - // properties
       1 - // isPathInPlayArea
       1 - // isPointInPlayArea
       1 - // keys

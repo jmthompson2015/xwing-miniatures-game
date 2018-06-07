@@ -1,7 +1,7 @@
 /*
  * Provides methods for input validation.
  */
-var InputValidator = {
+const InputValidator = {
    EMPTY: " is null or empty.",
    NULL: " is null.",
    UNDEFINED: " is undefined.",

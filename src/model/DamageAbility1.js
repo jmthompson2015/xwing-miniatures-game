@@ -1,7 +1,7 @@
 /*
  * Provides damage abilities for the Planning Phase.
  */
-var DamageAbility1 = {};
+const DamageAbility1 = {};
 
 DamageAbility1.toString = function()
 {

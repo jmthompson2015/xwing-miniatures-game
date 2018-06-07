@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var Selector = {};
+const Selector = {};
 
 Selector.adjudicator = function(state)
 {

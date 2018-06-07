@@ -13,13 +13,13 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var store = Redux.createStore(Reducer.root);
-var resourceBase = "../resource/";
-var faction = ArrayUtilities.randomElement([Faction.IMPERIAL, Faction.REBEL, Faction.SCUM]);
-var agent = new Agent(store, "Placeholder");
-var squadBuilders = SquadBuilder.findByFaction(faction);
+const store = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const faction = ArrayUtilities.randomElement([Faction.IMPERIAL, Faction.REBEL, Faction.SCUM]);
+const agent = new Agent(store, "Placeholder");
+const squadBuilders = SquadBuilder.findByFaction(faction);
 
-var element = React.createElement(SquadChooser,
+const element = React.createElement(SquadChooser,
 {
    agent: agent,
    resourceBase: resourceBase,

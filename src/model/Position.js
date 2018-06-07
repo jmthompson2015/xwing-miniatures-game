@@ -2,9 +2,9 @@ import InputValidator from "../utility/InputValidator.js";
 
 function Position(xIn, yIn, headingIn)
 {
-   var x = Math.round(xIn);
-   var y = Math.round(yIn);
-   var heading = Position.normalizeAngle(headingIn);
+   const x = Math.round(xIn);
+   const y = Math.round(yIn);
+   const heading = Position.normalizeAngle(headingIn);
 
    this.x = function()
    {
@@ -24,7 +24,7 @@ function Position(xIn, yIn, headingIn)
 
 Position.prototype.computeBearing = function(x2, y2)
 {
-   var answer = Position.computeHeading(this.x(), this.y(), x2, y2);
+   let answer = Position.computeHeading(this.x(), this.y(), x2, y2);
    answer -= this.heading();
    answer = Position.normalizeAngle(answer);
 
@@ -35,8 +35,8 @@ Position.prototype.computeDistance = function(position)
 {
    InputValidator.validateNotNull("position", position);
 
-   var dx = position.x() - this.x();
-   var dy = position.y() - this.y();
+   const dx = position.x() - this.x();
+   const dy = position.y() - this.y();
 
    return Math.round(Math.sqrt((dx * dx) + (dy * dy)));
 };
@@ -48,10 +48,10 @@ Position.prototype.toString = function()
 
 Position.computeHeading = function(x1, y1, x2, y2)
 {
-   var dx = x2 - x1;
-   var dy = y2 - y1;
+   const dx = x2 - x1;
+   const dy = y2 - y1;
 
-   var answer = Math.round(Math.atan2(dy, dx) * 180.0 / Math.PI);
+   let answer = Math.round(Math.atan2(dy, dx) * 180.0 / Math.PI);
    answer = Position.normalizeAngle(answer);
 
    return answer;
@@ -59,7 +59,7 @@ Position.computeHeading = function(x1, y1, x2, y2)
 
 Position.normalizeAngle = function(angle)
 {
-   var answer = angle;
+   let answer = angle;
 
    while (answer < 0)
    {

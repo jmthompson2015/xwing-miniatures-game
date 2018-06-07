@@ -6,8 +6,8 @@ QUnit.module("Ship");
 
 QUnit.test("Ship properties Firespray-31", function(assert)
 {
-   var ship = Ship.FIRESPRAY_31;
-   var properties = Ship.properties[ship];
+   const ship = Ship.FIRESPRAY_31;
+   const properties = Ship.properties[ship];
    assert.equal(properties.name, "Firespray-31");
    assert.equal(properties.primaryWeaponValue, 3);
    assert.equal(properties.agilityValue, 2);
@@ -25,8 +25,8 @@ QUnit.test("Ship properties Firespray-31", function(assert)
 
 QUnit.test("Ship properties TIE Fighter", function(assert)
 {
-   var ship = Ship.TIE_FIGHTER;
-   var properties = Ship.properties[ship];
+   const ship = Ship.TIE_FIGHTER;
+   const properties = Ship.properties[ship];
    assert.equal(properties.name, "TIE Fighter");
    assert.equal(properties.primaryWeaponValue, 2);
    assert.equal(properties.agilityValue, 3);
@@ -43,8 +43,8 @@ QUnit.test("Ship properties TIE Fighter", function(assert)
 
 QUnit.test("Ship properties X-Wing", function(assert)
 {
-   var ship = Ship.X_WING;
-   var properties = Ship.properties[ship];
+   const ship = Ship.X_WING;
+   const properties = Ship.properties[ship];
    assert.equal(properties.name, "X-Wing");
    assert.equal(properties.primaryWeaponValue, 3);
    assert.equal(properties.agilityValue, 2);
@@ -64,13 +64,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Ship.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Ship);
+   const result = Ship.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Ship);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Ship[key];
+      const key2 = Ship[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -80,7 +80,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Ship[key] === value;
       });
@@ -121,17 +121,17 @@ QUnit.test("required properties", function(assert)
 QUnit.test("values()", function(assert)
 {
    // Run.
-   var result = Ship.keys();
+   const result = Ship.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 53;
+   const length = 53;
    assert.equal(result.length, length);
    assert.equal(result[0], "aggressor");
    assert.equal(result[length - 1], "raiderClassCorvette");
 
-   var properties = Object.getOwnPropertyNames(Ship);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Ship);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

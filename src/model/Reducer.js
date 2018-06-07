@@ -13,13 +13,13 @@ import EnvironmentAction from "./EnvironmentAction.js";
 import EnvironmentReducer from "./EnvironmentReducer.js";
 import InitialState from "./InitialState.js";
 
-var Reducer = {};
+const Reducer = {};
 
 Reducer.targetLocks = function(state, action)
 {
    LOGGER.debug("targetLocks() type = " + action.type);
 
-   var newTargetLocks;
+   let newTargetLocks;
 
    switch (action.type)
    {
@@ -27,7 +27,7 @@ Reducer.targetLocks = function(state, action)
          newTargetLocks = state.push(action.targetLock);
          return newTargetLocks;
       case Action.REMOVE_TARGET_LOCK:
-         var index = state.indexOf(action.targetLock);
+         const index = state.indexOf(action.targetLock);
          newTargetLocks = (index >= 0 ? state.delete(index) : state);
          return newTargetLocks;
       default:
@@ -45,7 +45,7 @@ Reducer.tokenIdToArray = function(state, actionType, actionTokenId, actionData)
 
    LOGGER.debug("Reducer.tokenIdToArray() type = " + actionType);
 
-   var newTokenIdToArray, newArray, oldArray;
+   let newTokenIdToArray, newArray, oldArray;
 
    if (actionType.startsWith("add"))
    {
@@ -104,7 +104,7 @@ Reducer.root = function(state, action)
       return new InitialState();
    }
 
-   var newEventData, newEventQueue, newPhaseData, newPhaseQueue, newTokenIdToData, newTokenIdToValues;
+   let newEventData, newEventQueue, newPhaseData, newPhaseQueue, newTokenIdToData, newTokenIdToValues;
 
    if (isAgentAction(action))
    {
@@ -201,7 +201,7 @@ Reducer.root = function(state, action)
                phaseQueue: newPhaseQueue,
             });
          case Action.INCREMENT_NEXT_TARGET_LOCK_ID:
-            var newNextTargetLockId = state.nextTargetLockId + 1;
+            let newNextTargetLockId = state.nextTargetLockId + 1;
             if (newNextTargetLockId > 51)
             {
                newNextTargetLockId = 0;

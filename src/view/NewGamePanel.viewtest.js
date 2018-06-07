@@ -16,22 +16,22 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store1 = Redux.createStore(AgentSquadReducer.root);
-var delegateStore1 = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store1 = Redux.createStore(AgentSquadReducer.root);
+const delegateStore1 = Redux.createStore(Reducer.root);
 store1.dispatch(AgentSquadAction.setDelegateStore(delegateStore1));
 store1.dispatch(AgentSquadAction.setAgentName("Agent 1"));
 setSquad(store1);
 
-var store2 = Redux.createStore(AgentSquadReducer.root);
-var delegateStore2 = Redux.createStore(Reducer.root);
+const store2 = Redux.createStore(AgentSquadReducer.root);
+const delegateStore2 = Redux.createStore(Reducer.root);
 store2.dispatch(AgentSquadAction.setDelegateStore(delegateStore2));
 store2.dispatch(AgentSquadAction.setFaction(Faction.properties[Faction.REBEL]));
 store2.dispatch(AgentSquadAction.setAgentName("Agent 2"));
 store2.dispatch(AgentSquadAction.setAgentType(MediumAgentStrategy));
 setSquad(store2);
 
-var element = React.createElement(NewGamePanel,
+const element = React.createElement(NewGamePanel,
 {
    agentSquadClass: AgentSquadContainer,
    callback: myOnChange,
@@ -51,9 +51,9 @@ function myOnChange(agent1, squad1, agent2, squad2)
 
 function setSquad(store)
 {
-   var faction = store.getState().faction;
-   var agent = store.getState().agent;
-   var squadBuilders = SquadBuilder.findByFaction(faction.key);
-   var squad = squadBuilders[0].buildSquad(agent);
+   const faction = store.getState().faction;
+   const agent = store.getState().agent;
+   const squadBuilders = SquadBuilder.findByFaction(faction.key);
+   const squad = squadBuilders[0].buildSquad(agent);
    store.dispatch(AgentSquadAction.setSquad(squad));
 }

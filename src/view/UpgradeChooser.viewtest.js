@@ -10,11 +10,11 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var pilot = PilotCard.properties[PilotCard.DARTH_VADER];
-var upgradeType = UpgradeType.properties[UpgradeType.ELITE];
+const resourceBase = "../resource/";
+const pilot = PilotCard.properties[PilotCard.DARTH_VADER];
+const upgradeType = UpgradeType.properties[UpgradeType.ELITE];
 
-var element1 = React.createElement(UpgradeChooser,
+const element1 = React.createElement(UpgradeChooser,
 {
    resourceBase: resourceBase,
    pilot: pilot,
@@ -23,7 +23,7 @@ var element1 = React.createElement(UpgradeChooser,
 });
 ReactDOM.render(element1, document.getElementById("upgradeChooserPanel1"));
 
-var element2 = React.createElement(UpgradeChooser,
+const element2 = React.createElement(UpgradeChooser,
 {
    resourceBase: resourceBase,
    initialUpgrade: UpgradeCard.properties[UpgradeCard.JUKE],

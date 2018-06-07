@@ -7,23 +7,23 @@ import Position from "./Position.js";
 
 QUnit.module("ManeuverComputer");
 
-var playFormatKey = PlayFormat.STANDARD;
+const playFormatKey = PlayFormat.STANDARD;
 
 QUnit.test("ManeuverComputer.computeFromPolygon() 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 20, 0);
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeFromPolygon(fromPosition, shipBase);
+   const result = ManeuverComputer.computeFromPolygon(fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.points().length, 10);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 20.0);
    assert.equal(points[i++], fromPosition.y() - 20.0);
 
@@ -43,20 +43,20 @@ QUnit.test("ManeuverComputer.computeFromPolygon() 0 Standard", function(assert)
 QUnit.test("ManeuverComputer.computePath() Straight1Easy 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_EASY];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_EASY];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 8);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 0.0);
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -73,20 +73,20 @@ QUnit.test("ManeuverComputer.computePath() Straight1Easy 0 Standard", function(a
 QUnit.test("ManeuverComputer.computePath() Straight1Easy 30 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 30);
-   var maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_EASY];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 30);
+   const maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_EASY];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 8);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 0.0);
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -101,7 +101,7 @@ QUnit.test("ManeuverComputer.computePath() Straight1Easy 30 Standard", function(
 
    function myRound(value)
    {
-      var factor = 10000;
+      const factor = 10000;
       return Math.round(value * factor) / factor;
    }
 });
@@ -109,20 +109,20 @@ QUnit.test("ManeuverComputer.computePath() Straight1Easy 30 Standard", function(
 QUnit.test("ManeuverComputer.computePath() BankRight1Standard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 14);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 0.0);
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -146,7 +146,7 @@ QUnit.test("ManeuverComputer.computePath() BankRight1Standard 0 Standard", funct
 
    function myRound(value)
    {
-      var factor = 10000;
+      const factor = 10000;
       return Math.round(value * factor) / factor;
    }
 });
@@ -154,20 +154,20 @@ QUnit.test("ManeuverComputer.computePath() BankRight1Standard 0 Standard", funct
 QUnit.test("ManeuverComputer.computePath() BankRight3Standard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_3_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_3_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 18);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 0.0);
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -197,7 +197,7 @@ QUnit.test("ManeuverComputer.computePath() BankRight3Standard 0 Standard", funct
 
    function myRound(value)
    {
-      var factor = 10000;
+      const factor = 10000;
       return Math.round(value * factor) / factor;
    }
 });
@@ -205,19 +205,19 @@ QUnit.test("ManeuverComputer.computePath() BankRight3Standard 0 Standard", funct
 QUnit.test("ManeuverComputer.computePath() BarrelRollLeft 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_LEFT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_LEFT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.points().length, 8);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x());
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -234,19 +234,19 @@ QUnit.test("ManeuverComputer.computePath() BarrelRollLeft 0 Standard", function(
 QUnit.test("ManeuverComputer.computePath() BarrelRollRight 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.points().length, 8);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x());
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -263,20 +263,20 @@ QUnit.test("ManeuverComputer.computePath() BarrelRollRight 0 Standard", function
 QUnit.test("ManeuverComputer.computePath() SegnorsLoopRight3Hard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.SEGNORS_LOOP_RIGHT_3_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.SEGNORS_LOOP_RIGHT_3_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 18);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 0.0);
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -306,7 +306,7 @@ QUnit.test("ManeuverComputer.computePath() SegnorsLoopRight3Hard 0 Standard", fu
 
    function myRound(value)
    {
-      var factor = 10000;
+      const factor = 10000;
       return Math.round(value * factor) / factor;
    }
 });
@@ -314,20 +314,20 @@ QUnit.test("ManeuverComputer.computePath() SegnorsLoopRight3Hard 0 Standard", fu
 QUnit.test("ManeuverComputer.computePath() TurnRight1Standard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.TURN_RIGHT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.TURN_RIGHT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 18);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 0.0);
    assert.equal(points[i++], fromPosition.y() + 0.0);
 
@@ -357,7 +357,7 @@ QUnit.test("ManeuverComputer.computePath() TurnRight1Standard 0 Standard", funct
 
    function myRound(value)
    {
-      var factor = 10000;
+      const factor = 10000;
       return Math.round(value * factor) / factor;
    }
 });
@@ -365,20 +365,20 @@ QUnit.test("ManeuverComputer.computePath() TurnRight1Standard 0 Standard", funct
 QUnit.test("ManeuverComputer.computePath() Stationary0Hard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.STATIONARY_0_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.STATIONARY_0_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 2);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 0.0);
    assert.equal(points[i++], fromPosition.y() + 0.0);
 });
@@ -386,17 +386,17 @@ QUnit.test("ManeuverComputer.computePath() Stationary0Hard 0 Standard", function
 QUnit.test("computePolygon() Standard", function(assert)
 {
    // Setup.
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePolygon(shipBase, 0, 0, 0);
+   const result = ManeuverComputer.computePolygon(shipBase, 0, 0, 0);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.points().length, 10);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], 20);
    assert.equal(points[i++], -20);
    assert.equal(points[i++], 20);
@@ -412,17 +412,17 @@ QUnit.test("computePolygon() Standard", function(assert)
 QUnit.test("computePolygon() Standard 0", function(assert)
 {
    // Setup.
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePolygon(shipBase, 10, 20, 0);
+   const result = ManeuverComputer.computePolygon(shipBase, 10, 20, 0);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.points().length, 10);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], 30);
    assert.equal(points[i++], 0);
    assert.equal(points[i++], 30);
@@ -438,17 +438,17 @@ QUnit.test("computePolygon() Standard 0", function(assert)
 QUnit.test("computePolygon() Standard 45", function(assert)
 {
    // Setup.
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computePolygon(shipBase, 10, 20, 45);
+   const result = ManeuverComputer.computePolygon(shipBase, 10, 20, 45);
 
    // Verify.
    assert.ok(result);
    assert.equal(result.points().length, 10);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(myRound(points[i++]), 38.2843);
    assert.equal(myRound(points[i++]), 20);
    assert.equal(myRound(points[i++]), 10);
@@ -462,7 +462,7 @@ QUnit.test("computePolygon() Standard 45", function(assert)
 
    function myRound(value)
    {
-      var factor = 10000;
+      const factor = 10000;
       return Math.round(value * factor) / factor;
    }
 });
@@ -470,20 +470,20 @@ QUnit.test("computePolygon() Standard 45", function(assert)
 QUnit.test("ManeuverComputer.computeToPolygon() Straight1Standard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPolygon(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPolygon(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
    // console.log(result.toString());
    assert.equal(result.points().length, 10);
 
-   var i = 0;
-   var points = result.points();
+   let i = 0;
+   const points = result.points();
    assert.equal(points[i++], fromPosition.x() + 100.0);
    assert.equal(points[i++], fromPosition.y() - 20.0);
 
@@ -503,12 +503,12 @@ QUnit.test("ManeuverComputer.computeToPolygon() Straight1Standard 0 Standard", f
 QUnit.test("ManeuverComputer.computeToPosition() BankLeft1Easy Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_LEFT_1_EASY];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_LEFT_1_EASY];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -520,12 +520,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankLeft1Easy Standard", functi
 QUnit.test("ManeuverComputer.computeToPosition() BankLeft1 Huge1", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 400, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_LEFT_1_2];
-   var shipBase = ShipBase.properties[ShipBase.HUGE1];
+   const fromPosition = new Position(0, 400, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_LEFT_1_2];
+   const shipBase = ShipBase.properties[ShipBase.HUGE1];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -537,12 +537,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankLeft1 Huge1", function(asse
 QUnit.test("ManeuverComputer.computeToPosition() BankLeft1 Huge2", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 400, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_LEFT_1_2];
-   var shipBase = ShipBase.properties[ShipBase.HUGE2];
+   const fromPosition = new Position(0, 400, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_LEFT_1_2];
+   const shipBase = ShipBase.properties[ShipBase.HUGE2];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -554,12 +554,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankLeft1 Huge2", function(asse
 QUnit.test("ManeuverComputer.computeToPosition() BankLeft2 Huge1", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 400, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_LEFT_2_1];
-   var shipBase = ShipBase.properties[ShipBase.HUGE1];
+   const fromPosition = new Position(0, 400, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_LEFT_2_1];
+   const shipBase = ShipBase.properties[ShipBase.HUGE1];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -571,12 +571,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankLeft2 Huge1", function(asse
 QUnit.test("ManeuverComputer.computeToPosition() BankLeft2 Huge2", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 400, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_LEFT_2_1];
-   var shipBase = ShipBase.properties[ShipBase.HUGE2];
+   const fromPosition = new Position(0, 400, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_LEFT_2_1];
+   const shipBase = ShipBase.properties[ShipBase.HUGE2];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -588,12 +588,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankLeft2 Huge2", function(asse
 QUnit.test("ManeuverComputer.computeToPosition() BankLeft3Standard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 400, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_LEFT_3_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 400, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_LEFT_3_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -605,12 +605,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankLeft3Standard Standard", fu
 QUnit.test("ManeuverComputer.computeToPosition() BankRight1Easy Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_EASY];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_EASY];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -622,12 +622,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankRight1Easy Standard", funct
 QUnit.test("ManeuverComputer.computeToPosition() BankRight1 Huge1", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_2];
-   var shipBase = ShipBase.properties[ShipBase.HUGE1];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_2];
+   const shipBase = ShipBase.properties[ShipBase.HUGE1];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -639,12 +639,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankRight1 Huge1", function(ass
 QUnit.test("ManeuverComputer.computeToPosition() BankRight1 Huge2", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_2];
-   var shipBase = ShipBase.properties[ShipBase.HUGE2];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_1_2];
+   const shipBase = ShipBase.properties[ShipBase.HUGE2];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -656,12 +656,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankRight1 Huge2", function(ass
 QUnit.test("ManeuverComputer.computeToPosition() BankRight2 Huge1", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_2_1];
-   var shipBase = ShipBase.properties[ShipBase.HUGE1];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_2_1];
+   const shipBase = ShipBase.properties[ShipBase.HUGE1];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -673,12 +673,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankRight2 Huge1", function(ass
 QUnit.test("ManeuverComputer.computeToPosition() BankRight2 Huge2", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_2_1];
-   var shipBase = ShipBase.properties[ShipBase.HUGE2];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_2_1];
+   const shipBase = ShipBase.properties[ShipBase.HUGE2];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -690,12 +690,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankRight2 Huge2", function(ass
 QUnit.test("ManeuverComputer.computeToPosition() BankRight3Standard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_3_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.BANK_RIGHT_3_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -707,12 +707,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BankRight3Standard Standard", f
 QUnit.test("ManeuverComputer.computeToPosition() BarrelRollLeft1Standard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_LEFT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_LEFT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -724,12 +724,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BarrelRollLeft1Standard 0 Stand
 QUnit.test("ManeuverComputer.computeToPosition() BarrelRollRight1Standard 0 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -741,12 +741,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BarrelRollRight1Standard 0 Stan
 QUnit.test("ManeuverComputer.computeToPosition() BarrelRollLeft1Standard -90 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, -90);
-   var maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_LEFT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, -90);
+   const maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_LEFT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -758,12 +758,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BarrelRollLeft1Standard -90 Sta
 QUnit.test("ManeuverComputer.computeToPosition() BarrelRollRight1Standard -90 Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, -90);
-   var maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, -90);
+   const maneuver = Maneuver.properties[Maneuver.BARREL_ROLL_RIGHT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -775,12 +775,12 @@ QUnit.test("ManeuverComputer.computeToPosition() BarrelRollRight1Standard -90 St
 QUnit.test("ManeuverComputer.computeToPosition() KoiogranTurn3Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.KOIOGRAN_TURN_3_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.KOIOGRAN_TURN_3_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -792,12 +792,12 @@ QUnit.test("ManeuverComputer.computeToPosition() KoiogranTurn3Hard Standard", fu
 QUnit.test("ManeuverComputer.computeToPosition() ReverseBankLeft1Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.REVERSE_BANK_LEFT_1_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.REVERSE_BANK_LEFT_1_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -809,12 +809,12 @@ QUnit.test("ManeuverComputer.computeToPosition() ReverseBankLeft1Hard Standard",
 QUnit.test("ManeuverComputer.computeToPosition() ReverseBankRight1Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.REVERSE_BANK_RIGHT_1_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.REVERSE_BANK_RIGHT_1_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -826,12 +826,12 @@ QUnit.test("ManeuverComputer.computeToPosition() ReverseBankRight1Hard Standard"
 QUnit.test("ManeuverComputer.computeToPosition() ReverseStraight1Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(100, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.REVERSE_STRAIGHT_1_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(100, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.REVERSE_STRAIGHT_1_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -843,12 +843,12 @@ QUnit.test("ManeuverComputer.computeToPosition() ReverseStraight1Hard Standard",
 QUnit.test("ManeuverComputer.computeToPosition() SegnorsLoopLeft3Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 400, 0);
-   var maneuver = Maneuver.properties[Maneuver.SEGNORS_LOOP_LEFT_3_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 400, 0);
+   const maneuver = Maneuver.properties[Maneuver.SEGNORS_LOOP_LEFT_3_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -860,12 +860,12 @@ QUnit.test("ManeuverComputer.computeToPosition() SegnorsLoopLeft3Hard Standard",
 QUnit.test("ManeuverComputer.computeToPosition() SegnorsLoopRight3Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(0, 0, 0);
-   var maneuver = Maneuver.properties[Maneuver.SEGNORS_LOOP_RIGHT_3_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(0, 0, 0);
+   const maneuver = Maneuver.properties[Maneuver.SEGNORS_LOOP_RIGHT_3_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -877,12 +877,12 @@ QUnit.test("ManeuverComputer.computeToPosition() SegnorsLoopRight3Hard Standard"
 QUnit.test("ManeuverComputer.computeToPosition() Straight1Easy Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_EASY];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_EASY];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -894,12 +894,12 @@ QUnit.test("ManeuverComputer.computeToPosition() Straight1Easy Standard", functi
 QUnit.test("ManeuverComputer.computeToPosition() Straight1Standard Huge1", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.HUGE1];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.STRAIGHT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.HUGE1];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -911,12 +911,12 @@ QUnit.test("ManeuverComputer.computeToPosition() Straight1Standard Huge1", funct
 QUnit.test("ManeuverComputer.computeToPosition() Straight3Standard Huge1", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.STRAIGHT_3_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.HUGE1];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.STRAIGHT_3_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.HUGE1];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -928,12 +928,12 @@ QUnit.test("ManeuverComputer.computeToPosition() Straight3Standard Huge1", funct
 QUnit.test("ManeuverComputer.computeToPosition() Straight3Standard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.STRAIGHT_3_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.STRAIGHT_3_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -945,12 +945,12 @@ QUnit.test("ManeuverComputer.computeToPosition() Straight3Standard Standard", fu
 QUnit.test("ManeuverComputer.computeToPosition() TallonRollLeft3Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 300, 0);
-   var maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_LEFT_3_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 300, 0);
+   const maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_LEFT_3_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -962,12 +962,12 @@ QUnit.test("ManeuverComputer.computeToPosition() TallonRollLeft3Hard Standard", 
 QUnit.test("ManeuverComputer.computeToPosition() TallonRollRight3Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 300, 0);
-   var maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_RIGHT_3_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 300, 0);
+   const maneuver = Maneuver.properties[Maneuver.TALLON_ROLL_RIGHT_3_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -979,12 +979,12 @@ QUnit.test("ManeuverComputer.computeToPosition() TallonRollRight3Hard Standard",
 QUnit.test("ManeuverComputer.computeToPosition() TurnLeft1Standard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 60, 0);
-   var maneuver = Maneuver.properties[Maneuver.TURN_LEFT_1_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 60, 0);
+   const maneuver = Maneuver.properties[Maneuver.TURN_LEFT_1_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -996,12 +996,12 @@ QUnit.test("ManeuverComputer.computeToPosition() TurnLeft1Standard Standard", fu
 QUnit.test("ManeuverComputer.computeToPosition() TurnLeft3Standard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 200, 0);
-   var maneuver = Maneuver.properties[Maneuver.TURN_LEFT_3_STANDARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 200, 0);
+   const maneuver = Maneuver.properties[Maneuver.TURN_LEFT_3_STANDARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);
@@ -1013,12 +1013,12 @@ QUnit.test("ManeuverComputer.computeToPosition() TurnLeft3Standard Standard", fu
 QUnit.test("ManeuverComputer.computeToPosition() Stationary0Hard Standard", function(assert)
 {
    // Setup.
-   var fromPosition = new Position(10, 20, 0);
-   var maneuver = Maneuver.properties[Maneuver.STATIONARY_0_HARD];
-   var shipBase = ShipBase.properties[ShipBase.SMALL];
+   const fromPosition = new Position(10, 20, 0);
+   const maneuver = Maneuver.properties[Maneuver.STATIONARY_0_HARD];
+   const shipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run.
-   var result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const result = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
    // Verify.
    assert.ok(result);

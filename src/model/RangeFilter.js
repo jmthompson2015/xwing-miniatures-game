@@ -37,7 +37,7 @@ function RangeFilter(columnKey, isMinEnabled, minValue, isMaxEnabled, maxValue)
    {
       InputValidator.validateNotNull("data", data);
 
-      var value = data[columnKey];
+      const value = data[columnKey];
 
       return (!isMinEnabled || minValue <= value) && (!isMaxEnabled || value <= maxValue);
    };
@@ -65,11 +65,11 @@ RangeFilter.fromObject = function(object)
 {
    InputValidator.validateNotNull("object", object);
 
-   var columnKey = object.columnKey;
-   var isMinEnabled = object.isMinEnabled;
-   var minValue = object.minValue;
-   var isMaxEnabled = object.isMaxEnabled;
-   var maxValue = object.maxValue;
+   const columnKey = object.columnKey;
+   const isMinEnabled = object.isMinEnabled;
+   const minValue = object.minValue;
+   const isMaxEnabled = object.isMaxEnabled;
+   const maxValue = object.maxValue;
 
    return new RangeFilter(columnKey, isMinEnabled, minValue, isMaxEnabled, maxValue);
 };

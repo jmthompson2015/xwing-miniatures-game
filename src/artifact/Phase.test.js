@@ -4,16 +4,16 @@ QUnit.module("Phase");
 
 QUnit.test("Phase properties Planning (start)", function(assert)
 {
-   var phase = Phase.PLANNING_START;
-   var properties = Phase.properties[phase];
+   const phase = Phase.PLANNING_START;
+   const properties = Phase.properties[phase];
    assert.equal(properties.name, "Planning (start)");
    assert.equal(properties.key, "planningStart");
 });
 
 QUnit.test("Phase properties Activation (execute maneuver)", function(assert)
 {
-   var phase = Phase.ACTIVATION_EXECUTE_MANEUVER;
-   var properties = Phase.properties[phase];
+   const phase = Phase.ACTIVATION_EXECUTE_MANEUVER;
+   const properties = Phase.properties[phase];
    assert.equal(properties.name, "Activation (execute maneuver)");
    assert.equal(properties.key, "activationExecuteManeuver");
 });
@@ -23,13 +23,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Phase.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Phase);
+   const result = Phase.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Phase);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Phase[key];
+      const key2 = Phase[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -39,7 +39,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Phase[key] === value;
       });
@@ -51,17 +51,17 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Phase.keys();
+   const result = Phase.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 29;
+   const length = 29;
    assert.equal(result.length, length);
    assert.equal(result[0], Phase.SETUP);
    assert.equal(result[length - 1], Phase.END_END);
 
-   var properties = Object.getOwnPropertyNames(Phase);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Phase);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

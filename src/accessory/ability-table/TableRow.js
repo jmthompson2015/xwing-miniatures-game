@@ -2,7 +2,7 @@ import InputValidator from "../../utility/InputValidator.js";
 
 import UpgradeHeader from "../../artifact/UpgradeHeader.js";
 
-var TableRow = {};
+const TableRow = {};
 
 TableRow.createTableRow = function(ability, deck, count)
 {
@@ -10,9 +10,9 @@ TableRow.createTableRow = function(ability, deck, count)
    InputValidator.validateNotNull("deck", deck);
    // count optional
 
-   var type;
-   var description = ability.description;
-   var action;
+   let type;
+   let description = ability.description;
+   let action;
    switch (deck)
    {
       case "ConditionCard":
@@ -36,9 +36,9 @@ TableRow.createTableRow = function(ability, deck, count)
          }
          break;
    }
-   var isFlavorText = (ability.isFlavorText !== undefined ? ability.isFlavorText : false);
-   var isImplemented = (ability.isImplemented !== undefined ? ability.isImplemented : false);
-   var event = determineEvent(ability, description, action);
+   const isFlavorText = (ability.isFlavorText !== undefined ? ability.isFlavorText : false);
+   const isImplemented = (ability.isImplemented !== undefined ? ability.isImplemented : false);
+   const event = determineEvent(ability, description, action);
 
    return (
    {
@@ -55,7 +55,7 @@ TableRow.createTableRow = function(ability, deck, count)
    });
 };
 
-var descriptionPatterns = [
+const descriptionPatterns = [
    {
       patterns: ["squad point cost", "you may equip", "your action bar gains", /your.*upgrade bar gains/],
       event: "SquadBuilder",
@@ -148,7 +148,7 @@ var descriptionPatterns = [
 
 function determineEvent(ability, description)
 {
-   var answer;
+   let answer;
 
    if (ability.header)
    {
@@ -169,18 +169,18 @@ function determineEvent(ability, description)
       }
    }
 
-   var myDescription = (description !== undefined ? description.toLowerCase() : description);
+   const myDescription = (description !== undefined ? description.toLowerCase() : description);
 
    if (answer === undefined && myDescription)
    {
-      for (var i = 0; i < descriptionPatterns.length; i++)
+      for (let i = 0; i < descriptionPatterns.length; i++)
       {
-         var descriptionPattern = descriptionPatterns[i];
-         var patterns = descriptionPattern.patterns;
+         const descriptionPattern = descriptionPatterns[i];
+         const patterns = descriptionPattern.patterns;
 
-         for (var j = 0; j < patterns.length; j++)
+         for (let j = 0; j < patterns.length; j++)
          {
-            var pattern = patterns[j];
+            const pattern = patterns[j];
 
             if (myDescription.indexOf(pattern) >= 0 || (pattern.test && pattern.test(myDescription)))
             {

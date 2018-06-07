@@ -21,18 +21,18 @@ class SquadTable extends React.Component
 
    render()
    {
-      var filterShownButton = React.createElement(Button,
+      const filterShownButton = React.createElement(Button,
       {
          name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
          onClick: this.toggleFilterShownActionPerformed,
       });
 
-      var myRowData = this.props.rowData;
-      var resourceBase = this.props.resourceBase;
-      var cellFunctions = {
+      const myRowData = this.props.rowData;
+      const resourceBase = this.props.resourceBase;
+      const cellFunctions = {
          "factionKey": function(data)
          {
-            var faction = Faction.properties[data.factionKey];
+            const faction = Faction.properties[data.factionKey];
             return React.createElement(FactionUI,
             {
                faction: faction,
@@ -42,24 +42,24 @@ class SquadTable extends React.Component
          },
          "ratioPrimaryWeaponAgility": function(data)
          {
-            var value = data.ratioPrimaryWeaponAgility;
+            const value = data.ratioPrimaryWeaponAgility;
             return MathUtilities.format(value, 2);
          },
          "ratioSumStatsSquadPointCost": function(data)
          {
-            var value = data.ratioSumStatsSquadPointCost;
+            const value = data.ratioSumStatsSquadPointCost;
             return MathUtilities.format(value, 4);
          },
       };
 
-      var table = React.createElement(DataTable,
+      const table = React.createElement(DataTable,
       {
          columns: TableColumns,
          rowData: myRowData,
          cellFunctions: cellFunctions,
       });
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,
@@ -69,7 +69,7 @@ class SquadTable extends React.Component
 
       if (this.props.isFilterShown)
       {
-         var filterUI = React.createElement(ReactRedux.Provider,
+         const filterUI = React.createElement(ReactRedux.Provider,
          {
             store: this.context.store,
          }, React.createElement(FilterContainer,

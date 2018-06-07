@@ -2,27 +2,27 @@ class StatusBarUI extends React.Component
 {
    render()
    {
-      var round = this.props.round;
-      var phase = this.props.phase;
-      var phaseName = (phase ? phase.name : " ");
-      var activeShipName = (this.props.activeShipName ? this.props.activeShipName : " ");
-      var userMessage = this.props.userMessage;
+      const round = this.props.round;
+      const phase = this.props.phase;
+      const phaseName = (phase ? phase.name : " ");
+      const activeShipName = (this.props.activeShipName ? this.props.activeShipName : " ");
+      const userMessage = this.props.userMessage;
 
-      var roundUI = ReactDOMFactories.span(
+      const roundUI = ReactDOMFactories.span(
       {}, "Round: ", round);
-      var phaseUI = ReactDOMFactories.span(
+      const phaseUI = ReactDOMFactories.span(
       {}, "Phase: ", phaseName);
-      var activePilotUI = ReactDOMFactories.span(
+      const activePilotUI = ReactDOMFactories.span(
       {}, "Active Ship: ", activeShipName);
-      var messageAreaUI = ReactDOMFactories.span(
+      const messageAreaUI = ReactDOMFactories.span(
       {}, userMessage);
-      var helpLinkUI = ReactDOMFactories.a(
+      const helpLinkUI = ReactDOMFactories.a(
       {
          href: "view/help.html",
          target: "_blank",
       }, "Help");
 
-      var cells = [];
+      const cells = [];
 
       cells.push(ReactDOMFactories.td(
       {
@@ -50,7 +50,7 @@ class StatusBarUI extends React.Component
          className: "statusBarUICell ba",
       }, helpLinkUI));
 
-      var row = ReactDOMFactories.tr(
+      const row = ReactDOMFactories.tr(
       {}, cells);
 
       return ReactDOMFactories.table(

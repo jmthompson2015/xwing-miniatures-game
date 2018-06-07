@@ -4,11 +4,11 @@ class PilotsUI extends React.Component
 {
    render()
    {
-      var tokens = this.props.tokens;
+      const tokens = this.props.tokens;
 
-      var tokenElements = tokens.map(function(token, i)
+      const tokenElements = tokens.map(function(token, i)
       {
-         var element = React.createElement(CardInstanceUI,
+         const element = React.createElement(CardInstanceUI,
          {
             cardInstance: token,
          });
@@ -19,10 +19,10 @@ class PilotsUI extends React.Component
          }, element);
       }, this);
 
-      var row = ReactDOMFactories.tr(
+      const row = ReactDOMFactories.tr(
       {}, tokenElements);
 
-      var myTable = ReactDOMFactories.table(
+      const myTable = ReactDOMFactories.table(
       {
          className: "center"
       }, ReactDOMFactories.tbody(

@@ -5,7 +5,7 @@ class TokenPanel extends React.Component
 {
    render()
    {
-      var rows = [];
+      const rows = [];
 
       this.maybeAddBonus(rows, this.props.bonusPilotSkill, "elite", "Pilot Skill", "orange");
       this.maybeAddBonus(rows, this.props.bonusPrimaryWeapon, "attack", "Primary Weapon", "red");
@@ -26,24 +26,24 @@ class TokenPanel extends React.Component
       this.maybeAddToken(rows, this.props.tractorBeamCount, "token/TractorBeamToken32.png", "Tractor Beam");
       this.maybeAddToken(rows, this.props.weaponsDisabledCount, "token/WeaponsDisabledToken32.png", "Weapons Disabled");
 
-      var attackerTargetLocks = this.props.attackerTargetLocks;
-      var defenderTargetLocks = this.props.defenderTargetLocks;
+      const attackerTargetLocks = this.props.attackerTargetLocks;
+      const defenderTargetLocks = this.props.defenderTargetLocks;
 
       attackerTargetLocks.forEach(function(targetLock)
       {
-         var title = "Target Lock to " + targetLock.defender().name();
+         const title = "Target Lock to " + targetLock.defender().name();
          this.addTargetLock(rows, targetLock, "token/AttackerTargetLock32.png", title);
       }, this);
 
       defenderTargetLocks.forEach(function(targetLock)
       {
-         var title = "Target Lock from " + targetLock.attacker().name();
+         const title = "Target Lock from " + targetLock.attacker().name();
          this.addTargetLock(rows, targetLock, "token/DefenderTargetLock32.png", title);
       }, this);
 
       this.maybeAddToken(rows, this.props.damageCount, "pilotCard/Damage32.jpg", "Damage", "b black");
 
-      var keySuffix = "" + this.props.bonusAttack + this.props.bonusDefense + this.props.bonusHitPoints + this.props.bonusThreat + this.props.bonusWillpower;
+      const keySuffix = "" + this.props.bonusAttack + this.props.bonusDefense + this.props.bonusHitPoints + this.props.bonusThreat + this.props.bonusWillpower;
 
       return ReactUtilities.createFlexboxWrap(rows, this.props.myKey + keySuffix, "content-center flex-column justify-center");
    }
@@ -51,7 +51,7 @@ class TokenPanel extends React.Component
 
 TokenPanel.prototype.addTargetLock = function(rows, targetLock, src, title)
 {
-   var element = React.createElement(LabeledImage,
+   const element = React.createElement(LabeledImage,
    {
       image: src,
       resourceBase: this.props.resourceBase,
@@ -61,8 +61,8 @@ TokenPanel.prototype.addTargetLock = function(rows, targetLock, src, title)
       width: 38,
    });
 
-   var key = "targetLock" + targetLock.attacker() + targetLock.defender();
-   var cell2 = ReactUtilities.createCell(element, key, "tc v-mid");
+   const key = "targetLock" + targetLock.attacker() + targetLock.defender();
+   const cell2 = ReactUtilities.createCell(element, key, "tc v-mid");
    rows.push(ReactUtilities.createRow(cell2, key, "tc v-mid"));
 };
 
@@ -70,8 +70,8 @@ TokenPanel.prototype.maybeAddBonus = function(cells, count, src, title, labelCla
 {
    if (count !== undefined && count !== 0)
    {
-      var value = (count > 0 ? "+" : "") + count;
-      var symbol = ReactDOMFactories.span(
+      const value = (count > 0 ? "+" : "") + count;
+      const symbol = ReactDOMFactories.span(
       {
          key: "symbol",
          className: "f6 " + labelClass,
@@ -80,7 +80,7 @@ TokenPanel.prototype.maybeAddBonus = function(cells, count, src, title, labelCla
          className: "xwing-miniatures-font xwing-miniatures-font-" + src,
       }));
 
-      var cell2 = ReactUtilities.createCell([value, symbol], "bonusCell" + title + cells.length, "tc v-mid", title);
+      const cell2 = ReactUtilities.createCell([value, symbol], "bonusCell" + title + cells.length, "tc v-mid", title);
       cells.push(ReactUtilities.createRow(cell2, "bonusRow" + title + cells.length, "tc v-mid"));
    }
 };
@@ -89,8 +89,8 @@ TokenPanel.prototype.maybeAddToken = function(rows, count, src, title, labelClas
 {
    if (count !== undefined && count !== 0)
    {
-      var labelClass = (labelClassIn !== undefined ? labelClassIn : "b white");
-      var cell = React.createElement(LabeledImage,
+      const labelClass = (labelClassIn !== undefined ? labelClassIn : "b white");
+      const cell = React.createElement(LabeledImage,
       {
          image: src,
          label: "" + count,
@@ -99,7 +99,7 @@ TokenPanel.prototype.maybeAddToken = function(rows, count, src, title, labelClas
          title: title,
       });
 
-      var cell2 = ReactUtilities.createCell(cell, "tokenCell" + title + rows.length, "tc v-mid");
+      const cell2 = ReactUtilities.createCell(cell, "tokenCell" + title + rows.length, "tc v-mid");
       rows.push(ReactUtilities.createRow(cell2, "tokenRow" + title + rows.length, "tc v-mid"));
    }
 };

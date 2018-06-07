@@ -9,8 +9,8 @@ class UpgradeChooser extends React.Component
    {
       super(props);
 
-      var initialUpgrade = props.initialUpgrade;
-      var upgradeKey = (initialUpgrade !== undefined ? initialUpgrade.key : undefined);
+      const initialUpgrade = props.initialUpgrade;
+      const upgradeKey = (initialUpgrade !== undefined ? initialUpgrade.key : undefined);
 
       this.state = {
          upgradeKey: upgradeKey,
@@ -21,25 +21,25 @@ class UpgradeChooser extends React.Component
 
    render()
    {
-      var pilot = this.props.pilot;
-      var upgradeType = this.props.upgradeType;
-      var values = UpgradeCard.keysByPilotAndType(pilot.key, upgradeType.key);
+      const pilot = this.props.pilot;
+      const upgradeType = this.props.upgradeType;
+      const values = UpgradeCard.keysByPilotAndType(pilot.key, upgradeType.key);
       values.unshift(this.UPGRADE_PROMPT);
 
-      var labelFunction = function(value)
+      const labelFunction = function(value)
       {
-         var upgrade = UpgradeCard.properties[value];
+         const upgrade = UpgradeCard.properties[value];
          return (upgrade ? UpgradeCard.getName(value) + " [" + upgrade.squadPointCost + "]" : value);
       };
 
-      var image = React.createElement(UpgradeTypeUI,
+      const image = React.createElement(UpgradeTypeUI,
       {
          key: "upgradeChooserImage",
          upgradeType: upgradeType,
          resourceBase: this.props.resourceBase,
       });
 
-      var select = React.createElement(Select,
+      const select = React.createElement(Select,
       {
          key: "upgradeChooserSelect",
          values: values,
@@ -59,8 +59,8 @@ class UpgradeChooser extends React.Component
 
 UpgradeChooser.prototype.upgradeChangedFunction = function(event)
 {
-   var upgradeKey = event.currentTarget.value;
-   var upgradeIndex = event.currentTarget.dataset.upgradeindex;
+   const upgradeKey = event.currentTarget.value;
+   let upgradeIndex = event.currentTarget.dataset.upgradeindex;
    upgradeIndex = (upgradeIndex !== undefined ? parseInt(upgradeIndex) : undefined);
 
    this.setState(
@@ -68,8 +68,8 @@ UpgradeChooser.prototype.upgradeChangedFunction = function(event)
       upgradeKey: upgradeKey,
    });
 
-   var pilotIndex = this.props.pilotIndex;
-   var upgrade = UpgradeCard.properties[upgradeKey];
+   const pilotIndex = this.props.pilotIndex;
+   const upgrade = UpgradeCard.properties[upgradeKey];
    this.props.onChange(event, pilotIndex, upgrade, upgradeIndex);
 };
 

@@ -25,19 +25,19 @@ CombatPhaseTask.prototype.doIt = function(callback)
 
    LOGGER.trace("CombatPhaseTask.doIt() start");
 
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
 
-   var queue = environment.getTokensForCombat();
-   var elementFunction = this.combatElementFunction.bind(this);
-   var phaseCallback = this.finishCombatPhase.bind(this);
-   var finishFunction = function(finishCallback)
+   const queue = environment.getTokensForCombat();
+   const elementFunction = this.combatElementFunction.bind(this);
+   const phaseCallback = this.finishCombatPhase.bind(this);
+   const finishFunction = function(finishCallback)
    {
       phaseCallback(finishCallback);
    };
-   var delay = this.delay();
+   const delay = this.delay();
 
-   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+   const queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
    queueProcessor.processQueue();
 
    LOGGER.trace("CombatPhaseTask.doIt() end");
@@ -49,20 +49,20 @@ CombatPhaseTask.prototype.combatElementFunction = function(attacker, queueCallba
    InputValidator.validateIsFunction("queueCallback", queueCallback);
 
    LOGGER.trace("CombatPhaseTask.combatElementFunction() start");
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
    environment.setActiveToken(attacker);
-   var adjudicator = store.getState().adjudicator;
+   const adjudicator = store.getState().adjudicator;
 
    if (adjudicator.canAttack(attacker))
    {
-      var agent = attacker.agent();
-      var agentCallback = function(weapon, defender)
+      const agent = attacker.agent();
+      const agentCallback = function(weapon, defender)
       {
          if (weapon && defender)
          {
             store.dispatch(Action.setUserMessage(attacker + " fires upon " + defender));
-            var combatAction = new CombatAction(store, attacker, weapon, defender, queueCallback);
+            const combatAction = new CombatAction(store, attacker, weapon, defender, queueCallback);
             combatAction.doIt();
          }
          else

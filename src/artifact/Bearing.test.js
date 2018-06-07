@@ -4,8 +4,8 @@ QUnit.module("Bearing");
 
 QUnit.test("Bearing properties Straight", function(assert)
 {
-   var bearing = Bearing.STRAIGHT;
-   var properties = Bearing.properties[bearing];
+   const bearing = Bearing.STRAIGHT;
+   const properties = Bearing.properties[bearing];
    assert.equal(properties.name, "Straight");
    assert.equal(properties.headingChange, 0);
    assert.ok(!properties.isBank);
@@ -15,8 +15,8 @@ QUnit.test("Bearing properties Straight", function(assert)
 
 QUnit.test("Bearing properties Huge Bank Left", function(assert)
 {
-   var bearing = Bearing.HUGE_BANK_LEFT;
-   var properties = Bearing.properties[bearing];
+   const bearing = Bearing.HUGE_BANK_LEFT;
+   const properties = Bearing.properties[bearing];
    assert.equal(properties.name, "Huge Bank Left");
    assert.equal(properties.headingChange, -30);
    assert.ok(properties.isBank);
@@ -65,13 +65,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Bearing.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Bearing);
+   const result = Bearing.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Bearing);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Bearing[key];
+      const key2 = Bearing[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -81,7 +81,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Bearing[key] === value;
       });
@@ -103,12 +103,12 @@ QUnit.test("required properties", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Bearing.keys();
+   const result = Bearing.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 14);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Bearing.HUGE_BANK_LEFT);
    assert.equal(result[i++], Bearing.TURN_LEFT);
    assert.equal(result[i++], Bearing.BANK_LEFT);
@@ -124,8 +124,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[i++], Bearing.SEGNORS_LOOP_RIGHT);
    assert.equal(result[i++], Bearing.TALLON_ROLL_RIGHT);
 
-   var properties = Object.getOwnPropertyNames(Bearing);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Bearing);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

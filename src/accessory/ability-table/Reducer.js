@@ -6,7 +6,7 @@ import Action from "./Action.js";
 import DefaultFilters from "./DefaultFilters.js";
 import InitialState from "./InitialState.js";
 
-var Reducer = {};
+const Reducer = {};
 
 Reducer.root = function(state, action)
 {
@@ -17,7 +17,7 @@ Reducer.root = function(state, action)
       return new InitialState();
    }
 
-   var newFilters, newFilteredTableRow;
+   let newFilters, newFilteredTableRow;
 
    switch (action.type)
    {
@@ -70,7 +70,7 @@ Reducer.filterTableRow = function(tableRows, filters)
    InputValidator.validateNotNull("tableRows", tableRows);
    InputValidator.validateNotNull("filters", filters);
 
-   var answer = [];
+   const answer = [];
 
    tableRows.forEach(function(data)
    {
@@ -88,13 +88,13 @@ Reducer.passes = function(data, filters)
    InputValidator.validateNotNull("data", data);
    InputValidator.validateNotNull("filters", filters);
 
-   var answer = true;
-   var propertyNames = Object.getOwnPropertyNames(filters);
+   let answer = true;
+   const propertyNames = Object.getOwnPropertyNames(filters);
 
-   for (var i = 0; i < propertyNames.length; i++)
+   for (let i = 0; i < propertyNames.length; i++)
    {
-      var propertyName = propertyNames[i];
-      var filter = filters[propertyName];
+      const propertyName = propertyNames[i];
+      const filter = filters[propertyName];
 
       if (!filter.passes(data))
       {
@@ -110,11 +110,11 @@ Reducer.saveToLocalStorage = function(filters)
 {
    InputValidator.validateNotNull("filters", filters);
 
-   var filterObjects = [];
+   const filterObjects = [];
 
    Object.getOwnPropertyNames(filters).forEach(function(columnKey)
    {
-      var filter = filters[columnKey];
+      const filter = filters[columnKey];
       filterObjects.push(filter.toObject());
    });
 

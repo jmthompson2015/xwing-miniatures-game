@@ -9,23 +9,23 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../../../src/";
+const resourceBase = "../../../src/";
 
 class PilotCardGallery extends React.Component
 {
    render()
    {
-      var factionKey = this.props.factionKey;
-      var isStrict = true;
-      var pilotKeys = PilotCard.keysByFaction(factionKey, isStrict);
+      const factionKey = this.props.factionKey;
+      const isStrict = true;
+      const pilotKeys = PilotCard.keysByFaction(factionKey, isStrict);
 
-      var cells = [];
+      const cells = [];
 
       pilotKeys.forEach(function(pilotKey)
       {
          if ([PilotCard.CR90_CORVETTE, PilotCard.RAIDER_CLASS_CORVETTE].includes(pilotKey))
          {
-            var element = React.createElement(CardImage,
+            const element = React.createElement(CardImage,
             {
                key: "pilotInstance" + pilotKey + ".fore",
                card: PilotCard.properties[pilotKey].fore,
@@ -33,7 +33,7 @@ class PilotCardGallery extends React.Component
                width: 200,
             });
             cells.push(element);
-            var element0 = React.createElement(CardImage,
+            const element0 = React.createElement(CardImage,
             {
                key: "pilotInstance" + pilotKey + ".aft",
                card: PilotCard.properties[pilotKey].aft,
@@ -44,7 +44,7 @@ class PilotCardGallery extends React.Component
          }
          else
          {
-            var element1 = React.createElement(CardImage,
+            const element1 = React.createElement(CardImage,
             {
                key: "pilotInstance" + pilotKey,
                card: PilotCard.properties[pilotKey],
@@ -60,11 +60,11 @@ class PilotCardGallery extends React.Component
    }
 }
 
-var rows = [];
+const rows = [];
 
 Faction.keys().forEach(function(factionKey)
 {
-   var faction = Faction.properties[factionKey];
+   const faction = Faction.properties[factionKey];
 
    rows.push(ReactDOMFactories.h2(
    {
@@ -78,6 +78,6 @@ Faction.keys().forEach(function(factionKey)
    }));
 });
 
-var mainPanel = ReactDOMFactories.div(
+const mainPanel = ReactDOMFactories.div(
 {}, rows);
 ReactDOM.render(mainPanel, document.getElementById("mainPanel"));

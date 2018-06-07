@@ -12,14 +12,14 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store = Redux.createStore(AgentSquadReducer.root);
-var delegateStore = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store = Redux.createStore(AgentSquadReducer.root);
+const delegateStore = Redux.createStore(Reducer.root);
 store.dispatch(AgentSquadAction.setDelegateStore(delegateStore));
-var agentNumber = 1;
+const agentNumber = 1;
 setAgentAndSquad(store, delegateStore, agentNumber);
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: store,
 }, React.createElement(AgentSquadContainer,
@@ -31,12 +31,12 @@ ReactDOM.render(element, document.getElementById("inputArea"));
 
 function setAgentAndSquad(store, delegateStore, agentNumber)
 {
-   var faction = store.getState().faction;
-   var agentName = "Agent " + agentNumber;
-   var agentType = store.getState().agentType;
-   var agent = new Agent(delegateStore, agentName, undefined, agentType);
-   var squadBuilders = SquadBuilder.findByFaction(faction.key);
-   var squad = squadBuilders[0].buildSquad(agent);
+   const faction = store.getState().faction;
+   const agentName = "Agent " + agentNumber;
+   const agentType = store.getState().agentType;
+   const agent = new Agent(delegateStore, agentName, undefined, agentType);
+   const squadBuilders = SquadBuilder.findByFaction(faction.key);
+   const squad = squadBuilders[0].buildSquad(agent);
    store.dispatch(AgentSquadAction.setAgentName(agentName));
    store.dispatch(AgentSquadAction.setAgentType(agentType));
    store.dispatch(AgentSquadAction.setSquad(squad));

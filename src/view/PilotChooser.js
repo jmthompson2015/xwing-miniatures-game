@@ -9,8 +9,8 @@ class PilotChooser extends React.Component
    {
       super(props);
 
-      var initialPilot = props.initialPilot;
-      var pilotKey = (initialPilot !== undefined ? initialPilot.key : undefined);
+      const initialPilot = props.initialPilot;
+      const pilotKey = (initialPilot !== undefined ? initialPilot.key : undefined);
 
       this.state = {
          pilotKey: pilotKey,
@@ -21,14 +21,14 @@ class PilotChooser extends React.Component
 
    render()
    {
-      var ship = this.props.ship;
-      var faction = this.props.faction;
-      var keys = PilotCard.keysByShipAndFaction(ship.key, faction.key);
+      const ship = this.props.ship;
+      const faction = this.props.faction;
+      const keys = PilotCard.keysByShipAndFaction(ship.key, faction.key);
       keys.unshift(this.PILOT_PROMPT);
 
-      var labelFunction = function(value)
+      const labelFunction = function(value)
       {
-         var pilot = PilotCard.properties[value];
+         const pilot = PilotCard.properties[value];
          if (pilot && pilot.fore)
          {
             return (pilot ? PilotCard.getName(value) + " [" + (pilot.fore.squadPointCost + pilot.aft.squadPointCost) + "]" : value);
@@ -39,8 +39,8 @@ class PilotChooser extends React.Component
          }
       };
 
-      var pilotKey = this.state.pilotKey;
-      var select = React.createElement(Select,
+      const pilotKey = this.state.pilotKey;
+      const select = React.createElement(Select,
       {
          values: keys,
          labelFunction: labelFunction,
@@ -52,11 +52,11 @@ class PilotChooser extends React.Component
          }
       });
 
-      var pilot = PilotCard.properties[pilotKey];
+      const pilot = PilotCard.properties[pilotKey];
 
       if (pilot)
       {
-         var image = React.createElement(FactionUI,
+         const image = React.createElement(FactionUI,
          {
             faction: faction,
             isSmall: true,
@@ -75,16 +75,16 @@ class PilotChooser extends React.Component
 
 PilotChooser.prototype.pilotChangedFunction = function(event)
 {
-   var pilotKey = event.currentTarget.value;
+   const pilotKey = event.currentTarget.value;
    LOGGER.debug("PilotChooser.pilotChanged() pilotKey = " + pilotKey);
-   var index = parseInt(event.currentTarget.dataset.index);
+   const index = parseInt(event.currentTarget.dataset.index);
 
    this.setState(
    {
       pilotKey: pilotKey,
    });
 
-   var pilot = PilotCard.properties[pilotKey];
+   const pilot = PilotCard.properties[pilotKey];
    this.props.onChange(event, pilot, index);
 };
 

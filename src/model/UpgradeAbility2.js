@@ -20,7 +20,7 @@ import Position from "./Position.js";
 import ShipActionAbility from "./ShipActionAbility.js";
 import TargetLock from "./TargetLock.js";
 
-var UpgradeAbility2 = {};
+const UpgradeAbility2 = {};
 
 ////////////////////////////////////////////////////////////////////////
 UpgradeAbility2[Phase.ACTIVATION_REVEAL_DIAL] = {};
@@ -29,21 +29,21 @@ UpgradeAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.ADRENALINE_RUSH] = {
    // When you reveal a red maneuver, you may discard this card to treat that maneuver as a white maneuver until the end of the Activation phase.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
+      const maneuver = getManeuver(token);
       return isActiveCardInstance(store, token) && maneuver.difficultyKey === Difficulty.HARD;
    },
    consequent: function(store, token, callback)
    {
-      var upgradeInstance = token.upgrade(UpgradeCard.ADRENALINE_RUSH);
+      const upgradeInstance = token.upgrade(UpgradeCard.ADRENALINE_RUSH);
       discardUpgrade(token, upgradeInstance);
 
-      var oldManeuver = getManeuver(token);
-      var newManeuverKey = Maneuver.find(oldManeuver.bearingKey, oldManeuver.speed, Difficulty.STANDARD);
+      const oldManeuver = getManeuver(token);
+      const newManeuverKey = Maneuver.find(oldManeuver.bearingKey, oldManeuver.speed, Difficulty.STANDARD);
       if (newManeuverKey === undefined)
       {
          throw "Can't find white maneuver for oldManeuver = " + oldManeuver;
       }
-      var newManeuver = Maneuver.properties[newManeuverKey];
+      const newManeuver = Maneuver.properties[newManeuverKey];
       store.dispatch(Action.setTokenManeuver(token, newManeuver));
       callback();
    },
@@ -53,15 +53,15 @@ UpgradeAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.BB_8] = {
    // When you reveal a green maneuver, you may perform a free barrel roll action.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
+      const maneuver = getManeuver(token);
       return isActiveCardInstance(store, token) && maneuver.difficultyKey === Difficulty.EASY;
    },
    consequent: function(store, token, callback)
    {
-      var agent = token.agent();
-      var shipActions0 = [ShipAction.BARREL_ROLL];
-      var that = this;
-      var finishCallback = function(shipActionAbility)
+      const agent = token.agent();
+      const shipActions0 = [ShipAction.BARREL_ROLL];
+      const that = this;
+      const finishCallback = function(shipActionAbility)
       {
          that.finishConsequent(store, token, shipActionAbility, callback);
       };
@@ -73,7 +73,7 @@ UpgradeAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.BB_8] = {
    {
       if (shipActionAbility)
       {
-         var consequent = shipActionAbility.consequent();
+         const consequent = shipActionAbility.consequent();
          consequent(store, token, callback, shipActionAbility.context());
       }
       else
@@ -91,10 +91,10 @@ UpgradeAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.INERTIAL_DAMPENERS] = 
    },
    consequent: function(store, token, callback)
    {
-      var upgradeInstance = token.upgrade(UpgradeCard.INERTIAL_DAMPENERS);
+      const upgradeInstance = token.upgrade(UpgradeCard.INERTIAL_DAMPENERS);
       discardUpgrade(token, upgradeInstance);
 
-      var newManeuver = Maneuver.properties[Maneuver.STATIONARY_0_STANDARD];
+      const newManeuver = Maneuver.properties[Maneuver.STATIONARY_0_STANDARD];
       store.dispatch(Action.setTokenManeuver(token, newManeuver));
       token.receiveStress(1, callback);
    },
@@ -104,13 +104,13 @@ UpgradeAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.MANEUVERING_FINS] = {
    // When you reveal a turn maneuver (left or right), you may rotate your dial to the corresponding bank maneuver (left or right) of the same speed.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
+      const maneuver = getManeuver(token);
       return isActiveCardInstance(store, token) && [Bearing.TURN_LEFT, Bearing.TURN_RIGHT].includes(maneuver.bearingKey);
    },
    consequent: function(store, token, callback)
    {
-      var oldManeuver = getManeuver(token);
-      var newBearingKey;
+      const oldManeuver = getManeuver(token);
+      let newBearingKey;
       switch (oldManeuver.bearingKey)
       {
          case Bearing.TURN_LEFT:
@@ -120,8 +120,8 @@ UpgradeAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.MANEUVERING_FINS] = {
             newBearingKey = Bearing.BANK_RIGHT;
             break;
       }
-      var newManeuverKey = findManeuverByBearingSpeed(token, newBearingKey, oldManeuver.speed);
-      var newManeuver = Maneuver.properties[newManeuverKey];
+      const newManeuverKey = findManeuverByBearingSpeed(token, newBearingKey, oldManeuver.speed);
+      const newManeuver = Maneuver.properties[newManeuverKey];
       store.dispatch(Action.setTokenManeuver(token, newManeuver));
       callback();
    },
@@ -134,18 +134,18 @@ UpgradeAbility2[Phase.ACTIVATION_CLEAN_UP][UpgradeCard.LIGHTNING_REFLEXES] = {
    // After you execute a white or green maneuver on your dial, you may discard this card to rotate your ship 180˚. Then receive 1 stress token after the "Check Pilot Stress" step.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
-      var difficultyKey = (maneuver ? maneuver.difficultyKey : undefined);
+      const maneuver = getManeuver(token);
+      const difficultyKey = (maneuver ? maneuver.difficultyKey : undefined);
       return isActiveCardInstance(store, token) && token.isUpgradedWith(UpgradeCard.LIGHTNING_REFLEXES) && [Difficulty.STANDARD, Difficulty.EASY].includes(difficultyKey);
    },
    consequent: function(store, token, callback)
    {
-      var upgradeInstance = token.upgrade(UpgradeCard.LIGHTNING_REFLEXES);
+      const upgradeInstance = token.upgrade(UpgradeCard.LIGHTNING_REFLEXES);
       discardUpgrade(token, upgradeInstance);
 
-      var environment = store.getState().environment;
-      var fromPosition = environment.getPositionFor(token);
-      var toPosition = new Position(fromPosition.x(), fromPosition.y(), fromPosition.heading() + 180);
+      const environment = store.getState().environment;
+      const fromPosition = environment.getPositionFor(token);
+      const toPosition = new Position(fromPosition.x(), fromPosition.y(), fromPosition.heading() + 180);
       environment.moveToken(fromPosition, toPosition);
       token.receiveStress(1, callback);
    },
@@ -155,17 +155,17 @@ UpgradeAbility2[Phase.ACTIVATION_CLEAN_UP][UpgradeCard.TARGETING_ASTROMECH] = {
    // After you execute a red maneuver, you may acquire a target lock.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
-      var environment = store.getState().environment;
-      var defenders = environment.getDefendersInRange(token);
+      const maneuver = getManeuver(token);
+      const environment = store.getState().environment;
+      const defenders = environment.getDefendersInRange(token);
       return isActiveCardInstance(store, token) && maneuver !== undefined && maneuver.difficultyKey === Difficulty.HARD && defenders !== undefined && defenders.length > 0;
    },
    consequent: function(store, token, callback)
    {
-      var agent = token.agent();
-      var shipActions0 = [ShipAction.TARGET_LOCK];
-      var that = this;
-      var finishCallback = function(shipActionAbility)
+      const agent = token.agent();
+      const shipActions0 = [ShipAction.TARGET_LOCK];
+      const that = this;
+      const finishCallback = function(shipActionAbility)
       {
          that.finishConsequent(store, token, shipActionAbility, callback);
       };
@@ -177,7 +177,7 @@ UpgradeAbility2[Phase.ACTIVATION_CLEAN_UP][UpgradeCard.TARGETING_ASTROMECH] = {
    {
       if (shipActionAbility)
       {
-         var consequent = shipActionAbility.consequent();
+         const consequent = shipActionAbility.consequent();
          consequent(store, token, callback, shipActionAbility.context());
       }
       else
@@ -191,8 +191,8 @@ UpgradeAbility2[Phase.ACTIVATION_CLEAN_UP][UpgradeCard.TIE_X7] = {
    // Your upgrade bar loses the Cannon and Missile upgrade icons. After executing a 3-, 4-, or 5-speed maneuver, you may assign 1 evade token to your ship.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
-      var speed = (maneuver ? maneuver.speed : undefined);
+      const maneuver = getManeuver(token);
+      const speed = (maneuver ? maneuver.speed : undefined);
       return isActiveCardInstance(store, token) && [3, 4, 5].includes(speed);
    },
    consequent: function(store, token, callback)
@@ -209,7 +209,7 @@ UpgradeAbility2[Phase.ACTIVATION_GAIN_ENERGY][UpgradeCard.ENGINEERING_TEAM] = {
    // During the Activation phase, when you reveal a Straight maneuver, gain 1 additional energy during the "Gain Energy" step.
    condition: function(store, token)
    {
-      var maneuver = getManeuver(token);
+      const maneuver = getManeuver(token);
       return isActiveCardInstance(store, token) && maneuver !== undefined && maneuver.bearingKey === Bearing.STRAIGHT;
    },
    consequent: function(store, token, callback)
@@ -227,7 +227,7 @@ UpgradeAbility2[Phase.ACTIVATION_GAIN_ENERGY][UpgradeCard.TIBANNA_GAS_SUPPLIES] 
    },
    consequent: function(store, token, callback)
    {
-      var upgradeInstance = token.upgrade(UpgradeCard.TIBANNA_GAS_SUPPLIES);
+      const upgradeInstance = token.upgrade(UpgradeCard.TIBANNA_GAS_SUPPLIES);
       discardUpgrade(token, upgradeInstance);
 
       store.dispatch(CardAction.addEnergyCount(token, 3));
@@ -246,7 +246,7 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.CLOAKING_DEVICE] = 
    },
    consequent: function(store, token, callback)
    {
-      var ability = new Ability(ShipAction, ShipAction.CLOAK, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
+      const ability = new Ability(ShipAction, ShipAction.CLOAK, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
       ability.consequent(store, token, callback);
    },
 };
@@ -259,10 +259,10 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.EXPERT_HANDLING] = 
    },
    consequent: function(store, token, callback)
    {
-      var agent = token.agent();
-      var shipActions0 = [ShipAction.BARREL_ROLL];
-      var that = this;
-      var finishCallback = function(shipActionAbility)
+      const agent = token.agent();
+      const shipActions0 = [ShipAction.BARREL_ROLL];
+      const that = this;
+      const finishCallback = function(shipActionAbility)
       {
          that.finishConsequent(store, token, shipActionAbility, callback);
       };
@@ -272,20 +272,20 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.EXPERT_HANDLING] = 
    },
    finishConsequent: function(store, token, shipActionAbility, callback)
    {
-      var hasBarrelRoll = token.shipActions().includes(ShipAction.BARREL_ROLL);
+      const hasBarrelRoll = token.shipActions().includes(ShipAction.BARREL_ROLL);
       if (!hasBarrelRoll)
       {
          token.receiveStress();
       }
       // FIXME: removing the *first* enemy target lock.
-      var defenderTargetLocks = TargetLock.getByDefender(token.store(), token);
+      const defenderTargetLocks = TargetLock.getByDefender(token.store(), token);
       if (defenderTargetLocks.length > 0)
       {
          defenderTargetLocks[0].delete();
       }
       if (shipActionAbility)
       {
-         var consequent = shipActionAbility.consequent();
+         const consequent = shipActionAbility.consequent();
          consequent(store, token, callback, shipActionAbility.context());
       }
       else
@@ -315,7 +315,7 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.LANDO_CALRISSIAN] =
    },
    consequent: function(store, token, callback)
    {
-      var defenseDice = new DefenseDice(store, token.id(), 2);
+      const defenseDice = new DefenseDice(store, token.id(), 2);
       if (defenseDice.focusCount() > 0)
       {
          token.receiveFocus(defenseDice.focusCount(), callback);
@@ -336,10 +336,10 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.LEEBO] = {
    },
    consequent: function(store, token, callback)
    {
-      var agent = token.agent();
-      var shipActions0 = [ShipAction.BOOST];
-      var that = this;
-      var finishCallback = function(shipActionAbility)
+      const agent = token.agent();
+      const shipActions0 = [ShipAction.BOOST];
+      const that = this;
+      const finishCallback = function(shipActionAbility)
       {
          that.finishConsequent(store, token, shipActionAbility, callback);
       };
@@ -352,7 +352,7 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.LEEBO] = {
       store.dispatch(CardAction.addIonCount(token));
       if (shipActionAbility)
       {
-         var consequent = shipActionAbility.consequent();
+         const consequent = shipActionAbility.consequent();
          consequent(store, token, callback, shipActionAbility.context());
       }
       else
@@ -394,10 +394,10 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.R5_D8] = {
    },
    consequent: function(store, token, callback)
    {
-      var defenseDice = new DefenseDice(1);
+      const defenseDice = new DefenseDice(1);
       if (defenseDice.evadeCount() === 1 || defenseDice.focusCount() === 1)
       {
-         var damageKey = token.damageKeys().get(0);
+         const damageKey = token.damageKeys().get(0);
          store.dispatch(CardAction.removeDamage(token.id(), damageKey));
       }
       callback();
@@ -425,9 +425,9 @@ UpgradeAbility2[Phase.ACTIVATION_PERFORM_ACTION][UpgradeCard.REAR_ADMIRAL_CHIRAN
    },
    consequent: function(store, token, callback)
    {
-      var environment = store.getState().environment;
-      var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
-      var maneuverAction = new ManeuverAction(environment.store(), token.id(), maneuverKey);
+      const environment = store.getState().environment;
+      const maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
+      const maneuverAction = new ManeuverAction(environment.store(), token.id(), maneuverKey);
       maneuverAction.doIt();
       callback();
    },
@@ -448,13 +448,13 @@ function findManeuverByBearingSpeed(token, bearing, speed)
    InputValidator.validateNotNull("bearing", bearing);
    InputValidator.validateNotNull("speed", speed);
 
-   var answer;
-   var maneuverKeys = token.card().shipFaction.ship.maneuverKeys;
+   let answer;
+   const maneuverKeys = token.card().shipFaction.ship.maneuverKeys;
 
-   for (var i = 0; i < maneuverKeys.length; i++)
+   for (let i = 0; i < maneuverKeys.length; i++)
    {
-      var maneuverKey = maneuverKeys[i];
-      var maneuver = Maneuver.properties[maneuverKey];
+      const maneuverKey = maneuverKeys[i];
+      const maneuver = Maneuver.properties[maneuverKey];
 
       if (maneuver.bearingKey === bearing && maneuver.speed === speed)
       {
@@ -477,7 +477,7 @@ function getActiveCardInstance(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var environment = store.getState().environment;
+   const environment = store.getState().environment;
 
    return environment.activeCardInstance();
 }
@@ -486,13 +486,13 @@ function getManeuver(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var activationAction = getActivationAction(token);
+   const activationAction = getActivationAction(token);
    return (activationAction !== undefined ? activationAction.maneuver() : undefined);
 }
 
 function isActiveCardInstance(store, token)
 {
-   var activeToken = getActiveCardInstance(store);
+   const activeToken = getActiveCardInstance(store);
 
    return token.equals(activeToken);
 }

@@ -18,7 +18,7 @@ import TableColumns from "./TableColumns.js";
 
 function createImageLink(src, href)
 {
-   var image = ReactDOMFactories.img(
+   const image = ReactDOMFactories.img(
    {
       className: "imageBlock fr v-mid",
       src: src,
@@ -31,10 +31,10 @@ function createImageLink(src, href)
    }, image);
 }
 
-var valueFunctions = {
+const valueFunctions = {
    "name": function(data)
    {
-      var answer = data.name;
+      let answer = data.name;
       answer = answer.replace(/\"/, "");
       return answer;
    },
@@ -42,11 +42,11 @@ var valueFunctions = {
    {
       if (data.event)
       {
-         var key = data.event.substring(data.event.indexOf(".") + 1);
+         const key = data.event.substring(data.event.indexOf(".") + 1);
 
          if (data.event.startsWith("Event"))
          {
-            var event = Event.properties[key];
+            const event = Event.properties[key];
             if (event === undefined)
             {
                LOGGER.warn("Missing event for key = " + key);
@@ -55,7 +55,7 @@ var valueFunctions = {
          }
          else if (data.event.startsWith("Phase"))
          {
-            var phase = Phase.properties[key];
+            const phase = Phase.properties[key];
             if (phase === undefined)
             {
                LOGGER.warn("Missing phase for key = " + key);
@@ -81,18 +81,18 @@ class AbilityTable extends React.Component
 
    render()
    {
-      var filterShownButton = React.createElement(Button,
+      const filterShownButton = React.createElement(Button,
       {
          name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
          onClick: this.toggleFilterShownActionPerformed,
       });
 
-      var myRowData = this.props.rowData;
-      var resourceBase = this.props.resourceBase;
-      var cellFunctions = {
+      const myRowData = this.props.rowData;
+      const resourceBase = this.props.resourceBase;
+      const cellFunctions = {
          "type": function(data)
          {
-            var answer = data.type;
+            let answer = data.type;
             if (DamageCardTrait.properties[data.type])
             {
                answer = DamageCardTrait.properties[data.type].name;
@@ -118,10 +118,10 @@ class AbilityTable extends React.Component
          },
          "name": function(data)
          {
-            var src = resourceBase + "icon/Wikipedia16.png";
-            var searchString = data.name.replace(/ /g, "_");
-            var href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
-            var link = createImageLink(src, href);
+            const src = resourceBase + "icon/Wikipedia16.png";
+            const searchString = data.name.replace(/ /g, "_");
+            const href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
+            const link = createImageLink(src, href);
             return ReactDOMFactories.span(
             {
                className: "textImageLink",
@@ -129,7 +129,7 @@ class AbilityTable extends React.Component
          },
          "description": function(data)
          {
-            var answer;
+            let answer;
             if (data.isFlavorText)
             {
                answer = ReactDOMFactories.span(
@@ -173,7 +173,7 @@ class AbilityTable extends React.Component
          },
       };
 
-      var table = React.createElement(DataTable,
+      const table = React.createElement(DataTable,
       {
          columns: TableColumns,
          rowData: myRowData,
@@ -181,7 +181,7 @@ class AbilityTable extends React.Component
          valueFunctions: valueFunctions,
       });
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,
@@ -191,7 +191,7 @@ class AbilityTable extends React.Component
 
       if (this.props.isFilterShown)
       {
-         var filterUI = React.createElement(ReactRedux.Provider,
+         const filterUI = React.createElement(ReactRedux.Provider,
          {
             store: this.context.store,
          }, React.createElement(FilterContainer,

@@ -4,10 +4,10 @@ class ShipActionUI extends React.Component
 {
    render()
    {
-      var shipAction = this.props.shipAction;
-      var myKey = (this.props.myKey !== undefined ? this.props.myKey : shipAction.key);
-      var className = "center tc v-mid";
-      var src = shipAction.key.toLowerCase();
+      const shipAction = this.props.shipAction;
+      const myKey = (this.props.myKey !== undefined ? this.props.myKey : shipAction.key);
+      let className = "center tc v-mid";
+      let src = shipAction.key.toLowerCase();
 
       if (shipAction.key === ShipAction.DECLOAK)
       {
@@ -15,7 +15,7 @@ class ShipActionUI extends React.Component
          className += " silver";
       }
 
-      var image = ReactDOMFactories.span(
+      const image = ReactDOMFactories.span(
       {
          key: myKey,
          className: className,
@@ -25,8 +25,8 @@ class ShipActionUI extends React.Component
          className: "xwing-miniatures-font xwing-miniatures-font-" + src,
       }));
 
-      var answer = image;
-      var showName = this.props.showName;
+      let answer = image;
+      const showName = this.props.showName;
 
       if (showName)
       {

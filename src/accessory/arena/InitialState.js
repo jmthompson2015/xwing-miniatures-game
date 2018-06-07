@@ -10,7 +10,7 @@ function InitialState()
    // FIXME
    // this.squadBuilders = SquadBuilder.SquadBuilders.slice();
 
-   for (var i = 0; i < 10; i++)
+   for (let i = 0; i < 10; i++)
    {
       this.squadBuilders.push(SquadBuilder.SquadBuilders[i]);
    }

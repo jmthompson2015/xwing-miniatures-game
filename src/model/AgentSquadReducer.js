@@ -2,7 +2,7 @@ import Agent from "./Agent.js";
 import AgentSquadAction from "./AgentSquadAction.js";
 import AgentSquadInitialState from "./AgentSquadInitialState.js";
 
-var AgentSquadReducer = {};
+const AgentSquadReducer = {};
 
 AgentSquadReducer.root = function(state, action)
 {
@@ -13,7 +13,7 @@ AgentSquadReducer.root = function(state, action)
       return new AgentSquadInitialState();
    }
 
-   var newAgent, newPilotIndexToUpgrades, newPilots, newShips, newUpgrades;
+   let newAgent, newPilotIndexToUpgrades, newPilots, newShips, newUpgrades;
 
    switch (action.type)
    {
@@ -50,8 +50,8 @@ AgentSquadReducer.root = function(state, action)
 
          // SquadBuilderUI
       case AgentSquadAction.RESET:
-         var delegateStore = state.delegateStore;
-         var newState = new AgentSquadInitialState();
+         const delegateStore = state.delegateStore;
+         const newState = new AgentSquadInitialState();
          return Object.assign(
          {}, newState,
          {

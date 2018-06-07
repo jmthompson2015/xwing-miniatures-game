@@ -20,7 +20,7 @@ import Selector from "./Selector.js";
 import Squad from "./Squad.js";
 import TargetLock from "./TargetLock.js";
 
-var MediumAgentStrategy = {};
+const MediumAgentStrategy = {};
 
 MediumAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbilities, upgradeAbilities, callback)
 {
@@ -30,7 +30,7 @@ MediumAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbilit
    InputValidator.validateNotNull("upgradeAbilities", upgradeAbilities);
    InputValidator.validateIsFunction("callback", callback);
 
-   var ability = (damageAbilities.length > 0 ? ArrayUtilities.randomElement(damageAbilities) : undefined);
+   let ability = (damageAbilities.length > 0 ? ArrayUtilities.randomElement(damageAbilities) : undefined);
 
    if (ability === undefined)
    {
@@ -42,7 +42,7 @@ MediumAgentStrategy.chooseAbility = function(agent, damageAbilities, pilotAbilit
       }
    }
 
-   var isAccepted = (ability !== undefined);
+   const isAccepted = (ability !== undefined);
 
    callback(ability, isAccepted);
 };
@@ -54,7 +54,7 @@ MediumAgentStrategy.chooseDecloakAction = function(agent, token, decloakActions,
    InputValidator.validateNotNull("decloakActions", decloakActions);
    InputValidator.validateIsFunction("callback", callback);
 
-   var answer = ArrayUtilities.randomElement(decloakActions);
+   const answer = ArrayUtilities.randomElement(decloakActions);
 
    callback(token, answer);
 };
@@ -68,13 +68,13 @@ MediumAgentStrategy.chooseModifyAttackDiceAction = function(agent, attacker, def
    InputValidator.validateIsFunction("callback", callback);
 
    // Maximize the hits and critical hits.
-   var store = agent.store();
-   var environment = store.getState().environment;
-   var attackerPosition = environment.getPositionFor(attacker);
-   var defenderPosition = environment.getPositionFor(defender);
-   var bestModification;
-   var bestHits;
-   var bestFocusTokens;
+   const store = agent.store();
+   const environment = store.getState().environment;
+   const attackerPosition = environment.getPositionFor(attacker);
+   const defenderPosition = environment.getPositionFor(defender);
+   let bestModification;
+   let bestHits;
+   let bestFocusTokens;
 
    if (modifications.length === 1)
    {
@@ -84,17 +84,17 @@ MediumAgentStrategy.chooseModifyAttackDiceAction = function(agent, attacker, def
    {
       modifications.forEach(function(modification)
       {
-         var mockStore = this.cloneStore(store, attacker, attackerPosition, defender, defenderPosition);
-         var mockEnvironment = mockStore.getState().environment;
-         var mockAttacker = mockEnvironment.pilotInstances()[0];
-         var mockAttackDice = AttackDice.get(mockStore, mockAttacker.id());
-         var mod = new Ability(modification.source(), modification.sourceKey(), modification.abilityType(), modification.abilityKey());
-         var consequent = mod.consequent();
-         var callback = function() {};
+         const mockStore = this.cloneStore(store, attacker, attackerPosition, defender, defenderPosition);
+         const mockEnvironment = mockStore.getState().environment;
+         const mockAttacker = mockEnvironment.pilotInstances()[0];
+         let mockAttackDice = AttackDice.get(mockStore, mockAttacker.id());
+         const mod = new Ability(modification.source(), modification.sourceKey(), modification.abilityType(), modification.abilityKey());
+         const consequent = mod.consequent();
+         const callback = function() {};
          consequent(mockStore, mockAttacker, callback);
          mockAttackDice = AttackDice.get(mockStore, mockAttacker.id());
-         var hits = mockAttackDice.hitCount() + mockAttackDice.criticalHitCount();
-         var focusTokens = mockAttacker.focusCount();
+         const hits = mockAttackDice.hitCount() + mockAttackDice.criticalHitCount();
+         const focusTokens = mockAttacker.focusCount();
 
          if (bestHits === undefined || hits > bestHits)
          {
@@ -110,7 +110,7 @@ MediumAgentStrategy.chooseModifyAttackDiceAction = function(agent, attacker, def
       }, this);
    }
 
-   var isAccepted = (bestModification !== undefined && bestModification !== null);
+   const isAccepted = (bestModification !== undefined && bestModification !== null);
 
    callback(bestModification, isAccepted);
 };
@@ -123,13 +123,13 @@ MediumAgentStrategy.chooseModifyDefenseDiceAction = function(agent, attacker, de
    InputValidator.validateNotNull("modifications", modifications);
    InputValidator.validateIsFunction("callback", callback);
 
-   var store = agent.store();
-   var environment = store.getState().environment;
-   var attackerPosition = environment.getPositionFor(attacker);
-   var defenderPosition = environment.getPositionFor(defender);
-   var bestModification;
-   var bestEvades;
-   var bestEvadeTokens;
+   const store = agent.store();
+   const environment = store.getState().environment;
+   const attackerPosition = environment.getPositionFor(attacker);
+   const defenderPosition = environment.getPositionFor(defender);
+   let bestModification;
+   let bestEvades;
+   let bestEvadeTokens;
 
    if (modifications.length === 1)
    {
@@ -139,18 +139,18 @@ MediumAgentStrategy.chooseModifyDefenseDiceAction = function(agent, attacker, de
    {
       modifications.forEach(function(modification)
       {
-         var mockStore = this.cloneStore(store, attacker, attackerPosition, defender, defenderPosition);
-         var mockEnvironment = mockStore.getState().environment;
-         var mockAttacker = mockEnvironment.getTokenById(1);
-         var mockDefender = mockEnvironment.getTokenById(2);
-         var mockDefenseDice = DefenseDice.get(mockStore, mockAttacker.id());
-         var mod = new Ability(modification.source(), modification.sourceKey(), modification.abilityType(), modification.abilityKey());
-         var consequent = mod.consequent();
-         var callback = function() {};
+         const mockStore = this.cloneStore(store, attacker, attackerPosition, defender, defenderPosition);
+         const mockEnvironment = mockStore.getState().environment;
+         const mockAttacker = mockEnvironment.getTokenById(1);
+         const mockDefender = mockEnvironment.getTokenById(2);
+         let mockDefenseDice = DefenseDice.get(mockStore, mockAttacker.id());
+         const mod = new Ability(modification.source(), modification.sourceKey(), modification.abilityType(), modification.abilityKey());
+         const consequent = mod.consequent();
+         const callback = function() {};
          consequent(mockStore, mockAttacker, callback);
          mockDefenseDice = DefenseDice.get(mockStore, mockAttacker.id());
-         var evades = mockDefenseDice.evadeCount();
-         var evadeTokens = mockDefender.evadeCount();
+         const evades = mockDefenseDice.evadeCount();
+         const evadeTokens = mockDefender.evadeCount();
 
          if (bestEvades === undefined || evades > bestEvades)
          {
@@ -166,7 +166,7 @@ MediumAgentStrategy.chooseModifyDefenseDiceAction = function(agent, attacker, de
       }, this);
    }
 
-   var isAccepted = (bestModification !== undefined && bestModification !== null);
+   const isAccepted = (bestModification !== undefined && bestModification !== null);
 
    callback(bestModification, isAccepted);
 };
@@ -178,49 +178,49 @@ MediumAgentStrategy.choosePlanningActions = function(agent, tokens, tokenToValid
    InputValidator.validateNotNull("tokenToValidManeuvers", tokenToValidManeuvers);
    InputValidator.validateIsFunction("callback", callback);
 
-   var store = agent.store();
-   var environment = store.getState().environment;
-   var tokenToManeuver = {};
+   const store = agent.store();
+   const environment = store.getState().environment;
+   const tokenToManeuver = {};
 
    if (tokens.length > 0)
    {
-      var defenders = environment.getDefenders(tokens[0]);
-      var playFormatKey = environment.playFormatKey();
+      const defenders = environment.getDefenders(tokens[0]);
+      const playFormatKey = environment.playFormatKey();
 
       tokens.forEach(function(token)
       {
-         var fromPosition = environment.getPositionFor(token);
-         var shipBase = token.card().shipFaction.ship.shipBase;
+         const fromPosition = environment.getPositionFor(token);
+         const shipBase = token.card().shipFaction.ship.shipBase;
 
          // Find the maneuvers which keep the ship on the battlefield.
-         var validManeuvers = tokenToValidManeuvers[token];
-         var closestManeuver;
-         var minDistance;
+         const validManeuvers = tokenToValidManeuvers[token];
+         let closestManeuver;
+         let minDistance;
 
          // Find the maneuvers which take the ship within range of a defender.
-         var validManeuversR1 = [];
-         var validManeuversR2 = [];
-         var validManeuversR3 = [];
+         const validManeuversR1 = [];
+         const validManeuversR2 = [];
+         const validManeuversR3 = [];
 
          validManeuvers.forEach(function(maneuverKey)
          {
-            var maneuver = Maneuver.properties[maneuverKey];
-            var toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
-            var weapon = token.primaryWeapon();
+            const maneuver = Maneuver.properties[maneuverKey];
+            const toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+            const weapon = token.primaryWeapon();
 
             if (weapon)
             {
-               var firingArc = weapon.primaryFiringArc();
+               const firingArc = weapon.primaryFiringArc();
 
-               for (var i = 0; i < defenders.length; i++)
+               for (let i = 0; i < defenders.length; i++)
                {
-                  var defender = defenders[i];
-                  var defenderPosition = environment.getPositionFor(defender);
+                  const defender = defenders[i];
+                  const defenderPosition = environment.getPositionFor(defender);
 
                   if (weapon.isDefenderInFiringArc(toPosition, firingArc, defender, defenderPosition))
                   {
                      // Save the maneuver which has the minimum distance.
-                     var distance = toPosition.computeDistance(defenderPosition);
+                     const distance = toPosition.computeDistance(defenderPosition);
 
                      if (!minDistance || distance < minDistance)
                      {
@@ -231,7 +231,7 @@ MediumAgentStrategy.choosePlanningActions = function(agent, tokens, tokenToValid
 
                   if (weapon.isDefenderTargetable(token, toPosition, defender, defenderPosition))
                   {
-                     var range = RangeRuler.getRange(token, toPosition, defender, defenderPosition);
+                     const range = RangeRuler.getRange(token, toPosition, defender, defenderPosition);
 
                      switch (range)
                      {
@@ -250,17 +250,17 @@ MediumAgentStrategy.choosePlanningActions = function(agent, tokens, tokenToValid
             }
          }, this);
 
-         var myManeuver;
+         let myManeuver;
 
          if (token.isStressed())
          {
             // Choose an easy maneuver.
-            var easyManeuvers = validManeuvers.filter(function(maneuverKey)
+            const easyManeuvers = validManeuvers.filter(function(maneuverKey)
             {
                return Maneuver.properties[maneuverKey].difficultyKey === Difficulty.EASY;
             });
 
-            var intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR1);
+            let intersection = ArrayUtilities.intersect(easyManeuvers, validManeuversR1);
             myManeuver = ArrayUtilities.randomElement(intersection);
 
             if (myManeuver === undefined)
@@ -304,7 +304,7 @@ MediumAgentStrategy.choosePlanningActions = function(agent, tokens, tokenToValid
                         if (myManeuver === undefined)
                         {
                            // The ship fled the battlefield.
-                           var maneuverKeys = token.maneuverKeys();
+                           const maneuverKeys = token.maneuverKeys();
                            myManeuver = ArrayUtilities.randomElement(maneuverKeys);
                         }
                      }
@@ -327,10 +327,10 @@ MediumAgentStrategy.chooseShipAction = function(agent, token, shipActions, callb
    InputValidator.validateNotNull("shipActions", shipActions);
    InputValidator.validateIsFunction("callback", callback);
 
-   var answer;
+   let answer;
 
-   var store = agent.store();
-   var targetLocks = shipActions.filter(function(shipAction)
+   const store = agent.store();
+   const targetLocks = shipActions.filter(function(shipAction)
    {
       return shipAction.defender;
    });
@@ -354,7 +354,7 @@ MediumAgentStrategy.chooseShipAction = function(agent, token, shipActions, callb
 
    LOGGER.debug("shipAction for " + token.name() + ": " + answer);
 
-   var isAccepted = (answer !== undefined);
+   const isAccepted = (answer !== undefined);
 
    callback(answer, isAccepted);
 };
@@ -366,16 +366,16 @@ MediumAgentStrategy.chooseWeaponAndDefender = function(agent, attacker, choices,
    InputValidator.validateNotNull("choices", choices);
    InputValidator.validateIsFunction("callback", callback);
 
-   var weapon, defender;
+   let weapon, defender;
 
    if (choices.length > 0)
    {
       // Choose strongest weapon.
-      var weaponData, maxWeaponStrength;
+      let weaponData, maxWeaponStrength;
 
       choices.forEach(function(myWeaponData)
       {
-         var weaponValue = myWeaponData.weapon.weaponValue();
+         const weaponValue = myWeaponData.weapon.weaponValue();
 
          if (maxWeaponStrength === undefined || weaponValue > maxWeaponStrength)
          {
@@ -392,16 +392,16 @@ MediumAgentStrategy.chooseWeaponAndDefender = function(agent, attacker, choices,
       });
 
       // Choose weakest defender.
-      var rangeToDefenders = weaponData.rangeToDefenders;
-      var minHullShield;
+      const rangeToDefenders = weaponData.rangeToDefenders;
+      let minHullShield;
 
       rangeToDefenders.forEach(function(rangeData)
       {
-         var defenders = rangeData.defenders;
+         const defenders = rangeData.defenders;
 
          defenders.forEach(function(myDefender)
          {
-            var hullShield = myDefender.hullValue() + myDefender.shieldValue();
+            const hullShield = myDefender.hullValue() + myDefender.shieldValue();
 
             if (minHullShield === undefined || hullShield < minHullShield)
             {
@@ -417,39 +417,39 @@ MediumAgentStrategy.chooseWeaponAndDefender = function(agent, attacker, choices,
 
 MediumAgentStrategy.cloneStore = function(store, attacker, attackerPosition, defender, defenderPosition)
 {
-   var environment = store.getState().environment;
-   var newStore = Redux.createStore(Reducer.root);
+   const environment = store.getState().environment;
+   const newStore = Redux.createStore(Reducer.root);
 
-   var factionKey1 = attacker.card().shipFaction.factionKey;
-   var factionKey2 = defender.card().shipFaction.factionKey;
-   var squad1 = new Squad(factionKey1, "First Squad", 2017, "description", [attacker]);
-   var squad2 = new Squad(factionKey2, "Second Squad", 2017, "description", [defender]);
-   var newEnvironment = new Environment(newStore, environment.firstAgent(), squad1, environment.secondAgent(), squad2, [attackerPosition], [defenderPosition]);
+   const factionKey1 = attacker.card().shipFaction.factionKey;
+   const factionKey2 = defender.card().shipFaction.factionKey;
+   const squad1 = new Squad(factionKey1, "First Squad", 2017, "description", [attacker]);
+   const squad2 = new Squad(factionKey2, "Second Squad", 2017, "description", [defender]);
+   const newEnvironment = new Environment(newStore, environment.firstAgent(), squad1, environment.secondAgent(), squad2, [attackerPosition], [defenderPosition]);
    newStore.dispatch(Action.setEnvironment(newEnvironment));
-   var tokens = newEnvironment.pilotInstances();
-   var newAttacker = tokens[0];
-   var newDefender = tokens[1];
+   const tokens = newEnvironment.pilotInstances();
+   const newAttacker = tokens[0];
+   const newDefender = tokens[1];
 
    newStore.dispatch(CardAction.addFocusCount(newAttacker, attacker.focusCount()));
    newEnvironment.setActiveToken(newAttacker);
    newStore.dispatch(CardAction.addEvadeCount(newDefender, defender.evadeCount()));
    newStore.dispatch(CardAction.addFocusCount(newDefender, defender.focusCount()));
-   var oldAttackDice = AttackDice.get(store, attacker.id());
+   const oldAttackDice = AttackDice.get(store, attacker.id());
    newStore.dispatch(Action.setTokenAttackDice(newAttacker.id(), oldAttackDice.values()));
-   var oldDefenseDice = DefenseDice.get(store, attacker.id());
+   const oldDefenseDice = DefenseDice.get(store, attacker.id());
    newStore.dispatch(Action.setTokenDefenseDice(newAttacker.id(), oldDefenseDice.values()));
 
-   var oldTargetLock = TargetLock.getFirst(store, attacker, defender);
+   const oldTargetLock = TargetLock.getFirst(store, attacker, defender);
    if (oldTargetLock !== undefined)
    {
       TargetLock.newInstance(newStore, newAttacker, newDefender);
    }
 
-   var oldCombatAction = Selector.combatAction(store.getState(), attacker);
+   const oldCombatAction = Selector.combatAction(store.getState(), attacker);
 
    if (oldCombatAction !== undefined)
    {
-      var newCombatAction = new CombatAction(newStore, newAttacker, oldCombatAction.weapon(), newDefender, function() {});
+      const newCombatAction = new CombatAction(newStore, newAttacker, oldCombatAction.weapon(), newDefender, function() {});
       newStore.dispatch(Action.setTokenCombatAction(newAttacker, newCombatAction));
    }
 

@@ -1,6 +1,6 @@
 import InputValidator from "../../utility/InputValidator.js";
 
-var TableRow = {};
+const TableRow = {};
 
 TableRow.createTableRow = function(squadBuilder, winCountIn, loseCountIn, tieCountIn)
 {
@@ -9,9 +9,9 @@ TableRow.createTableRow = function(squadBuilder, winCountIn, loseCountIn, tieCou
    // loseCountIn optional.
    // tieCountIn optional.
 
-   var winCount = (winCountIn !== undefined ? winCountIn : 0);
-   var loseCount = (loseCountIn !== undefined ? loseCountIn : 0);
-   var tieCount = (tieCountIn !== undefined ? tieCountIn : 0);
+   const winCount = (winCountIn !== undefined ? winCountIn : 0);
+   const loseCount = (loseCountIn !== undefined ? loseCountIn : 0);
+   const tieCount = (tieCountIn !== undefined ? tieCountIn : 0);
 
    return (
    {

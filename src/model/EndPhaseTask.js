@@ -28,19 +28,19 @@ EndPhaseTask.prototype.doIt = function(callback)
 
    LOGGER.trace("EndPhaseTask.doIt() start");
 
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
 
-   var queue = environment.getTokensForActivation();
-   var elementFunction = this.cleanUpElementFunction.bind(this);
-   var phaseCallback = this.roundEnd.bind(this);
-   var finishFunction = function(finishCallback)
+   const queue = environment.getTokensForActivation();
+   const elementFunction = this.cleanUpElementFunction.bind(this);
+   const phaseCallback = this.roundEnd.bind(this);
+   const finishFunction = function(finishCallback)
    {
       phaseCallback(finishCallback);
    };
-   var delay = this.delay();
+   const delay = this.delay();
 
-   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+   const queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
    queueProcessor.processQueue();
 
    LOGGER.trace("EndPhaseTask.doIt() end");
@@ -51,7 +51,7 @@ EndPhaseTask.prototype.cleanUpElementFunction = function(cardInstance, queueCall
    InputValidator.validateNotNull("cardInstance", cardInstance);
    InputValidator.validateIsFunction("queueCallback", queueCallback);
 
-   var store = this.store();
+   const store = this.store();
 
    store.dispatch(Action.enqueuePhase(Phase.END_CLEAN_UP, cardInstance));
    store.dispatch(CardAction.setEvadeCount(cardInstance));
@@ -73,19 +73,19 @@ EndPhaseTask.prototype.roundEnd = function(callback)
 
    LOGGER.trace("EndPhaseTask.roundEnd() start");
 
-   var store = this.store();
-   var environment = store.getState().environment;
+   const store = this.store();
+   const environment = store.getState().environment;
 
-   var queue = environment.getTokensForActivation();
-   var elementFunction = this.roundEndElementFunction.bind(this);
-   var phaseCallback = this.finishEndPhase.bind(this);
-   var finishFunction = function(finishCallback)
+   const queue = environment.getTokensForActivation();
+   const elementFunction = this.roundEndElementFunction.bind(this);
+   const phaseCallback = this.finishEndPhase.bind(this);
+   const finishFunction = function(finishCallback)
    {
       phaseCallback(finishCallback);
    };
-   var delay = this.delay();
+   const delay = this.delay();
 
-   var queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
+   const queueProcessor = new QueueProcessor(queue, callback, elementFunction, finishFunction, delay);
    queueProcessor.processQueue();
 
    LOGGER.trace("EndPhaseTask.roundEnd() end");
@@ -96,7 +96,7 @@ EndPhaseTask.prototype.roundEndElementFunction = function(cardInstance, queueCal
    InputValidator.validateNotNull("cardInstance", cardInstance);
    InputValidator.validateIsFunction("queueCallback", queueCallback);
 
-   var store = this.store();
+   const store = this.store();
 
    store.dispatch(Action.enqueuePhase(Phase.END_ROUND_END, cardInstance));
    store.dispatch(Action.setTokenActivationAction(cardInstance.id()));

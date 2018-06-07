@@ -10,13 +10,13 @@ QUnit.module("FiringComputer");
 QUnit.test("isInFiringArc() aft", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(500, 400, 0);
-   var defenderPosition = new Position(400, 400, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.SMALL];
-   var offsetKeys = FiringArc.offsetKeys();
+   const attackerPosition = new Position(500, 400, 0);
+   const defenderPosition = new Position(400, 400, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.SMALL];
+   const offsetKeys = FiringArc.offsetKeys();
 
    // Run / Verify.
-   var expecteds = [true, true, false, false, false, false, false, false, undefined, undefined, undefined, false];
+   const expecteds = [true, true, false, false, false, false, false, false, undefined, undefined, undefined, false];
    FiringArc.values().forEach(function(firingArc, i)
    {
       if (!offsetKeys.includes(firingArc.key))
@@ -29,37 +29,37 @@ QUnit.test("isInFiringArc() aft", function(assert)
 QUnit.test("isInFiringArc() CR90 aft", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(400, 400, 0);
-   var defenderPosition = new Position(328, 300, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.HUGE2];
+   const attackerPosition = new Position(400, 400, 0);
+   const defenderPosition = new Position(328, 300, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.HUGE2];
 
    // Run / Verify.
-   var firingArc = FiringArc.properties[FiringArc.PORT_AND_STARBOARD_AFT];
+   const firingArc = FiringArc.properties[FiringArc.PORT_AND_STARBOARD_AFT];
    assert.equal(FiringComputer.isInFiringArc(attackerPosition, firingArc, defenderPosition, defenderShipBase), true, "firingArc = " + firingArc.key);
 });
 
 QUnit.test("isInFiringArc() CR90 fore", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(400, 400, 0);
-   var defenderPosition = new Position(472, 300, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.HUGE2];
+   const attackerPosition = new Position(400, 400, 0);
+   const defenderPosition = new Position(472, 300, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.HUGE2];
 
    // Run / Verify.
-   var firingArc = FiringArc.properties[FiringArc.PORT_AND_STARBOARD_FORE];
+   const firingArc = FiringArc.properties[FiringArc.PORT_AND_STARBOARD_FORE];
    assert.equal(FiringComputer.isInFiringArc(attackerPosition, firingArc, defenderPosition, defenderShipBase), true, "firingArc = " + firingArc.key);
 });
 
 QUnit.test("isInFiringArc() forward", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(400, 400, 0);
-   var defenderPosition = new Position(500, 400, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.SMALL];
-   var offsetKeys = FiringArc.offsetKeys();
+   const attackerPosition = new Position(400, 400, 0);
+   const defenderPosition = new Position(500, 400, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.SMALL];
+   const offsetKeys = FiringArc.offsetKeys();
 
    // Run / Verify.
-   var expecteds = [false, false, true, true, true, true, true, false, undefined, undefined, undefined, false];
+   const expecteds = [false, false, true, true, true, true, true, false, undefined, undefined, undefined, false];
 
    FiringArc.values().forEach(function(firingArc, i)
    {
@@ -73,13 +73,13 @@ QUnit.test("isInFiringArc() forward", function(assert)
 QUnit.test("isInFiringArc() forward port", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(400, 400, 0);
-   var defenderPosition = new Position(500, 300, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.SMALL];
+   const attackerPosition = new Position(400, 400, 0);
+   const defenderPosition = new Position(500, 300, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.SMALL];
 
    // Run / Verify.
-   var expecteds = [false, false, false, true, true, true, true, true, undefined, undefined, undefined, false];
-   var offsetKeys = FiringArc.offsetKeys();
+   const expecteds = [false, false, false, true, true, true, true, true, undefined, undefined, undefined, false];
+   const offsetKeys = FiringArc.offsetKeys();
 
    FiringArc.values().forEach(function(firingArc, i)
    {
@@ -93,13 +93,13 @@ QUnit.test("isInFiringArc() forward port", function(assert)
 QUnit.test("isInFiringArc() port", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(400, 500, 0);
-   var defenderPosition = new Position(400, 400, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.SMALL];
-   var offsetKeys = FiringArc.offsetKeys();
+   const attackerPosition = new Position(400, 500, 0);
+   const defenderPosition = new Position(400, 400, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.SMALL];
+   const offsetKeys = FiringArc.offsetKeys();
 
    // Run / Verify.
-   var expecteds = [false, true, false, false, false, false, true, true, undefined, undefined, undefined, false];
+   const expecteds = [false, true, false, false, false, false, true, true, undefined, undefined, undefined, false];
 
    FiringArc.values().forEach(function(firingArc, i)
    {
@@ -113,25 +113,25 @@ QUnit.test("isInFiringArc() port", function(assert)
 QUnit.test("isInFiringArc() Raider-class aft", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(400, 400, 0);
-   var defenderPosition = new Position(328, 300, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.HUGE2];
+   const attackerPosition = new Position(400, 400, 0);
+   const defenderPosition = new Position(328, 300, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.HUGE2];
 
    // Run / Verify.
-   var firingArc = FiringArc.properties[FiringArc.PORT_AND_STARBOARD_AFT_SKEWED];
+   const firingArc = FiringArc.properties[FiringArc.PORT_AND_STARBOARD_AFT_SKEWED];
    assert.equal(FiringComputer.isInFiringArc(attackerPosition, firingArc, defenderPosition, defenderShipBase), true, "firingArc = " + firingArc.key);
 });
 
 QUnit.test("isInFiringArc() starboard", function(assert)
 {
    // Setup.
-   var attackerPosition = new Position(400, 400, 0);
-   var defenderPosition = new Position(400, 500, 180);
-   var defenderShipBase = ShipBase.properties[ShipBase.SMALL];
-   var offsetKeys = FiringArc.offsetKeys();
+   const attackerPosition = new Position(400, 400, 0);
+   const defenderPosition = new Position(400, 500, 180);
+   const defenderShipBase = ShipBase.properties[ShipBase.SMALL];
+   const offsetKeys = FiringArc.offsetKeys();
 
    // Run / Verify.
-   var expecteds = [false, true, false, false, false, false, true, false, undefined, undefined, undefined, true];
+   const expecteds = [false, true, false, false, false, false, true, false, undefined, undefined, undefined, true];
 
    FiringArc.values().forEach(function(firingArc, i)
    {
@@ -145,18 +145,18 @@ QUnit.test("isInFiringArc() starboard", function(assert)
 QUnit.test("isInFiringArc() rotated", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var attackerPosition0 = new Position(458, 895, -90);
-   var attacker = environment.getTokenAt(attackerPosition0);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const attackerPosition0 = new Position(458, 895, -90);
+   const attacker = environment.getTokenAt(attackerPosition0);
    assert.ok(attacker);
-   var defenderPosition = new Position(305, 20, 90);
-   var defender = environment.getTokenAt(defenderPosition);
-   var attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, 0);
+   const defenderPosition = new Position(305, 20, 90);
+   const defender = environment.getTokenAt(defenderPosition);
+   const attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, 0);
    environment.moveToken(attackerPosition0, attackerPosition);
-   var defenderShipBase = defender.card().shipFaction.ship.shipBase;
+   const defenderShipBase = defender.card().shipFaction.ship.shipBase;
 
    // Run.
-   var result = FiringComputer.isInFiringArc(attackerPosition, attacker.primaryWeapon().primaryFiringArc(), defenderPosition, defenderShipBase);
+   const result = FiringComputer.isInFiringArc(attackerPosition, attacker.primaryWeapon().primaryFiringArc(), defenderPosition, defenderShipBase);
 
    // Verify.
    assert.ok(!result);

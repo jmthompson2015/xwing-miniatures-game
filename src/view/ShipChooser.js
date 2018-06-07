@@ -10,8 +10,8 @@ class ShipChooser extends React.Component
    {
       super(props);
 
-      var initialShip = props.initialShip;
-      var shipKey = (initialShip !== undefined ? initialShip.key : undefined);
+      const initialShip = props.initialShip;
+      const shipKey = (initialShip !== undefined ? initialShip.key : undefined);
 
       this.state = {
          shipKey: shipKey,
@@ -22,18 +22,18 @@ class ShipChooser extends React.Component
 
    render()
    {
-      var faction = this.props.faction;
-      var values = ShipFaction.shipKeysByFaction(faction.key);
+      const faction = this.props.faction;
+      const values = ShipFaction.shipKeysByFaction(faction.key);
       values.unshift(this.SHIP_PROMPT);
 
-      var labelFunction = function(value)
+      const labelFunction = function(value)
       {
-         var ship = Ship.properties[value];
+         const ship = Ship.properties[value];
          return (ship ? ship.name : value);
       };
 
-      var shipKey = this.state.shipKey;
-      var select = React.createElement(Select,
+      const shipKey = this.state.shipKey;
+      const select = React.createElement(Select,
       {
          values: values,
          labelFunction: labelFunction,
@@ -45,11 +45,11 @@ class ShipChooser extends React.Component
          }
       });
 
-      var ship = Ship.properties[shipKey];
+      const ship = Ship.properties[shipKey];
 
       if (ship)
       {
-         var image = React.createElement(ShipSilhouetteUI,
+         const image = React.createElement(ShipSilhouetteUI,
          {
             ship: ship,
             resourceBase: this.props.resourceBase,
@@ -67,15 +67,15 @@ class ShipChooser extends React.Component
 
 ShipChooser.prototype.shipChangedFunction = function(event)
 {
-   var shipKey = event.currentTarget.value;
-   var index = parseInt(event.currentTarget.dataset.index);
+   const shipKey = event.currentTarget.value;
+   const index = parseInt(event.currentTarget.dataset.index);
 
    this.setState(
    {
       shipKey: shipKey,
    });
 
-   var ship = Ship.properties[shipKey];
+   const ship = Ship.properties[shipKey];
    this.props.onChange(event, ship, index);
 };
 

@@ -7,8 +7,8 @@ QUnit.module("PilotCard");
 
 QUnit.test("PilotCard properties Academy Pilot", function(assert)
 {
-   var pilot = PilotCard.ACADEMY_PILOT;
-   var properties = PilotCard.properties[pilot];
+   const pilot = PilotCard.ACADEMY_PILOT;
+   const properties = PilotCard.properties[pilot];
    assert.equal(properties.name, "Academy Pilot");
    assert.equal(properties.shipFactionKey, ShipFaction.IMPERIAL_TIE_FIGHTER);
    assert.equal(properties.pilotSkillValue, 1);
@@ -18,8 +18,8 @@ QUnit.test("PilotCard properties Academy Pilot", function(assert)
 
 QUnit.test("PilotCard properties Bounty Hunter", function(assert)
 {
-   var pilot = PilotCard.BOUNTY_HUNTER;
-   var properties = PilotCard.properties[pilot];
+   const pilot = PilotCard.BOUNTY_HUNTER;
+   const properties = PilotCard.properties[pilot];
    assert.equal(properties.name, "Bounty Hunter");
    assert.equal(properties.shipFactionKey, ShipFaction.IMPERIAL_FIRESPRAY_31);
    assert.equal(properties.pilotSkillValue, 3);
@@ -29,8 +29,8 @@ QUnit.test("PilotCard properties Bounty Hunter", function(assert)
 
 QUnit.test("PilotCard properties Dutch Vander", function(assert)
 {
-   var pilot = PilotCard.DUTCH_VANDER;
-   var properties = PilotCard.properties[pilot];
+   const pilot = PilotCard.DUTCH_VANDER;
+   const properties = PilotCard.properties[pilot];
    assert.equal(properties.name, "\"Dutch\" Vander");
    assert.equal(properties.shipFactionKey, ShipFaction.REBEL_Y_WING);
    assert.equal(properties.pilotSkillValue, 6);
@@ -40,8 +40,8 @@ QUnit.test("PilotCard properties Dutch Vander", function(assert)
 
 QUnit.test("PilotCard properties Rookie Pilot", function(assert)
 {
-   var pilot = PilotCard.ROOKIE_PILOT;
-   var properties = PilotCard.properties[pilot];
+   const pilot = PilotCard.ROOKIE_PILOT;
+   const properties = PilotCard.properties[pilot];
    assert.equal(properties.name, "Rookie Pilot");
    assert.equal(properties.shipFactionKey, ShipFaction.REBEL_X_WING);
    assert.equal(properties.pilotSkillValue, 2);
@@ -63,13 +63,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = PilotCard.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(PilotCard);
+   const result = PilotCard.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(PilotCard);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = PilotCard[key];
+      const key2 = PilotCard[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -79,7 +79,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return PilotCard[key] === value;
       });
@@ -91,17 +91,17 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = PilotCard.keys();
+   const result = PilotCard.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 287;
+   const length = 287;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.ACADEMY_PILOT);
    assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
 
-   var properties = Object.getOwnPropertyNames(PilotCard);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(PilotCard);
+   const count = properties.length - 1 - // properties
       1 - // getName
       1 - // keys
       1 - // keysByShipAndFaction
@@ -115,7 +115,7 @@ QUnit.test("keys()", function(assert)
 QUnit.test("keysByShipAndFaction() TIE Fighter", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByShipAndFaction(Ship.TIE_FIGHTER, Faction.IMPERIAL);
+   const result = PilotCard.keysByShipAndFaction(Ship.TIE_FIGHTER, Faction.IMPERIAL);
 
    // Verify.
    assert.ok(result);
@@ -127,7 +127,7 @@ QUnit.test("keysByShipAndFaction() TIE Fighter", function(assert)
 QUnit.test("keysByShipAndFaction() X-Wing", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByShipAndFaction(Ship.X_WING, Faction.REBEL);
+   const result = PilotCard.keysByShipAndFaction(Ship.X_WING, Faction.REBEL);
 
    // Verify.
    assert.ok(result);
@@ -139,7 +139,7 @@ QUnit.test("keysByShipAndFaction() X-Wing", function(assert)
 QUnit.test("keysByShipAndFaction() Y-Wing Rebel", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByShipAndFaction(Ship.Y_WING, Faction.REBEL);
+   const result = PilotCard.keysByShipAndFaction(Ship.Y_WING, Faction.REBEL);
 
    // Verify.
    assert.ok(result);
@@ -151,7 +151,7 @@ QUnit.test("keysByShipAndFaction() Y-Wing Rebel", function(assert)
 QUnit.test("keysByShipAndFaction() Y-Wing Scum", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByShipAndFaction(Ship.Y_WING, Faction.SCUM);
+   const result = PilotCard.keysByShipAndFaction(Ship.Y_WING, Faction.SCUM);
 
    // Verify.
    assert.ok(result);
@@ -163,7 +163,7 @@ QUnit.test("keysByShipAndFaction() Y-Wing Scum", function(assert)
 QUnit.test("keysByShipFaction() TIE Fighter", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByShipFaction(ShipFaction.IMPERIAL_TIE_FIGHTER);
+   const result = PilotCard.keysByShipFaction(ShipFaction.IMPERIAL_TIE_FIGHTER);
 
    // Verify.
    assert.ok(result);
@@ -175,7 +175,7 @@ QUnit.test("keysByShipFaction() TIE Fighter", function(assert)
 QUnit.test("keysByShipFaction() X-Wing", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByShipFaction(ShipFaction.REBEL_X_WING);
+   const result = PilotCard.keysByShipFaction(ShipFaction.REBEL_X_WING);
 
    // Verify.
    assert.ok(result);
@@ -187,11 +187,11 @@ QUnit.test("keysByShipFaction() X-Wing", function(assert)
 QUnit.test("keysByFaction() First Order", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByFaction(Faction.FIRST_ORDER);
+   const result = PilotCard.keysByFaction(Faction.FIRST_ORDER);
 
    // Verify.
    assert.ok(result);
-   var length = 107;
+   const length = 107;
    assert.equal(result.length, length);
    assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
 });
@@ -199,14 +199,14 @@ QUnit.test("keysByFaction() First Order", function(assert)
 QUnit.test("keysByFaction() First Order strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = PilotCard.keysByFaction(Faction.FIRST_ORDER, isStrict);
+   const result = PilotCard.keysByFaction(Faction.FIRST_ORDER, isStrict);
 
    // Verify.
    assert.ok(result);
-   var length = 21;
+   const length = 21;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.BACKDRAFT);
    assert.equal(result[length - 1], PilotCard.ZETA_SQUADRON_PILOT);
@@ -215,11 +215,11 @@ QUnit.test("keysByFaction() First Order strict", function(assert)
 QUnit.test("keysByFaction() Imperial", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByFaction(Faction.IMPERIAL);
+   const result = PilotCard.keysByFaction(Faction.IMPERIAL);
 
    // Verify.
    assert.ok(result);
-   var length = 107;
+   const length = 107;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.ACADEMY_PILOT);
    assert.equal(result[length - 1], PilotCard.ZETA_SQUADRON_PILOT);
@@ -228,14 +228,14 @@ QUnit.test("keysByFaction() Imperial", function(assert)
 QUnit.test("keysByFaction() Imperial strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = PilotCard.keysByFaction(Faction.IMPERIAL, isStrict);
+   const result = PilotCard.keysByFaction(Faction.IMPERIAL, isStrict);
 
    // Verify.
    assert.ok(result);
-   var length = 86;
+   const length = 86;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.ACADEMY_PILOT);
    assert.equal(result[length - 1], PilotCard.RAIDER_CLASS_CORVETTE);
@@ -244,11 +244,11 @@ QUnit.test("keysByFaction() Imperial strict", function(assert)
 QUnit.test("keysByFaction() Rebel", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByFaction(Faction.REBEL);
+   const result = PilotCard.keysByFaction(Faction.REBEL);
 
    // Verify.
    assert.ok(result);
-   var length = 99;
+   const length = 99;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.AHSOKA_TANO);
    assert.equal(result[length - 1], PilotCard.SNAP_WEXLEY);
@@ -257,14 +257,14 @@ QUnit.test("keysByFaction() Rebel", function(assert)
 QUnit.test("keysByFaction() Rebel strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = PilotCard.keysByFaction(Faction.REBEL, isStrict);
+   const result = PilotCard.keysByFaction(Faction.REBEL, isStrict);
 
    // Verify.
    assert.ok(result);
-   var length = 81;
+   const length = 81;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.AHSOKA_TANO);
    assert.equal(result[length - 1], PilotCard.GR_75_MEDIUM_TRANSPORT);
@@ -273,11 +273,11 @@ QUnit.test("keysByFaction() Rebel strict", function(assert)
 QUnit.test("keysByFaction() Resistance", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByFaction(Faction.RESISTANCE);
+   const result = PilotCard.keysByFaction(Faction.RESISTANCE);
 
    // Verify.
    assert.ok(result);
-   var length = 99;
+   const length = 99;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.BLUE_ACE);
    assert.equal(result[length - 1], PilotCard.GR_75_MEDIUM_TRANSPORT);
@@ -286,14 +286,14 @@ QUnit.test("keysByFaction() Resistance", function(assert)
 QUnit.test("keysByFaction() Resistance strict", function(assert)
 {
    // Setup.
-   var isStrict = true;
+   const isStrict = true;
 
    // Run.
-   var result = PilotCard.keysByFaction(Faction.RESISTANCE, isStrict);
+   const result = PilotCard.keysByFaction(Faction.RESISTANCE, isStrict);
 
    // Verify.
    assert.ok(result);
-   var length = 18;
+   const length = 18;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.BLUE_ACE);
    assert.equal(result[length - 1], PilotCard.SNAP_WEXLEY);
@@ -302,11 +302,11 @@ QUnit.test("keysByFaction() Resistance strict", function(assert)
 QUnit.test("keysByFaction() Scum", function(assert)
 {
    // Run.
-   var result = PilotCard.keysByFaction(Faction.SCUM);
+   const result = PilotCard.keysByFaction(Faction.SCUM);
 
    // Verify.
    assert.ok(result);
-   var length = 81;
+   const length = 81;
    assert.equal(result.length, length);
    assert.equal(result[0], PilotCard.ASAJJ_VENTRESS);
    assert.equal(result[length - 1], PilotCard.C_ROC_CRUISER);

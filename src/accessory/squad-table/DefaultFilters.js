@@ -3,27 +3,27 @@ import RangeFilter from "../../model/RangeFilter.js";
 
 import TableColumns from "./TableColumns.js";
 
-var DefaultFilters = {
+const DefaultFilters = {
    entityColumns: [],
    rangeColumns: [],
 
    create: function()
    {
-      var filters = {};
+      const filters = {};
 
       this.entityColumns.forEach(function(column)
       {
-         var values = [];
-         var filter = new EntityFilter(column.key, values);
+         const values = [];
+         const filter = new EntityFilter(column.key, values);
          filters[column.key] = filter;
       });
 
       this.rangeColumns.forEach(function(column)
       {
-         var isMinEnabled = false;
-         var minValue = 1;
-         var isMaxEnabled = false;
-         var maxValue = 10;
+         const isMinEnabled = false;
+         let minValue = 1;
+         const isMaxEnabled = false;
+         let maxValue = 10;
 
          if (column.key === "year")
          {
@@ -96,7 +96,7 @@ var DefaultFilters = {
             maxValue = 1;
          }
 
-         var filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
+         const filter = new RangeFilter(column.key, isMinEnabled, minValue, isMaxEnabled, maxValue);
          filters[column.key] = filter;
       });
 

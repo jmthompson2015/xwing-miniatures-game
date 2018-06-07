@@ -26,7 +26,7 @@ import UpgradeRestriction from "../../artifact/UpgradeRestriction.js";
 import UpgradeType from "../../artifact/UpgradeType.js";
 import Value from "../../artifact/Value.js";
 
-var GameColumns = [
+const GameColumns = [
    {
       key: "item",
       label: "Item",
@@ -48,7 +48,7 @@ class GameDataTable extends React.Component
 {
    render()
    {
-      var rows = [];
+      const rows = [];
 
       rows.push(this.createRow("AttackDiceValue", AttackDiceValue.keys().length, rows.length));
       rows.push(this.createRow("Bearing", Bearing.keys().length, rows.length));
@@ -100,8 +100,8 @@ GameDataTable.prototype.createCell = function(key, column, value)
 
 GameDataTable.prototype.createRow = function(item, count, key)
 {
-   var cells = [];
-   var j = 0;
+   const cells = [];
+   let j = 0;
 
    cells.push(this.createCell(cells.length, GameColumns[j++], item));
    cells.push(this.createCell(cells.length, GameColumns[j++], count));

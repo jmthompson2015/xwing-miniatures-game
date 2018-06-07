@@ -8,8 +8,8 @@ QUnit.module("CardComparator");
 QUnit.test("Activation", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var cardInstances = environment.pilotInstances();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const cardInstances = environment.pilotInstances();
 
    // Run.
    cardInstances.sort(CardComparator.Activation);
@@ -17,8 +17,8 @@ QUnit.test("Activation", function(assert)
    // Verify.
    assert.ok(cardInstances);
    assert.equal(cardInstances.length, 3);
-   var token;
-   var i = 0;
+   let token;
+   let i = 0;
    token = cardInstances[i++];
    assert.equal(token.pilotSkillValue(), 6);
    assert.equal(token.card().key, PilotCard.DARK_CURSE);
@@ -33,8 +33,8 @@ QUnit.test("Activation", function(assert)
 QUnit.test("Activation Huge pure", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createHugeShipEnvironment();
-   var cardInstances = environment.pilotInstances(true);
+   const environment = EnvironmentFactory.createHugeShipEnvironment();
+   const cardInstances = environment.pilotInstances(true);
 
    // Run.
    cardInstances.sort(CardComparator.Activation);
@@ -42,8 +42,8 @@ QUnit.test("Activation Huge pure", function(assert)
    // Verify.
    assert.ok(cardInstances);
    assert.equal(cardInstances.length, 8);
-   var token;
-   var i = 0;
+   let token;
+   let i = 0;
    token = cardInstances[i++];
    assert.equal(token.pilotSkillValue(), 8);
    assert.equal(token.card().key, PilotCard.JUNO_ECLIPSE);
@@ -73,8 +73,8 @@ QUnit.test("Activation Huge pure", function(assert)
 QUnit.test("Combat", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var cardInstances = environment.pilotInstances(true);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const cardInstances = environment.pilotInstances(true);
 
    // Run.
    cardInstances.sort(CardComparator.Combat);
@@ -82,8 +82,8 @@ QUnit.test("Combat", function(assert)
    // Verify.
    assert.ok(cardInstances);
    assert.equal(cardInstances.length, 3);
-   var token;
-   var i = 0;
+   let token;
+   let i = 0;
    token = cardInstances[i++];
    assert.equal(token.pilotSkillValue(), 8);
    assert.equal(token.card().key, PilotCard.LUKE_SKYWALKER);
@@ -98,8 +98,8 @@ QUnit.test("Combat", function(assert)
 QUnit.test("Combat Huge", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createHugeShipEnvironment();
-   var cardInstances = environment.pilotInstances(true);
+   const environment = EnvironmentFactory.createHugeShipEnvironment();
+   const cardInstances = environment.pilotInstances(true);
 
    // Run.
    cardInstances.sort(CardComparator.Combat);
@@ -107,8 +107,8 @@ QUnit.test("Combat Huge", function(assert)
    // Verify.
    assert.ok(cardInstances);
    assert.equal(cardInstances.length, 8);
-   var token;
-   var i = 0;
+   let token;
+   let i = 0;
    token = cardInstances[i++];
    assert.equal(token.pilotSkillValue(), 8);
    assert.equal(token.card().key, PilotCard.JUNO_ECLIPSE);

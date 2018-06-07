@@ -14,7 +14,7 @@ import Path from "./Path.js";
 import Position from "./Position.js";
 import RectanglePath from "./RectanglePath.js";
 
-var ManeuverComputer = {};
+const ManeuverComputer = {};
 
 ManeuverComputer.backOffFrom = function(environment, token, maneuver, fromPosition, shipData1, startIndex, shipDataMap)
 {
@@ -26,17 +26,17 @@ ManeuverComputer.backOffFrom = function(environment, token, maneuver, fromPositi
    InputValidator.validateNotNull("startIndex", startIndex);
    InputValidator.validateNotNull("shipDataMap", shipDataMap);
 
-   var answer = -2;
-   var shipBase = token.card().shipFaction.ship.shipBase;
-   var shipData0 = shipDataMap[token];
-   var position0 = shipData0.position;
-   var polygon1 = shipData1.polygon;
+   let answer = -2;
+   const shipBase = token.card().shipFaction.ship.shipBase;
+   let shipData0 = shipDataMap[token];
+   const position0 = shipData0.position;
+   const polygon1 = shipData1.polygon;
 
    // Find the shortest path until collision.
-   var path = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
-   var pathPoints = [];
-   var points = path.points();
-   var i;
+   const path = ManeuverComputer.computePath(maneuver, fromPosition, shipBase);
+   const pathPoints = [];
+   const points = path.points();
+   let i;
 
    for (i = 0; i < points.length; i += 2)
    {
@@ -47,23 +47,23 @@ ManeuverComputer.backOffFrom = function(environment, token, maneuver, fromPositi
       });
    }
 
-   var x0;
-   var y0;
-   var x1 = position0.x();
-   var y1 = position0.y();
-   var index = (startIndex < 0 ? pathPoints.length - 2 : startIndex);
+   let x0;
+   let y0;
+   let x1 = position0.x();
+   let y1 = position0.y();
+   const index = (startIndex < 0 ? pathPoints.length - 2 : startIndex);
 
    for (i = index; i >= 0; i--)
    {
-      var point1 = pathPoints[i];
+      const point1 = pathPoints[i];
       x0 = point1.x;
       y0 = point1.y;
-      var heading = Position.computeHeading(x0, y0, x1, y1);
-      var polygon0 = ManeuverComputer.computePolygon(shipBase, MathUtilities.round(x0, 0), MathUtilities.round(y0, 0), heading);
+      const heading = Position.computeHeading(x0, y0, x1, y1);
+      const polygon0 = ManeuverComputer.computePolygon(shipBase, MathUtilities.round(x0, 0), MathUtilities.round(y0, 0), heading);
 
       if (!RectanglePath.doPolygonsCollide(polygon0, polygon1))
       {
-         var toPosition = ManeuverComputer._interpolate(x0, y0, x1, y1, polygon1, shipBase);
+         const toPosition = ManeuverComputer._interpolate(x0, y0, x1, y1, polygon1, shipBase);
          shipData0 = {
             position: toPosition,
             polygon: polygon0,
@@ -95,7 +95,7 @@ ManeuverComputer.computePolygon = function(shipBase, x, y, heading)
    InputValidator.validateIsNumber("y", y);
    InputValidator.validateIsNumber("heading", heading);
 
-   var answer = new RectanglePath(shipBase.width, shipBase.height);
+   const answer = new RectanglePath(shipBase.width, shipBase.height);
 
    answer.rotate(heading * Math.PI / 180);
    answer.translate(x, y);
@@ -110,9 +110,9 @@ ManeuverComputer.computeToPolygon = function(playFormatKey, maneuver, fromPositi
    InputValidator.validateNotNull("fromPosition", fromPosition);
    InputValidator.validateNotNull("shipBaseKey", shipBase);
 
-   var toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
+   const toPosition = ManeuverComputer.computeToPosition(playFormatKey, maneuver, fromPosition, shipBase);
 
-   var answer;
+   let answer;
 
    if (toPosition)
    {
@@ -128,19 +128,18 @@ ManeuverComputer.computePath = function(maneuver, fromPosition, shipBase)
    InputValidator.validateNotNull("fromPosition", fromPosition);
    InputValidator.validateNotNull("shipBase", shipBase);
 
-   var bearingKey = maneuver.bearingKey;
-   var speed = maneuver.speed;
+   const bearingKey = maneuver.bearingKey;
+   const speed = maneuver.speed;
 
-   var answer = new Path();
+   const answer = new Path();
 
    // Initial point.
    answer.add(0.0, 0.0);
 
    // First segment: move base center.
-   var baseSize = shipBase.height / 2.0;
-   var lastX;
-   var lastY;
-   var x, y, factor;
+   const baseSize = shipBase.height / 2.0;
+   let last, lastX, lastY;
+   let x, y, factor;
 
    if ([Bearing.BARREL_ROLL_LEFT, Bearing.BARREL_ROLL_RIGHT].includes(bearingKey))
    {
@@ -166,7 +165,7 @@ ManeuverComputer.computePath = function(maneuver, fromPosition, shipBase)
          case Bearing.STRAIGHT:
          case Bearing.KOIOGRAN_TURN:
             x = lastX;
-            for (var i = 0; i < speed; i++)
+            for (let i = 0; i < speed; i++)
             {
                x += 40;
                answer.add(x, 0.0);
@@ -177,7 +176,7 @@ ManeuverComputer.computePath = function(maneuver, fromPosition, shipBase)
          case Bearing.BANK_RIGHT:
          case Bearing.SEGNORS_LOOP_LEFT:
          case Bearing.SEGNORS_LOOP_RIGHT:
-            var last = ManeuverComputer._addSegments(maneuver, answer, lastX, 45, 3 + speed);
+            last = ManeuverComputer._addSegments(maneuver, answer, lastX, 45, 3 + speed);
             lastX = last.x;
             lastY = last.y;
             break;
@@ -193,7 +192,7 @@ ManeuverComputer.computePath = function(maneuver, fromPosition, shipBase)
          case Bearing.BARREL_ROLL_RIGHT:
             factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
             y = lastY;
-            for (var j = 0; j < speed; j++)
+            for (let j = 0; j < speed; j++)
             {
                y += factor * 40;
                answer.add(0.0, y);
@@ -237,7 +236,7 @@ ManeuverComputer.computePath = function(maneuver, fromPosition, shipBase)
    }
 
    // Rotate and translate to fromPosition.
-   var angle = fromPosition.heading() * Math.PI / 180;
+   const angle = fromPosition.heading() * Math.PI / 180;
    answer.rotate(angle);
    answer.translate(fromPosition.x(), fromPosition.y());
 
@@ -251,7 +250,7 @@ ManeuverComputer.computeToPosition = function(playFormatKey, maneuver, fromPosit
    InputValidator.validateNotNull("fromPosition", fromPosition);
    InputValidator.validateNotNull("shipBase", shipBase);
 
-   var answer;
+   let answer;
 
    if ([Maneuver.STATIONARY_0_HARD, Maneuver.STATIONARY_0_STANDARD].includes(maneuver.key))
    {
@@ -259,7 +258,7 @@ ManeuverComputer.computeToPosition = function(playFormatKey, maneuver, fromPosit
    }
    else
    {
-      var bearingKey = maneuver.bearingKey;
+      const bearingKey = maneuver.bearingKey;
 
       if ([Bearing.STRAIGHT, Bearing.KOIOGRAN_TURN].includes(bearingKey))
       {
@@ -293,14 +292,14 @@ ManeuverComputer.createShipDataMap = function(environment, token, maneuver, from
    InputValidator.validateNotNull("maneuver", maneuver);
    InputValidator.validateNotNull("fromPosition", fromPosition);
 
-   var answer = {};
-   var shipBase = token.card().shipFaction.ship.shipBase;
-   var tokens = environment.getTokensForActivation(false);
+   const answer = {};
+   const shipBase = token.card().shipFaction.ship.shipBase;
+   const tokens = environment.getTokensForActivation(false);
 
    tokens.forEach(function(token1)
    {
-      var position1;
-      var polygon1;
+      let position1;
+      let polygon1;
 
       if (token1.equals(token))
       {
@@ -314,7 +313,7 @@ ManeuverComputer.createShipDataMap = function(environment, token, maneuver, from
       else
       {
          position1 = environment.getPositionFor(token1);
-         var shipBase1 = token1.card().shipFaction.ship.shipBase;
+         const shipBase1 = token1.card().shipFaction.ship.shipBase;
          polygon1 = ManeuverComputer.computePolygon(shipBase1, position1.x(), position1.y(), position1.heading());
       }
 
@@ -333,21 +332,21 @@ ManeuverComputer.findCollision = function(shipDataMap, token)
    InputValidator.validateNotNull("shipDataMap", shipDataMap);
    InputValidator.validateNotNull("token", token);
 
-   var shipData0 = shipDataMap[token];
-   var polygon0 = shipData0.polygon;
-   var answer;
+   const shipData0 = shipDataMap[token];
+   const polygon0 = shipData0.polygon;
+   let answer;
 
    if (polygon0 !== undefined)
    {
-      var keys = Object.keys(shipDataMap);
+      const keys = Object.keys(shipDataMap);
 
-      for (var i = 0; i < keys.length; i++)
+      for (let i = 0; i < keys.length; i++)
       {
-         var shipData1 = shipDataMap[keys[i]];
+         const shipData1 = shipDataMap[keys[i]];
 
          if (shipData0 !== shipData1)
          {
-            var polygon1 = shipData1.polygon;
+            const polygon1 = shipData1.polygon;
 
             if (polygon1 !== undefined && RectanglePath.doPolygonsCollide(polygon0, polygon1))
             {
@@ -369,26 +368,26 @@ ManeuverComputer._addSegments = function(maneuver, path, lastX, heading, segment
    InputValidator.validateIsNumber("heading", heading);
    InputValidator.validateIsNumber("segmentCount", segmentCount);
 
-   var bearingKey = maneuver.bearingKey;
-   var radius = maneuver.radius;
+   const bearingKey = maneuver.bearingKey;
+   const radius = maneuver.radius;
 
-   var factor = ([Bearing.BANK_RIGHT, Bearing.TURN_RIGHT, Bearing.SEGNORS_LOOP_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
-   var deltaAngle = (heading * Math.PI / 180) / segmentCount;
+   const factor = ([Bearing.BANK_RIGHT, Bearing.TURN_RIGHT, Bearing.SEGNORS_LOOP_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
+   const deltaAngle = (heading * Math.PI / 180) / segmentCount;
 
-   var myLastX = lastX;
-   var myLastY = 0.0;
+   let myLastX = lastX;
+   let myLastY = 0.0;
 
-   for (var i = 1; i <= segmentCount; i++)
+   for (let i = 1; i <= segmentCount; i++)
    {
-      var angle = deltaAngle * i;
-      var x = lastX + (radius * Math.sin(angle));
-      var y = factor * radius * (1.0 - Math.cos(angle));
+      const angle = deltaAngle * i;
+      const x = lastX + (radius * Math.sin(angle));
+      const y = factor * radius * (1.0 - Math.cos(angle));
       path.add(x, y);
       myLastX = x;
       myLastY = y;
    }
 
-   var answer = {};
+   const answer = {};
    answer.x = Math.round(myLastX);
    answer.y = Math.round(myLastY);
    return answer;
@@ -396,11 +395,11 @@ ManeuverComputer._addSegments = function(maneuver, path, lastX, heading, segment
 
 ManeuverComputer._computeToPositionBank = function(playFormatKey, maneuver, fromPosition, shipBase)
 {
-   var bearingKey = maneuver.bearingKey;
-   var speed = maneuver.speed;
-   var headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
+   const bearingKey = maneuver.bearingKey;
+   const speed = maneuver.speed;
+   const headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
 
-   var dx, dy, factor, angle;
+   let dx, dy, factor, angle;
 
    if (shipBase.key === ShipBase.HUGE1)
    {
@@ -440,23 +439,23 @@ ManeuverComputer._computeToPositionBank = function(playFormatKey, maneuver, from
    }
    else
    {
-      var baseSize = shipBase.height / 2;
-      var radius = maneuver.radius;
+      const baseSize = shipBase.height / 2;
+      const radius = maneuver.radius;
 
       // Half base.
-      var speedFactor = (speed > 0 ? 1 : -1);
-      var x1 = speedFactor * baseSize;
-      var y1 = 0.0;
+      const speedFactor = (speed > 0 ? 1 : -1);
+      const x1 = speedFactor * baseSize;
+      const y1 = 0.0;
 
       // Curve.
       factor = ([Bearing.BANK_RIGHT, Bearing.SEGNORS_LOOP_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
       angle = factor * 45.0 * Math.PI / 180.0;
-      var x2 = speedFactor * radius * Math.cos(angle);
-      var y2 = speedFactor * factor * radius * (1.0 - (Math.sin(angle) * factor));
+      const x2 = speedFactor * radius * Math.cos(angle);
+      const y2 = speedFactor * factor * radius * (1.0 - (Math.sin(angle) * factor));
 
       // Half base.
-      var x3 = speedFactor * baseSize * Math.cos(angle);
-      var y3 = speedFactor * baseSize * Math.sin(angle);
+      const x3 = speedFactor * baseSize * Math.cos(angle);
+      const y3 = speedFactor * baseSize * Math.sin(angle);
 
       dx = x1 + x2 + x3;
       dy = y1 + y2 + y3;
@@ -467,59 +466,59 @@ ManeuverComputer._computeToPositionBank = function(playFormatKey, maneuver, from
 
 ManeuverComputer._computeToPositionBarrelRoll = function(playFormatKey, maneuver, fromPosition, shipBase)
 {
-   var baseSize = shipBase.height / 2;
-   var bearingKey = maneuver.bearingKey;
-   var speed = maneuver.speed;
+   const baseSize = shipBase.height / 2;
+   const bearingKey = maneuver.bearingKey;
+   const speed = maneuver.speed;
 
-   var factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
-   var dx = 0;
-   var dy = factor * ((2 * baseSize) + (40 * speed));
-   var headingChange = 0;
+   const factor = (bearingKey === Bearing.BARREL_ROLL_RIGHT ? 1.0 : -1.0);
+   const dx = 0;
+   const dy = factor * ((2 * baseSize) + (40 * speed));
+   const headingChange = 0;
 
    return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
 };
 
 ManeuverComputer._computeToPositionStraight = function(playFormatKey, maneuver, fromPosition, shipBase)
 {
-   var baseSize = shipBase.height / 2;
+   let baseSize = shipBase.height / 2;
 
    if (ShipBase.isHuge(shipBase.key))
    {
       baseSize = 0;
    }
 
-   var speed = maneuver.speed;
-   var speedFactor = (speed > 0 ? 1 : -1);
-   var dx = (2 * speedFactor * baseSize) + (40 * speed);
-   var dy = 0;
-   var headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
+   const speed = maneuver.speed;
+   const speedFactor = (speed > 0 ? 1 : -1);
+   const dx = (2 * speedFactor * baseSize) + (40 * speed);
+   const dy = 0;
+   const headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
 
    return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
 };
 
 ManeuverComputer._computeToPositionTurn = function(playFormatKey, maneuver, fromPosition, shipBase)
 {
-   var baseSize = shipBase.height / 2;
-   var radius = maneuver.radius;
-   var bearingKey = maneuver.bearingKey;
-   var headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
+   const baseSize = shipBase.height / 2;
+   const radius = maneuver.radius;
+   const bearingKey = maneuver.bearingKey;
+   const headingChange = (maneuver.bearing !== undefined ? maneuver.bearing.headingChange : undefined);
 
    // Half base.
-   var x1 = baseSize;
-   var y1 = 0.0;
+   const x1 = baseSize;
+   const y1 = 0.0;
 
    // Curve.
-   var factor = ([Bearing.TURN_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
-   var angle = factor * 90.0 * Math.PI / 180.0;
-   var x2 = radius;
-   var y2 = factor * radius;
+   const factor = ([Bearing.TURN_RIGHT, Bearing.TALLON_ROLL_RIGHT].includes(bearingKey) ? 1.0 : -1.0);
+   const angle = factor * 90.0 * Math.PI / 180.0;
+   const x2 = radius;
+   const y2 = factor * radius;
 
    // Half base.
-   var x3 = baseSize * Math.cos(angle);
-   var y3 = baseSize * Math.sin(angle);
+   const x3 = baseSize * Math.cos(angle);
+   const y3 = baseSize * Math.sin(angle);
 
-   var dx = x1 + x2 + x3;
-   var dy = y1 + y2 + y3;
+   const dx = x1 + x2 + x3;
+   const dy = y1 + y2 + y3;
 
    return ManeuverComputer._createPosition(playFormatKey, fromPosition, dx, dy, headingChange);
 };
@@ -532,15 +531,15 @@ ManeuverComputer._createPosition = function(playFormatKey, fromPosition, dx, dy,
    InputValidator.validateIsNumber("dy", dy);
    InputValidator.validateIsNumber("headingChange", headingChange);
 
-   var x0 = fromPosition.x();
-   var y0 = fromPosition.y();
-   var angle = fromPosition.heading() * Math.PI / 180;
+   const x0 = fromPosition.x();
+   const y0 = fromPosition.y();
+   const angle = fromPosition.heading() * Math.PI / 180;
 
-   var x = Math.round((x0 + (dx * Math.cos(angle))) - (dy * Math.sin(angle)));
-   var y = Math.round((y0 + (dx * Math.sin(angle))) + (dy * Math.cos(angle)));
-   var heading = fromPosition.heading() + headingChange;
+   const x = Math.round((x0 + (dx * Math.cos(angle))) - (dy * Math.sin(angle)));
+   const y = Math.round((y0 + (dx * Math.sin(angle))) + (dy * Math.cos(angle)));
+   const heading = fromPosition.heading() + headingChange;
 
-   var answer;
+   let answer;
 
    if (PlayFormat.isPointInPlayArea(playFormatKey, x, y))
    {
@@ -572,13 +571,13 @@ ManeuverComputer._interpolate = function(x0, y0, x1, y1, polygon1, shipBase)
    InputValidator.validateNotNull("polygon1", polygon1);
    InputValidator.validateNotNull("shipBase", shipBase);
 
-   var answer;
+   let answer;
 
    // Calculate the midpoint.
-   var t = 0.5;
-   var x01 = x0 + (t * (x1 - x0));
-   var y01 = y0 + (t * (y1 - y0));
-   var heading;
+   const t = 0.5;
+   let x01 = x0 + (t * (x1 - x0));
+   let y01 = y0 + (t * (y1 - y0));
+   let heading;
 
    if (((MathUtilities.round(x0 - x01, 0) === 0) && (MathUtilities.round(y0 - y01, 0) === 0)) ||
       ((MathUtilities.round(x01 - x1, 0) === 0) && (MathUtilities.round(y01 - y1, 0) === 0)))
@@ -588,8 +587,8 @@ ManeuverComputer._interpolate = function(x0, y0, x1, y1, polygon1, shipBase)
    }
    else
    {
-      var heading01 = Position.computeHeading(x0, y0, x01, y01);
-      var polygon01 = ManeuverComputer.computePolygon(shipBase, MathUtilities.round(x01, 0), MathUtilities.round(y01, 0), heading01);
+      const heading01 = Position.computeHeading(x0, y0, x01, y01);
+      const polygon01 = ManeuverComputer.computePolygon(shipBase, MathUtilities.round(x01, 0), MathUtilities.round(y01, 0), heading01);
 
       if (RectanglePath.doPolygonsCollide(polygon01, polygon1))
       {

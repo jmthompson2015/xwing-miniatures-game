@@ -38,11 +38,11 @@ function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, 
    // idCrippledFore optional.
    // idCrippledAft optional.
 
-   var card;
+   let card;
 
    if (typeof cardOrKey === "string")
    {
-      var cardKey = cardOrKey;
+      const cardKey = cardOrKey;
       card = PilotCard.properties[cardKey];
 
       if (card === undefined)
@@ -65,7 +65,7 @@ function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, 
       card = cardOrKey;
    }
 
-   var id = idIn;
+   let id = idIn;
 
    if (isNaN(id))
    {
@@ -118,34 +118,34 @@ function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, 
       return idCrippledAft;
    };
 
-   var isNew = (isNewIn !== undefined ? isNewIn : true);
+   const isNew = (isNewIn !== undefined ? isNewIn : true);
 
    if (isNew)
    {
-      var upgradeKeys;
+      let upgradeKeys;
 
       if (card.fore !== undefined && card.aft !== undefined)
       {
          upgradeKeys = Immutable.List();
 
-         var pilotFore = card.fore;
-         var upgradeKeysFore = (upgradeKeysIn ? upgradeKeysIn : Immutable.List());
-         var tokenFore = new CardInstance(store, pilotFore, agent, upgradeKeysFore, undefined, undefined, true, id);
+         const pilotFore = card.fore;
+         const upgradeKeysFore = (upgradeKeysIn ? upgradeKeysIn : Immutable.List());
+         const tokenFore = new CardInstance(store, pilotFore, agent, upgradeKeysFore, undefined, undefined, true, id);
          idFore = tokenFore.id();
 
-         var pilotCrippledFore = card.crippledFore;
+         const pilotCrippledFore = card.crippledFore;
          // FIXME: decide which upgrades to keep.
-         var crippledTokenFore = new CardInstance(store, pilotCrippledFore, agent, upgradeKeysFore, undefined, undefined, true, id);
+         const crippledTokenFore = new CardInstance(store, pilotCrippledFore, agent, upgradeKeysFore, undefined, undefined, true, id);
          idCrippledFore = crippledTokenFore.id();
 
-         var pilotAft = card.aft;
-         var upgradeKeysAft = (upgradeKeysAftIn ? upgradeKeysAftIn : Immutable.List());
-         var tokenAft = new CardInstance(store, pilotAft, agent, upgradeKeysAft, undefined, undefined, true, id);
+         const pilotAft = card.aft;
+         const upgradeKeysAft = (upgradeKeysAftIn ? upgradeKeysAftIn : Immutable.List());
+         const tokenAft = new CardInstance(store, pilotAft, agent, upgradeKeysAft, undefined, undefined, true, id);
          idAft = tokenAft.id();
 
-         var pilotCrippledAft = card.crippledAft;
+         const pilotCrippledAft = card.crippledAft;
          // FIXME: decide which upgrades to keep.
-         var crippledTokenAft = new CardInstance(store, pilotCrippledAft, agent, upgradeKeysAft, undefined, undefined, true, id);
+         const crippledTokenAft = new CardInstance(store, pilotCrippledAft, agent, upgradeKeysAft, undefined, undefined, true, id);
          idCrippledAft = crippledTokenAft.id();
 
          this._save(upgradeKeys, tokenFore, tokenAft, crippledTokenFore, crippledTokenAft);
@@ -163,15 +163,15 @@ function CardInstance(store, cardOrKey, agent, upgradeKeysIn, upgradeKeysAftIn, 
 
 CardInstance.prototype.agilityValue = function()
 {
-   var base = this.baseAgilityValue();
-   var bonus = this.bonusAgilityValue();
+   const base = this.baseAgilityValue();
+   const bonus = this.bonusAgilityValue();
 
    return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
 };
 
 CardInstance.prototype.attackerTargetLocks = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return TargetLock.getByAttacker(store, this);
 };
@@ -208,7 +208,7 @@ CardInstance.prototype.baseShieldValue = function()
 
 CardInstance.prototype.bonusAgilityValue = function()
 {
-   var answer = this._bonusValue(Value.AGILITY);
+   let answer = this._bonusValue(Value.AGILITY);
 
    if (this.isCloaked())
    {
@@ -242,7 +242,7 @@ CardInstance.prototype.bonusEnergyValue = function()
 
 CardInstance.prototype.bonusHullValue = function()
 {
-   var answer = this._bonusValue(Value.HULL);
+   let answer = this._bonusValue(Value.HULL);
 
    if (this.isUpgradedWith(UpgradeCard.HEAVY_SCYK_INTERCEPTOR))
    {
@@ -254,7 +254,7 @@ CardInstance.prototype.bonusHullValue = function()
 
 CardInstance.prototype.bonusPilotSkillValue = function()
 {
-   var answer = this._bonusValue(Value.PILOT_SKILL);
+   let answer = this._bonusValue(Value.PILOT_SKILL);
 
    if (this.isUpgradedWith(UpgradeCard.ADAPTABILITY_DECREASE))
    {
@@ -268,8 +268,8 @@ CardInstance.prototype.bonusPilotSkillValue = function()
 
    if (this.card().key === PilotCard.EPSILON_ACE)
    {
-      var damageCount = this.damageCount();
-      var criticalDamageCount = this.criticalDamageCount();
+      const damageCount = this.damageCount();
+      const criticalDamageCount = this.criticalDamageCount();
       if (damageCount === 0 && criticalDamageCount === 0)
       {
          answer = 12 - this.basePilotSkillValue();
@@ -286,7 +286,7 @@ CardInstance.prototype.bonusPilotSkillValue = function()
 
 CardInstance.prototype.bonusPrimaryWeaponValue = function()
 {
-   var answer = this._bonusValue(Value.PRIMARY_WEAPON);
+   let answer = this._bonusValue(Value.PRIMARY_WEAPON);
 
    if (this.isAbilityUsed(UpgradeCard, UpgradeCard.EXPOSE))
    {
@@ -303,8 +303,8 @@ CardInstance.prototype.bonusShieldValue = function()
 
 CardInstance.prototype.children = function()
 {
-   var agent = this.agent();
-   var pilotInstances = agent.pilotInstances(true);
+   const agent = this.agent();
+   const pilotInstances = agent.pilotInstances(true);
 
    return pilotInstances.filter(function(pilotInstance)
    {
@@ -321,10 +321,10 @@ CardInstance.prototype.count = function(property)
 {
    InputValidator.validateNotNull("property", property);
 
-   var state = this.state();
-   var id = this.id();
-   var counts = state.cardCounts.get(id);
-   var answer;
+   const state = this.state();
+   const id = this.id();
+   const counts = state.cardCounts.get(id);
+   let answer;
 
    if (counts)
    {
@@ -338,12 +338,12 @@ CardInstance.prototype.criticalDamage = function(damageKey)
 {
    InputValidator.validateIsString("damageKey", damageKey);
 
-   var damageInstances = this.criticalDamages().filter(function(cardInstance)
+   const damageInstances = this.criticalDamages().filter(function(cardInstance)
    {
       return cardInstance.card().key === damageKey;
    });
 
-   var answer;
+   let answer;
 
    if (damageInstances.size > 0)
    {
@@ -375,12 +375,12 @@ CardInstance.prototype.damage = function(damageKey)
 {
    InputValidator.validateIsString("damageKey", damageKey);
 
-   var damageInstances = this.damages().filter(function(cardInstance)
+   const damageInstances = this.damages().filter(function(cardInstance)
    {
       return cardInstance.card().key === damageKey;
    });
 
-   var answer;
+   let answer;
 
    if (damageInstances.size > 0)
    {
@@ -397,8 +397,8 @@ CardInstance.prototype.damageCount = function()
 
 CardInstance.prototype.damageInstances = function()
 {
-   var store = this.store();
-   var ids = store.getState().cardDamages.get(this.id());
+   const store = this.store();
+   const ids = store.getState().cardDamages.get(this.id());
 
    return CardInstance.idsToCardInstances(store, ids);
 };
@@ -418,7 +418,7 @@ CardInstance.prototype.damages = function()
 
 CardInstance.prototype.defenderTargetLocks = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return TargetLock.getByDefender(store, this);
 };
@@ -430,15 +430,15 @@ CardInstance.prototype.energyCount = function()
 
 CardInstance.prototype.energyValue = function()
 {
-   var base = this.baseEnergyValue();
-   var bonus = this.bonusEnergyValue();
+   const base = this.baseEnergyValue();
+   const bonus = this.bonusEnergyValue();
 
    return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
 };
 
 CardInstance.prototype.equals = function(other)
 {
-   var answer = false;
+   let answer = false;
 
    if (other !== undefined)
    {
@@ -460,8 +460,8 @@ CardInstance.prototype.focusCount = function()
 
 CardInstance.prototype.hullValue = function()
 {
-   var base = this.baseHullValue();
-   var bonus = this.bonusHullValue();
+   const base = this.baseHullValue();
+   const bonus = this.bonusHullValue();
 
    return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
 };
@@ -476,13 +476,13 @@ CardInstance.prototype.isAbilityUsed = function(source, sourceKey)
    InputValidator.validateNotNull("source", source);
    InputValidator.validateNotNull("sourceKey", sourceKey);
 
-   var state = this.state();
-   var usedAbilities = state.cardUsedAbilities.get(this.id());
-   var answer = false;
+   const state = this.state();
+   const usedAbilities = state.cardUsedAbilities.get(this.id());
+   let answer = false;
 
-   for (var i = 0; !answer && i < usedAbilities.size; i++)
+   for (let i = 0; !answer && i < usedAbilities.size; i++)
    {
-      var ability = usedAbilities.get(i);
+      const ability = usedAbilities.get(i);
       answer = (ability.source() === source && ability.sourceKey() === sourceKey);
    }
 
@@ -491,7 +491,7 @@ CardInstance.prototype.isAbilityUsed = function(source, sourceKey)
 
 CardInstance.prototype.isChild = function()
 {
-   var key = this.card().key;
+   const key = this.card().key;
 
    return key.endsWith(".fore") || key.endsWith(".aft") ||
       key.endsWith(".crippledFore") || key.endsWith(".crippledAft");
@@ -504,19 +504,19 @@ CardInstance.prototype.isCloaked = function()
 
 CardInstance.prototype.isCriticallyDamagedWith = function(damageKey)
 {
-   var criticalDamageKeys = this.criticalDamageKeys();
+   const criticalDamageKeys = this.criticalDamageKeys();
 
    return criticalDamageKeys.includes(damageKey);
 };
 
 CardInstance.prototype.isDestroyed = function()
 {
-   var answer = false;
+   let answer = false;
 
    if (this.isParent())
    {
-      var tokenFore = this._tokenFore();
-      var tokenAft = this._tokenAft();
+      const tokenFore = this._tokenFore();
+      const tokenAft = this._tokenAft();
       answer = tokenFore && tokenFore.isDestroyed() && tokenAft && tokenAft.isDestroyed();
    }
    else
@@ -529,8 +529,8 @@ CardInstance.prototype.isDestroyed = function()
 
 CardInstance.prototype.isFaceUp = function()
 {
-   var store = this.store();
-   var answer = store.getState().cardIsFaceUp.get(this.id());
+   const store = this.store();
+   const answer = store.getState().cardIsFaceUp.get(this.id());
 
    return (answer !== undefined ? answer : true);
 };
@@ -555,13 +555,13 @@ CardInstance.prototype.isPerRoundAbilityUsed = function(source, sourceKey)
    InputValidator.validateNotNull("source", source);
    InputValidator.validateNotNull("sourceKey", sourceKey);
 
-   var state = this.state();
-   var usedAbilities = state.cardUsedPerRoundAbilities.get(this.id());
-   var answer = false;
+   const state = this.state();
+   const usedAbilities = state.cardUsedPerRoundAbilities.get(this.id());
+   let answer = false;
 
-   for (var i = 0; !answer && i < usedAbilities.size; i++)
+   for (let i = 0; !answer && i < usedAbilities.size; i++)
    {
-      var ability = usedAbilities.get(i);
+      const ability = usedAbilities.get(i);
       answer = (ability.source() === source && ability.sourceKey() === sourceKey);
    }
 
@@ -577,11 +577,11 @@ CardInstance.prototype.isTouching = function(pilotInstance2)
 {
    // pilotInstance2 optional.
 
-   var touching = this.pilotInstancesTouching();
+   let touching = this.pilotInstancesTouching();
 
    if (pilotInstance2 !== undefined)
    {
-      var id2 = pilotInstance2.id();
+      const id2 = pilotInstance2.id();
 
       touching = touching.filter(function(pilotInstance)
       {
@@ -599,8 +599,8 @@ CardInstance.prototype.isUpgradedWith = function(upgradeKey)
 
 CardInstance.prototype.name = function(isShort)
 {
-   var answer;
-   var cardTypeKey = this.card().cardTypeKey;
+   let answer;
+   const cardTypeKey = this.card().cardTypeKey;
 
    switch (cardTypeKey)
    {
@@ -630,16 +630,16 @@ CardInstance.prototype.ordnanceCount = function()
 
 CardInstance.prototype.pilotInstancesTouching = function()
 {
-   var store = this.store();
-   var touching = store.getState().touching;
-   var id = this.id();
+   const store = this.store();
+   let touching = store.getState().touching;
+   const id = this.id();
 
    touching = touching.filter(function(touchPair)
    {
       return touchPair.includes(id);
    }, this);
 
-   var ids = touching.map(function(touchPair)
+   const ids = touching.map(function(touchPair)
    {
       return (touchPair.get(0) === id ? touchPair.get(1) : touchPair.get(0));
    }, this);
@@ -649,16 +649,16 @@ CardInstance.prototype.pilotInstancesTouching = function()
 
 CardInstance.prototype.pilotSkillValue = function()
 {
-   var base = this.basePilotSkillValue();
-   var bonus = this.bonusPilotSkillValue();
+   const base = this.basePilotSkillValue();
+   const bonus = this.bonusPilotSkillValue();
 
    return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
 };
 
 CardInstance.prototype.primaryWeaponValue = function()
 {
-   var base = this.basePrimaryWeaponValue();
-   var bonus = this.bonusPrimaryWeaponValue();
+   const base = this.basePrimaryWeaponValue();
+   const bonus = this.bonusPrimaryWeaponValue();
 
    return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
 };
@@ -675,8 +675,8 @@ CardInstance.prototype.shieldCount = function()
 
 CardInstance.prototype.shieldValue = function()
 {
-   var base = this.baseShieldValue();
-   var bonus = this.bonusShieldValue();
+   const base = this.baseShieldValue();
+   const bonus = this.bonusShieldValue();
 
    return (base !== undefined && bonus !== undefined ? base + bonus : undefined);
 };
@@ -685,10 +685,10 @@ CardInstance.prototype.shipState = function(property)
 {
    InputValidator.validateNotNull("property", property);
 
-   var propertyName = property + "Value";
-   var pilot = this.card();
-   var ship = this.ship();
-   var answer = pilot[propertyName];
+   const propertyName = property + "Value";
+   const pilot = this.card();
+   const ship = this.ship();
+   let answer = pilot[propertyName];
 
    if (answer === undefined && ship)
    {
@@ -710,11 +710,11 @@ CardInstance.prototype.shipState = function(property)
 
 CardInstance.prototype.squadPointCost = function()
 {
-   var isVaksai = this.isUpgradedWith(UpgradeCard.VAKSAI);
+   const isVaksai = this.isUpgradedWith(UpgradeCard.VAKSAI);
 
-   var answer = this.upgrades().reduce(function(accumulator, upgrade)
+   const answer = this.upgrades().reduce(function(accumulator, upgrade)
    {
-      var value = upgrade.squadPointCost();
+      let value = upgrade.squadPointCost();
       value = (isVaksai ? Math.max(0, value - 1) : value);
       return accumulator + value;
    }, this.card().squadPointCost);
@@ -724,7 +724,7 @@ CardInstance.prototype.squadPointCost = function()
 
 CardInstance.prototype.state = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState();
 };
@@ -741,7 +741,7 @@ CardInstance.prototype.toString = function()
 
 CardInstance.prototype.tokenAft = function()
 {
-   var answer = this._tokenAft();
+   let answer = this._tokenAft();
 
    if (answer !== undefined && answer.isDestroyed())
    {
@@ -753,7 +753,7 @@ CardInstance.prototype.tokenAft = function()
 
 CardInstance.prototype.tokenFore = function()
 {
-   var answer = this._tokenFore();
+   let answer = this._tokenFore();
 
    if (answer !== undefined && answer.isDestroyed())
    {
@@ -765,7 +765,7 @@ CardInstance.prototype.tokenFore = function()
 
 CardInstance.prototype.totalDamage = function()
 {
-   var answer = this.damageCount();
+   let answer = this.damageCount();
 
    answer += this.criticalDamageKeys().reduce(function(accumulator, currentValue)
    {
@@ -782,11 +782,11 @@ CardInstance.prototype.tractorBeamCount = function()
 
 CardInstance.prototype.unfriendlyPilotInstancesTouching = function()
 {
-   var factionKey0 = this.card().shipFaction.factionKey;
+   const factionKey0 = this.card().shipFaction.factionKey;
 
    return this.pilotInstancesTouching().filter(function(pilotInstance)
    {
-      var factionKey = pilotInstance.card().shipFaction.factionKey;
+      const factionKey = pilotInstance.card().shipFaction.factionKey;
       return !Faction.isFriendly(factionKey0, factionKey);
    });
 };
@@ -798,8 +798,8 @@ CardInstance.prototype.upgradeKeys = function()
 
 CardInstance.prototype.upgrades = function()
 {
-   var store = this.store();
-   var ids = store.getState().cardUpgrades.get(this.id());
+   const store = this.store();
+   const ids = store.getState().cardUpgrades.get(this.id());
 
    return CardInstance.idsToCardInstances(store, ids);
 };
@@ -812,14 +812,14 @@ CardInstance.prototype.usableAbilities = function(source, sourceKeys, usedKeys, 
    InputValidator.validateNotNull("abilityType", abilityType);
    InputValidator.validateNotNull("abilityKey", abilityKey);
 
-   var answer = [];
-   var store = this.store();
+   const answer = [];
+   const store = this.store();
 
    sourceKeys.forEach(function(sourceKey)
    {
       if (!usedKeys.includes(sourceKey) && abilityType[abilityKey] !== undefined && abilityType[abilityKey][sourceKey] !== undefined)
       {
-         var myAbility = abilityType[abilityKey][sourceKey];
+         const myAbility = abilityType[abilityKey][sourceKey];
 
          if (myAbility.condition(store, this))
          {
@@ -836,8 +836,8 @@ CardInstance.prototype.usableDamageAbilities = function(abilityType, abilityKey)
    InputValidator.validateNotNull("abilityType", abilityType);
    InputValidator.validateNotNull("abilityKey", abilityKey);
 
-   var sourceKeys = this.criticalDamageKeys();
-   var usedKeys = this.usedAbilityKeys(DamageCard);
+   const sourceKeys = this.criticalDamageKeys();
+   let usedKeys = this.usedAbilityKeys(DamageCard);
    usedKeys = usedKeys.concat(this.usedPerRoundAbilityKeys(DamageCard));
 
    return this.usableAbilities(DamageCard, sourceKeys, usedKeys, abilityType, abilityKey);
@@ -848,8 +848,8 @@ CardInstance.prototype.usablePilotAbilities = function(abilityType, abilityKey)
    InputValidator.validateNotNull("abilityType", abilityType);
    InputValidator.validateNotNull("abilityKey", abilityKey);
 
-   var sourceKeys = [this.card().key];
-   var usedKeys = this.usedAbilityKeys(PilotCard);
+   const sourceKeys = [this.card().key];
+   let usedKeys = this.usedAbilityKeys(PilotCard);
    usedKeys = usedKeys.concat(this.usedPerRoundAbilityKeys(PilotCard));
 
    return this.usableAbilities(PilotCard, sourceKeys, usedKeys, abilityType, abilityKey);
@@ -860,8 +860,8 @@ CardInstance.prototype.usableUpgradeAbilities = function(abilityType, abilityKey
    InputValidator.validateNotNull("abilityType", abilityType);
    InputValidator.validateNotNull("abilityKey", abilityKey);
 
-   var sourceKeys = this.upgradeKeys();
-   var usedKeys = this.usedAbilityKeys(UpgradeCard);
+   const sourceKeys = this.upgradeKeys();
+   let usedKeys = this.usedAbilityKeys(UpgradeCard);
    usedKeys = usedKeys.concat(this.usedPerRoundAbilityKeys(UpgradeCard));
 
    return this.usableAbilities(UpgradeCard, sourceKeys, usedKeys, abilityType, abilityKey);
@@ -869,17 +869,17 @@ CardInstance.prototype.usableUpgradeAbilities = function(abilityType, abilityKey
 
 CardInstance.prototype.usedAbilities = function(source, sourceKey)
 {
-   var state = this.state();
-   var answer = state.cardUsedAbilities.get(this.id());
+   const state = this.state();
+   let answer = state.cardUsedAbilities.get(this.id());
 
    if (source)
    {
-      var usedAbilities = answer;
+      const usedAbilities = answer;
       answer = [];
 
-      for (var i = 0; i < usedAbilities.size; i++)
+      for (let i = 0; i < usedAbilities.size; i++)
       {
-         var ability = usedAbilities.get(i);
+         const ability = usedAbilities.get(i);
 
          if (ability.source() === source && (sourceKey === undefined || ability.sourceKey() === sourceKey))
          {
@@ -893,13 +893,13 @@ CardInstance.prototype.usedAbilities = function(source, sourceKey)
 
 CardInstance.prototype.usedAbilityKeys = function(source, sourceKey)
 {
-   var state = this.state();
-   var answer = [];
-   var usedAbilities = state.cardUsedAbilities.get(this.id());
+   const state = this.state();
+   const answer = [];
+   const usedAbilities = state.cardUsedAbilities.get(this.id());
 
-   for (var i = 0; i < usedAbilities.size; i++)
+   for (let i = 0; i < usedAbilities.size; i++)
    {
-      var ability = usedAbilities.get(i);
+      const ability = usedAbilities.get(i);
 
       if ((source === undefined || ability.source() === source) && (sourceKey === undefined || ability.sourceKey() === sourceKey))
       {
@@ -912,17 +912,17 @@ CardInstance.prototype.usedAbilityKeys = function(source, sourceKey)
 
 CardInstance.prototype.usedPerRoundAbilities = function(source, sourceKey)
 {
-   var state = this.state();
-   var answer = state.cardUsedPerRoundAbilities.get(this.id());
+   const state = this.state();
+   let answer = state.cardUsedPerRoundAbilities.get(this.id());
 
    if (source)
    {
-      var usedAbilities = answer;
+      const usedAbilities = answer;
       answer = [];
 
-      for (var i = 0; i < usedAbilities.size; i++)
+      for (let i = 0; i < usedAbilities.size; i++)
       {
-         var ability = usedAbilities.get(i);
+         const ability = usedAbilities.get(i);
 
          if (ability.source() === source && (sourceKey === undefined || ability.sourceKey() === sourceKey))
          {
@@ -936,13 +936,13 @@ CardInstance.prototype.usedPerRoundAbilities = function(source, sourceKey)
 
 CardInstance.prototype.usedPerRoundAbilityKeys = function(source, sourceKey)
 {
-   var state = this.state();
-   var answer = [];
-   var usedAbilities = state.cardUsedPerRoundAbilities.get(this.id());
+   const state = this.state();
+   const answer = [];
+   const usedAbilities = state.cardUsedPerRoundAbilities.get(this.id());
 
-   for (var i = 0; i < usedAbilities.size; i++)
+   for (let i = 0; i < usedAbilities.size; i++)
    {
-      var ability = usedAbilities.get(i);
+      const ability = usedAbilities.get(i);
 
       if ((source === undefined || ability.source() === source) && (sourceKey === undefined || ability.sourceKey() === sourceKey))
       {
@@ -957,13 +957,13 @@ CardInstance.prototype.value = function(property)
 {
    InputValidator.validateNotNull("property", property);
 
-   var propertyName = property + "Value";
-   var pilot = this.card();
-   var answer = pilot[propertyName];
+   const propertyName = property + "Value";
+   const pilot = this.card();
+   let answer = pilot[propertyName];
 
    if (answer === undefined)
    {
-      var ship = this.ship();
+      const ship = this.ship();
 
       if (ship)
       {
@@ -993,18 +993,18 @@ CardInstance.prototype._bonusValue = function(property)
 {
    InputValidator.validateNotNull("property", property);
 
-   var propertyName = property + "Value";
-   var answer = 0;
+   const propertyName = property + "Value";
+   let answer = 0;
 
    this.upgrades().forEach(function(upgradeInstance)
    {
-      var myCard = upgradeInstance.card();
+      const myCard = upgradeInstance.card();
       answer += (myCard[propertyName] !== undefined ? myCard[propertyName] : 0);
    });
 
    this.criticalDamages().forEach(function(damageInstance)
    {
-      var myCard = damageInstance.card();
+      const myCard = damageInstance.card();
       answer += (myCard[propertyName] !== undefined ? myCard[propertyName] : 0);
    });
 
@@ -1075,7 +1075,7 @@ CardInstance.prototype.discardUpgrade = function(upgradeInstance)
 {
    InputValidator.validateNotNull("upgradeInstance", upgradeInstance);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(CardAction.removeUpgrade(this, upgradeInstance));
 };
 
@@ -1083,7 +1083,7 @@ CardInstance.prototype.flipDamageCardFacedown = function(damageInstance)
 {
    InputValidator.validateNotNull("damageInstance", damageInstance);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(CardAction.setFaceUp(damageInstance, false));
 };
 
@@ -1099,10 +1099,10 @@ CardInstance.prototype.receiveCriticalDamage = function(damageInstance, callback
    }
    else
    {
-      var store = this.store();
+      const store = this.store();
       store.dispatch(CardAction.addDamage(this, damageInstance));
       store.dispatch(CardAction.setFaceUp(damageInstance, true));
-      var eventContext = {
+      const eventContext = {
          damageInstance: damageInstance,
       };
       store.dispatch(Action.enqueueEvent(Event.RECEIVE_CRITICAL_DAMAGE, this, callback, eventContext));
@@ -1113,10 +1113,10 @@ CardInstance.prototype.receiveDamage = function(damageInstance, callback)
 {
    InputValidator.validateNotNull("damageInstance", damageInstance);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(CardAction.addDamage(this, damageInstance));
    store.dispatch(CardAction.setFaceUp(damageInstance, false));
-   var eventContext = {
+   const eventContext = {
       damageInstance: damageInstance,
    };
    this.store().dispatch(Action.enqueueEvent(Event.RECEIVE_DAMAGE, this, callback, eventContext));
@@ -1158,7 +1158,7 @@ CardInstance.prototype.removeShield = function(count, callback)
 {
    if (this.shieldCount() > 0)
    {
-      var myCount = (count !== undefined ? count : 1);
+      const myCount = (count !== undefined ? count : 1);
       this.store().dispatch(CardAction.addShieldCount(this, -myCount));
       this.store().dispatch(Action.enqueueEvent(Event.REMOVE_SHIELD, this, callback));
    }
@@ -1199,10 +1199,10 @@ CardInstance.prototype.sufferDamage = function(hitCount, criticalHitCount)
    InputValidator.validateIsNumber("hitCount", hitCount);
    InputValidator.validateIsNumber("criticalHitCount", criticalHitCount);
 
-   var store = this.store();
-   var environment = store.getState().environment;
-   var evadeCount = this.evadeCount();
-   var damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, this, evadeCount);
+   const store = this.store();
+   const environment = store.getState().environment;
+   const evadeCount = this.evadeCount();
+   const damageDealer = new DamageDealer(environment, hitCount, criticalHitCount, this, evadeCount);
    damageDealer.dealDamage();
 };
 
@@ -1214,29 +1214,29 @@ CardInstance.prototype._save = function(upgradeKeys, tokenFore, tokenAft, crippl
    // crippledTokenFore optional.
    // crippledTokenAft optional.
 
-   var store = this.store();
-   var id = this.id();
-   var cardTypeKey = this.card().cardTypeKey;
-   var cardKey = this.card().key;
-   var agent = this.agent();
-   var idParent = this.idParent();
-   var idFore = (tokenFore ? tokenFore.id() : undefined);
-   var idAft = (tokenAft ? tokenAft.id() : undefined);
-   var idCrippledFore = (crippledTokenFore ? crippledTokenFore.id() : undefined);
-   var idCrippledAft = (crippledTokenAft ? crippledTokenAft.id() : undefined);
+   const store = this.store();
+   const id = this.id();
+   const cardTypeKey = this.card().cardTypeKey;
+   const cardKey = this.card().key;
+   const agent = this.agent();
+   const idParent = this.idParent();
+   const idFore = (tokenFore ? tokenFore.id() : undefined);
+   const idAft = (tokenAft ? tokenAft.id() : undefined);
+   const idCrippledFore = (crippledTokenFore ? crippledTokenFore.id() : undefined);
+   const idCrippledAft = (crippledTokenAft ? crippledTokenAft.id() : undefined);
 
    store.dispatch(CardAction.setCardInstance(id, cardTypeKey, cardKey, agent, idParent, idFore, idAft, idCrippledFore, idCrippledAft));
 
    upgradeKeys.forEach(function(upgradeKey)
    {
-      var upgrade = UpgradeCard.properties[upgradeKey];
-      var upgradeInstance = new CardInstance(store, upgrade);
+      const upgrade = UpgradeCard.properties[upgradeKey];
+      const upgradeInstance = new CardInstance(store, upgrade);
       store.dispatch(CardAction.addUpgrade(this, upgradeInstance));
    }, this);
 
    Count.keys().forEach(function(property)
    {
-      var value;
+      let value;
 
       switch (property)
       {
@@ -1284,12 +1284,12 @@ CardInstance.prototype.newInstance = function(store, agent)
    InputValidator.validateNotNull("store", store);
    // agent optional.
 
-   var card = this.card();
-   var answer = new CardInstance(store, card, agent, undefined, undefined, undefined, this.idParent());
+   const card = this.card();
+   const answer = new CardInstance(store, card, agent, undefined, undefined, undefined, this.idParent());
 
    this.upgrades().forEach(function(upgrade)
    {
-      var newUpgrade = upgrade.newInstance(store);
+      const newUpgrade = upgrade.newInstance(store);
       store.dispatch(CardAction.addUpgrade(answer, newUpgrade));
       store.dispatch(CardAction.setOrdnanceCount(newUpgrade, upgrade.ordnanceCount()));
    }, this);
@@ -1301,13 +1301,13 @@ CardInstance.prototype._changeBearingManeuversToDifficulty = function(maneuverKe
 {
    return maneuverKeys.map(function(maneuverKey)
    {
-      var maneuver = Maneuver.properties[maneuverKey];
-      var myBearingKey = maneuver.bearingKey;
+      const maneuver = Maneuver.properties[maneuverKey];
+      const myBearingKey = maneuver.bearingKey;
 
       if (myBearingKey === bearingKey)
       {
-         var speed = maneuver.speed;
-         var answer = Maneuver.find(bearingKey, speed, difficultyKey);
+         const speed = maneuver.speed;
+         const answer = Maneuver.find(bearingKey, speed, difficultyKey);
          if (!answer)
          {
             throw "Unknown maneuver: " + bearingKey + " " + speed + " " + difficultyKey;
@@ -1325,13 +1325,13 @@ CardInstance.prototype._changeSpeedManeuversToDifficulty = function(maneuverKeys
 {
    return maneuverKeys.map(function(maneuverKey)
    {
-      var maneuver = Maneuver.properties[maneuverKey];
-      var mySpeed = maneuver.speed;
+      const maneuver = Maneuver.properties[maneuverKey];
+      const mySpeed = maneuver.speed;
 
       if (mySpeed === speed)
       {
-         var bearingKey = maneuver.bearingKey;
-         var answer = Maneuver.find(bearingKey, speed, difficultyKey);
+         const bearingKey = maneuver.bearingKey;
+         const answer = Maneuver.find(bearingKey, speed, difficultyKey);
          if (!answer)
          {
             throw "Unknown maneuver: " + bearingKey + " " + speed + " " + difficultyKey;
@@ -1347,8 +1347,8 @@ CardInstance.prototype._changeSpeedManeuversToDifficulty = function(maneuverKeys
 
 CardInstance.prototype._createPrimaryWeapon = function()
 {
-   var primaryWeaponValue = this.shipState(Value.PRIMARY_WEAPON);
-   var ship = this.ship();
+   const primaryWeaponValue = this.shipState(Value.PRIMARY_WEAPON);
+   const ship = this.ship();
 
    return new Weapon("Primary Weapon", primaryWeaponValue, ship.primaryWeaponRanges, ship.primaryFiringArcKey, ship.auxiliaryFiringArcKey, ship.isPrimaryWeaponTurret);
 };
@@ -1361,12 +1361,12 @@ CardInstance.prototype._createSecondaryWeapon = function(upgrade)
 
 CardInstance.prototype._crippledTokenAft = function()
 {
-   var answer;
-   var idCrippledAft = this.idCrippledAft();
+   let answer;
+   const idCrippledAft = this.idCrippledAft();
 
    if (idCrippledAft !== undefined)
    {
-      var store = this.store();
+      const store = this.store();
       answer = CardInstance.get(store, idCrippledAft);
    }
 
@@ -1375,12 +1375,12 @@ CardInstance.prototype._crippledTokenAft = function()
 
 CardInstance.prototype._crippledTokenFore = function()
 {
-   var answer;
-   var idCrippledFore = this.idCrippledFore();
+   let answer;
+   const idCrippledFore = this.idCrippledFore();
 
    if (idCrippledFore !== undefined)
    {
-      var store = this.store();
+      const store = this.store();
       answer = CardInstance.get(store, idCrippledFore);
    }
 
@@ -1389,12 +1389,12 @@ CardInstance.prototype._crippledTokenFore = function()
 
 CardInstance.prototype._tokenAft = function()
 {
-   var answer;
-   var idAft = this.idAft();
+   let answer;
+   const idAft = this.idAft();
 
    if (idAft !== undefined)
    {
-      var store = this.store();
+      const store = this.store();
       answer = CardInstance.get(store, idAft);
    }
 
@@ -1403,12 +1403,12 @@ CardInstance.prototype._tokenAft = function()
 
 CardInstance.prototype._tokenFore = function()
 {
-   var answer;
-   var idFore = this.idFore();
+   let answer;
+   const idFore = this.idFore();
 
    if (idFore !== undefined)
    {
-      var store = this.store();
+      const store = this.store();
       answer = CardInstance.get(store, idFore);
    }
 
@@ -1442,14 +1442,14 @@ CardInstance.get = function(store, id)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateIsNumber("id", id);
 
-   var values = store.getState().cardInstances.get(id);
-   var answer;
+   const values = store.getState().cardInstances.get(id);
+   let answer;
 
    if (values !== undefined)
    {
-      var cardTypeKey = values.get("cardTypeKey");
-      var cardKey = values.get("cardKey");
-      var card;
+      const cardTypeKey = values.get("cardTypeKey");
+      let cardKey = values.get("cardKey");
+      let card;
 
       if (cardKey.endsWith(".fore"))
       {
@@ -1476,15 +1476,15 @@ CardInstance.get = function(store, id)
          card = CardResolver.resolve(cardTypeKey, cardKey);
       }
 
-      var agent = values.get("agent");
-      var isNew = false;
-      var idParent = values.get("idParent");
-      var idFore = values.get("idFore");
-      var idAft = values.get("idAft");
-      var idCrippledFore = values.get("idCrippledFore");
-      var idCrippledAft = values.get("idCrippledAft");
+      const agent = values.get("agent");
+      const isNew = false;
+      const idParent = values.get("idParent");
+      const idFore = values.get("idFore");
+      const idAft = values.get("idAft");
+      const idCrippledFore = values.get("idCrippledFore");
+      const idCrippledAft = values.get("idCrippledAft");
 
-      var upgradeKeys, upgradeKeysAft;
+      let upgradeKeys, upgradeKeysAft;
 
       if (idFore !== undefined && idAft !== undefined)
       {
@@ -1507,13 +1507,13 @@ CardInstance.idsToCardInstances = function(store, ids)
    InputValidator.validateNotNull("store", store);
    // ids optional.
 
-   var answer;
+   let answer;
 
    if (ids !== undefined)
    {
       answer = ids.map(function(id)
       {
-         var cardInstance = CardInstance.get(store, id);
+         const cardInstance = CardInstance.get(store, id);
          InputValidator.validateNotNull("cardInstance", cardInstance);
          return cardInstance;
       });
@@ -1533,13 +1533,13 @@ CardInstance.keysToCardInstances = function(store, cardTypeKey, cardKeys, agent)
    // cardKeys optional.
    // agent optional.
 
-   var answer;
+   let answer;
 
    if (cardKeys !== undefined)
    {
       answer = cardKeys.map(function(cardKey)
       {
-         var card = CardResolver.resolve(cardTypeKey, cardKey);
+         const card = CardResolver.resolve(cardTypeKey, cardKey);
 
          return new CardInstance(store, card, agent);
       });

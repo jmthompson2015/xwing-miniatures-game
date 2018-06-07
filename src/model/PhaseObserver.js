@@ -35,9 +35,9 @@ function PhaseObserver(store)
 
 PhaseObserver.observeStore = function(store)
 {
-   var observer = new PhaseObserver(store);
+   const observer = new PhaseObserver(store);
 
-   var select = function(state)
+   const select = function(state)
    {
       return state.phaseQueue;
    };
@@ -56,28 +56,28 @@ PhaseObserver.prototype.onChange = function(phaseQueue)
 
    if (phaseQueue.size > 0)
    {
-      var store = this.store();
+      const store = this.store();
       store.dispatch(Action.dequeuePhase());
-      var phaseData = store.getState().phaseData;
+      const phaseData = store.getState().phaseData;
 
       LOGGER.debug("phaseData = " + JSON.stringify(phaseData));
 
       if (phaseData !== undefined)
       {
-         var environment = store.getState().environment;
-         var queue = environment.getTokensForActivation();
-         var pilotInstanceCallback = this.finishOnChange.bind(this);
-         var callback = function()
+         const environment = store.getState().environment;
+         const queue = environment.getTokensForActivation();
+         const pilotInstanceCallback = this.finishOnChange.bind(this);
+         const callback = function()
          {
             pilotInstanceCallback(phaseData);
          };
-         var pilotInstanceFunction = this.chooseAbility.bind(this);
-         var elementFunction = function(pilotInstance, queueCallback)
+         const pilotInstanceFunction = this.chooseAbility.bind(this);
+         const elementFunction = function(pilotInstance, queueCallback)
          {
             pilotInstanceFunction(phaseData, pilotInstance, queueCallback);
          };
-         var delay = 10;
-         var queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
+         const delay = 10;
+         const queueProcessor = new QueueProcessor(queue, callback, elementFunction, undefined, delay);
          queueProcessor.processQueue();
       }
    }
@@ -93,16 +93,16 @@ PhaseObserver.prototype.chooseAbility = function(phaseData, pilotInstance, queue
    InputValidator.validateNotNull("pilotInstance", pilotInstance);
    InputValidator.validateNotNull("queueCallback", queueCallback);
 
-   var phaseKey = phaseData.get("phaseKey");
-   var phaseContext = phaseData.get("phaseContext");
+   const phaseKey = phaseData.get("phaseKey");
+   const phaseContext = phaseData.get("phaseContext");
 
-   var agent = pilotInstance.agent();
-   var that = this;
-   var agentCallback = function(ability, isAccepted)
+   const agent = pilotInstance.agent();
+   const that = this;
+   const agentCallback = function(ability, isAccepted)
    {
       that.finishChooseAbility(phaseData, pilotInstance, queueCallback, ability, isAccepted);
    };
-   var defender;
+   let defender;
    if (phaseContext)
    {
       defender = phaseContext.defender;
@@ -118,15 +118,15 @@ PhaseObserver.prototype.chooseAbility = function(phaseData, pilotInstance, queue
    }
    else if (phaseKey === Phase.COMBAT_MODIFY_DEFENSE_DICE)
    {
-      var defenderAgent = defender.agent();
+      const defenderAgent = defender.agent();
       defenderAgent.getModifyDefenseDiceAction(pilotInstance, defender, agentCallback);
    }
    else
    {
-      var abilityTypes = PhaseObserver.abilityTypes(phaseKey);
-      var damageAbilities = (pilotInstance.usableDamageAbilities !== undefined ? pilotInstance.usableDamageAbilities(abilityTypes[0], phaseKey) : []);
-      var pilotAbilities = (pilotInstance.usablePilotAbilities !== undefined ? pilotInstance.usablePilotAbilities(abilityTypes[1], phaseKey) : []);
-      var upgradeAbilities = (pilotInstance.usableUpgradeAbilities !== undefined ? pilotInstance.usableUpgradeAbilities(abilityTypes[2], phaseKey) : []);
+      const abilityTypes = PhaseObserver.abilityTypes(phaseKey);
+      const damageAbilities = (pilotInstance.usableDamageAbilities !== undefined ? pilotInstance.usableDamageAbilities(abilityTypes[0], phaseKey) : []);
+      const pilotAbilities = (pilotInstance.usablePilotAbilities !== undefined ? pilotInstance.usablePilotAbilities(abilityTypes[1], phaseKey) : []);
+      const upgradeAbilities = (pilotInstance.usableUpgradeAbilities !== undefined ? pilotInstance.usableUpgradeAbilities(abilityTypes[2], phaseKey) : []);
 
       if (damageAbilities.length > 0 || pilotAbilities.length > 0 || upgradeAbilities.length > 0)
       {
@@ -153,12 +153,12 @@ PhaseObserver.prototype.finishChooseAbility = function(phaseData, pilotInstance,
 
    LOGGER.debug("PhaseObserver.finishChooseAbility() ability = " + ability + " isAccepted ? " + isAccepted);
 
-   var that = this;
-   var backFunction = function()
+   const that = this;
+   const backFunction = function()
    {
       that.chooseAbility(phaseData, pilotInstance, queueCallback);
    };
-   var forwardFunction = function()
+   const forwardFunction = function()
    {
       queueCallback();
    };
@@ -181,7 +181,7 @@ PhaseObserver.prototype.finish = function(phaseData, pilotInstance, backFunction
 
    if (ability !== undefined && isAccepted === true)
    {
-      var store = this.store();
+      const store = this.store();
 
       if (ability.sourceObject().oncePerRound)
       {
@@ -192,12 +192,12 @@ PhaseObserver.prototype.finish = function(phaseData, pilotInstance, backFunction
          store.dispatch(CardAction.addUsedAbility(pilotInstance, ability));
       }
 
-      var message = ability.sourceObject().name + " ability used.";
+      const message = ability.sourceObject().name + " ability used.";
       LOGGER.info(message);
       store.dispatch(Action.setUserMessage(message));
 
-      var myCallback = (ability.source() === ShipAction ? forwardFunction : backFunction);
-      var consequent = ability.consequent();
+      const myCallback = (ability.source() === ShipAction ? forwardFunction : backFunction);
+      const consequent = ability.consequent();
       consequent(store, pilotInstance, myCallback, ability.context());
    }
    else
@@ -214,10 +214,10 @@ PhaseObserver.prototype.finishOnChange = function(phaseData)
 
    InputValidator.validateNotNull("phaseData", phaseData);
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.clearPhase());
 
-   var callback = phaseData.get("phaseCallback");
+   const callback = phaseData.get("phaseCallback");
 
    if (callback !== undefined)
    {
@@ -234,7 +234,7 @@ PhaseObserver.abilityTypes = function(phaseKey)
 {
    InputValidator.validateNotNull("phaseKey", phaseKey);
 
-   var answer;
+   let answer;
 
    if (phaseKey.startsWith("planning"))
    {

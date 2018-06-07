@@ -9,8 +9,8 @@ function MockDefenseDice(store, attackerId)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateIsNumber("attackerId", attackerId);
 
-   var values = [DefenseDiceValue.BLANK, DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS];
-   var answer = new DefenseDice(store, attackerId, values);
+   const values = [DefenseDiceValue.BLANK, DefenseDiceValue.EVADE, DefenseDiceValue.FOCUS];
+   const answer = new DefenseDice(store, attackerId, values);
 
    answer.rerollAllFocus = function() {};
 

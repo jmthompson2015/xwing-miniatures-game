@@ -15,7 +15,7 @@ import TableColumns from "./TableColumns.js";
 
 function createImageLink(src, href)
 {
-   var image = ReactDOMFactories.img(
+   const image = ReactDOMFactories.img(
    {
       className: "imageBlock fr v-mid",
       src: src,
@@ -39,18 +39,18 @@ class PilotTable extends React.Component
 
    render()
    {
-      var filterShownButton = React.createElement(Button,
+      const filterShownButton = React.createElement(Button,
       {
          name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
          onClick: this.toggleFilterShownActionPerformed,
       });
 
-      var myRowData = this.props.rowData;
-      var resourceBase = this.props.resourceBase;
-      var cellFunctions = {
+      const myRowData = this.props.rowData;
+      const resourceBase = this.props.resourceBase;
+      const cellFunctions = {
          "factionKey": function(data)
          {
-            var faction = Faction.properties[data.factionKey];
+            const faction = Faction.properties[data.factionKey];
             return React.createElement(FactionUI,
             {
                faction: faction,
@@ -60,10 +60,10 @@ class PilotTable extends React.Component
          },
          "pilotName": function(data)
          {
-            var src = resourceBase + "icon/Wikipedia16.png";
-            var searchString = data.pilotName.replace(/ /g, "_");
-            var href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
-            var link = createImageLink(src, href);
+            const src = resourceBase + "icon/Wikipedia16.png";
+            let searchString = data.pilotName.replace(/ /g, "_");
+            let href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
+            const link = createImageLink(src, href);
             return ReactDOMFactories.span(
             {
                className: "textImageLink dib w-100",
@@ -71,16 +71,16 @@ class PilotTable extends React.Component
          },
          "shipKey": function(data)
          {
-            var src = resourceBase + "icon/Wikipedia16.png";
-            var href = data.shipWikiUrl;
+            const src = resourceBase + "icon/Wikipedia16.png";
+            let href = data.shipWikiUrl;
             if (!href)
             {
-               var searchString = data.shipName + "_Expansion_Pack";
+               let searchString = data.shipName + "_Expansion_Pack";
                searchString = searchString.replace(/ /g, "_");
                href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
             }
-            var link = createImageLink(src, href);
-            var silhouette = React.createElement(ShipSilhouetteUI,
+            const link = createImageLink(src, href);
+            const silhouette = React.createElement(ShipSilhouetteUI,
             {
                ship: Ship.properties[data.shipKey],
                resourceBase: resourceBase,
@@ -93,7 +93,7 @@ class PilotTable extends React.Component
          },
          "description": function(data)
          {
-            var answer;
+            let answer;
             if (data.isFlavorText)
             {
                answer = ReactDOMFactories.span(
@@ -123,17 +123,17 @@ class PilotTable extends React.Component
          },
          "ratioPrimaryWeaponAgility": function(data)
          {
-            var value = data.ratioPrimaryWeaponAgility;
+            const value = data.ratioPrimaryWeaponAgility;
             return MathUtilities.format(value, 2);
          },
          "ratioSumStatsSquadPointCost": function(data)
          {
-            var value = data.ratioSumStatsSquadPointCost;
+            const value = data.ratioSumStatsSquadPointCost;
             return MathUtilities.format(value, 4);
          },
       };
 
-      var table = React.createElement(DataTable,
+      const table = React.createElement(DataTable,
       {
          columns: TableColumns,
          rowData: myRowData,
@@ -141,7 +141,7 @@ class PilotTable extends React.Component
          resourceBase: resourceBase,
       });
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,
@@ -151,7 +151,7 @@ class PilotTable extends React.Component
 
       if (this.props.isFilterShown)
       {
-         var filterUI = React.createElement(ReactRedux.Provider,
+         const filterUI = React.createElement(ReactRedux.Provider,
          {
             store: this.context.store,
          }, React.createElement(FilterContainer,

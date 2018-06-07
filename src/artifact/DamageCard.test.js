@@ -5,8 +5,8 @@ QUnit.module("DamageCard");
 
 QUnit.test("DamageCard properties Blinded Pilot", function(assert)
 {
-   var damage = DamageCard.BLINDED_PILOT;
-   var properties = DamageCard.properties[damage];
+   const damage = DamageCard.BLINDED_PILOT;
+   const properties = DamageCard.properties[damage];
    assert.equal(properties.name, "Blinded Pilot");
    assert.equal(properties.trait, DamageCardTrait.PILOT);
    assert.equal(properties.description, "The next time you attack, do not roll any attack dice.<br /><br />Then flip this card facedown.");
@@ -18,8 +18,8 @@ QUnit.test("DamageCard properties Blinded Pilot", function(assert)
 
 QUnit.test("DamageCard properties Console Fire", function(assert)
 {
-   var damage = DamageCard.CONSOLE_FIRE;
-   var properties = DamageCard.properties[damage];
+   const damage = DamageCard.CONSOLE_FIRE;
+   const properties = DamageCard.properties[damage];
    assert.equal(properties.name, "Console Fire");
    assert.equal(properties.trait, DamageCardTrait.SHIP);
    assert.equal(properties.description, "At the start of each Combat phase, roll 1 attack die. On a [Hit] result, suffer 1 damage.<br /><br />");
@@ -33,13 +33,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = DamageCard.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(DamageCard);
+   const result = DamageCard.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(DamageCard);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = DamageCard[key];
+      const key2 = DamageCard[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -49,7 +49,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return DamageCard[key] === value;
       });
@@ -60,7 +60,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("createDeckV1()", function(assert)
 {
-   var deck = DamageCard.createDeckV1();
+   const deck = DamageCard.createDeckV1();
    assert.equal(deck.length, 33);
    assert.ok(!deck[-1]);
    assert.ok(deck[0]);
@@ -68,9 +68,9 @@ QUnit.test("createDeckV1()", function(assert)
    assert.ok(!deck[33]);
 
    // Count each damage card type.
-   var damageToCount = {};
-   var damage;
-   for (var i = 0; i < deck.length; i++)
+   const damageToCount = {};
+   let damage;
+   for (let i = 0; i < deck.length; i++)
    {
       damage = deck[i];
 
@@ -100,7 +100,7 @@ QUnit.test("createDeckV1()", function(assert)
 
 QUnit.test("createDeckV2()", function(assert)
 {
-   var deck = DamageCard.createDeckV2();
+   const deck = DamageCard.createDeckV2();
    assert.equal(deck.length, 33);
    assert.ok(!deck[-1]);
    assert.ok(deck[0]);
@@ -108,9 +108,9 @@ QUnit.test("createDeckV2()", function(assert)
    assert.ok(!deck[33]);
 
    // Count each damage card type.
-   var damageToCount = {};
-   var damage;
-   for (var i = 0; i < deck.length; i++)
+   const damageToCount = {};
+   let damage;
+   for (let i = 0; i < deck.length; i++)
    {
       damage = deck[i];
 
@@ -141,7 +141,7 @@ QUnit.test("createDeckV2()", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = DamageCard.keys();
+   const result = DamageCard.keys();
 
    // Verify.
    assert.equal(result.length, 28);
@@ -150,8 +150,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[27], DamageCard.WEAPONS_FAILURE_V2);
    assert.ok(!result[28]);
 
-   var properties = Object.getOwnPropertyNames(DamageCard);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(DamageCard);
+   const count = properties.length - 1 - // properties
       1 - // createDeckV1
       1 - // createDeckV2
       1 - // keys
@@ -164,7 +164,7 @@ QUnit.test("keys()", function(assert)
 
 QUnit.test("keysV1()", function(assert)
 {
-   var values = DamageCard.keysV1();
+   const values = DamageCard.keysV1();
    assert.equal(values.length, 14);
    assert.ok(!values[-1]);
    assert.equal(values[0], DamageCard.BLINDED_PILOT);
@@ -174,7 +174,7 @@ QUnit.test("keysV1()", function(assert)
 
 QUnit.test("keysV2()", function(assert)
 {
-   var values = DamageCard.keysV2();
+   const values = DamageCard.keysV2();
    assert.equal(values.length, 14);
    assert.ok(!values[-1]);
    assert.equal(values[0], DamageCard.BLINDED_PILOT_V2);

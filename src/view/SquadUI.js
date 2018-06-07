@@ -15,18 +15,18 @@ class SquadUI extends React.Component
    {
       LOGGER.trace("SquadUI.render()");
 
-      var squad = this.props.squad;
-      var tokens = squad.tokens();
-      var rows = [];
+      const squad = this.props.squad;
+      const tokens = squad.tokens();
+      const rows = [];
       rows.push(this.createHeaderRow("row" + rows.length));
 
       tokens.forEach(function(token, i)
       {
-         var pilot = token.card();
-         var ship = pilot.shipFaction.ship;
+         const pilot = token.card();
+         const ship = pilot.shipFaction.ship;
          rows.push(this.createShipRow(ship, i, "row" + rows.length));
 
-         var upgradeKeys;
+         let upgradeKeys;
 
          if (pilot.fore)
          {
@@ -35,7 +35,7 @@ class SquadUI extends React.Component
 
             upgradeKeys.forEach(function(upgradeKey, j)
             {
-               var upgradeCard = UpgradeCard.properties[upgradeKey];
+               const upgradeCard = UpgradeCard.properties[upgradeKey];
                rows.push(this.createUpgradeTypeRow(upgradeCard, j, "row" + rows.length));
             }, this);
 
@@ -44,7 +44,7 @@ class SquadUI extends React.Component
 
             upgradeKeys.forEach(function(upgradeKey, j)
             {
-               var upgradeCard = UpgradeCard.properties[upgradeKey];
+               const upgradeCard = UpgradeCard.properties[upgradeKey];
                rows.push(this.createUpgradeTypeRow(upgradeCard, j, "row" + rows.length));
             }, this);
          }
@@ -55,7 +55,7 @@ class SquadUI extends React.Component
 
             upgradeKeys.forEach(function(upgradeKey, j)
             {
-               var upgradeCard = UpgradeCard.properties[upgradeKey];
+               const upgradeCard = UpgradeCard.properties[upgradeKey];
                rows.push(this.createUpgradeTypeRow(upgradeCard, j, "row" + rows.length));
             }, this);
          }
@@ -63,7 +63,7 @@ class SquadUI extends React.Component
 
       rows.push(this.createFooterRow("row" + rows.length));
 
-      var squadUI = ReactDOMFactories.table(
+      const squadUI = ReactDOMFactories.table(
       {
          className: "squadUI ba b--black bg-xw-light fl f6",
       }, ReactDOMFactories.tbody(
@@ -86,13 +86,13 @@ SquadUI.prototype.createCell = function(key, className, value)
 
 SquadUI.prototype.createFooterRow = function(key)
 {
-   var cells = [];
-   var squad = this.props.squad;
+   const cells = [];
+   const squad = this.props.squad;
 
    SquadColumns.forEach(function(column)
    {
-      var value = 0;
-      var className = "squadUISum ba bg-xw-medium";
+      let value = 0;
+      let className = "squadUISum ba bg-xw-medium";
 
       switch (column.key)
       {
@@ -106,7 +106,7 @@ SquadUI.prototype.createFooterRow = function(key)
          default:
             if (squad)
             {
-               var valueFunction = squad[column.key];
+               const valueFunction = squad[column.key];
                value = valueFunction.apply(squad);
             }
             className += " alignRight tr";
@@ -132,13 +132,13 @@ SquadUI.prototype.createHeaderCell = function(key, className, value)
 
 SquadUI.prototype.createHeaderRow = function(key)
 {
-   var cells = [];
-   var squad = this.props.squad;
-   var faction = Faction.properties[squad.factionKey()];
+   const cells = [];
+   const squad = this.props.squad;
+   const faction = Faction.properties[squad.factionKey()];
 
    SquadColumns.forEach(function(column)
    {
-      var value, className;
+      let value, className;
 
       switch (column.key)
       {
@@ -149,7 +149,7 @@ SquadUI.prototype.createHeaderRow = function(key)
             value = column.label;
             break;
          default:
-            var shipStateKey = column.key.substring(0, column.key.length - "Value".length);
+            const shipStateKey = column.key.substring(0, column.key.length - "Value".length);
             value = React.createElement(ShipStateUI,
             {
                faction: faction,
@@ -174,19 +174,19 @@ SquadUI.prototype.createPilotRow = function(ship, pilot, index, rowKey)
    InputValidator.validateIsNumber("index", index);
    InputValidator.validateNotNull("rowKey", rowKey);
 
-   var pilotUI = React.createElement(EntityUI,
+   const pilotUI = React.createElement(EntityUI,
    {
       entity: pilot,
       resourceBase: this.props.resourceBase,
       showImplemented: false,
    });
 
-   var cells = [];
-   var isImplemented = (pilot ? (pilot.isImplemented === true) : undefined);
+   const cells = [];
+   const isImplemented = (pilot ? (pilot.isImplemented === true) : undefined);
 
    SquadColumns.forEach(function(column)
    {
-      var value;
+      let value;
 
       switch (column.key)
       {
@@ -211,7 +211,7 @@ SquadUI.prototype.createPilotRow = function(ship, pilot, index, rowKey)
             }
             else
             {
-               var myShip;
+               let myShip;
                if (pilot.key.endsWith(".fore"))
                {
                   myShip = ship.fore;
@@ -239,18 +239,18 @@ SquadUI.prototype.createShipRow = function(ship, index, rowKey)
    InputValidator.validateIsNumber("index", index);
    InputValidator.validateNotNull("rowKey", rowKey);
 
-   var shipUI = React.createElement(EntityUI,
+   const shipUI = React.createElement(EntityUI,
    {
       entity: ship,
       resourceBase: this.props.resourceBase,
       showImplemented: false,
    });
 
-   var cells = [];
+   const cells = [];
 
    SquadColumns.forEach(function(column)
    {
-      var value;
+      let value;
 
       switch (column.key)
       {
@@ -274,19 +274,19 @@ SquadUI.prototype.createUpgradeTypeRow = function(upgradeCard, upgradeIndex, row
    InputValidator.validateIsNumber("upgradeIndex", upgradeIndex);
    InputValidator.validateNotNull("rowKey", rowKey);
 
-   var upgradeUI = React.createElement(EntityUI,
+   const upgradeUI = React.createElement(EntityUI,
    {
       entity: upgradeCard,
       resourceBase: this.props.resourceBase,
       showImplemented: false,
    });
 
-   var cells = [];
-   var isImplemented = (upgradeCard ? (upgradeCard.isImplemented === true) : undefined);
+   const cells = [];
+   const isImplemented = (upgradeCard ? (upgradeCard.isImplemented === true) : undefined);
 
    SquadColumns.forEach(function(column)
    {
-      var value;
+      let value;
 
       switch (column.key)
       {

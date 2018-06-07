@@ -2,13 +2,13 @@ class ShipSilhouetteUI extends React.Component
 {
    render()
    {
-      var ship = this.props.ship;
-      var shipName = ship.name.replace(/\//g, "_"); // forward slash
+      const ship = this.props.ship;
+      let shipName = ship.name.replace(/\//g, "_"); // forward slash
       shipName = shipName.replace(/ /g, "_");
-      var fileString = this.props.resourceBase + "silhouette/" + shipName + ".png";
-      var myKey = (this.props.myKey !== undefined ? this.props.myKey : ship.key);
+      const fileString = this.props.resourceBase + "silhouette/" + shipName + ".png";
+      const myKey = (this.props.myKey !== undefined ? this.props.myKey : ship.key);
 
-      var image = ReactDOMFactories.img(
+      const image = ReactDOMFactories.img(
       {
          key: myKey,
          className: "shipSilhouetteUIImage v-mid",
@@ -16,7 +16,7 @@ class ShipSilhouetteUI extends React.Component
          title: ship.name,
       });
 
-      var answer = image;
+      let answer = image;
 
       if (this.props.showName)
       {

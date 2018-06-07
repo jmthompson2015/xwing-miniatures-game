@@ -12,7 +12,7 @@ import UpgradeCard from "../artifact/UpgradeCard.js";
 import Action from "./Action.js";
 import ActivationAction from "./ActivationAction.js";
 
-var PilotAbility2 = {};
+const PilotAbility2 = {};
 
 ////////////////////////////////////////////////////////////////////////
 PilotAbility2[Phase.ACTIVATION_REVEAL_DIAL] = {};
@@ -21,19 +21,19 @@ PilotAbility2[Phase.ACTIVATION_REVEAL_DIAL][PilotCard.COUNTESS_RYAD] = {
    // When you reveal a Straight maneuver, you may treat it as a K-Turn maneuver.
    condition: function(store, token)
    {
-      var activeToken = getActiveCardInstance(store);
-      var maneuver = getManeuver(activeToken);
+      const activeToken = getActiveCardInstance(store);
+      const maneuver = getManeuver(activeToken);
       return isActiveCardInstance(store, token) && maneuver.bearingKey === Bearing.STRAIGHT;
    },
    consequent: function(store, token, callback)
    {
-      var oldManeuver = getManeuver(token);
-      var newManeuverKey = Maneuver.find(Bearing.KOIOGRAN_TURN, oldManeuver.speed, oldManeuver.difficultyKey);
+      const oldManeuver = getManeuver(token);
+      const newManeuverKey = Maneuver.find(Bearing.KOIOGRAN_TURN, oldManeuver.speed, oldManeuver.difficultyKey);
       if (newManeuverKey === undefined)
       {
          throw "Can't find K-Turn maneuver for oldManeuver = " + oldManeuver.bearingKey + " " + oldManeuver.speed + " " + oldManeuver.difficultyKey;
       }
-      var newManeuver = Maneuver.properties[newManeuverKey];
+      const newManeuver = Maneuver.properties[newManeuverKey];
       store.dispatch(Action.setTokenManeuver(token, newManeuver));
       callback();
    },
@@ -43,14 +43,14 @@ PilotAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.BOBA_FETT_IMPERIAL] = {
    // When you reveal a bank maneuver, you may rotate your dial to the other bank maneuver of the same speed.
    condition: function(store, token)
    {
-      var activeToken = getActiveCardInstance(store);
-      var maneuver = getManeuver(activeToken);
+      const activeToken = getActiveCardInstance(store);
+      const maneuver = getManeuver(activeToken);
       return isActiveCardInstance(store, token) && [Bearing.BANK_LEFT, Bearing.BANK_RIGHT].includes(maneuver.bearingKey);
    },
    consequent: function(store, token, callback)
    {
-      var oldManeuver = getManeuver(token);
-      var newBearingKey;
+      const oldManeuver = getManeuver(token);
+      let newBearingKey;
       switch (oldManeuver.bearingKey)
       {
          case Bearing.BANK_LEFT:
@@ -60,8 +60,8 @@ PilotAbility2[Phase.ACTIVATION_REVEAL_DIAL][UpgradeCard.BOBA_FETT_IMPERIAL] = {
             newBearingKey = Bearing.BANK_LEFT;
             break;
       }
-      var newManeuverKey = findManeuverByBearingSpeed(token, newBearingKey, oldManeuver.speed);
-      var newManeuver = Maneuver.properties[newManeuverKey];
+      const newManeuverKey = findManeuverByBearingSpeed(token, newBearingKey, oldManeuver.speed);
+      const newManeuver = Maneuver.properties[newManeuverKey];
       store.dispatch(Action.setTokenManeuver(token, newManeuver));
       callback();
    },
@@ -74,13 +74,13 @@ function findManeuverByBearingSpeed(token, bearing, speed)
    InputValidator.validateNotNull("bearing", bearing);
    InputValidator.validateNotNull("speed", speed);
 
-   var answer;
-   var maneuverKeys = token.card().shipFaction.ship.maneuverKeys;
+   let answer;
+   const maneuverKeys = token.card().shipFaction.ship.maneuverKeys;
 
-   for (var i = 0; i < maneuverKeys.length; i++)
+   for (let i = 0; i < maneuverKeys.length; i++)
    {
-      var maneuverKey = maneuverKeys[i];
-      var maneuver = Maneuver.properties[maneuverKey];
+      const maneuverKey = maneuverKeys[i];
+      const maneuver = Maneuver.properties[maneuverKey];
 
       if (maneuver.bearingKey === bearing && maneuver.speed === speed)
       {
@@ -103,7 +103,7 @@ function getActiveCardInstance(store)
 {
    InputValidator.validateNotNull("store", store);
 
-   var environment = store.getState().environment;
+   const environment = store.getState().environment;
 
    return environment.activeCardInstance();
 }
@@ -112,7 +112,7 @@ function getManeuver(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var maneuverKey = getManeuverKey(token);
+   const maneuverKey = getManeuverKey(token);
    return Maneuver.properties[maneuverKey];
 }
 
@@ -120,13 +120,13 @@ function getManeuverKey(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var activationAction = getActivationAction(token);
+   const activationAction = getActivationAction(token);
    return (activationAction ? activationAction.maneuverKey() : undefined);
 }
 
 function isActiveCardInstance(store, token)
 {
-   var activeToken = getActiveCardInstance(store);
+   const activeToken = getActiveCardInstance(store);
 
    return token.equals(activeToken);
 }

@@ -2,14 +2,14 @@ class ImplementedImage extends React.Component
 {
    render()
    {
-      var isImplemented = this.props.isImplemented;
-      var answer;
+      const isImplemented = this.props.isImplemented;
+      let answer;
 
       if (isImplemented !== undefined)
       {
-         var resourceBase = this.props.resourceBase;
-         var src = resourceBase + "icon/" + (isImplemented ? "accept.png" : "delete.png");
-         var title = (isImplemented ? "Implemented" : "Not Implemented");
+         const resourceBase = this.props.resourceBase;
+         const src = resourceBase + "icon/" + (isImplemented ? "accept.png" : "delete.png");
+         const title = (isImplemented ? "Implemented" : "Not Implemented");
 
          answer = ReactDOMFactories.img(
          {

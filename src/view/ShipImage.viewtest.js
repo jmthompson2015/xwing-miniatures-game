@@ -10,8 +10,8 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var id = 1;
+const resourceBase = "../resource/";
+let id = 1;
 
 drawShip(id++, "firesprayCanvas", ShipFaction.properties[ShipFaction.IMPERIAL_FIRESPRAY_31]);
 drawShip(id++, "tieDefenderCanvas", ShipFaction.properties[ShipFaction.IMPERIAL_TIE_DEFENDER_V2]);
@@ -26,11 +26,11 @@ drawShip(id++, "tieSfFighterCanvas", ShipFaction.properties[ShipFaction.FIRST_OR
 
 function drawShip(id, elementId, shipFaction)
 {
-   var canvas = document.getElementById(elementId);
-   var context = canvas.getContext("2d");
-   var scale = 1.0;
-   var position = new Position(50, 50, 0);
-   var image = new Image();
+   const canvas = document.getElementById(elementId);
+   const context = canvas.getContext("2d");
+   const scale = 1.0;
+   const position = new Position(50, 50, 0);
+   const image = new Image();
    image.onload = function()
    {
       ShipImage.draw(context, scale, id, image, position, shipFaction);

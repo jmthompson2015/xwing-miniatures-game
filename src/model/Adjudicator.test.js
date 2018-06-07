@@ -13,10 +13,10 @@ QUnit.module("Adjudicator");
 QUnit.test("canAttack() yes", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
 
    // Run / Verify.
    assert.ok(adjudicator.canAttack(attacker));
@@ -25,10 +25,10 @@ QUnit.test("canAttack() yes", function(assert)
 QUnit.test("canAttack() no - cloaked", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
    store.dispatch(CardAction.addCloakCount(attacker));
 
    // Run / Verify.
@@ -38,10 +38,10 @@ QUnit.test("canAttack() no - cloaked", function(assert)
 QUnit.test("canAttack() no - weapons disabled", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
    store.dispatch(CardAction.addWeaponsDisabledCount(attacker));
 
    // Run / Verify.
@@ -51,10 +51,10 @@ QUnit.test("canAttack() no - weapons disabled", function(assert)
 QUnit.test("canSelectShipAction() yes", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
 
    // Run / Verify.
    assert.ok(adjudicator.canSelectShipAction(attacker));
@@ -63,13 +63,13 @@ QUnit.test("canSelectShipAction() yes", function(assert)
 QUnit.test("canSlam() yes", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
-   var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
+   const previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
    store.dispatch(Action.setTokenManeuver(attacker, previousManeuver));
-   var maneuverKey = Maneuver.BANK_LEFT_3_STANDARD;
+   const maneuverKey = Maneuver.BANK_LEFT_3_STANDARD;
 
    // Run / Verify.
    assert.equal(adjudicator.canSlam(attacker, maneuverKey), true);
@@ -78,13 +78,13 @@ QUnit.test("canSlam() yes", function(assert)
 QUnit.test("canSlam() no (maneuver)", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
-   var previousManeuver = Maneuver.properties[Maneuver.TURN_LEFT_1_STANDARD];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
+   const previousManeuver = Maneuver.properties[Maneuver.TURN_LEFT_1_STANDARD];
    store.dispatch(Action.setTokenManeuver(attacker, previousManeuver));
-   var maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
+   const maneuverKey = Maneuver.STRAIGHT_1_STANDARD;
 
    // Run / Verify.
    assert.equal(adjudicator.canSlam(attacker, maneuverKey), false);
@@ -93,16 +93,16 @@ QUnit.test("canSlam() no (maneuver)", function(assert)
 QUnit.test("canSlam() no (ship fled)", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
-   var fromPosition = environment.getPositionFor(attacker);
-   var toPosition = new Position(894, fromPosition.y(), fromPosition.heading());
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
+   const fromPosition = environment.getPositionFor(attacker);
+   const toPosition = new Position(894, fromPosition.y(), fromPosition.heading());
    environment.moveToken(fromPosition, toPosition);
-   var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
+   const previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
    store.dispatch(Action.setTokenManeuver(attacker, previousManeuver));
-   var maneuverKey = Maneuver.BANK_LEFT_3_STANDARD;
+   const maneuverKey = Maneuver.BANK_LEFT_3_STANDARD;
 
    // Run / Verify.
    assert.equal(adjudicator.canSlam(attacker, maneuverKey), false);
@@ -111,13 +111,13 @@ QUnit.test("canSlam() no (ship fled)", function(assert)
 QUnit.test("canSlam() no (speed)", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
-   var attacker = environment.pilotInstances()[0];
-   var previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
+   const attacker = environment.pilotInstances()[0];
+   const previousManeuver = Maneuver.properties[Maneuver.STRAIGHT_3_EASY];
    store.dispatch(Action.setTokenManeuver(attacker, previousManeuver));
-   var maneuverKey = Maneuver.BANK_LEFT_2_EASY;
+   const maneuverKey = Maneuver.BANK_LEFT_2_EASY;
 
    // Run / Verify.
    assert.equal(adjudicator.canSlam(attacker, maneuverKey), false);
@@ -126,13 +126,13 @@ QUnit.test("canSlam() no (speed)", function(assert)
 QUnit.test("compareInitiative() by squad points", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var adjudicator = new Adjudicator(store);
-   var imperial = SquadBuilder.CoreSetImperialSquadBuilder; // 36 points
-   var firstOrder = SquadBuilder.CoreSetFirstOrderSquadBuilder; // 38 points
-   var rebel = SquadBuilder.findByNameAndYear("Worlds #5", 2013); // 100 squad points
-   var resistance = SquadBuilder.CoreSetResistanceSquadBuilder; // 39 points
-   var scum = SquadBuilder.findByNameAndYear("Worlds #1", 2017); // 98 squad points
+   const store = Redux.createStore(Reducer.root);
+   const adjudicator = new Adjudicator(store);
+   const imperial = SquadBuilder.CoreSetImperialSquadBuilder; // 36 points
+   const firstOrder = SquadBuilder.CoreSetFirstOrderSquadBuilder; // 38 points
+   const rebel = SquadBuilder.findByNameAndYear("Worlds #5", 2013); // 100 squad points
+   const resistance = SquadBuilder.CoreSetResistanceSquadBuilder; // 39 points
+   const scum = SquadBuilder.findByNameAndYear("Worlds #1", 2017); // 98 squad points
 
    // Run / Verify.
    assert.equal(adjudicator.compareInitiative(imperial, imperial), 0);
@@ -169,13 +169,13 @@ QUnit.test("compareInitiative() by squad points", function(assert)
 QUnit.test("compareInitiative() by faction", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var adjudicator = new Adjudicator(store);
-   var imperial = SquadBuilder.findByNameAndYear("Worlds #5", 2016); // 100 squad points
-   var firstOrder = SquadBuilder.findByNameAndYear("Worlds #3", 2016); // 99 squad points
-   var rebel = SquadBuilder.findByNameAndYear("Worlds #5", 2013); // 100 squad points
-   var resistance = SquadBuilder.findByNameAndYear("Worlds #2", 2017); // 100 squad points
-   var scum = SquadBuilder.findByNameAndYear("Worlds #5", 2017); // 100 squad points
+   const store = Redux.createStore(Reducer.root);
+   const adjudicator = new Adjudicator(store);
+   const imperial = SquadBuilder.findByNameAndYear("Worlds #5", 2016); // 100 squad points
+   const firstOrder = SquadBuilder.findByNameAndYear("Worlds #3", 2016); // 99 squad points
+   const rebel = SquadBuilder.findByNameAndYear("Worlds #5", 2013); // 100 squad points
+   const resistance = SquadBuilder.findByNameAndYear("Worlds #2", 2017); // 100 squad points
+   const scum = SquadBuilder.findByNameAndYear("Worlds #5", 2017); // 100 squad points
 
    // Run / Verify.
    assert.equal(adjudicator.compareInitiative(imperial, imperial), 0);
@@ -212,9 +212,9 @@ QUnit.test("compareInitiative() by faction", function(assert)
 QUnit.test("determineWinner()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
 
    // Run / Verify.
    assert.ok(!adjudicator.determineWinner());
@@ -223,9 +223,9 @@ QUnit.test("determineWinner()", function(assert)
 QUnit.test("isGameOver()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var adjudicator = new Adjudicator(store);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const adjudicator = new Adjudicator(store);
 
    // Run / Verify.
    assert.ok(!adjudicator.isGameOver());

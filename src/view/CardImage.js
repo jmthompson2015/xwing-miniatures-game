@@ -20,7 +20,7 @@ CardImage.prototype.canvasId = function()
 
 CardImage.prototype.createSrc = function()
 {
-   var card = this.props.card;
+   const card = this.props.card;
 
    let answer;
 

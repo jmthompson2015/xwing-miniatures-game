@@ -20,13 +20,13 @@ QUnit.module("Weapon");
 QUnit.test("Weapon properties", function(assert)
 {
    // Setup.
-   var weapon = new Weapon("Primary Weapon", 12, [Range.TWO, Range.THREE], FiringArc.FORWARD);
+   const weapon = new Weapon("Primary Weapon", 12, [Range.TWO, Range.THREE], FiringArc.FORWARD);
 
    // Run / Verify.
    assert.equal(weapon.name(), "Primary Weapon");
    assert.equal(weapon.isPrimary(), true);
    assert.equal(weapon.weaponValue(), 12);
-   var rangeKeys = weapon.rangeKeys();
+   const rangeKeys = weapon.rangeKeys();
    assert.equal(rangeKeys.length, 2);
    assert.equal(rangeKeys[0], Range.TWO);
    assert.equal(rangeKeys[1], Range.THREE);
@@ -35,18 +35,18 @@ QUnit.test("Weapon properties", function(assert)
 QUnit.test("isDefenderInRange() range one", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var attackerPosition0 = new Position(458, 895, -90);
-   var attacker = environment.getTokenAt(attackerPosition0);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const attackerPosition0 = new Position(458, 895, -90);
+   const attacker = environment.getTokenAt(attackerPosition0);
    assert.ok(attacker);
-   var defenderPosition = new Position(305, 20, 90);
-   var defender = environment.getTokenAt(defenderPosition);
-   var attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, -90);
+   const defenderPosition = new Position(305, 20, 90);
+   const defender = environment.getTokenAt(defenderPosition);
+   const attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, -90);
    environment.moveToken(attackerPosition0, attackerPosition);
-   var weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
+   const weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
 
    // Run.
-   var result = weapon.isDefenderInRange(attacker, attackerPosition, defender, defenderPosition);
+   const result = weapon.isDefenderInRange(attacker, attackerPosition, defender, defenderPosition);
 
    // Verify.
    assert.ok(result);
@@ -55,18 +55,18 @@ QUnit.test("isDefenderInRange() range one", function(assert)
 QUnit.test("isDefenderInFiringArc() range one", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var attackerPosition0 = new Position(458, 895, -90);
-   var attacker = environment.getTokenAt(attackerPosition0);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const attackerPosition0 = new Position(458, 895, -90);
+   const attacker = environment.getTokenAt(attackerPosition0);
    assert.ok(attacker);
-   var defenderPosition = new Position(305, 20, 90);
-   var defender = environment.getTokenAt(defenderPosition);
-   var attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, -90);
+   const defenderPosition = new Position(305, 20, 90);
+   const defender = environment.getTokenAt(defenderPosition);
+   const attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, -90);
    environment.moveToken(attackerPosition0, attackerPosition);
-   var weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
+   const weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
 
    // Run.
-   var result = weapon.isDefenderInFiringArc(attackerPosition, attacker.primaryWeapon().primaryFiringArc(), defender, defenderPosition);
+   const result = weapon.isDefenderInFiringArc(attackerPosition, attacker.primaryWeapon().primaryFiringArc(), defender, defenderPosition);
 
    // Verify.
    assert.ok(result);
@@ -75,18 +75,18 @@ QUnit.test("isDefenderInFiringArc() range one", function(assert)
 QUnit.test("isDefenderInFiringArc() rotated", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var attackerPosition0 = new Position(458, 895, -90);
-   var attacker = environment.getTokenAt(attackerPosition0);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const attackerPosition0 = new Position(458, 895, -90);
+   const attacker = environment.getTokenAt(attackerPosition0);
    assert.ok(attacker);
-   var defenderPosition = new Position(305, 20, 90);
-   var defender = environment.getTokenAt(defenderPosition);
-   var attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, 0);
+   const defenderPosition = new Position(305, 20, 90);
+   const defender = environment.getTokenAt(defenderPosition);
+   const attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, 0);
    environment.moveToken(attackerPosition0, attackerPosition);
-   var weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
+   const weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
 
    // Run.
-   var result = weapon.isDefenderInFiringArc(attackerPosition, attacker.primaryWeapon().primaryFiringArc(), defender, defenderPosition);
+   const result = weapon.isDefenderInFiringArc(attackerPosition, attacker.primaryWeapon().primaryFiringArc(), defender, defenderPosition);
 
    // Verify.
    assert.ok(!result);
@@ -95,18 +95,18 @@ QUnit.test("isDefenderInFiringArc() rotated", function(assert)
 QUnit.test("isDefenderTargetable() range one", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var attackerPosition0 = new Position(458, 895, -90);
-   var attacker = environment.getTokenAt(attackerPosition0);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const attackerPosition0 = new Position(458, 895, -90);
+   const attacker = environment.getTokenAt(attackerPosition0);
    assert.ok(attacker);
-   var defenderPosition = new Position(305, 20, 90);
-   var defender = environment.getTokenAt(defenderPosition);
-   var attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, -90);
+   const defenderPosition = new Position(305, 20, 90);
+   const defender = environment.getTokenAt(defenderPosition);
+   const attackerPosition = new Position(defenderPosition.x(), defenderPosition.y() + 50, -90);
    environment.moveToken(attackerPosition0, attackerPosition);
-   var weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
+   const weapon = new Weapon("myWeapon", 12, [Range.ONE, Range.TWO], FiringArc.FORWARD);
 
    // Run.
-   var result = weapon.isDefenderTargetable(attacker, attackerPosition, defender, defenderPosition);
+   const result = weapon.isDefenderTargetable(attacker, attackerPosition, defender, defenderPosition);
 
    // Verify.
    assert.ok(result);
@@ -115,22 +115,22 @@ QUnit.test("isDefenderTargetable() range one", function(assert)
 QUnit.test("isUsable()", function(assert)
 {
    // Setup.
-   var store00 = Redux.createStore(Reducer.root);
-   var imperialAgent = new Agent(store00, "Imperial Agent");
-   var rebelAgent = new Agent(store00, "Rebel Agent");
-   var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
-   var squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
-   var positions1 = [new Position(450, 845, 90)];
-   var positions2 = [new Position(458, 895, -90)];
+   const store00 = Redux.createStore(Reducer.root);
+   const imperialAgent = new Agent(store00, "Imperial Agent");
+   const rebelAgent = new Agent(store00, "Rebel Agent");
+   const squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad1", [new CardInstance(store00, PilotCard.ACADEMY_PILOT, imperialAgent)]);
+   const squad2 = new Squad(Faction.REBEL, "squad2", 2017, "squad2", [new CardInstance(store00, PilotCard.DASH_RENDAR, rebelAgent, [UpgradeCard.MANGLER_CANNON, UpgradeCard.BLASTER_TURRET, UpgradeCard.PROTON_TORPEDOES])]);
+   const positions1 = [new Position(450, 845, 90)];
+   const positions2 = [new Position(458, 895, -90)];
 
-   var store = Redux.createStore(Reducer.root);
-   var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
-   var tokens = environment.pilotInstances();
-   var attacker = tokens[1];
-   var defender = tokens[0];
-   var weapon0 = attacker.secondaryWeapons()[0]; // Mangler cannon.
-   var weapon1 = attacker.secondaryWeapons()[1]; // Blaster turret.
-   var weapon2 = attacker.secondaryWeapons()[2]; // Cluster missiles.
+   const store = Redux.createStore(Reducer.root);
+   const environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2, positions1, positions2);
+   const tokens = environment.pilotInstances();
+   const attacker = tokens[1];
+   const defender = tokens[0];
+   const weapon0 = attacker.secondaryWeapons()[0]; // Mangler cannon.
+   const weapon1 = attacker.secondaryWeapons()[1]; // Blaster turret.
+   const weapon2 = attacker.secondaryWeapons()[2]; // Cluster missiles.
 
    // Run / Verify.
    assert.ok(weapon0.isUsable(attacker, defender));
@@ -155,7 +155,7 @@ QUnit.test("isUsable()", function(assert)
 QUnit.test("toString()", function(assert)
 {
    // Setup.
-   var weapon = new Weapon("myWeapon", 12, [Range.TWO, Range.THREE], FiringArc.FORWARD);
+   const weapon = new Weapon("myWeapon", 12, [Range.TWO, Range.THREE], FiringArc.FORWARD);
 
    // Run / Verify.
    assert.equal(weapon.toString(), "myWeapon");

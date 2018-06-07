@@ -22,10 +22,10 @@ QUnit.module("CardReducer");
 QUnit.test("addCloakCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.CLOAK;
+   const property = Count.CLOAK;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -47,10 +47,10 @@ QUnit.test("addCloakCount()", function(assert)
 QUnit.test("addCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = "focus";
+   const property = "focus";
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -79,10 +79,10 @@ QUnit.test("addCount()", function(assert)
 QUnit.test("addEnergyCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.ENERGY;
+   const property = Count.ENERGY;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -104,10 +104,10 @@ QUnit.test("addEnergyCount()", function(assert)
 QUnit.test("addEvadeCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.EVADE;
+   const property = Count.EVADE;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -129,10 +129,10 @@ QUnit.test("addEvadeCount()", function(assert)
 QUnit.test("addFocusCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.FOCUS;
+   const property = Count.FOCUS;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -154,10 +154,10 @@ QUnit.test("addFocusCount()", function(assert)
 QUnit.test("addIonCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.ION;
+   const property = Count.ION;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -179,10 +179,10 @@ QUnit.test("addIonCount()", function(assert)
 QUnit.test("addReinforceCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.REINFORCE;
+   const property = Count.REINFORCE;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -204,10 +204,10 @@ QUnit.test("addReinforceCount()", function(assert)
 QUnit.test("addShieldCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.SHIELD;
+   const property = Count.SHIELD;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -229,10 +229,10 @@ QUnit.test("addShieldCount()", function(assert)
 QUnit.test("addStressCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.STRESS;
+   const property = Count.STRESS;
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 0);
 
@@ -254,13 +254,13 @@ QUnit.test("addStressCount()", function(assert)
 QUnit.test("removeDamage()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var damageInstance0 = new CardInstance(store, DamageCard.BLINDED_PILOT);
-   var damageInstance1 = new CardInstance(store, DamageCard.CONSOLE_FIRE);
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const damageInstance0 = new CardInstance(store, DamageCard.BLINDED_PILOT);
+   const damageInstance1 = new CardInstance(store, DamageCard.CONSOLE_FIRE);
    store.dispatch(CardAction.addDamage(token, damageInstance0));
    store.dispatch(CardAction.addDamage(token, damageInstance1));
-   var damages = store.getState().cardDamages.get(token.id());
+   let damages = store.getState().cardDamages.get(token.id());
    assert.ok(damages);
    assert.equal(damages.size, 2);
    assert.equal(damages.get(0), damageInstance0.id());
@@ -287,11 +287,11 @@ QUnit.test("removeDamage()", function(assert)
 QUnit.test("removeTokenUpgrade()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var upgrade0 = new CardInstance(store, UpgradeCard.ADRENALINE_RUSH);
-   var upgrade1 = new CardInstance(store, UpgradeCard.CALCULATION);
+   const upgrade0 = new CardInstance(store, UpgradeCard.ADRENALINE_RUSH);
+   const upgrade1 = new CardInstance(store, UpgradeCard.CALCULATION);
    store.dispatch(CardAction.addUpgrade(token, upgrade0));
    store.dispatch(CardAction.addUpgrade(token, upgrade1));
    assert.ok(store.getState().cardUpgrades.get(token.id()));
@@ -318,17 +318,17 @@ QUnit.test("removeTokenUpgrade()", function(assert)
 QUnit.test("removeTokenUsedAbility()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var damage = new Ability(DamageCard, DamageCard.BLINDED_PILOT, DamageAbility3, Phase.COMBAT_DEAL_DAMAGE);
-   var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-   var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
-   var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const damage = new Ability(DamageCard, DamageCard.BLINDED_PILOT, DamageAbility3, Phase.COMBAT_DEAL_DAMAGE);
+   const pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
+   const shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
+   const upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
    store.dispatch(CardAction.addUsedAbility(token, damage));
    store.dispatch(CardAction.addUsedAbility(token, pilot));
    store.dispatch(CardAction.addUsedAbility(token, shipAction));
    store.dispatch(CardAction.addUsedAbility(token, upgrade));
-   var usedAbilities = token.usedAbilities();
+   let usedAbilities = token.usedAbilities();
    assert.equal(usedAbilities.size, 4);
    assert.equal(usedAbilities.get(0).source(), DamageCard);
    assert.equal(usedAbilities.get(1).source(), PilotCard);
@@ -366,17 +366,17 @@ QUnit.test("removeTokenUsedAbility()", function(assert)
 QUnit.test("removeTokenUsedPerRoundAbility()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
-   var damage = new Ability(DamageCard, DamageCard.BLINDED_PILOT, DamageAbility3, Phase.COMBAT_DEAL_DAMAGE);
-   var pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
-   var shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
-   var upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const damage = new Ability(DamageCard, DamageCard.BLINDED_PILOT, DamageAbility3, Phase.COMBAT_DEAL_DAMAGE);
+   const pilot = new Ability(PilotCard, PilotCard.ACADEMY_PILOT, PilotAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
+   const shipAction = new Ability(ShipAction, ShipAction.EVADE, ShipActionAbility, ShipActionAbility.ABILITY_KEY);
+   const upgrade = new Ability(UpgradeCard, UpgradeCard.A_WING_TEST_PILOT, UpgradeAbility3, Phase.COMBAT_MODIFY_ATTACK_DICE);
    store.dispatch(CardAction.addUsedPerRoundAbility(token, damage));
    store.dispatch(CardAction.addUsedPerRoundAbility(token, pilot));
    store.dispatch(CardAction.addUsedPerRoundAbility(token, shipAction));
    store.dispatch(CardAction.addUsedPerRoundAbility(token, upgrade));
-   var usedAbilities = token.usedPerRoundAbilities();
+   let usedAbilities = token.usedPerRoundAbilities();
    assert.equal(usedAbilities.size, 4);
    assert.equal(usedAbilities.get(0).source(), DamageCard);
    assert.equal(usedAbilities.get(1).source(), PilotCard);
@@ -414,10 +414,10 @@ QUnit.test("removeTokenUsedPerRoundAbility()", function(assert)
 QUnit.test("setCloakCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.CLOAK;
+   const property = Count.CLOAK;
    store.dispatch(CardAction.addCloakCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -433,10 +433,10 @@ QUnit.test("setCloakCount()", function(assert)
 QUnit.test("setCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = "focus";
+   const property = "focus";
    store.dispatch(CardAction.addCount(token, property));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -452,10 +452,10 @@ QUnit.test("setCount()", function(assert)
 QUnit.test("setEnergyCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.ENERGY;
+   const property = Count.ENERGY;
    store.dispatch(CardAction.addEnergyCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -471,10 +471,10 @@ QUnit.test("setEnergyCount()", function(assert)
 QUnit.test("setEvadeCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.EVADE;
+   const property = Count.EVADE;
    store.dispatch(CardAction.addEvadeCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -490,8 +490,8 @@ QUnit.test("setEvadeCount()", function(assert)
 QUnit.test("setFaceUp()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var cardInstance = new CardInstance(store, DamageCard.BLINDED_PILOT);
+   const store = Redux.createStore(Reducer.root);
+   const cardInstance = new CardInstance(store, DamageCard.BLINDED_PILOT);
    assert.equal(store.getState().cardIsFaceUp.get(cardInstance.id()), undefined);
 
    // Run.
@@ -510,10 +510,10 @@ QUnit.test("setFaceUp()", function(assert)
 QUnit.test("setFocusCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.FOCUS;
+   const property = Count.FOCUS;
    store.dispatch(CardAction.addFocusCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -529,10 +529,10 @@ QUnit.test("setFocusCount()", function(assert)
 QUnit.test("setIonCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.ION;
+   const property = Count.ION;
    store.dispatch(CardAction.addIonCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -548,10 +548,10 @@ QUnit.test("setIonCount()", function(assert)
 QUnit.test("setReinforceCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.REINFORCE;
+   const property = Count.REINFORCE;
    store.dispatch(CardAction.addReinforceCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -567,10 +567,10 @@ QUnit.test("setReinforceCount()", function(assert)
 QUnit.test("setShieldCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.SHIELD;
+   const property = Count.SHIELD;
    store.dispatch(CardAction.addShieldCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -586,10 +586,10 @@ QUnit.test("setShieldCount()", function(assert)
 QUnit.test("setStressCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.STRESS;
+   const property = Count.STRESS;
    store.dispatch(CardAction.addStressCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);
@@ -605,10 +605,10 @@ QUnit.test("setStressCount()", function(assert)
 QUnit.test("setWeaponsDisabledCount()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
-   var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
+   const store = Redux.createStore(Reducer.root);
+   const token = new CardInstance(store, PilotCard.ACADEMY_PILOT, new Agent(store, "Imperial"));
    store.dispatch(EnvironmentAction.placeToken(new Position(10, 20, 30), token));
-   var property = Count.WEAPONS_DISABLED;
+   const property = Count.WEAPONS_DISABLED;
    store.dispatch(CardAction.addWeaponsDisabledCount(token));
    assert.ok(store.getState().cardCounts.get(token.id()));
    assert.equal(store.getState().cardCounts.get(token.id()).get(property), 1);

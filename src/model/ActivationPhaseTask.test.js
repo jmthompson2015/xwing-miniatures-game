@@ -15,13 +15,13 @@ import EnvironmentFactory from "./EnvironmentFactory.js";
 
 QUnit.module("ActivationPhaseTask");
 
-var delay = 10;
+const delay = 10;
 
 QUnit.test("performActivationPhase()", function(assert)
 {
    // Setup.
-   var task = createTask();
-   var callback = function()
+   const task = createTask();
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -29,15 +29,15 @@ QUnit.test("performActivationPhase()", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    task.doIt(callback);
 });
 
 QUnit.test("performActivationPhase() Huge", function(assert)
 {
    // Setup.
-   var task = createTask(true);
-   var callback = function()
+   const task = createTask(true);
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
@@ -45,36 +45,36 @@ QUnit.test("performActivationPhase() Huge", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    task.doIt(callback);
 });
 
 QUnit.test("performActivationPhase() decloak", function(assert)
 {
    // Setup.
-   var squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #2", 2014);
-   var squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
-   var store = Redux.createStore(Reducer.root);
-   var agent1 = new Agent(store, "1");
-   var agent2 = new Agent(store, "2");
-   var squad1 = squadBuilder1.buildSquad(agent1);
-   var squad2 = squadBuilder2.buildSquad(agent2);
-   var environment = new Environment(store, agent1, squad1, agent2, squad2);
+   const squadBuilder1 = SquadBuilder.findByNameAndYear("Worlds #2", 2014);
+   const squadBuilder2 = SquadBuilder.findByNameAndYear("Worlds #1", 2015);
+   const store = Redux.createStore(Reducer.root);
+   const agent1 = new Agent(store, "1");
+   const agent2 = new Agent(store, "2");
+   const squad1 = squadBuilder1.buildSquad(agent1);
+   const squad2 = squadBuilder2.buildSquad(agent2);
+   const environment = new Environment(store, agent1, squad1, agent2, squad2);
    Adjudicator.create(store);
    store.dispatch(Action.setDelay(delay));
-   var token0 = environment.pilotInstances()[0]; // TIE Phantom
+   const token0 = environment.pilotInstances()[0]; // TIE Phantom
    EventObserver.observeStore(store);
    PhaseObserver.observeStore(store);
-   var pilotToManeuver = createPilotToManeuver(environment);
+   const pilotToManeuver = createPilotToManeuver(environment);
    store.dispatch(Action.addPilotToManeuver(pilotToManeuver));
    store.dispatch(CardAction.addCloakCount(token0));
-   var task = new ActivationPhaseTask(store);
-   var callback = function()
+   const task = new ActivationPhaseTask(store);
+   const callback = function()
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
 
-      var token = environment.pilotInstances()[0]; // TIE Phantom
+      const token = environment.pilotInstances()[0]; // TIE Phantom
       if (token.card().key === PilotCard.WHISPER)
       {
          if (token.isCloaked())
@@ -104,15 +104,15 @@ QUnit.test("performActivationPhase() decloak", function(assert)
    assert.equal(token0.cloakCount(), 1);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    task.doIt(callback);
 });
 
 function createPilotToManeuver(environment)
 {
-   var answer = {};
-   var pilotInstances = environment.pilotInstances();
-   var maneuver;
+   const answer = {};
+   const pilotInstances = environment.pilotInstances();
+   let maneuver;
 
    pilotInstances.forEach(function(cardInstance)
    {
@@ -125,7 +125,7 @@ function createPilotToManeuver(environment)
 
 function createTask(isHuge)
 {
-   var environment;
+   let environment;
 
    if (isHuge)
    {
@@ -136,10 +136,10 @@ function createTask(isHuge)
       environment = EnvironmentFactory.createCoreSetEnvironment();
    }
 
-   var pilotToManeuver = createPilotToManeuver(environment);
+   const pilotToManeuver = createPilotToManeuver(environment);
 
-   var store = environment.store();
-   var adjudicator = Adjudicator.create(store);
+   const store = environment.store();
+   const adjudicator = Adjudicator.create(store);
    store.dispatch(Action.setAdjudicator(adjudicator));
    store.dispatch(Action.setDelay(delay));
    store.dispatch(Action.addPilotToManeuver(pilotToManeuver));

@@ -3,12 +3,12 @@ import StringUtilities from "../../utility/StringUtilities.js";
 import Event from "../../artifact/Event.js";
 import Phase from "../../artifact/Phase.js";
 
-var EventComparator = function(eventA, eventB)
+const EventComparator = function(eventA, eventB)
 {
-   var valueA = createValue(eventA);
-   var valueB = createValue(eventB);
+   const valueA = createValue(eventA);
+   const valueB = createValue(eventB);
 
-   var answer = -1;
+   let answer = -1;
    if (valueA === valueB)
    {
       answer = 0;
@@ -23,8 +23,8 @@ var EventComparator = function(eventA, eventB)
 
 function createValue(event)
 {
-   var answer = event;
-   var key = event.substring(event.indexOf(".") + 1);
+   let answer = event;
+   const key = event.substring(event.indexOf(".") + 1);
 
    if (event.startsWith("Event"))
    {

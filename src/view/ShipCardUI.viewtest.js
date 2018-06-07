@@ -8,9 +8,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
+const resourceBase = "../resource/";
 
-var element = React.createElement(ShipCardUI,
+let element = React.createElement(ShipCardUI,
 {
    resourceBase: resourceBase,
    shipFaction: ShipFaction.properties[ShipFaction.IMPERIAL_TIE_FIGHTER],

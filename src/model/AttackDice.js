@@ -21,10 +21,10 @@ function AttackDice(store, attackerId, sizeOrValues)
 
    if (typeof sizeOrValues === "number")
    {
-      var size = sizeOrValues;
-      var newValues = [];
+      const size = sizeOrValues;
+      const newValues = [];
 
-      for (var i = 0; i < size; i++)
+      for (let i = 0; i < size; i++)
       {
          newValues.push(AttackDice.rollRandomValue());
       }
@@ -69,8 +69,8 @@ AttackDice.prototype.sortedValues = function()
 {
    return this.values().sort(function(die0, die1)
    {
-      var value0 = AttackDiceValue.properties[die0].sortOrder;
-      var value1 = AttackDiceValue.properties[die1].sortOrder;
+      const value0 = AttackDiceValue.properties[die0].sortOrder;
+      const value1 = AttackDiceValue.properties[die1].sortOrder;
 
       return value0 - value1;
    });
@@ -78,7 +78,7 @@ AttackDice.prototype.sortedValues = function()
 
 AttackDice.prototype.toString = function()
 {
-   var values = this.values();
+   const values = this.values();
 
    return "attackerId=" + this.attackerId() + ", size=" + values.length + ", values=" + values;
 };
@@ -87,7 +87,7 @@ AttackDice.prototype.value = function(index)
 {
    InputValidator.validateIsNumber("index", index);
 
-   var values = this.values();
+   const values = this.values();
 
    return values[index];
 };
@@ -104,9 +104,9 @@ AttackDice.prototype.valueCount = function(target)
 
 AttackDice.prototype.values = function()
 {
-   var store = this.store();
-   var attackerId = this.attackerId();
-   var answer = store.getState().cardAttackDice.get(attackerId);
+   const store = this.store();
+   const attackerId = this.attackerId();
+   const answer = store.getState().cardAttackDice.get(attackerId);
 
    return (answer !== undefined ? answer.toJS() : []);
 };
@@ -118,18 +118,18 @@ AttackDice.prototype.addDie = function(value)
 {
    // value optional.
 
-   var myValue = (value !== undefined ? value : AttackDice.rollRandomValue());
-   var values = this.values();
+   const myValue = (value !== undefined ? value : AttackDice.rollRandomValue());
+   const values = this.values();
    values.push(myValue);
    this.save(values);
 };
 
 AttackDice.prototype.changeAllToValue = function(oldValue, newValue)
 {
-   var oldValues = this.values();
-   var newValues = oldValues.slice();
+   const oldValues = this.values();
+   const newValues = oldValues.slice();
 
-   for (var i = 0; i < oldValues.length; i++)
+   for (let i = 0; i < oldValues.length; i++)
    {
       if (oldValues[i] === oldValue)
       {
@@ -142,10 +142,10 @@ AttackDice.prototype.changeAllToValue = function(oldValue, newValue)
 
 AttackDice.prototype.changeOneToValue = function(oldValue, newValue)
 {
-   var oldValues = this.values();
-   var newValues = oldValues.slice();
+   const oldValues = this.values();
+   const newValues = oldValues.slice();
 
-   for (var i = 0; i < oldValues.length; i++)
+   for (let i = 0; i < oldValues.length; i++)
    {
       if (oldValues[i] === oldValue)
       {
@@ -159,13 +159,13 @@ AttackDice.prototype.changeOneToValue = function(oldValue, newValue)
 
 AttackDice.prototype.rerollAllBlank = function()
 {
-   var oldValues = this.values();
-   var newValues = [];
+   const oldValues = this.values();
+   const newValues = [];
 
    // Reroll all blank values.
-   for (var i = 0; i < oldValues.size; i++)
+   for (let i = 0; i < oldValues.size; i++)
    {
-      var oldValue = oldValues.get(i);
+      const oldValue = oldValues.get(i);
 
       if (oldValue === AttackDiceValue.BLANK)
       {
@@ -182,13 +182,13 @@ AttackDice.prototype.rerollAllBlank = function()
 
 AttackDice.prototype.rerollAllFocus = function()
 {
-   var oldValues = this.values();
-   var newValues = [];
+   const oldValues = this.values();
+   const newValues = [];
 
    // Reroll all focus values.
-   for (var i = 0; i < oldValues.size; i++)
+   for (let i = 0; i < oldValues.size; i++)
    {
-      var oldValue = oldValues.get(i);
+      const oldValue = oldValues.get(i);
 
       if (oldValue === AttackDiceValue.FOCUS)
       {
@@ -214,7 +214,7 @@ AttackDice.prototype.rerollBlankAndFocus = function(count)
 {
    // count optional; default: 1
 
-   var blankCount = this.blankCount();
+   const blankCount = this.blankCount();
 
    if (blankCount >= count)
    {
@@ -228,7 +228,7 @@ AttackDice.prototype.rerollBlankAndFocus = function(count)
          this.rerollBlank(count);
       }
 
-      var myCount = count - blankCount;
+      const myCount = count - blankCount;
 
       if (myCount > 0)
       {
@@ -250,14 +250,14 @@ AttackDice.prototype.rerollType = function(type, count)
    // count optional; default: 1
 
    // Reroll type values.
-   var myCount = (count === undefined ? 1 : count);
+   let myCount = (count === undefined ? 1 : count);
 
-   var oldValues = this.values();
-   var newValues = oldValues;
+   const oldValues = this.values();
+   let newValues = oldValues;
 
-   for (var i = 0; i < oldValues.size; i++)
+   for (let i = 0; i < oldValues.size; i++)
    {
-      var oldValue = oldValues.get(i);
+      const oldValue = oldValues.get(i);
 
       if (oldValue === type)
       {
@@ -276,9 +276,9 @@ AttackDice.prototype.rerollType = function(type, count)
 
 AttackDice.prototype.save = function(newValues)
 {
-   var store = this.store();
-   var attackerId = this.attackerId();
-   var values = (Array.isArray(newValues) ? Immutable.List(newValues) : newValues);
+   const store = this.store();
+   const attackerId = this.attackerId();
+   const values = (Array.isArray(newValues) ? Immutable.List(newValues) : newValues);
    store.dispatch(Action.setTokenAttackDice(attackerId, values));
 };
 
@@ -291,8 +291,8 @@ AttackDice.prototype.spendFocusToken = function()
 AttackDice.prototype.spendTargetLock = function()
 {
    // Reroll any blank or focus values.
-   var oldValues = this.values();
-   var newValues = oldValues.slice();
+   const oldValues = this.values();
+   const newValues = oldValues.slice();
 
    oldValues.forEach(function(oldValue, i)
    {
@@ -318,10 +318,10 @@ AttackDice.get = function(store, attackerId)
 
 AttackDice.rollRandomValue = function()
 {
-   var min = 1;
-   var max = 8;
-   var roll = Math.floor(Math.random() * (max - min + 1)) + min;
-   var value;
+   const min = 1;
+   const max = 8;
+   const roll = Math.floor(Math.random() * (max - min + 1)) + min;
+   let value;
 
    // There are 2 focus, 3 hit, 1 critical hit, and 2 blank.
    switch (roll)

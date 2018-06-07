@@ -10,12 +10,12 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var factionKey = Faction.IMPERIAL;
-var faction = Faction.properties[factionKey];
-var ship = Ship.properties[Ship.TIE_FIGHTER];
+const resourceBase = "../resource/";
+const factionKey = Faction.IMPERIAL;
+const faction = Faction.properties[factionKey];
+const ship = Ship.properties[Ship.TIE_FIGHTER];
 
-var element1 = React.createElement(PilotChooser,
+const element1 = React.createElement(PilotChooser,
 {
    faction: faction,
    onChange: pilotChanged,
@@ -24,7 +24,7 @@ var element1 = React.createElement(PilotChooser,
 });
 ReactDOM.render(element1, document.getElementById("pilotChooserPanel1"));
 
-var element2 = React.createElement(PilotChooser,
+const element2 = React.createElement(PilotChooser,
 {
    faction: faction,
    index: 2,
@@ -35,7 +35,7 @@ var element2 = React.createElement(PilotChooser,
 });
 ReactDOM.render(element2, document.getElementById("pilotChooserPanel2"));
 
-var element3 = React.createElement(PilotChooser,
+const element3 = React.createElement(PilotChooser,
 {
    faction: faction,
    index: 3,
@@ -46,7 +46,7 @@ var element3 = React.createElement(PilotChooser,
 });
 ReactDOM.render(element3, document.getElementById("pilotChooserPanel3"));
 
-var element4 = React.createElement(PilotChooser,
+const element4 = React.createElement(PilotChooser,
 {
    faction: faction,
    index: 4,

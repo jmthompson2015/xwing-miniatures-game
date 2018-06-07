@@ -15,7 +15,7 @@ function InitialState()
 
    this.tableRows = PilotCard.keys().reduce(function(accumulator, pilotKey)
    {
-      var pilot = PilotCard.properties[pilotKey];
+      const pilot = PilotCard.properties[pilotKey];
 
       if (pilot.fore && pilot.aft)
       {
@@ -38,7 +38,7 @@ function InitialState()
 
    this.isFilterShown = false;
    this.filters = DefaultFilters.create();
-   var oldFilters = InitialState.loadFromLocalStorage();
+   const oldFilters = InitialState.loadFromLocalStorage();
 
    if (oldFilters)
    {
@@ -58,8 +58,8 @@ InitialState.prototype.merge = function(oldFilters)
 
 InitialState.loadFromLocalStorage = function()
 {
-   var answer;
-   var filterObjects = JSON.parse(localStorage.filters || null);
+   let answer;
+   const filterObjects = JSON.parse(localStorage.filters || null);
 
    if (filterObjects)
    {
@@ -67,7 +67,7 @@ InitialState.loadFromLocalStorage = function()
 
       filterObjects.forEach(function(object)
       {
-         var filter;
+         let filter;
 
          switch (object.type)
          {

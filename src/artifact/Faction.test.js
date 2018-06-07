@@ -4,8 +4,8 @@ QUnit.module("Faction");
 
 QUnit.test("Faction properties Imperial", function(assert)
 {
-   var faction = Faction.IMPERIAL;
-   var properties = Faction.properties[faction];
+   const faction = Faction.IMPERIAL;
+   const properties = Faction.properties[faction];
    assert.equal(properties.name, "Imperial");
    assert.equal(properties.description, "Imperial faction");
    assert.equal(properties.key, "imperial");
@@ -13,8 +13,8 @@ QUnit.test("Faction properties Imperial", function(assert)
 
 QUnit.test("Faction properties Rebel", function(assert)
 {
-   var faction = Faction.REBEL;
-   var properties = Faction.properties[faction];
+   const faction = Faction.REBEL;
+   const properties = Faction.properties[faction];
    assert.equal(properties.name, "Rebel");
    assert.equal(properties.description, "Rebel faction");
    assert.equal(properties.key, "rebel");
@@ -22,8 +22,8 @@ QUnit.test("Faction properties Rebel", function(assert)
 
 QUnit.test("Faction properties Scum", function(assert)
 {
-   var faction = Faction.SCUM;
-   var properties = Faction.properties[faction];
+   const faction = Faction.SCUM;
+   const properties = Faction.properties[faction];
    assert.equal(properties.name, "Scum & Villainy");
    assert.equal(properties.description, "Scum & Villainy faction");
    assert.equal(properties.key, "scum");
@@ -58,13 +58,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Faction.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Faction);
+   const result = Faction.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Faction);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Faction[key];
+      const key2 = Faction[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -74,7 +74,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Faction[key] === value;
       });
@@ -86,20 +86,20 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Faction.keys();
+   const result = Faction.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 5);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], Faction.IMPERIAL);
    assert.equal(result[i++], Faction.FIRST_ORDER);
    assert.equal(result[i++], Faction.REBEL);
    assert.equal(result[i++], Faction.RESISTANCE);
    assert.equal(result[i++], Faction.SCUM);
 
-   var properties = Object.getOwnPropertyNames(Faction);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Faction);
+   const count = properties.length - 1 - // properties
       1 - // friend
       1 - // isFriendly
       1 - // keys

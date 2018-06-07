@@ -9,14 +9,14 @@ function mapStateToProps(state, ownProps)
 {
    InputValidator.validateNotNull("resourceBase", ownProps.resourceBase);
 
-   var arenaData = [];
+   const arenaData = [];
 
    state.squadBuilders.forEach(function(squadBuilder)
    {
-      var key = squadBuilder.toString();
-      var winCount = state.sbToWinCount[key];
-      var loseCount = state.sbToLoseCount[key];
-      var tieCount = state.sbToTieCount[key];
+      const key = squadBuilder.toString();
+      const winCount = state.sbToWinCount[key];
+      const loseCount = state.sbToLoseCount[key];
+      const tieCount = state.sbToTieCount[key];
       arenaData.push(TableRow.createTableRow(squadBuilder, winCount, loseCount, tieCount));
    });
 

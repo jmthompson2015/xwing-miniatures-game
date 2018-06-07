@@ -2,7 +2,7 @@ import InputValidator from "../utility/InputValidator.js";
 
 import CardType from "./CardType.js";
 
-var ConditionCard = {
+const ConditionCard = {
    A_DEBT_TO_PAY: "aDebtToPay",
    FANATICAL_DEVOTION: "fanaticalDevotion",
    HARPOONED: "harpooned",
@@ -100,7 +100,7 @@ ConditionCard.values = function()
 
 ConditionCard.keys().forEach(function(upgradeKey)
 {
-   var condition = ConditionCard.properties[upgradeKey];
+   const condition = ConditionCard.properties[upgradeKey];
    condition.cardTypeKey = CardType.CONDITION;
    condition.xwingType = ConditionCard;
 });
@@ -112,8 +112,8 @@ ConditionCard.getName = function(conditionKey)
 {
    InputValidator.validateNotNull("conditionKey", conditionKey);
 
-   var condition = ConditionCard.properties[conditionKey];
-   var answer = "";
+   const condition = ConditionCard.properties[conditionKey];
+   let answer = "";
    answer += (condition.isUnique ? "\u2022 " : ""); // bullet
    answer += condition.name;
 

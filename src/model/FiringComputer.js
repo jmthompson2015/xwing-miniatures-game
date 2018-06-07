@@ -8,7 +8,7 @@ import Position from "./Position.js";
 import RangeRuler from "./RangeRuler.js";
 import RectanglePath from "./RectanglePath.js";
 
-var FiringComputer = {};
+const FiringComputer = {};
 
 FiringComputer.isInFiringArc = function(attackerPosition, attackerFiringArc, defenderPosition, defenderShipBase)
 {
@@ -17,17 +17,17 @@ FiringComputer.isInFiringArc = function(attackerPosition, attackerFiringArc, def
    InputValidator.validateNotNull("defenderPosition", defenderPosition);
    InputValidator.validateNotNull("defenderShipBase", defenderShipBase);
 
-   var offsetKeys = FiringArc.offsetKeys();
-   var myAttackerPosition = (offsetKeys.includes(attackerFiringArc.key) ? FiringComputer._computeOffsetAttackerPosition(attackerPosition, attackerFiringArc) : attackerPosition);
+   const offsetKeys = FiringArc.offsetKeys();
+   const myAttackerPosition = (offsetKeys.includes(attackerFiringArc.key) ? FiringComputer._computeOffsetAttackerPosition(attackerPosition, attackerFiringArc) : attackerPosition);
 
-   var answer = FiringComputer._isInFiringArc(myAttackerPosition, attackerFiringArc, defenderPosition.x(), defenderPosition.y());
+   let answer = FiringComputer._isInFiringArc(myAttackerPosition, attackerFiringArc, defenderPosition.x(), defenderPosition.y());
 
    if (!answer)
    {
-      var polygon = ManeuverComputer.computePolygon(defenderShipBase, defenderPosition.x(), defenderPosition.y(), defenderPosition.heading());
-      var points = polygon.points();
+      const polygon = ManeuverComputer.computePolygon(defenderShipBase, defenderPosition.x(), defenderPosition.y(), defenderPosition.heading());
+      const points = polygon.points();
 
-      for (var i = 0; i < points.length; i += 2)
+      for (let i = 0; i < points.length; i += 2)
       {
          if (FiringComputer._isInFiringArc(myAttackerPosition, attackerFiringArc, points[i], points[i + 1]))
          {
@@ -48,21 +48,21 @@ FiringComputer.isInRange = function(rangeKeys, attacker, attackerPosition, defen
    InputValidator.validateNotNull("defender", defender);
    InputValidator.validateNotNull("defenderPosition", defenderPosition);
 
-   var range = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
+   const range = RangeRuler.getRange(attacker, attackerPosition, defender, defenderPosition);
 
    return rangeKeys.includes(range);
 };
 
 FiringComputer._computeOffsetAttackerPosition = function(attackerPosition, attackerFiringArc)
 {
-   var answer = attackerPosition;
-   var heading = attackerPosition.heading();
-   var angle = heading * Math.PI / 180.0;
-   var x, y;
+   let answer = attackerPosition;
+   const heading = attackerPosition.heading();
+   const angle = heading * Math.PI / 180.0;
+   let x, y;
 
    // Assume HUGE2
-   var shipBase = ShipBase.properties[ShipBase.HUGE2];
-   var width = shipBase.width;
+   const shipBase = ShipBase.properties[ShipBase.HUGE2];
+   const width = shipBase.width;
 
    switch (attackerFiringArc.key)
    {
@@ -86,9 +86,9 @@ FiringComputer._computeOffsetAttackerPosition = function(attackerPosition, attac
 
 FiringComputer._createBullseyePolygon = function(attackerPosition)
 {
-   var size = 915;
-   var heading = attackerPosition.heading();
-   var answer = new RectanglePath(size, 15);
+   const size = 915;
+   const heading = attackerPosition.heading();
+   const answer = new RectanglePath(size, 15);
    answer.rotate(heading);
    answer.translate(size / 2 * Math.cos(heading), size / 2 * Math.sin(heading));
 
@@ -97,8 +97,8 @@ FiringComputer._createBullseyePolygon = function(attackerPosition)
 
 FiringComputer._isInFiringArc = function(attackerPosition, firingArc, x, y)
 {
-   var bearing = attackerPosition.computeBearing(x, y);
-   var answer;
+   const bearing = attackerPosition.computeBearing(x, y);
+   let answer;
 
    switch (firingArc.key)
    {
@@ -109,9 +109,9 @@ FiringComputer._isInFiringArc = function(attackerPosition, firingArc, x, y)
          answer = (90 <= bearing) && (bearing <= 270);
          break;
       case FiringArc.BULLSEYE:
-         var dx = x - attackerPosition.x();
-         var dy = y - attackerPosition.y();
-         var polygon = FiringComputer._createBullseyePolygon(attackerPosition);
+         const dx = x - attackerPosition.x();
+         const dy = y - attackerPosition.y();
+         const polygon = FiringComputer._createBullseyePolygon(attackerPosition);
          answer = RectanglePath.isPointInPolygon(dx, dy, polygon);
          break;
       case FiringArc.FORWARD:

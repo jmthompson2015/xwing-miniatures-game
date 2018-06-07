@@ -10,7 +10,7 @@ import TableColumns from "./TableColumns.js";
 
 function createImageLink(src, href)
 {
-   var image = ReactDOMFactories.img(
+   const image = ReactDOMFactories.img(
    {
       className: "imageBlock",
       src: src,
@@ -23,10 +23,10 @@ function createImageLink(src, href)
    }, image);
 }
 
-var valueFunctions = {
+const valueFunctions = {
    "trait": function(data)
    {
-      var trait = DamageCardTrait.properties[data.trait];
+      const trait = DamageCardTrait.properties[data.trait];
       return (trait !== undefined ? trait.name : undefined);
    },
 };
@@ -42,21 +42,21 @@ class DamageTable extends React.Component
 
    render()
    {
-      var filterShownButton = React.createElement(Button,
+      const filterShownButton = React.createElement(Button,
       {
          name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
          onClick: this.toggleFilterShownActionPerformed,
       });
 
-      var myRowData = this.props.rowData;
-      var resourceBase = this.props.resourceBase;
-      var cellFunctions = {
+      const myRowData = this.props.rowData;
+      const resourceBase = this.props.resourceBase;
+      const cellFunctions = {
          "name": function(data)
          {
-            var src = resourceBase + "icon/Wikipedia16.png";
-            var searchString = data.name.replace(/ /g, "_");
-            var href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
-            var link = createImageLink(src, href);
+            const src = resourceBase + "icon/Wikipedia16.png";
+            const searchString = data.name.replace(/ /g, "_");
+            const href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
+            const link = createImageLink(src, href);
             return ReactDOMFactories.span(
             {
                className: "textImageLink dib w-100",
@@ -92,7 +92,7 @@ class DamageTable extends React.Component
          },
       };
 
-      var table = React.createElement(DataTable,
+      const table = React.createElement(DataTable,
       {
          columns: TableColumns,
          rowData: myRowData,
@@ -101,7 +101,7 @@ class DamageTable extends React.Component
          valueFunctions: valueFunctions,
       });
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,
@@ -111,7 +111,7 @@ class DamageTable extends React.Component
 
       if (this.props.isFilterShown)
       {
-         var filterUI = React.createElement(ReactRedux.Provider,
+         const filterUI = React.createElement(ReactRedux.Provider,
          {
             store: this.context.store,
          }, React.createElement(FilterContainer,

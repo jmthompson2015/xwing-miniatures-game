@@ -10,13 +10,13 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store = Redux.createStore(Reducer.root);
 store.dispatch(Action.setResourceBase(resourceBase));
-var environment = EnvironmentFactory.createCoreSetEnvironment(store);
-var agent1 = environment.firstAgent();
+const environment = EnvironmentFactory.createCoreSetEnvironment(store);
+const agent1 = environment.firstAgent();
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: store,
 }, React.createElement(PilotsContainer,

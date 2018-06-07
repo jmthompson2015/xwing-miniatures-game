@@ -15,8 +15,8 @@ function InitialState()
 
    UpgradeCard.keys().forEach(function(upgradeKey)
    {
-      var upgrade = UpgradeCard.properties[upgradeKey];
-      var tableRows = TableRow.createTableRow(upgrade);
+      const upgrade = UpgradeCard.properties[upgradeKey];
+      const tableRows = TableRow.createTableRow(upgrade);
       this.tableRows.push(tableRows);
       this.filteredTableRows.push(tableRows);
    }, this);
@@ -27,7 +27,7 @@ function InitialState()
 
    this.isFilterShown = false;
    this.filters = DefaultFilters.create();
-   var oldFilters = InitialState.loadFromLocalStorage();
+   const oldFilters = InitialState.loadFromLocalStorage();
 
    if (oldFilters)
    {
@@ -47,8 +47,8 @@ InitialState.prototype.merge = function(oldFilters)
 
 InitialState.loadFromLocalStorage = function()
 {
-   var answer;
-   var filterObjects = JSON.parse(localStorage.filters || null);
+   let answer;
+   const filterObjects = JSON.parse(localStorage.filters || null);
 
    if (filterObjects)
    {
@@ -56,7 +56,7 @@ InitialState.loadFromLocalStorage = function()
 
       filterObjects.forEach(function(object)
       {
-         var filter;
+         let filter;
 
          switch (object.type)
          {

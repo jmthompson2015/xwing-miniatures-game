@@ -44,14 +44,14 @@ function Ability(source, sourceKey, abilityType, abilityKey, context)
       return context;
    };
 
-   var sourceObject = source.properties[sourceKey];
+   const sourceObject = source.properties[sourceKey];
 
    this.sourceObject = function()
    {
       return sourceObject;
    };
 
-   var myAbility = (abilityType[abilityKey] !== undefined ? abilityType[abilityKey][sourceKey] : undefined);
+   const myAbility = (abilityType[abilityKey] !== undefined ? abilityType[abilityKey][sourceKey] : undefined);
 
    this.ability = function()
    {
@@ -61,7 +61,7 @@ function Ability(source, sourceKey, abilityType, abilityKey, context)
 
 Ability.prototype.condition = function()
 {
-   var myAbility = this.ability();
+   const myAbility = this.ability();
 
    return (myAbility !== undefined ? myAbility.condition : undefined);
 };
@@ -71,15 +71,15 @@ Ability.prototype.conditionPasses = function(store, token)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateNotNull("token", token);
 
-   var condition = this.condition();
+   const condition = this.condition();
 
    return condition(store, token, this.context());
 };
 
 Ability.prototype.consequent = function()
 {
-   var myAbility = this.ability();
-   var myConsequent = (myAbility !== undefined ? myAbility.consequent : undefined);
+   const myAbility = this.ability();
+   const myConsequent = (myAbility !== undefined ? myAbility.consequent : undefined);
 
    return (myConsequent !== undefined ? myConsequent.bind(myAbility) : undefined);
 };
@@ -89,7 +89,7 @@ Ability.prototype.executeConsequent = function(store, callback)
    InputValidator.validateNotNull("store", store);
    // callback optional.
 
-   var consequent = this.consequent();
+   const consequent = this.consequent();
 
    return consequent(store, this.context(), callback);
 };
@@ -116,7 +116,7 @@ Ability.prototype.isUpgrade = function()
 
 Ability.prototype.toString = function()
 {
-   var answer = "Ability ";
+   let answer = "Ability ";
 
    answer += "source=" + this.source().toString();
    answer += ",sourceKey=" + this.sourceKey();
@@ -131,12 +131,12 @@ Ability.prototype.usedAbilities = function(token)
 {
    InputValidator.validateNotNull("token", token);
 
-   var answer;
+   let answer;
 
    if (token.activationState !== undefined)
    {
-      var state = token.store().getState();
-      var source = this.source();
+      const state = token.store().getState();
+      const source = this.source();
 
       switch (source)
       {

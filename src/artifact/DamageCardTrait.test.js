@@ -7,13 +7,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = DamageCardTrait.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(DamageCardTrait);
+   const result = DamageCardTrait.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(DamageCardTrait);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = DamageCardTrait[key];
+      const key2 = DamageCardTrait[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -23,7 +23,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return DamageCardTrait[key] === value;
       });
@@ -35,17 +35,17 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = DamageCardTrait.keys();
+   const result = DamageCardTrait.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 2);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], DamageCardTrait.PILOT);
    assert.equal(result[i++], DamageCardTrait.SHIP);
 
-   var properties = Object.getOwnPropertyNames(DamageCardTrait);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(DamageCardTrait);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // findByName
       1 - // toString

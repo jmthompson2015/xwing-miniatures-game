@@ -4,8 +4,8 @@ QUnit.module("Event");
 
 QUnit.test("Event properties Target Lock Acquired", function(assert)
 {
-   var event = Event.TARGET_LOCK_ACQUIRED;
-   var properties = Event.properties[event];
+   const event = Event.TARGET_LOCK_ACQUIRED;
+   const properties = Event.properties[event];
    assert.equal(properties.name, "Target Lock Acquired");
    assert.equal(properties.key, "targetLockAcquired");
 });
@@ -15,13 +15,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Event.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(Event);
+   const result = Event.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(Event);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Event[key];
+      const key2 = Event[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -31,7 +31,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Event[key] === value;
       });
@@ -43,17 +43,17 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = Event.keys();
+   const result = Event.keys();
 
    // Verify.
    assert.ok(result);
-   var length = 11;
+   const length = 11;
    assert.equal(result.length, length);
    assert.equal(result[0], Event.AFTER_EXECUTE_MANEUVER);
    assert.equal(result[length - 1], Event.TARGET_LOCK_ACQUIRED);
 
-   var properties = Object.getOwnPropertyNames(Event);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Event);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1; // values

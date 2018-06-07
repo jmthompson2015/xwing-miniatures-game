@@ -6,7 +6,7 @@ import Faction from "./Faction.js";
 import ShipFaction from "./ShipFaction.js";
 import UpgradeType from "./UpgradeType.js";
 
-var PilotCard = {
+const PilotCard = {
    ACADEMY_PILOT: "academyPilot",
    AHSOKA_TANO: "ahsokaTano",
    AIREN_CRACKEN: "airenCracken",
@@ -4246,7 +4246,7 @@ PilotCard.values = function()
 
 PilotCard.keys().forEach(function(pilotKey)
 {
-   var pilot = PilotCard.properties[pilotKey];
+   const pilot = PilotCard.properties[pilotKey];
    pilot.cardTypeKey = CardType.PILOT;
    pilot.xwingType = PilotCard;
    pilot.shipFaction = ShipFaction.properties[pilot.shipFactionKey];
@@ -4314,13 +4314,13 @@ PilotCard.getName = function(pilotKey)
 {
    InputValidator.validateNotNull("pilotKey", pilotKey);
 
-   var isFore = pilotKey.endsWith(".fore");
-   var isAft = pilotKey.endsWith(".aft");
-   var myPilotKey = (isFore ? pilotKey.substring(0, pilotKey.length - ".fore".length) : pilotKey);
+   const isFore = pilotKey.endsWith(".fore");
+   const isAft = pilotKey.endsWith(".aft");
+   let myPilotKey = (isFore ? pilotKey.substring(0, pilotKey.length - ".fore".length) : pilotKey);
    myPilotKey = (isAft ? pilotKey.substring(0, pilotKey.length - ".aft".length) : myPilotKey);
-   var pilot = PilotCard.properties[myPilotKey];
+   const pilot = PilotCard.properties[myPilotKey];
 
-   var answer = "";
+   let answer = "";
    answer += (pilot.isUnique ? "\u2022 " : ""); // bullet
    answer += pilot.name;
 
@@ -4341,15 +4341,15 @@ PilotCard.keysByFaction = function(factionKey, isStrict)
 {
    InputValidator.validateNotNull("factionKey", factionKey);
 
-   var answer = this.keys().filter(function(pilotKey)
+   const answer = this.keys().filter(function(pilotKey)
    {
-      var pilot = PilotCard.properties[pilotKey];
+      const pilot = PilotCard.properties[pilotKey];
       return pilot.shipFaction.factionKey === factionKey;
    });
 
    if (!isStrict)
    {
-      var friend = Faction.friend(factionKey);
+      const friend = Faction.friend(factionKey);
 
       if (friend)
       {
@@ -4365,9 +4365,9 @@ PilotCard.keysByShipAndFaction = function(shipKey, factionKey, isStrict)
    InputValidator.validateNotNull("shipKey", shipKey);
    InputValidator.validateNotNull("factionKey", factionKey);
 
-   var answer = this.keysByFaction(factionKey, isStrict).filter(function(pilotKey)
+   const answer = this.keysByFaction(factionKey, isStrict).filter(function(pilotKey)
    {
-      var shipFactionKey = PilotCard.properties[pilotKey].shipFactionKey;
+      const shipFactionKey = PilotCard.properties[pilotKey].shipFactionKey;
       return ShipFaction.properties[shipFactionKey].shipKey === shipKey;
    });
 

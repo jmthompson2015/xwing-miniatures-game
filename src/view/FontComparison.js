@@ -4,9 +4,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var cellClass = "ba pa1";
-var rows = [];
-var cells = [];
+const cellClass = "ba pa1";
+const rows = [];
+const cells = [];
 cells.push(ReactDOMFactories.th(
 {
    className: "ba",
@@ -43,7 +43,7 @@ ReactDOM.render(ReactDOMFactories.table(
 
 function createRow(fontSize, fontClass)
 {
-   var cells = [];
+   const cells = [];
    cells.push(ReactDOMFactories.td(
    {
       key: "title0" + cells.length,

@@ -13,17 +13,17 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store = Redux.createStore(Reducer.root);
+const resourceBase = "../resource/";
+const store = Redux.createStore(Reducer.root);
 
-var imperialAgent = new Agent(store, "Imperial Agent");
-var token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
-var maneuverKeys = token.maneuverKeys();
-var maneuvers = maneuverKeys.map(function(maneuverKey)
+const imperialAgent = new Agent(store, "Imperial Agent");
+let token = new CardInstance(store, PilotCard.ACADEMY_PILOT, imperialAgent);
+let maneuverKeys = token.maneuverKeys();
+let maneuvers = maneuverKeys.map(function(maneuverKey)
 {
    return Maneuver.properties[maneuverKey];
 });
-var element = React.createElement(ManeuverChooser,
+let element = React.createElement(ManeuverChooser,
 {
    callback: myCallback,
    resourceBase: resourceBase,
@@ -35,12 +35,12 @@ var element = React.createElement(ManeuverChooser,
 ReactDOM.render(element, document.getElementById("inputArea0"));
 
 token = new CardInstance(store, PilotCard.CAPTAIN_KAGI, imperialAgent);
-var maneuverKeys = token.maneuverKeys();
-var maneuvers = maneuverKeys.map(function(maneuverKey)
+maneuverKeys = token.maneuverKeys();
+maneuvers = maneuverKeys.map(function(maneuverKey)
 {
    return Maneuver.properties[maneuverKey];
 });
-var element = React.createElement(ManeuverChooser,
+element = React.createElement(ManeuverChooser,
 {
    callback: myCallback,
    resourceBase: resourceBase,
@@ -51,10 +51,10 @@ var element = React.createElement(ManeuverChooser,
 });
 ReactDOM.render(element, document.getElementById("inputArea1"));
 
-var rebelAgent = new Agent(store, "Rebel Agent");
+const rebelAgent = new Agent(store, "Rebel Agent");
 token = new CardInstance(store, PilotCard.ROOKIE_PILOT, rebelAgent);
-var maneuverKeys = token.maneuverKeys();
-var maneuvers = maneuverKeys.map(function(maneuverKey)
+maneuverKeys = token.maneuverKeys();
+maneuvers = maneuverKeys.map(function(maneuverKey)
 {
    return Maneuver.properties[maneuverKey];
 });
@@ -69,8 +69,8 @@ element = React.createElement(ManeuverChooser,
 ReactDOM.render(element, document.getElementById("inputArea2"));
 
 token = new CardInstance(store, PilotCard.POE_DAMERON, rebelAgent);
-var maneuverKeys = token.maneuverKeys();
-var maneuvers = maneuverKeys.map(function(maneuverKey)
+maneuverKeys = token.maneuverKeys();
+maneuvers = maneuverKeys.map(function(maneuverKey)
 {
    return Maneuver.properties[maneuverKey];
 });
@@ -86,8 +86,8 @@ element = React.createElement(ManeuverChooser,
 ReactDOM.render(element, document.getElementById("inputArea3"));
 
 token = new CardInstance(store, PilotCard.GR_75_MEDIUM_TRANSPORT, rebelAgent);
-var maneuverKeys = token.maneuverKeys();
-var maneuvers = maneuverKeys.map(function(maneuverKey)
+maneuverKeys = token.maneuverKeys();
+maneuvers = maneuverKeys.map(function(maneuverKey)
 {
    return Maneuver.properties[maneuverKey];
 });
@@ -101,10 +101,10 @@ element = React.createElement(ManeuverChooser,
 });
 ReactDOM.render(element, document.getElementById("inputArea4"));
 
-var scumAgent = new Agent(store, "Scum Agent");
+const scumAgent = new Agent(store, "Scum Agent");
 token = new CardInstance(store, PilotCard.UNKAR_PLUTT, scumAgent);
-var maneuverKeys = token.maneuverKeys();
-var maneuvers = maneuverKeys.map(function(maneuverKey)
+maneuverKeys = token.maneuverKeys();
+maneuvers = maneuverKeys.map(function(maneuverKey)
 {
    return Maneuver.properties[maneuverKey];
 });

@@ -36,11 +36,11 @@ function Squad(factionKey, name, year, description, tokens)
 
 Squad.prototype.pilotSkillValue = function()
 {
-   var tokens = this.tokens();
+   const tokens = this.tokens();
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var myAnswer = accumulator;
+      let myAnswer = accumulator;
 
       if (token.isParent())
       {
@@ -60,11 +60,11 @@ Squad.prototype.pilotSkillValue = function()
 
 Squad.prototype.primaryWeaponValue = function()
 {
-   var tokens = this.tokens();
+   const tokens = this.tokens();
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var primaryWeaponValue;
+      let primaryWeaponValue;
 
       if (token.isParent())
       {
@@ -87,12 +87,12 @@ Squad.prototype.primaryWeaponValue = function()
 
 Squad.prototype.energyValue = function()
 {
-   var tokens = this.tokens();
-   var value;
+   const tokens = this.tokens();
+   let value;
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var myAnswer = accumulator;
+      let myAnswer = accumulator;
 
       if (token.isParent())
       {
@@ -115,12 +115,12 @@ Squad.prototype.energyValue = function()
 
 Squad.prototype.agilityValue = function()
 {
-   var tokens = this.tokens();
-   var value;
+   const tokens = this.tokens();
+   let value;
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var myAnswer = accumulator;
+      let myAnswer = accumulator;
 
       if (token.isParent())
       {
@@ -143,12 +143,12 @@ Squad.prototype.agilityValue = function()
 
 Squad.prototype.hullValue = function()
 {
-   var tokens = this.tokens();
-   var value;
+   const tokens = this.tokens();
+   let value;
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var myAnswer = accumulator;
+      let myAnswer = accumulator;
 
       if (token.isParent())
       {
@@ -171,12 +171,12 @@ Squad.prototype.hullValue = function()
 
 Squad.prototype.shieldValue = function()
 {
-   var tokens = this.tokens();
-   var value;
+   const tokens = this.tokens();
+   let value;
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var myAnswer = accumulator;
+      let myAnswer = accumulator;
 
       if (token.isParent())
       {
@@ -199,11 +199,11 @@ Squad.prototype.shieldValue = function()
 
 Squad.prototype.squadPointCost = function()
 {
-   var tokens = this.tokens();
+   const tokens = this.tokens();
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var myAnswer = accumulator;
+      let myAnswer = accumulator;
 
       if (token.isParent())
       {
@@ -223,7 +223,7 @@ Squad.prototype.squadPointCost = function()
 
 Squad.prototype.toString = function()
 {
-   var title = this.factionKey() + " " + this.name() + " " + this.year() + " " + this.description();
+   const title = this.factionKey() + " " + this.name() + " " + this.year() + " " + this.description();
 
    return this.tokens().reduce(function(accumulator, token, i)
    {
@@ -233,11 +233,11 @@ Squad.prototype.toString = function()
 
 Squad.prototype.upgradeCount = function()
 {
-   var tokens = this.tokens();
+   const tokens = this.tokens();
 
-   var answer = tokens.reduce(function(accumulator, token)
+   const answer = tokens.reduce(function(accumulator, token)
    {
-      var myAnswer = accumulator;
+      let myAnswer = accumulator;
 
       if (token.isParent())
       {

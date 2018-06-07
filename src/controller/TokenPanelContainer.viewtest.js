@@ -20,24 +20,24 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
-var store00 = Redux.createStore(Reducer.root);
-var imperialAgent = new Agent(store00, "Imperial Agent");
-var imperialToken = new CardInstance(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]);
-var rebelAgent = new Agent(store00, "Rebel Agent");
-var rebelToken = new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH]);
+const resourceBase = "../resource/";
+const store00 = Redux.createStore(Reducer.root);
+const imperialAgent = new Agent(store00, "Imperial Agent");
+let imperialToken = new CardInstance(store00, PilotCard.MAULER_MITHEL, imperialAgent, [UpgradeCard.MARKSMANSHIP]);
+const rebelAgent = new Agent(store00, "Rebel Agent");
+let rebelToken = new CardInstance(store00, PilotCard.LUKE_SKYWALKER, rebelAgent, [UpgradeCard.PROTON_TORPEDOES, UpgradeCard.R2_D2_ASTROMECH]);
 
-var squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad #1", [imperialToken]);
-var squad2 = new Squad(Faction.REBEL, "squad2", 2016, "squad #2", [rebelToken]);
+const squad1 = new Squad(Faction.IMPERIAL, "squad1", 2017, "squad #1", [imperialToken]);
+const squad2 = new Squad(Faction.REBEL, "squad2", 2016, "squad #2", [rebelToken]);
 
-var store = Redux.createStore(Reducer.root);
+const store = Redux.createStore(Reducer.root);
 store.dispatch(Action.setResourceBase(resourceBase));
-var environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2);
-var pilotInstances = environment.pilotInstances();
+const environment = new Environment(store, imperialAgent, squad1, rebelAgent, squad2);
+const pilotInstances = environment.pilotInstances();
 imperialToken = pilotInstances[0];
 rebelToken = pilotInstances[1];
 
-var i = 1;
+let i = 1;
 store.dispatch(CardAction.setCloakCount(imperialToken, i++));
 imperialToken.receiveDamage(new CardInstance(store, DamageCard.BLINDED_PILOT));
 imperialToken.receiveDamage(new CardInstance(store, DamageCard.CONSOLE_FIRE));
@@ -56,7 +56,7 @@ store.dispatch(CardAction.setWeaponsDisabledCount(imperialToken, i++));
 TargetLock.newInstance(store, imperialToken, rebelToken);
 TargetLock.newInstance(store, rebelToken, imperialToken);
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: store,
 }, React.createElement(TokenPanelContainer,

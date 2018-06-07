@@ -1,6 +1,6 @@
 import InputValidator from "../../utility/InputValidator.js";
 
-var Action = {};
+const Action = {};
 
 Action.REMOVE_FILTERS = "removeFilters";
 Action.SET_DEFAULT_FILTERS = "setDefaultFilters";

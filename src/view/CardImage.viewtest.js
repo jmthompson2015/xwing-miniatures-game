@@ -11,9 +11,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var resourceBase = "../resource/";
+const resourceBase = "../resource/";
 
-var cells = [];
+const cells = [];
 addCardImage(cells, DamageCard.properties[DamageCard.BLINDED_PILOT]);
 addCardImage(cells, DamageCard.properties[DamageCard.CONSOLE_FIRE]);
 addCardImage(cells, PilotCard.properties[PilotCard.DARTH_VADER]);
@@ -26,7 +26,7 @@ ReactDOM.render(ReactDOMFactories.div(
 
 function addCardImage(cells, card, isReady, isFaceUp)
 {
-   var element = React.createElement(CardImage,
+   const element = React.createElement(CardImage,
    {
       card: card,
       isFaceUp: isFaceUp,

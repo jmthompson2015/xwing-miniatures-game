@@ -1,7 +1,7 @@
 import Action from "./Action.js";
 import InitialState from "./InitialState.js";
 
-var Reducer = {};
+const Reducer = {};
 
 Reducer.root = function(state, action)
 {
@@ -12,7 +12,7 @@ Reducer.root = function(state, action)
       return new InitialState();
    }
 
-   var newSbToCount;
+   let newSbToCount;
 
    switch (action.type)
    {

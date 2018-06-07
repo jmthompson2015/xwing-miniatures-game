@@ -7,13 +7,13 @@ QUnit.module("TargetLock");
 QUnit.test("TargetLock()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[0];
-   var defender = environment.pilotInstances()[2];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[0];
+   const defender = environment.pilotInstances()[2];
 
    // Run.
-   var result = TargetLock.newInstance(store, attacker, defender);
+   const result = TargetLock.newInstance(store, attacker, defender);
 
    // Verify.
    assert.ok(result);
@@ -26,14 +26,14 @@ QUnit.test("TargetLock()", function(assert)
 QUnit.test("attacker()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[0];
-   var defender = environment.pilotInstances()[2];
-   var targetLock = TargetLock.newInstance(store, attacker, defender);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[0];
+   const defender = environment.pilotInstances()[2];
+   const targetLock = TargetLock.newInstance(store, attacker, defender);
 
    // Run.
-   var result = targetLock.attacker();
+   const result = targetLock.attacker();
 
    // Verify.
    assert.ok(result);
@@ -43,14 +43,14 @@ QUnit.test("attacker()", function(assert)
 QUnit.test("defender()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[0];
-   var defender = environment.pilotInstances()[2];
-   var targetLock = TargetLock.newInstance(store, attacker, defender);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[0];
+   const defender = environment.pilotInstances()[2];
+   const targetLock = TargetLock.newInstance(store, attacker, defender);
 
    // Run.
-   var result = targetLock.defender();
+   const result = targetLock.defender();
 
    // Verify.
    assert.ok(result);
@@ -60,11 +60,11 @@ QUnit.test("defender()", function(assert)
 QUnit.test("delete()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[0];
-   var defender = environment.pilotInstances()[2];
-   var targetLock = TargetLock.newInstance(store, attacker, defender);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[0];
+   const defender = environment.pilotInstances()[2];
+   const targetLock = TargetLock.newInstance(store, attacker, defender);
    assert.equal(store.getState().targetLocks.size, 1);
    assert.equal(store.getState().targetLocks.get(0).get("id"), "A");
    assert.equal(store.getState().targetLocks.get(0).get("attackerId"), attacker.id());
@@ -80,14 +80,14 @@ QUnit.test("delete()", function(assert)
 QUnit.test("get()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[0];
-   var defender = environment.pilotInstances()[2];
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[0];
+   const defender = environment.pilotInstances()[2];
    TargetLock.newInstance(store, attacker, defender);
 
    // Run.
-   var result = TargetLock.get(store, attacker, defender);
+   const result = TargetLock.get(store, attacker, defender);
 
    // Verify.
    assert.ok(result);
@@ -101,14 +101,14 @@ QUnit.test("get()", function(assert)
 QUnit.test("get() 2", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
    TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
    TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
 
    // Run.
-   var result = TargetLock.get(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
+   let result = TargetLock.get(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
 
    // Verify.
    assert.ok(result);
@@ -143,14 +143,14 @@ QUnit.test("get() 2", function(assert)
 QUnit.test("getByAttacker()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
    TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
    TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
 
    // Run.
-   var result = TargetLock.getByAttacker(store, environment.pilotInstances()[0]);
+   let result = TargetLock.getByAttacker(store, environment.pilotInstances()[0]);
 
    // Verify.
    assert.ok(result);
@@ -185,14 +185,14 @@ QUnit.test("getByAttacker()", function(assert)
 QUnit.test("getByDefender()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
    TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
    TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
 
    // Run.
-   var result = TargetLock.getByDefender(store, environment.pilotInstances()[1]);
+   let result = TargetLock.getByDefender(store, environment.pilotInstances()[1]);
 
    // Verify.
    assert.ok(result);
@@ -227,14 +227,14 @@ QUnit.test("getByDefender()", function(assert)
 QUnit.test("id()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[0];
-   var defender = environment.pilotInstances()[2];
-   var targetLock = TargetLock.newInstance(store, attacker, defender);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[0];
+   const defender = environment.pilotInstances()[2];
+   const targetLock = TargetLock.newInstance(store, attacker, defender);
 
    // Run.
-   var result = targetLock.id();
+   const result = targetLock.id();
 
    // Verify.
    assert.ok(result);
@@ -244,11 +244,11 @@ QUnit.test("id()", function(assert)
 QUnit.test("nextId()", function(assert)
 {
    // Setup.
-   var store = Redux.createStore(Reducer.root);
+   const store = Redux.createStore(Reducer.root);
 
    // Run / Verify.
    assert.equal(TargetLock.nextId(store), "A");
-   var i;
+   let i;
 
    for (i = 0; i < 24; i++)
    {
@@ -270,8 +270,8 @@ QUnit.test("nextId()", function(assert)
 QUnit.test("removeAllTargetLocks()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
    TargetLock.newInstance(store, environment.pilotInstances()[0], environment.pilotInstances()[1]);
    TargetLock.newInstance(store, environment.pilotInstances()[1], environment.pilotInstances()[2]);
    TargetLock.newInstance(store, environment.pilotInstances()[2], environment.pilotInstances()[0]);
@@ -289,14 +289,14 @@ QUnit.test("removeAllTargetLocks()", function(assert)
 QUnit.test("values()", function(assert)
 {
    // Setup.
-   var environment = EnvironmentFactory.createCoreSetEnvironment();
-   var store = environment.store();
-   var attacker = environment.pilotInstances()[0];
-   var defender = environment.pilotInstances()[2];
-   var targetLock = TargetLock.newInstance(store, attacker, defender);
+   const environment = EnvironmentFactory.createCoreSetEnvironment();
+   const store = environment.store();
+   const attacker = environment.pilotInstances()[0];
+   const defender = environment.pilotInstances()[2];
+   const targetLock = TargetLock.newInstance(store, attacker, defender);
 
    // Run.
-   var result = targetLock.values();
+   const result = targetLock.values();
 
    // Verify.
    assert.ok(result);

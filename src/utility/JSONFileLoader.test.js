@@ -5,8 +5,8 @@ QUnit.module("JSONFileLoader");
 QUnit.test("loadFile()", function(assert)
 {
    // Setup.
-   var filepath = "https://cdn.jsdelivr.net/npm/xwing-data@0.65.0/data/ships.js";
-   var callback = function(content)
+   const filepath = "https://cdn.jsdelivr.net/npm/xwing-data@0.65.0/data/ships.js";
+   const callback = function(content)
    {
       assert.ok(content);
       assert.ok(Array.isArray(content));
@@ -15,7 +15,7 @@ QUnit.test("loadFile()", function(assert)
    };
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    JSONFileLoader.loadFile(filepath, callback);
 });
 

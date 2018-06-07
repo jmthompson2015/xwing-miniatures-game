@@ -1,4 +1,4 @@
-var Range = {
+const Range = {
    ONE: "one",
    TWO: "two",
    THREE: "three",

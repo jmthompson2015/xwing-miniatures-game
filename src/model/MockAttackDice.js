@@ -9,8 +9,8 @@ function MockAttackDice(store, attackerId)
    InputValidator.validateNotNull("store", store);
    InputValidator.validateIsNumber("attackerId", attackerId);
 
-   var values = [AttackDiceValue.BLANK, AttackDiceValue.CRITICAL_HIT, AttackDiceValue.FOCUS, AttackDiceValue.HIT];
-   var answer = new AttackDice(store, attackerId, values);
+   const values = [AttackDiceValue.BLANK, AttackDiceValue.CRITICAL_HIT, AttackDiceValue.FOCUS, AttackDiceValue.HIT];
+   const answer = new AttackDice(store, attackerId, values);
 
    answer.rerollAllBlank = function() {};
 

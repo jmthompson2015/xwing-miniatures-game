@@ -9,12 +9,12 @@ class ArenaTable extends React.Component
 {
    render()
    {
-      var rowData = this.props.rowData;
-      var resourceBase = this.props.resourceBase;
-      var cellFunctions = {
+      const rowData = this.props.rowData;
+      const resourceBase = this.props.resourceBase;
+      const cellFunctions = {
          "factionKey": function(data)
          {
-            var faction = Faction.properties[data.factionKey];
+            const faction = Faction.properties[data.factionKey];
             return React.createElement(FactionUI,
             {
                faction: faction,
@@ -28,7 +28,7 @@ class ArenaTable extends React.Component
          },
       };
 
-      var table = React.createElement(DataTable,
+      const table = React.createElement(DataTable,
       {
          cellFunctions: cellFunctions,
          columns: TableColumns,
@@ -36,7 +36,7 @@ class ArenaTable extends React.Component
          rowData: rowData,
       });
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,

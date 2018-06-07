@@ -36,13 +36,13 @@ function DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCo
       return evadeCount;
    };
 
-   var hits = hitCount;
-   var criticalHits = criticalHitCount;
-   var evades = evadeCount;
+   let hits = hitCount;
+   let criticalHits = criticalHitCount;
+   let evades = evadeCount;
    LOGGER.debug("hits = " + hits);
    LOGGER.debug("criticalHits = " + criticalHits);
    LOGGER.debug("evades = " + evades);
-   var count;
+   let count;
 
    if (hits > 0)
    {
@@ -70,7 +70,7 @@ function DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCo
 
    this.dealDamage = function()
    {
-      var count, i;
+      let count, i;
 
       if (defender.shieldCount() > 0)
       {
@@ -103,8 +103,8 @@ function DamageDealer(environment, hitCount, criticalHitCount, defender, evadeCo
 
       for (i = 0; i < criticalHits; i++)
       {
-         var damage = environment.drawDamage();
-         var trait = damage.card().trait;
+         const damage = environment.drawDamage();
+         const trait = damage.card().trait;
 
          if (defender.isUpgradedWith(UpgradeCard.DETERMINATION) && (trait === DamageCardTrait.PILOT))
          {

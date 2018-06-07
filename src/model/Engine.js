@@ -29,21 +29,21 @@ function Engine(store, callback)
 
 Engine.prototype.adjudicator = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().adjudicator;
 };
 
 Engine.prototype.delay = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().delay;
 };
 
 Engine.prototype.environment = function()
 {
-   var store = this.store();
+   const store = this.store();
 
    return store.getState().environment;
 };
@@ -59,12 +59,12 @@ Engine.prototype.performPlanningPhase = function(callback)
    }
    else
    {
-      var store = this.store();
-      var finishPlanningPhase = this.finishPlanningPhase.bind(this);
-      var startOrEndPhaseCallback = function()
+      const store = this.store();
+      const finishPlanningPhase = this.finishPlanningPhase.bind(this);
+      const startOrEndPhaseCallback = function()
       {
-         var planningTask = new PlanningPhaseTask(store);
-         var phaseCallback = function()
+         const planningTask = new PlanningPhaseTask(store);
+         const phaseCallback = function()
          {
             finishPlanningPhase(callback);
          };
@@ -82,7 +82,7 @@ Engine.prototype.finishPlanningPhase = function(callback)
       callback = this.performActivationPhase.bind(this);
    }
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.PLANNING_END, undefined, callback));
 };
 
@@ -94,12 +94,12 @@ Engine.prototype.performActivationPhase = function(callback)
    }
    else
    {
-      var store = this.store();
-      var finishActivationPhase = this.finishActivationPhase.bind(this);
-      var startOrEndPhaseCallback = function()
+      const store = this.store();
+      const finishActivationPhase = this.finishActivationPhase.bind(this);
+      const startOrEndPhaseCallback = function()
       {
-         var activationTask = new ActivationPhaseTask(store);
-         var phaseCallback = function()
+         const activationTask = new ActivationPhaseTask(store);
+         const phaseCallback = function()
          {
             finishActivationPhase(callback);
          };
@@ -117,7 +117,7 @@ Engine.prototype.finishActivationPhase = function(callback)
       callback = this.performCombatPhase.bind(this);
    }
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.ACTIVATION_END, undefined, callback));
 };
 
@@ -129,12 +129,12 @@ Engine.prototype.performCombatPhase = function(callback)
    }
    else
    {
-      var store = this.store();
-      var finishCombatPhase = this.finishCombatPhase.bind(this);
-      var startOrEndPhaseCallback = function()
+      const store = this.store();
+      const finishCombatPhase = this.finishCombatPhase.bind(this);
+      const startOrEndPhaseCallback = function()
       {
-         var combatTask = new CombatPhaseTask(store);
-         var phaseCallback = function()
+         const combatTask = new CombatPhaseTask(store);
+         const phaseCallback = function()
          {
             finishCombatPhase(callback);
          };
@@ -152,7 +152,7 @@ Engine.prototype.finishCombatPhase = function(callback)
       callback = this.performEndPhase.bind(this);
    }
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.COMBAT_END, undefined, callback));
 };
 
@@ -164,12 +164,12 @@ Engine.prototype.performEndPhase = function(callback)
    }
    else
    {
-      var store = this.store();
-      var finishEndPhase = this.finishEndPhase.bind(this);
-      var startOrEndPhaseCallback = function()
+      const store = this.store();
+      const finishEndPhase = this.finishEndPhase.bind(this);
+      const startOrEndPhaseCallback = function()
       {
-         var endTask = new EndPhaseTask(store);
-         var phaseCallback = function()
+         const endTask = new EndPhaseTask(store);
+         const phaseCallback = function()
          {
             finishEndPhase(callback);
          };
@@ -187,7 +187,7 @@ Engine.prototype.finishEndPhase = function(callback)
       callback = this.performPlanningPhase.bind(this);
    }
 
-   var store = this.store();
+   const store = this.store();
    store.dispatch(Action.enqueuePhase(Phase.END_END, undefined, callback));
 };
 
@@ -203,16 +203,16 @@ Engine.prototype.processGameOver = function()
 {
    LOGGER.info("Game over.");
 
-   var environment = this.environment();
-   var adjudicator = this.adjudicator();
-   var winner = adjudicator.determineWinner(environment);
-   var store = this.store();
+   const environment = this.environment();
+   const adjudicator = this.adjudicator();
+   const winner = adjudicator.determineWinner(environment);
+   const store = this.store();
    store.dispatch(Action.setGameOver(winner));
 
-   var message = (winner === undefined ? "Game is a draw." : winner.name() + " won! ");
+   const message = (winner === undefined ? "Game is a draw." : winner.name() + " won! ");
    store.dispatch(Action.setUserMessage(message));
 
-   var callback = this.callback();
+   const callback = this.callback();
 
    if (callback)
    {

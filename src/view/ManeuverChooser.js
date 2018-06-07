@@ -19,22 +19,22 @@ class ManeuverChooser extends React.Component
 
    render()
    {
-      var isEditable = (this.props.isEditable !== undefined ? this.props.isEditable : true);
-      var pilotName = this.props.pilotName;
-      var shipName = this.props.shipName;
-      var maneuvers = this.props.maneuvers;
-      var tokenId = this.props.tokenId;
-      var minSpeed = this.getMinimumSpeed(maneuvers);
-      var maxSpeed = this.getMaximumSpeed(maneuvers);
-      var bearingValues = Bearing.keys();
-      var bearingKeys = maneuvers.map(function(maneuver)
+      const isEditable = (this.props.isEditable !== undefined ? this.props.isEditable : true);
+      const pilotName = this.props.pilotName;
+      const shipName = this.props.shipName;
+      const maneuvers = this.props.maneuvers;
+      const tokenId = this.props.tokenId;
+      const minSpeed = this.getMinimumSpeed(maneuvers);
+      const maxSpeed = this.getMaximumSpeed(maneuvers);
+      const bearingValues = Bearing.keys();
+      const bearingKeys = maneuvers.map(function(maneuver)
       {
          return maneuver.bearingKey;
       });
-      var self = this;
+      const self = this;
 
-      var rows = [];
-      var cell;
+      const rows = [];
+      let cell;
 
       if (pilotName)
       {
@@ -64,11 +64,11 @@ class ManeuverChooser extends React.Component
          }, cell));
       }
 
-      var maneuver, difficultyKey, iconSrc, image;
+      let maneuver, difficultyKey, iconSrc, image;
 
-      for (var speed = maxSpeed; speed >= minSpeed; speed--)
+      for (let speed = maxSpeed; speed >= minSpeed; speed--)
       {
-         var cells = [];
+         const cells = [];
          cells.push(ReactDOMFactories.td(
          {
             key: cells.length,
@@ -111,9 +111,9 @@ class ManeuverChooser extends React.Component
          }
          else
          {
-            for (var i = 0; i < bearingValues.length; i++)
+            for (let i = 0; i < bearingValues.length; i++)
             {
-               var bearingKey = bearingValues[i];
+               const bearingKey = bearingValues[i];
 
                if (bearingKeys.includes(bearingKey))
                {
@@ -172,7 +172,7 @@ class ManeuverChooser extends React.Component
 
 ManeuverChooser.prototype.createManeuverIcon = function(bearingKey, speed, difficultyKey)
 {
-   var src;
+   let src;
 
    switch (bearingKey)
    {
@@ -195,7 +195,7 @@ ManeuverChooser.prototype.createManeuverIcon = function(bearingKey, speed, diffi
          src = (speed === -1 ? "reverse" : "") + bearingKey.toLowerCase();
    }
 
-   var className = "xw-f8";
+   let className = "xw-f8";
 
    switch (difficultyKey)
    {
@@ -218,11 +218,11 @@ ManeuverChooser.prototype.createManeuverIcon = function(bearingKey, speed, diffi
 
 ManeuverChooser.prototype.findManeuver = function(maneuvers, bearingKey, speed)
 {
-   var answer;
+   let answer;
 
-   for (var i = 0; i < maneuvers.length; i++)
+   for (let i = 0; i < maneuvers.length; i++)
    {
-      var maneuver = maneuvers[i];
+      const maneuver = maneuvers[i];
 
       if (maneuver.bearingKey === bearingKey && maneuver.speed === speed)
       {
@@ -236,12 +236,12 @@ ManeuverChooser.prototype.findManeuver = function(maneuvers, bearingKey, speed)
 
 ManeuverChooser.prototype.getMaximumSpeed = function(maneuvers)
 {
-   var answer = -10000;
+   let answer = -10000;
 
-   for (var i = 0; i < maneuvers.length; i++)
+   for (let i = 0; i < maneuvers.length; i++)
    {
-      var maneuver = maneuvers[i];
-      var speed = maneuver.speed;
+      const maneuver = maneuvers[i];
+      const speed = maneuver.speed;
       answer = Math.max(speed, answer);
    }
 
@@ -250,12 +250,12 @@ ManeuverChooser.prototype.getMaximumSpeed = function(maneuvers)
 
 ManeuverChooser.prototype.getMinimumSpeed = function(maneuvers)
 {
-   var answer = 10000;
+   let answer = 10000;
 
-   for (var i = 0; i < maneuvers.length; i++)
+   for (let i = 0; i < maneuvers.length; i++)
    {
-      var maneuver = maneuvers[i];
-      var speed = maneuver.speed;
+      const maneuver = maneuvers[i];
+      const speed = maneuver.speed;
       answer = Math.min(speed, answer);
    }
 
@@ -264,7 +264,7 @@ ManeuverChooser.prototype.getMinimumSpeed = function(maneuvers)
 
 ManeuverChooser.prototype.createManeuverEnergyIconSource = function(bearing, energy)
 {
-   var bearingName = bearing.replace(/B/g, "_b");
+   let bearingName = bearing.replace(/B/g, "_b");
    bearingName = bearingName.replace(/L/g, "_l");
    bearingName = bearingName.replace(/R/g, "_r");
    bearingName = bearingName.replace("straight", "huge_straight");
@@ -274,16 +274,16 @@ ManeuverChooser.prototype.createManeuverEnergyIconSource = function(bearing, ene
 
 ManeuverChooser.prototype.selectionChangedFunction = function(event)
 {
-   var oldElement = this.state.element;
+   const oldElement = this.state.element;
 
    if (oldElement)
    {
       HtmlUtilities.removeClass(oldElement, "bg-xw-medium");
    }
 
-   var element = event.currentTarget;
-   var tokenId = element.dataset.tokenid;
-   var maneuverKey = element.dataset.maneuverkey;
+   const element = event.currentTarget;
+   const tokenId = element.dataset.tokenid;
+   const maneuverKey = element.dataset.maneuverkey;
    LOGGER.debug("selectionChanged() maneuverKey = " + maneuverKey);
    this.setState(
    {
@@ -291,7 +291,7 @@ ManeuverChooser.prototype.selectionChangedFunction = function(event)
    });
    HtmlUtilities.addClass(element, "bg-xw-medium");
 
-   var callback = this.props.callback;
+   const callback = this.props.callback;
 
    if (callback)
    {

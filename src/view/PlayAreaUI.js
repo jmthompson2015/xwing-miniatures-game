@@ -28,7 +28,7 @@ class PlayAreaUI extends React.Component
 
    render()
    {
-      var imageSrc = this.props.resourceBase + this.props.image;
+      const imageSrc = this.props.resourceBase + this.props.image;
 
       return ReactDOMFactories.canvas(
       {
@@ -46,7 +46,7 @@ class PlayAreaUI extends React.Component
 
 PlayAreaUI.prototype.createExplosionImage = function()
 {
-   var image = new Image();
+   const image = new Image();
    image.src = this.props.resourceBase + "ship/Explosion64.png";
 
    return image;
@@ -56,13 +56,13 @@ PlayAreaUI.prototype.createShipIcon = function(shipFaction)
 {
    InputValidator.validateNotNull("shipFaction", shipFaction);
 
-   var image = new Image();
+   const image = new Image();
    image.onload = function()
    {
       this.forceUpdate();
    }.bind(this);
 
-   var filename = shipFaction.image;
+   const filename = shipFaction.image;
    image.src = this.props.resourceBase + "ship/" + filename;
 
    return image;
@@ -70,7 +70,7 @@ PlayAreaUI.prototype.createShipIcon = function(shipFaction)
 
 PlayAreaUI.prototype.drawExplosion = function(context)
 {
-   var explosion = this.props.explosion;
+   const explosion = this.props.explosion;
 
    if (explosion)
    {
@@ -79,14 +79,14 @@ PlayAreaUI.prototype.drawExplosion = function(context)
       InputValidator.validateNotNull("explosion.shipBase", explosion.shipBase);
       InputValidator.validateNotNull("explosion.audioClip", explosion.audioClip);
 
-      var position = explosion.position;
-      var shipBase = explosion.shipBase;
-      var audioClip = explosion.audioClip;
+      const position = explosion.position;
+      const shipBase = explosion.shipBase;
+      const audioClip = explosion.audioClip;
 
-      var x = position.x();
-      var y = position.y();
-      var width = shipBase.width;
-      var height = shipBase.height;
+      const x = position.x();
+      const y = position.y();
+      const width = shipBase.width;
+      const height = shipBase.height;
 
       context.save();
       context.scale(this.props.scale, this.props.scale);
@@ -102,7 +102,7 @@ PlayAreaUI.prototype.drawExplosion = function(context)
 
 PlayAreaUI.prototype.drawLaserBeam = function(context)
 {
-   var laserBeam = this.props.laserBeam;
+   const laserBeam = this.props.laserBeam;
 
    if (laserBeam)
    {
@@ -113,14 +113,14 @@ PlayAreaUI.prototype.drawLaserBeam = function(context)
       InputValidator.validateNotNull("laserBeam.factionColor", laserBeam.factionColor);
       // audioClip optional.
 
-      var fromPosition = laserBeam.fromPosition;
-      var toPosition = laserBeam.toPosition;
-      var isPrimary = laserBeam.isPrimary;
-      var factionColor = laserBeam.factionColor;
-      var audioClip = laserBeam.audioClip;
+      const fromPosition = laserBeam.fromPosition;
+      const toPosition = laserBeam.toPosition;
+      const isPrimary = laserBeam.isPrimary;
+      const factionColor = laserBeam.factionColor;
+      const audioClip = laserBeam.audioClip;
 
-      var strokeStyle = factionColor;
-      var lineDashSegments = (isPrimary ? undefined : [10, 5]);
+      const strokeStyle = factionColor;
+      const lineDashSegments = (isPrimary ? undefined : [10, 5]);
 
       context.save();
       context.scale(this.props.scale, this.props.scale);
@@ -147,9 +147,13 @@ PlayAreaUI.prototype.drawLaserBeam = function(context)
    }
 };
 
+PlayAreaUI.FOREGROUND_COLOR = "white";
+PlayAreaUI.EASY_COLOR = "lime";
+PlayAreaUI.HARD_COLOR = "red";
+
 PlayAreaUI.prototype.drawManeuver = function(context)
 {
-   var maneuverObj = this.props.maneuver;
+   const maneuverObj = this.props.maneuver;
 
    if (maneuverObj)
    {
@@ -160,37 +164,33 @@ PlayAreaUI.prototype.drawManeuver = function(context)
       InputValidator.validateNotNull("maneuver.path", maneuverObj.path);
       InputValidator.validateNotNull("maneuver.toPolygon", maneuverObj.toPolygon);
 
-      var maneuver = maneuverObj.maneuver;
-      var fromPolygon = maneuverObj.fromPolygon;
-      var fromPosition = maneuverObj.fromPosition;
-      var path = maneuverObj.path;
-      var toPolygon = maneuverObj.toPolygon;
-
-      var FOREGROUND_COLOR = "white";
-      var EASY_COLOR = "lime";
-      var HARD_COLOR = "red";
+      const maneuver = maneuverObj.maneuver;
+      const fromPolygon = maneuverObj.fromPolygon;
+      const fromPosition = maneuverObj.fromPosition;
+      const path = maneuverObj.path;
+      const toPolygon = maneuverObj.toPolygon;
 
       context.save();
       context.scale(this.props.scale, this.props.scale);
 
       // Mark the center.
-      context.fillStyle = FOREGROUND_COLOR;
-      var radius = 4;
+      context.fillStyle = PlayAreaUI.FOREGROUND_COLOR;
+      const radius = 4;
       context.beginPath();
       context.arc(fromPosition.x(), fromPosition.y(), radius, 0, 2 * Math.PI);
       context.fill();
 
       // Draw from ship base.
-      fromPolygon.paintComponent(context, FOREGROUND_COLOR);
+      fromPolygon.paintComponent(context, PlayAreaUI.FOREGROUND_COLOR);
 
       if (toPolygon)
       {
          // Draw to ship base.
-         toPolygon.paintComponent(context, FOREGROUND_COLOR);
+         toPolygon.paintComponent(context, PlayAreaUI.FOREGROUND_COLOR);
       }
 
       // Draw maneuver path.
-      var difficulty = maneuver.difficultyKey;
+      const difficulty = maneuver.difficultyKey;
       path.paintComponent(context, getColor(difficulty));
 
       // Cleanup.
@@ -199,18 +199,18 @@ PlayAreaUI.prototype.drawManeuver = function(context)
 
    function getColor(difficulty)
    {
-      var answer;
+      let answer;
 
       switch (difficulty)
       {
          case Difficulty.EASY:
-            answer = EASY_COLOR;
+            answer = PlayAreaUI.EASY_COLOR;
             break;
          case Difficulty.HARD:
-            answer = HARD_COLOR;
+            answer = PlayAreaUI.HARD_COLOR;
             break;
          default:
-            answer = FOREGROUND_COLOR;
+            answer = PlayAreaUI.FOREGROUND_COLOR;
       }
 
       return answer;
@@ -222,19 +222,19 @@ PlayAreaUI.prototype.drawTokens = function(context)
    InputValidator.validateNotNull("context", context);
    InputValidator.validateNotNull("tokenPositions", this.props.tokenPositions);
 
-   var scale = this.props.scale;
-   var tokenPositions = this.props.tokenPositions;
+   const scale = this.props.scale;
+   const tokenPositions = this.props.tokenPositions;
 
    if (tokenPositions)
    {
       tokenPositions.forEach(function(tokenPosition)
       {
-         var token = tokenPosition.token;
-         var shipFactionKey = token.card().shipFactionKey;
-         var id = token.id();
-         var image = this.shipFactionToImage[shipFactionKey];
-         var position = tokenPosition.position;
-         var shipFaction = ShipFaction.properties[shipFactionKey];
+         const token = tokenPosition.token;
+         const shipFactionKey = token.card().shipFactionKey;
+         const id = token.id();
+         const image = this.shipFactionToImage[shipFactionKey];
+         const position = tokenPosition.position;
+         const shipFaction = ShipFaction.properties[shipFactionKey];
 
          ShipImage.draw(context, scale, id, image, position, shipFaction);
       }, this);
@@ -245,21 +245,21 @@ PlayAreaUI.prototype.loadImages = function()
 {
    InputValidator.validateNotNull("tokenPositions", this.props.tokenPositions);
 
-   var tokenPositions = this.props.tokenPositions;
-   var shipFactions = [];
+   const tokenPositions = this.props.tokenPositions;
+   const shipFactions = [];
 
    tokenPositions.forEach(function(tokenPosition)
    {
-      var shipFaction = tokenPosition.token.card().shipFaction;
+      const shipFaction = tokenPosition.token.card().shipFaction;
       if (!shipFactions.includes(shipFaction))
       {
          shipFactions.push(shipFaction);
       }
    });
 
-   for (var i = 0; i < shipFactions.length; i++)
+   for (let i = 0; i < shipFactions.length; i++)
    {
-      var shipFaction = shipFactions[i];
+      const shipFaction = shipFactions[i];
       this.shipFactionToImage[shipFaction.key] = this.createShipIcon(shipFaction);
    }
 
@@ -271,8 +271,8 @@ PlayAreaUI.prototype.paint = function()
    InputValidator.validateNotNull("width", this.props.width);
    InputValidator.validateNotNull("height", this.props.height);
 
-   var canvas = document.getElementById("playAreaCanvas");
-   var context = canvas.getContext("2d");
+   const canvas = document.getElementById("playAreaCanvas");
+   const context = canvas.getContext("2d");
 
    context.clearRect(0, 0, this.props.width, this.props.height);
 

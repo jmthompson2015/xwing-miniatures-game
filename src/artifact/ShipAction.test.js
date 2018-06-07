@@ -4,22 +4,22 @@ QUnit.module("ShipAction");
 
 QUnit.test("ShipAction properties Barrel Roll", function(assert)
 {
-   var shipAction = ShipAction.BARREL_ROLL;
-   var properties = ShipAction.properties[shipAction];
+   const shipAction = ShipAction.BARREL_ROLL;
+   const properties = ShipAction.properties[shipAction];
    assert.equal(properties.name, "Barrel Roll");
 });
 
 QUnit.test("ShipAction properties Evade", function(assert)
 {
-   var shipAction = ShipAction.EVADE;
-   var properties = ShipAction.properties[shipAction];
+   const shipAction = ShipAction.EVADE;
+   const properties = ShipAction.properties[shipAction];
    assert.equal(properties.name, "Evade");
 });
 
 QUnit.test("ShipAction properties Focus", function(assert)
 {
-   var shipAction = ShipAction.FOCUS;
-   var properties = ShipAction.properties[shipAction];
+   const shipAction = ShipAction.FOCUS;
+   const properties = ShipAction.properties[shipAction];
    assert.equal(properties.name, "Focus");
 });
 
@@ -28,13 +28,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = ShipAction.keys();
-   var ownPropertyNames = Object.getOwnPropertyNames(ShipAction);
+   const result = ShipAction.keys();
+   const ownPropertyNames = Object.getOwnPropertyNames(ShipAction);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = ShipAction[key];
+      const key2 = ShipAction[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -44,7 +44,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return ShipAction[key] === value;
       });
@@ -56,12 +56,12 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    // Run.
-   var result = ShipAction.keys();
+   const result = ShipAction.keys();
 
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 14);
-   var i = 0;
+   let i = 0;
    assert.equal(result[i++], ShipAction.BARREL_ROLL);
    assert.equal(result[i++], ShipAction.BOOST);
    assert.equal(result[i++], ShipAction.CLOAK);
@@ -77,8 +77,8 @@ QUnit.test("keys()", function(assert)
    assert.equal(result[i++], ShipAction.SLAM);
    assert.equal(result[i++], ShipAction.TARGET_LOCK);
 
-   var properties = Object.getOwnPropertyNames(ShipAction);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(ShipAction);
+   const count = properties.length - 1 - // properties
       1 - // keys
       1 - // toString
       1 - // findByName

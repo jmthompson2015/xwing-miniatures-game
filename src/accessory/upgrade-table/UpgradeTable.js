@@ -15,7 +15,7 @@ import TableColumns from "./TableColumns.js";
 
 function createImageLink(src, href)
 {
-   var image = ReactDOMFactories.img(
+   const image = ReactDOMFactories.img(
    {
       className: "imageBlock fr v-mid",
       src: src,
@@ -28,31 +28,31 @@ function createImageLink(src, href)
    }, image);
 }
 
-var valueFunctions = {
+const valueFunctions = {
    "restrictionKeys": function(data)
    {
       return data.restrictionKeys.reduce(function(previousValue, restrictionKey, i)
       {
-         var restriction = UpgradeRestriction.properties[restrictionKey];
+         const restriction = UpgradeRestriction.properties[restrictionKey];
          return previousValue + restriction.name + (i < data.restrictionKeys.length - 1 ? " " : "");
       }, "");
    },
    "headerKey": function(data)
    {
-      var header = (data.headerKey !== undefined ? UpgradeHeader.properties[data.headerKey] : undefined);
+      const header = (data.headerKey !== undefined ? UpgradeHeader.properties[data.headerKey] : undefined);
       return (header !== undefined ? header.name : undefined);
    },
    "rangeKeys": function(data)
    {
       return data.rangeKeys.reduce(function(previousValue, rangeKey, i)
       {
-         var range = Range.properties[rangeKey];
+         const range = Range.properties[rangeKey];
          return previousValue + range.name + (i < data.rangeKeys.length - 1 ? "-" : "");
       }, "");
    },
    "firingArcKey": function(data)
    {
-      var firingArc = (data.firingArcKey !== undefined ? FiringArc.properties[data.firingArcKey] : undefined);
+      const firingArc = (data.firingArcKey !== undefined ? FiringArc.properties[data.firingArcKey] : undefined);
       return (firingArc !== undefined ? firingArc.name : undefined);
    },
 };
@@ -68,15 +68,15 @@ class UpgradeTable extends React.Component
 
    render()
    {
-      var filterShownButton = React.createElement(Button,
+      const filterShownButton = React.createElement(Button,
       {
          name: (this.props.isFilterShown ? "Hide Filter" : "Show Filter"),
          onClick: this.toggleFilterShownActionPerformed,
       });
 
-      var myRowData = this.props.rowData;
-      var resourceBase = this.props.resourceBase;
-      var cellFunctions = {
+      const myRowData = this.props.rowData;
+      const resourceBase = this.props.resourceBase;
+      const cellFunctions = {
          "typeKey": function(data)
          {
             return React.createElement(UpgradeTypeUI,
@@ -87,10 +87,10 @@ class UpgradeTable extends React.Component
          },
          "name": function(data)
          {
-            var src = resourceBase + "icon/Wikipedia16.png";
-            var searchString = data.name.replace(/ /g, "_");
-            var href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
-            var link = createImageLink(src, href);
+            const src = resourceBase + "icon/Wikipedia16.png";
+            const searchString = data.name.replace(/ /g, "_");
+            const href = "http://xwing-miniatures.wikia.com/wiki/" + searchString;
+            const link = createImageLink(src, href);
             return ReactDOMFactories.span(
             {
                className: "textImageLink dib w-100",
@@ -116,7 +116,7 @@ class UpgradeTable extends React.Component
          },
       };
 
-      var table = React.createElement(DataTable,
+      const table = React.createElement(DataTable,
       {
          columns: TableColumns,
          rowData: myRowData,
@@ -124,7 +124,7 @@ class UpgradeTable extends React.Component
          valueFunctions: valueFunctions,
       });
 
-      var rows = [];
+      const rows = [];
       rows.push(ReactDOMFactories.tr(
       {
          key: rows.length,
@@ -134,7 +134,7 @@ class UpgradeTable extends React.Component
 
       if (this.props.isFilterShown)
       {
-         var filterUI = React.createElement(ReactRedux.Provider,
+         const filterUI = React.createElement(ReactRedux.Provider,
          {
             store: this.context.store,
          }, React.createElement(FilterContainer,
