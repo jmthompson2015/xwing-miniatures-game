@@ -25,7 +25,7 @@ keys.forEach(function(shipActionKey)
    {
       shipAction: shipAction,
       resourceBase: resourceBase,
-      showName: true,
+      showLabel: true,
    });
 
    const cells = [];

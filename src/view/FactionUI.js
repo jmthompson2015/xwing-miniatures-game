@@ -1,55 +1,34 @@
+import ImageWithLabelUI from "./ImageWithLabelUI.js";
+
 class FactionUI extends React.Component
 {
    render()
    {
-      const faction = this.props.faction;
-
-      const myKey = (this.props.myKey !== undefined ? this.props.myKey : faction.key);
       const size = (this.props.isSmall ? 24 : 32);
-      const src = this.createSrc(faction, size);
-      const icon = ReactDOMFactories.img(
+      const faction = this.props.faction;
+      const src = this.props.resourceBase + "faction/" + size + "/" + faction.image;
+      const label = faction.name;
+
+      return React.createElement(ImageWithLabelUI,
       {
-         key: myKey,
-         className: "factionUIImage v-mid",
-         height: size,
          src: src,
-         title: faction.name,
+         label: label,
+         showLabel: this.props.showLabel,
       });
-
-      let answer = icon;
-
-      const showName = this.props.showName;
-
-      if (showName)
-      {
-         answer = ReactDOMFactories.span(
-         {}, icon, " ", faction.name);
-      }
-
-      return answer;
    }
 }
-
-FactionUI.prototype.createSrc = function(faction, size)
-{
-   const resourceBase = this.props.resourceBase;
-
-   return resourceBase + "faction/" + size + "/" + faction.image;
-};
 
 FactionUI.propTypes = {
    faction: PropTypes.object.isRequired,
    resourceBase: PropTypes.string.isRequired,
 
    isSmall: PropTypes.bool,
-   // default: faction value
-   myKey: PropTypes.string,
-   showName: PropTypes.bool,
+   showLabel: PropTypes.bool,
 };
 
 FactionUI.defaultProps = {
    isSmall: false,
-   showName: false,
+   showLabel: false,
 };
 
 export default FactionUI;

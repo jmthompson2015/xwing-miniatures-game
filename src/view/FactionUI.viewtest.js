@@ -26,7 +26,7 @@ factionKeys.forEach(function(factionKey)
    {
       faction: faction,
       resourceBase: resourceBase,
-      showName: true,
+      showLabel: true,
    });
    const image2 = React.createElement(FactionUI,
    {
@@ -39,7 +39,7 @@ factionKeys.forEach(function(factionKey)
       faction: faction,
       resourceBase: resourceBase,
       isSmall: true,
-      showName: true,
+      showLabel: true,
    });
 
    const cells = [];

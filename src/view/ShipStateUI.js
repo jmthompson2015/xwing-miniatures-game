@@ -1,68 +1,27 @@
-import InputValidator from "../utility/InputValidator.js";
-
 import ShipState from "../artifact/ShipState.js";
 import Faction from "../artifact/Faction.js";
-import LabeledImage from "./LabeledImage.js";
+
+import ImageWithLabelUI from "./ImageWithLabelUI.js";
 
 class ShipStateUI extends React.Component
 {
    render()
    {
       const shipState = this.props.shipState;
-      const faction = this.determineFaction(this.props.faction);
-      const size = (shipState.key === ShipState.PILOT_SKILL ? 32 : 24);
-      const src = this.createFilename(faction, shipState, size);
-      const myKey = (this.props.myKey !== undefined ? this.props.myKey : shipState.key);
-      const label = this.props.label;
-      let image;
+      const src = this.props.resourceBase + this.createFilename(shipState);
 
-      if (label !== undefined)
+      return React.createElement(ImageWithLabelUI,
       {
-         image = React.createElement(LabeledImage,
-         {
-            key: myKey,
-            className: "v-mid",
-            image: src,
-            resourceBase: this.props.resourceBase,
-            label: label,
-            labelClass: this.props.labelClass,
-            showOne: this.props.showOne,
-            title: shipState.name,
-            width: size,
-         });
-      }
-      else
-      {
-         image = ReactDOMFactories.img(
-         {
-            key: myKey,
-            className: "v-mid",
-            src: this.props.resourceBase + src,
-            title: shipState.name,
-         });
-      }
-
-      const showName = this.props.showName;
-      let answer = image;
-
-      if (showName)
-      {
-         answer = ReactDOMFactories.span(
-         {
-            className: "v-mid",
-         }, image, " ", shipState.name);
-      }
-
-      return answer;
+         src: src,
+         label: shipState.name,
+         showLabel: this.props.showLabel,
+      });
    }
 }
 
-ShipStateUI.prototype.createFilename = function(faction, shipState, size)
+ShipStateUI.prototype.createFilename = function(shipState)
 {
-   InputValidator.validateNotNull("faction", faction);
-   InputValidator.validateNotNull("shipState", shipState);
-   InputValidator.validateNotNull("size", size);
-
+   const faction = this.determineFaction(this.props.faction);
    const factionName = faction.shortName;
    let shipStateName;
 
@@ -81,17 +40,16 @@ ShipStateUI.prototype.createFilename = function(faction, shipState, size)
          shipStateName = shipState.name;
    }
 
+   const size = (shipState.key === ShipState.PILOT_SKILL ? 32 : 24);
+
    return "pilotCard/" + factionName + "_" + shipStateName + size + ".png";
 };
 
 ShipStateUI.prototype.determineFaction = function(faction)
 {
-   InputValidator.validateNotNull("faction", faction);
-
    let answer = faction;
 
-   if (faction.key === Faction.FIRST_ORDER ||
-      faction.key === Faction.RESISTANCE)
+   if ([Faction.FIRST_ORDER, Faction.RESISTANCE].includes(faction.key))
    {
       const factionKey = Faction.friend(faction.key);
       answer = Faction.properties[factionKey];
@@ -105,19 +63,11 @@ ShipStateUI.propTypes = {
    resourceBase: PropTypes.string.isRequired,
    shipState: PropTypes.object.isRequired,
 
-   // default: undefined
-   label: PropTypes.string,
-   // default: undefined
-   labelClass: PropTypes.string,
-   // default: ship state value
-   myKey: PropTypes.string,
-   showName: PropTypes.bool,
-   showOne: PropTypes.bool,
+   showLabel: PropTypes.bool,
 };
 
 ShipStateUI.defaultProps = {
-   showName: false,
-   showOne: false,
+   showLabel: false,
 };
 
 export default ShipStateUI;

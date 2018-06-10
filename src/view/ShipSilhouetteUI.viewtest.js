@@ -26,7 +26,7 @@ Ship.keys().forEach(function(shipKey)
    {
       ship: ship,
       resourceBase: resourceBase,
-      showName: true,
+      showLabel: true,
    });
 
    const cells = [];

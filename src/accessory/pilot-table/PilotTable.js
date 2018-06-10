@@ -84,7 +84,7 @@ class PilotTable extends React.Component
             {
                ship: Ship.properties[data.shipKey],
                resourceBase: resourceBase,
-               showName: true,
+               showLabel: true,
             });
             return ReactDOMFactories.span(
             {

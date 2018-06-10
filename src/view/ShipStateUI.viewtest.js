@@ -58,7 +58,7 @@ ShipState.keys().forEach(function(shipStateKey)
             resourceBase: resourceBase,
             label: label,
             labelClass: labelClass,
-            showName: true,
+            showLabel: true,
          });
       }
       else
@@ -74,7 +74,7 @@ ShipState.keys().forEach(function(shipStateKey)
             shipState: shipState,
             faction: faction,
             resourceBase: resourceBase,
-            showName: true,
+            showLabel: true,
          });
       }
 

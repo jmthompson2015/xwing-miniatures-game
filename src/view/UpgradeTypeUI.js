@@ -1,32 +1,20 @@
+import ImageWithLabelUI from "./ImageWithLabelUI.js";
+
 class UpgradeTypeUI extends React.Component
 {
    render()
    {
       const upgradeType = this.props.upgradeType;
-      const typeName0 = upgradeType.name;
-      const typeName = typeName0.replace(" ", "");
-      const fileString = this.props.resourceBase + "upgradeType/" + typeName + "24.png";
-      const myKey = (this.props.myKey !== undefined ? this.props.myKey : upgradeType.key);
+      const typeName = upgradeType.name.replace(" ", "");
+      const src = this.props.resourceBase + "upgradeType/" + typeName + "24.png";
+      const label = upgradeType.name;
 
-      const icon = ReactDOMFactories.img(
+      return React.createElement(ImageWithLabelUI,
       {
-         key: myKey,
-         className: "upgradeTypeUIImage v-mid",
-         src: fileString,
-         title: typeName0,
+         src: src,
+         label: label,
+         showLabel: this.props.showLabel,
       });
-
-      let answer = icon;
-
-      if (this.props.showName)
-      {
-         answer = ReactDOMFactories.span(
-         {
-            className: "v-mid",
-         }, icon, " ", upgradeType.name);
-      }
-
-      return answer;
    }
 }
 
@@ -34,13 +22,11 @@ UpgradeTypeUI.propTypes = {
    upgradeType: PropTypes.object.isRequired,
    resourceBase: PropTypes.string.isRequired,
 
-   // default: upgrade type value
-   myKey: PropTypes.string,
-   showName: PropTypes.bool,
+   showLabel: PropTypes.bool,
 };
 
 UpgradeTypeUI.defaultProps = {
-   showName: false,
+   showLabel: false,
 };
 
 export default UpgradeTypeUI;

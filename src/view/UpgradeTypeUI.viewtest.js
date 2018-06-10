@@ -27,7 +27,7 @@ values.forEach(function(upgradeTypeKey)
    {
       upgradeType: upgradeType,
       resourceBase: resourceBase,
-      showName: true,
+      showLabel: true,
    });
 
    const cells = [];

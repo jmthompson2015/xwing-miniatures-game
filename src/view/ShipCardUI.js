@@ -79,7 +79,7 @@ class ShipCardUI extends React.Component
       {
          ship: shipFaction.ship,
          resourceBase: resourceBase,
-         showName: true,
+         showLabel: true,
       });
 
       let shipActionPanel0, shipActionPanel1;

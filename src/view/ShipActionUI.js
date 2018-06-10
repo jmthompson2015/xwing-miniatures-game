@@ -5,7 +5,6 @@ class ShipActionUI extends React.Component
    render()
    {
       const shipAction = this.props.shipAction;
-      const myKey = (this.props.myKey !== undefined ? this.props.myKey : shipAction.key);
       let className = "center tc v-mid";
       let src = shipAction.key.toLowerCase();
 
@@ -17,7 +16,6 @@ class ShipActionUI extends React.Component
 
       const image = ReactDOMFactories.span(
       {
-         key: myKey,
          className: className,
          title: shipAction.name,
       }, ReactDOMFactories.i(
@@ -26,9 +24,8 @@ class ShipActionUI extends React.Component
       }));
 
       let answer = image;
-      const showName = this.props.showName;
 
-      if (showName)
+      if (this.props.showLabel)
       {
          answer = ReactDOMFactories.span(
          {
@@ -43,13 +40,11 @@ class ShipActionUI extends React.Component
 ShipActionUI.propTypes = {
    shipAction: PropTypes.object.isRequired,
 
-   // default: ship action value
-   myKey: PropTypes.string,
-   showName: PropTypes.bool,
+   showLabel: PropTypes.bool,
 };
 
 ShipActionUI.defaultProps = {
-   showName: false,
+   showLabel: false,
 };
 
 export default ShipActionUI;
